@@ -1,33 +1,23 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+capture google meeting captions
 
-## Getting Started
+Google Meet Enhancement Extension: Elevate Your Meeting Experience
 
-First, run the development server:
+Tired of fumbling through chat transcripts to find crucial information? Our Google Meet extension is here to revolutionize your meeting experience!
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+Key Features:
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+Live Chat Transcript: Automatically transcribe every meeting's chat, making it easy to revisit important points.
+Multilingual Translation: Translate chat transcripts into your preferred language, breaking down language barriers.
+Text Refinement: Enhance the clarity and style of your text, ensuring your writing is crisp and impactful.
+Grammar Analysis: Identify grammatical errors, ensuring your communication is always professional.
+Keyword Highlighting: Highlight important keywords in eye-catching colors for instant visibility.
+Gemini AI Meeting Summary: Generate meeting summaries using Gemini AI, quickly capturing key takeaways.
+Chat with Gemini AI: Engage in AI-powered conversations about meeting content, gaining insights and inspiration.
+Why Install Us?
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
-
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
-
-## Making production build
-
-Run the following:
-
-```bash
-pnpm build
-# or
-npm run build
-```
-
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+Increase meeting efficiency and productivity
+Overcome language barriers and communication gaps
+Improve communication quality and professionalism
+Get quick meeting summaries and insights
+Elevate your meeting experience and become a conferencing pro
+Install our Google Meet Enhancement Extension today to experience more productive, enjoyable meetings!

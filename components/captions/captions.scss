@@ -1,0 +1,135 @@
+.captions {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  .filter-speakers {
+    padding: 10px;
+    button {
+      margin: 0 6px;
+    }
+  }
+
+  .chat-container{
+    flex: 1;
+    overflow: auto;
+    &.no-data {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      font-weight: bold;
+      color: #ccc;
+    }
+  }
+}
+
+
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  height: 98vh;
+}
+
+.list-container {
+  border-radius: 16px;
+  box-shadow: 0 2px 4px #5858580d;
+  margin: 0 10px;
+  &> div {
+    background: #fff;
+    border-radius: 12px;
+    margin: 10px 0;
+    padding: 10px 12px;
+    transition: all .2s;
+    box-shadow: 0px 0px 0px 2px #0000000d;
+    &:hover {
+      box-shadow: 0px 0px 0px 4px #0000000d;
+    }
+  }
+  div.caption-container{
+    cursor: pointer;
+  }
+
+}
+
+.caption-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}
+.caption-speaker {
+  text-transform: capitalize;
+  font-size: 16px;
+  font-weight: bold;
+}
+.message-item {
+  display: flex;
+  padding: 10px 12px;
+  margin: 10px 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #fafafa;
+  }
+}
+.no-data{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: bold;
+  color: #ccc;
+}
+.caption-text {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 12px;
+  line-height: 1.4;
+  letter-spacing: 0.3px;
+  span {
+    cursor: pointer;
+    &:hover {
+      color: red;
+    }
+  }
+}
+
+.timestamp {
+  font-size: 13px;
+  color: #cccccc;
+}
+
+.caption-tools {
+  padding: 0 4px;
+  justify-content: flex-start;
+  display: flex;
+  button {
+    margin-top: 4px;
+    margin-right: 4px;
+    cursor: pointer;
+  }
+}
+
+.ai-answer-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.ai-answer-data {
+  white-space: pre-line;
+  line-height: normal;
+  border: 1px dotted darkcyan;
+  padding: 10px;
+  font-size: 14px;
+  /* border: 2px; */
+  border-radius: 7px;
+  color: crimson;
+}
+
+b {
+  font-weight: bold;
+  color: red;
+  cursor: pointer;
+}

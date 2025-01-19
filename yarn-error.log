@@ -1,0 +1,70 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\huhai\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Ruby23-x64\bin;C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Calibre2\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\huhai\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files\dotnet\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\nodejs\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Users\huhai\AppData\Local\pnpm;C:\Users\huhai\AppData\Local\Programs\Python\Python35-32\Scripts\;C:\Users\huhai\AppData\Local\Programs\Python\Python35-32\;C:\Program Files\phantomjs-2.1.1-windows\bin;C:\shared;C:\Program Files\Microsoft VS Code\bin;C:\Users\huhai\Downloads\gource-0.47.win64\gource.exe;C:\Program Files\JetBrains\WebStorm 2020.1\bin;C:\Users\huhai\AppData\Local\Microsoft\WindowsApps;C:\Users\huhai\AppData\Local\Programs\Fiddler;C:\Users\huhai\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\huhai\.dotnet\tools;C:\Users\huhai\AppData\Roaming\npm;C:\Users\huhai\AppData\Local\Microsoft\WindowsApps;C:\Users\huhai\AppData\Roaming\Programs\Zero Install;C:\Program Files (x86)\Tencent\QQGameTempest\Hall.58319\;C:\Users\huhai\WebstormProjects\smart-meet\node_modules\.bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.18.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EEXIST: file already exists, mkdir 'C:\Users\huhai\WebstormProjects\smart-meet\node_modules\plasmo\node_modules\@parcel'
+
+npm manifest: 
+  {
+    "name": "smart-meet",
+    "displayName": "Smart meet",
+    "version": "0.0.1",
+    "description": "A basic Plasmo extension.",
+    "author": "Howard",
+    "scripts": {
+      "dev": "plasmo dev",
+      "build": "plasmo build",
+      "package": "plasmo package"
+    },
+    "dependencies": {
+      "@emotion/react": "^11.14.0",
+      "@emotion/styled": "^11.14.0",
+      "@google/generative-ai": "^0.21.0",
+      "@mui/material": "^6.3.1",
+      "antd": "^5.23.0",
+      "framer-motion": "^11.18.1",
+      "google-meeting-captions-resolver": "^1.0.14",
+      "plasmo": "0.89.4",
+      "rc-tween-one": "^3.0.6",
+      "react": "18.2.0",
+      "react-dom": "18.2.0",
+      "react-hot-toast": "^2.5.1",
+      "styled-components": "^6.1.14"
+    },
+    "devDependencies": {
+      "@ianvs/prettier-plugin-sort-imports": "4.1.1",
+      "@types/chrome": "0.0.258",
+      "@types/node": "20.11.5",
+      "@types/react": "18.2.48",
+      "@types/react-dom": "18.2.18",
+      "prettier": "3.2.4",
+      "typescript": "5.3.3"
+    },
+    "manifest": {
+      "host_permissions": [
+        "https://meet.google.com/*"
+      ],
+      "permissions": [
+        "sidePanel",
+        "storage"
+      ]
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
