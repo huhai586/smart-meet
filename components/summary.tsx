@@ -76,7 +76,6 @@ const Summary = (props) => {
         <div className="footer">
             <Search
                 disabled={requesting}
-                className={'xxx'}
                 placeholder="please summary the meeting"
                 enterButton="Search"
                 size="large"

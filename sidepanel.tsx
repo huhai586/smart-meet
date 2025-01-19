@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {message, Tabs} from "antd";
+import {message, Tabs, Tooltip} from "antd";
 import {
+    DownloadOutlined,
     FileDoneOutlined,
-    HistoryOutlined, SketchOutlined,
+    HistoryOutlined, RollbackOutlined, SketchOutlined,
 } from '~node_modules/@ant-design/icons';
 
 import './all.scss';
@@ -12,6 +13,9 @@ import Extension from "./components/extension";
 import {Spin} from "~node_modules/antd";
 import useLoading from "./hooks/useLoading";
 import Captions from "./components/captions/captions";
+import getAiSummary from "~utils/get-ai-summary";
+import save from "~utils/save";
+import BackupAndRestore from "~components/backup-and-restore";
 
 const SidePanel = () => {
     const [messageApi, contextHolder] = message.useMessage();
@@ -42,12 +46,13 @@ const SidePanel = () => {
             disabled: false,
             children: <Extension/>
         },
-        // {
-        //     label: 'Words',
-        //     key: 'wordslog',
-        //     icon: <FileWordOutlined />,
-        //     disabled: true,
-        // },
+        {
+            label: 'backup and restore',
+            key: 'back_up_and_restore',
+            icon: <RollbackOutlined />,
+            children: <BackupAndRestore />,
+            disabled: false,
+        },
     ];
 
 
@@ -82,7 +87,12 @@ const SidePanel = () => {
         });
     }, []);
 
-
+    const saveCaptions = () => {
+        console.log('start downloading')
+        getAiSummary('请将这份会议记录以markdown形式呈现,里面的时间戳请转换为/m/d/h/m/s 格式').then((res) => {
+            save(res, 'captions.md');
+        })
+    }
     return (
         <div className={'side-panel'}>
             {contextHolder}
@@ -90,6 +100,9 @@ const SidePanel = () => {
                 <Spin spinning={loading} />
             </div>
             <Tabs
+                tabBarExtraContent={<div className={`download ${loading ? 'hide' : ''}`} onClick={saveCaptions}>
+            <Tooltip color={'#87d068'} title={'down load all captions'} placement="left"><DownloadOutlined /></Tooltip>
+            </div>}
                 items={items}
                 onChange={onTabClick}
                 activeKey={current}
