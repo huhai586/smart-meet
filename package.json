@@ -1,8 +1,8 @@
 {
   "name": "smart-meet",
   "displayName": "Smart meet",
-  "version": "0.0.1",
-  "description": "A basic Plasmo extension.",
+  "version": "0.0.3",
+  "description": "Google Meet Enhancement Extension: Elevate Your Meeting Experience",
   "author": "Howard",
   "scripts": {
     "dev": "plasmo dev",

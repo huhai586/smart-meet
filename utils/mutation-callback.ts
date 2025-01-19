@@ -1,4 +1,3 @@
-import updateContent from './update-content';
 import {googleMeetCaptionsClassName} from '../constant';
 import debounce from './debounce';
 

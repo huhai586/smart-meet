@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from "react";
-import useTranscripts from "./hooks/useTranscripts";
-import CaptionList from "./components/captions/captionList";
-import {Menu, type MenuProps, Affix, FloatButton, Button, Empty, message, Tabs} from "antd";
-import LinearProgress from '@mui/material/LinearProgress';
+import {message, Tabs} from "antd";
 import {
-    FileDoneOutlined, FileWordOutlined,
-    HistoryOutlined, LoadingOutlined, SketchOutlined,
+    FileDoneOutlined,
+    HistoryOutlined, SketchOutlined,
 } from '~node_modules/@ant-design/icons';
 
 import './all.scss';
