@@ -1,1 +1,1 @@
-.summaryContainer {  height: 100%;  overflow: auto;  padding: 0 10px;  &.no-data {    display: flex !important;    align-items: center;    height: 98vh;  }}
+.summaryContainer {  overflow: auto;  padding: 0 10px 0 10px;  height: 100%;  &.no-data {    display: flex !important;    align-items: center;  }}.footer {  position: fixed;  width: 74%;  bottom: 0px;  height: 63px;  left: 50%;  flex: 0;  transform: translateX(-50%);}

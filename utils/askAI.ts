@@ -24,15 +24,14 @@ const askAI = (action: Actions, text, question?: string) => {
     const event = new CustomEvent('global-loading-event', { detail: { loading: true} });
     window.dispatchEvent(event);
 
-    return googleAITools.askGoogleAI(prompt).finally(() => {
-        // 接收方
-        const event = new CustomEvent('global-loading-event', { detail: { loading: false} });
-        window.dispatchEvent(event);
-    }).catch((res) => {
+    return googleAITools.askGoogleAI(prompt).catch((res) => {
         console.log('err', res);
         const event = new CustomEvent('ajax-error', { detail: { error: res} });
         window.dispatchEvent(event);
-        throw res;
+    }).finally(() => {
+        // 接收方
+        const event = new CustomEvent('global-loading-event', { detail: { loading: false} });
+        window.dispatchEvent(event);
     });
 };
 

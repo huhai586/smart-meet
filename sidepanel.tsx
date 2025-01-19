@@ -70,9 +70,10 @@ const SidePanel = () => {
             console.log('ajax-error', errorMsg);
             let message = '';
             try {
-                message = errorMsg.errorDetails[1].message;
+                message = errorMsg.errorDetails?.[1]?.message || errorMsg.message;
             } catch (e) {
-                message = JSON.stringify(errorMsg);
+                console.log({errorMsg})
+                message = 'unknown error';
             }
             messageApi.open({
                 type: 'error',

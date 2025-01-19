@@ -1,6 +1,6 @@
 import {Card, message, Spin} from "~node_modules/antd";
 import {LoadingOutlined} from "~node_modules/@ant-design/icons";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import getAiSummary from "../utils/get-ai-summary";
 import Search from "~node_modules/antd/es/input/Search";
 import getMeetingCaptions from '../utils/getCaptions';
@@ -9,6 +9,7 @@ import '../styles/summary.scss';
 
 const Summary = (props) => {
     const [requesting, setRequesting] = useState(false);
+    const container = useRef(null);
     const [messageApi, contextHolder] = message.useMessage();
     const [cardData, setCardData] = useState([]);
     const handleQuestion = async (question = 'please summary the meeting') => {
@@ -47,28 +48,34 @@ const Summary = (props) => {
     }, [cardData, props.show]);
 
     useEffect(() =>  {
-        if (props.show) {
-            window.scrollTo(0, document.body.scrollHeight);
+        if (container.current) {
+            const lastItem = container.current.querySelector('.ant-spin-nested-loading:last-child');
+            lastItem && lastItem.scrollIntoView({behavior: 'smooth'});
         }
-    },[props.show])
-    return <div className={`summaryContainer ${!cardData.length &&  'no-data'}`}>
-        {contextHolder}
-        {cardData.map((item, index) => {
-            return (
-              <Spin spinning={requesting && !item.fetchComplete} indicator={<LoadingOutlined spin/>} size="large" fullscreen={false} tip={'loading'}>
-                <Card title={item.question} key={index} className={'card-container'}>
-                    <div className="summary-container" dangerouslySetInnerHTML={{__html: item.answer}}>
-                    </div>
-                </Card>
-            </Spin>
-            )
-        })}
-        {
-            !cardData.length && <Empty description={'How about summary the meeting ?'} className={'summary-no-meeting-data'}></Empty>
-        }
+
+    },[cardData])
+    return <>
+        <div className={`summaryContainer ${!cardData.length &&  'no-data'}`} ref={container}>
+            {contextHolder}
+            {cardData.map((item, index) => {
+                return (
+                    <Spin
+                        spinning={requesting && !item.fetchComplete} indicator={<LoadingOutlined spin/>} size="large" fullscreen={false} tip={'loading'} key={index}>
+                        <Card title={item.question} key={index} className={'card-container'}>
+                            <div className="summary-container" dangerouslySetInnerHTML={{__html: item.answer}}>
+                            </div>
+                        </Card>
+                    </Spin>
+                )
+            })}
+            {
+                !cardData.length && <Empty description={'How about summary the meeting ?'} className={'summary-no-meeting-data'}></Empty>
+            }
+        </div>
 
         <div className="footer">
             <Search
+                disabled={requesting}
                 className={'xxx'}
                 placeholder="please summary the meeting"
                 enterButton="Search"
@@ -78,7 +85,7 @@ const Summary = (props) => {
                 }}
             />
         </div>
-    </div>
+    </>
 }
 
 export default Summary
