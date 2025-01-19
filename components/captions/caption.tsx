@@ -30,8 +30,14 @@ const caption = (props: CaptionProps) => {
 
     const handleAskAI = (action: Actions) => {
         askAI(action, data.talkContent).then((res) => {
-            const newAiData = [...aiData, {type: action, data: res}];
-            setAiData(newAiData);
+            const newAiData = [...aiData];
+            const matchData = newAiData.find((item) => item.type === action);
+            if (matchData) {
+                matchData.data = res;
+            } else {
+                newAiData.push({type: action, data: res});
+            }
+           setAiData(newAiData);
         }).catch((err) => {
             console.log('err', err);
             alert(err)
@@ -48,7 +54,6 @@ const caption = (props: CaptionProps) => {
     };
 
     useEffect(() => {
-        console.log('calc highlight')
        const texts = data.talkContent;
         let spans = texts.replace(/\b(\w+)\b/g, '<span>\$1</span>');
         const result = highlight(spans,[...domainKeyWords, ...specificWords]);
