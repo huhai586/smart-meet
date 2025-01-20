@@ -14,6 +14,8 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
             });
         };
 
+        // @ts-ignore
+        window.loadContent = loadContent;
 
         // 设置消息监听器
         const messageListener = (message, sender, sendResponse) => {

@@ -4,10 +4,13 @@ import type {Captions} from "~node_modules/google-meeting-captions-resolver";
 import getIsExtensionEnabled from './utils/get-is-extension-enabled';
 let isExtensionEnabled = false;
 
-const storeIntoChromeStorage = (records: Captions[]) => {
-    chrome.storage.local.set({ 'recordedContents': records }, () => {
-        chrome.runtime.sendMessage({
-            type: 'contentUpdated',
+export const storeIntoChromeStorage = (records: Captions[]) => {
+    return new Promise((resolve, reject) => {
+        chrome.storage.local.set({ 'recordedContents': records }, () => {
+            chrome.runtime.sendMessage({
+                type: 'contentUpdated',
+            });
+            resolve('');
         });
     });
 };

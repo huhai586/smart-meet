@@ -6,12 +6,12 @@ import { useEffect, useRef, useState } from "react"
 import { Actions } from "./captions/caption"
 import askAI from "../utils/askAI"
 import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
+import BackupAndRestore from "~components/backup-and-restore";
 
-
-
-
-
-const Extension = () => {
+interface ExtensionPropsInterface {
+    jumpToCaptions: () => void;
+}
+const Extension = (props: ExtensionPropsInterface) => {
     const [specificTags, setTags] = useState([]);
     const [domain, setDomain] = useState('Advertising and digital marketing');
     const [modalData, setModalData] = useState([]);
@@ -217,6 +217,8 @@ const Extension = () => {
                     />
                     <div className="valid-words"><Button onClick={preview}>Preview</Button></div>
                 </div>
+                <BackupAndRestore jumpToCaptions = {props.jumpToCaptions}/>
+
                 <Modal title="Preview and select highlight keywords" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                     <div>
                         {modalData.map((tag) => (

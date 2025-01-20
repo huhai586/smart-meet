@@ -44,14 +44,14 @@ const SidePanel = () => {
             key: 'extension',
             icon: <SketchOutlined />,
             disabled: false,
-            children: <Extension/>
+            children: <Extension jumpToCaptions={() => {setCurrent('captions')}}/>
         },
         {
-            label: 'backup and restore',
-            key: 'back_up_and_restore',
+            label: 'Labs',
+            key: 'labs',
             icon: <RollbackOutlined />,
             children: <BackupAndRestore />,
-            disabled: false,
+            disabled: true,
         },
     ];
 
