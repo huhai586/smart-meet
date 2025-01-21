@@ -13,6 +13,7 @@
   .chat-container{
     flex: 1;
     overflow: auto;
+    scroll-behavior: smooth;
     &.no-data {
       display: flex;
       justify-content: center;

@@ -35,10 +35,12 @@ const options = () => {
             title: 'Dont have a gemini API key?',
             content: (
                 <div>
-                    click here<a href={'https://aistudio.google.com/apikey'}> https://aistudio.google.com/apikey</a> to get your API key
+                    click here<a target={'_blank'} href={'https://aistudio.google.com/apikey'}> https://aistudio.google.com/apikey</a> to get your API key
                 </div>
             ),
-            onOk() {},
+            onOk() {
+                window.open('https://aistudio.google.com/apikey', '_blank');
+            },
         });
     };
 

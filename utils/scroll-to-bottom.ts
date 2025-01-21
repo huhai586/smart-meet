@@ -1,0 +1,1 @@
+function scrollToBottom(dom: HTMLDivElement) {    dom.scrollTop = dom.scrollHeight;}export default scrollToBottom;
