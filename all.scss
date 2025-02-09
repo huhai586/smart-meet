@@ -162,6 +162,9 @@ body {
   height: 26px;
 }
 
+.ant-tabs-tab, .ant-tabs-tab-btn{
+  border: none !important;
+}
 .ant-tabs-tabpane {
   height: calc(100vh - 56px);
   overflow: hidden;

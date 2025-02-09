@@ -6,6 +6,7 @@ import { Switch } from "antd"
 import getIsExtensionEnabled from "./utils/get-is-extension-enabled";
 import {updateBadgeText} from "./background/set-badge-text";
 import getAPIkey from "./utils/getAPIkey";
+import openSidePanel from "~utils/open-side-panel";
 
 const ContentMonitor = () => {
   const [switchValue, setSwitchValue] = useState(false)
@@ -22,10 +23,6 @@ const ContentMonitor = () => {
         chrome.storage.local.set({ recordedContents: [] }, () => {})
         chrome.runtime.sendMessage({ action: "clear" })
     }
-  }
-
-  const openSidePanel = () => {
-    chrome.runtime.sendMessage({ action: "openSidePanel" })
   }
 
   const handleSetting = () => {

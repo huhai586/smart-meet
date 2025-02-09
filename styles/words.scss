@@ -1,0 +1,1 @@
+.words-container {  height: calc(100vh - 100px);  overflow: auto;  .ant-list-item {    transition: all 0.3s;    &:hover {      background: #cfcfcf;      cursor: pointer;    }  }  .words-header{    display: flex;    justify-content: space-between;  }  .reset {    cursor: pointer;  }}

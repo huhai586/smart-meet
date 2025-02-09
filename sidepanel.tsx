@@ -16,6 +16,7 @@ import Captions from "./components/captions/captions";
 import getAiSummary from "~utils/get-ai-summary";
 import save from "~utils/save";
 import BackupAndRestore from "~components/backup-and-restore";
+import Words from "~components/words";
 
 const SidePanel = () => {
     const [messageApi, contextHolder] = message.useMessage();
@@ -47,11 +48,11 @@ const SidePanel = () => {
             children: <Extension jumpToCaptions={() => {setCurrent('captions')}}/>
         },
         {
-            label: 'Labs',
-            key: 'labs',
+            label: 'Translation records',
+            key: 'Translation records',
             icon: <RollbackOutlined />,
-            children: <BackupAndRestore />,
-            disabled: true,
+            children: <Words currentTab={current}/>,
+            disabled: false,
         },
     ];
 

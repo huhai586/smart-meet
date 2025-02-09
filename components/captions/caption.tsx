@@ -6,6 +6,7 @@ import {InfoOutlined} from '~node_modules/@ant-design/icons';
 import highlight from '../../utils/highlight';
 import useHighLightWords from "../../hooks/useHighLightWords";
 import useDomain from "../../hooks/useDomain";
+import translateSingleWords from "~utils/translate-signal-words";
 
 type CaptionProps = {
     data: Transcript;
@@ -70,7 +71,7 @@ const caption = (props: CaptionProps) => {
             });
             return;
         }
-        askAI(Actions.TRANSLATE, text).then((res) => {
+        translateSingleWords(text).then((res) => {
             success(res);
         });
     }
