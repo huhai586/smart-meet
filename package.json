@@ -1,7 +1,7 @@
 {
   "name": "smart-meet",
   "displayName": "Smart meet",
-  "version": "0.0.4",
+  "version": "1.0.1",
   "description": "Google Meet Enhancement Extension: Elevate Your Meeting Experience",
   "author": "Howard",
   "scripts": {
@@ -16,8 +16,9 @@
     "@mui/material": "^6.3.1",
     "antd": "^5.23.0",
     "framer-motion": "^11.18.1",
-    "google-meeting-captions-resolver": "^1.0.15",
+    "google-meeting-captions-resolver": "^1.0.18",
     "jspdf": "^2.5.2",
+    "ogl": "^1.0.11",
     "plasmo": "0.89.4",
     "rc-tween-one": "^3.0.6",
     "react": "18.2.0",

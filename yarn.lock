@@ -3695,10 +3695,10 @@ goober@^2.1.16:
   resolved "https://registry.yarnpkg.com/goober/-/goober-2.1.16.tgz#7d548eb9b83ff0988d102be71f271ca8f9c82a95"
   integrity sha512-erjk19y1U33+XAMe1VTvIONHYoSqE4iS7BYUZfHaqeohLmnC0FdxEh7rQU+6MZ4OajItzjZFSRtVANrQwNq6/g==
 
-google-meeting-captions-resolver@^1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/google-meeting-captions-resolver/-/google-meeting-captions-resolver-1.0.15.tgz#89dfb4c0c1aa28d10bd45abdc385967981770d0d"
-  integrity sha512-uRIWzaCgC4LOIf7/6x6TZJP9X2H09xppxfwlSFJ754vtck02qLEy3TnRZ1phsBj8YdoTh4UYF0ynGbBSfmKHGA==
+google-meeting-captions-resolver@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/google-meeting-captions-resolver/-/google-meeting-captions-resolver-1.0.18.tgz#ed48e322a8dd8997cb0ebe412cffe7fe782294b0"
+  integrity sha512-Yl8zgNkHbq3nyRWyErK8EaY2uGF21sifiY4fNpSE3yhL1N07ffp/I5QzAqv7M1KmQ/Q1u3nOp2IMHns7gnrLhw==
 
 gopd@^1.0.1, gopd@^1.2.0:
   version "1.2.0"
@@ -4622,6 +4622,11 @@ object-assign@^4.0.1, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
+
+ogl@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/ogl/-/ogl-1.0.11.tgz#369d6b8681035500fbb14d461f4d74f014527b88"
+  integrity sha512-kUpC154AFfxi16pmZUK4jk3J+8zxwTWGPo03EoYA8QPbzikHoaC82n6pNTbd+oEaJonaE8aPWBlX7ad9zrqLsA==
 
 once@^1.3.1, once@^1.4.0:
   version "1.4.0"
