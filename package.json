@@ -1,7 +1,7 @@
 {
   "name": "smart-meet",
   "displayName": "Smart meet",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Google Meet Enhancement Extension: Elevate Your Meeting Experience",
   "author": "Howard",
   "scripts": {
@@ -41,7 +41,8 @@
     ],
     "permissions": [
       "sidePanel",
-      "storage"
+      "storage",
+      "unlimitedStorage"
     ]
   }
 }

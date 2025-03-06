@@ -3695,10 +3695,10 @@ goober@^2.1.16:
   resolved "https://registry.yarnpkg.com/goober/-/goober-2.1.16.tgz#7d548eb9b83ff0988d102be71f271ca8f9c82a95"
   integrity sha512-erjk19y1U33+XAMe1VTvIONHYoSqE4iS7BYUZfHaqeohLmnC0FdxEh7rQU+6MZ4OajItzjZFSRtVANrQwNq6/g==
 
-google-meeting-captions-resolver@^1.0.18:
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/google-meeting-captions-resolver/-/google-meeting-captions-resolver-1.0.18.tgz#ed48e322a8dd8997cb0ebe412cffe7fe782294b0"
-  integrity sha512-Yl8zgNkHbq3nyRWyErK8EaY2uGF21sifiY4fNpSE3yhL1N07ffp/I5QzAqv7M1KmQ/Q1u3nOp2IMHns7gnrLhw==
+google-meeting-captions-resolver@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/google-meeting-captions-resolver/-/google-meeting-captions-resolver-1.0.20.tgz#1ec5b217b4b92afd9a6f2c5303c7b5f87c87d17e"
+  integrity sha512-zTj/IZQXUZ+InNmP553ZD7qV0MTdoVqDfkIM0Kiw0cX/ONBBK7UwuLb4SGUiRTqBBy7LbtKDA9f8iS8x2UaB6A==
 
 gopd@^1.0.1, gopd@^1.2.0:
   version "1.2.0"

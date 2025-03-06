@@ -1,0 +1,164 @@
+.side-panel {
+  min-width: 360px;
+  height: 100vh;
+  background: #ffffff;
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  .loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+
+  // 标题栏样式
+  .header {
+    padding: 16px 24px;
+    background: linear-gradient(135deg, #1a73e8, #185abc);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+    h1 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+
+  // 自定义 Tabs 样式
+  .ant-tabs {
+    height: 100%;
+
+    .ant-tabs-nav {
+      margin: 0;
+      background: #f8f9fa;
+      padding: 0 16px;
+      border-bottom: 1px solid #e8eaed;
+
+      .ant-tabs-tab {
+        padding: 12px 16px;
+        margin: 0 8px;
+        transition: all 0.3s;
+
+        &:hover {
+          color: #1a73e8;
+        }
+
+        .anticon {
+          margin-right: 8px;
+        }
+      }
+
+      .ant-tabs-tab-active {
+        .ant-tabs-tab-btn {
+          color: #1a73e8;
+          font-weight: 500;
+        }
+      }
+
+      .ant-tabs-ink-bar {
+        background: #1a73e8;
+        height: 3px;
+      }
+    }
+  }
+
+  // 内容区域样式
+  .ant-tabs-content {
+    height: calc(100% - 48px);
+    padding: 16px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #dadce0;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #f8f9fa;
+    }
+  }
+
+  // 下载按钮样式
+  .download {
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(26, 115, 232, 0.1);
+      color: #1a73e8;
+    }
+
+    &.hide {
+      display: none;
+    }
+
+    .anticon {
+      font-size: 18px;
+    }
+  }
+
+  // 卡片样式
+  .ant-card {
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    margin-bottom: 16px;
+
+    .ant-card-head {
+      border-bottom: 1px solid #e8eaed;
+    }
+  }
+
+  // 按钮样式
+  .ant-btn {
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    
+    &.ant-btn-primary {
+      background: #1a73e8;
+      border-color: #1a73e8;
+
+      &:hover {
+        background: #185abc;
+        border-color: #185abc;
+      }
+    }
+  }
+
+  // 消息样式
+  .message-item {
+    padding: 12px;
+    border-radius: 8px;
+    background: #f8f9fa;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+
+    &:hover {
+      background: #f1f3f4;
+    }
+
+    .time {
+      color: #5f6368;
+      font-size: 12px;
+    }
+
+    .content {
+      margin-top: 4px;
+      color: #202124;
+    }
+  }
+} 
