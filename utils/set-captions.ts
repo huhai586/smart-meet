@@ -13,3 +13,4 @@ const setMeetingCaptions: (data:Captions[]) => Promise<void> = (data) => {
 }
 
 export default setMeetingCaptions;
+    

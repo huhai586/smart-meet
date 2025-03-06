@@ -3,10 +3,46 @@
   height: 100%;
   background: #ebf9ee;
   flex-direction: column;
-  .filter-speakers {
-    padding: 10px;
-    button {
-      margin: 0 6px;
+  .filter-section {
+    padding: 12px;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .ant-picker {
+      width: 200px;
+      border-radius: 8px;
+      border: 1px solid #e8e8e8;
+      transition: all 0.3s;
+      
+      &:hover {
+        border-color: #40a9ff;
+      }
+      
+      &.ant-picker-focused {
+        border-color: #40a9ff;
+        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+      }
+    }
+
+    .filter-speakers {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      button {
+        margin: 0;
+        border-radius: 6px;
+        transition: all 0.3s;
+        
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+      }
     }
   }
 
@@ -14,6 +50,8 @@
     flex: 1;
     overflow: auto;
     scroll-behavior: smooth;
+    padding: 12px;
+    
     &.no-data {
       display: flex;
       justify-content: center;
