@@ -18,9 +18,31 @@ const Captions = (props) => {
         setSpeakers(speakers);
     }, [transcripts]);
 
+    // 添加跳转到指定日期的方法
+    const jumpToDate = (date?: dayjs.Dayjs) => {
+        setSelectedDate(date);
+        if (chatContainer.current) {
+            chatContainer.current.scrollTop = 0;
+        }
+    }
+
+    // 将原来的 handleDateChange 修改为使用 jumpToDate
+    const handleDateChange = (date) => {
+        jumpToDate(date);
+    }
+
+    // 暴露 jumpToDate 方法给父组件
+    useEffect(() => {
+        if (props.onRef) {
+            props.onRef({
+                jumpToDate
+            });
+        }
+    }, []);
+
     const getTranscripts = () => {
         let filtered = transcripts;
-        
+
         // 日期筛选
         if (selectedDate) {
             filtered = filtered.filter(transcript => {
@@ -45,14 +67,6 @@ const Captions = (props) => {
         }
     }
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-        // 滚动到顶部
-        if (chatContainer.current) {
-            chatContainer.current.scrollTop = 0;
-        }
-    }
-
     // 获取有聊天记录的日期
     const getDatesWithMessages = () => {
         const dates = new Set();
@@ -74,7 +88,7 @@ const Captions = (props) => {
     return (
         <div className={`captions`}>
             <div className="filter-section">
-                <DatePicker 
+                <DatePicker
                     onChange={handleDateChange}
                     value={selectedDate}
                     allowClear
@@ -94,11 +108,11 @@ const Captions = (props) => {
                 <div className="filter-speakers">
                     {speakers.length > 0 && "Filter:"}
                     {speakers.map((speaker) => (
-                        <Button 
-                            color="default" 
-                            variant={filterSpeaker.includes(speaker) ? 'solid' : 'outlined'} 
-                            size={'small'} 
-                            onClick={() => {toggleSpeaker(speaker)}} 
+                        <Button
+                            color="default"
+                            variant={filterSpeaker.includes(speaker) ? 'solid' : 'outlined'}
+                            size={'small'}
+                            onClick={() => {toggleSpeaker(speaker)}}
                             key={speaker}
                         >
                             {speaker}
@@ -112,8 +126,8 @@ const Captions = (props) => {
                     <CaptionList listData={data}/>
                 ) : (
                     <Empty description={
-                        selectedDate 
-                            ? `No messages on ${selectedDate.format('YYYY-MM-DD')}` 
+                        selectedDate
+                            ? `No messages on ${selectedDate.format('YYYY-MM-DD')}`
                             : "No messages"
                     }/>
                 )}

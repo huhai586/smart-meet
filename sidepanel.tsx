@@ -1,10 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {message, Tabs, Tooltip} from "antd";
 import {
     DownloadOutlined,
     FileDoneOutlined,
     HistoryOutlined, RollbackOutlined, SketchOutlined,
 } from '~node_modules/@ant-design/icons';
+import dayjs from 'dayjs';
 
 import './all.scss';
 import Summary from "./components/summary";
@@ -18,12 +19,25 @@ import save from "~utils/save";
 import BackupAndRestore from "~components/backup-and-restore";
 import Words from "~components/words";
 
+interface CaptionsRef {
+    jumpToDate: (date?: dayjs.Dayjs) => void;
+}
+
 const SidePanel = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [current, setCurrent] = useState('captions');
     const [loading] = useLoading();
+    const captionsRef = useRef<CaptionsRef>(null);
+
     const onTabClick = (key: string) => {
         setCurrent(key);
+    };
+
+    const jumpToCaptions = (date?: dayjs.Dayjs) => {
+        setCurrent('captions');
+        if (captionsRef.current) {
+            captionsRef.current.jumpToDate(date);
+        }
     };
 
     const items = [
@@ -31,7 +45,7 @@ const SidePanel = () => {
             label: 'Captions',
             key: 'captions',
             icon: <HistoryOutlined />,
-            children: <Captions/>
+            children: <Captions onRef={ref => captionsRef.current = ref}/>
         },
         {
             label: 'Summary',
@@ -45,7 +59,7 @@ const SidePanel = () => {
             key: 'extension',
             icon: <SketchOutlined />,
             disabled: false,
-            children: <Extension jumpToCaptions={() => {setCurrent('captions')}}/>
+            children: <Extension jumpToCaptions={jumpToCaptions}/>
         },
         {
             label: 'Translation records',

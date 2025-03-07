@@ -2,6 +2,7 @@ import { PlusOutlined } from "@ant-design/icons"
 import {Alert, Button, Input, Tag, theme, type InputRef, Modal, message} from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
+import dayjs from 'dayjs';
 
 import { Actions } from "./captions/caption"
 import askAI from "../utils/askAI"
@@ -9,7 +10,7 @@ import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
 import BackupAndRestore from "~components/backup-and-restore";
 
 interface ExtensionPropsInterface {
-    jumpToCaptions: () => void;
+    jumpToCaptions: (date?: dayjs.Dayjs) => void;
 }
 const Extension = (props: ExtensionPropsInterface) => {
     const [specificTags, setTags] = useState([]);

@@ -24,6 +24,13 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
     }, [transcripts]);
 
     useEffect(() => {
+        // 添加自定义事件监听器
+        const handleRefresh = () => {
+            loadContent();
+        };
+
+        window.addEventListener('refresh-transcripts', handleRefresh);
+
         // 设置消息监听器
         const messageListener = (message, sender, sendResponse) => {
             const {type, action, data} = message;
@@ -43,7 +50,6 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
                             timestamp: Date.now()
                         });
                     }
-
                     return clonedRecords;
                 });
             }
@@ -52,7 +58,7 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
         chrome.runtime.onMessage.addListener(messageListener);
 
         return () => {
-            console.error('popup unmounted');
+            window.removeEventListener('refresh-transcripts', handleRefresh);
             chrome.runtime.onMessage.removeListener(messageListener);
         };
     }, []);
