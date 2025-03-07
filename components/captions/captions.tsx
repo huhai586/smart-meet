@@ -1,10 +1,12 @@
-import {Button, Empty, FloatButton, DatePicker} from "antd";
+import {Button, Empty, FloatButton, DatePicker, Typography} from "antd";
 import React, {useEffect, useMemo, useRef, useState, useCallback} from "react";
 import useTranscripts from "../../hooks/useTranscripts";
 import CaptionList from "./captionList";
 import './captions.scss';
 import useAutoScroll from "../../hooks/useScroll";
 import dayjs from 'dayjs';
+
+const { Title } = Typography;
 
 const Captions = (props) => {
     const chatContainer = useRef(null);
@@ -114,28 +116,33 @@ const Captions = (props) => {
     return (
         <div className={`captions`}>
             <div className="filter-section">
-                <DatePicker
-                    onChange={handleDateChange}
-                    value={selectedDate}
-                    allowClear
-                    placeholder="Select date"
-                    dateRender={dateRender}
-                    style={{ marginBottom: '10px' }}
-                />
-                <div className="filter-speakers">
-                    {speakers.length > 0 && "Filter:"}
-                    {speakers.map((speaker) => (
-                        <Button
-                            color="default"
-                            variant={filterSpeaker.includes(speaker) ? 'solid' : 'outlined'}
-                            size={'small'}
-                            onClick={() => {toggleSpeaker(speaker)}}
-                            key={speaker}
-                        >
-                            {speaker}
-                        </Button>
-                    ))}
+                <div className="date-filter">
+                    <Title level={5} style={{ margin: '0', lineHeight: '32px' }}>Filter by date:</Title>
+                    <DatePicker
+                        onChange={handleDateChange}
+                        value={selectedDate}
+                        allowClear
+                        placeholder="Select date"
+                        dateRender={dateRender}
+                    />
                 </div>
+                {speakers.length > 0 && (
+                <div className="filter-speakers">
+                        <Title level={5} style={{ margin: '0', lineHeight: '32px' }}>Filter by talker:</Title>
+                        {speakers.map((speaker) => (
+                            <Button
+                                color="default"
+                                variant={filterSpeaker.includes(speaker) ? 'solid' : 'outlined'}
+                                size={'small'}
+                                onClick={() => {toggleSpeaker(speaker)}}
+                                key={speaker}
+                            >
+                                {speaker}
+                            </Button>
+                        ))}
+            </div>
+                )}
+
             </div>
 
             <div className={`chat-container ${isNoData ? 'no-data' : ''}`} ref={chatContainer}>

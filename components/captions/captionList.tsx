@@ -9,11 +9,11 @@ type CaptionListProps = {
 
 const CaptionList = (props: CaptionListProps) => {
     return (
-        <div className="list-container">
-            {props.listData.map((item: Transcript) => (
+        <React.Fragment>
+              {props.listData.map((item: Transcript) => (
                 <Caption key={item.session} data={item} />
             ))}
-        </div>
+        </React.Fragment>  
     );
 };
 

@@ -10,6 +10,27 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin: 8px;
+    position: relative;
+    transition: all 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .date-filter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      h5.ant-typography {
+        margin: 0;
+        min-width: 85px;
+      }
+    }
 
     .ant-picker {
       width: 200px;
@@ -59,6 +80,30 @@
       color: #ccc;
     }
   }
+
+  .chat-container {
+    border-radius: 16px;
+    box-shadow: 0 2px 4px #5858580d;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    padding: 10px;
+    
+    &> div {
+      background: #fff;
+      border-radius: 12px;
+      margin: 10px 0;
+      padding: 10px 12px;
+      transition: all .2s;
+      box-shadow: 0px 0px 0px 2px #0000000d;
+      &:hover {
+        box-shadow: 0px 0px 0px 4px #0000000d;
+      }
+    }
+    div.caption-container{
+      cursor: pointer;
+    }
+  
+  }
 }
 
 
@@ -68,30 +113,7 @@
   height: 98vh;
 }
 
-.list-container {
-  border-radius: 16px;
-  box-shadow: 0 2px 4px #5858580d;
-  margin: 0 10px;
-  height: calc(100vh - 200px);
-  overflow-y: auto;
-  padding: 10px;
-  
-  &> div {
-    background: #fff;
-    border-radius: 12px;
-    margin: 10px 0;
-    padding: 10px 12px;
-    transition: all .2s;
-    box-shadow: 0px 0px 0px 2px #0000000d;
-    &:hover {
-      box-shadow: 0px 0px 0px 4px #0000000d;
-    }
-  }
-  div.caption-container{
-    cursor: pointer;
-  }
 
-}
 
 .caption-header {
   display: flex;
@@ -165,7 +187,6 @@
   border: 1px dotted darkcyan;
   padding: 10px;
   font-size: 14px;
-  /* border: 2px; */
   border-radius: 7px;
   color: crimson;
 }

@@ -6,6 +6,8 @@ import Search from "~node_modules/antd/es/input/Search";
 import getMeetingCaptions from '../utils/getCaptions';
 import {Empty} from 'antd';
 import '../styles/summary.scss';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 
 const Summary = (props) => {
     const [requesting, setRequesting] = useState(false);
@@ -52,8 +54,8 @@ const Summary = (props) => {
             const lastItem = container.current.querySelector('.ant-spin-nested-loading:last-child');
             lastItem && lastItem.scrollIntoView({behavior: 'smooth'});
         }
-
     },[cardData])
+
     return <>
         <div className={`summaryContainer ${!cardData.length &&  'no-data'}`} ref={container}>
             {contextHolder}
@@ -62,7 +64,10 @@ const Summary = (props) => {
                     <Spin
                         spinning={requesting && !item.fetchComplete} indicator={<LoadingOutlined spin/>} size="large" fullscreen={false} tip={'loading'} key={index}>
                         <Card title={item.question} key={index} className={'card-container'}>
-                            <div className="summary-container" dangerouslySetInnerHTML={{__html: item.answer}}>
+                            <div className="summary-container">
+                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                    {item.answer}
+                                </ReactMarkdown>
                             </div>
                         </Card>
                     </Spin>
@@ -87,4 +92,4 @@ const Summary = (props) => {
     </>
 }
 
-export default Summary
+export default Summary;

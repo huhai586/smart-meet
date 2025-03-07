@@ -1,1 +1,59 @@
-import { useRef, useEffect, useState, useCallback } from 'react';import type {Transcript} from "~hooks/useTranscripts";function useAutoScroll(scrollAreaRef: React.RefObject<HTMLDivElement>, data:Transcript[]) {    const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);    let lastScrollTop = scrollAreaRef.current?.scrollTop || 0;    const handleScroll = () => {        const scrollArea = scrollAreaRef.current;        const scrollTop = scrollArea.scrollTop;        const isAtBottom = scrollArea.scrollHeight - scrollArea.scrollTop - scrollArea.clientHeight < 15; // 阈值 5px        if (isAtBottom) {            setAutoScrollEnabled(true)        } else {            setAutoScrollEnabled(false)        }        lastScrollTop = scrollTop;    }    useEffect(() => {        if (autoScrollEnabled && scrollAreaRef.current) {            const scrollAreaNode = scrollAreaRef.current;            scrollAreaNode.scrollTop = scrollAreaNode.scrollHeight;        }    }, [autoScrollEnabled, data]);    useEffect(() => {        const scrollAreaNode = scrollAreaRef.current;        if (!scrollAreaNode) return;        scrollAreaNode.addEventListener('scroll', handleScroll);        return () => {            scrollAreaNode.removeEventListener('scroll', handleScroll);        };    }, [scrollAreaRef]);}export default useAutoScroll;
+import { useRef, useEffect, useState, useCallback } from 'react';
+import type {Transcript} from "~hooks/useTranscripts";
+
+function useAutoScroll(scrollAreaRef: React.RefObject<HTMLDivElement>, data:Transcript[]) {
+    const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
+    const lastDataLengthRef = useRef(data.length);
+    let lastScrollTop = scrollAreaRef.current?.scrollTop || 0;
+
+    const isNearBottom = (scrollArea: HTMLDivElement) => {
+        return scrollArea.scrollHeight - scrollArea.scrollTop - scrollArea.clientHeight < 15;
+    };
+
+    const handleScroll = () => {
+        const scrollArea = scrollAreaRef.current;
+        if (!scrollArea) return;
+        
+        const scrollTop = scrollArea.scrollTop;
+        if (isNearBottom(scrollArea)) {
+            setAutoScrollEnabled(true);
+        } else {
+            setAutoScrollEnabled(false);
+        }
+        lastScrollTop = scrollTop;
+    }
+
+    useEffect(() => {
+        const scrollArea = scrollAreaRef.current;
+        if (!scrollArea) return;
+
+        // 检查是否有新消息
+        const hasNewMessages = data.length > lastDataLengthRef.current;
+        
+        // 如果有新消息且用户当前在底部附近，启用自动滚动
+        if (hasNewMessages && isNearBottom(scrollArea)) {
+            setAutoScrollEnabled(true);
+        }
+        
+        // 更新数据长度引用
+        lastDataLengthRef.current = data.length;
+
+        // 执行自动滚动
+        if (autoScrollEnabled) {
+            scrollArea.scrollTop = scrollArea.scrollHeight;
+        }
+    }, [data]);
+
+    useEffect(() => {
+        const scrollAreaNode = scrollAreaRef.current;
+        if (!scrollAreaNode) return;
+
+        scrollAreaNode.addEventListener('scroll', handleScroll);
+
+        return () => {
+            scrollAreaNode.removeEventListener('scroll', handleScroll);
+        };
+    }, [scrollAreaRef]);
+}
+
+export default useAutoScroll;

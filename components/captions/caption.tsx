@@ -106,23 +106,19 @@ const caption = (props: CaptionProps) => {
                             </Button>
                         </div>
                     </div>
-                    <div className={'caption-text'} dangerouslySetInnerHTML={{__html: captions}} onClick={handleTextClick}></div>
+                    <div className={'caption-text'} onClick={handleTextClick} dangerouslySetInnerHTML={{__html: captions}}></div>
                     <div className="timestamp">{new Date(data.timestamp).toLocaleString()}</div>
                 </div>
-
-
             </section>
 
-            <section>
-                {hasAiData && <div className={'ai-answer-container'}>
-                    {aiData.map((item, index) => (
-                        <div key={item.type} className={'ai-answer-item'}>
-                            <div className={'ai-answer-type'}>{item.type}</div>
-                            <div className={'ai-answer-data'} dangerouslySetInnerHTML={{__html: item.data}}></div>
-                        </div>
-                    ))}
-                </div>}
-            </section>
+            {hasAiData && <div className={'ai-answer-container'}>
+                {aiData.map((item, index) => (
+                    <div key={item.type} className={'ai-answer-item'}>
+                        <div className={'ai-answer-type'}>{item.type}</div>
+                        <div className={'ai-answer-data'} dangerouslySetInnerHTML={{__html: item.data}}></div>
+                    </div>
+                ))}
+            </div>}
         </div>
     )
 }
