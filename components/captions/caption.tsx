@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useMemo} from "react";
 import type {Transcript} from "../../hooks/useTranscripts";
 import askAI from "../../utils/askAI";
 import {Button, message} from "antd";
@@ -29,6 +29,17 @@ const caption = (props: CaptionProps) => {
     const [domainKeyWords, specificWords] = useHighLightWords();
     const [domain] = useDomain();
 
+    // 使用 useMemo 缓存高亮处理的结果
+    const highlightedText = useMemo(() => {
+        const texts = data.talkContent;
+        let spans = texts.replace(/\b(\w+)\b/g, '<span>\$1</span>');
+        return highlight(spans,[...domainKeyWords, ...specificWords]);
+    }, [data.talkContent, domainKeyWords, specificWords]);
+
+    useEffect(() => {
+        setCaptions(highlightedText);
+    }, [highlightedText]);
+
     const handleAskAI = (action: Actions) => {
         askAI(action, data.talkContent).then((res) => {
             const newAiData = [...aiData];
@@ -53,13 +64,6 @@ const caption = (props: CaptionProps) => {
             duration: 5,
         });
     };
-
-    useEffect(() => {
-       const texts = data.talkContent;
-        let spans = texts.replace(/\b(\w+)\b/g, '<span>\$1</span>');
-        const result = highlight(spans,[...domainKeyWords, ...specificWords]);
-       setCaptions(result);
-    }, [data.talkContent, domainKeyWords, specificWords]);
 
     const hasAiData= aiData.length > 0;
 

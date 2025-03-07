@@ -48,9 +48,7 @@
 
   .chat-container{
     flex: 1;
-    overflow: auto;
     scroll-behavior: smooth;
-    padding: 12px;
 
     &.no-data {
       display: flex;
