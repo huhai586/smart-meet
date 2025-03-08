@@ -2,9 +2,10 @@ import {useState, useEffect} from "react";
 import './styles/options.scss';
 import googleAITools from "./utils/google-AI";
 import getAPIkey from "./utils/getAPIkey";
-import {Alert, Modal} from "antd";
+import {Alert, Modal, Tabs, Button} from "antd";
+import type { TabsProps } from 'antd';
 
-const options = () => {
+const Options = () => {
     const [apiKey, setApiKey] = useState('');
     const [status, setStatus] = useState('');
 
@@ -30,6 +31,7 @@ const options = () => {
             }
         );
     };
+
     const info = () => {
         Modal.info({
             title: 'Dont have a gemini API key?',
@@ -50,36 +52,66 @@ const options = () => {
             info()
         });
     }, []);
-    return (
-        <div className="options-container">
 
+    const ApiKeyContent = () => (
+        <div className="form-container">
             <Alert
                 banner={true}
                 description={'You can obtain the API key from https://aistudio.google.com/apikey'}
-                message="Please enter your Gemini API key to easily use it for AI tasks." type="info"  className={'options-alert'}/>
-            <div className={'options'}>
-                <div className="form-container">
-                    <h1>Options</h1>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="apiKey">Gemini API Key:</label>
-                            <input
-                                type="text"
-                                id="apiKey"
-                                value={apiKey}
-                                onChange={(e) => setApiKey(e.target.value)}
-                                placeholder="Enter your Gemini API key"
-                            />
-                        </div>
-                        <button type="submit" className="save-button">
-                            Save Settings
-                        </button>
-                        {status && <div className="status-message">{status}</div>}
-                    </form>
+                message="Please enter your Gemini API key to easily use it for AI tasks." 
+                type="info"  
+                className={'options-alert'}
+            />
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="apiKey">Gemini API Key:</label>
+                    <input
+                        type="text"
+                        id="apiKey"
+                        value={apiKey}
+                        onChange={(e) => setApiKey(e.target.value)}
+                        placeholder="Enter your Gemini API key"
+                    />
                 </div>
-            </div>
+                <button type="submit" className="save-button">
+                    Save Settings
+                </button>
+                {status && <div className="status-message">{status}</div>}
+            </form>
+        </div>
+    );
+
+    const ActionContent = () => (
+        <div className="action-container">
+            <Button type="primary" size="large">
+                Action Button
+            </Button>
+        </div>
+    );
+
+    const items: TabsProps['items'] = [
+        {
+            key: '1',
+            label: 'API Settings',
+            children: <ApiKeyContent />,
+        },
+        {
+            key: '2',
+            label: 'Actions',
+            children: <ActionContent />,
+        },
+    ];
+
+    return (
+        <div className="options-container">
+            <Tabs
+                defaultActiveKey="1"
+                tabPosition="left"
+                items={items}
+                className="options-tabs"
+            />
         </div>
     );
 }
 
-export default options
+export default Options;
