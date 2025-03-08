@@ -1,16 +1,19 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import type {Captions} from "~node_modules/google-meeting-captions-resolver";
 import getMeetingCaptions from "../utils/getCaptions";
 import setMeetingCaptions from "~utils/set-captions";
+import dayjs from 'dayjs';
+import { useDateContext } from '../contexts/DateContext';
 
 export type Transcript = Captions & {timestamp: number};
 
-const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<Transcript[]>>] => {
-    const [transcripts, setTranscripts] = useState([]);
+const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<Transcript[]>>, Transcript[]] => {
+    const [allTranscripts, setAllTranscripts] = useState<Transcript[]>([]);
+    const { selectedDate } = useDateContext();
 
     const loadContent = () => {
         getMeetingCaptions().then((res) => {
-            setTranscripts(res);
+            setAllTranscripts(res);
         });
     };
 
@@ -19,9 +22,9 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
     }, []);
 
     useEffect(() => {
-        setMeetingCaptions(transcripts);
-        console.log('store', transcripts);
-    }, [transcripts]);
+        setMeetingCaptions(allTranscripts);
+        console.log('store', allTranscripts);
+    }, [allTranscripts]);
 
     useEffect(() => {
         // 添加自定义事件监听器
@@ -38,17 +41,14 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
                 loadContent();
             }
             if(type === 'updateRecords') {
-                setTranscripts(currentTranscripts => {
+                setAllTranscripts(currentTranscripts => {
                     const clonedRecords = [...currentTranscripts];
                     const matchingRecord = clonedRecords.find(item => item.session === data.session);
 
                     if (matchingRecord) {
                         matchingRecord.talkContent = data.talkContent;
                     } else {
-                        clonedRecords.push({
-                            ...data,
-                            timestamp: Date.now()
-                        });
+                        clonedRecords.push(data);
                     }
                     return clonedRecords;
                 });
@@ -63,7 +63,20 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
         };
     }, []);
 
-    return [transcripts, setTranscripts]
+    // 根据选中日期过滤记录
+    const filteredTranscripts = useMemo(() => {
+        if (!selectedDate) {
+            return allTranscripts;
+        }
+
+        const targetDate = selectedDate.format('YYYY-MM-DD');
+        return allTranscripts.filter(transcript => {
+            const transcriptDate = dayjs(transcript.timestamp).format('YYYY-MM-DD');
+            return transcriptDate === targetDate;
+        });
+    }, [allTranscripts, selectedDate]);
+
+    return [filteredTranscripts, setAllTranscripts, allTranscripts];
 };
 
 export default useTranscripts;

@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from "react";
-import {message, Tabs, Tooltip} from "antd";
+import {message, Tabs, Tooltip, DatePicker} from "antd";
 import {
     DownloadOutlined,
     FileDoneOutlined,
@@ -18,6 +18,8 @@ import getAiSummary from "~utils/get-ai-summary";
 import save from "~utils/save";
 import BackupAndRestore from "~components/backup-and-restore";
 import Words from "~components/words";
+import { DateProvider } from './contexts/DateContext';
+import GlobalDatePicker from './components/GlobalDatePicker';
 
 interface CaptionsRef {
     jumpToDate: (date?: dayjs.Dayjs) => void;
@@ -39,6 +41,43 @@ const SidePanel = () => {
             captionsRef.current.jumpToDate(date);
         }
     };
+
+    useEffect(() => {
+        const updateApiKey = (request) => {
+            if (request.type === 'apiKeyUpdated') {
+                googleAITools.init();
+            }
+        }
+        chrome.runtime.onMessage.addListener(updateApiKey);
+        return () => {
+            chrome.runtime.onMessage.removeListener(updateApiKey);
+        }
+    },[]);
+
+    useEffect(() => {
+        window.addEventListener('ajax-error', (e) => {
+            const errorMsg = e.detail.error;
+            console.log('ajax-error', errorMsg);
+            let message = '';
+            try {
+                message = errorMsg.errorDetails?.[1]?.message || errorMsg.message;
+            } catch (e) {
+                console.log({errorMsg})
+                message = 'unknown error';
+            }
+            messageApi.open({
+                type: 'error',
+                content: message,
+            });
+        });
+    }, []);
+
+    const saveCaptions = () => {
+        console.log('start downloading')
+        getAiSummary('请将这份会议记录以markdown形式呈现,里面的时间戳请转换为/m/d/h/m/s 格式').then((res) => {
+            save(res, 'captions.md');
+        })
+    }
 
     const items = [
         {
@@ -70,59 +109,30 @@ const SidePanel = () => {
         },
     ];
 
-
-
-    useEffect(() => {
-        const updateApiKey = (request) => {
-            if (request.type === 'apiKeyUpdated') {
-                googleAITools.init();
-            }
-        }
-        chrome.runtime.onMessage.addListener(updateApiKey);
-        return () => {
-            chrome.runtime.onMessage.removeListener(updateApiKey);
-        }
-    },[])
-
-    useEffect(() => {
-        window.addEventListener('ajax-error', (e) => {
-            const errorMsg = e.detail.error;
-            console.log('ajax-error', errorMsg);
-            let message = '';
-            try {
-                message = errorMsg.errorDetails?.[1]?.message || errorMsg.message;
-            } catch (e) {
-                console.log({errorMsg})
-                message = 'unknown error';
-            }
-            messageApi.open({
-                type: 'error',
-                content: message,
-            });
-        });
-    }, []);
-
-    const saveCaptions = () => {
-        console.log('start downloading')
-        getAiSummary('请将这份会议记录以markdown形式呈现,里面的时间戳请转换为/m/d/h/m/s 格式').then((res) => {
-            save(res, 'captions.md');
-        })
-    }
     return (
-        <div className={'side-panel'}>
-            {contextHolder}
-            <div className="loading">
-                <Spin spinning={loading} />
+        <DateProvider>
+            <div className={'side-panel'}>
+                {contextHolder}
+                <GlobalDatePicker />
+                <div className="loading">
+                    <Spin spinning={loading} />
+                </div>
+                <Tabs
+                    tabBarExtraContent={
+                        <div className="tab-extra-content">
+                            <div className={`download ${loading ? 'hide' : ''}`} onClick={saveCaptions}>
+                                <Tooltip color={'#87d068'} title={'down load all captions'} placement="left">
+                                    <DownloadOutlined />
+                                </Tooltip>
+                            </div>
+                        </div>
+                    }
+                    items={items}
+                    onChange={onTabClick}
+                    activeKey={current}
+                />
             </div>
-            <Tabs
-                tabBarExtraContent={<div className={`download ${loading ? 'hide' : ''}`} onClick={saveCaptions}>
-            <Tooltip color={'#87d068'} title={'down load all captions'} placement="left"><DownloadOutlined /></Tooltip>
-            </div>}
-                items={items}
-                onChange={onTabClick}
-                activeKey={current}
-            />
-        </div>
+        </DateProvider>
     );
 };
 

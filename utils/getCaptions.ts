@@ -1,10 +1,11 @@
-import type {Captions} from '~node_modules/google-meeting-captions-resolver';
+import type {Transcript} from "~hooks/useTranscripts";
 
-const getMeetingCaptions: () => Promise<Captions[]> = () => {
+const getMeetingCaptions: () => Promise<Transcript[]> = () => {
     return new Promise((resolve, reject) => {
         try {
             chrome.storage.local.get('recordedContents', (data) => {
-                if (data.recordedContents as Captions[]) {
+                console.log({data})
+                if (data.recordedContents as Transcript[]) {
                     resolve(data.recordedContents);
                 }
             });

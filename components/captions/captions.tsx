@@ -1,10 +1,11 @@
-import {Button, Empty, FloatButton, DatePicker, Typography} from "antd";
+import {Button, Empty, FloatButton, Typography} from "antd";
 import React, {useEffect, useMemo, useRef, useState, useCallback} from "react";
 import useTranscripts from "../../hooks/useTranscripts";
 import CaptionList from "./captionList";
 import './captions.scss';
 import useAutoScroll from "../../hooks/useScroll";
 import dayjs from 'dayjs';
+import { useDateContext } from '../../contexts/DateContext';
 
 const { Title } = Typography;
 
@@ -12,8 +13,8 @@ const Captions = (props) => {
     const chatContainer = useRef(null);
     const [speakers, setSpeakers] = useState([]);
     const [filterSpeaker, setFilterSpeakers] = useState([]);
-    const [selectedDate, setSelectedDate] = useState(null);
     const [transcripts] = useTranscripts();
+    const { selectedDate, setSelectedDate } = useDateContext();
 
     // 缓存日期映射
     const datesWithMessages = useMemo(() => {
@@ -53,11 +54,6 @@ const Captions = (props) => {
         }
     }
 
-    // 将原来的 handleDateChange 修改为使用 jumpToDate
-    const handleDateChange = (date) => {
-        jumpToDate(date);
-    }
-
     // 暴露 jumpToDate 方法给父组件
     useEffect(() => {
         if (props.onRef) {
@@ -70,7 +66,7 @@ const Captions = (props) => {
     // 优化过滤操作
     const filteredData = useMemo(() => {
         let filtered = transcripts;
-        
+
         // 使用 Map 优化发言人过滤
         if (filterSpeaker.length > 0) {
             const speakerSet = new Set(filterSpeaker);
@@ -93,18 +89,6 @@ const Captions = (props) => {
 
     useAutoScroll(chatContainer, filteredData);
 
-    // 优化 dateRender 性能
-    const dateRender = useCallback((current) => {
-        const date = current.format('YYYY-MM-DD');
-        const hasMessages = datesWithMessages.has(date);
-        return (
-            <div className="ant-picker-cell-inner">
-                {current.date()}
-                {hasMessages && <span className="message-dot" />}
-            </div>
-        );
-    }, [datesWithMessages]);
-
     const toggleSpeaker = (speaker: string) => {
         if (filterSpeaker.includes(speaker)) {
             setFilterSpeakers(filterSpeaker.filter((v) => v !== speaker));
@@ -115,19 +99,9 @@ const Captions = (props) => {
 
     return (
         <div className={`captions`}>
-            <div className="filter-section">
-                <div className="date-filter">
-                    <Title level={5} style={{ margin: '0', lineHeight: '32px' }}>Filter by date:</Title>
-                    <DatePicker
-                        onChange={handleDateChange}
-                        value={selectedDate}
-                        allowClear
-                        placeholder="Select date"
-                        dateRender={dateRender}
-                    />
-                </div>
-                {speakers.length > 0 && (
-                <div className="filter-speakers">
+            {speakers.length > 0 && (
+                <div className="filter-section">
+                    <div className="filter-speakers">
                         <Title level={5} style={{ margin: '0', lineHeight: '32px' }}>Filter by talker:</Title>
                         {speakers.map((speaker) => (
                             <Button
@@ -140,10 +114,9 @@ const Captions = (props) => {
                                 {speaker}
                             </Button>
                         ))}
+                    </div>
             </div>
-                )}
-
-            </div>
+            )}
 
             <div className={`chat-container ${isNoData ? 'no-data' : ''}`} ref={chatContainer}>
                 {filteredData.length > 0 ? (

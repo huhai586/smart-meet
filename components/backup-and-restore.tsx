@@ -24,6 +24,7 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
     const handleUploadChange = (res) => {
         getFileData(res.file).then((fileString: string) => {
             isRestoreDataValid(fileString).then((captions: Transcript[]) => {
+                console.log('import data', captions)
                 setMeetingCaptions(captions).then(() => {
                     if (captions.length > 0) {
                         const latestMessage = captions[captions.length - 1];

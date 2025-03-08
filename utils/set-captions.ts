@@ -1,6 +1,6 @@
-import type {Captions} from '~node_modules/google-meeting-captions-resolver';
+import type {Transcript} from "~hooks/useTranscripts";
 
-const setMeetingCaptions: (data:Captions[]) => Promise<void> = (data) => {
+const setMeetingCaptions: (data:Transcript[]) => Promise<void> = (data) => {
     return new Promise((resolve, reject) => {
         try {
             chrome.storage.local.set({ recordedContents: data }, () => {
@@ -13,4 +13,3 @@ const setMeetingCaptions: (data:Captions[]) => Promise<void> = (data) => {
 }
 
 export default setMeetingCaptions;
-    

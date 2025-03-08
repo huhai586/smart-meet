@@ -33,15 +33,6 @@ const Summary = (props) => {
         setCardData([...cardData, {question, answer: '', fetchComplete: false}]);
     }
 
-    const formatMarkdown = (text: string) => {
-        // 处理发言人和时间戳行
-        return text.replace(/\|(.*?)\|/g, '### $1')  // 将 |Fan Xu|... 转换为 ### Fan Xu...
-                  .replace(/\|\s*\|/g, '')           // 移除空的竖线
-                  .replace(/\|\s*/g, '')             // 移除剩余的竖线
-                  .replace(/\[\s*---\s*\]/g, '---')  // 转换分隔符
-                  .trim();
-    };
-
     useEffect(() => {
         console.log('cardData', cardData);
         cardData.forEach((item, index) => {
@@ -51,7 +42,7 @@ const Summary = (props) => {
             setRequesting(true);
             getAiSummary(item.question).then((res) => {
                 const newCardData = [...cardData];
-                newCardData[index].answer = formatMarkdown(res);
+                newCardData[index].answer = res;
                 newCardData[index].fetchComplete = true;
                 setCardData(newCardData);
             }).catch((err) => {
@@ -78,16 +69,16 @@ const Summary = (props) => {
             {cardData.map((item, index) => {
                 return (
                     <Spin
-                        spinning={requesting && !item.fetchComplete} 
-                        indicator={<LoadingOutlined spin/>} 
-                        size="large" 
-                        fullscreen={false} 
-                        tip={'loading'} 
+                        spinning={requesting && !item.fetchComplete}
+                        indicator={<LoadingOutlined spin/>}
+                        size="large"
+                        fullscreen={false}
+                        tip={'loading'}
                         key={index}
                     >
-                        <Card 
-                            title={item.question} 
-                            key={index} 
+                        <Card
+                            title={item.question}
+                            key={index}
                             className={'card-container'}
                         >
                             <div className="summary-container">

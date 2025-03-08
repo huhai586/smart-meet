@@ -11,7 +11,7 @@ const updateRecords = (incomingData: Captions) => {
     // 从content script发送消息
     chrome.runtime.sendMessage({
         target: "sidepanel",
-        data: incomingData,
+        data: {...incomingData, timestamp: new Date().getTime()},
         type: 'updateRecords'
     });
 };
