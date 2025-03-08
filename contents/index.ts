@@ -6,13 +6,13 @@ import getIsExtensionEnabled from '../utils/get-is-extension-enabled';
 let isExtensionEnabled = false;
 
 
-const updateRecords = (incomingData: Captions) => {
+const addOrUpdateRecords = (incomingData: Captions) => {
     if (!isExtensionEnabled) {return}
     // 从content script发送消息
     chrome.runtime.sendMessage({
         target: "sidepanel",
         data: {...incomingData, timestamp: new Date().getTime()},
-        type: 'updateRecords'
+        type: 'addOrUpdateRecords'
     });
 };
 
@@ -22,7 +22,7 @@ const start = () => {
         if (enabled) {
             getCaptions(undefined, (v) => {
                 console.log('captions', v);
-                updateRecords(v)
+                addOrUpdateRecords(v)
             })
         }
     });
@@ -42,4 +42,4 @@ export const config: PlasmoCSConfig = {
 }
 
 // @ts-ignore
-window.huhai = updateRecords
+window.huhai = addOrUpdateRecords

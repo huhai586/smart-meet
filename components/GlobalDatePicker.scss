@@ -1,0 +1,38 @@
+.global-date-picker {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+
+    .ant-picker {
+        background: white;
+        border: 1px solid #e8e8e8;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s;
+
+        &:hover {
+            border-color: #40a9ff;
+        }
+
+        &.ant-picker-focused {
+            border-color: #1890ff;
+            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+    }
+
+    .ant-picker-cell-inner {
+        position: relative;
+        
+        .message-dot {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: #ff4d4f;
+            border-radius: 50%;
+        }
+    }
+} 

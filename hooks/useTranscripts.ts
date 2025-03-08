@@ -21,10 +21,10 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
         loadContent();
     }, []);
 
-    useEffect(() => {
-        setMeetingCaptions(allTranscripts);
-        console.log('store', allTranscripts);
-    }, [allTranscripts]);
+    // useEffect(() => {
+    //     setMeetingCaptions(allTranscripts);
+    //     console.log('store', allTranscripts);
+    // }, [allTranscripts]);
 
     useEffect(() => {
         // 添加自定义事件监听器
@@ -40,14 +40,16 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
             if (action === 'clear') {
                 loadContent();
             }
-            if(type === 'updateRecords') {
+            if(type === 'addOrUpdateRecords') {
                 setAllTranscripts(currentTranscripts => {
                     const clonedRecords = [...currentTranscripts];
                     const matchingRecord = clonedRecords.find(item => item.session === data.session);
 
                     if (matchingRecord) {
+                        // update
                         matchingRecord.talkContent = data.talkContent;
                     } else {
+                        // add
                         clonedRecords.push(data);
                     }
                     return clonedRecords;
