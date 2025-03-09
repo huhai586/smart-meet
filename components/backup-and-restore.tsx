@@ -9,6 +9,7 @@ import isRestoreDataValid from "~utils/is-resetore-data-valid";
 import type {Transcript} from "~hooks/useTranscripts";
 import setMeetingCaptions from "~utils/set-captions";
 import dayjs from "dayjs";
+import { useDateContext } from '../contexts/DateContext';
 
 interface BackupAndRestoreInterface {
     jumpToCaptions: (date?: dayjs.Dayjs) => void;
@@ -16,8 +17,10 @@ interface BackupAndRestoreInterface {
 
 const BackupAndRestore = (props: BackupAndRestoreInterface) => {
     const [messageApi, contextHolder] = message.useMessage();
+    const { selectedDate } = useDateContext();
+
     const backup = () => {
-        getMeetingCaptions().then((res) => {
+        getMeetingCaptions(selectedDate).then((res) => {
             save(JSON.stringify(res), 'captions.json');
         })
     }
@@ -30,9 +33,12 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                         action: 'restoreRecords',
                         data: captions
                     });
-                    const latestMessage = captions[captions.length - 1];
-                    const latestDate = dayjs(latestMessage.timestamp);
-                    props.jumpToCaptions(latestDate);
+                    setTimeout(() => {
+                        const latestMessage = captions[captions.length - 1];
+                        const latestDate = dayjs(latestMessage.timestamp);
+                        console.log('latestDate', latestDate)
+                        props.jumpToCaptions(latestDate);
+                    }, 2000)
                     messageApi.open({
                         type: 'success',
                         content: 'restore successfully',

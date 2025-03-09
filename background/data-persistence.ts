@@ -4,7 +4,7 @@ import type { Transcript } from '../hooks/useTranscripts';
 
 interface MessageData {
     type?: string;
-    action: 'clear' | 'addOrUpdateRecords' | 'get-transcripts' | 'restoreRecords';
+    action: 'clear' | 'addOrUpdateRecords' | 'get-transcripts' | 'restoreRecords' | 'get-days-with-messages' | 'set-current-date';
     data?: Transcript | Transcript[];
     date?: Dayjs;
 }
@@ -13,7 +13,8 @@ class BackgroundMessageHandler {
     private storage = StorageFactory.getInstance().getProvider();
 
     private async syncTranscripts(date?: Dayjs): Promise<void> {
-        const records = await this.storage.getRecords(date);
+        const records = await this.storage.getRecords(date);    
+        console.log('background.js', 'syncTranscripts', records)
         chrome.runtime.sendMessage({
             action: 'refresh-transcripts',
             data: records
@@ -42,6 +43,21 @@ class BackgroundMessageHandler {
                 case 'get-transcripts':
                     const date = message.date ? dayjs(message.date) : undefined;
                     await this.syncTranscripts(date);
+                    return;
+
+                case 'get-days-with-messages':
+                   const days = await this.storage.getDaysWithMessages();
+                   chrome.runtime.sendMessage({
+                    action: 'days-with-messages',
+                    data: days
+                   })
+                    return;
+
+                case 'set-current-date':
+                    if (message.date) {
+                        await this.storage.setCurrentDate(dayjs(message.date));
+                        await this.syncTranscripts(message.date);
+                    }
                     return;
             }
 

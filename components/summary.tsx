@@ -8,6 +8,7 @@ import {Empty} from 'antd';
 import '../styles/summary.scss';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
+import { useDateContext } from '../contexts/DateContext';
 
 interface CardItem {
     question: string;
@@ -20,9 +21,10 @@ const Summary = (props) => {
     const container = useRef(null);
     const [messageApi, contextHolder] = message.useMessage();
     const [cardData, setCardData] = useState<CardItem[]>([]);
+    const { selectedDate } = useDateContext();
 
     const handleQuestion = async (question = 'please summary the meeting') => {
-        const recordedContents = await getMeetingCaptions();
+        const recordedContents = await getMeetingCaptions(selectedDate);
         if (recordedContents.length === 0) {
             messageApi.open({
                 type: 'error',
@@ -95,7 +97,7 @@ const Summary = (props) => {
             }
         </div>
 
-        <div className="footer">
+        <div className="footer" style={{ padding: '16px', position: 'sticky', bottom: 0, background: '#fff', zIndex: 1 }}>
             <Search
                 disabled={requesting}
                 placeholder="please summary the meeting"

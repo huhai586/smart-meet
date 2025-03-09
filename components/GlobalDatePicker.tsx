@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { DatePicker } from 'antd';
 import { useDateContext } from '../contexts/DateContext';
 import dayjs from 'dayjs';
@@ -8,19 +8,24 @@ import useTranscripts from '../hooks/useTranscripts';
 const GlobalDatePicker = () => {
     const { selectedDate, setSelectedDate } = useDateContext();
     const [currentDayTranscripts] = useTranscripts();
+    const [datesWithMessages, setDatesWithMessages] = useState(new Set<string>());
 
-    // 缓存日期映射
-    const datesWithMessages = useMemo(() => {
-        const dates = new Set();
-        currentDayTranscripts.forEach(transcript => {
-            const date = dayjs(transcript.timestamp).format('YYYY-MM-DD');
-            dates.add(date);
+
+    useEffect(() => {
+        console.warn('GlobalDatePicker.js', 'get-days-with-messages');
+        chrome.runtime.sendMessage({
+            action: 'get-days-with-messages',
         });
-        return dates;
-    }, [currentDayTranscripts]);
+    }, []);
 
     const handleDateChange = (date: dayjs.Dayjs | null) => {
-        setSelectedDate(date || dayjs());
+        const newDate = date || dayjs();
+        setSelectedDate(newDate);
+        // 通知后台更新当前日期
+        chrome.runtime.sendMessage({
+            action: 'set-current-date',
+            date: newDate
+        });
     };
 
     const dateRender = (current: dayjs.Dayjs) => {
@@ -33,6 +38,20 @@ const GlobalDatePicker = () => {
             </div>
         );
     };
+
+    useEffect(() => {
+        const handleMessage = (message: any) => {
+            const {action, data} = message;
+            if (action === 'days-with-messages') {
+                console.log('GlobalDatePicker.js', 'days-with-messages', data);
+                setDatesWithMessages(new Set(data));
+            }
+        }
+        chrome.runtime.onMessage.addListener(handleMessage);
+        return () => {
+            chrome.runtime.onMessage.removeListener(handleMessage);
+        }
+    })
 
     return (
         <div className="global-date-picker">

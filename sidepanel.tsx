@@ -46,6 +46,7 @@ const SidePanel = () => {
 
     const jumpToCaptions = (date: dayjs.Dayjs) => {
         setCurrent('captions');
+        console.log('jumpToCaptions', date.format('YYYY-MM-DD'))
         setSelectedDate(date);
     };
 
