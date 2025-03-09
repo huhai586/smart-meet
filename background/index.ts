@@ -1,3 +1,4 @@
+import initialDataPersistence from "./data-persistence";
 import { updateBadgeText} from "./set-badge-text";
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -15,6 +16,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 updateBadgeText();
+initialDataPersistence();
 export {}
 
 console.log(

@@ -17,7 +17,7 @@ import getAiSummary from "./utils/get-ai-summary";
 import save from "./utils/save";
 import BackupAndRestore from "./components/backup-and-restore";
 import Words from "./components/words";
-import { DateProvider } from './contexts/DateContext';
+import { DateProvider, useDateContext } from './contexts/DateContext';
 import GlobalDatePicker from './components/GlobalDatePicker';
 import Loading from './components/Loading';
 
@@ -36,19 +36,17 @@ interface CustomErrorEvent extends Event {
 
 const SidePanel = () => {
     const [messageApi, contextHolder] = message.useMessage();
+    const { selectedDate, setSelectedDate } = useDateContext();
     const [current, setCurrent] = useState('captions');
     const [loading] = useLoading();
-    const captionsRef = useRef<CaptionsRef>(null);
 
     const onTabClick = (key: string) => {
         setCurrent(key);
     };
 
-    const jumpToCaptions = (date?: dayjs.Dayjs) => {
+    const jumpToCaptions = (date: dayjs.Dayjs) => {
         setCurrent('captions');
-        if (captionsRef.current) {
-            captionsRef.current.jumpToDate(date);
-        }
+        setSelectedDate(date);
     };
 
     useEffect(() => {
@@ -93,7 +91,7 @@ const SidePanel = () => {
             label: 'Captions',
             key: 'captions',
             icon: <HistoryOutlined />,
-            children: <Captions onRef={ref => captionsRef.current = ref}/>
+            children: <Captions/>
         },
         {
             label: 'Summary',

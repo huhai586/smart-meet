@@ -46,22 +46,6 @@ const Captions = (props) => {
         setFilterSpeakers(prev => prev.filter(speaker => availableSpeakers.includes(speaker)));
     }, [availableSpeakers]);
 
-    // 添加跳转到指定日期的方法
-    const jumpToDate = (date?: dayjs.Dayjs) => {
-        setSelectedDate(date);
-        if (chatContainer.current) {
-            chatContainer.current.scrollTop = 0;
-        }
-    }
-
-    // 暴露 jumpToDate 方法给父组件
-    useEffect(() => {
-        if (props.onRef) {
-            props.onRef({
-                jumpToDate
-            });
-        }
-    }, []);
 
     // 优化过滤操作
     const filteredData = useMemo(() => {

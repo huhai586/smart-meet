@@ -9,10 +9,10 @@ let isExtensionEnabled = false;
 const addOrUpdateRecords = (incomingData: Captions) => {
     if (!isExtensionEnabled) {return}
     // 从content script发送消息
+    console.log('context.js', 'addOrUpdateRecords', incomingData)
     chrome.runtime.sendMessage({
-        target: "sidepanel",
         data: {...incomingData, timestamp: new Date().getTime()},
-        type: 'addOrUpdateRecords'
+        action: 'addOrUpdateRecords'
     });
 };
 

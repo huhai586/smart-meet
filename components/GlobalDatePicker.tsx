@@ -7,17 +7,17 @@ import useTranscripts from '../hooks/useTranscripts';
 
 const GlobalDatePicker = () => {
     const { selectedDate, setSelectedDate } = useDateContext();
-    const [, , allTranscripts] = useTranscripts();
+    const [currentDayTranscripts] = useTranscripts();
 
     // 缓存日期映射
     const datesWithMessages = useMemo(() => {
         const dates = new Set();
-        allTranscripts.forEach(transcript => {
+        currentDayTranscripts.forEach(transcript => {
             const date = dayjs(transcript.timestamp).format('YYYY-MM-DD');
             dates.add(date);
         });
         return dates;
-    }, [allTranscripts]);
+    }, [currentDayTranscripts]);
 
     const handleDateChange = (date: dayjs.Dayjs | null) => {
         setSelectedDate(date || dayjs());
@@ -41,7 +41,7 @@ const GlobalDatePicker = () => {
                 onChange={handleDateChange}
                 allowClear={false}
                 placeholder="Select date"
-                dateRender={dateRender}
+                cellRender ={dateRender}
             />
         </div>
     );
