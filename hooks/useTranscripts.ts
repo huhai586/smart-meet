@@ -21,11 +21,6 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
         loadContent();
     }, []);
 
-    // useEffect(() => {
-    //     setMeetingCaptions(allTranscripts);
-    //     console.log('store', allTranscripts);
-    // }, [allTranscripts]);
-
     useEffect(() => {
         window.addEventListener('refresh-transcripts', loadContent);
 
