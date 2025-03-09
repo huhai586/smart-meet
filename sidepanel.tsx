@@ -1,27 +1,37 @@
 import React, {useEffect, useState, useRef} from "react";
-import {message, Tabs, Tooltip, DatePicker} from "antd";
+import {message, Tabs, Tooltip} from "antd";
 import {
     DownloadOutlined,
     FileDoneOutlined,
     HistoryOutlined, RollbackOutlined, SketchOutlined,
-} from '~node_modules/@ant-design/icons';
+} from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 import './all.scss';
 import Summary from "./components/summary";
 import googleAITools from './utils/google-AI';
 import Extension from "./components/extension";
-import {Spin} from "~node_modules/antd";
 import useLoading from "./hooks/useLoading";
 import Captions from "./components/captions/captions";
-import getAiSummary from "~utils/get-ai-summary";
-import save from "~utils/save";
-import Words from "~components/words";
+import getAiSummary from "./utils/get-ai-summary";
+import save from "./utils/save";
+import BackupAndRestore from "./components/backup-and-restore";
+import Words from "./components/words";
 import { DateProvider } from './contexts/DateContext';
 import GlobalDatePicker from './components/GlobalDatePicker';
+import Loading from './components/Loading';
 
 interface CaptionsRef {
     jumpToDate: (date?: dayjs.Dayjs) => void;
+}
+
+interface CustomErrorEvent extends Event {
+    detail: {
+        error: {
+            errorDetails?: Array<{message: string}>;
+            message?: string;
+        };
+    };
 }
 
 const SidePanel = () => {
@@ -54,7 +64,7 @@ const SidePanel = () => {
     },[]);
 
     useEffect(() => {
-        window.addEventListener('ajax-error', (e) => {
+        window.addEventListener('ajax-error', (e: CustomErrorEvent) => {
             const errorMsg = e.detail.error;
             console.log('ajax-error', errorMsg);
             let message = '';
@@ -112,10 +122,8 @@ const SidePanel = () => {
         <DateProvider>
             <div className={'side-panel'}>
                 {contextHolder}
+                <Loading spinning={loading} />
                 <GlobalDatePicker />
-                <div className="loading">
-                    <Spin spinning={true} />
-                </div>
                 <Tabs
                     tabBarExtraContent={
                         <div className="tab-extra-content">
@@ -135,4 +143,4 @@ const SidePanel = () => {
     );
 };
 
-export default SidePanel
+export default SidePanel;
