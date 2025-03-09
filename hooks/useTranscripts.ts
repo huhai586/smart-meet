@@ -27,12 +27,7 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
     // }, [allTranscripts]);
 
     useEffect(() => {
-        // 添加自定义事件监听器
-        const handleRefresh = () => {
-            loadContent();
-        };
-
-        window.addEventListener('refresh-transcripts', handleRefresh);
+        window.addEventListener('refresh-transcripts', loadContent);
 
         // 设置消息监听器
         const messageListener = (message, sender, sendResponse) => {
@@ -60,7 +55,7 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
         chrome.runtime.onMessage.addListener(messageListener);
 
         return () => {
-            window.removeEventListener('refresh-transcripts', handleRefresh);
+            window.removeEventListener('refresh-transcripts', loadContent);
             chrome.runtime.onMessage.removeListener(messageListener);
         };
     }, []);

@@ -16,7 +16,6 @@ import useLoading from "./hooks/useLoading";
 import Captions from "./components/captions/captions";
 import getAiSummary from "~utils/get-ai-summary";
 import save from "~utils/save";
-import BackupAndRestore from "~components/backup-and-restore";
 import Words from "~components/words";
 import { DateProvider } from './contexts/DateContext';
 import GlobalDatePicker from './components/GlobalDatePicker';
@@ -115,7 +114,7 @@ const SidePanel = () => {
                 {contextHolder}
                 <GlobalDatePicker />
                 <div className="loading">
-                    <Spin spinning={loading} />
+                    <Spin spinning={true} />
                 </div>
                 <Tabs
                     tabBarExtraContent={
