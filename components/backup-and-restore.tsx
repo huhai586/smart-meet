@@ -33,12 +33,6 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                         action: 'restoreRecords',
                         data: captions
                     });
-                    setTimeout(() => {
-                        const latestMessage = captions[captions.length - 1];
-                        const latestDate = dayjs(latestMessage.timestamp);
-                        console.log('latestDate', latestDate)
-                        props.jumpToCaptions(latestDate);
-                    }, 2000)
                     messageApi.open({
                         type: 'success',
                         content: 'restore successfully',
@@ -56,10 +50,7 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                     content: 'the file is not json valid',
                 });
             })
-        }).finally(() => {
-            // 触发自定义事件来刷新数据
-            window.dispatchEvent(new Event('refresh-transcripts'));
-        })
+        });
     }
     return (
         <div className={'back-up-and-restore'}>

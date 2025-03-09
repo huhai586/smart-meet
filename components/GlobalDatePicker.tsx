@@ -19,6 +19,7 @@ const GlobalDatePicker = () => {
     }, []);
 
     const handleDateChange = (date: dayjs.Dayjs | null) => {
+        debugger
         const newDate = date || dayjs();
         setSelectedDate(newDate);
         // 通知后台更新当前日期
@@ -51,7 +52,7 @@ const GlobalDatePicker = () => {
         return () => {
             chrome.runtime.onMessage.removeListener(handleMessage);
         }
-    })
+    },[])
 
     return (
         <div className="global-date-picker">

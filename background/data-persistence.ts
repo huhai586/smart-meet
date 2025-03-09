@@ -39,7 +39,26 @@ class BackgroundMessageHandler {
                 case 'restoreRecords':
                     await this.storage.restoreRecords(message.data as Transcript[]);
                     await this.updateDaysWithMessages();
-                    await this.syncTranscripts();
+                    
+                    // 获取最新记录的日期并设置为当前日期
+                    const records = message.data as Transcript[];
+                    if (records.length > 0) {
+                        const latestRecord = records[records.length - 1];
+                        const latestDate = dayjs(latestRecord.timestamp);
+                        await this.storage.setCurrentDate(latestDate);
+                        await this.syncTranscripts(latestDate);
+                        
+                        // 延迟发送跳转消息，确保前端已经准备好
+                        setTimeout(() => {
+                            console.log('Sending jump-to-date message:', latestDate.valueOf());
+                            chrome.runtime.sendMessage({
+                                action: 'jump-to-date',
+                                date: latestDate.valueOf()
+                            });
+                        }, 500); // 添加500ms延迟
+                    } else {
+                        await this.syncTranscripts();
+                    }
                     break;
 
                 case 'get-transcripts':

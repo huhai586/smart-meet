@@ -44,12 +44,6 @@ const SidePanel = () => {
         setCurrent(key);
     };
 
-    const jumpToCaptions = (date: dayjs.Dayjs) => {
-        setCurrent('captions');
-        console.log('jumpToCaptions', date.format('YYYY-MM-DD'))
-        setSelectedDate(date);
-    };
-
     useEffect(() => {
         const updateApiKey = (request) => {
             if (request.type === 'apiKeyUpdated') {
@@ -61,6 +55,20 @@ const SidePanel = () => {
             chrome.runtime.onMessage.removeListener(updateApiKey);
         }
     },[]);
+
+    useEffect(() => {
+        const handleMessage = (message) => {
+            if (message.action === 'jump-to-date') {
+                console.log('SidePanel: Switching to captions tab');
+                setCurrent('captions');
+            }
+        };
+        
+        chrome.runtime.onMessage.addListener(handleMessage);
+        return () => {
+            chrome.runtime.onMessage.removeListener(handleMessage);
+        };
+    }, [setCurrent]);
 
     useEffect(() => {
         window.addEventListener('ajax-error', (e: CustomErrorEvent) => {
@@ -106,7 +114,7 @@ const SidePanel = () => {
             key: 'extension',
             icon: <SketchOutlined />,
             disabled: false,
-            children: <Extension jumpToCaptions={jumpToCaptions}/>
+            children: <Extension/>
         },
         {
             label: 'Translation records',

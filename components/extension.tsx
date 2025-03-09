@@ -10,7 +10,6 @@ import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
 import BackupAndRestore from "~components/backup-and-restore";
 
 interface ExtensionPropsInterface {
-    jumpToCaptions: (date?: dayjs.Dayjs) => void;
 }
 const Extension = (props: ExtensionPropsInterface) => {
     const [specificTags, setTags] = useState([]);
