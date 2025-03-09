@@ -28,6 +28,7 @@ class BackgroundMessageHandler {
                 case 'clear':
                     await this.storage.deleteRecords();
                     await this.syncTranscripts();
+                    await this.updateDaysWithMessages();
                     break;
 
                 case 'addOrUpdateRecords':
@@ -37,6 +38,7 @@ class BackgroundMessageHandler {
 
                 case 'restoreRecords':
                     await this.storage.restoreRecords(message.data as Transcript[]);
+                    await this.updateDaysWithMessages();
                     await this.syncTranscripts();
                     break;
 
@@ -46,11 +48,7 @@ class BackgroundMessageHandler {
                     return;
 
                 case 'get-days-with-messages':
-                   const days = await this.storage.getDaysWithMessages();
-                   chrome.runtime.sendMessage({
-                    action: 'days-with-messages',
-                    data: days
-                   })
+                    await this.updateDaysWithMessages();
                     return;
 
                 case 'set-current-date':
@@ -68,6 +66,14 @@ class BackgroundMessageHandler {
                 error: 'Failed to process request'
             });
         }
+    }
+
+    private async updateDaysWithMessages(): Promise<void> {
+        const days = await this.storage.getDaysWithMessages();
+        chrome.runtime.sendMessage({
+            action: 'days-with-messages',
+            data: days
+        });
     }
 }
 
