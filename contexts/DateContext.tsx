@@ -21,7 +21,6 @@ export const DateProvider = ({ children }) => {
 
     useEffect(() => {
         const handleMessage = (message) => {
-            console.log('DateContext received message:', message);
             if (message.action === 'jump-to-date' && message.date) {
                 const newDate = dayjs(Number(message.date));
                 console.log('DateContext setting new date:', newDate.format('YYYY-MM-DD'));
@@ -44,4 +43,4 @@ export const DateProvider = ({ children }) => {
     );
 };
 
-export const useDateContext = () => useContext(DateContext); 
+export const useDateContext = () => useContext(DateContext);
