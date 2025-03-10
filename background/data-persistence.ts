@@ -13,7 +13,7 @@ class BackgroundMessageHandler {
     private storage = StorageFactory.getInstance().getProvider();
 
     private async syncTranscripts(date?: Dayjs): Promise<void> {
-        const records = await this.storage.getRecords(date);    
+        const records = await this.storage.getRecords(date);
         console.log('background.js', 'syncTranscripts', records)
         chrome.runtime.sendMessage({
             action: 'refresh-transcripts',
@@ -39,7 +39,7 @@ class BackgroundMessageHandler {
                 case 'restoreRecords':
                     await this.storage.restoreRecords(message.data as Transcript[]);
                     await this.updateDaysWithMessages();
-                    
+
                     // 获取最新记录的日期并设置为当前日期
                     const records = message.data as Transcript[];
                     if (records.length > 0) {
@@ -47,7 +47,7 @@ class BackgroundMessageHandler {
                         const latestDate = dayjs(latestRecord.timestamp);
                         await this.storage.setCurrentDate(latestDate);
                         await this.syncTranscripts(latestDate);
-                        
+                        await this.updateDaysWithMessages();
                         // 延迟发送跳转消息，确保前端已经准备好
                         setTimeout(() => {
                             console.log('Sending jump-to-date message:', latestDate.valueOf());

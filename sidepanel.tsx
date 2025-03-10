@@ -36,7 +36,6 @@ interface CustomErrorEvent extends Event {
 
 const SidePanel = () => {
     const [messageApi, contextHolder] = message.useMessage();
-    const { selectedDate, setSelectedDate } = useDateContext();
     const [current, setCurrent] = useState('captions');
     const [loading] = useLoading();
 
@@ -63,7 +62,7 @@ const SidePanel = () => {
                 setCurrent('captions');
             }
         };
-        
+
         chrome.runtime.onMessage.addListener(handleMessage);
         return () => {
             chrome.runtime.onMessage.removeListener(handleMessage);

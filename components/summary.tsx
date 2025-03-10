@@ -16,14 +16,37 @@ interface CardItem {
     fetchComplete: boolean;
 }
 
+class MarkdownErrorBoundary extends React.Component<
+    { children: React.ReactNode, fallback: React.ReactNode },
+    { hasError: boolean }
+> {
+    constructor(props: { children: React.ReactNode, fallback: React.ReactNode }) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError() {
+        return { hasError: true };
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return this.props.fallback;
+        }
+
+        return this.props.children;
+    }
+}
+
 const Summary = (props) => {
     const [requesting, setRequesting] = useState(false);
     const container = useRef(null);
     const [messageApi, contextHolder] = message.useMessage();
     const [cardData, setCardData] = useState<CardItem[]>([]);
     const { selectedDate } = useDateContext();
+    const [markdownErrors, setMarkdownErrors] = useState<Record<string, boolean>>({});
 
-    const handleQuestion = async (question = 'please summary the meeting') => {
+    const handleQuestion = async (question = 'please summary the meeting with html table') => {
         const recordedContents = await getMeetingCaptions(selectedDate);
         if (recordedContents.length === 0) {
             messageApi.open({
@@ -65,6 +88,13 @@ const Summary = (props) => {
         }
     },[cardData])
 
+    const handleMarkdownError = (itemId: string) => {
+        setMarkdownErrors(prev => ({
+            ...prev,
+            [itemId]: true
+        }));
+    };
+
     return <>
         <div className={`summaryContainer ${!cardData.length &&  'no-data'}`} ref={container}>
             {contextHolder}
@@ -84,9 +114,11 @@ const Summary = (props) => {
                             className={'card-container'}
                         >
                             <div className="summary-container">
-                                <ReactMarkdown>
-                                    {item.answer}
-                                </ReactMarkdown>
+                                <MarkdownErrorBoundary
+                                    fallback={<div dangerouslySetInnerHTML={{ __html: item.answer }} />}
+                                >
+                                    <ReactMarkdown>{item.answer}</ReactMarkdown>
+                                </MarkdownErrorBoundary>
                             </div>
                         </Card>
                     </Spin>
@@ -104,7 +136,7 @@ const Summary = (props) => {
                 enterButton="Search"
                 size="large"
                 onSearch={(v) => {
-                    handleQuestion(v === '' ? 'please summary the meeting' : v);
+                    handleQuestion(v === '' ? 'please summary the meeting with html table' : v);
                 }}
             />
         </div>
