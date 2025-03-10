@@ -4,6 +4,7 @@ import googleAITools from "./utils/google-AI";
 import getAPIkey from "./utils/getAPIkey";
 import {Alert, Modal, Tabs, Button} from "antd";
 import type { TabsProps } from 'antd';
+import Account from "~components/Account";
 
 const Options = () => {
     const [apiKey, setApiKey] = useState('');
@@ -81,13 +82,7 @@ const Options = () => {
         </div>
     );
 
-    const ActionContent = () => (
-        <div className="action-container">
-            <Button type="primary" size="large">
-                Action Button
-            </Button>
-        </div>
-    );
+
 
     const items: TabsProps['items'] = [
         {
@@ -97,8 +92,8 @@ const Options = () => {
         },
         {
             key: '2',
-            label: 'Actions',
-            children: <ActionContent />,
+            label: 'Account',
+            children: <Account />,
         },
     ];
 
