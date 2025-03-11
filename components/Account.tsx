@@ -88,22 +88,31 @@ const Account = () => {
             // 获取存储提供者
             const storage = StorageFactory.getInstance().getProvider();
             
-            // 设置当前日期
-            await storage.setCurrentDate(date);
-            
             // 确认是否覆盖本地记录
             Modal.confirm({
                 title: 'Restore Backup',
                 content: `This will overwrite any existing chat records for ${dateStr}. Continue?`,
                 onOk: async () => {
                     try {
-                        // 删除该日期的现有记录
-                        await storage.deleteRecords(date);
+                        // 设置当前日期以确保记录被正确存储
+                        await storage.setCurrentDate(date);
                         
-                        // 恢复备份记录
-                        await storage.restoreRecords(fileContent);
-                        
-                        message.success(`Successfully restored chat records for ${dateStr}`);
+                        // 只恢复特定日期的记录
+                        if (Array.isArray(fileContent)) {
+                            // 使用后台消息处理器恢复记录，并传递日期参数
+                            chrome.runtime.sendMessage({
+                                action: 'restoreRecords',
+                                data: fileContent,
+                                date: date.valueOf() // 转换为时间戳
+                            });
+                            
+                            message.success(`Successfully restored chat records for ${dateStr}`);
+                            
+                            // 打开侧边面板
+                            chrome.runtime.sendMessage({ action: "openSidePanel" });
+                        } else {
+                            message.error('Invalid backup file format');
+                        }
                     } catch (error) {
                         console.error('Error restoring records:', error);
                         message.error('Failed to restore chat records');

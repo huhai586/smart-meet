@@ -297,7 +297,15 @@ const Sync = () => {
 
       for (const data of validData) {
         try {
-          await storage.restoreRecords(data.records)
+          // 使用chrome.runtime.sendMessage来恢复记录，确保每个日期的记录都能正确恢复
+          chrome.runtime.sendMessage({
+            action: 'restoreRecords',
+            data: data.records,
+            date: dayjs(data.date).valueOf()
+          });
+          
+          // 等待一段时间，确保记录已经被恢复
+          await new Promise(resolve => setTimeout(resolve, 500));
           
           const verificationRecords = await storage.getRecords(dayjs(data.date))
           if (!verificationRecords || verificationRecords.length === 0) {
@@ -329,6 +337,8 @@ const Sync = () => {
             date: dayjs(restoredDate).valueOf()
           })
         }, 1000)
+      } else if (mergedDates.size > 1) {
+        message.info('Multiple dates restored. You can view them in the date picker.')
       }
 
       if (restoredCount > 0) {

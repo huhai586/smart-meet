@@ -12,8 +12,50 @@ export class IndexedDBProvider implements StorageProvider {
         this.dbName = dbName;
         this.storeName = storeName;
     }
-    restoreRecords(records: Transcript[]): Promise<void> {
-        throw new Error('Method not implemented.');
+    async restoreRecords(records: Transcript[], date?: Dayjs): Promise<void> {
+        try {
+            const store = await this.getStore('readwrite');
+            
+            if (date) {
+                // 如果指定了日期，只恢复该日期的记录
+                const dateKey = date.format('YYYY-MM-DD');
+                const dateRecords = records.filter(record => {
+                    const recordDate = dayjs(record.timestamp).format('YYYY-MM-DD');
+                    return recordDate === dateKey;
+                });
+                
+                // 先删除该日期的现有记录
+                await this.deleteRecords(date);
+                
+                // 添加新记录
+                return new Promise((resolve, reject) => {
+                    const transaction = store.transaction;
+                    
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = () => reject(new StorageError('Failed to restore records'));
+                    
+                    dateRecords.forEach(record => {
+                        store.put(record);
+                    });
+                });
+            } else {
+                // 如果没有指定日期，恢复所有记录
+                await this.deleteRecords(); // 清空所有记录
+                
+                return new Promise((resolve, reject) => {
+                    const transaction = store.transaction;
+                    
+                    transaction.oncomplete = () => resolve();
+                    transaction.onerror = () => reject(new StorageError('Failed to restore records'));
+                    
+                    records.forEach(record => {
+                        store.put(record);
+                    });
+                });
+            }
+        } catch (error) {
+            throw new StorageError('Failed to restore records', error as Error);
+        }
     }
 
     private async initDB(): Promise<void> {
@@ -169,5 +211,10 @@ export class IndexedDBProvider implements StorageProvider {
     
     private isSameDay(date1: Dayjs, date2: Dayjs): boolean {
         return date1.format('YYYY-MM-DD') === date2.format('YYYY-MM-DD');
+    }
+
+    async setCurrentDate(date: Dayjs): Promise<void> {
+        // IndexedDBProvider 不需要跟踪当前日期，这个方法是为了满足接口要求
+        return Promise.resolve();
     }
 } 

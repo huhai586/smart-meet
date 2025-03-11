@@ -118,11 +118,39 @@ export class MemoryStorageProvider implements StorageProvider {
         await this.initializeFromStorage();
     }
 
-    async restoreRecords(records: Transcript[]): Promise<void> {
-        this.memoryCache.clear();
-        await this.indexedDBProvider.deleteRecords();
-        await this.indexedDBProvider.addOrUpdateRecords(records);
-        await this.initializeFromStorage();
+    async restoreRecords(records: Transcript[], date?: Dayjs): Promise<void> {
+        try {
+            if (date) {
+                // 如果指定了日期，只恢复该日期的记录
+                const dateKey = date.format('YYYY-MM-DD');
+                const dateRecords = records.filter(record => {
+                    const recordDate = dayjs(record.timestamp).format('YYYY-MM-DD');
+                    return recordDate === dateKey;
+                });
+                
+                // 删除该日期的现有记录
+                await this.deleteRecords(date);
+                
+                // 添加新记录
+                if (dateRecords.length > 0) {
+                    await this.indexedDBProvider.addOrUpdateRecords(dateRecords);
+                    
+                    // 如果是当前日期，更新内存缓存
+                    if (this.currentDate.isSame(date, 'day')) {
+                        this.memoryCache.set(dateKey, dateRecords);
+                    }
+                }
+            } else {
+                // 如果没有指定日期，恢复所有记录（原有行为）
+                this.memoryCache.clear();
+                await this.indexedDBProvider.deleteRecords();
+                await this.indexedDBProvider.addOrUpdateRecords(records);
+                await this.initializeFromStorage();
+            }
+        } catch (error) {
+            console.error('Error restoring records:', error);
+            throw error;
+        }
     }
 
     async getDaysWithMessages() {

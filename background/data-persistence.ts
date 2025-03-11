@@ -6,7 +6,7 @@ interface MessageData {
     type?: string;
     action: 'clear' | 'addOrUpdateRecords' | 'get-transcripts' | 'restoreRecords' | 'get-days-with-messages' | 'set-current-date';
     data?: Transcript | Transcript[];
-    date?: Dayjs;
+    date?: Dayjs | number | string;
 }
 
 class BackgroundMessageHandler {
@@ -37,33 +37,48 @@ class BackgroundMessageHandler {
                     break;
 
                 case 'restoreRecords':
-                    await this.storage.restoreRecords(message.data as Transcript[]);
+                    // 检查是否有指定日期
+                    const restoreDate = message.date ? dayjs(message.date) : undefined;
+                    await this.storage.restoreRecords(message.data as Transcript[], restoreDate);
                     await this.updateDaysWithMessages();
 
-                    // 获取最新记录的日期并设置为当前日期
-                    const records = message.data as Transcript[];
-                    if (records.length > 0) {
-                        const latestRecord = records[records.length - 1];
-                        const latestDate = dayjs(latestRecord.timestamp);
-                        await this.storage.setCurrentDate(latestDate);
-                        await this.syncTranscripts(latestDate);
-                        await this.updateDaysWithMessages();
+                    if (restoreDate) {
+                        // 如果有指定日期，使用该日期
+                        await this.storage.setCurrentDate(restoreDate);
+                        await this.syncTranscripts(restoreDate);
                         // 延迟发送跳转消息，确保前端已经准备好
                         setTimeout(() => {
-                            console.log('Sending jump-to-date message:', latestDate.valueOf());
+                            console.log('Sending jump-to-date message for specified date:', restoreDate.valueOf());
                             chrome.runtime.sendMessage({
                                 action: 'jump-to-date',
-                                date: latestDate.valueOf()
+                                date: restoreDate.valueOf()
                             });
                         }, 500); // 添加500ms延迟
                     } else {
-                        await this.syncTranscripts();
+                        // 没有指定日期时，使用最新记录的日期
+                        const records = message.data as Transcript[];
+                        if (records.length > 0) {
+                            const latestRecord = records[records.length - 1];
+                            const latestDate = dayjs(latestRecord.timestamp);
+                            await this.storage.setCurrentDate(latestDate);
+                            await this.syncTranscripts(latestDate);
+                            // 延迟发送跳转消息，确保前端已经准备好
+                            setTimeout(() => {
+                                console.log('Sending jump-to-date message for latest record:', latestDate.valueOf());
+                                chrome.runtime.sendMessage({
+                                    action: 'jump-to-date',
+                                    date: latestDate.valueOf()
+                                });
+                            }, 500); // 添加500ms延迟
+                        } else {
+                            await this.syncTranscripts();
+                        }
                     }
                     break;
 
                 case 'get-transcripts':
-                    const date = message.date ? dayjs(message.date) : undefined;
-                    await this.syncTranscripts(date);
+                    const transcriptDate = message.date ? dayjs(message.date) : undefined;
+                    await this.syncTranscripts(transcriptDate);
                     return;
 
                 case 'get-days-with-messages':
@@ -73,7 +88,7 @@ class BackgroundMessageHandler {
                 case 'set-current-date':
                     if (message.date) {
                         await this.storage.setCurrentDate(dayjs(message.date));
-                        await this.syncTranscripts(message.date);
+                        await this.syncTranscripts(dayjs(message.date));
                     }
                     return;
             }

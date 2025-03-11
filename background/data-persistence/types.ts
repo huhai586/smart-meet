@@ -5,7 +5,7 @@ export interface StorageProvider {
     addOrUpdateRecord(record: Transcript, successCallback?: () => void): Promise<void>;
     getRecords(date?: Dayjs): Promise<Transcript[]>;
     deleteRecords(date?: Dayjs): Promise<void>;
-    restoreRecords(records: Transcript[]): Promise<void>;
+    restoreRecords(records: Transcript[], date?: Dayjs): Promise<void>;
     getDaysWithMessages(): Promise<string[]>;
     setCurrentDate(date: Dayjs): Promise<void>;
 }
