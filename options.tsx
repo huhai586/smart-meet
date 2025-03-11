@@ -2,10 +2,12 @@ import {useState, useEffect} from "react";
 import './styles/options.scss';
 import googleAITools from "./utils/google-AI";
 import getAPIkey from "./utils/getAPIkey";
-import {Alert, Modal, Tabs, Button} from "antd";
+import {Alert, Modal, Tabs} from "antd";
 import type { TabsProps } from 'antd';
 import Account from "~components/Account";
 import Sync from '~components/Sync';
+import LocalStorageViewer from '~components/LocalStorageViewer';
+import { DatabaseOutlined } from '@ant-design/icons';
 
 const Options = () => {
     const [apiKey, setApiKey] = useState('');
@@ -83,8 +85,6 @@ const Options = () => {
         </div>
     );
 
-
-
     const items: TabsProps['items'] = [
         {
             key: '1',
@@ -101,6 +101,15 @@ const Options = () => {
             label: 'Sync',
             children: <Sync />,
         },
+        {
+            key: '4',
+            label: (
+                <span>
+                    <DatabaseOutlined /> Local Storage
+                </span>
+            ),
+            children: <LocalStorageViewer />,
+        },
     ];
 
     return (
@@ -113,6 +122,6 @@ const Options = () => {
             />
         </div>
     );
-}
+};
 
 export default Options;
