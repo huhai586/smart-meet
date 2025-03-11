@@ -1,0 +1,29 @@
+.update-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+
+    .ant-card {
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .ant-typography {
+        text-align: center;
+    }
+
+    .ant-list {
+        margin: 24px 0;
+        text-align: left;
+    }
+
+    .action-buttons {
+        margin-top: 32px;
+        display: flex;
+        justify-content: center;
+
+        .ant-btn {
+            min-width: 120px;
+        }
+    }
+} 

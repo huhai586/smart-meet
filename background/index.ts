@@ -1,3 +1,4 @@
+import { VersionCheck } from '../utils/version-check';
 import initialDataPersistence from "./data-persistence";
 import { updateBadgeText} from "./set-badge-text";
 
@@ -17,6 +18,20 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
 updateBadgeText();
 initialDataPersistence();
+
+// 检查版本更新
+chrome.runtime.onInstalled.addListener(async (details) => {
+    if (details.reason === 'update') {
+        const shouldShowUpdate = await VersionCheck.checkForUpdate();
+        if (shouldShowUpdate) {
+            // 打开更新页面
+            chrome.tabs.create({
+                url: chrome.runtime.getURL('pages/update.html')
+            });
+        }
+    }
+});
+
 export {}
 
 console.log(
