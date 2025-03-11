@@ -2,9 +2,12 @@ import {useState, useEffect} from "react";
 import './styles/options.scss';
 import googleAITools from "./utils/google-AI";
 import getAPIkey from "./utils/getAPIkey";
-import {Alert, Modal, Tabs, Button} from "antd";
+import {Alert, Modal, Tabs} from "antd";
 import type { TabsProps } from 'antd';
 import Account from "~components/Account";
+import Sync from '~components/Sync';
+import LocalStorageViewer from '~components/LocalStorageViewer';
+import { DatabaseOutlined } from '@ant-design/icons';
 
 const Options = () => {
     const [apiKey, setApiKey] = useState('');
@@ -59,8 +62,8 @@ const Options = () => {
             <Alert
                 banner={true}
                 description={'You can obtain the API key from https://aistudio.google.com/apikey'}
-                message="Please enter your Gemini API key to easily use it for AI tasks." 
-                type="info"  
+                message="Please enter your Gemini API key to easily use it for AI tasks."
+                type="info"
                 className={'options-alert'}
             />
             <form onSubmit={handleSubmit}>
@@ -82,8 +85,6 @@ const Options = () => {
         </div>
     );
 
-
-
     const items: TabsProps['items'] = [
         {
             key: '1',
@@ -94,6 +95,20 @@ const Options = () => {
             key: '2',
             label: 'Account',
             children: <Account />,
+        },
+        {
+            key: '3',
+            label: 'Sync',
+            children: <Sync />,
+        },
+        {
+            key: '4',
+            label: (
+                <span>
+                    <DatabaseOutlined /> Local Storage
+                </span>
+            ),
+            children: <LocalStorageViewer />,
         },
     ];
 
@@ -107,6 +122,6 @@ const Options = () => {
             />
         </div>
     );
-}
+};
 
 export default Options;
