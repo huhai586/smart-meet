@@ -69,8 +69,8 @@ const ContentMonitor = () => {
           </div>
 
           <div className="flex-column" onClick={handleSetting}>
-              <div className={'height26'}><b>Set API key</b></div>
-              <span>set the gemini API key for the AI task</span>
+              <div className={'height26'}><b>Seeting</b></div>
+              <span>config AI, Sync data and so on</span>
           </div>
 
 

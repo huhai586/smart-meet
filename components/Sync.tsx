@@ -37,38 +37,51 @@ const Sync = () => {
     skipped: [],
     totalMessages: 0
   })
+  const [resolveConflict, setResolveConflict] = useState<((value: boolean) => void) | null>(null)
 
-  const handleConflictResolution = async (overwrite) => {
-    setConflictModalVisible(false)
-    if (overwrite) {
-      await uploadFile(currentConflict.folderId, currentConflict.date, currentConflict.data, currentConflict.existingFileId)
-      setSyncSummary(prev => ({
-        ...prev,
-        uploaded: [...new Set([...prev.uploaded, currentConflict.date])],
-        totalMessages: prev.totalMessages + currentConflict.data.length
-      }))
-    } else {
-      setSyncSummary(prev => ({
-        ...prev,
-        skipped: [...new Set([...prev.skipped, currentConflict.date])]
-      }))
+  const handleConflictResolution = async (overwrite: boolean) => {
+    try {
+      if (overwrite) {
+        await uploadFile(currentConflict.folderId, currentConflict.date, currentConflict.data, currentConflict.existingFileId)
+        setSyncSummary(prev => ({
+          ...prev,
+          uploaded: [...new Set([...prev.uploaded, currentConflict.date])],
+          totalMessages: prev.totalMessages + currentConflict.data.length
+        }))
+      } else {
+        setSyncSummary(prev => ({
+          ...prev,
+          skipped: [...new Set([...prev.skipped, currentConflict.date])]
+        }))
+      }
+    } finally {
+      setConflictModalVisible(false)
+      setCurrentConflict(null)
+      if (resolveConflict) {
+        resolveConflict(overwrite)
+        setResolveConflict(null)
+      }
     }
-    setCurrentConflict(null)
   }
 
   const showSyncSummary = () => {
+    console.log('Showing sync summary:', syncSummary)
     Modal.success({
       title: 'Sync Summary',
       width: 500,
       content: (
         <div>
           <p>Successfully uploaded {syncSummary.totalMessages} messages.</p>
-          <p>Synced dates ({syncSummary.uploaded.length}):</p>
-          <ul>
-            {syncSummary.uploaded.map(date => (
-              <li key={date}>{date}</li>
-            ))}
-          </ul>
+          {syncSummary.uploaded.length > 0 && (
+            <>
+              <p>Synced dates ({syncSummary.uploaded.length}):</p>
+              <ul>
+                {syncSummary.uploaded.map(date => (
+                  <li key={date}>{date}</li>
+                ))}
+              </ul>
+            </>
+          )}
           {syncSummary.skipped.length > 0 && (
             <>
               <p>Skipped dates ({syncSummary.skipped.length}):</p>
@@ -78,6 +91,9 @@ const Sync = () => {
                 ))}
               </ul>
             </>
+          )}
+          {syncSummary.uploaded.length === 0 && syncSummary.skipped.length === 0 && (
+            <p>No files were processed.</p>
           )}
         </div>
       )
@@ -93,16 +109,20 @@ const Sync = () => {
         totalMessages: 0
       })
       
-      // 1. 检查文件夹是否存在
       const folderId = await checkAndCreateFolder()
       console.log('Folder ID:', folderId)
       
-      // 2. 获取本地聊天记录
       const storage = StorageFactory.getInstance().getProvider()
       const days = await storage.getDaysWithMessages()
+      console.log('Available days:', days)
+      
+      if (!days || days.length === 0) {
+        message.info("No chat records found to sync.")
+        return
+      }
+      
       const allRecords: Records = {}
       
-      // 获取所有日期的聊天记录，使用Set去重
       const uniqueDays = [...new Set(days)]
       for (const day of uniqueDays) {
         const date = dayjs(day)
@@ -112,54 +132,83 @@ const Sync = () => {
         }
       }
       
-      console.log('Chat history:', allRecords)
+      console.log('Chat history:', Object.keys(allRecords).length, 'days with records')
       
-      // 3. 上传到 Google Drive
+      if (Object.keys(allRecords).length === 0) {
+        message.info("No chat records found to sync.")
+        return
+      }
+      
+      let tempSummary = {
+        uploaded: [] as string[],
+        skipped: [] as string[],
+        totalMessages: 0
+      }
+      
       for (const [date, data] of Object.entries(allRecords)) {
-        const existingFile = await checkExistingFile(folderId, date)
-        
-        if (existingFile) {
-          if (alwaysOverwrite) {
-            await uploadFile(folderId, date, data, existingFile.id)
-            setSyncSummary(prev => ({
-              ...prev,
-              uploaded: [...new Set([...prev.uploaded, date])],
-              totalMessages: prev.totalMessages + data.length
-            }))
-          } else if (alwaysSkip) {
-            setSyncSummary(prev => ({
-              ...prev,
-              skipped: [...new Set([...prev.skipped, date])]
-            }))
+        try {
+          console.log('Processing date:', date, 'with data length:', data.length)
+          const existingFile = await checkExistingFile(folderId, date)
+          console.log('Existing file for date:', date, existingFile ? 'exists' : 'does not exist')
+          
+          if (existingFile) {
+            if (alwaysOverwrite) {
+              console.log('Always overwrite is set, overwriting file for date:', date)
+              const result = await uploadFile(folderId, date, data, existingFile.id)
+              console.log('Upload result:', result)
+              tempSummary.uploaded.push(date)
+              tempSummary.totalMessages += data.length
+            } else if (alwaysSkip) {
+              console.log('Always skip is set, skipping file for date:', date)
+              tempSummary.skipped.push(date)
+            } else {
+              console.log('Showing conflict dialog for date:', date)
+              const userResponse = new Promise<boolean>((resolve) => {
+                setResolveConflict(() => resolve)
+                setCurrentConflict({
+                  folderId,
+                  date,
+                  data,
+                  existingFileId: existingFile.id
+                })
+                setConflictModalVisible(true)
+              })
+              
+              const shouldOverwrite = await userResponse
+              console.log('User response for date:', date, 'shouldOverwrite:', shouldOverwrite)
+              
+              if (shouldOverwrite) {
+                console.log('User chose to overwrite file for date:', date)
+                const result = await uploadFile(folderId, date, data, existingFile.id)
+                console.log('Upload result:', result)
+                tempSummary.uploaded.push(date)
+                tempSummary.totalMessages += data.length
+              } else {
+                console.log('User chose to skip file for date:', date)
+                tempSummary.skipped.push(date)
+              }
+            }
           } else {
-            setCurrentConflict({
-              folderId,
-              date,
-              data,
-              existingFileId: existingFile.id
-            })
-            setConflictModalVisible(true)
-            // 等待用户响应
-            await new Promise(resolve => {
-              const checkInterval = setInterval(() => {
-                if (!conflictModalVisible) {
-                  clearInterval(checkInterval)
-                  resolve(null)
-                }
-              }, 100)
-            })
+            console.log('No existing file, creating new file for date:', date)
+            const result = await uploadFile(folderId, date, data)
+            console.log('Upload result:', result)
+            tempSummary.uploaded.push(date)
+            tempSummary.totalMessages += data.length
           }
-        } else {
-          await uploadFile(folderId, date, data)
-          setSyncSummary(prev => ({
-            ...prev,
-            uploaded: [...new Set([...prev.uploaded, date])],
-            totalMessages: prev.totalMessages + data.length
-          }))
+        } catch (error) {
+          console.error('Error processing date:', date, error)
+          message.error(`Failed to process date ${date}: ${error.message}`)
         }
       }
       
-      showSyncSummary()
+      console.log('Final tempSummary:', JSON.stringify(tempSummary))
+      
+      if (tempSummary.uploaded.length === 0 && tempSummary.skipped.length === 0) {
+        message.info("No files were processed during sync.")
+        return
+      }
+      
+      showSyncSummaryWithData(tempSummary)
       message.success("Successfully synced with Google Drive!")
     } catch (error) {
       console.error("Sync failed:", error)
@@ -169,23 +218,55 @@ const Sync = () => {
     }
   }
 
+  const showSyncSummaryWithData = (summary: SyncSummary) => {
+    console.log('Showing sync summary with data:', summary)
+    Modal.success({
+      title: 'Sync Summary',
+      width: 500,
+      content: (
+        <div>
+          <p>Successfully uploaded {summary.totalMessages} messages.</p>
+          {summary.uploaded.length > 0 && (
+            <>
+              <p>Synced dates ({summary.uploaded.length}):</p>
+              <ul>
+                {summary.uploaded.map(date => (
+                  <li key={date}>{date}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          {summary.skipped.length > 0 && (
+            <>
+              <p>Skipped dates ({summary.skipped.length}):</p>
+              <ul>
+                {summary.skipped.map(date => (
+                  <li key={date}>{date}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          {summary.uploaded.length === 0 && summary.skipped.length === 0 && (
+            <p>No files were processed.</p>
+          )}
+        </div>
+      )
+    })
+  }
+
   const handleRestore = async () => {
     try {
       setRestoring(true)
       
-      // 1. 获取Google Drive文件夹ID
       const folderId = await checkAndCreateFolder()
       
-      // 2. 获取所有备份文件
       const backupFiles = await listBackupFiles(folderId)
       
-      // 3. 获取本地存储实例
       const storage = StorageFactory.getInstance().getProvider()
       let restoredCount = 0
       let mergedDates = new Set<string>()
       let failedDates = new Set<string>()
       
-      // 4. 首先处理所有文件的读取和合并，但不立即存储
       const processedData = await Promise.all(backupFiles.map(async (file) => {
         try {
           const fileContent = await downloadFile(file.id)
@@ -211,22 +292,18 @@ const Sync = () => {
         }
       }))
 
-      // 5. 按日期顺序处理数据存储
       const validData = processedData.filter(data => data !== null)
       validData.sort((a, b) => dayjs(a.date).valueOf() - dayjs(b.date).valueOf())
 
-      // 6. 顺序存储数据并验证
       for (const data of validData) {
         try {
           await storage.restoreRecords(data.records)
           
-          // 验证数据是否成功存储
           const verificationRecords = await storage.getRecords(dayjs(data.date))
           if (!verificationRecords || verificationRecords.length === 0) {
             throw new Error(`Verification failed: No records found after restore for date ${data.date}`)
           }
           
-          // 验证记录数量
           if (verificationRecords.length !== data.records.length) {
             throw new Error(`Verification failed: Expected ${data.records.length} records but found ${verificationRecords.length} for date ${data.date}`)
           }
@@ -240,12 +317,10 @@ const Sync = () => {
         }
       }
       
-      // 7. 通知后台更新数据
       chrome.runtime.sendMessage({
         action: 'get-days-with-messages'
       })
 
-      // 8. 如果只有一个成功的日期，自动跳转
       if (mergedDates.size === 1) {
         const restoredDate = [...mergedDates][0]
         setTimeout(() => {
@@ -256,7 +331,6 @@ const Sync = () => {
         }, 1000)
       }
 
-      // 9. 显示结果
       if (restoredCount > 0) {
         Modal.success({
           title: 'Restore Summary',
@@ -403,147 +477,269 @@ const Sync = () => {
 
 export default Sync
 
-// 检查并创建文件夹
 async function checkAndCreateFolder() {
-  const token = await chrome.identity.getAuthToken({ interactive: true })
-  
-  // 首先查找是否存在文件夹
-  const searchResponse = await fetch(
-    `https://www.googleapis.com/drive/v3/files?q=name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
-    {
-      headers: {
-        Authorization: `Bearer ${token.token}`
+  try {
+    // 获取认证令牌
+    const tokenData = await new Promise<{token: string}>((resolve, reject) => {
+      chrome.identity.getAuthToken({ interactive: true }, (token) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+        } else {
+          resolve({ token });
+        }
+      });
+    });
+    
+    console.log('Got auth token for folder check');
+    
+    // 首先查找是否存在文件夹
+    const searchResponse = await fetch(
+      `https://www.googleapis.com/drive/v3/files?q=name='${FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenData.token}`
+        }
       }
+    )
+    
+    if (!searchResponse.ok) {
+      const errorText = await searchResponse.text()
+      throw new Error(`Failed to search for folder: ${errorText}`)
     }
-  )
-  
-  const searchResult = await searchResponse.json()
-  
-  // 如果文件夹存在，返回其 ID
-  if (searchResult.files && searchResult.files.length > 0) {
-    return searchResult.files[0].id
+    
+    const searchResult = await searchResponse.json()
+    
+    // 如果文件夹存在，返回其 ID
+    if (searchResult.files && searchResult.files.length > 0) {
+      return searchResult.files[0].id
+    }
+    
+    // 如果不存在，创建新文件夹
+    const createResponse = await fetch(
+      "https://www.googleapis.com/drive/v3/files",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${tokenData.token}`
+        },
+        body: JSON.stringify({
+          name: FOLDER_NAME,
+          mimeType: "application/vnd.google-apps.folder"
+        })
+      }
+    )
+    
+    if (!createResponse.ok) {
+      const errorText = await createResponse.text()
+      throw new Error(`Failed to create folder: ${errorText}`)
+    }
+    
+    const createResult = await createResponse.json()
+    return createResult.id
+  } catch (error) {
+    console.error('Error in checkAndCreateFolder:', error)
+    throw error
   }
-  
-  // 如果不存在，创建新文件夹
-  const createResponse = await fetch(
-    "https://www.googleapis.com/drive/v3/files",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token.token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: FOLDER_NAME,
-        mimeType: "application/vnd.google-apps.folder"
-      })
-    }
-  )
-  
-  const folder = await createResponse.json()
-  return folder.id
 }
 
-// 检查文件是否存在
 async function checkExistingFile(folderId, date) {
-  const token = await chrome.identity.getAuthToken({ interactive: true })
-  const fileName = `chat_history_${date}.json`
-  
-  const response = await fetch(
-    `https://www.googleapis.com/drive/v3/files?q=name='${fileName}' and '${folderId}' in parents and trashed=false`,
-    {
-      headers: {
-        Authorization: `Bearer ${token.token}`
+  try {
+    // 获取认证令牌
+    const tokenData = await new Promise<{token: string}>((resolve, reject) => {
+      chrome.identity.getAuthToken({ interactive: true }, (token) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+        } else {
+          resolve({ token });
+        }
+      });
+    });
+    
+    console.log('Got auth token for file check');
+    
+    const response = await fetch(
+      `https://www.googleapis.com/drive/v3/files?q=name='${date}.json' and '${folderId}' in parents and trashed=false`,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenData.token}`
+        }
       }
+    )
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`Failed to check for existing file: ${errorText}`)
     }
-  )
-  
-  const result = await response.json()
-  return result.files && result.files.length > 0 ? result.files[0] : null
+    
+    const result = await response.json()
+    
+    if (result.files && result.files.length > 0) {
+      return result.files[0]
+    }
+    
+    return null
+  } catch (error) {
+    console.error('Error in checkExistingFile:', error)
+    throw error
+  }
 }
 
-// 上传或更新文件
 async function uploadFile(folderId, date, data, existingFileId = null) {
-  const token = await chrome.identity.getAuthToken({ interactive: true })
-  const fileName = `chat_history_${date}.json`
-  const fileContent = JSON.stringify(data, null, 2)
-  
-  const metadata = {
-    name: fileName,
-    mimeType: 'application/json'
-  }
-  
-  if (!existingFileId) {
-    metadata['parents'] = [folderId]
-  }
-  
-  const form = new FormData()
-  form.append(
-    'metadata',
-    new Blob([JSON.stringify(metadata)], { type: 'application/json' })
-  )
-  form.append(
-    'file',
-    new Blob([fileContent], { type: 'application/json' })
-  )
-  
-  const url = existingFileId
-    ? `https://www.googleapis.com/upload/drive/v3/files/${existingFileId}?uploadType=multipart`
-    : "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart"
-  
-  const response = await fetch(url, {
-    method: existingFileId ? "PATCH" : "POST",
-    headers: {
-      Authorization: `Bearer ${token.token}`
-    },
-    body: form
-  })
-
-  if (!response.ok) {
-    throw new Error(`Failed to upload file: ${await response.text()}`)
+  try {
+    console.log('Starting upload for date:', date, 'existingFileId:', existingFileId)
+    
+    // 获取认证令牌
+    const tokenData = await new Promise<{token: string}>((resolve, reject) => {
+      chrome.identity.getAuthToken({ interactive: true }, (token) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+        } else {
+          resolve({ token });
+        }
+      });
+    });
+    
+    console.log('Got auth token');
+    
+    // 准备文件元数据
+    const metadata = {
+      name: `${date}.json`,
+      mimeType: 'application/json',
+      parents: existingFileId ? undefined : [folderId]
+    }
+    
+    // 准备文件内容
+    const fileContent = JSON.stringify(data, null, 2)
+    const blob = new Blob([fileContent], { type: 'application/json' })
+    
+    // 创建FormData
+    const formData = new FormData()
+    formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }))
+    formData.append('file', blob)
+    
+    // 上传文件
+    let response
+    if (existingFileId) {
+      // 更新现有文件
+      console.log('Updating existing file:', existingFileId)
+      response = await fetch(
+        `https://www.googleapis.com/upload/drive/v3/files/${existingFileId}?uploadType=multipart`,
+        {
+          method: 'PATCH',
+          headers: {
+            Authorization: `Bearer ${tokenData.token}`
+          },
+          body: formData
+        }
+      )
+    } else {
+      // 创建新文件
+      console.log('Creating new file in folder:', folderId)
+      response = await fetch(
+        'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${tokenData.token}`
+          },
+          body: formData
+        }
+      )
+    }
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('Upload failed:', response.status, errorText)
+      throw new Error(`Upload failed: ${response.status} ${errorText}`)
+    }
+    
+    const result = await response.json()
+    console.log('Upload successful for date:', date, 'File ID:', result.id)
+    return result
+  } catch (error) {
+    console.error('Error in uploadFile:', error)
+    throw error
   }
 }
 
-// 获取备份文件列表
 async function listBackupFiles(folderId: string) {
-  const token = await chrome.identity.getAuthToken({ interactive: true })
-  
-  const response = await fetch(
-    `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and mimeType='application/json' and trashed=false`,
-    {
-      headers: {
-        Authorization: `Bearer ${token.token}`
+  try {
+    // 获取认证令牌
+    const tokenData = await new Promise<{token: string}>((resolve, reject) => {
+      chrome.identity.getAuthToken({ interactive: true }, (token) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+        } else {
+          resolve({ token });
+        }
+      });
+    });
+    
+    console.log('Got auth token for listing backup files');
+    
+    const response = await fetch(
+      `https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents and trashed=false`,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenData.token}`
+        }
       }
+    )
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`Failed to list backup files: ${errorText}`)
     }
-  )
-  
-  const result = await response.json()
-  return result.files || []
+    
+    const result = await response.json()
+    return result.files || []
+  } catch (error) {
+    console.error('Error in listBackupFiles:', error)
+    throw error
+  }
 }
 
-// 下载文件内容
 async function downloadFile(fileId: string) {
-  const token = await chrome.identity.getAuthToken({ interactive: true })
-  
-  const response = await fetch(
-    `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
-    {
-      headers: {
-        Authorization: `Bearer ${token.token}`
+  try {
+    // 获取认证令牌
+    const tokenData = await new Promise<{token: string}>((resolve, reject) => {
+      chrome.identity.getAuthToken({ interactive: true }, (token) => {
+        if (chrome.runtime.lastError) {
+          reject(new Error(chrome.runtime.lastError.message));
+        } else {
+          resolve({ token });
+        }
+      });
+    });
+    
+    console.log('Got auth token for downloading file');
+    
+    const response = await fetch(
+      `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+      {
+        headers: {
+          Authorization: `Bearer ${tokenData.token}`
+        }
       }
+    )
+    
+    if (!response.ok) {
+      const errorText = await response.text()
+      throw new Error(`Failed to download file: ${errorText}`)
     }
-  )
-  
-  return await response.text()
+    
+    return await response.text()
+  } catch (error) {
+    console.error('Error in downloadFile:', error)
+    throw error
+  }
 }
 
-// 合并记录并去重
 function mergeRecords(localRecords: Transcript[], backupRecords: Transcript[]): Transcript[] {
-  // 使用Set来存储唯一的session标识符
   const uniqueSessions = new Set<string>()
   const mergedRecords: Transcript[] = []
   
-  // 处理本地记录
   for (const record of localRecords) {
     if (!uniqueSessions.has(record.session)) {
       uniqueSessions.add(record.session)
@@ -551,7 +747,6 @@ function mergeRecords(localRecords: Transcript[], backupRecords: Transcript[]): 
     }
   }
   
-  // 处理备份记录
   for (const record of backupRecords) {
     if (!uniqueSessions.has(record.session)) {
       uniqueSessions.add(record.session)
@@ -559,6 +754,5 @@ function mergeRecords(localRecords: Transcript[], backupRecords: Transcript[]): 
     }
   }
   
-  // 按时间戳排序
   return mergedRecords.sort((a, b) => a.timestamp - b.timestamp)
 } 

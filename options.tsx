@@ -7,7 +7,12 @@ import type { TabsProps } from 'antd';
 import Account from "~components/Account";
 import Sync from '~components/Sync';
 import LocalStorageViewer from '~components/LocalStorageViewer';
-import { DatabaseOutlined } from '@ant-design/icons';
+import { 
+    ApiOutlined, 
+    UserOutlined, 
+    CloudSyncOutlined, 
+    DatabaseOutlined 
+} from '@ant-design/icons';
 
 const Options = () => {
     const [apiKey, setApiKey] = useState('');
@@ -88,24 +93,40 @@ const Options = () => {
     const items: TabsProps['items'] = [
         {
             key: '1',
-            label: 'API Settings',
+            label: (
+                <span>
+                    <ApiOutlined />
+                    AI Settings
+                </span>
+            ),
             children: <ApiKeyContent />,
         },
         {
             key: '2',
-            label: 'Account',
+            label: (
+                <span>
+                    <UserOutlined />
+                    Account
+                </span>
+            ),
             children: <Account />,
         },
         {
             key: '3',
-            label: 'Sync',
+            label: (
+                <span>
+                    <CloudSyncOutlined />
+                    Google Drive Sync
+                </span>
+            ),
             children: <Sync />,
         },
         {
             key: '4',
             label: (
                 <span>
-                    <DatabaseOutlined /> Local Storage
+                    <DatabaseOutlined />
+                    View Local Storage
                 </span>
             ),
             children: <LocalStorageViewer />,
