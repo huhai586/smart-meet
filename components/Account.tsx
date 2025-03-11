@@ -1,21 +1,35 @@
-import React, { useState } from 'react';
-import { Button, Card, List, message, Upload } from 'antd';
-import { CloudOutlined, UploadOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Button, Card, List, message, Upload, Empty, Spin, Modal, Popconfirm } from 'antd';
+import { UploadOutlined, FolderOutlined, DeleteOutlined, CloudDownloadOutlined } from '@ant-design/icons';
 import { GoogleDriveService } from '../utils/google-drive';
+import { StorageFactory } from '../background/data-persistence/storage-factory';
+import dayjs from 'dayjs';
 import type { UploadFile } from 'antd/es/upload/interface';
 
 const Account = () => {
-    const [files, setFiles] = useState<any[]>([]);
+    const [backupFiles, setBackupFiles] = useState<any[]>([]);
+    const [backupFolder, setBackupFolder] = useState<any>(null);
     const [loading, setLoading] = useState(false);
+    const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
+    const [loadingFileId, setLoadingFileId] = useState<string | null>(null);
     const driveService = GoogleDriveService.getInstance();
 
-    const handleListFiles = async () => {
+    useEffect(() => {
+        loadBackupFolder();
+    }, []);
+
+    const loadBackupFolder = async () => {
         try {
             setLoading(true);
-            const fileList = await driveService.listFiles();
-            setFiles(fileList);
+            const folder = await driveService.getBackupFolder();
+            setBackupFolder(folder);
+            
+            if (folder) {
+                const files = await driveService.listBackupFiles();
+                setBackupFiles(files);
+            }
         } catch (error) {
-            console.error('Error listing files:', error);
+            console.error('Error loading backup folder:', error);
         } finally {
             setLoading(false);
         }
@@ -26,9 +40,9 @@ const Account = () => {
             setLoading(true);
             const success = await driveService.uploadFile(file);
             if (success) {
-                message.success('File uploaded successfully');
+                message.success('File uploaded successfully to backup folder');
                 // 刷新文件列表
-                handleListFiles();
+                loadBackupFolder();
             }
         } catch (error) {
             console.error('Error uploading file:', error);
@@ -38,18 +52,77 @@ const Account = () => {
         return false; // 阻止自动上传
     };
 
+    const handleDeleteFile = async (fileId: string) => {
+        try {
+            setDeletingFileId(fileId);
+            const success = await driveService.deleteFile(fileId);
+            if (success) {
+                message.success('File deleted successfully');
+                // 从列表中移除已删除的文件
+                setBackupFiles(backupFiles.filter(file => file.id !== fileId));
+            }
+        } catch (error) {
+            console.error('Error deleting file:', error);
+        } finally {
+            setDeletingFileId(null);
+        }
+    };
+
+    const handleLoadFile = async (fileId: string, fileName: string) => {
+        try {
+            setLoadingFileId(fileId);
+            
+            // 从文件名中提取日期（假设文件名格式为 YYYY-MM-DD.json）
+            const dateMatch = fileName.match(/(\d{4}-\d{2}-\d{2})\.json/);
+            if (!dateMatch) {
+                message.error('Invalid backup file name format. Expected YYYY-MM-DD.json');
+                return;
+            }
+            
+            const dateStr = dateMatch[1];
+            const date = dayjs(dateStr);
+            
+            // 下载文件内容
+            const fileContent = await driveService.downloadFile(fileId);
+            
+            // 获取存储提供者
+            const storage = StorageFactory.getInstance().getProvider();
+            
+            // 设置当前日期
+            await storage.setCurrentDate(date);
+            
+            // 确认是否覆盖本地记录
+            Modal.confirm({
+                title: 'Restore Backup',
+                content: `This will overwrite any existing chat records for ${dateStr}. Continue?`,
+                onOk: async () => {
+                    try {
+                        // 删除该日期的现有记录
+                        await storage.deleteRecords(date);
+                        
+                        // 恢复备份记录
+                        await storage.restoreRecords(fileContent);
+                        
+                        message.success(`Successfully restored chat records for ${dateStr}`);
+                    } catch (error) {
+                        console.error('Error restoring records:', error);
+                        message.error('Failed to restore chat records');
+                    }
+                },
+                okText: 'Yes, Overwrite',
+                cancelText: 'Cancel',
+            });
+        } catch (error) {
+            console.error('Error loading file:', error);
+            message.error('Failed to load backup file');
+        } finally {
+            setLoadingFileId(null);
+        }
+    };
+
     return (
         <Card title="Google Drive Integration">
             <div style={{ marginBottom: 16 }}>
-                <Button
-                    type="primary"
-                    icon={<CloudOutlined />}
-                    onClick={handleListFiles}
-                    loading={loading}
-                    style={{ marginRight: 16 }}
-                >
-                    List Files
-                </Button>
                 <Upload
                     beforeUpload={handleUpload}
                     showUploadList={false}
@@ -59,18 +132,63 @@ const Account = () => {
                 </Upload>
             </div>
 
-            <List
-                loading={loading}
-                dataSource={files}
-                renderItem={(file) => (
-                    <List.Item>
-                        <List.Item.Meta
-                            title={file.name}
-                            description={`Type: ${file.mimeType} | Modified: ${new Date(file.modifiedTime).toLocaleString()}`}
-                        />
-                    </List.Item>
+            <Spin spinning={loading}>
+                {backupFolder ? (
+                    <div style={{ marginBottom: 16 }}>
+                        <h3>
+                            <FolderOutlined style={{ marginRight: 8 }} />
+                            Backup Folder: {backupFolder.name}
+                        </h3>
+                        <p>Last modified: {new Date(backupFolder.modifiedTime).toLocaleString()}</p>
+                    </div>
+                ) : (
+                    <Empty description="No backup folder found" />
                 )}
-            />
+
+                <h3>Backup Files</h3>
+                {backupFiles.length > 0 ? (
+                    <List
+                        dataSource={backupFiles}
+                        renderItem={(file) => (
+                            <List.Item
+                                actions={[
+                                    <Button
+                                        type="primary"
+                                        icon={<CloudDownloadOutlined />}
+                                        onClick={() => handleLoadFile(file.id, file.name)}
+                                        loading={loadingFileId === file.id}
+                                    >
+                                        Load
+                                    </Button>,
+                                    <Popconfirm
+                                        title="Delete file"
+                                        description={`Are you sure you want to delete "${file.name}"?`}
+                                        onConfirm={() => handleDeleteFile(file.id)}
+                                        okText="Yes"
+                                        cancelText="No"
+                                    >
+                                        <Button 
+                                            type="text" 
+                                            danger 
+                                            icon={<DeleteOutlined />}
+                                            loading={deletingFileId === file.id}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </Popconfirm>
+                                ]}
+                            >
+                                <List.Item.Meta
+                                    title={file.name}
+                                    description={`Type: ${file.mimeType} | Modified: ${new Date(file.modifiedTime).toLocaleString()}`}
+                                />
+                            </List.Item>
+                        )}
+                    />
+                ) : (
+                    <Empty description="No backup files found" />
+                )}
+            </Spin>
         </Card>
     );
 };

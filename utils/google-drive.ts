@@ -1,5 +1,7 @@
 import { message } from 'antd';
 
+const BACKUP_FOLDER_NAME = 'smartMeetbackup';
+
 export class GoogleDriveService {
     private static instance: GoogleDriveService;
     private accessToken: string | null = null;
@@ -41,6 +43,109 @@ export class GoogleDriveService {
         });
     }
 
+    async getBackupFolder(): Promise<any | null> {
+        if (!this.accessToken) {
+            const authenticated = await this.authenticate();
+            if (!authenticated) {
+                throw new Error('Not authenticated');
+            }
+        }
+
+        try {
+            // 查询备份文件夹
+            const response = await fetch(
+                `https://www.googleapis.com/drive/v3/files?q=name='${BACKUP_FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,mimeType,modifiedTime)`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${this.accessToken}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch backup folder');
+            }
+
+            const data = await response.json();
+            if (data.files && data.files.length > 0) {
+                return data.files[0];
+            }
+
+            // 如果文件夹不存在，创建一个
+            return await this.createBackupFolder();
+        } catch (error) {
+            console.error('Error getting backup folder:', error);
+            message.error('Failed to get backup folder from Google Drive');
+            throw error;
+        }
+    }
+
+    private async createBackupFolder(): Promise<any> {
+        try {
+            const response = await fetch(
+                'https://www.googleapis.com/drive/v3/files',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${this.accessToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: BACKUP_FOLDER_NAME,
+                        mimeType: 'application/vnd.google-apps.folder'
+                    })
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Failed to create backup folder');
+            }
+
+            const folder = await response.json();
+            return folder;
+        } catch (error) {
+            console.error('Error creating backup folder:', error);
+            message.error('Failed to create backup folder in Google Drive');
+            throw error;
+        }
+    }
+
+    async listBackupFiles(): Promise<any[]> {
+        if (!this.accessToken) {
+            const authenticated = await this.authenticate();
+            if (!authenticated) {
+                throw new Error('Not authenticated');
+            }
+        }
+
+        try {
+            const folder = await this.getBackupFolder();
+            if (!folder) {
+                return [];
+            }
+
+            const response = await fetch(
+                `https://www.googleapis.com/drive/v3/files?q='${folder.id}' in parents and trashed=false&fields=files(id,name,mimeType,modifiedTime)`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${this.accessToken}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch backup files');
+            }
+
+            const data = await response.json();
+            return data.files || [];
+        } catch (error) {
+            console.error('Error listing backup files:', error);
+            message.error('Failed to list backup files from Google Drive');
+            throw error;
+        }
+    }
+
     async listFiles(): Promise<any[]> {
         if (!this.accessToken) {
             const authenticated = await this.authenticate();
@@ -78,9 +183,16 @@ export class GoogleDriveService {
         }
 
         try {
+            // 获取或创建备份文件夹
+            const folder = await this.getBackupFolder();
+            if (!folder) {
+                throw new Error('Failed to get or create backup folder');
+            }
+
             const metadata = {
                 name: file.name,
-                mimeType: file.type
+                mimeType: file.type,
+                parents: [folder.id]
             };
 
             // 首先上传元数据
@@ -120,6 +232,68 @@ export class GoogleDriveService {
             console.error('Error uploading file:', error);
             message.error('Failed to upload file to Google Drive');
             return false;
+        }
+    }
+
+    async deleteFile(fileId: string): Promise<boolean> {
+        if (!this.accessToken) {
+            const authenticated = await this.authenticate();
+            if (!authenticated) {
+                throw new Error('Not authenticated');
+            }
+        }
+
+        try {
+            const response = await fetch(
+                `https://www.googleapis.com/drive/v3/files/${fileId}`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${this.accessToken}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(`Failed to delete file: ${response.status} ${response.statusText}`);
+            }
+
+            return true;
+        } catch (error) {
+            console.error('Error deleting file:', error);
+            message.error('Failed to delete file from Google Drive');
+            return false;
+        }
+    }
+
+    async downloadFile(fileId: string): Promise<any> {
+        if (!this.accessToken) {
+            const authenticated = await this.authenticate();
+            if (!authenticated) {
+                throw new Error('Not authenticated');
+            }
+        }
+
+        try {
+            const response = await fetch(
+                `https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${this.accessToken}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(`Failed to download file: ${response.status} ${response.statusText}`);
+            }
+
+            const content = await response.text();
+            return JSON.parse(content);
+        } catch (error) {
+            console.error('Error downloading file:', error);
+            message.error('Failed to download file from Google Drive');
+            throw error;
         }
     }
 } 
