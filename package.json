@@ -1,7 +1,7 @@
 {
   "name": "smart-meet",
   "displayName": "Smart meet",
-  "version": "1.0.6",
+  "version": "1.0.5",
   "description": "Google Meet Enhancement Extension: Elevate Your Meeting Experience",
   "author": "Howard",
   "scripts": {
@@ -41,11 +41,21 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://meet.google.com/*"
+      "https://meet.google.com/*",
+      "https://www.googleapis.com/*"
     ],
     "permissions": [
       "sidePanel",
-      "storage"
-    ]
+      "storage",
+      "unlimitedStorage",
+      "identity"
+    ],
+    "oauth2": {
+      "client_id": "821598308749-hap8qac84veol34qs4j778n5enborv48.apps.googleusercontent.com",
+      "scopes": [
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/drive.readonly"
+      ]
+    }
   }
 }
