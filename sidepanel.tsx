@@ -20,6 +20,7 @@ import Words from "./components/words";
 import { DateProvider, useDateContext } from './contexts/DateContext';
 import GlobalDatePicker from './components/GlobalDatePicker';
 import Loading from './components/Loading';
+import useI18n from './utils/i18n';
 
 interface CaptionsRef {
     jumpToDate: (date?: dayjs.Dayjs) => void;
@@ -38,6 +39,7 @@ const SidePanel = () => {
     const [messageApi, contextHolder] = message.useMessage();
     const [current, setCurrent] = useState('captions');
     const [loading] = useLoading();
+    const { t } = useI18n();
 
     const onTabClick = (key: string) => {
         setCurrent(key);
@@ -96,31 +98,37 @@ const SidePanel = () => {
 
     const items = [
         {
-            label: 'Captions',
+            label: t('captions'),
             key: 'captions',
-            icon: <HistoryOutlined />,
-            children: <Captions/>
-        },
-        {
-            label: 'Summary',
-            key: 'summary',
             icon: <FileDoneOutlined />,
-            disabled: false,
-            children: <Summary/>
+            children: (
+                <div style={{position: 'relative', height: '100%'}}>
+                    <Captions />
+                    <Tooltip title={t('download_captions')}>
+                        <div className="download-btn" onClick={saveCaptions}>
+                            <DownloadOutlined />
+                        </div>
+                    </Tooltip>
+                </div>
+            ),
         },
         {
-            label: 'Extension',
-            key: 'extension',
+            label: t('summary'),
+            key: 'summary',
             icon: <SketchOutlined />,
-            disabled: false,
-            children: <Extension/>
+            children: <Summary />,
         },
         {
-            label: 'Translation records',
-            key: 'Translation records',
+            label: t('extension'),
+            key: 'extension',
             icon: <RollbackOutlined />,
-            children: <Words currentTab={current}/>,
-            disabled: false,
+            children: <Extension />,
+        },
+        {
+            label: t('translation_records'),
+            key: 'words',
+            icon: <HistoryOutlined />,
+            children: <Words currentTab={current} />,
         },
     ];
 

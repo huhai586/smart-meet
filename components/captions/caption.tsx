@@ -14,6 +14,7 @@ import highlight from '../../utils/highlight';
 import useHighLightWords from "../../hooks/useHighLightWords";
 import useDomain from "../../hooks/useDomain";
 import translateSingleWords from "~utils/translate-signal-words";
+import useI18n from "../../utils/i18n";
 
 type CaptionProps = {
     data: Transcript;
@@ -28,6 +29,7 @@ export enum Actions {
     DEFAULT = 'Default',
     SUMMARY = 'Summary',
 }
+
 const caption = (props: CaptionProps) => {
     const {data} = props;
     const [aiData, setAiData] = useState([]);
@@ -35,6 +37,7 @@ const caption = (props: CaptionProps) => {
     const [messageApi, contextHolder] = message.useMessage();
     const [domainKeyWords, specificWords] = useHighLightWords();
     const [domain] = useDomain();
+    const { t } = useI18n();
 
     // 使用 useMemo 缓存高亮处理的结果
     const highlightedText = useMemo(() => {
@@ -86,6 +89,21 @@ const caption = (props: CaptionProps) => {
             success(res);
         });
     }
+    
+    // 获取操作按钮的本地化文本
+    const getActionText = (action: Actions): string => {
+        const actionMap = {
+            [Actions.TRANSLATE]: t('translate'),
+            [Actions.EXPLAIN]: t('explain'),
+            [Actions.POLISH]: t('polish'),
+            [Actions.ANALYSIS]: t('analysis'),
+            [Actions.ASK]: t('ask'),
+            [Actions.SUMMARY]: t('summary'),
+            [Actions.DEFAULT]: ''
+        };
+        return actionMap[action] || action;
+    };
+    
     return (
         <div className={'caption-container'}>
             {contextHolder}
@@ -102,7 +120,7 @@ const caption = (props: CaptionProps) => {
                                 icon={<TranslationOutlined />}
                                 onClick={() => handleAskAI(Actions.TRANSLATE)}
                             >
-                                Translate
+                                {getActionText(Actions.TRANSLATE)}
                             </Button>
 
                             <Button 
@@ -110,7 +128,7 @@ const caption = (props: CaptionProps) => {
                                 icon={<CheckCircleOutlined />}
                                 onClick={() => handleAskAI(Actions.POLISH)}
                             >
-                                Polish
+                                {getActionText(Actions.POLISH)}
                             </Button>
 
                             <Button 
@@ -118,7 +136,7 @@ const caption = (props: CaptionProps) => {
                                 icon={<CodeOutlined />}
                                 onClick={() => handleAskAI(Actions.ANALYSIS)}
                             >
-                                Grammar
+                                {getActionText(Actions.ANALYSIS)}
                             </Button>
                         </div>
                     </div>
@@ -135,7 +153,7 @@ const caption = (props: CaptionProps) => {
                     <div key={item.type} className={'ai-answer-item'}>
                         <div className={'ai-answer-type'}>
                             <InfoOutlined style={{ marginRight: '8px', color: '#1a73e8' }} />
-                            {item.type}
+                            {getActionText(item.type as Actions)}
                         </div>
                         <div className={'ai-answer-data'} dangerouslySetInnerHTML={{__html: item.data}}></div>
                     </div>

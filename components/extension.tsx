@@ -8,6 +8,7 @@ import { Actions } from "./captions/caption"
 import askAI from "../utils/askAI"
 import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
 import BackupAndRestore from "~components/backup-and-restore";
+import { useI18n } from '../utils/i18n';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -17,6 +18,7 @@ interface ExtensionPropsInterface {
 }
 
 const Extension = (props: ExtensionPropsInterface) => {
+    const { t } = useI18n();
     const [specificTags, setTags] = useState([]);
     const [domain, setDomain] = useState('Advertising and digital marketing');
     const [modalData, setModalData] = useState([]);
@@ -169,10 +171,10 @@ const Extension = (props: ExtensionPropsInterface) => {
                     message={
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <TagOutlined style={{ color: '#1a73e8' }} />
-                            <span>Specific Highlight Words</span>
+                            <span>{t('specific_highlight_words')}</span>
                         </div>
                     }
-                    description="Add specific words or phrases you want to highlight in the meeting captions."
+                    description={t('specific_highlight_desc')}
                     type="info"
                     showIcon={false}
                 />
@@ -201,11 +203,11 @@ const Extension = (props: ExtensionPropsInterface) => {
                             onBlur={handleInputConfirm}
                             onPressEnter={handleInputConfirm}
                             className={'add-more'}
-                            placeholder="Enter a word"
+                            placeholder={t('enter_word')}
                         />
                     ) : (
                         <Tag onClick={showInput} className={'add-more'}>
-                            <PlusOutlined /> Add Word
+                            <PlusOutlined /> {t('add_word')}
                         </Tag>
                     )}
                 </div>
@@ -216,16 +218,16 @@ const Extension = (props: ExtensionPropsInterface) => {
                     message={
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <GlobalOutlined style={{ color: '#1a73e8' }} />
-                            <span>Domain-Specific Highlights</span>
+                            <span>{t('domain_specific_highlights')}</span>
                         </div>
                     }
-                    description="Configure highlighting based on specific domain terminology and keywords."
+                    description={t('domain_specific_desc')}
                     type="info"
                     showIcon={false}
                 />
                 
                 <div className="set-highlight-words-by-descriptions">
-                    <Title level={5} style={{ marginBottom: '16px', color: '#2d3748' }}>Current Domain Tags</Title>
+                    <Title level={5} style={{ marginBottom: '16px', color: '#2d3748' }}>{t('current_domain_tags')}</Title>
                     <TweenOneGroup
                         appear={false}
                         enter={{scale: 0.8, opacity: 0, type: 'from', duration: 100}}
@@ -241,7 +243,7 @@ const Extension = (props: ExtensionPropsInterface) => {
                     
                     <Input 
                         className='domain-inputer'
-                        placeholder='Enter your domain of interest'
+                        placeholder={t('domain_placeholder')}
                         value={domain}
                         onChange={(v) => {setDomain(v.target.value)}}
                         prefix={<GlobalOutlined style={{ color: '#a0aec0' }} />}
@@ -249,7 +251,7 @@ const Extension = (props: ExtensionPropsInterface) => {
                     
                     <TextArea
                         rows={4}
-                        placeholder="Describe the keywords you want to highlight (e.g., technical terms, industry jargon)"
+                        placeholder={t('keywords_placeholder')}
                         onChange={(v) => { setHighlightWordsByDescriptions(v.target.value)}}
                         value={highlightWordsByDescriptions}
                     />
@@ -259,7 +261,7 @@ const Extension = (props: ExtensionPropsInterface) => {
                             onClick={preview}
                             icon={<CloudSyncOutlined />}
                         >
-                            Generate Keywords
+                            {t('generate_keywords')}
                         </Button>
                     </div>
                 </div>
@@ -272,17 +274,17 @@ const Extension = (props: ExtensionPropsInterface) => {
                     title={
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <TagOutlined style={{ color: '#1a73e8', fontSize: '20px' }} />
-                            <span>Preview Generated Keywords</span>
+                            <span>{t('preview_keywords')}</span>
                         </div>
                     }
                     open={isModalOpen}
                     onOk={handleOk}
                     onCancel={handleCancel}
-                    okText="Apply Keywords"
-                    cancelText="Cancel"
+                    okText={t('apply_keywords')}
+                    cancelText={t('cancel')}
                 >
                     <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
-                        Review and customize the generated keywords for your domain. Click on any keyword to remove it.
+                        {t('review_keywords')}
                     </Text>
                     <div>
                         {modalData.map((tag) => (

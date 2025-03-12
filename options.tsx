@@ -12,6 +12,7 @@ import styled from '@emotion/styled';
 import Calendar from '~components/Calendar';
 import Sidebar from '~components/Sidebar';
 import StyledTitle from '~components/common/StyledTitle';
+import useI18n from './utils/i18n';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -55,6 +56,7 @@ const Options = () => {
     const [status, setStatus] = useState('');
     const [activeKey, setActiveKey] = useState('1');
     const { token } = useToken();
+    const { t } = useI18n();
 
     useEffect(() => {
         // 加载保存的API key
@@ -102,7 +104,7 @@ const Options = () => {
 
     const ApiKeyContent = () => (
         <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
-            <StyledTitle>AI Settings</StyledTitle>
+            <StyledTitle>{t('ai_settings')}</StyledTitle>
 
             <StyledCard>
                 <Space direction="vertical" style={{ width: "100%" }}>
@@ -111,7 +113,7 @@ const Options = () => {
                     </IconWrapper>
 
                     <Title level={4} style={{ textAlign: "center", margin: "16px 0", fontWeight: "600" }}>
-                        Gemini API Configuration
+                        {t('gemini_api_config')}
                     </Title>
 
                     <Text type="secondary" style={{
@@ -121,15 +123,15 @@ const Options = () => {
                         fontSize: "15px",
                         lineHeight: "1.6"
                     }}>
-                        Enter your Gemini API key to enable AI-powered features. You can obtain the API key from Google AI Studio.
+                        {t('api_key_desc')}
                     </Text>
 
                     <Alert
                         style={{ marginBottom: "24px" }}
-                        message="Please enter your Gemini API key to easily use it for AI tasks."
+                        message={t('api_key_info')}
                         description={
                             <Text type="secondary">
-                                You can obtain the API key from{' '}
+                                {t('api_key_source')}{' '}
                                 <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">
                                     https://aistudio.google.com/apikey
                                 </a>
@@ -143,7 +145,7 @@ const Options = () => {
                         size="large"
                         value={apiKey}
                         onChange={(e) => setApiKey(e.target.value)}
-                        placeholder="Enter your Gemini API key"
+                        placeholder={t('enter_api_key')}
                         style={{ marginBottom: "24px" }}
                     />
 
@@ -158,14 +160,14 @@ const Options = () => {
                                 borderColor: token.colorInfo
                             }}
                         >
-                            Save Settings
+                            {t('save_settings')}
                         </ActionButton>
                     </div>
 
                     {status && (
                         <Alert
                             style={{ marginTop: "24px" }}
-                            message={status}
+                            message={t('settings_saved')}
                             type="success"
                             showIcon
                         />

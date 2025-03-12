@@ -9,6 +9,7 @@ import '../styles/summary.scss';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
 import { useDateContext } from '../contexts/DateContext';
+import { useI18n } from '../utils/i18n';
 
 interface CardItem {
     question: string;
@@ -39,6 +40,7 @@ class MarkdownErrorBoundary extends React.Component<
 }
 
 const Summary = (props) => {
+    const { t } = useI18n();
     const [requesting, setRequesting] = useState(false);
     const container = useRef(null);
     const [messageApi, contextHolder] = message.useMessage();
@@ -46,12 +48,12 @@ const Summary = (props) => {
     const { selectedDate } = useDateContext();
     const [markdownErrors, setMarkdownErrors] = useState<Record<string, boolean>>({});
 
-    const handleQuestion = async (question = 'please summary the meeting with html table') => {
+    const handleQuestion = async (question = t('summary_question')) => {
         const recordedContents = await getMeetingCaptions(selectedDate);
         if (recordedContents.length === 0) {
             messageApi.open({
                 type: 'error',
-                content: 'no meeting data',
+                content: t('no_meeting_data'),
             });
             return
         }
@@ -105,7 +107,7 @@ const Summary = (props) => {
                         indicator={<LoadingOutlined spin/>}
                         size="large"
                         fullscreen={false}
-                        tip={'loading'}
+                        tip={t('loading')}
                         key={index}
                     >
                         <Card
@@ -125,18 +127,18 @@ const Summary = (props) => {
                 )
             })}
             {
-                !cardData.length && <Empty description={'How about summary the meeting ?'} className={'summary-no-meeting-data'}></Empty>
+                !cardData.length && <Empty description={t('summary_question')} className={'summary-no-meeting-data'}></Empty>
             }
         </div>
 
         <div className="footer" style={{ padding: '16px', position: 'sticky', bottom: 0, background: '#fff', zIndex: 1 }}>
             <Search
                 disabled={requesting}
-                placeholder="please summary the meeting"
-                enterButton="Search"
+                placeholder={t('summary_placeholder')}
+                enterButton={t('search_button')}
                 size="large"
                 onSearch={(v) => {
-                    handleQuestion(v === '' ? 'please summary the meeting with html table' : v);
+                    handleQuestion(v === '' ? t('summary_question') : v);
                 }}
             />
         </div>

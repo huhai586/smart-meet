@@ -9,6 +9,7 @@ import {
   SettingOutlined
 } from '@ant-design/icons';
 import '../styles/sidebar.scss';
+import useI18n from '../utils/i18n';
 
 interface SidebarProps {
   activeKey: string;
@@ -22,21 +23,23 @@ interface MenuItem {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
+  const { t } = useI18n();
+  
   const menuItems: MenuItem[] = [
     {
       key: '1',
       icon: <ApiOutlined />,
-      label: 'AI Settings'
+      label: t('ai_settings')
     },
     {
       key: '2',
       icon: <CloudSyncOutlined />,
-      label: 'Google Drive Sync'
+      label: t('google_drive_integration')
     },
     {
       key: '3',
       icon: <CalendarOutlined />,
-      label: 'Calendar View'
+      label: t('calendar_view')
     }
   ];
 
@@ -50,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
           <h1>Smart Meet</h1>
         </div>
         <div className="sidebar-description">
-          Configure your meeting assistant
+          {t('configure_assistant')}
         </div>
       </div>
       <div className="sidebar-menu">

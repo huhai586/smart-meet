@@ -10,12 +10,14 @@ import type {Transcript} from "~hooks/useTranscripts";
 import setMeetingCaptions from "~utils/set-captions";
 import dayjs from "dayjs";
 import { useDateContext } from '../contexts/DateContext';
+import { useI18n } from '../utils/i18n';
 
 interface BackupAndRestoreInterface {
     jumpToCaptions: (date?: dayjs.Dayjs) => void;
 }
 
 const BackupAndRestore = (props: BackupAndRestoreInterface) => {
+    const { t } = useI18n();
     const [messageApi, contextHolder] = message.useMessage();
     const { selectedDate } = useDateContext();
 
@@ -35,19 +37,19 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                     });
                     messageApi.open({
                         type: 'success',
-                        content: 'restore successfully',
+                        content: t('success'),
                     });
                 } else {
                     messageApi.open({
                         type: 'error',
-                        content: 'no data to restore',
+                        content: t('no_meeting_data'),
                     });
                 }
          
             }).catch((e) => {
                 messageApi.open({
                     type: 'error',
-                    content: 'the file is not json valid',
+                    content: t('error'),
                 });
             })
         });
@@ -56,16 +58,16 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
         <div className={'back-up-and-restore'}>
             {contextHolder}
             <div className={'action-item'} >
-                <Alert message="Backup the raw data of captions So that you can restore it in some day" type="success" />
+                <Alert message={t('backup_desc')} type="success" />
                 <div className="action-button">
-                    <Button onClick={backup}>backup raw data</Button>
+                    <Button onClick={backup}>{t('backup_button')}</Button>
                 </div>
             </div>
             <div className={'action-item'} >
-                <Alert message="Restore specific raw data" type="success" />
+                <Alert message={t('restore_desc')} type="success" />
                 <div className="action-button">
                     <Upload accept={'.json'} onChange={handleUploadChange} itemRender={() => null} fileList={[]}>
-                        <Button icon={<UploadOutlined />}>Upload file to restore</Button>
+                        <Button icon={<UploadOutlined />}>{t('restore_button')}</Button>
                     </Upload>
                 </div>
             </div>

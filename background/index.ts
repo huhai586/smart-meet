@@ -14,6 +14,38 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             }
         });
     }
+    
+    // 处理语言变更消息，并广播给所有组件
+    if (message.action === 'languageChanged') {
+        // 获取所有打开的标签页
+        chrome.tabs.query({}, function(tabs) {
+            // 向所有标签页发送消息
+            tabs.forEach(tab => {
+                if (tab.id) {
+                    try {
+                        chrome.tabs.sendMessage(tab.id, {
+                            action: 'languageChanged',
+                            languageCode: message.languageCode
+                        });
+                    } catch (error) {
+                        // 忽略无法发送消息的错误（例如，标签页不接受消息）
+                        console.log(`Error sending message to tab ${tab.id}:`, error);
+                    }
+                }
+            });
+        });
+        
+        // 向其他组件发送消息
+        try {
+            chrome.runtime.sendMessage({
+                action: 'languageChanged',
+                languageCode: message.languageCode
+            });
+        } catch (error) {
+            // 忽略无法发送消息的错误
+            console.log('Error broadcasting language change:', error);
+        }
+    }
 });
 
 updateBadgeText();

@@ -6,6 +6,7 @@ import { CalendarOutlined, MessageOutlined, SearchOutlined, LoadingOutlined, Hig
 import { StorageFactory } from '../background/data-persistence/storage-factory';
 import type { Transcript } from '../hooks/useTranscripts';
 import StyledTitle from './common/StyledTitle';
+import { useI18n } from '../utils/i18n';
 
 const { Title, Text, Paragraph } = Typography;
 const { Panel } = Collapse;
@@ -127,6 +128,7 @@ interface MatchedRecord {
 }
 
 const Calendar = () => {
+  const { t } = useI18n();
   const [monthsData, setMonthsData] = useState<MonthData[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -523,10 +525,10 @@ const Calendar = () => {
           image={Empty.PRESENTED_IMAGE_SIMPLE}
           description={
             contentSearchText
-              ? "No matching chat content found"
+              ? t('no_matching_content')
               : searchText
-                ? "No matching chat history found"
-                : "No chat history found"
+                ? t('no_matching_history')
+                : t('no_chat_history')
           }
         />
       );
@@ -616,35 +618,35 @@ const Calendar = () => {
     <LoadingContainer>
       <Spin indicator={<LoadingOutlined style={{ fontSize: 40 }} spin />} />
       <div className="loading-text">
-        {searchingContentLoading ? 'Searching chat content...' : 'Loading chat history...'}
+        {searchingContentLoading ? t('searching_content') : t('loading_history')}
       </div>
     </LoadingContainer>
   );
 
   return (
     <CalendarContainer>
-      <StyledTitle>Chat History</StyledTitle>
+      <StyledTitle>{t('chat_history')}</StyledTitle>
 
       <Space direction="vertical" style={{ width: '100%' }}>
         <SearchContainer>
           <Search
-            placeholder="Search in chat content"
+            placeholder={t('search_content')}
             allowClear
-            enterButton={<Button type="primary" icon={<HighlightOutlined />}>Search Content</Button>}
+            enterButton={<Button type="primary" icon={<HighlightOutlined />}>{t('search_button')}</Button>}
             onSearch={handleContentSearch}
             onChange={(e) => !e.target.value && handleContentSearch('')}
             loading={searchingContentLoading}
           />
           {contentSearchText && (
             <div style={{ marginTop: 8 }}>
-              <Tag color="blue">Searching for: {contentSearchText}</Tag>
+              <Tag color="blue">{t('search_for', { term: contentSearchText })}</Tag>
               <Button
                 type="link"
                 size="small"
                 onClick={() => handleContentSearch('')}
                 disabled={searchingContentLoading}
               >
-                Clear
+                {t('clear')}
               </Button>
             </div>
           )}
@@ -656,21 +658,23 @@ const Calendar = () => {
       {loading || searchingContentLoading ? renderLoading() : renderMonthCollapse()}
 
       <Modal
-        title={selectedDate ? `Chat Records - ${dayjs(selectedDate).format('MMMM DD, YYYY')}` : 'Chat Records'}
+        title={selectedDate ? t('chat_records', { date: dayjs(selectedDate).format('YYYY-MM-DD') }) : ''}
         open={modalVisible}
         onCancel={() => setModalVisible(false)}
         footer={null}
         width={800}
-        afterOpenChange={(visible) => {
-          // 当模态框打开后，重新触发滚动
-          if (visible && highlightedRecordIndex !== null) {
-            setTimeout(() => scrollToHighlightedRecord(), 300);
-          }
-        }}
+        bodyStyle={{ maxHeight: '70vh', overflow: 'auto' }}
       >
-        <div ref={modalContentRef} style={{ maxHeight: '70vh', overflow: 'auto' }}>
-          <Spin spinning={modalLoading}>
-            {chatRecords.length > 0 ? (
+        {modalLoading ? (
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+            <div style={{ marginTop: 16 }}>{t('loading')}</div>
+          </div>
+        ) : chatRecords.length === 0 ? (
+          <Empty description={t('no_records_for_date')} />
+        ) : (
+          <div ref={modalContentRef}>
+            <Spin spinning={modalLoading}>
               <List
                 dataSource={chatRecords}
                 renderItem={(record, index) => {
@@ -704,11 +708,9 @@ const Calendar = () => {
                   );
                 }}
               />
-            ) : (
-              <Empty description="No chat records found for this date" />
-            )}
-          </Spin>
-        </div>
+            </Spin>
+          </div>
+        )}
       </Modal>
     </CalendarContainer>
   );

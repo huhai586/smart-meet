@@ -11,11 +11,13 @@ import {
 } from '@ant-design/icons';
 import { message } from "antd";
 import translateSingleWords from "~utils/translate-signal-words";
+import { useI18n } from '../utils/i18n';
 
 const { Title, Text } = Typography;
 const { confirm } = Modal;
 
 const Words = (props: {currentTab: string}) => {
+    const { t } = useI18n();
     const [data, setData] = useState([]);
     const [messageApi, contextHolder] = message.useMessage();
 
@@ -43,12 +45,12 @@ const Words = (props: {currentTab: string}) => {
 
     const showConfirm = () => {
         confirm({
-            title: 'Are you sure you want to clear all translation history?',
+            title: t('clear_history_confirm'),
             icon: <ExclamationCircleOutlined />,
-            content: 'This action cannot be undone.',
-            okText: 'Yes, Clear All',
+            content: t('clear_history_desc'),
+            okText: t('yes_clear_all'),
             okType: 'danger',
-            cancelText: 'No, Keep It',
+            cancelText: t('no_keep_it'),
             onOk() {
                 handleReset();
             },
@@ -58,7 +60,7 @@ const Words = (props: {currentTab: string}) => {
     const handleReset = () => {
         chrome.storage.local.remove('translatedWords', () => {
             setData([]);
-            message.success('Translation history cleared successfully');
+            message.success(t('history_cleared'));
         });
     }
 
@@ -69,7 +71,7 @@ const Words = (props: {currentTab: string}) => {
                 <div className="header-content">
                     <div className="title-section">
                         <HistoryOutlined className="header-icon" />
-                        <Title level={4}>Translation History</Title>
+                        <Title level={4}>{t('translation_history')}</Title>
                     </div>
                     <Button 
                         type="text"
@@ -77,10 +79,10 @@ const Words = (props: {currentTab: string}) => {
                         className="reset-btn"
                         onClick={showConfirm}
                     >
-                        Reset
+                        {t('reset')}
                     </Button>
                 </div>
-                <Text type="secondary">Click on any word to see its translation again</Text>
+                <Text type="secondary">{t('click_to_translate')}</Text>
             </div>
 
             {data.length > 0 ? (
@@ -104,7 +106,7 @@ const Words = (props: {currentTab: string}) => {
                     image={Empty.PRESENTED_IMAGE_SIMPLE}
                     description={
                         <Text type="secondary">
-                            No translation history yet. Click on any word in the captions to translate it.
+                            {t('no_history')}
                         </Text>
                     }
                 />
