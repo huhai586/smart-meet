@@ -2,7 +2,14 @@ import React, {useEffect, useState, useMemo} from "react";
 import type {Transcript} from "../../hooks/useTranscripts";
 import askAI from "../../utils/askAI";
 import {Button, message} from "antd";
-import {InfoOutlined} from '~node_modules/@ant-design/icons';
+import {
+    InfoOutlined,
+    TranslationOutlined,
+    CheckCircleOutlined,
+    CodeOutlined,
+    UserOutlined,
+    ClockCircleOutlined
+} from '@ant-design/icons';
 import highlight from '../../utils/highlight';
 import useHighLightWords from "../../hooks/useHighLightWords";
 import useDomain from "../../hooks/useDomain";
@@ -85,36 +92,51 @@ const caption = (props: CaptionProps) => {
             <section>
                 <div className={'caption-text-container'}>
                     <div className="caption-header">
-                        <div className={'caption-speaker'}>{data.activeSpeaker}</div>
+                        <div className={'caption-speaker'}>
+                            <UserOutlined style={{ fontSize: '16px', marginRight: '8px', color: '#1a73e8' }} />
+                            {data.activeSpeaker}
+                        </div>
                         <div className="caption-tools">
-                            <Button size={'small'} type={'text'} color="cyan" onClick={() => {
-                                handleAskAI(Actions.TRANSLATE)
-                            }}>
+                            <Button 
+                                size={'small'} 
+                                icon={<TranslationOutlined />}
+                                onClick={() => handleAskAI(Actions.TRANSLATE)}
+                            >
                                 Translate
                             </Button>
 
-                            <Button size={'small'} type={'text'} color="cyan" onClick={() => {
-                                handleAskAI(Actions.POLISH)
-                            }}>
+                            <Button 
+                                size={'small'} 
+                                icon={<CheckCircleOutlined />}
+                                onClick={() => handleAskAI(Actions.POLISH)}
+                            >
                                 Polish
                             </Button>
 
-                            <Button size={'small'} type={'text'} color="cyan" onClick={() => {
-                                handleAskAI(Actions.ANALYSIS)
-                            }}>
-                                Grammar Analysis
+                            <Button 
+                                size={'small'} 
+                                icon={<CodeOutlined />}
+                                onClick={() => handleAskAI(Actions.ANALYSIS)}
+                            >
+                                Grammar
                             </Button>
                         </div>
                     </div>
                     <div className={'caption-text'} onClick={handleTextClick} dangerouslySetInnerHTML={{__html: captions}}></div>
-                    <div className="timestamp">{new Date(data.timestamp).toLocaleString()}</div>
+                    <div className="timestamp">
+                        <ClockCircleOutlined style={{ marginRight: '6px', fontSize: '12px' }} />
+                        {new Date(data.timestamp).toLocaleString()}
+                    </div>
                 </div>
             </section>
 
             {hasAiData && <div className={'ai-answer-container'}>
                 {aiData.map((item, index) => (
                     <div key={item.type} className={'ai-answer-item'}>
-                        <div className={'ai-answer-type'}>{item.type}</div>
+                        <div className={'ai-answer-type'}>
+                            <InfoOutlined style={{ marginRight: '8px', color: '#1a73e8' }} />
+                            {item.type}
+                        </div>
                         <div className={'ai-answer-data'} dangerouslySetInnerHTML={{__html: item.data}}></div>
                     </div>
                 ))}

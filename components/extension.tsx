@@ -1,5 +1,5 @@
-import { PlusOutlined } from "@ant-design/icons"
-import {Alert, Button, Input, Tag, theme, type InputRef, Modal, message} from "antd"
+import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined } from "@ant-design/icons"
+import {Alert, Button, Input, Tag, theme, type InputRef, Modal, message, Typography, Divider} from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
 import dayjs from 'dayjs';
@@ -9,8 +9,13 @@ import askAI from "../utils/askAI"
 import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
 import BackupAndRestore from "~components/backup-and-restore";
 
+const { Title, Text } = Typography;
+const { TextArea } = Input;
+
 interface ExtensionPropsInterface {
+    jumpToCaptions?: () => void;
 }
+
 const Extension = (props: ExtensionPropsInterface) => {
     const [specificTags, setTags] = useState([]);
     const [domain, setDomain] = useState('Advertising and digital marketing');
@@ -20,7 +25,6 @@ const Extension = (props: ExtensionPropsInterface) => {
     const [inputValue, setInputValue] = useState('');
     const [messageApi, contextHolder] = message.useMessage();
     const inputRef = useRef<InputRef>(null);
-    const { TextArea } = Input;
     const [highlightWordsByDescriptions, setHighlightWordsByDescriptions] = useState('Please return keywords in json format for digital advertising areas, such as CTR, etc. The return content needs to be in English, and each item is a word, or abbreviation.');
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -161,7 +165,18 @@ const Extension = (props: ExtensionPropsInterface) => {
         <div className={'extension-container'}>
             {contextHolder}
             <div className={'highlight-setting'}>
-                <Alert message="Please set the specific highlight words" type="success"/>
+                <Alert
+                    message={
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <TagOutlined style={{ color: '#1a73e8' }} />
+                            <span>Specific Highlight Words</span>
+                        </div>
+                    }
+                    description="Add specific words or phrases you want to highlight in the meeting captions."
+                    type="info"
+                    showIcon={false}
+                />
+                
                 <div className={'set-specific-highlight-words'}>
                     <TweenOneGroup
                         appear={false}
@@ -180,21 +195,37 @@ const Extension = (props: ExtensionPropsInterface) => {
                             ref={inputRef}
                             type="text"
                             size="small"
-                            style={{width: 78}}
+                            style={{width: 120}}
                             value={inputValue}
                             onChange={handleInputChange}
                             onBlur={handleInputConfirm}
                             onPressEnter={handleInputConfirm}
                             className={'add-more'}
+                            placeholder="Enter a word"
                         />
                     ) : (
                         <Tag onClick={showInput} className={'add-more'}>
-                            <PlusOutlined/> New Tag
+                            <PlusOutlined /> Add Word
                         </Tag>
                     )}
                 </div>
-                <Alert message="Please set the highlight words by descriptions" type="success"/>
+
+                <Divider style={{ margin: '32px 0 24px' }} />
+
+                <Alert
+                    message={
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                            <GlobalOutlined style={{ color: '#1a73e8' }} />
+                            <span>Domain-Specific Highlights</span>
+                        </div>
+                    }
+                    description="Configure highlighting based on specific domain terminology and keywords."
+                    type="info"
+                    showIcon={false}
+                />
+                
                 <div className="set-highlight-words-by-descriptions">
+                    <Title level={5} style={{ marginBottom: '16px', color: '#2d3748' }}>Current Domain Tags</Title>
                     <TweenOneGroup
                         appear={false}
                         enter={{scale: 0.8, opacity: 0, type: 'from', duration: 100}}
@@ -207,19 +238,52 @@ const Extension = (props: ExtensionPropsInterface) => {
                     >
                         {domainTagChild}
                     </TweenOneGroup>
-                    <Input className='domain-inputer' placeholder={'Please specific the domain that you interested'} value={domain} onChange={(v) => {setDomain(v.target.value)}}/>
+                    
+                    <Input 
+                        className='domain-inputer'
+                        placeholder='Enter your domain of interest'
+                        value={domain}
+                        onChange={(v) => {setDomain(v.target.value)}}
+                        prefix={<GlobalOutlined style={{ color: '#a0aec0' }} />}
+                    />
+                    
                     <TextArea
                         rows={4}
-                        placeholder="please return the highlight words in advertisement domain by json format"
-                        className={'margin10'}
+                        placeholder="Describe the keywords you want to highlight (e.g., technical terms, industry jargon)"
                         onChange={(v) => { setHighlightWordsByDescriptions(v.target.value)}}
                         value={highlightWordsByDescriptions}
                     />
-                    <div className="valid-words"><Button onClick={preview}>Preview</Button></div>
+                    
+                    <div className="valid-words">
+                        <Button 
+                            onClick={preview}
+                            icon={<CloudSyncOutlined />}
+                        >
+                            Generate Keywords
+                        </Button>
+                    </div>
                 </div>
-                <BackupAndRestore jumpToCaptions = {props.jumpToCaptions}/>
 
-                <Modal title="Preview and select highlight keywords" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                <Divider style={{ margin: '32px 0 24px' }} />
+                
+                <BackupAndRestore jumpToCaptions={props.jumpToCaptions}/>
+
+                <Modal
+                    title={
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <TagOutlined style={{ color: '#1a73e8', fontSize: '20px' }} />
+                            <span>Preview Generated Keywords</span>
+                        </div>
+                    }
+                    open={isModalOpen}
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    okText="Apply Keywords"
+                    cancelText="Cancel"
+                >
+                    <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
+                        Review and customize the generated keywords for your domain. Click on any keyword to remove it.
+                    </Text>
                     <div>
                         {modalData.map((tag) => (
                             <span key={tag}>

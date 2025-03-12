@@ -89,8 +89,8 @@ const Captions = (props) => {
                         <Title level={5} style={{ margin: '0', lineHeight: '32px' }}>Filter by talker:</Title>
                         {speakers.map((speaker) => (
                             <Button
-                                color="default"
-                                variant={filterSpeaker.includes(speaker) ? 'solid' : 'outlined'}
+                                type={filterSpeaker.includes(speaker) ? 'primary' : 'default'}
+                                className={filterSpeaker.includes(speaker) ? 'selected-filter' : ''}
                                 size={'small'}
                                 onClick={() => {toggleSpeaker(speaker)}}
                                 key={speaker}
@@ -99,7 +99,7 @@ const Captions = (props) => {
                             </Button>
                         ))}
                     </div>
-            </div>
+                </div>
             )}
 
             <div className={`chat-container ${isNoData ? 'no-data' : ''}`} ref={chatContainer}>

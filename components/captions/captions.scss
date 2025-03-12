@@ -1,119 +1,226 @@
 .captions {
   display: flex;
   height: 100%;
-  background: #ebf9ee;
+  background: #f8f9fa;
   flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
   .filter-section {
-    padding: 12px;
-    background: #fff;
-    border-bottom: 1px solid #f0f0f0;
+    padding: 16px;
+    background: white;
+    border: 1px solid #edf2f7;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    margin: 8px;
+    gap: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    margin: 16px;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 
     &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      transform: translateY(-1px);
-    }
-
-    .date-filter {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      h5.ant-typography {
-        margin: 0;
-        min-width: 85px;
-      }
-    }
-
-    .ant-picker {
-      width: 200px;
-      border-radius: 8px;
-      border: 1px solid #e8e8e8;
-      transition: all 0.3s;
-
-      &:hover {
-        border-color: #40a9ff;
-      }
-
-      &.ant-picker-focused {
-        border-color: #40a9ff;
-        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-      }
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     .filter-speakers {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 8px;
 
-      button {
+      h5.ant-typography {
         margin: 0;
-        border-radius: 6px;
-        transition: all 0.3s;
+        min-width: 120px;
+        color: #2d3748;
+        font-weight: 600;
+      }
+
+      button.ant-btn {
+        padding: 4px 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        font-size: 13px;
 
         &:hover {
           transform: translateY(-1px);
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        &.ant-btn-default {
+          background: #f7fafc;
+          border: 1px solid #e2e8f0;
+          color: #4a5568;
+
+          &:hover {
+            color: #1a73e8;
+            border-color: #1a73e8;
+          }
+        }
+
+        &.selected-filter {
+          background: #ebf5ff !important;
+          color: #1a73e8 !important;
+          border-color: #1a73e8 !important;
+          font-weight: 500;
+
+          &:hover {
+            background: #1a73e8 !important;
+            color: white !important;
+          }
         }
       }
     }
   }
 
-  .chat-container{
+  .chat-container {
     flex: 1;
     scroll-behavior: smooth;
+    padding: 0 16px 16px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #cbd5e0;
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #f8f9fa;
+    }
 
     &.no-data {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 40px;
-      font-weight: bold;
-      color: #ccc;
+      font-size: 32px;
+      font-weight: 500;
+      color: #a0aec0;
     }
-  }
 
-  .chat-container {
-    border-radius: 16px;
-    box-shadow: 0 2px 4px #5858580d;
-    margin-bottom: 20px;
-    overflow-y: auto;
-    padding: 10px;
-    
-    &> div {
-      background: #fff;
+    .caption-container {
+      background: white;
       border-radius: 12px;
-      margin: 10px 0;
-      padding: 10px 12px;
-      transition: all .2s;
-      box-shadow: 0px 0px 0px 2px #0000000d;
+      margin-bottom: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      transition: all 0.3s ease;
+      border: 1px solid #edf2f7;
+
       &:hover {
-        box-shadow: 0px 0px 0px 4px #0000000d;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .caption-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #edf2f7;
+
+        .caption-speaker {
+          text-transform: capitalize;
+          font-size: 16px;
+          font-weight: 600;
+          color: #2d3748;
+          display: flex;
+          align-items: center;
+
+          &:before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #1a73e8;
+            border-radius: 50%;
+            margin-right: 8px;
+          }
+        }
+
+        .caption-tools {
+          display: flex;
+          gap: 8px;
+
+          button {
+            padding: 4px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            color: #4a5568;
+            font-size: 13px;
+
+            &:hover {
+              background: #1a73e8;
+              color: white;
+              border-color: #1a73e8;
+            }
+          }
+        }
+      }
+
+      .caption-text {
+        font-size: 16px;
+        color: #4a5568;
+        line-height: 1.6;
+        margin-bottom: 12px;
+
+        span {
+          cursor: pointer;
+          border-radius: 3px;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #ebf5ff;
+            color: #1a73e8;
+          }
+        }
+      }
+
+      .timestamp {
+        font-size: 13px;
+        color: #a0aec0;
+      }
+
+      .ai-answer-container {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #edf2f7;
+
+        .ai-answer-item {
+          margin-bottom: 12px;
+
+          .ai-answer-type {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+          }
+
+          .ai-answer-data {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.6;
+            border: 1px solid #e2e8f0;
+          }
+        }
       }
     }
-    div.caption-container{
-      cursor: pointer;
-    }
-  
   }
 }
-
 
 .side-panel {
   display: flex;
   flex-direction: column;
   height: 98vh;
 }
-
-
 
 .caption-header {
   display: flex;
