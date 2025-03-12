@@ -12,10 +12,12 @@ import {
     UserOutlined, 
     CloudSyncOutlined, 
     DatabaseOutlined,
-    KeyOutlined
+    KeyOutlined,
+    CalendarOutlined
 } from '@ant-design/icons';
 import GoogleDriveIntegration from '~components/GoogleDriveIntegration';
 import styled from '@emotion/styled';
+import Calendar from '~components/Calendar';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -211,6 +213,16 @@ const Options = () => {
         },
         {
             key: '3',
+            label: (
+                <span>
+                    <CalendarOutlined />
+                    Calendar View
+                </span>
+            ),
+            children: <Calendar />,
+        },
+        {
+            key: '4',
             label: (
                 <span>
                     <DatabaseOutlined />

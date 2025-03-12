@@ -3,6 +3,12 @@ import React, { useEffect, useState } from "react"
 import "./all.scss"
 
 import { Switch } from "antd"
+import { 
+  EyeOutlined, 
+  DeleteOutlined, 
+  SettingOutlined,
+  AudioOutlined 
+} from '@ant-design/icons'
 import getIsExtensionEnabled from "./utils/get-is-extension-enabled";
 import {updateBadgeText} from "./background/set-badge-text";
 import getAPIkey from "./utils/getAPIkey";
@@ -50,7 +56,7 @@ const ContentMonitor = () => {
         <div className="extension-title"></div>
 
           <div className={'flex-container'}>
-              <span>Log the google meeting captions</span>
+              <span><AudioOutlined style={{ marginRight: '8px' }} />Log the google meeting captions</span>
               <div>
                   <Switch checkedChildren="on" unCheckedChildren="off" onChange={toggleSwitch} value={switchValue}
                           className={'extension-switch'}/>
@@ -59,17 +65,17 @@ const ContentMonitor = () => {
           </div>
 
           <div className="flex-column" onClick={openSidePanel}>
-              <div className={'height26'}><b>Show Captions</b></div>
+              <div className={'height26'}><b><EyeOutlined style={{ marginRight: '8px' }} />Show Captions</b></div>
               <span>open the side panel to show the main view</span>
           </div>
 
           <div className="flex-column" onClick={clear}>
-              <div className={'height26'}><b>Clear captions</b></div>
+              <div className={'height26'}><b><DeleteOutlined style={{ marginRight: '8px' }} />Clear captions</b></div>
               <span>all captions will be removed</span>
           </div>
 
           <div className="flex-column" onClick={handleSetting}>
-              <div className={'height26'}><b>Seeting</b></div>
+              <div className={'height26'}><b><SettingOutlined style={{ marginRight: '8px' }} />Settings</b></div>
               <span>config AI, Sync data and so on</span>
           </div>
 
