@@ -1,18 +1,23 @@
-import { PROMPT} from "../constant";
-import {Actions} from "../components/captions/caption";
+import { PROMPT, getTranslationPrompt, getSummaryPrompt } from "../constant";
+import { Actions } from "../components/captions/caption";
 import googleAITools from "./google-AI";
+import { getCurrentLanguage } from "../hooks/useTranslationLanguage";
 
-
-const askAI = (action: Actions, text, question?: string) => {
+const askAI = async (action: Actions, text, question?: string) => {
+    // 获取当前选择的翻译语言
+    const currentLanguage = await getCurrentLanguage();
+    
+    // 根据当前语言更新翻译和摘要提示
     const actionMap = {
-        [Actions.TRANSLATE]: PROMPT.TRANSLATE,
+        [Actions.TRANSLATE]: getTranslationPrompt(currentLanguage.code),
         [Actions.POLISH]: PROMPT.POLISH,
         [Actions.ANALYSIS]: PROMPT.ANALYSIS,
         [Actions.ASK]: PROMPT.ASK,
         [Actions.EXPLAIN]: PROMPT.EXPLAIN,
         [Actions.DEFAULT]: PROMPT.DEFAULT,
-        [Actions.SUMMARY]: PROMPT.SUMMARY
-    }
+        [Actions.SUMMARY]: getSummaryPrompt(currentLanguage.code)
+    };
+    
     let prompt = `${actionMap[action]}`;
     if (question) {
         prompt = prompt.replace('{option}', question);

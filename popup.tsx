@@ -3,19 +3,21 @@ import React, { useEffect, useState } from "react"
 import "./all.scss"
 
 import { Switch } from "antd"
-import { 
-  EyeOutlined, 
-  DeleteOutlined, 
+import {
+  EyeOutlined,
+  DeleteOutlined,
   SettingOutlined,
-  AudioOutlined 
+  AudioOutlined,
+  TranslationOutlined
 } from '@ant-design/icons'
 import getIsExtensionEnabled from "./utils/get-is-extension-enabled";
 import {updateBadgeText} from "./background/set-badge-text";
 import getAPIkey from "./utils/getAPIkey";
 import openSidePanel from "~utils/open-side-panel";
+import LanguageSelector from "./components/LanguageSelector";
 
 const ContentMonitor = () => {
-  const [switchValue, setSwitchValue] = useState(true)
+  const [switchValue, setSwitchValue] = useState(false)
 
     useEffect(() => {
         getIsExtensionEnabled().then((enabled: boolean) => {
@@ -72,6 +74,14 @@ const ContentMonitor = () => {
           <div className="flex-column" onClick={clear}>
               <div className={'height26'}><b><DeleteOutlined style={{ marginRight: '8px' }} />Clear captions</b></div>
               <span>all captions will be removed</span>
+          </div>
+
+          <div className="flex-column">
+              <div className={'height26'}><b><TranslationOutlined style={{ marginRight: '8px' }} />Translation Language</b></div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>select language for translation</span>
+                <LanguageSelector compact={true} />
+              </div>
           </div>
 
           <div className="flex-column" onClick={handleSetting}>
