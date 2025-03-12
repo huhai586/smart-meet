@@ -1,23 +1,17 @@
 import {useState, useEffect} from "react";
 import './styles/options.scss';
+import './styles/sidebar.scss';
 import googleAITools from "./utils/google-AI";
 import getAPIkey from "./utils/getAPIkey";
-import {Alert, Modal, Tabs, Typography, Input, Button, Space, Card, theme} from "antd";
-import type { TabsProps } from 'antd';
-import Account from "~components/Account";
-import Sync from '~components/Sync';
-import LocalStorageViewer from '~components/LocalStorageViewer';
-import { 
-    ApiOutlined, 
-    UserOutlined, 
-    CloudSyncOutlined, 
-    DatabaseOutlined,
+import {Alert, Modal, Typography, Input, Button, Space, Card, theme} from "antd";
+import {
     KeyOutlined,
-    CalendarOutlined
 } from '@ant-design/icons';
 import GoogleDriveIntegration from '~components/GoogleDriveIntegration';
 import styled from '@emotion/styled';
 import Calendar from '~components/Calendar';
+import Sidebar from '~components/Sidebar';
+import StyledTitle from '~components/common/StyledTitle';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -59,6 +53,7 @@ const ActionButton = styled(Button)`
 const Options = () => {
     const [apiKey, setApiKey] = useState('');
     const [status, setStatus] = useState('');
+    const [activeKey, setActiveKey] = useState('1');
     const { token } = useToken();
 
     useEffect(() => {
@@ -107,28 +102,18 @@ const Options = () => {
 
     const ApiKeyContent = () => (
         <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
-            <Title level={2} style={{
-                marginBottom: "40px",
-                textAlign: "center",
-                fontSize: "32px",
-                fontWeight: "600",
-                background: `linear-gradient(120deg, ${token.colorPrimary}, ${token.colorInfo})`,
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent"
-            }}>
-                AI Settings
-            </Title>
+            <StyledTitle>AI Settings</StyledTitle>
 
             <StyledCard>
                 <Space direction="vertical" style={{ width: "100%" }}>
                     <IconWrapper color={`${token.colorInfo}15`} shadowColor={`${token.colorInfo}20`}>
                         <KeyOutlined style={{ fontSize: "36px", color: token.colorInfo }} />
                     </IconWrapper>
-                    
+
                     <Title level={4} style={{ textAlign: "center", margin: "16px 0", fontWeight: "600" }}>
                         Gemini API Configuration
                     </Title>
-                    
+
                     <Text type="secondary" style={{
                         display: "block",
                         textAlign: "center",
@@ -190,57 +175,25 @@ const Options = () => {
         </div>
     );
 
-    const items: TabsProps['items'] = [
-        {
-            key: '1',
-            label: (
-                <span>
-                    <ApiOutlined />
-                    AI Settings
-                </span>
-            ),
-            children: <ApiKeyContent />,
-        },
-        {
-            key: '2',
-            label: (
-                <span>
-                    <CloudSyncOutlined />
-                    Google Drive Sync
-                </span>
-            ),
-            children: <GoogleDriveIntegration />,
-        },
-        {
-            key: '3',
-            label: (
-                <span>
-                    <CalendarOutlined />
-                    Calendar View
-                </span>
-            ),
-            children: <Calendar />,
-        },
-        {
-            key: '4',
-            label: (
-                <span>
-                    <DatabaseOutlined />
-                    View Local Storage
-                </span>
-            ),
-            children: <LocalStorageViewer />,
-        },
-    ];
+    const renderContent = () => {
+        switch (activeKey) {
+            case '1':
+                return <ApiKeyContent />;
+            case '2':
+                return <GoogleDriveIntegration />;
+            case '3':
+                return <Calendar />;
+            default:
+                return <ApiKeyContent />;
+        }
+    };
 
     return (
         <div className="options-container">
-            <Tabs
-                defaultActiveKey="1"
-                tabPosition="left"
-                items={items}
-                className="options-tabs"
-            />
+            <Sidebar activeKey={activeKey} onChange={setActiveKey} />
+            <div className="content-area">
+                {renderContent()}
+            </div>
         </div>
     );
 };
