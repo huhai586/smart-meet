@@ -303,7 +303,7 @@ body {
 }
 .ant-tabs-tabpane {
   height: calc(100vh - 56px);
-  overflow: hidden;
+  overflow: auto;
 }
 .ant-tabs-nav{
   margin-bottom: 0 !important;

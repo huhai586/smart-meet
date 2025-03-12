@@ -15,7 +15,7 @@ import getAPIkey from "./utils/getAPIkey";
 import openSidePanel from "~utils/open-side-panel";
 
 const ContentMonitor = () => {
-  const [switchValue, setSwitchValue] = useState(false)
+  const [switchValue, setSwitchValue] = useState(true)
 
     useEffect(() => {
         getIsExtensionEnabled().then((enabled: boolean) => {
@@ -37,7 +37,7 @@ const ContentMonitor = () => {
 
   const toggleSwitch = (v) => {
         setSwitchValue(v)
-        chrome.storage.sync.set({ isExtensionEnabled: v }, () => {
+        chrome.storage.local.set({ isExtensionEnabled: v }, () => {
             console.log('isExtensionEnabled is set to ' + v);
             chrome.tabs.query({},function(tabs) {
                 tabs.forEach((tab) => {
