@@ -23,7 +23,7 @@ const Account = () => {
             setLoading(true);
             const folder = await driveService.getBackupFolder();
             setBackupFolder(folder);
-            
+
             if (folder) {
                 const files = await driveService.listBackupFiles();
                 setBackupFiles(files);
@@ -71,23 +71,23 @@ const Account = () => {
     const handleLoadFile = async (fileId: string, fileName: string) => {
         try {
             setLoadingFileId(fileId);
-            
+
             // 从文件名中提取日期（假设文件名格式为 YYYY-MM-DD.json）
             const dateMatch = fileName.match(/(\d{4}-\d{2}-\d{2})\.json/);
             if (!dateMatch) {
                 message.error('Invalid backup file name format. Expected YYYY-MM-DD.json');
                 return;
             }
-            
+
             const dateStr = dateMatch[1];
             const date = dayjs(dateStr);
-            
+
             // 下载文件内容
             const fileContent = await driveService.downloadFile(fileId);
-            
+
             // 获取存储提供者
             const storage = StorageFactory.getInstance().getProvider();
-            
+
             // 确认是否覆盖本地记录
             Modal.confirm({
                 title: 'Restore Backup',
@@ -96,7 +96,7 @@ const Account = () => {
                     try {
                         // 设置当前日期以确保记录被正确存储
                         await storage.setCurrentDate(date);
-                        
+
                         // 只恢复特定日期的记录
                         if (Array.isArray(fileContent)) {
                             // 使用后台消息处理器恢复记录，并传递日期参数
@@ -105,9 +105,9 @@ const Account = () => {
                                 data: fileContent,
                                 date: date.valueOf() // 转换为时间戳
                             });
-                            
+
                             message.success(`Successfully restored chat records for ${dateStr}`);
-                            
+
                             // 打开侧边面板
                             chrome.runtime.sendMessage({ action: "openSidePanel" });
                         } else {
@@ -130,7 +130,7 @@ const Account = () => {
     };
 
     return (
-        <Card title="Google Drive Integration">
+        <Card title="Your backup file in Google Drive" extra={<Button icon={<FolderOutlined />} onClick={loadBackupFolder}>Refresh</Button>}>
             <div style={{ marginBottom: 16 }}>
                 <Upload
                     beforeUpload={handleUpload}
@@ -142,18 +142,6 @@ const Account = () => {
             </div>
 
             <Spin spinning={loading}>
-                {backupFolder ? (
-                    <div style={{ marginBottom: 16 }}>
-                        <h3>
-                            <FolderOutlined style={{ marginRight: 8 }} />
-                            Backup Folder: {backupFolder.name}
-                        </h3>
-                        <p>Last modified: {new Date(backupFolder.modifiedTime).toLocaleString()}</p>
-                    </div>
-                ) : (
-                    <Empty description="No backup folder found" />
-                )}
-
                 <h3>Backup Files</h3>
                 {backupFiles.length > 0 ? (
                     <List
@@ -176,9 +164,9 @@ const Account = () => {
                                         okText="Yes"
                                         cancelText="No"
                                     >
-                                        <Button 
-                                            type="text" 
-                                            danger 
+                                        <Button
+                                            type="text"
+                                            danger
                                             icon={<DeleteOutlined />}
                                             loading={deletingFileId === file.id}
                                         >
@@ -202,4 +190,4 @@ const Account = () => {
     );
 };
 
-export default Account; 
+export default Account;

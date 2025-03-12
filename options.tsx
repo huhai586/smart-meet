@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import './styles/options.scss';
 import googleAITools from "./utils/google-AI";
 import getAPIkey from "./utils/getAPIkey";
-import {Alert, Modal, Tabs} from "antd";
+import {Alert, Modal, Tabs, Typography, Input, Button, Space, Card, theme} from "antd";
 import type { TabsProps } from 'antd';
 import Account from "~components/Account";
 import Sync from '~components/Sync';
@@ -11,12 +11,53 @@ import {
     ApiOutlined, 
     UserOutlined, 
     CloudSyncOutlined, 
-    DatabaseOutlined 
+    DatabaseOutlined,
+    KeyOutlined
 } from '@ant-design/icons';
+import GoogleDriveIntegration from '~components/GoogleDriveIntegration';
+import styled from '@emotion/styled';
+
+const { Title, Text } = Typography;
+const { useToken } = theme;
+
+const StyledCard = styled(Card)`
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+`;
+
+const IconWrapper = styled.div<{color: string; shadowColor: string}>`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  transition: all 0.3s ease;
+  background: ${props => props.color};
+  box-shadow: 0 4px 12px ${props => props.shadowColor};
+`;
+
+const ActionButton = styled(Button)`
+  border-radius: 6px;
+  height: 40px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+`;
 
 const Options = () => {
     const [apiKey, setApiKey] = useState('');
     const [status, setStatus] = useState('');
+    const { token } = useToken();
 
     useEffect(() => {
         // 加载保存的API key
@@ -63,30 +104,87 @@ const Options = () => {
     }, []);
 
     const ApiKeyContent = () => (
-        <div className="form-container">
-            <Alert
-                banner={true}
-                description={'You can obtain the API key from https://aistudio.google.com/apikey'}
-                message="Please enter your Gemini API key to easily use it for AI tasks."
-                type="info"
-                className={'options-alert'}
-            />
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="apiKey">Gemini API Key:</label>
-                    <input
-                        type="text"
-                        id="apiKey"
+        <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
+            <Title level={2} style={{
+                marginBottom: "40px",
+                textAlign: "center",
+                fontSize: "32px",
+                fontWeight: "600",
+                background: `linear-gradient(120deg, ${token.colorPrimary}, ${token.colorInfo})`,
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent"
+            }}>
+                AI Settings
+            </Title>
+
+            <StyledCard>
+                <Space direction="vertical" style={{ width: "100%" }}>
+                    <IconWrapper color={`${token.colorInfo}15`} shadowColor={`${token.colorInfo}20`}>
+                        <KeyOutlined style={{ fontSize: "36px", color: token.colorInfo }} />
+                    </IconWrapper>
+                    
+                    <Title level={4} style={{ textAlign: "center", margin: "16px 0", fontWeight: "600" }}>
+                        Gemini API Configuration
+                    </Title>
+                    
+                    <Text type="secondary" style={{
+                        display: "block",
+                        textAlign: "center",
+                        marginBottom: "32px",
+                        fontSize: "15px",
+                        lineHeight: "1.6"
+                    }}>
+                        Enter your Gemini API key to enable AI-powered features. You can obtain the API key from Google AI Studio.
+                    </Text>
+
+                    <Alert
+                        style={{ marginBottom: "24px" }}
+                        message="Please enter your Gemini API key to easily use it for AI tasks."
+                        description={
+                            <Text type="secondary">
+                                You can obtain the API key from{' '}
+                                <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer">
+                                    https://aistudio.google.com/apikey
+                                </a>
+                            </Text>
+                        }
+                        type="info"
+                        showIcon
+                    />
+
+                    <Input.Password
+                        size="large"
                         value={apiKey}
                         onChange={(e) => setApiKey(e.target.value)}
                         placeholder="Enter your Gemini API key"
+                        style={{ marginBottom: "24px" }}
                     />
-                </div>
-                <button type="submit" className="save-button">
-                    Save Settings
-                </button>
-                {status && <div className="status-message">{status}</div>}
-            </form>
+
+                    <div style={{ textAlign: "center" }}>
+                        <ActionButton
+                            type="primary"
+                            size="large"
+                            onClick={handleSubmit}
+                            style={{
+                                minWidth: "180px",
+                                background: token.colorInfo,
+                                borderColor: token.colorInfo
+                            }}
+                        >
+                            Save Settings
+                        </ActionButton>
+                    </div>
+
+                    {status && (
+                        <Alert
+                            style={{ marginTop: "24px" }}
+                            message={status}
+                            type="success"
+                            showIcon
+                        />
+                    )}
+                </Space>
+            </StyledCard>
         </div>
     );
 
@@ -105,24 +203,14 @@ const Options = () => {
             key: '2',
             label: (
                 <span>
-                    <UserOutlined />
-                    Account
-                </span>
-            ),
-            children: <Account />,
-        },
-        {
-            key: '3',
-            label: (
-                <span>
                     <CloudSyncOutlined />
                     Google Drive Sync
                 </span>
             ),
-            children: <Sync />,
+            children: <GoogleDriveIntegration />,
         },
         {
-            key: '4',
+            key: '3',
             label: (
                 <span>
                     <DatabaseOutlined />

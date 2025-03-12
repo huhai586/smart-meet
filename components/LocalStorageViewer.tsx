@@ -240,80 +240,53 @@ const LocalStorageViewer = () => {
 
   return (
     <div style={{ padding: "8px", maxWidth: "100%", margin: "0" }}>
-      <Card bodyStyle={{ padding: "12px" }}>
-        <div style={{ textAlign: "center", marginBottom: "16px" }}>
-          <DatabaseOutlined style={{ fontSize: "32px", color: "#1890ff" }} />
-          <Title level={4} style={{ margin: "8px 0" }}>
-            Chat History Calendar
-          </Title>
-          <Text type="secondary" style={{ display: "block", fontSize: "12px" }}>
-            Click on highlighted dates to view chat history
-          </Text>
-        </div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <Title level={3} style={{ margin: 0 }}>
+          Chat History Calendar
+        </Title>
+        <Button 
+          type="primary"
+          onClick={loadDatesWithMessages}
+          loading={loading}
+          icon={<DatabaseOutlined />}
+        >
+          Refresh
+        </Button>
+      </div>
 
-        <Tabs
-          activeKey={activeTab}
-          onChange={handleTabChange}
-          items={[
-            {
-              key: 'calendar',
-              label: (
-                <span>
-                  <CalendarOutlined />
-                  Calendar View
-                </span>
-              ),
-              children: (
-                <Spin spinning={loading}>
-                  <Calendar
-                    fullscreen={true}
-                    value={currentDate}
-                    onPanelChange={handlePanelChange}
-                    headerRender={headerRender}
-                    mode={viewMode}
-                    onSelect={handleDateSelect}
-                    dateCellRender={(date) => {
-                      const dateStr = date.format('YYYY-MM-DD');
-                      if (datesWithMessages.has(dateStr)) {
-                        return (
-                          <div style={{
-                            height: '100%',
-                            background: 'rgba(24, 144, 255, 0.1)',
-                            border: '1px solid #1890ff',
-                            borderRadius: '4px',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                          }}>
-                            <div>{date.date()}</div>
-                            <Badge status="processing" text="Chat Records" style={{ fontSize: '11px' }} />
-                          </div>
-                        );
-                      }
-                      return date.date();
-                    }}
-                    style={{
-                      backgroundColor: 'white',
-                      padding: '12px',
-                      borderRadius: '8px',
-                    }}
-                  />
-                </Spin>
-              ),
-            },
-            {
-              key: 'day',
-              label: (
-                <span>
-                  <UnorderedListOutlined />
-                  Day View
-                </span>
-              ),
-              children: renderDayView(),
-            },
-          ]}
-        />
+      <Card bodyStyle={{ padding: "12px" }}>
+        <Spin spinning={loading}>
+          <Calendar
+            fullscreen={false}
+            dateCellRender={(date) => {
+              const dateStr = date.format('YYYY-MM-DD');
+              if (datesWithMessages.has(dateStr)) {
+                return (
+                  <div style={{
+                    height: '100%',
+                    background: 'rgba(24, 144, 255, 0.1)',
+                    border: '1px solid #1890ff',
+                    borderRadius: '4px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <div>{date.date()}</div>
+                    <Badge status="processing" text="Chat Records" style={{ fontSize: '11px' }} />
+                  </div>
+                );
+              }
+              return date.date();
+            }}
+            onSelect={handleDateSelect}
+            style={{ 
+              backgroundColor: 'white',
+              padding: '12px',
+              borderRadius: '8px',
+            }}
+          />
+        </Spin>
       </Card>
 
       <Modal
@@ -336,7 +309,7 @@ const LocalStorageViewer = () => {
                   description={formatTime(message.timestamp)}
                   style={{ marginBottom: '4px' }}
                 />
-                <div style={{
+                <div style={{ 
                   backgroundColor: '#f5f5f5',
                   padding: '8px',
                   borderRadius: '4px',
@@ -347,7 +320,7 @@ const LocalStorageViewer = () => {
                 </div>
               </List.Item>
             )}
-            style={{
+            style={{ 
               maxHeight: '70vh',
               overflowY: 'auto',
               padding: '0 8px'

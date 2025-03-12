@@ -125,7 +125,7 @@ export class GoogleDriveService {
             }
 
             const response = await fetch(
-                `https://www.googleapis.com/drive/v3/files?q='${folder.id}' in parents and trashed=false&fields=files(id,name,mimeType,modifiedTime)`,
+                `https://www.googleapis.com/drive/v3/files?q='${folder.id}' in parents and trashed=false&fields=files(id,name,mimeType,modifiedTime,size)`,
                 {
                     headers: {
                         'Authorization': `Bearer ${this.accessToken}`
@@ -174,7 +174,7 @@ export class GoogleDriveService {
         }
     }
 
-    async uploadFile(file: File): Promise<boolean> {
+    async uploadFile(file: File, existingFileId?: string): Promise<boolean> {
         if (!this.accessToken) {
             const authenticated = await this.authenticate();
             if (!authenticated) {
@@ -192,39 +192,43 @@ export class GoogleDriveService {
             const metadata = {
                 name: file.name,
                 mimeType: file.type,
-                parents: [folder.id]
+                parents: existingFileId ? undefined : [folder.id]
             };
 
-            // 首先上传元数据
-            const metadataResponse = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${this.accessToken}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(metadata)
-            });
+            // 创建FormData
+            const formData = new FormData();
+            formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+            formData.append('file', file);
 
-            if (!metadataResponse.ok) {
-                throw new Error('Failed to create file metadata');
+            let response;
+            if (existingFileId) {
+                // 更新现有文件
+                response = await fetch(
+                    `https://www.googleapis.com/upload/drive/v3/files/${existingFileId}?uploadType=multipart`,
+                    {
+                        method: 'PATCH',
+                        headers: {
+                            'Authorization': `Bearer ${this.accessToken}`
+                        },
+                        body: formData
+                    }
+                );
+            } else {
+                // 上传新文件
+                response = await fetch(
+                    'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${this.accessToken}`
+                        },
+                        body: formData
+                    }
+                );
             }
 
-            const location = metadataResponse.headers.get('Location');
-            if (!location) {
-                throw new Error('No upload location received');
-            }
-
-            // 然后上传文件内容
-            const uploadResponse = await fetch(location, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': file.type
-                },
-                body: file
-            });
-
-            if (!uploadResponse.ok) {
-                throw new Error('Failed to upload file content');
+            if (!response.ok) {
+                throw new Error(`Failed to upload file: ${response.status} ${response.statusText}`);
             }
 
             return true;
