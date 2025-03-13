@@ -47,7 +47,6 @@
     "permissions": [
       "sidePanel",
       "storage",
-      "unlimitedStorage",
       "identity"
     ],
     "oauth2": {
