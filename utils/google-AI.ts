@@ -6,7 +6,7 @@ const googleAITools = {
             if (result.geminiApiKey) {
                 console.log('result.geminiApiKey', result.geminiApiKey);
                 const genAI = new GoogleGenerativeAI(result.geminiApiKey);
-                this.model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+                this.model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
             } else {
                 console.error('No API key found!');
             }
