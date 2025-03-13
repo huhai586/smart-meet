@@ -167,108 +167,104 @@ const Extension = (props: ExtensionPropsInterface) => {
         <div className={'extension-container'}>
             {contextHolder}
             <div className={'highlight-setting'}>
-                <Alert
-                    message={
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <TagOutlined style={{ color: '#1a73e8' }} />
-                            <span>{t('specific_highlight_words')}</span>
-                        </div>
-                    }
-                    description={t('specific_highlight_desc')}
-                    type="info"
-                    showIcon={false}
-                />
+                <div className={'highlight-section'}>
+                    <div className={'highlight-header'}>
+                        <TagOutlined style={{ color: '#1a73e8' }} />
+                        <span>{t('specific_highlight_words')}</span>
+                    </div>
+                    <div className={'highlight-description'}>
+                        {t('specific_highlight_desc')}
+                    </div>
                 
-                <div className={'set-specific-highlight-words'}>
-                    <TweenOneGroup
-                        appear={false}
-                        enter={{scale: 0.8, opacity: 0, type: 'from', duration: 100}}
-                        leave={{opacity: 0, width: 0, scale: 0, duration: 200}}
-                        onEnd={(e) => {
-                            if (e.type === 'appear' || e.type === 'enter') {
-                                (e.target as any).style = 'display: inline-block';
-                            }
-                        }}
-                    >
-                        {tagChild}
-                    </TweenOneGroup>
-                    {inputVisible ? (
-                        <Input
-                            ref={inputRef}
-                            type="text"
-                            size="small"
-                            style={{width: 120}}
-                            value={inputValue}
-                            onChange={handleInputChange}
-                            onBlur={handleInputConfirm}
-                            onPressEnter={handleInputConfirm}
-                            className={'add-more'}
-                            placeholder={t('enter_word')}
-                        />
-                    ) : (
-                        <Tag onClick={showInput} className={'add-more'}>
-                            <PlusOutlined /> {t('add_word')}
-                        </Tag>
-                    )}
+                    <div className={'highlight-content'}>
+                        <TweenOneGroup
+                            appear={false}
+                            enter={{scale: 0.8, opacity: 0, type: 'from', duration: 100}}
+                            leave={{opacity: 0, width: 0, scale: 0, duration: 200}}
+                            onEnd={(e) => {
+                                if (e.type === 'appear' || e.type === 'enter') {
+                                    (e.target as any).style = 'display: inline-block';
+                                }
+                            }}
+                        >
+                            {tagChild}
+                        </TweenOneGroup>
+                        {inputVisible ? (
+                            <Input
+                                ref={inputRef}
+                                type="text"
+                                size="small"
+                                style={{width: 120}}
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                onBlur={handleInputConfirm}
+                                onPressEnter={handleInputConfirm}
+                                className={'add-more'}
+                                placeholder={t('enter_word')}
+                            />
+                        ) : (
+                            <Tag onClick={showInput} className={'add-more'}>
+                                <PlusOutlined /> {t('add_word')}
+                            </Tag>
+                        )}
+                    </div>
                 </div>
 
-                <Divider style={{ margin: '32px 0 24px' }} />
-
-                <Alert
-                    message={
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <GlobalOutlined style={{ color: '#1a73e8' }} />
-                            <span>{t('domain_specific_highlights')}</span>
-                        </div>
-                    }
-                    description={t('domain_specific_desc')}
-                    type="info"
-                    showIcon={false}
-                />
+                <div className={'highlight-section'}>
+                    <div className={'highlight-header'}>
+                        <GlobalOutlined style={{ color: '#1a73e8' }} />
+                        <span>{t('domain_specific_highlights')}</span>
+                    </div>
+                    <div className={'highlight-description'}>
+                        {t('domain_specific_desc')}
+                    </div>
                 
-                <div className="set-highlight-words-by-descriptions">
-                    <Title level={5} style={{ marginBottom: '16px', color: '#2d3748' }}>{t('current_domain_tags')}</Title>
-                    <TweenOneGroup
-                        appear={false}
-                        enter={{scale: 0.8, opacity: 0, type: 'from', duration: 100}}
-                        leave={{opacity: 0, width: 0, scale: 0, duration: 200}}
-                        onEnd={(e) => {
-                            if (e.type === 'appear' || e.type === 'enter') {
-                                (e.target as any).style = 'display: inline-block';
-                            }
-                        }}
-                    >
-                        {domainTagChild}
-                    </TweenOneGroup>
-                    
-                    <Input 
-                        className='domain-inputer'
-                        placeholder={t('domain_placeholder')}
-                        value={domain}
-                        onChange={(v) => {setDomain(v.target.value)}}
-                        prefix={<GlobalOutlined style={{ color: '#a0aec0' }} />}
-                    />
-                    
-                    <TextArea
-                        rows={4}
-                        placeholder={t('keywords_placeholder')}
-                        onChange={(v) => { setHighlightWordsByDescriptions(v.target.value)}}
-                        value={highlightWordsByDescriptions}
-                    />
-                    
-                    <div className="valid-words">
-                        <Button 
-                            onClick={preview}
-                            icon={<CloudSyncOutlined />}
+                    <div className="highlight-content">
+                        <Title level={5} style={{ marginBottom: '16px', color: '#2d3748' }}>{t('current_domain_tags')}</Title>
+                        <TweenOneGroup
+                            appear={false}
+                            enter={{scale: 0.8, opacity: 0, type: 'from', duration: 100}}
+                            leave={{opacity: 0, width: 0, scale: 0, duration: 200}}
+                            onEnd={(e) => {
+                                if (e.type === 'appear' || e.type === 'enter') {
+                                    (e.target as any).style = 'display: inline-block';
+                                }
+                            }}
                         >
-                            {t('generate_keywords')}
-                        </Button>
+                            {domainTagChild}
+                        </TweenOneGroup>
+                        
+                        <Input 
+                            className='domain-inputer'
+                            placeholder={t('domain_placeholder')}
+                            value={domain}
+                            onChange={(v) => {setDomain(v.target.value)}}
+                            prefix={<GlobalOutlined style={{ color: '#a0aec0' }} />}
+                        />
+                        
+                        <TextArea
+                            rows={4}
+                            placeholder={t('keywords_placeholder')}
+                            onChange={(v) => { setHighlightWordsByDescriptions(v.target.value)}}
+                            value={highlightWordsByDescriptions}
+                        />
+                        
+                        <div className="valid-words">
+                            <Button 
+                                onClick={preview}
+                                icon={<CloudSyncOutlined />}
+                            >
+                                {t('generate_keywords')}
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
                 <Divider style={{ margin: '32px 0 24px' }} />
                 
-                <BackupAndRestore jumpToCaptions={props.jumpToCaptions}/>
+                <div className="backup-restore-container">
+                    <BackupAndRestore jumpToCaptions={props.jumpToCaptions}/>
+                </div>
 
                 <Modal
                     title={

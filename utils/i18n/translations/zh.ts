@@ -44,12 +44,12 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google云端硬盘集成",
-  "backup_section": "备份",
-  "backup_desc": "将您的会议数据备份到Google云端硬盘",
+  "backup_section": "备份到本地",
+  "backup_desc": "将您当天的会议数据备份到本地存储",
   "backup_button": "立即备份",
   "last_backup": "上次备份",
-  "restore_section": "恢复",
-  "restore_desc": "从Google云端硬盘恢复您的会议数据",
+  "restore_section": "从本地恢复",
+  "restore_desc": "从本地文件恢复您当天的会议数据",
   "restore_button": "恢复",
   "restore_all": "恢复全部",
   "refresh": "刷新",

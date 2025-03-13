@@ -5,7 +5,7 @@ import type { Language } from '../languages';
 import { getLanguageByCode } from '../languages';
 
 // 默认语言代码
-const DEFAULT_LANGUAGE = 'zh';
+const DEFAULT_LANGUAGE = 'en';
 
 // 获取翻译文本
 export const getTranslation = (key: string, langCode: string, params?: Record<string, string>): string => {

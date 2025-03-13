@@ -44,12 +44,12 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google Drive Integration",
-  "backup_section": "Backup",
-  "backup_desc": "Backup your meeting data to Google Drive",
+  "backup_section": "Backup to Local",
+  "backup_desc": "Backup your current day meeting data to local storage",
   "backup_button": "Backup Now",
   "last_backup": "Last backup",
-  "restore_section": "Restore",
-  "restore_desc": "Restore your meeting data from Google Drive",
+  "restore_section": "Restore from Local",
+  "restore_desc": "Restore your current day meeting data from local file",
   "restore_button": "Restore",
   "restore_all": "Restore All",
   "refresh": "Refresh",

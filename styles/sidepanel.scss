@@ -44,6 +44,12 @@
         .anticon {
           margin-right: 8px;
         }
+        
+        // 移除焦点边框
+        &:focus, &:focus-visible, &:focus-within {
+          outline: none;
+          box-shadow: none;
+        }
       }
 
       .ant-tabs-tab-active {
@@ -56,6 +62,14 @@
       .ant-tabs-ink-bar {
         background: #1a73e8;
         height: 3px;
+      }
+      
+      // 移除标签按钮的焦点边框
+      .ant-tabs-tab-btn {
+        &:focus, &:focus-visible, &:active {
+          outline: none;
+          box-shadow: none;
+        }
       }
     }
   }
