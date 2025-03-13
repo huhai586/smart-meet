@@ -91,6 +91,28 @@ const SidePanel = () => {
         });
     }, []);
 
+    useEffect(() => {
+        // 在组件挂载时通知background侧边栏已打开
+        chrome.runtime.sendMessage({ action: "sidePanelOpened" });
+
+        // 监听关闭侧边栏的请求
+        const handleCloseRequest = (message) => {
+            if (message.action === 'closeSidePanelRequest') {
+                // 使用Chrome API关闭侧边栏
+                // 在Chrome扩展中，侧边栏是由浏览器控制的，我们可以通过window.close()来关闭它
+                window.close();
+            }
+        };
+
+        chrome.runtime.onMessage.addListener(handleCloseRequest);
+
+        // 在组件卸载时通知background侧边栏已关闭
+        return () => {
+            chrome.runtime.sendMessage({ action: "sidePanelClosed" });
+            chrome.runtime.onMessage.removeListener(handleCloseRequest);
+        };
+    }, []);
+
     const items = [
         {
             label: t('captions'),
@@ -117,7 +139,6 @@ const SidePanel = () => {
             children: <Words currentTab={current} />,
         },
     ];
-
 
     return (
         <DateProvider>

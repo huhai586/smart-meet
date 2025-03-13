@@ -2,6 +2,7 @@ export default {
   // Popup
   "log_captions": "记录Google会议字幕",
   "show_captions": "显示字幕",
+  "hide_captions": "隐藏字幕",
   "show_captions_desc": "打开侧边栏显示主视图",
   "clear_captions": "清除字幕",
   "clear_captions_desc": "所有字幕将被删除",

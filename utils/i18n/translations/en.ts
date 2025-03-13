@@ -2,6 +2,7 @@ export default {
   // Popup
   "log_captions": "Log the google meeting captions",
   "show_captions": "Show Captions",
+  "hide_captions": "Hide Captions",
   "show_captions_desc": "open the side panel to show the main view",
   "clear_captions": "Clear captions",
   "clear_captions_desc": "all captions will be removed",
