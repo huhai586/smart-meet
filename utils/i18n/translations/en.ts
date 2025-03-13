@@ -6,7 +6,9 @@ export default {
   "clear_captions": "Clear captions",
   "clear_captions_desc": "all captions will be removed",
   "translation_language": "Translation Language",
-  "select_language": "select language for translation",
+  "select_translation_language": "select language for translation",
+  "ui_language": "UI Language",
+  "select_ui_language": "select language for user interface",
   "settings": "Settings",
   "settings_desc": "config AI, Sync data and so on",
   "clear_confirm": "Are you sure to clear all captions?",
@@ -25,6 +27,8 @@ export default {
   "success": "Success",
   "error": "Error",
   "language_set": "Translation language set to {language}",
+  "translation_language_set": "Translation language set to {language}",
+  "ui_language_set": "UI language set to {language}",
   
   // Settings
   "ai_settings": "AI Settings",

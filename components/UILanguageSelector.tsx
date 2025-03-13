@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Select, message } from 'antd';
 import { supportedLanguages, getLanguageDisplay } from '../utils/languages';
-import useTranslationLanguage from '../hooks/useTranslationLanguage';
-import { useI18n } from '../utils/i18n';
+import useUILanguage from '../hooks/useUILanguage';
+import { setCachedLanguage, useI18n } from '../utils/i18n';
 
 const { Option } = Select;
 
-interface LanguageSelectorProps {
+interface UILanguageSelectorProps {
   compact?: boolean;
 }
 
-const LanguageSelector: React.FC<LanguageSelectorProps> = ({ compact = false }) => {
-  const [language, setLanguage] = useTranslationLanguage();
+const UILanguageSelector: React.FC<UILanguageSelectorProps> = ({ compact = false }) => {
+  const [language, setLanguage] = useUILanguage();
   const { t } = useI18n();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -19,9 +19,21 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ compact = false }) 
     const selectedLanguage = supportedLanguages.find(lang => lang.code === value);
     if (selectedLanguage) {
       setLanguage(selectedLanguage);
+      setCachedLanguage(selectedLanguage);
+      
+      // Send message to all open components (popup, sidepanel, options)
+      chrome.runtime.sendMessage({ 
+        action: "uiLanguageChanged", 
+        languageCode: selectedLanguage.code 
+      });
       
       // Show success message
-      messageApi.success(t('translation_language_set', { language: selectedLanguage.name }));
+      messageApi.success(t('ui_language_set', { language: selectedLanguage.name }));
+      
+      // Reload page to apply UI language changes
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     }
   };
 
@@ -44,4 +56,4 @@ const LanguageSelector: React.FC<LanguageSelectorProps> = ({ compact = false }) 
   );
 };
 
-export default LanguageSelector; 
+export default UILanguageSelector; 

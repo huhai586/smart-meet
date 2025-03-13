@@ -1,9 +1,10 @@
 import React, {useEffect, useState, useRef} from "react";
-import {message, Tabs, Tooltip} from "antd";
+import {message, Tabs, Tooltip, Dropdown, Menu, Button} from "antd";
 import {
     DownloadOutlined,
     FileDoneOutlined,
     HistoryOutlined, RollbackOutlined, SketchOutlined,
+    GlobalOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
@@ -21,6 +22,7 @@ import { DateProvider, useDateContext } from './contexts/DateContext';
 import GlobalDatePicker from './components/GlobalDatePicker';
 import Loading from './components/Loading';
 import useI18n from './utils/i18n';
+import UILanguageSelector from './components/UILanguageSelector';
 
 interface CaptionsRef {
     jumpToDate: (date?: dayjs.Dayjs) => void;
@@ -89,28 +91,12 @@ const SidePanel = () => {
         });
     }, []);
 
-    const saveCaptions = () => {
-        console.log('start downloading')
-        getAiSummary('请将这份会议记录以markdown形式呈现,里面的时间戳请转换为/m/d/h/m/s 格式').then((res) => {
-            save(res, 'captions.md');
-        })
-    }
-
     const items = [
         {
             label: t('captions'),
             key: 'captions',
             icon: <FileDoneOutlined />,
-            children: (
-                <div style={{position: 'relative', height: '100%'}}>
-                    <Captions />
-                    <Tooltip title={t('download_captions')}>
-                        <div className="download-btn" onClick={saveCaptions}>
-                            <DownloadOutlined />
-                        </div>
-                    </Tooltip>
-                </div>
-            ),
+            children: (<Captions />),
         },
         {
             label: t('summary'),
@@ -132,6 +118,7 @@ const SidePanel = () => {
         },
     ];
 
+
     return (
         <DateProvider>
             <div className={'side-panel'}>
@@ -139,15 +126,6 @@ const SidePanel = () => {
                 <Loading spinning={loading} />
                 <GlobalDatePicker />
                 <Tabs
-                    tabBarExtraContent={
-                        <div className="tab-extra-content">
-                            <div className={`download ${loading ? 'hide' : ''}`} onClick={saveCaptions}>
-                                <Tooltip color={'#87d068'} title={'down load all captions'} placement="left">
-                                    <DownloadOutlined />
-                                </Tooltip>
-                            </div>
-                        </div>
-                    }
                     items={items}
                     onChange={onTabClick}
                     activeKey={current}

@@ -6,7 +6,9 @@ export default {
   "clear_captions": "清除字幕",
   "clear_captions_desc": "所有字幕将被删除",
   "translation_language": "翻译语言",
-  "select_language": "选择翻译语言",
+  "select_translation_language": "选择翻译语言",
+  "ui_language": "界面语言",
+  "select_ui_language": "选择用户界面语言",
   "settings": "设置",
   "settings_desc": "配置AI、同步数据等",
   "clear_confirm": "确定要清除所有字幕吗？",
@@ -25,6 +27,8 @@ export default {
   "success": "成功",
   "error": "错误",
   "language_set": "翻译语言已设置为{language}",
+  "translation_language_set": "翻译语言已设置为{language}",
+  "ui_language_set": "界面语言已设置为{language}",
   
   // Settings
   "ai_settings": "AI设置",

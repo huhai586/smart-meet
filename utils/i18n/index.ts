@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import translations from './translations';
-import { getCurrentLanguage } from '../../hooks/useTranslationLanguage';
+import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 import type { Language } from '../languages';
 import { getLanguageByCode } from '../languages';
 
@@ -25,20 +25,20 @@ export const getTranslation = (key: string, langCode: string, params?: Record<st
   return text;
 };
 
-// 创建一个全局缓存的当前语言
-let cachedLanguage: Language | null = null;
+// 创建一个全局缓存的当前UI语言
+let cachedUILanguage: Language | null = null;
 
-// 设置缓存的语言
+// 设置缓存的UI语言
 export const setCachedLanguage = (language: Language): void => {
-  cachedLanguage = language;
+  cachedUILanguage = language;
 };
 
-// 获取缓存的语言代码
+// 获取缓存的UI语言代码
 export const getCachedLanguageCode = (): string => {
-  return cachedLanguage?.code || DEFAULT_LANGUAGE;
+  return cachedUILanguage?.code || DEFAULT_LANGUAGE;
 };
 
-// 翻译函数，使用当前缓存的语言
+// 翻译函数，使用当前缓存的UI语言
 export const t = (key: string, params?: Record<string, string>): string => {
   return getTranslation(key, getCachedLanguageCode(), params);
 };
@@ -55,19 +55,19 @@ export const triggerLanguageChange = (langCode: string): void => {
 export const useI18n = () => {
   const [langCode, setLangCode] = useState<string>(getCachedLanguageCode());
   
-  // 初始化时从存储中加载语言设置
+  // 初始化时从存储中加载UI语言设置
   useEffect(() => {
     const loadLanguage = async () => {
-      const currentLanguage = await getCurrentLanguage();
-      setCachedLanguage(currentLanguage);
-      setLangCode(currentLanguage.code);
+      const currentUILanguage = await getCurrentUILanguage();
+      setCachedLanguage(currentUILanguage);
+      setLangCode(currentUILanguage.code);
     };
     
     loadLanguage();
     
-    // 监听来自其他组件的语言变更消息
+    // 监听来自其他组件的UI语言变更消息
     const handleMessage = (message) => {
-      if (message.action === 'languageChanged') {
+      if (message.action === 'uiLanguageChanged') {
         const newLangCode = message.languageCode;
         const newLanguage = getLanguageByCode(newLangCode);
         if (newLanguage) {

@@ -8,13 +8,15 @@ import {
   DeleteOutlined,
   SettingOutlined,
   AudioOutlined,
-  TranslationOutlined
+  TranslationOutlined,
+  GlobalOutlined
 } from '@ant-design/icons'
 import getIsExtensionEnabled from "./utils/get-is-extension-enabled";
 import {updateBadgeText} from "./background/set-badge-text";
 import getAPIkey from "./utils/getAPIkey";
 import openSidePanel from "~utils/open-side-panel";
 import LanguageSelector from "./components/LanguageSelector";
+import UILanguageSelector from "./components/UILanguageSelector";
 import useI18n from "./utils/i18n";
 
 const ContentMonitor = () => {
@@ -81,8 +83,16 @@ const ContentMonitor = () => {
           <div className="flex-column">
               <div className={'height26'}><b><TranslationOutlined style={{ marginRight: '8px' }} />{t('translation_language')}</b></div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span>{t('select_language')}</span>
+                <span>{t('select_translation_language')}</span>
                 <LanguageSelector compact={true} />
+              </div>
+          </div>
+
+          <div className="flex-column">
+              <div className={'height26'}><b><GlobalOutlined style={{ marginRight: '8px' }} />{t('ui_language')}</b></div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>{t('select_ui_language')}</span>
+                <UILanguageSelector compact={true} />
               </div>
           </div>
 

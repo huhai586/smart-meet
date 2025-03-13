@@ -8,7 +8,6 @@
         background: white;
         border: 1px solid #e8e8e8;
         border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
         transition: all 0.3s;
 
         &:hover {
@@ -17,13 +16,12 @@
 
         &.ant-picker-focused {
             border-color: #1890ff;
-            box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
         }
     }
 
     .ant-picker-cell-inner {
         position: relative;
-        
+
         .message-dot {
             position: absolute;
             bottom: 2px;
@@ -35,4 +33,4 @@
             border-radius: 50%;
         }
     }
-} 
+}
