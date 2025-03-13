@@ -77,7 +77,25 @@ const caption = (props: CaptionProps) => {
 
     const hasAiData= aiData.length > 0;
 
+    // 处理文本选中事件
+    const handleTextSelection = () => {
+        const selection = window.getSelection();
+        const selectedText = selection?.toString().trim();
+        
+        // 如果有选中的文本，则自动翻译
+        if (selectedText && selectedText.length > 0) {
+            translateSingleWords(selectedText).then((res) => {
+                success(res);
+            });
+        }
+    };
+
     const handleTextClick = (ev) => {
+        // 如果点击的是div元素，取消后续逻辑
+        if (ev.target.tagName.toLowerCase() === 'div') {
+            return;
+        }
+        
         const text = ev.target.textContent;
         if (domainKeyWords.includes(text) && domain) {
             askAI(Actions.EXPLAIN, text, domain).then((res) => {
@@ -140,7 +158,12 @@ const caption = (props: CaptionProps) => {
                             </Button>
                         </div>
                     </div>
-                    <div className={'caption-text'} onClick={handleTextClick} dangerouslySetInnerHTML={{__html: captions}}></div>
+                    <div 
+                        className={'caption-text'} 
+                        onClick={handleTextClick} 
+                        onMouseUp={handleTextSelection}
+                        dangerouslySetInnerHTML={{__html: captions}}
+                    ></div>
                     <div className="timestamp">
                         <ClockCircleOutlined style={{ marginRight: '6px', fontSize: '12px' }} />
                         {new Date(data.timestamp).toLocaleString()}

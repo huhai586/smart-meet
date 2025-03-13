@@ -35,6 +35,7 @@ export class GoogleDriveService {
             chrome.identity.getAuthToken({ interactive: true }, (token) => {
                 if (chrome.runtime.lastError) {
                     console.error(chrome.runtime.lastError);
+                    message.error(`Authentication error: ${chrome.runtime.lastError.message || 'Unknown error'}`);
                     resolve(null);
                 } else {
                     resolve(token);
