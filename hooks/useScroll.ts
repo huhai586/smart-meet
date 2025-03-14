@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState, useCallback } from 'react';
 import type {Transcript} from "~hooks/useTranscripts";
 
-function useAutoScroll(scrollAreaRef: React.RefObject<HTMLDivElement>, data:Transcript[]) {
+function useAutoScroll(scrollAreaRef: React.RefObject<HTMLDivElement>, data:Transcript[], shouldAutoScroll: boolean = true) {
     const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
     const lastDataLengthRef = useRef(data.length);
     let lastScrollTop = scrollAreaRef.current?.scrollTop || 0;
@@ -38,11 +38,11 @@ function useAutoScroll(scrollAreaRef: React.RefObject<HTMLDivElement>, data:Tran
         // 更新数据长度引用
         lastDataLengthRef.current = data.length;
 
-        // 执行自动滚动
-        if (autoScrollEnabled) {
+        // 执行自动滚动，但只有在shouldAutoScroll为true时
+        if (autoScrollEnabled && shouldAutoScroll) {
             scrollArea.scrollTop = scrollArea.scrollHeight;
         }
-    }, [data]);
+    }, [data, shouldAutoScroll]);
 
     useEffect(() => {
         const scrollAreaNode = scrollAreaRef.current;
