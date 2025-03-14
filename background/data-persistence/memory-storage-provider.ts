@@ -44,17 +44,17 @@ export class MemoryStorageProvider implements StorageProvider {
         try {
             const dateKey = this.currentDate.format('YYYY-MM-DD');
             const records = this.memoryCache.get(dateKey) || [];
-            
+
             if (this.changedRecords.size > 0) {
                 // 只更新发生变化的记录
-                const changedRecords = records.filter(record => 
+                const changedRecords = records.filter(record =>
                     this.changedRecords.has(record.session)
                 );
-                
+
                 if (changedRecords.length > 0) {
                     await this.indexedDBProvider.addOrUpdateRecords(changedRecords);
                 }
-                
+
                 this.changedRecords.clear(); // 清除变更记录
             }
         } catch (error) {
@@ -65,7 +65,7 @@ export class MemoryStorageProvider implements StorageProvider {
     async addOrUpdateRecord(record: Transcript): Promise<void> {
         const dateKey = this.currentDate.format('YYYY-MM-DD');
         const dateRecords = this.memoryCache.get(dateKey) || [];
-        
+
         const index = dateRecords.findIndex(r => r.session === record.session);
         if (index !== -1) {
             dateRecords[index] = record;
@@ -82,13 +82,13 @@ export class MemoryStorageProvider implements StorageProvider {
         // 如果没有提供日期，使用当前设置的日期
         const targetDate = date || this.currentDate;
         const dateKey = targetDate.format('YYYY-MM-DD');
-        
-        // 如果请求的不是当前日期的数据，直接从数据库获取
-        if (!this.currentDate.isSame(targetDate, 'day')) {
-            return this.indexedDBProvider.getRecords(targetDate);
+
+        const dataInMemory = this.memoryCache.get(dateKey) || [];
+        if (dataInMemory.length > 0) {
+            return dataInMemory;
         }
-        
-        return this.memoryCache.get(dateKey) || [];
+        return this.indexedDBProvider.getRecords(targetDate);
+
     }
 
     async deleteRecords(date?: Dayjs): Promise<void> {
@@ -127,14 +127,14 @@ export class MemoryStorageProvider implements StorageProvider {
                     const recordDate = dayjs(record.timestamp).format('YYYY-MM-DD');
                     return recordDate === dateKey;
                 });
-                
+
                 // 删除该日期的现有记录
                 await this.deleteRecords(date);
-                
+
                 // 添加新记录
                 if (dateRecords.length > 0) {
                     await this.indexedDBProvider.addOrUpdateRecords(dateRecords);
-                    
+
                     // 如果是当前日期，更新内存缓存
                     if (this.currentDate.isSame(date, 'day')) {
                         this.memoryCache.set(dateKey, dateRecords);
