@@ -2,7 +2,7 @@ import {useEffect, useState, useMemo} from "react";
 import type {Captions} from "~node_modules/google-meeting-captions-resolver";
 import { useDateContext } from '../contexts/DateContext';
 
-export type Transcript = Captions & {timestamp: number};
+export type Transcript = Captions & {timestamp: number, meetingName: string};
 
 const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<Transcript[]>>] => {
     const [currentDayTranscripts, setCurrentDayTranscripts] = useState<Transcript[]>([]);

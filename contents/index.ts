@@ -11,7 +11,7 @@ const addOrUpdateRecords = (incomingData: Captions) => {
     // 从content script发送消息
     console.log('context.js', 'addOrUpdateRecords', incomingData)
     chrome.runtime.sendMessage({
-        data: {...incomingData, timestamp: new Date().getTime()},
+        data: {...incomingData, timestamp: new Date().getTime(), meetingName: document.title},
         action: 'addOrUpdateRecords'
     });
 };
