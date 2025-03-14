@@ -72,18 +72,18 @@ const GoogleDriveIntegration: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
+    <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
       <StyledTitle>Google Drive Integration</StyledTitle>
 
-      <Row gutter={32}>
-        <Col span={12}>
+      <Row gutter={[24, 24]}>
+        <Col xs={24} lg={10}>
           <BackupSection 
             onBackup={handleSync} 
             loading={syncing} 
           />
         </Col>
 
-        <Col span={12}>
+        <Col xs={24} lg={14}>
           <RestoreSection 
             files={backupFiles}
             loading={loading}

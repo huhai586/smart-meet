@@ -1,5 +1,5 @@
 import React from 'react';
-import { Space, Typography, theme } from 'antd';
+import { Space, Typography, theme, Row, Col, Divider } from 'antd';
 import { CloudSyncOutlined } from '@ant-design/icons';
 import { ActionButton, IconWrapper, StyledCard } from './StyledComponents';
 
@@ -15,30 +15,35 @@ const BackupSection: React.FC<BackupSectionProps> = ({ onBackup, loading }) => {
   const { token } = useToken();
 
   return (
-    <StyledCard>
-      <Space direction="vertical" style={{ width: "100%" }}>
-        <IconWrapper color={`${token.colorPrimary}15`} shadowColor={`${token.colorPrimary}20`}>
-          <CloudSyncOutlined style={{ fontSize: "36px", color: token.colorPrimary }} />
-        </IconWrapper>
-        <Title level={4} style={{ textAlign: "center", margin: "16px 0", fontWeight: "600" }}>
-          Backup
-        </Title>
-        <Text type="secondary" style={{
-          display: "block",
-          textAlign: "center",
-          marginBottom: "32px",
-          fontSize: "15px",
-          lineHeight: "1.6"
-        }}>
-          Backup your chat history to Google Drive. Existing files can be overwritten or skipped.
-        </Text>
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <StyledCard bodyStyle={{ padding: "16px" }}>
+      <Space direction="vertical" style={{ width: "100%" }} size="middle">
+        {/* Header Section */}
+        <Row gutter={16} align="middle">
+          <Col xs={24} sm={8} md={6}>
+            <IconWrapper color={`${token.colorPrimary}15`} shadowColor={`${token.colorPrimary}20`}>
+              <CloudSyncOutlined style={{ fontSize: "32px", color: token.colorPrimary }} />
+            </IconWrapper>
+          </Col>
+          <Col xs={24} sm={16} md={18}>
+            <Title level={4} style={{ margin: "0 0 8px", fontWeight: "600" }}>
+              Backup
+            </Title>
+            <Text type="secondary" style={{ fontSize: "14px", lineHeight: "1.5" }}>
+              Backup your chat history to Google Drive. Existing files can be overwritten or skipped.
+            </Text>
+          </Col>
+        </Row>
+
+        <Divider style={{ margin: "8px 0" }} />
+
+        {/* Action Button */}
+        <div style={{ display: 'flex', justifyContent: 'center', padding: "16px 0" }}>
           <ActionButton
             type="primary"
             icon={<CloudSyncOutlined />}
             onClick={onBackup}
             loading={loading}
-            size="large"
+            size="middle"
             style={{
               minWidth: "180px",
               background: token.colorPrimary,

@@ -1,8 +1,9 @@
-import React from 'react';
-import { Space, Typography, Button, Upload, theme } from 'antd';
-import { CloudDownloadOutlined, UploadOutlined, SyncOutlined } from '@ant-design/icons';
+import React, { useState } from 'react';
+import { Space, Typography, Button, Upload, theme, Card, Row, Col, Divider } from 'antd';
+import { CloudDownloadOutlined, UploadOutlined, SyncOutlined, TableOutlined } from '@ant-design/icons';
 import { ActionButton, IconWrapper, StyledCard } from './StyledComponents';
 import FileList from './FileList';
+import FileDetailsModal from './FileDetailsModal';
 import type { DriveFile } from './types';
 
 const { Title, Text } = Typography;
@@ -34,80 +35,103 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
   onUpload
 }) => {
   const { token } = useToken();
+  const [detailsModalVisible, setDetailsModalVisible] = useState(false);
 
   return (
-    <StyledCard>
-      <Space direction="vertical" style={{ width: "100%" }}>
-        <IconWrapper color={`${token.colorSuccess}15`} shadowColor={`${token.colorSuccess}20`}>
-          <CloudDownloadOutlined style={{ fontSize: "36px", color: token.colorSuccess }} />
-        </IconWrapper>
-        <Title level={4} style={{ textAlign: "center", margin: "16px 0", fontWeight: "600" }}>
-          Restore Files
-        </Title>
-        <Text type="secondary" style={{
-          display: "block",
-          textAlign: "center",
-          marginBottom: "32px",
-          fontSize: "15px",
-          lineHeight: "1.6"
-        }}>
-          View and manage your backup files in Google Drive
-        </Text>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: "24px" }}>
-          <ActionButton
-            type="primary"
-            icon={<CloudDownloadOutlined />}
-            onClick={onRestoreAll}
-            loading={restoring}
-            disabled={files.length === 0}
-            size="large"
-            style={{
-              width: "100%",
-              maxWidth: "300px",
-              background: token.colorSuccess,
-              borderColor: token.colorSuccess
-            }}
-          >
-            Restore All
-          </ActionButton>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginBottom: "24px" }}>
-          <Upload
-            showUploadList={false}
-            accept=".json"
-            beforeUpload={onUpload}
-          >
-            <Button
-              icon={<UploadOutlined />}
-              style={{
-                height: "32px",
-                borderRadius: "6px"
-              }}
-            >
-              Upload
-            </Button>
-          </Upload>
-          <Button
-            icon={<SyncOutlined spin={loading} />}
-            onClick={onRefresh}
-            style={{
-              height: "32px",
-              borderRadius: "6px"
-            }}
-          >
-            Refresh
-          </Button>
-        </div>
+    <StyledCard bodyStyle={{ padding: "16px" }}>
+      <Space direction="vertical" style={{ width: "100%" }} size="middle">
+        {/* Header Section */}
+        <Row gutter={16} align="middle">
+          <Col xs={24} sm={8} md={6}>
+            <IconWrapper color={`${token.colorSuccess}15`} shadowColor={`${token.colorSuccess}20`}>
+              <CloudDownloadOutlined style={{ fontSize: "32px", color: token.colorSuccess }} />
+            </IconWrapper>
+          </Col>
+          <Col xs={24} sm={16} md={18}>
+            <Title level={4} style={{ margin: "0 0 8px", fontWeight: "600" }}>
+              Restore Files
+            </Title>
+            <Text type="secondary" style={{ fontSize: "14px", lineHeight: "1.5" }}>
+              View and manage your backup files in Google Drive
+            </Text>
+          </Col>
+        </Row>
+
+        {/* Action Buttons */}
+        <Row gutter={16} justify="space-between" align="middle">
+          <Col>
+            <Space>
+              <ActionButton
+                type="primary"
+                icon={<CloudDownloadOutlined />}
+                onClick={onRestoreAll}
+                loading={restoring}
+                disabled={files.length === 0}
+                size="middle"
+                style={{
+                  background: token.colorSuccess,
+                  borderColor: token.colorSuccess
+                }}
+              >
+                Restore All
+              </ActionButton>
+              {files.length > 0 && (
+                <Button
+                  icon={<TableOutlined />}
+                  onClick={() => setDetailsModalVisible(true)}
+                  size="middle"
+                >
+                  View Details
+                </Button>
+              )}
+            </Space>
+          </Col>
+          <Col>
+            <Space>
+              <Upload
+                showUploadList={false}
+                accept=".json"
+                beforeUpload={onUpload}
+              >
+                <Button
+                  icon={<UploadOutlined />}
+                  size="middle"
+                >
+                  Upload
+                </Button>
+              </Upload>
+              <Button
+                icon={<SyncOutlined spin={loading} />}
+                onClick={onRefresh}
+                size="middle"
+              >
+                Refresh
+              </Button>
+            </Space>
+          </Col>
+        </Row>
+
+        <Divider style={{ margin: "8px 0" }} />
         
-        <FileList
-          files={files}
-          loading={loading}
-          loadingFileId={loadingFileId}
-          deletingFileId={deletingFileId}
-          onRestore={onRestore}
-          onDelete={onDelete}
-        />
+        {/* File List */}
+        <div style={{ marginTop: "8px" }}>
+          <FileList
+            files={files}
+            loading={loading}
+            loadingFileId={loadingFileId}
+            deletingFileId={deletingFileId}
+            onRestore={onRestore}
+            onDelete={onDelete}
+          />
+        </div>
       </Space>
+
+      {/* File Details Modal */}
+      <FileDetailsModal
+        visible={detailsModalVisible}
+        files={files}
+        onClose={() => setDetailsModalVisible(false)}
+      />
     </StyledCard>
   );
 };
