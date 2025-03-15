@@ -1,10 +1,23 @@
 .captions {
   display: flex;
   height: 100%;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, rgba(248, 249, 250, 0.7) 0%, rgba(232, 244, 253, 0.7) 50%, rgba(240, 247, 255, 0.7) 100%);
   flex-direction: column;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(26, 115, 232, 0.1), transparent 70%),
+                radial-gradient(circle at bottom left, rgba(66, 133, 244, 0.1), transparent 70%);
+    z-index: 0;
+  }
 
   .filter-section {
     padding: 12px 16px;
@@ -67,32 +80,34 @@
         transition: all 0.2s ease;
         font-size: 12px;
         margin: 0;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(226, 232, 240, 0.8);
 
         &:hover {
           transform: translateY(-1px);
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.8);
         }
 
         &.ant-btn-default {
-          background: #f7fafc;
-          border: 1px solid #e2e8f0;
           color: #4a5568;
 
           &:hover {
             color: #1a73e8;
-            border-color: #1a73e8;
+            border-color: rgba(26, 115, 232, 0.6);
           }
         }
 
         &.selected-filter {
-          background: #ebf5ff !important;
-          color: #1a73e8 !important;
-          border-color: #1a73e8 !important;
+          background: rgba(26, 115, 232, 0.8) !important;
+          color: white !important;
+          border-color: rgba(26, 115, 232, 0.6) !important;
           font-weight: 500;
+          box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
 
           &:hover {
-            background: #1a73e8 !important;
-            color: white !important;
+            background: rgba(26, 115, 232, 0.9) !important;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
           }
         }
       }
@@ -100,18 +115,22 @@
 
     .filter-meeting {
       button.ant-btn {
-        background: #f0f7ff;
-        border: 1px solid #d0e3ff;
         color: #1a73e8;
 
         &:hover {
-          background: #e0f0ff;
+          background: rgba(240, 247, 255, 0.8);
         }
 
         &.selected-filter {
-          background: #1a73e8 !important;
+          background: rgba(26, 115, 232, 0.8) !important;
           color: white !important;
-          border-color: #1a73e8 !important;
+          border-color: rgba(26, 115, 232, 0.6) !important;
+          box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
+          
+          &:hover {
+            background: rgba(26, 115, 232, 0.9) !important;
+            box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+          }
         }
       }
     }
@@ -130,10 +149,22 @@
         padding: 0;
         font-size: 16px;
         transition: all 0.2s ease;
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        color: #4a5568;
         
         &:hover {
           transform: translateY(-1px);
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          background: rgba(255, 255, 255, 0.8);
+          color: #1a73e8;
+        }
+        
+        &.active {
+          background: rgba(26, 115, 232, 0.8) !important;
+          color: white !important;
+          border-color: rgba(26, 115, 232, 0.6) !important;
+          box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
         }
       }
     }
@@ -144,18 +175,23 @@
     scroll-behavior: smooth;
     padding: 0 16px 16px;
     overflow-y: auto;
+    background: rgba(248, 249, 250, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    z-index: 1;
 
     &::-webkit-scrollbar {
       width: 6px;
     }
 
     &::-webkit-scrollbar-thumb {
-      background-color: #cbd5e0;
+      background-color: rgba(203, 213, 224, 0.7);
       border-radius: 3px;
     }
 
     &::-webkit-scrollbar-track {
-      background-color: #f8f9fa;
+      background-color: rgba(248, 249, 250, 0.3);
     }
 
     &.no-data {
@@ -164,21 +200,24 @@
       align-items: center;
       font-size: 32px;
       font-weight: 500;
-      color: #a0aec0;
+      color: rgba(160, 174, 192, 0.8);
     }
 
     .caption-container {
-      background: white;
+      background: rgba(255, 255, 255, 0.7);
       border-radius: 12px;
       margin-bottom: 16px;
       padding: 20px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
-      border: 1px solid #edf2f7;
+      border: 1px solid rgba(237, 242, 247, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
 
       &:hover {
         transform: translateY(-1px);
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        background: rgba(255, 255, 255, 0.8);
       }
 
       .caption-header {
@@ -187,7 +226,7 @@
         align-items: center;
         margin-bottom: 16px;
         padding-bottom: 12px;
-        border-bottom: 1px solid #edf2f7;
+        border-bottom: 1px solid rgba(237, 242, 247, 0.8);
 
         .caption-speaker {
           text-transform: capitalize;
@@ -202,7 +241,7 @@
             display: inline-block;
             width: 8px;
             height: 8px;
-            background: #1a73e8;
+            background: rgba(26, 115, 232, 0.9);
             border-radius: 50%;
             margin-right: 8px;
           }
@@ -216,15 +255,18 @@
             padding: 4px 12px;
             border-radius: 6px;
             transition: all 0.3s ease;
-            background: #f7fafc;
-            border: 1px solid #e2e8f0;
+            background: rgba(247, 250, 252, 0.6);
+            border: 1px solid rgba(226, 232, 240, 0.8);
             color: #4a5568;
             font-size: 13px;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
 
             &:hover {
-              background: #1a73e8;
+              background: rgba(26, 115, 232, 0.8);
               color: white;
-              border-color: #1a73e8;
+              border-color: rgba(26, 115, 232, 0.6);
+              box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
             }
           }
         }
@@ -256,7 +298,7 @@
       .ai-answer-container {
         margin-top: 16px;
         padding-top: 16px;
-        border-top: 1px solid #edf2f7;
+        border-top: 1px solid rgba(237, 242, 247, 0.8);
 
         .ai-answer-item {
           margin-bottom: 12px;
@@ -269,13 +311,15 @@
           }
 
           .ai-answer-data {
-            background: #f7fafc;
+            background: rgba(247, 250, 252, 0.6);
             border-radius: 8px;
             padding: 12px;
             font-size: 14px;
             color: #4a5568;
             line-height: 1.6;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
           }
         }
       }
@@ -288,16 +332,17 @@
     top: 0;
     right: 0;
     left: 0;
-    background-color: rgba(248, 249, 250, 0.95);
+    background-color: rgba(248, 249, 250, 0.7);
     padding: 12px 16px;
     z-index: 100;
     opacity: 0;
     visibility: hidden;
     transition: all 0.25s ease;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(224, 224, 224, 0.5);
     display: flex;
     justify-content: center;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
     &.visible {
       opacity: 1;
@@ -309,20 +354,22 @@
       align-items: center;
       width: 360px;
       margin: 0 auto;
-      background-color: white;
-      border: 1px solid #dfe1e5;
+      background-color: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(223, 225, 229, 0.8);
       border-radius: 24px;
       padding: 6px 12px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
       transition: all 0.2s ease;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
 
       &:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       }
 
       &:focus-within {
-        border-color: #4285f4;
-        box-shadow: 0 4px 12px rgba(66, 133, 244, 0.2);
+        border-color: rgba(66, 133, 244, 0.8);
+        box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);
       }
 
       .search-icon {
@@ -352,7 +399,7 @@
         font-weight: 500;
       }
 
-      .nav-button {
+      .nav-button, .close-button {
         border: none;
         background: transparent;
         padding: 0 4px;
@@ -367,32 +414,19 @@
         transition: all 0.2s ease;
 
         &:hover {
-          color: #4285f4;
-          background-color: #f1f3f4;
+          color: #1a73e8;
+          background-color: rgba(241, 243, 244, 0.8);
         }
 
         &[disabled] {
-          color: #d9d9d9;
+          color: rgba(217, 217, 217, 0.8);
         }
       }
 
       .close-button {
-        border: none;
-        background: transparent;
-        padding: 0 4px;
-        margin: 0 2px;
-        color: #5f6368;
-        width: 28px;
-        height: 28px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        transition: all 0.2s ease;
-
         &:hover {
           color: #ff4d4f;
-          background-color: #f1f3f4;
+          background-color: rgba(241, 243, 244, 0.8);
         }
       }
 
@@ -410,15 +444,17 @@
 
   // 搜索高亮样式
   .search-highlight {
-    background-color: rgba(255, 213, 79, 0.4);
+    background-color: rgba(255, 213, 79, 0.3);
     padding: 0 2px;
-    border-radius: 2px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
   }
 
   .search-highlight-active {
-    background-color: rgba(255, 165, 0, 0.7);
+    background-color: rgba(255, 165, 0, 0.5);
     font-weight: bold;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
   }
 }
 
