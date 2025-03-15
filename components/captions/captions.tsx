@@ -124,11 +124,11 @@ const Captions = (props) => {
         }
 
         setIsSearchActive(true);
-        
+
         // 查找所有匹配项
         const results = [];
         const searchRegex = new RegExp(searchText, 'gi');
-        
+
         // 在DOM中查找匹配项
         const container = chatContainer.current;
         if (container) {
@@ -140,7 +140,7 @@ const Captions = (props) => {
                 // 合并相邻的文本节点
                 parent.normalize();
             });
-            
+
             // 查找所有文本节点并高亮匹配项
             const textNodes = [];
             const walk = document.createTreeWalker(
@@ -148,25 +148,25 @@ const Captions = (props) => {
                 NodeFilter.SHOW_TEXT,
                 { acceptNode: () => NodeFilter.FILTER_ACCEPT }
             );
-            
+
             let node;
             while (node = walk.nextNode()) {
                 if (node.nodeValue.trim() !== '') {
                     textNodes.push(node);
                 }
             }
-            
+
             textNodes.forEach(textNode => {
                 const content = textNode.nodeValue;
                 const matches = content.match(searchRegex);
-                
+
                 if (matches) {
                     let lastIndex = 0;
                     searchRegex.lastIndex = 0;
-                    
+
                     const fragments = [];
                     let match;
-                    
+
                     while ((match = searchRegex.exec(content)) !== null) {
                         // 添加匹配前的文本
                         if (match.index > lastIndex) {
@@ -174,26 +174,26 @@ const Captions = (props) => {
                                 content.substring(lastIndex, match.index)
                             ));
                         }
-                        
+
                         // 创建高亮元素
                         const highlightEl = document.createElement('span');
                         highlightEl.className = 'search-highlight';
                         highlightEl.textContent = match[0];
                         fragments.push(highlightEl);
-                        
+
                         // 记录匹配项位置
                         results.push(highlightEl);
-                        
+
                         lastIndex = searchRegex.lastIndex;
                     }
-                    
+
                     // 添加最后一个匹配后的文本
                     if (lastIndex < content.length) {
                         fragments.push(document.createTextNode(
                             content.substring(lastIndex)
                         ));
                     }
-                    
+
                     // 替换原始节点
                     const parent = textNode.parentNode;
                     fragments.forEach(fragment => {
@@ -203,9 +203,9 @@ const Captions = (props) => {
                 }
             });
         }
-        
+
         setSearchResults(results);
-        
+
         // 如果有匹配项，滚动到第一个匹配项
         if (results.length > 0) {
             setCurrentMatch(1);
@@ -225,7 +225,7 @@ const Captions = (props) => {
                 behavior: 'smooth',
                 block: 'center'
             });
-            
+
             // 添加活跃状态样式
             const activeHighlight = document.querySelector('.search-highlight-active');
             if (activeHighlight) {
@@ -238,11 +238,11 @@ const Captions = (props) => {
     // 导航到下一个匹配项
     const goToNextMatch = () => {
         if (searchResults.length === 0) return;
-        
+
         let nextMatch = currentMatch % searchResults.length + 1;
         setCurrentMatch(nextMatch);
         scrollToMatch(searchResults[nextMatch - 1]);
-        
+
         // 保持输入框焦点
         if (searchInputRef.current) {
             searchInputRef.current.focus();
@@ -252,12 +252,12 @@ const Captions = (props) => {
     // 导航到上一个匹配项
     const goToPrevMatch = () => {
         if (searchResults.length === 0) return;
-        
+
         let prevMatch = currentMatch - 1;
         if (prevMatch === 0) prevMatch = searchResults.length;
         setCurrentMatch(prevMatch);
         scrollToMatch(searchResults[prevMatch - 1]);
-        
+
         // 保持输入框焦点
         if (searchInputRef.current) {
             searchInputRef.current.focus();
@@ -270,7 +270,7 @@ const Captions = (props) => {
         setSearchResults([]);
         setCurrentMatch(0);
         setIsSearchActive(false);
-        
+
         // 移除高亮
         const container = chatContainer.current;
         if (container) {
@@ -281,7 +281,7 @@ const Captions = (props) => {
                 parent.normalize();
             });
         }
-        
+
         // 清除后保持输入框焦点
         if (searchInputRef.current) {
             searchInputRef.current.focus();
@@ -308,32 +308,32 @@ const Captions = (props) => {
                     searchInputRef.current?.focus();
                 }, 100);
             }
-            
+
             // Escape 关闭搜索
             if (e.key === 'Escape' && searchVisible) {
                 setSearchVisible(false);
                 clearSearch();
             }
-            
+
             // Enter 执行搜索
             if (e.key === 'Enter' && searchVisible && document.activeElement === searchInputRef.current) {
                 e.preventDefault();
                 handleSearch();
             }
-            
+
             // F3 或 Enter 查找下一个
             if ((e.key === 'F3' || (e.key === 'Enter' && e.shiftKey === false)) && isSearchActive) {
                 e.preventDefault();
                 goToNextMatch();
             }
-            
+
             // Shift+F3 或 Shift+Enter 查找上一个
             if ((e.key === 'F3' && e.shiftKey) || (e.key === 'Enter' && e.shiftKey) && isSearchActive) {
                 e.preventDefault();
                 goToPrevMatch();
             }
         };
-        
+
         document.addEventListener('keydown', handleKeyDown);
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
@@ -356,7 +356,7 @@ const Captions = (props) => {
                         autoFocus={searchVisible}
                         suffix={
                             searchText ? (
-                                <CloseOutlined 
+                                <CloseOutlined
                                     onClick={clearSearch}
                                     className="clear-icon"
                                 />
@@ -366,20 +366,20 @@ const Captions = (props) => {
                     <span className="match-counter">
                         {searchResults.length > 0 ? `${currentMatch}/${searchResults.length}` : ''}
                     </span>
-                    <Button 
-                        icon={<UpOutlined />} 
+                    <Button
+                        icon={<UpOutlined />}
                         onClick={goToPrevMatch}
                         className="nav-button"
                         disabled={searchResults.length === 0}
                     />
-                    <Button 
-                        icon={<DownOutlined />} 
+                    <Button
+                        icon={<DownOutlined />}
                         onClick={goToNextMatch}
                         className="nav-button"
                         disabled={searchResults.length === 0}
                     />
-                    <Button 
-                        icon={<CloseOutlined />} 
+                    <Button
+                        icon={<CloseOutlined />}
                         onClick={toggleSearch}
                         className="close-button"
                     />
@@ -388,29 +388,37 @@ const Captions = (props) => {
 
             {speakers.length > 0 && (
                 <div className="filter-section">
-                    <div className="filter-speakers">
-                        <Title level={5} style={{ margin: '0', lineHeight: '32px' }}>Filter by talker:</Title>
-                        {speakers.map((speaker) => (
-                            <Button
-                                type={filterSpeaker.includes(speaker) ? 'primary' : 'default'}
-                                className={filterSpeaker.includes(speaker) ? 'selected-filter' : ''}
-                                size={'small'}
-                                onClick={() => {toggleSpeaker(speaker)}}
-                                key={speaker}
-                            >
-                                {speaker}
-                            </Button>
-                        ))}
-                    </div>
+                    <div>
 
+                        <div className="filter-speakers">
+                            <Title level={5} style={{ margin: '0', lineHeight: '32px' }}>Filter by talker:</Title>
+                            {speakers.map((speaker) => (
+                                <Button
+                                    type={filterSpeaker.includes(speaker) ? 'primary' : 'default'}
+                                    className={filterSpeaker.includes(speaker) ? 'selected-filter' : ''}
+                                    size={'small'}
+                                    onClick={() => {toggleSpeaker(speaker)}}
+                                    key={speaker}
+                                >
+                                    {speaker}
+                                </Button>
+                            ))}
+                        </div>
+
+                        <div className="filter-meeting">
+                            2
+                        </div>
+                    </div>
                     <div className="search-container">
-                        <Button 
-                            icon={<SearchOutlined />} 
+                        <Button
+                            icon={<SearchOutlined />}
                             className="search-icon-button"
                             onClick={toggleSearch}
                             type={isSearchActive ? "primary" : "default"}
                         />
                     </div>
+
+
                 </div>
             )}
 

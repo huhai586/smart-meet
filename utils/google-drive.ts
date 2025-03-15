@@ -76,14 +76,21 @@ export class GoogleDriveService {
     }
 
     async getBackupFolder(): Promise<any | null> {
+        console.log('GoogleDriveService.getBackupFolder called, checking authentication...');
+        
         if (!this.accessToken) {
+            console.log('No access token, attempting to authenticate...');
             const authenticated = await this.authenticate();
             if (!authenticated) {
+                console.error('Authentication failed, cannot get backup folder');
+                message.error('Authentication required to access Google Drive');
                 throw new Error('Not authenticated');
             }
+            console.log('Authentication successful');
         }
 
         try {
+            console.log('Querying backup folder...');
             // 查询备份文件夹
             const response = await fetch(
                 `https://www.googleapis.com/drive/v3/files?q=name='${BACKUP_FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false&fields=files(id,name,mimeType,modifiedTime)`,
@@ -95,15 +102,19 @@ export class GoogleDriveService {
             );
 
             if (!response.ok) {
-                throw new Error('Failed to fetch backup folder');
+                const errorText = await response.text();
+                console.error('Failed to fetch backup folder:', response.status, errorText);
+                throw new Error(`Failed to fetch backup folder: ${response.status}`);
             }
 
             const data = await response.json();
             if (data.files && data.files.length > 0) {
+                console.log('Backup folder found:', data.files[0].id);
                 return data.files[0];
             }
 
             // 如果文件夹不存在，创建一个
+            console.log('Backup folder not found, creating new one...');
             return await this.createBackupFolder();
         } catch (error) {
             console.error('Error getting backup folder:', error);

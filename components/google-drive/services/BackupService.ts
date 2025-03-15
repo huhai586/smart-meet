@@ -157,26 +157,41 @@ export class BackupService {
    * 恢复所有文件的记录
    */
   async restoreAllFiles(files: any[]): Promise<{ restoredCount: number, failedFiles: string[] }> {
-    const restoredCount = 0;
+    let restoredCount = 0;
     const failedFiles: string[] = [];
+
+    console.log(`Attempting to restore ${files.length} files...`);
 
     for (const file of files) {
       try {
         const dateMatch = file.name.match(/(\d{4}-\d{2}-\d{2})\.json/);
         if (!dateMatch) {
+          console.log(`File ${file.name} does not match date pattern, skipping...`);
           failedFiles.push(file.name);
           continue;
         }
 
         const dateStr = dateMatch[1];
+        console.log(`Restoring file for date: ${dateStr}...`);
         const date = dayjs(dateStr);
         const fileContent = await this.driveService.downloadFile(file.id);
+        
+        if (!fileContent || (Array.isArray(fileContent) && fileContent.length === 0)) {
+          console.log(`File ${file.name} has no valid content, skipping...`);
+          failedFiles.push(file.name);
+          continue;
+        }
+        
         await this.storage.restoreRecords(fileContent, date);
+        restoredCount++;
+        console.log(`Successfully restored file: ${file.name}`);
       } catch (error) {
         console.error(`Failed to restore ${file.name}:`, error);
         failedFiles.push(file.name);
       }
     }
+
+    console.log(`Restore complete. Restored: ${restoredCount}, Failed: ${failedFiles.length}`);
 
     // 通知后台更新数据
     chrome.runtime.sendMessage({
