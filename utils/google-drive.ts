@@ -2,11 +2,16 @@ import { message } from 'antd';
 
 const BACKUP_FOLDER_NAME = 'smartMeetbackup';
 
+// 添加调试信息
+console.log('GoogleDriveService loaded, chrome.identity available:', !!window.chrome?.identity);
+
 export class GoogleDriveService {
     private static instance: GoogleDriveService;
     private accessToken: string | null = null;
 
-    private constructor() {}
+    private constructor() {
+        console.log('GoogleDriveService instance created');
+    }
 
     static getInstance(): GoogleDriveService {
         if (!GoogleDriveService.instance) {
@@ -16,8 +21,18 @@ export class GoogleDriveService {
     }
 
     async authenticate(): Promise<boolean> {
+        console.log('GoogleDriveService.authenticate called');
+        
+        if (!window.chrome?.identity) {
+            console.error('Chrome identity API not available');
+            message.error('Chrome identity API not available');
+            return false;
+        }
+        
         try {
             const token = await this.getAuthToken();
+            console.log('Got auth token:', token ? `${token.substring(0, 5)}...` : 'null');
+            
             if (token) {
                 this.accessToken = token;
                 return true;
@@ -31,13 +46,29 @@ export class GoogleDriveService {
     }
 
     private async getAuthToken(): Promise<string | null> {
+        console.log('GoogleDriveService.getAuthToken called');
+        
         return new Promise((resolve) => {
-            chrome.identity.getAuthToken({ interactive: true }, (token) => {
+            // 指定所需的权限范围
+            const scopes = [
+                'https://www.googleapis.com/auth/drive.file',
+                'https://www.googleapis.com/auth/drive.readonly',
+                'https://www.googleapis.com/auth/userinfo.profile',
+                'https://www.googleapis.com/auth/userinfo.email'
+            ];
+            
+            console.log('Requesting auth token with scopes:', scopes.join(', '));
+            
+            chrome.identity.getAuthToken({ 
+                interactive: true,
+                scopes: scopes
+            }, (token) => {
                 if (chrome.runtime.lastError) {
-                    console.error(chrome.runtime.lastError);
+                    console.error('Chrome runtime error:', chrome.runtime.lastError);
                     message.error(`Authentication error: ${chrome.runtime.lastError.message || 'Unknown error'}`);
                     resolve(null);
                 } else {
+                    console.log('Auth token obtained successfully');
                     resolve(token);
                 }
             });

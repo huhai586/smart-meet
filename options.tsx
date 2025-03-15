@@ -13,6 +13,10 @@ import Calendar from '~components/Calendar';
 import Sidebar from '~components/Sidebar';
 import StyledTitle from '~components/common/StyledTitle';
 import useI18n from './utils/i18n';
+import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
+
+// 添加调试信息
+console.log('Options page loaded, GoogleAuthProvider imported:', !!GoogleAuthProvider);
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -63,6 +67,11 @@ const Options = () => {
         getAPIkey().then((res: string) => {
             setApiKey(res);
         });
+    }, []);
+
+    // 添加调试信息
+    useEffect(() => {
+        console.log('Options component mounted, GoogleAuthProvider will be used');
     }, []);
 
     const handleSubmit = (e) => {
@@ -182,6 +191,7 @@ const Options = () => {
             case '1':
                 return <ApiKeyContent />;
             case '2':
+                console.log('Rendering GoogleDriveIntegration');
                 return <GoogleDriveIntegration />;
             case '3':
                 return <Calendar />;
@@ -191,12 +201,14 @@ const Options = () => {
     };
 
     return (
-        <div className="options-container">
-            <Sidebar activeKey={activeKey} onChange={setActiveKey} />
-            <div className="content-area">
-                {renderContent()}
+        <GoogleAuthProvider>
+            <div className="options-container">
+                <Sidebar activeKey={activeKey} onChange={setActiveKey} />
+                <div className="content-area">
+                    {renderContent()}
+                </div>
             </div>
-        </div>
+        </GoogleAuthProvider>
     );
 };
 
