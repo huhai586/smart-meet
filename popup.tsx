@@ -75,11 +75,6 @@ const ContentMonitor = () => {
               <span>{t('show_captions_desc')}</span>
           </div>
 
-          <div className="flex-column" onClick={clear}>
-              <div className={'height26'}><b><DeleteOutlined style={{ marginRight: '8px' }} />{t('clear_captions')}</b></div>
-              <span>{t('clear_captions_desc')}</span>
-          </div>
-
           <div className="flex-column">
               <div className={'height26'}><b><TranslationOutlined style={{ marginRight: '8px' }} />{t('translation_language')}</b></div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -100,7 +95,10 @@ const ContentMonitor = () => {
               <div className={'height26'}><b><SettingOutlined style={{ marginRight: '8px' }} />{t('settings')}</b></div>
               <span>{t('settings_desc')}</span>
           </div>
-
+          <div className="flex-column" onClick={clear}>
+              <div className={'height26'}><b><DeleteOutlined style={{ marginRight: '8px' }} />{t('clear_captions')}</b></div>
+              <span>{t('clear_captions_desc')}</span>
+          </div>
 
       </div>
   )
