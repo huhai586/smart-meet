@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Smart Meet</title>
+    <link rel="icon" type="image/png" href="icon.png">
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #0f9d58;
+            --accent-color: #ea4335;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --dark-bg: #202124;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Google Sans', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+        
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        
+        .privacy-content {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .privacy-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .privacy-date {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-style: italic;
+            color: #666;
+        }
+        
+        .privacy-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .privacy-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.6rem;
+        }
+        
+        .privacy-section p, .privacy-section ul {
+            margin-bottom: 1rem;
+        }
+        
+        .privacy-section ul {
+            padding-left: 2rem;
+        }
+        
+        .privacy-section li {
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-logo {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo img {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-links h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .back-to-home {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .back-to-home:hover {
+            background-color: #3367d6;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .privacy-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="icon.png" alt="Smart Meet Logo">
+                    <h1>Smart Meet</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#features">Features</a></li>
+                        <li><a href="index.html#why-us">Why Choose Us</a></li>
+                        <li><a href="index.html#contact">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="privacy-content">
+            <h1 class="privacy-title">Privacy Policy</h1>
+            <p class="privacy-date">Last Updated: May 15, 2024</p>
+            
+            <div class="privacy-section">
+                <h2>1. Introduction</h2>
+                <p>Thank you for using Smart Meet ("we," "our," or "the extension"). Protecting your privacy is extremely important to us. This Privacy Policy is designed to explain how we collect, use, store, and protect your personal information. Please read this policy carefully before using our services.</p>
+                <p>By installing and using the Smart Meet extension, you agree to the data processing activities described in this Privacy Policy. If you do not agree with any part of this policy, please do not use our extension.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>2. Information We Collect</h2>
+                <p>We collect the following types of information:</p>
+                <ul>
+                    <li><strong>Google Meet Meeting Content</strong>: We only collect meeting chat records and captions with your authorization to provide text recording, translation, and summary features.</li>
+                    <li><strong>User Settings</strong>: We store your preferences set in the extension, such as preferred language and other feature configurations.</li>
+                    <li><strong>Google Account Information</strong>: When you authorize us to access your Google account, we may receive your email address and Google profile information to provide features related to your Google Drive.</li>
+                </ul>
+                <p>We <strong>do not</strong> collect the following information:</p>
+                <ul>
+                    <li>Audio or video content of meetings</li>
+                    <li>Personal identity information of other participants</li>
+                    <li>Your browsing history or any other information unrelated to meetings</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>3. How We Use Your Information</h2>
+                <p>We use the collected information for:</p>
+                <ul>
+                    <li>Providing and improving Smart Meet features, including text recording, translation, grammar analysis, and meeting summaries</li>
+                    <li>Saving and managing meeting content according to your settings</li>
+                    <li>Processing text using AI services (such as Google Gemini) to provide translation and summary functions</li>
+                    <li>Providing technical support and responding to your inquiries</li>
+                    <li>Diagnosing technical issues and improving our services</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>4. Data Storage and Security</h2>
+                <p>We value your data security:</p>
+                <ul>
+                    <li>All meeting content is stored in your browser's local storage unless you explicitly authorize saving content to your Google Drive</li>
+                    <li>When AI processing (translation or summary generation) is needed, data is transmitted to AI service providers through secure channels</li>
+                    <li>We implement industry-standard security measures to protect your information from unauthorized access</li>
+                    <li>We do not permanently store your meeting content on our servers</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>5. Data Sharing</h2>
+                <p>We only share your information in the following situations:</p>
+                <ul>
+                    <li>Sharing necessary text data with third-party partners (such as Google) who provide translation and AI services to deliver core functionality</li>
+                    <li>Sharing data with Google Drive services to save your meeting content when you explicitly authorize it</li>
+                    <li>When required by law</li>
+                </ul>
+                <p>We do not sell, rent, or otherwise market your personal information to third parties.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>6. Your Privacy Choices</h2>
+                <p>You can control your data:</p>
+                <ul>
+                    <li>You can disable or enable Smart Meet features at any time through extension settings</li>
+                    <li>You can clear all locally stored meeting content</li>
+                    <li>You can revoke authorization for Google Drive access</li>
+                    <li>You can completely uninstall the extension to stop all data collection</li>
+                </ul>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>7. Children's Privacy</h2>
+                <p>Smart Meet is not directed at children under 13, and we do not knowingly collect personal information from children under 13. If you are a parent or guardian and believe we may have collected information from your child, please contact us, and we will take appropriate steps to delete such information.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>8. Changes to Privacy Policy</h2>
+                <p>We may update this Privacy Policy from time to time. Any significant changes will be notified to you through in-extension notifications or email. We encourage you to review this policy regularly to stay informed of the latest information.</p>
+            </div>
+            
+            <div class="privacy-section">
+                <h2>9. Contact Us</h2>
+                <p>If you have any questions, concerns, or requests regarding this Privacy Policy, please contact us at:</p>
+                <p>Email: contact@smartmeet.com</p>
+            </div>
+            
+            <a href="index.html" class="back-to-home">Back to Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <img src="icon.png" alt="Smart Meet Logo">
+                    </div>
+                    <p>Smart Meet - Enhance Your Google Meet Experience</p>
+                    <p>Contact us: contact@smartmeet.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>Links</h3>
+                    <a href="index.html#features">Features</a>
+                    <a href="index.html#why-us">Why Choose Us</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                </div>
+                <div class="footer-links">
+                    <h3>Support</h3>
+                    <a href="#">FAQ</a>
+                    <a href="#">User Guide</a>
+                    <a href="#">Contact Us</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Smart Meet. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
