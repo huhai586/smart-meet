@@ -1,5 +1,5 @@
-import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined } from "@ant-design/icons"
-import {Alert, Button, Input, Tag, theme, type InputRef, Modal, message, Typography, Divider} from "antd"
+import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined, FileTextOutlined } from "@ant-design/icons"
+import {Alert, Button, Input, Tag, theme, type InputRef, Modal, message, Typography, Divider, Select} from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
 import dayjs from 'dayjs';
@@ -9,6 +9,9 @@ import askAI from "../utils/askAI"
 import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
 import BackupAndRestore from "~components/backup-and-restore";
 import { useI18n } from '../utils/i18n';
+import getMeetingCaptions from '../utils/getCaptions';
+import { useDateContext } from '../contexts/DateContext';
+import saveChatLogAsTxt from '../utils/save';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -29,6 +32,10 @@ const Extension = (props: ExtensionPropsInterface) => {
     const inputRef = useRef<InputRef>(null);
     const [highlightWordsByDescriptions, setHighlightWordsByDescriptions] = useState('Please return keywords in json format for digital advertising areas, such as CTR, etc. The return content needs to be in English, and each item is a word, or abbreviation.');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isExportModalOpen, setIsExportModalOpen] = useState(false);
+    const [meetingNames, setMeetingNames] = useState<string[]>([]);
+    const [selectedExportMeeting, setSelectedExportMeeting] = useState<string>('');
+    const { selectedDate } = useDateContext();
 
     useEffect(() => {
         getSpecificTags().then((res: string[]) => {
@@ -163,6 +170,85 @@ const Extension = (props: ExtensionPropsInterface) => {
         const newModalData = modalData.filter((tag) => tag !== word);
         setModalData(newModalData);
     };
+
+    // 处理导出会议聊天记录为txt文件
+    const handleExportCaptionsText = () => {
+        // 获取当前选择日期的会议记录
+        getMeetingCaptions(selectedDate).then((transcripts) => {
+            // 提取会议名称列表
+            const uniqueMeetingNames = Array.from(new Set(
+                transcripts
+                    .filter(t => dayjs(t.timestamp).format('YYYY-MM-DD') === selectedDate.format('YYYY-MM-DD'))
+                    .map(t => t.meetingName || '')
+                    .filter(name => name.trim() !== '')
+            ));
+            
+            // 如果没有会议记录
+            if (uniqueMeetingNames.length === 0) {
+                messageApi.open({
+                    type: 'warning',
+                    content: t('no_meeting_data_for_export') || 'No meeting data available for export',
+                });
+                return;
+            }
+            
+            // 如果只有一个会议，直接导出
+            if (uniqueMeetingNames.length === 1) {
+                exportMeetingCaptions(uniqueMeetingNames[0], transcripts);
+            } else {
+                // 如果有多个会议，弹出选择框
+                setMeetingNames(uniqueMeetingNames);
+                setSelectedExportMeeting(uniqueMeetingNames[0]);
+                setIsExportModalOpen(true);
+            }
+        });
+    };
+    
+    // 导出指定会议的聊天记录
+    const exportMeetingCaptions = (meetingName: string, transcripts: any[]) => {
+        // 筛选指定会议和日期的记录
+        const filteredTranscripts = transcripts.filter(t => 
+            t.meetingName === meetingName && 
+            dayjs(t.timestamp).format('YYYY-MM-DD') === selectedDate.format('YYYY-MM-DD')
+        );
+        
+        if (filteredTranscripts.length === 0) {
+            messageApi.open({
+                type: 'warning',
+                content: t('no_data_found') || 'No data found for the selected meeting',
+            });
+            return;
+        }
+        
+        // 格式化聊天记录为文本
+        let textContent = `Meeting: ${meetingName}\nDate: ${selectedDate.format('YYYY-MM-DD')}\n\n`;
+        filteredTranscripts.forEach(transcript => {
+            const time = dayjs(transcript.timestamp).format('HH:mm:ss');
+            // 直接使用talkContent作为聊天内容
+            const messageContent = transcript.talkContent || '(no content)';
+            textContent += `[${time}] ${transcript.activeSpeaker || 'Unknown'}: ${messageContent}\n\n`;
+        });
+        
+        // 导出为TXT文件
+        const fileName = `${meetingName.replace(/[^a-zA-Z0-9]/g, '_')}_${selectedDate.format('YYYY-MM-DD')}.txt`;
+        saveChatLogAsTxt(textContent, fileName);
+        
+        messageApi.open({
+            type: 'success',
+            content: t('export_success') || 'Export successful',
+        });
+    };
+    
+    // 确认导出选择的会议
+    const handleExportConfirm = () => {
+        setIsExportModalOpen(false);
+        if (selectedExportMeeting) {
+            getMeetingCaptions(selectedDate).then((transcripts) => {
+                exportMeetingCaptions(selectedExportMeeting, transcripts);
+            });
+        }
+    };
+
     return (
         <div className={'extension-container'}>
             {contextHolder}
@@ -260,6 +346,26 @@ const Extension = (props: ExtensionPropsInterface) => {
                     </div>
                 </div>
 
+                <div className="highlight-section">
+                    <div className={'highlight-header'}>
+                        <FileTextOutlined style={{ color: '#1a73e8' }} />
+                        <span>{t('export_captions_text') || 'Export Captions Text'}</span>
+                    </div>
+                    <div className={'highlight-description'}>
+                        {t('export_captions_desc') || 'Export meeting captions as a text file for the selected date.'}
+                    </div>
+                    <div className="highlight-content">
+                        <Button 
+                            onClick={handleExportCaptionsText}
+                            type="primary"
+                            icon={<FileTextOutlined />}
+                            className="action-button"
+                        >
+                            {t('export_captions_button') || 'Export as TXT'}
+                        </Button>
+                    </div>
+                </div>
+
                 <Divider style={{ margin: '32px 0 24px' }} />
                 
                 <div className="backup-restore-container">
@@ -297,6 +403,30 @@ const Extension = (props: ExtensionPropsInterface) => {
                             </span>
                         ))}
                     </div>
+                </Modal>
+
+                <Modal
+                    title={
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <FileTextOutlined style={{ color: '#1a73e8', fontSize: '20px' }} />
+                            <span>{t('select_meeting_to_export') || 'Select Meeting to Export'}</span>
+                        </div>
+                    }
+                    open={isExportModalOpen}
+                    onOk={handleExportConfirm}
+                    onCancel={() => setIsExportModalOpen(false)}
+                    okText={t('export') || 'Export'}
+                    cancelText={t('cancel') || 'Cancel'}
+                >
+                    <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
+                        {t('select_meeting_desc') || 'Please select a meeting to export:'}
+                    </Text>
+                    <Select
+                        style={{ width: '100%' }}
+                        value={selectedExportMeeting}
+                        onChange={(value) => setSelectedExportMeeting(value)}
+                        options={meetingNames.map(name => ({ value: name, label: name }))}
+                    />
                 </Modal>
             </div>
         </div>

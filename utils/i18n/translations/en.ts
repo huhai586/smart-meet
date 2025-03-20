@@ -48,7 +48,7 @@ export default {
   "backup_button": "Backup Now",
   "last_backup": "Last backup",
   "restore_section": "Restore from Local",
-  "restore_desc": "Restore your current day meeting data from local file",
+  "restore_desc": "Restore your meeting data from a local file",
   "restore_button": "Restore",
   "restore_all": "Restore All",
   "refresh": "Refresh",
@@ -59,6 +59,17 @@ export default {
   "skip": "Skip",
   "always_overwrite": "Always overwrite",
   "always_skip": "Always skip",
+  
+  // Export Captions
+  "export_captions_text": "Export Captions Text",
+  "export_captions_desc": "Export meeting captions as a text file for the selected date.",
+  "export_captions_button": "Export as TXT",
+  "no_meeting_data_for_export": "No meeting data available for export",
+  "no_data_found": "No data found for the selected meeting",
+  "export_success": "Export successful",
+  "select_meeting_to_export": "Select Meeting to Export",
+  "select_meeting_desc": "Please select a meeting to export:",
+  "export": "Export",
   
   // Chat History
   "chat_history": "Chat History",

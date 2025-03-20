@@ -106,6 +106,17 @@ export default {
   "apply_keywords": "应用关键词",
   "cancel": "取消",
   
+  // Export Captions
+  "export_captions_text": "导出字幕文本",
+  "export_captions_desc": "将所选日期的会议字幕导出为文本文件。",
+  "export_captions_button": "导出为TXT",
+  "no_meeting_data_for_export": "没有可供导出的会议数据",
+  "no_data_found": "未找到所选会议的数据",
+  "export_success": "导出成功",
+  "select_meeting_to_export": "选择要导出的会议",
+  "select_meeting_desc": "请选择要导出的会议：",
+  "export": "导出",
+  
   // Words (Translation Records)
   "translation_history": "翻译历史",
   "reset": "重置",
