@@ -11,7 +11,7 @@ import {
   TranslationOutlined,
   GlobalOutlined
 } from '@ant-design/icons'
-import getIsExtensionEnabled from "./utils/get-is-extension-enabled";
+import getIsExtensionDisabled from "./utils/get-is-extension-disabled";
 import {updateBadgeText} from "./background/set-badge-text";
 import getAPIkey from "./utils/getAPIkey";
 import openSidePanel from "~utils/open-side-panel";
@@ -20,12 +20,12 @@ import UILanguageSelector from "./components/UILanguageSelector";
 import useI18n from "./utils/i18n";
 
 const ContentMonitor = () => {
-  const [switchValue, setSwitchValue] = useState(false)
+  const [switchValue, setSwitchValue] = useState(true)
   const { t } = useI18n();
 
     useEffect(() => {
-        getIsExtensionEnabled().then((enabled: boolean) => {
-            setSwitchValue(enabled)
+        getIsExtensionDisabled().then((disabled: boolean) => {
+            setSwitchValue(!disabled)
         });
     }, []);
 
@@ -43,8 +43,8 @@ const ContentMonitor = () => {
 
   const toggleSwitch = (v) => {
         setSwitchValue(v)
-        chrome.storage.local.set({ isExtensionEnabled: v }, () => {
-            console.log('isExtensionEnabled is set to ' + v);
+        chrome.storage.local.set({ isExtensionDisabled: !v }, () => {
+            console.log('isExtensionDisabled is set to ' + !v);
             chrome.tabs.query({},function(tabs) {
                 tabs.forEach((tab) => {
                     chrome.tabs.sendMessage(tab.id, { action: "toggleSwitch", value: v });

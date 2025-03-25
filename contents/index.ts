@@ -1,9 +1,9 @@
 import getCaptions from 'google-meeting-captions-resolver';
 import type { PlasmoCSConfig } from "plasmo"
 import type {Captions} from "~node_modules/google-meeting-captions-resolver";
-import getIsExtensionEnabled from '../utils/get-is-extension-enabled';
+import getIsExtensionDisabled from '../utils/get-is-extension-disabled';
 
-let isExtensionEnabled = false;
+let isExtensionEnabled = true;
 
 
 const addOrUpdateRecords = (incomingData: Captions) => {
@@ -17,9 +17,9 @@ const addOrUpdateRecords = (incomingData: Captions) => {
 };
 
 const start = () => {
-    getIsExtensionEnabled().then((enabled: boolean) => {
-        isExtensionEnabled = enabled;
-        if (enabled) {
+    getIsExtensionDisabled().then((disabled: boolean) => {
+        isExtensionEnabled = !disabled;
+        if (!disabled) {
             getCaptions(undefined, (v) => {
                 console.log('captions', v);
                 addOrUpdateRecords(v)

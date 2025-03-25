@@ -1,9 +1,9 @@
-import getIsExtensionEnabled from "../utils/get-is-extension-enabled";
+import getIsExtensionDisabled from "../utils/get-is-extension-disabled";
 
 export const updateBadgeText = () => {
 // 初始化插件状态
-    getIsExtensionEnabled().then((enabled: boolean) => {
-        updateIcon(enabled);
+    getIsExtensionDisabled().then((disabled: boolean) => {
+        updateIcon(!disabled);
     });
 }
 
