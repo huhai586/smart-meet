@@ -205,19 +205,22 @@ export class BackupService {
    * 将本地数据同步到Google Drive
    * @param initialAlwaysOverwrite 是否始终覆盖
    * @param initialAlwaysSkip 是否始终跳过
+   * @param initialAlwaysMerge 是否始终合并
    * @param onConflict 冲突处理回调
    * @returns 同步摘要
    */
   async syncToGoogleDrive(
     initialAlwaysOverwrite: boolean,
     initialAlwaysSkip: boolean,
-    onConflict: (conflict: ConflictData) => Promise<boolean>
+    initialAlwaysMerge: boolean,
+    onConflict: (conflict: ConflictData) => Promise<{overwrite: boolean, merge: boolean}>
   ): Promise<SyncSummary> {
-    console.log('开始同步，初始状态:', { initialAlwaysOverwrite, initialAlwaysSkip });
+    console.log('开始同步，初始状态:', { initialAlwaysOverwrite, initialAlwaysSkip, initialAlwaysMerge });
     
     const summary: SyncSummary = {
       uploaded: [],
       skipped: [],
+      merged: [],
       totalMessages: 0
     };
 
@@ -250,8 +253,8 @@ export class BackupService {
       const fileExists = existingFilesMap.has(fileName);
       console.log(`处理日期 ${date}, 文件${fileExists ? '存在' : '不存在'}`);
 
-      // 如果文件已存在且不是始终覆盖，则需要处理冲突
-      if (fileExists && !initialAlwaysOverwrite && !initialAlwaysSkip) {
+      // 如果文件已存在且没有设置自动处理模式，则需要处理冲突
+      if (fileExists && !initialAlwaysOverwrite && !initialAlwaysSkip && !initialAlwaysMerge) {
         const existingFile = existingFilesMap.get(fileName)!;
         
         // 获取本地和远程文件的内容进行比较
@@ -290,9 +293,9 @@ export class BackupService {
           remoteCount: Array.isArray(remoteContent) ? remoteContent.length : 0
         });
         
-        // 不再跳过内容相同的文件，始终显示冲突解决对话框
+        // 显示冲突解决对话框
         console.log(`日期 ${date} 文件已存在，显示冲突解决对话框${contentEqual ? '（内容相同）' : '（内容不同）'}`);
-        const shouldOverwrite = await onConflict({
+        const resolution = await onConflict({
           fileName,
           localDate: date,
           localSize: localJson.length,
@@ -302,16 +305,101 @@ export class BackupService {
           contentEqual
         });
         
-        console.log(`用户选择${shouldOverwrite ? '覆盖' : '跳过'}`);
-        if (!shouldOverwrite) {
+        console.log(`用户选择:`, resolution);
+        
+        if (resolution.merge) {
+          // 合并处理
+          console.log(`合并日期 ${date} 的文件内容`);
+          
+          try {
+            if (!Array.isArray(localContent) || !Array.isArray(remoteContent)) {
+              console.error('无法合并非数组内容');
+              summary.skipped.push(date);
+              continue;
+            }
+            
+            // 合并两个数组
+            const mergedContent = [...localContent, ...remoteContent];
+            
+            // 去重（按时间戳和文本内容）
+            const uniqueMap = new Map();
+            mergedContent.forEach(item => {
+              const key = `${item.timestamp}_${item.text}`;
+              uniqueMap.set(key, item);
+            });
+            const uniqueContent = Array.from(uniqueMap.values());
+            
+            // 按时间戳排序
+            uniqueContent.sort((a, b) => a.timestamp - b.timestamp);
+            
+            console.log(`合并后的消息数量: ${uniqueContent.length}`);
+            
+            // 更新到Google Drive
+            await this.updateFile(existingFile.id!, uniqueContent, fileName);
+            
+            // 更新摘要
+            if (!summary.merged) summary.merged = [];
+            summary.merged.push(date);
+            summary.totalMessages += uniqueContent.length;
+          } catch (error) {
+            console.error(`合并日期 ${date} 的内容失败:`, error);
+            summary.skipped.push(date);
+          }
+          
+          continue;
+        } else if (!resolution.overwrite) {
           summary.skipped.push(date);
           continue;
         }
+        // 如果overwite为true则继续执行，覆盖文件
       } else if (fileExists && initialAlwaysSkip) {
         console.log(`日期 ${date} 的文件存在且用户选择始终跳过`);
         // 如果文件存在且用户选择始终跳过，则跳过此文件
         summary.skipped.push(date);
         continue;
+      } else if (fileExists && initialAlwaysMerge) {
+        console.log(`日期 ${date} A的文件存在且用户选择始终合并`);
+        
+        try {
+          const existingFile = existingFilesMap.get(fileName)!;
+          const localContent = await this.getLocalContent(date);
+          const remoteContent = await this.getRemoteContent(existingFile.id!);
+          
+          if (!Array.isArray(localContent) || !Array.isArray(remoteContent)) {
+            console.error('无法合并非数组内容');
+            summary.skipped.push(date);
+            continue;
+          }
+          
+          // 合并两个数组
+          const mergedContent = [...localContent, ...remoteContent];
+          
+          // 去重（按时间戳和文本内容）
+          const uniqueMap = new Map();
+          mergedContent.forEach(item => {
+            const key = `${item.timestamp}_${item.text}`;
+            uniqueMap.set(key, item);
+          });
+          const uniqueContent = Array.from(uniqueMap.values());
+          
+          // 按时间戳排序
+          uniqueContent.sort((a, b) => a.timestamp - b.timestamp);
+          
+          console.log(`合并后的消息数量: ${uniqueContent.length}`);
+          
+          // 更新到Google Drive
+          await this.updateFile(existingFile.id!, uniqueContent, fileName);
+          
+          // 更新摘要
+          if (!summary.merged) summary.merged = [];
+          summary.merged.push(date);
+          summary.totalMessages += uniqueContent.length;
+          continue;
+        } catch (error) {
+          console.error(`自动合并日期 ${date} 的内容失败:`, error);
+          summary.skipped.push(date);
+          continue;
+        }
       } else if (fileExists && initialAlwaysOverwrite) {
         console.log(`日期 ${date} 的文件存在且用户选择始终覆盖`);
       }

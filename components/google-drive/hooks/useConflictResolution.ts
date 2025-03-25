@@ -11,6 +11,7 @@ export const useConflictResolution = () => {
   const [currentConflict, setCurrentConflict] = useState<ConflictData | null>(null);
   const [alwaysOverwrite, setAlwaysOverwrite] = useState(false);
   const [alwaysSkip, setAlwaysSkip] = useState(false);
+  const [alwaysMerge, setAlwaysMerge] = useState(false);
   const [resolveConflict, setResolveConflict] = useState<((result: ConflictResolutionResult) => void) | null>(null);
   const driveService = GoogleDriveService.getInstance();
 
@@ -25,9 +26,10 @@ export const useConflictResolution = () => {
       conflictModalVisible, 
       currentConflict, 
       alwaysOverwrite, 
-      alwaysSkip 
+      alwaysSkip,
+      alwaysMerge
     });
-  }, [conflictModalVisible, currentConflict, alwaysOverwrite, alwaysSkip]);
+  }, [conflictModalVisible, currentConflict, alwaysOverwrite, alwaysSkip, alwaysMerge]);
 
   /**
    * 重置冲突解决状态
@@ -36,6 +38,7 @@ export const useConflictResolution = () => {
     console.log('重置冲突解决状态');
     setAlwaysOverwrite(false);
     setAlwaysSkip(false);
+    setAlwaysMerge(false);
     setConflictModalVisible(false);
     setCurrentConflict(null);
     setResolveConflict(null);
@@ -56,6 +59,10 @@ export const useConflictResolution = () => {
     if (result.alwaysSkip) {
       console.log('设置始终跳过');
       setAlwaysSkip(true);
+    }
+    if (result.alwaysMerge) {
+      console.log('设置始终合并');
+      setAlwaysMerge(true);
     }
 
     // 调用回调函数
@@ -84,6 +91,7 @@ export const useConflictResolution = () => {
     currentConflict,
     alwaysOverwrite,
     alwaysSkip,
+    alwaysMerge,
     handleConflictResolution,
     showConflictModal,
     resetConflictState

@@ -10,6 +10,8 @@ export interface ConflictResolutionResult {
   overwrite: boolean;
   alwaysOverwrite: boolean;
   alwaysSkip: boolean;
+  merge: boolean;
+  alwaysMerge: boolean;
 }
 
 interface ConflictModalProps {
@@ -29,19 +31,27 @@ const ConflictModal: React.FC<ConflictModalProps> = ({
 
   // 处理不同的解决方案
   const handleSkip = () => {
-    onResolve({ overwrite: false, alwaysOverwrite: false, alwaysSkip: false });
+    onResolve({ overwrite: false, alwaysOverwrite: false, alwaysSkip: false, merge: false, alwaysMerge: false });
   };
 
   const handleOverwrite = () => {
-    onResolve({ overwrite: true, alwaysOverwrite: false, alwaysSkip: false });
+    onResolve({ overwrite: true, alwaysOverwrite: false, alwaysSkip: false, merge: false, alwaysMerge: false });
   };
 
   const handleAlwaysOverwrite = () => {
-    onResolve({ overwrite: true, alwaysOverwrite: true, alwaysSkip: false });
+    onResolve({ overwrite: true, alwaysOverwrite: true, alwaysSkip: false, merge: false, alwaysMerge: false });
   };
 
   const handleAlwaysSkip = () => {
-    onResolve({ overwrite: false, alwaysOverwrite: false, alwaysSkip: true });
+    onResolve({ overwrite: false, alwaysOverwrite: false, alwaysSkip: true, merge: false, alwaysMerge: false });
+  };
+  
+  const handleMerge = () => {
+    onResolve({ overwrite: false, alwaysOverwrite: false, alwaysSkip: false, merge: true, alwaysMerge: false });
+  };
+  
+  const handleAlwaysMerge = () => {
+    onResolve({ overwrite: false, alwaysOverwrite: false, alwaysSkip: false, merge: true, alwaysMerge: true });
   };
 
   return (
@@ -57,39 +67,8 @@ const ConflictModal: React.FC<ConflictModalProps> = ({
       }
       open={visible}
       onCancel={handleSkip}
-      width={600}
-      footer={[
-        <Button
-          key="skip"
-          onClick={handleSkip}
-          style={{ borderRadius: "6px" }}
-        >
-          Skip
-        </Button>,
-        <Button
-          key="overwrite"
-          type="primary"
-          onClick={handleOverwrite}
-          style={{ borderRadius: "6px" }}
-        >
-          Overwrite
-        </Button>,
-        <Button
-          key="alwaysOverwrite"
-          type="primary"
-          onClick={handleAlwaysOverwrite}
-          style={{ borderRadius: "6px" }}
-        >
-          Always Overwrite
-        </Button>,
-        <Button
-          key="alwaysSkip"
-          onClick={handleAlwaysSkip}
-          style={{ borderRadius: "6px" }}
-        >
-          Always Skip
-        </Button>
-      ]}
+      width={700}
+      footer={null}
       style={{ borderRadius: "8px" }}
     >
       <div>
@@ -166,7 +145,80 @@ const ConflictModal: React.FC<ConflictModalProps> = ({
           <Text type="warning" style={{ fontSize: "14px" }}>
             {conflict.contentEqual 
               ? "The files have identical content. Would you still like to overwrite the existing file in Google Drive with your local version?" 
-              : "Would you like to overwrite the existing file in Google Drive with your local version?"}
+              : "How would you like to resolve this conflict?"}
+          </Text>
+        </div>
+        
+        <Row gutter={[12, 12]} style={{ marginTop: '20px' }}>
+          <Col span={12}>
+            <Button
+              block
+              onClick={handleSkip}
+              style={{ borderRadius: "6px", height: "40px" }}
+            >
+              Skip
+            </Button>
+          </Col>
+          <Col span={12}>
+            <Button
+              block
+              type="primary"
+              onClick={handleOverwrite}
+              style={{ borderRadius: "6px", height: "40px" }}
+            >
+              Overwrite
+            </Button>
+          </Col>
+          <Col span={12}>
+            <Button
+              block
+              onClick={handleAlwaysSkip}
+              style={{ borderRadius: "6px", height: "40px" }}
+            >
+              Always Skip
+            </Button>
+          </Col>
+          <Col span={12}>
+            <Button
+              block
+              type="primary"
+              onClick={handleAlwaysOverwrite}
+              style={{ borderRadius: "6px", height: "40px" }}
+            >
+              Always Overwrite
+            </Button>
+          </Col>
+          <Col span={12}>
+            <Button
+              block
+              type="dashed"
+              onClick={handleMerge}
+              style={{ borderRadius: "6px", height: "40px" }}
+            >
+              Merge
+            </Button>
+          </Col>
+          <Col span={12}>
+            <Button
+              block
+              type="dashed"
+              onClick={handleAlwaysMerge}
+              style={{ borderRadius: "6px", height: "40px" }}
+            >
+              Always Merge
+            </Button>
+          </Col>
+        </Row>
+        
+        <div style={{
+          marginTop: '16px',
+          padding: '12px',
+          backgroundColor: '#f6ffed',
+          border: '1px solid #b7eb8f',
+          borderRadius: '6px'
+        }}>
+          <Text type="success" style={{ fontSize: "13px" }}>
+            <strong>Merge:</strong> Combines messages from both files and sorts them by timestamp.
           </Text>
         </div>
       </div>

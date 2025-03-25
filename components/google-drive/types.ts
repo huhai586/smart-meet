@@ -17,6 +17,7 @@ export interface DriveFolder {
 export interface SyncSummary {
   uploaded: string[];
   skipped: string[];
+  merged?: string[];
   totalMessages: number;
 }
 
