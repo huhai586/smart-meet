@@ -1,23 +1,45 @@
-capture google meeting captions
+# Smart Meet
 
-Google Meet Enhancement Extension: Elevate Your Meeting Experience
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ijnhmeefekamlgipkcandcpmccamgcna)](https://chromewebstore.google.com/detail/smart-meet/ijnhmeefekamlgipkcandcpmccamgcna)
+[![Rating](https://img.shields.io/chrome-web-store/rating/ijnhmeefekamlgipkcandcpmccamgcna)](https://chromewebstore.google.com/detail/smart-meet/ijnhmeefekamlgipkcandcpmccamgcna)
 
-Tired of fumbling through chat transcripts to find crucial information? Our Google Meet extension is here to revolutionize your meeting experience!
+## Transform Your Google Meet Experience
 
-Key Features:
+Smart Meet is a powerful Chrome extension designed to enhance your Google Meet meetings, making them more productive, efficient, and accessible.
 
-Live Chat Transcript: Automatically transcribe every meeting's chat, making it easy to revisit important points.
-Multilingual Translation: Translate chat transcripts into your preferred language, breaking down language barriers.
-Text Refinement: Enhance the clarity and style of your text, ensuring your writing is crisp and impactful.
-Grammar Analysis: Identify grammatical errors, ensuring your communication is always professional.
-Keyword Highlighting: Highlight important keywords in eye-catching colors for instant visibility.
-Gemini AI Meeting Summary: Generate meeting summaries using Gemini AI, quickly capturing key takeaways.
-Chat with Gemini AI: Engage in AI-powered conversations about meeting content, gaining insights and inspiration.
-Why Install Us?
+## 🚀 Key Features
 
-Increase meeting efficiency and productivity
-Overcome language barriers and communication gaps
-Improve communication quality and professionalism
-Get quick meeting summaries and insights
-Elevate your meeting experience and become a conferencing pro
-Install our Google Meet Enhancement Extension today to experience more productive, enjoyable meetings!
+- **Live Chat Transcript**: Automatically capture and save chat content from your meetings
+- **Multilingual Translation**: Break down language barriers with instant translation capabilities
+- **Text Enhancement**: Improve clarity and style of your communications
+- **Grammar Analysis**: Ensure professional communication with real-time grammar checking
+- **Keyword Highlighting**: Instantly identify important information with color highlighting
+- **Gemini AI Meeting Summary**: Generate concise summaries of your meetings using Google's Gemini AI
+- **AI-Powered Chat**: Get insights and information through Gemini AI conversations
+
+## 🌟 Why Choose Smart Meet?
+
+- **Boost Productivity**: Focus on discussions instead of note-taking
+- **Improve Collaboration**: Make international team communication seamless
+- **Enhance Professionalism**: Ensure clear and accurate expression in meetings
+- **Save Time**: Quickly access key meeting points with AI-generated summaries
+- **Elevate Meeting Experience**: Make every online meeting more efficient and enjoyable
+
+## 📥 Installation
+
+Get Smart Meet from the Chrome Web Store:
+
+[<img src="https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png" alt="Available in the Chrome Web Store" width="200">](https://chromewebstore.google.com/detail/smart-meet/ijnhmeefekamlgipkcandcpmccamgcna)
+
+## 🌐 Official Website
+
+Visit our official website to learn more:
+[https://smart-meet.logging.top/](https://smart-meet.logging.top/)
+
+## 📬 Contact
+
+For questions or support, please contact us at: huhai007@foxmail.com
+
+---
+
+© 2024 Smart Meet. All rights reserved.
