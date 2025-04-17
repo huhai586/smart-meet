@@ -74,7 +74,6 @@ const GoogleDriveIntegration: React.FC = () => {
     currentConflict,
     alwaysOverwrite,
     alwaysSkip,
-    alwaysMerge,
     handleConflictResolution,
     showConflictModal,
     resetConflictState
@@ -99,12 +98,9 @@ const GoogleDriveIntegration: React.FC = () => {
   useEffect(() => {
     console.log('GoogleDriveIntegration - 冲突解决状态:', {
       conflictModalVisible,
-      currentConflict,
-      alwaysOverwrite,
-      alwaysSkip,
-      alwaysMerge
+      currentConflict
     });
-  }, [conflictModalVisible, currentConflict, alwaysOverwrite, alwaysSkip, alwaysMerge]);
+  }, [conflictModalVisible, currentConflict]);
 
   const {
     syncing,
@@ -113,7 +109,6 @@ const GoogleDriveIntegration: React.FC = () => {
     showConflictModal,
     alwaysOverwrite,
     alwaysSkip,
-    alwaysMerge,
     loadBackupFolder,
     resetConflictState
   );

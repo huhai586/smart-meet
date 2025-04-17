@@ -30,16 +30,6 @@ const SyncSummaryContent = ({ summary }: { summary: SyncSummary }) => (
         </ul>
       </>
     )}
-    {summary.merged && summary.merged.length > 0 && (
-      <>
-        <p>Merged dates ({summary.merged.length}):</p>
-        <ul>
-          {summary.merged.map(date => (
-            <li key={date}>{date}</li>
-          ))}
-        </ul>
-      </>
-    )}
   </div>
 );
 
@@ -50,7 +40,6 @@ export const useBackupSync = (
   showConflictModal: (conflict: ConflictData, onResolve: (result: ConflictResolutionResult) => void) => void,
   alwaysOverwrite: boolean,
   alwaysSkip: boolean,
-  alwaysMerge: boolean,
   refreshFiles: () => void,
   resetConflictState?: () => void
 ) => {
@@ -60,10 +49,9 @@ export const useBackupSync = (
   useEffect(() => {
     console.log('useBackupSync props变化:', { 
       alwaysOverwrite, 
-      alwaysSkip,
-      alwaysMerge
+      alwaysSkip 
     });
-  }, [alwaysOverwrite, alwaysSkip, alwaysMerge]);
+  }, [alwaysOverwrite, alwaysSkip]);
 
   /**
    * 显示同步结果摘要
@@ -87,31 +75,26 @@ export const useBackupSync = (
         resetConflictState();
       }
       
-      console.log('开始同步操作，当前状态:', { alwaysOverwrite, alwaysSkip, alwaysMerge });
+      console.log('开始同步操作，当前状态:', { alwaysOverwrite, alwaysSkip });
       setSyncing(true);
 
       // 在同步过程中维护本地的冲突解决状态
       let localAlwaysOverwrite = alwaysOverwrite;
       let localAlwaysSkip = alwaysSkip;
-      let localAlwaysMerge = alwaysMerge;
-      console.log('本地冲突解决状态:', { localAlwaysOverwrite, localAlwaysSkip, localAlwaysMerge });
+      console.log('本地冲突解决状态:', { localAlwaysOverwrite, localAlwaysSkip });
 
-      const handleConflict = async (conflict: ConflictData): Promise<{overwrite: boolean, merge: boolean}> => {
+      const handleConflict = async (conflict: ConflictData): Promise<boolean> => {
         console.log('处理冲突:', conflict);
-        console.log('当前本地状态:', { localAlwaysOverwrite, localAlwaysSkip, localAlwaysMerge });
+        console.log('当前本地状态:', { localAlwaysOverwrite, localAlwaysSkip });
         
-        // 如果用户已经选择了始终覆盖、始终跳过或始终合并，则不显示对话框
+        // 如果用户已经选择了始终覆盖或始终跳过，则不显示对话框
         if (localAlwaysOverwrite) {
-          console.log('用户选择了始终覆盖，自动返回overwrite=true');
-          return { overwrite: true, merge: false };
+          console.log('用户选择了始终覆盖，自动返回true');
+          return true;
         }
         if (localAlwaysSkip) {
-          console.log('用户选择了始终跳过，自动返回overwrite=false');
-          return { overwrite: false, merge: false };
-        }
-        if (localAlwaysMerge) {
-          console.log('用户选择了始终合并，自动返回merge=true');
-          return { overwrite: false, merge: true };
+          console.log('用户选择了始终跳过，自动返回false');
+          return false;
         }
 
         return new Promise((resolve) => {
@@ -127,14 +110,7 @@ export const useBackupSync = (
               console.log('设置本地始终跳过');
               localAlwaysSkip = true;
             }
-            if (result.alwaysMerge) {
-              console.log('设置本地始终合并');
-              localAlwaysMerge = true;
-            }
-            resolve({ 
-              overwrite: result.overwrite, 
-              merge: result.merge 
-            });
+            resolve(result.overwrite);
           });
         });
       };
@@ -142,13 +118,12 @@ export const useBackupSync = (
       const summary = await backupService.syncToGoogleDrive(
         localAlwaysOverwrite,
         localAlwaysSkip,
-        localAlwaysMerge,
         handleConflict
       );
 
       console.log('同步完成，结果:', summary);
-      if (summary.uploaded.length === 0 && summary.skipped.length === 0 && (!summary.merged || summary.merged.length === 0)) {
-        console.log('没有文件被上传、合并或跳过');
+      if (summary.uploaded.length === 0 && summary.skipped.length === 0) {
+        console.log('没有文件被上传或跳过');
         return;
       }
 
@@ -160,7 +135,7 @@ export const useBackupSync = (
     } finally {
       setSyncing(false);
     }
-  }, [alwaysOverwrite, alwaysSkip, alwaysMerge, refreshFiles, resetConflictState, showConflictModal, showSyncSummary]);
+  }, [alwaysOverwrite, alwaysSkip, refreshFiles, resetConflictState, showConflictModal, showSyncSummary]);
 
   return {
     syncing,
