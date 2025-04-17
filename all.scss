@@ -6,6 +6,19 @@ body {
   }
 }
 
+/* 专门针对popup页面的样式，移除滚动条 */
+html, body {
+  overflow: hidden;
+  height: auto;
+  width: auto;
+}
+
+/* popup容器样式 */
+.popup-container {
+  box-sizing: border-box;
+  height: fit-content;
+}
+
 .content-monitor {
   width: 320px;
   display: flex;
@@ -13,6 +26,8 @@ body {
   background: #f8f9fa;
   padding: 12px;
   border-radius: 12px;
+  max-height: 100%;
+  overflow: hidden; /* 防止出现滚动条 */
 
   > div {
     background: white;
@@ -104,188 +119,12 @@ body {
   margin-top: 3em;
 }
 
-
-
-
-
-.extension-container {
-  padding: 24px;
-  background: #f8fafc;
-  min-height: 100vh;
-
-  .highlight-setting {
-    .highlight-section {
-      border-radius: 10px;
-      margin-bottom: 32px;
-      border: 1px solid #e2e8f0;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
-      padding: 16px 24px;
-
-      &:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        transform: translateY(-1px);
-      }
-
-      .highlight-header {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 500;
-        font-size: 16px;
-        color: #2d3748;
-        margin-bottom: 8px;
-      }
-
-      .highlight-description {
-        color: #718096;
-        font-size: 14px;
-        margin-bottom: 16px;
-      }
-
-      .highlight-content {
-        margin-top: 20px;
-        
-        .ant-tag {
-          padding: 4px 12px;
-          border-radius: 6px;
-          margin: 4px;
-          font-size: 13px;
-          transition: all 0.3s ease;
-          cursor: pointer;
-          border-color: #e2e8f0;
-          background: #f7fafc;
-
-          &:hover {
-            border-color: #1a73e8;
-            color: #1a73e8;
-            background: #ebf5ff;
-          }
-
-          .anticon-close {
-            color: #a0aec0;
-            font-size: 10px;
-            margin-left: 6px;
-
-            &:hover {
-              color: #1a73e8;
-            }
-          }
-        }
-
-        .add-more {
-          border-style: dashed;
-          cursor: pointer;
-          color: #1a73e8;
-          background: #ebf5ff;
-          border-color: #1a73e8;
-
-          &:hover {
-            color: white;
-            background: #1a73e8;
-          }
-
-          &.ant-input {
-            border-style: solid;
-            padding: 4px 11px;
-            height: 28px;
-          }
-        }
-        
-        .domain-inputer {
-          margin: 16px 0;
-          border-radius: 8px;
-          border-color: #e2e8f0;
-          transition: all 0.3s ease;
-
-          &:hover, &:focus {
-            border-color: #1a73e8;
-            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
-          }
-        }
-        
-        .ant-input-textarea {
-          .ant-input {
-            border-radius: 8px;
-            border-color: #e2e8f0;
-            transition: all 0.3s ease;
-            resize: none;
-
-            &:hover, &:focus {
-              border-color: #1a73e8;
-              box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
-            }
-          }
-        }
-
-        .valid-words {
-          margin-top: 16px;
-          display: flex;
-          justify-content: flex-end;
-
-          .ant-btn {
-            border-radius: 8px;
-            height: 36px;
-            padding: 0 20px;
-            font-weight: 500;
-            background: #1a73e8;
-            border-color: #1a73e8;
-            color: white;
-            transition: all 0.3s ease;
-
-            &:hover {
-              background: #1557b0;
-              border-color: #1557b0;
-              transform: translateY(-1px);
-              box-shadow: 0 4px 12px rgba(26, 115, 232, 0.2);
-            }
-          }
-        }
-      }
-    }
-
-    .ant-alert {
-      border-radius: 10px;
-      margin-bottom: 16px;
-      border: 1px solid #e2e8f0;
-      background: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      transition: all 0.3s ease;
-
-      &:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      }
-    }
-
-    .set-specific-highlight-words,
-    .set-highlight-words-by-descriptions {
-      display: none;
-    }
-    
-    .backup-restore-container {
-      .highlight-section {        
-        &:hover {
-          box-shadow: 0 4px 12px rgba(229, 62, 62, 0.1);
-        }
-      }
-    }
-  }
-}
-
 .loading{
   right: 1.3em;
   top: 1.3em;
   position: fixed;
   transform: translate(-50%, -50%);
   z-index: 9000;
-}
-
-
-.extension-switch {
-  &.ant-switch-checked {
-    background-color: #1a73e8 !important;
-  }
 }
 
 .extension-title {

@@ -23,14 +23,14 @@ interface ExtensionPropsInterface {
 const Extension = (props: ExtensionPropsInterface) => {
     const { t } = useI18n();
     const [specificTags, setTags] = useState([]);
-    const [domain, setDomain] = useState('Advertising and digital marketing');
+    const [domain, setDomain] = useState('');
     const [modalData, setModalData] = useState([]);
     const [domainTags, setDomainTags] = useState([]);
     const [inputVisible, setInputVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [messageApi, contextHolder] = message.useMessage();
     const inputRef = useRef<InputRef>(null);
-    const [highlightWordsByDescriptions, setHighlightWordsByDescriptions] = useState('Please return keywords in json format for digital advertising areas, such as CTR, etc. The return content needs to be in English, and each item is a word, or abbreviation.');
+    const [highlightWordsByDescriptions, setHighlightWordsByDescriptions] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [meetingNames, setMeetingNames] = useState<string[]>([]);
@@ -369,7 +369,11 @@ const Extension = (props: ExtensionPropsInterface) => {
                 <Divider style={{ margin: '32px 0 24px' }} />
                 
                 <div className="backup-restore-container">
-                    <BackupAndRestore jumpToCaptions={props.jumpToCaptions}/>
+                    {props.jumpToCaptions ? (
+                        <BackupAndRestore jumpToCaptions={props.jumpToCaptions}/>
+                    ) : (
+                        <BackupAndRestore />
+                    )}
                 </div>
 
                 <Modal
@@ -384,6 +388,7 @@ const Extension = (props: ExtensionPropsInterface) => {
                     onCancel={handleCancel}
                     okText={t('apply_keywords')}
                     cancelText={t('cancel')}
+                    className="extension-modal"
                 >
                     <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
                         {t('review_keywords')}
@@ -417,6 +422,7 @@ const Extension = (props: ExtensionPropsInterface) => {
                     onCancel={() => setIsExportModalOpen(false)}
                     okText={t('export') || 'Export'}
                     cancelText={t('cancel') || 'Cancel'}
+                    className="extension-modal"
                 >
                     <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
                         {t('select_meeting_desc') || 'Please select a meeting to export:'}

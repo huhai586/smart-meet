@@ -12,6 +12,10 @@ import styled from '@emotion/styled';
 import Calendar from '~components/Calendar';
 import Sidebar from '~components/Sidebar';
 import StyledTitle from '~components/common/StyledTitle';
+import TranslationSettings from '~components/TranslationSettings';
+import UILanguageSettings from '~components/UILanguageSettings';
+import ClearCaptionsSettings from '~components/ClearCaptionsSettings';
+import ExtensionSettings from '~components/ExtensionSettings';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
 
@@ -55,12 +59,70 @@ const ActionButton = styled(Button)`
   }
 `;
 
+// 路由映射表 - 将路由路径映射到对应的标签页key
+const ROUTE_MAPPING = {
+  'ai-settings': '1',
+  'google-drive': '2',
+  'calendar': '3',
+  'translation': '4',
+  'ui-language': '5',
+  'extension': '6',
+  'clear-captions': '7'
+};
+
+// 反向映射表 - 将标签页key映射到对应的路由路径
+const KEY_TO_ROUTE = {
+  '1': 'ai-settings',
+  '2': 'google-drive',
+  '3': 'calendar',
+  '4': 'translation',
+  '5': 'ui-language',
+  '6': 'extension',
+  '7': 'clear-captions'
+};
+
 const Options = () => {
     const [apiKey, setApiKey] = useState('');
     const [status, setStatus] = useState('');
-    const [activeKey, setActiveKey] = useState('1');
+    // 默认使用URL哈希中的标签页key，如果没有则使用'1'
+    const [activeKey, setActiveKey] = useState(() => {
+      // 从URL哈希中获取路由路径
+      const hash = window.location.hash.substring(1); // 移除#号
+      return ROUTE_MAPPING[hash] || '1'; // 返回对应的key，如果没有则使用默认值'1'
+    });
     const { token } = useToken();
     const { t } = useI18n();
+
+    // 处理标签切换
+    const handleTabChange = (key: string) => {
+      setActiveKey(key);
+      // 更新URL哈希
+      const route = KEY_TO_ROUTE[key] || 'ai-settings';
+      window.location.hash = route;
+    };
+
+    // 监听URL哈希变化
+    useEffect(() => {
+      const handleHashChange = () => {
+        const hash = window.location.hash.substring(1);
+        const newKey = ROUTE_MAPPING[hash] || '1';
+        if (newKey !== activeKey) {
+          setActiveKey(newKey);
+        }
+      };
+
+      window.addEventListener('hashchange', handleHashChange);
+      return () => {
+        window.removeEventListener('hashchange', handleHashChange);
+      };
+    }, [activeKey]);
+
+    // 初始加载时设置URL哈希（如果没有的话）
+    useEffect(() => {
+      if (!window.location.hash) {
+        window.location.hash = 'ai-settings';
+      }
+    }, []);
 
     useEffect(() => {
         // 加载保存的API key
@@ -195,6 +257,14 @@ const Options = () => {
                 return <GoogleDriveIntegration />;
             case '3':
                 return <Calendar />;
+            case '4':
+                return <TranslationSettings />;
+            case '5':
+                return <UILanguageSettings />;
+            case '6':
+                return <ExtensionSettings />;
+            case '7':
+                return <ClearCaptionsSettings />;
             default:
                 return <ApiKeyContent />;
         }
@@ -203,7 +273,7 @@ const Options = () => {
     return (
         <GoogleAuthProvider>
             <div className="options-container">
-                <Sidebar activeKey={activeKey} onChange={setActiveKey} />
+                <Sidebar activeKey={activeKey} onChange={handleTabChange} />
                 <div className="content-area">
                     {renderContent()}
                 </div>

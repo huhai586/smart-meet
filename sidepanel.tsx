@@ -3,7 +3,7 @@ import {message, Tabs, Tooltip, Dropdown, Menu, Button} from "antd";
 import {
     DownloadOutlined,
     FileDoneOutlined,
-    HistoryOutlined, RollbackOutlined, SketchOutlined,
+    HistoryOutlined, SketchOutlined,
     GlobalOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
@@ -11,7 +11,6 @@ import dayjs from 'dayjs';
 import './all.scss';
 import Summary from "./components/summary";
 import googleAITools from './utils/google-AI';
-import Extension from "./components/extension";
 import useLoading from "./hooks/useLoading";
 import Captions from "./components/captions/captions";
 import getAiSummary from "./utils/get-ai-summary";
@@ -105,12 +104,6 @@ const SidePanel = () => {
             children: <Summary />,
         },
         {
-            label: t('extension'),
-            key: 'extension',
-            icon: <RollbackOutlined />,
-            children: <Extension />,
-        },
-        {
             label: t('translation_records'),
             key: 'words',
             icon: <HistoryOutlined />,
@@ -129,6 +122,7 @@ const SidePanel = () => {
                     items={items}
                     onChange={onTabClick}
                     activeKey={current}
+                    destroyInactiveTabPane
                 />
             </div>
         </DateProvider>
