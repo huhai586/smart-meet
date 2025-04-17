@@ -97,52 +97,54 @@ const Summary = (props) => {
         }));
     };
 
-    return <>
-        <div className={`summaryContainer ${!cardData.length &&  'no-data'}`} ref={container}>
-            {contextHolder}
-            {cardData.map((item, index) => {
-                return (
-                    <Spin
-                        spinning={requesting && !item.fetchComplete}
-                        indicator={<LoadingOutlined spin/>}
-                        size="large"
-                        fullscreen={false}
-                        tip={t('loading')}
-                        key={index}
-                    >
-                        <Card
-                            title={item.question}
+    return (
+        <div className="summary-wrapper">
+            <div className={`summaryContainer ${!cardData.length &&  'no-data'}`} ref={container}>
+                {contextHolder}
+                {cardData.map((item, index) => {
+                    return (
+                        <Spin
+                            spinning={requesting && !item.fetchComplete}
+                            indicator={<LoadingOutlined spin/>}
+                            size="large"
+                            fullscreen={false}
+                            tip={t('loading')}
                             key={index}
-                            className={'card-container'}
                         >
-                            <div className="summary-container">
-                                <MarkdownErrorBoundary
-                                    fallback={<div dangerouslySetInnerHTML={{ __html: item.answer }} />}
-                                >
-                                    <ReactMarkdown>{item.answer}</ReactMarkdown>
-                                </MarkdownErrorBoundary>
-                            </div>
-                        </Card>
-                    </Spin>
-                )
-            })}
-            {
-                !cardData.length && <Empty description={t('summary_question')} className={'summary-no-meeting-data'}></Empty>
-            }
-        </div>
+                            <Card
+                                title={item.question}
+                                key={index}
+                                className={'card-container'}
+                            >
+                                <div className="summary-container">
+                                    <MarkdownErrorBoundary
+                                        fallback={<div dangerouslySetInnerHTML={{ __html: item.answer }} />}
+                                    >
+                                        <ReactMarkdown>{item.answer}</ReactMarkdown>
+                                    </MarkdownErrorBoundary>
+                                </div>
+                            </Card>
+                        </Spin>
+                    )
+                })}
+                {
+                    !cardData.length && <Empty description={t('summary_question')} className={'summary-no-meeting-data'}></Empty>
+                }
+            </div>
 
-        <div className="footer" style={{ padding: '16px', position: 'sticky', bottom: 0, background: '#fff', zIndex: 1 }}>
-            <Search
-                disabled={requesting}
-                placeholder={t('summary_placeholder')}
-                enterButton={t('search_button')}
-                size="large"
-                onSearch={(v) => {
-                    handleQuestion(v === '' ? t('summary_question') : v);
-                }}
-            />
+            <div className="footer">
+                <Search
+                    disabled={requesting}
+                    placeholder={t('summary_placeholder')}
+                    enterButton={t('search_button')}
+                    size="large"
+                    onSearch={(v) => {
+                        handleQuestion(v === '' ? t('summary_question') : v);
+                    }}
+                />
+            </div>
         </div>
-    </>
+    )
 }
 
 export default Summary;

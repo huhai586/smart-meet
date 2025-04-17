@@ -77,8 +77,8 @@
   // 内容区域样式
   .ant-tabs-content {
     height: calc(100% - 48px);
-    padding: 16px;
-    overflow-y: auto;
+    padding: 0;
+    overflow: hidden;
 
     &::-webkit-scrollbar {
       width: 6px;
