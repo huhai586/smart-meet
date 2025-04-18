@@ -1,14 +1,11 @@
 body {
   * {
-    padding: 0;
-    margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 }
 
 /* 专门针对popup页面的样式，移除滚动条 */
 html, body {
-  overflow: hidden;
   height: auto;
   width: auto;
 }
@@ -155,7 +152,7 @@ html, body {
   .height26 {
     height: 26px;
     margin-bottom: 4px;
-    
+
     b {
       font-weight: 600;
       color: #1a73e8;
@@ -171,7 +168,7 @@ html, body {
 
 .ant-tabs-tab, .ant-tabs-tab-btn{
   border: none !important;
-  
+
   &:focus, &:focus-visible, &:active {
     outline: none !important;
     box-shadow: none !important;
