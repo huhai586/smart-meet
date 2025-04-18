@@ -59,10 +59,12 @@ const caption = (props: CaptionProps) => {
             } else {
                 newAiData.push({type: action, data: res});
             }
-           setAiData(newAiData);
+            setAiData(newAiData);
         }).catch((err) => {
-            console.log('err', err);
-            alert(err)
+            messageApi.error({
+                content: err,
+                duration: 3,
+            });
         });
     };
     const success = (res: string) => {

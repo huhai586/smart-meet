@@ -15,6 +15,10 @@ const googleAITools = {
             }
         })
     },
+    // Check if AI service is ready by verifying the model is initialized
+    isAIReady: function(): boolean {
+        return !!this.model;
+    },
     // 保存指定模式的会议内容作为上下文
     saveMeetingContext: function(mode, meetingContent) {
         if (!this.chatHistory) {

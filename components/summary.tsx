@@ -66,19 +66,21 @@ const Summary = (props) => {
             if (item.fetchComplete) {
                 return;
             }
+            const newCardData = [...cardData];
             setRequesting(true);
             getAiSummary(item.question).then((res) => {
-                const newCardData = [...cardData];
                 newCardData[index].answer = res;
                 newCardData[index].fetchComplete = true;
-                setCardData(newCardData);
             }).catch((err) => {
+                console.warn('err', err);
+                newCardData[index].fetchComplete = true;
                 messageApi.open({
                     type: 'error',
                     content: err,
                 });
             }).finally(() => {
                 setRequesting(false);
+                setCardData(newCardData);
             })
         });
     }, [cardData, props.show]);
