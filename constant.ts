@@ -18,7 +18,7 @@ export const getTranslationPrompt = (targetLanguage: string): string => {
     'th': 'โปรดแปลข้อความต่อไปนี้เป็นภาษาไทย ไม่จำเป็นต้องมีข้อความอธิบาย เพียงแค่คำแปล:',
     'vi': 'Vui lòng dịch văn bản sau sang tiếng Việt. Không cần văn bản giải thích, chỉ cần bản dịch:'
   };
-  
+
   return languageMap[targetLanguage] || languageMap['zh']; // 默认使用中文
 };
 
@@ -40,7 +40,7 @@ export const getSummaryPrompt = (targetLanguage: string): string => {
     'th': 'ต่อไปนี้เป็นข้อมูลเนื้อหาการประชุม โปรดสรุปสิ่งที่พูดในการประชุมนี้เป็นภาษาไทย:',
     'vi': 'Sau đây là dữ liệu nội dung cuộc họp. Vui lòng tóm tắt những gì đã được thảo luận trong cuộc họp này bằng tiếng Việt:'
   };
-  
+
   return languageMap[targetLanguage] || languageMap['zh']; // 默认使用中文
 };
 
@@ -51,6 +51,5 @@ export const PROMPT = {
   ASK: '{option} :',
   EXPLAIN: '在{option}领域里面，请简洁的解释一下这个名词:',
   DEFAULT: '',
-  SUMMARY: getSummaryPrompt('zh') // 默认中文，将在运行时更新
 };
 

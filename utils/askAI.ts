@@ -18,7 +18,7 @@ const showErrorNotification = (message: string) => {
     }, 2000); // Only show error notification every 2 seconds
 };
 
-const askAI = async (action: Actions, text, question?: string) => {
+const askAI = async (action: Actions, text: string, question?: string) => {
     // Check if AI is ready before proceeding
     if (!googleAITools.isAIReady()) {
         return Promise.reject('AI service not ready');
@@ -44,12 +44,8 @@ const askAI = async (action: Actions, text, question?: string) => {
     }
 
     // 判断是否为SUMMARY模式，这种模式会保存和使用上下文
-    const useContext = action === Actions.SUMMARY || action === Actions.ASK;
-
-    // 当使用上下文模式时，不需要在每次请求中都添加完整文本
-    if (!useContext) {
-        prompt = prompt + text;
-    }
+    const useContext =  action === Actions.ASK;
+     prompt = useContext ? prompt : (prompt + text);
 
     console.log('prompt', prompt);
     console.warn('send message')

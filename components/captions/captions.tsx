@@ -18,7 +18,7 @@ const Captions = (props) => {
     const [speakers, setSpeakers] = useState([]);
     const [filterSpeaker, setFilterSpeakers] = useState([]);
     const [transcripts] = useTranscripts();
-    const { selectedDate, setSelectedDate } = useDateContext();
+    const { selectedDate } = useDateContext();
     const [searchText, setSearchText] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [currentMatch, setCurrentMatch] = useState(0);

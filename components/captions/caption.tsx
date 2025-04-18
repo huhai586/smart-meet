@@ -34,7 +34,7 @@ export enum Actions {
 const Caption = memo((props: CaptionProps) => {
     console.count("rendering");
     const {data} = props;
-    
+
     const [aiData, setAiData] = useState([]);
     const [domainKeyWords, specificWords] = useHighLightWords();
     const [domain] = useDomain();
@@ -122,7 +122,6 @@ const Caption = memo((props: CaptionProps) => {
             [Actions.POLISH]: t('polish'),
             [Actions.ANALYSIS]: t('analysis'),
             [Actions.ASK]: t('ask'),
-            [Actions.SUMMARY]: t('summary'),
             [Actions.DEFAULT]: ''
         };
         return actionMap[action] || action;
@@ -160,7 +159,7 @@ const Caption = memo((props: CaptionProps) => {
     // 使用useMemo缓存AI回答部分
     const aiAnswerSection = useMemo(() => {
         if (!hasAiData) return null;
-        
+
         return (
             <div className={'ai-answer-container'}>
                 {aiData.map((item, index) => (
@@ -205,17 +204,17 @@ const Caption = memo((props: CaptionProps) => {
     );
 }, (prevProps, nextProps) => {
     // 详细比较props中的所有关键字段，而不仅仅是长度
-    const propsEqual = 
+    const propsEqual =
         prevProps.data.session === nextProps.data.session &&
         prevProps.data.timestamp === nextProps.data.timestamp &&
         prevProps.data.talkContent === nextProps.data.talkContent;
-    
-    console.log('Caption memo compare:', 
+
+    console.log('Caption memo compare:',
         prevProps.data.session, nextProps.data.session,
         prevProps.data.timestamp, nextProps.data.timestamp,
         Boolean(propsEqual)
     );
-    
+
     return propsEqual;
 });
 

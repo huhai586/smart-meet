@@ -2,17 +2,14 @@ import {Button, Upload, Typography} from "antd";
 import '../styles/back-up-and-restore.scss';
 import getMeetingCaptions from "~utils/getCaptions";
 import save from "~utils/save";
-import {UploadOutlined, CloudDownloadOutlined, CloudUploadOutlined} from "@ant-design/icons";
+import {CloudDownloadOutlined, CloudUploadOutlined} from "@ant-design/icons";
 import getFileData from "~utils/get-file-data";
 import {message} from "antd";
 import isRestoreDataValid from "~utils/is-resetore-data-valid";
 import type {Transcript} from "~hooks/useTranscripts";
-import setMeetingCaptions from "~utils/set-captions";
 import dayjs from "dayjs";
-import { useDateContext } from '../contexts/DateContext';
-import { useI18n } from '../utils/i18n';
-
-const { Text } = Typography;
+import { useDateContext } from "~contexts/DateContext";
+import { useI18n } from "~utils/i18n";
 
 interface BackupAndRestoreInterface {
     jumpToCaptions?: (date?: dayjs.Dayjs) => void;
@@ -47,7 +44,7 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                         content: t('no_meeting_data'),
                     });
                 }
-         
+
             }).catch((e) => {
                 messageApi.open({
                     type: 'error',
@@ -68,7 +65,7 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                     {t('backup_desc')}
                 </div>
                 <div className="highlight-content">
-                    <Button 
+                    <Button
                         onClick={backup}
                         type="primary"
                         className="action-button"
@@ -88,7 +85,7 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                 </div>
                 <div className="highlight-content">
                     <Upload accept={'.json'} onChange={handleUploadChange} itemRender={() => null} fileList={[]}>
-                        <Button 
+                        <Button
                             type="primary"
                             className="action-button"
                         >

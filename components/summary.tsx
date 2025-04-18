@@ -10,6 +10,8 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm'
 import { useDateContext } from '../contexts/DateContext';
 import { useI18n } from '../utils/i18n';
+import googleAITools from "~utils/google-AI"
+import { Actions } from "~components/captions/caption"
 
 interface CardItem {
     question: string;
@@ -46,20 +48,27 @@ const Summary = (props) => {
     const [messageApi, contextHolder] = message.useMessage();
     const [cardData, setCardData] = useState<CardItem[]>([]);
     const { selectedDate } = useDateContext();
-    const [markdownErrors, setMarkdownErrors] = useState<Record<string, boolean>>({});
 
     const handleQuestion = async (question = t('summary_question')) => {
-        const recordedContents = await getMeetingCaptions(selectedDate);
-        if (recordedContents.length === 0) {
-            messageApi.open({
-                type: 'error',
-                content: t('no_meeting_data'),
-            });
-            return
-        }
-        setCardData([...cardData, {question, answer: '', fetchComplete: false}]);
+        const newCardData = [...cardData, {question, answer: '', fetchComplete: false}];
+        setCardData(newCardData);
     }
+  useEffect(() => {
+    // 添加错误处理，防止清理对话时出现问题
+    try {
+      console.log('Clearing AI conversation due to date change');
+      googleAITools.clearConversation(Actions.ASK);
 
+      // 清空当前显示的卡片数据
+      setCardData([]);
+    } catch (error) {
+      console.error('Error clearing AI conversation:', error);
+      messageApi.error({
+        content: t('error_clearing_conversation') || 'Error clearing conversation',
+        duration: 3,
+      });
+    }
+  }, [selectedDate]);
     useEffect(() => {
         console.log('cardData', cardData);
         cardData.forEach((item, index) => {
@@ -92,12 +101,7 @@ const Summary = (props) => {
         }
     },[cardData])
 
-    const handleMarkdownError = (itemId: string) => {
-        setMarkdownErrors(prev => ({
-            ...prev,
-            [itemId]: true
-        }));
-    };
+
 
     return (
         <div className="summary-wrapper">
