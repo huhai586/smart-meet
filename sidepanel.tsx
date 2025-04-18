@@ -122,7 +122,6 @@ const SidePanel = () => {
                     items={items}
                     onChange={onTabClick}
                     activeKey={current}
-                    destroyInactiveTabPane
                 />
             </div>
         </DateProvider>

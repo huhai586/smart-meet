@@ -1,5 +1,5 @@
-import {Card, message, Spin} from "~node_modules/antd";
-import {LoadingOutlined} from "~node_modules/@ant-design/icons";
+import {Card, message, Spin, Badge, Tag} from "~node_modules/antd";
+import {LoadingOutlined, MessageOutlined, QuestionCircleOutlined} from "~node_modules/@ant-design/icons";
 import React, {useEffect, useRef, useState} from "react";
 import getAiSummary from "../utils/get-ai-summary";
 import Search from "~node_modules/antd/es/input/Search";
@@ -17,6 +17,7 @@ interface CardItem {
     question: string;
     answer: string;
     fetchComplete: boolean;
+    createdAt?: number;
 }
 
 class MarkdownErrorBoundary extends React.Component<
@@ -50,7 +51,12 @@ const Summary = (props) => {
     const { selectedDate } = useDateContext();
 
     const handleQuestion = async (question = t('summary_question')) => {
-        const newCardData = [...cardData, {question, answer: '', fetchComplete: false}];
+        const newCardData = [...cardData, {
+            question, 
+            answer: '', 
+            fetchComplete: false,
+            createdAt: Date.now()
+        }];
         setCardData(newCardData);
     }
   useEffect(() => {
@@ -101,7 +107,12 @@ const Summary = (props) => {
         }
     },[cardData])
 
-
+    // 格式化时间显示
+    const formatTime = (timestamp) => {
+        if (!timestamp) return '';
+        const date = new Date(timestamp);
+        return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+    };
 
     return (
         <div className="summary-wrapper">
@@ -118,15 +129,27 @@ const Summary = (props) => {
                             key={index}
                         >
                             <Card
-                                title={item.question}
+                                title={
+                                    <div className="card-title-container">
+                                        <QuestionCircleOutlined className="card-title-icon" />
+                                        <span>{item.question}</span>
+                                        {item.createdAt && (
+                                            <Tag color="blue" className="card-time-tag">
+                                                {formatTime(item.createdAt)}
+                                            </Tag>
+                                        )}
+                                    </div>
+                                }
                                 key={index}
                                 className={'card-container'}
+                                extra={<Badge status={item.fetchComplete ? "success" : "processing"} text={item.fetchComplete ? t('completed') : t('loading')} />}
                             >
                                 <div className="summary-container">
+                                    {item.fetchComplete && <MessageOutlined className="response-icon" />}
                                     <MarkdownErrorBoundary
                                         fallback={<div dangerouslySetInnerHTML={{ __html: item.answer }} />}
                                     >
-                                        <ReactMarkdown>{item.answer}</ReactMarkdown>
+                                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{item.answer}</ReactMarkdown>
                                     </MarkdownErrorBoundary>
                                 </div>
                             </Card>

@@ -90,6 +90,7 @@ export default {
   "summary_placeholder": "请总结一下会议",
   "search_button": "搜索",
   "error_clearing_conversation": "清除AI对话时出错。请重试。",
+  "completed": "已完成",
   
   // Extension
   "specific_highlight_words": "特定高亮词",

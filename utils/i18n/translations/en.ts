@@ -101,6 +101,7 @@ export default {
   "summary_placeholder": "Please summary the meeting",
   "search_button": "Search",
   "error_clearing_conversation": "Error clearing AI conversation. Please try again.",
+  "completed": "Completed",
   
   // Extension
   "specific_highlight_words": "Specific Highlight Words",
