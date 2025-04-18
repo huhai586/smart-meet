@@ -10,22 +10,13 @@ import googleAITools from "./google-AI";
  * @returns {Promise<string>} AI的回答
  */
 const getAiSummary = async (question: string, resetContext: boolean = false) => {
-    // 如果需要重置上下文，则清除现有会话
+    // 如果需要重置上下文，则清除现有对话
     if (resetContext) {
-        googleAITools.clearChatSession(Actions.ASK);
+        googleAITools.clearConversation(Actions.ASK);
     }
     
-    // 检查是否已经有保存的会议内容及聊天会话
-    const savedContext = googleAITools.getMeetingContext(Actions.ASK);
-    
-    // 如果没有保存的上下文，则获取会议内容并在askAI时传递
-    if (!savedContext) {
-        const recordedContents = await getMeetingCaptions();
-        return askAI(Actions.ASK, JSON.stringify(recordedContents), question);
-    } else {
-        // 如果已有上下文，则直接使用问题询问AI
-        return askAI(Actions.ASK, "", question);
-    }
+    // 直接使用问题询问AI，AI会自动获取最新的会议记录
+    return askAI(Actions.ASK, "", question);
 };
 
 export default getAiSummary;

@@ -46,11 +46,6 @@ const askAI = async (action: Actions, text, question?: string) => {
     // 判断是否为SUMMARY模式，这种模式会保存和使用上下文
     const useContext = action === Actions.SUMMARY || action === Actions.ASK;
 
-    // 如果是需要使用上下文的模式且有文本，保存会议内容作为上下文
-    if (useContext && text) {
-        googleAITools.saveMeetingContext(action, text);
-    }
-
     // 当使用上下文模式时，不需要在每次请求中都添加完整文本
     if (!useContext) {
         prompt = prompt + text;
