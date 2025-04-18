@@ -1,4 +1,4 @@
-import {useEffect, useState, useMemo} from "react";
+import {useEffect, useState, useMemo, useCallback} from "react";
 import type {Captions} from "~node_modules/google-meeting-captions-resolver";
 import { useDateContext } from '../contexts/DateContext';
 
@@ -8,33 +8,43 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
     const [currentDayTranscripts, setCurrentDayTranscripts] = useState<Transcript[]>([]);
     const { selectedDate } = useDateContext();
 
-    const loadContent = () => {
+    const loadContent = useCallback(() => {
         console.log('useTranscripts.js', 'loadContent', selectedDate?.toString())
         chrome.runtime.sendMessage({
             action: 'get-transcripts',
             date: selectedDate,
         });
-    };
+    }, [selectedDate]);
 
     useEffect(() => {
         loadContent();
-    }, [selectedDate]);
+    }, [loadContent]);
 
-    const handleChromeMessage = (message: any, sender: any, sendResponse: any) => {
+    const handleChromeMessage = useCallback((message: any, sender: any, sendResponse: any) => {
         if (message.action === 'refresh-transcripts') {
-            setCurrentDayTranscripts(message.data);
+            setCurrentDayTranscripts(prevTranscripts => {
+                if (message.data.length !== prevTranscripts.length) {
+                    return message.data;
+                }
+                
+                const isDifferent = message.data.some((item: Transcript, index: number) => {
+                    return item.session !== prevTranscripts[index].session ||
+                           item.timestamp !== prevTranscripts[index].timestamp;
+                });
+                
+                return isDifferent ? message.data : prevTranscripts;
+            });
         }
-    }
+    }, []);
 
     useEffect(() => {
-        chrome.runtime.onMessage.addListener(handleChromeMessage); // from background
+        chrome.runtime.onMessage.addListener(handleChromeMessage);
         return () => {
             chrome.runtime.onMessage.removeListener(handleChromeMessage);
         };
-    }, [selectedDate]);
+    }, [handleChromeMessage]);
 
-
-    return [currentDayTranscripts,setCurrentDayTranscripts];
+    return [currentDayTranscripts, setCurrentDayTranscripts];
 };
 
 export default useTranscripts;

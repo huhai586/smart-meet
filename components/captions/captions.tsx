@@ -25,7 +25,7 @@ const Captions = (props) => {
     const [isSearchActive, setIsSearchActive] = useState(false);
     const [searchVisible, setSearchVisible] = useState(false);
     const searchInputRef = useRef(null);
-    
+
     // 添加会议名称相关状态
     const [meetingNames, setMeetingNames] = useState([]);
     const [selectedMeeting, setSelectedMeeting] = useState('');
@@ -59,14 +59,14 @@ const Captions = (props) => {
     const availableSpeakers = useMemo(() => {
         const speakerSet = new Set();
         const len = transcripts.length;
-        
+
         if (selectedDate) {
             const targetDate = selectedDate.format('YYYY-MM-DD');
-            
+
             for (let i = 0; i < len; i++) {
                 const transcript = transcripts[i];
                 const transcriptDate = formatDate(transcript.timestamp);
-                
+
                 if (transcriptDate === targetDate) {
                     speakerSet.add(transcript.activeSpeaker);
                 }
@@ -76,7 +76,7 @@ const Captions = (props) => {
                 speakerSet.add(transcripts[i].activeSpeaker);
             }
         }
-        
+
         return Array.from(speakerSet);
     }, [transcripts, selectedDate]);
 
@@ -84,14 +84,14 @@ const Captions = (props) => {
     const availableMeetingNames = useMemo(() => {
         const meetingSet = new Set();
         const len = transcripts.length;
-        
+
         if (selectedDate) {
             const targetDate = selectedDate.format('YYYY-MM-DD');
-            
+
             for (let i = 0; i < len; i++) {
                 const transcript = transcripts[i];
                 const transcriptDate = formatDate(transcript.timestamp);
-                
+
                 if (transcriptDate === targetDate && transcript.meetingName) {
                     meetingSet.add(transcript.meetingName);
                 }
@@ -104,7 +104,7 @@ const Captions = (props) => {
                 }
             }
         }
-        
+
         return Array.from(meetingSet);
     }, [transcripts, selectedDate]);
 
@@ -293,10 +293,23 @@ const Captions = (props) => {
         };
     }, [searchVisible, isSearchActive, handleSearch, goToNextMatch, goToPrevMatch, clearSearch]);
 
+    // 使用useMemo包装CaptionList的渲染，减少重新渲染次数
+    const memoizedCaptionList = useMemo(() => {
+        return filteredData.length > 0 ? (
+            <CaptionList listData={filteredData}/>
+        ) : (
+            <Empty description={
+                selectedDate
+                    ? `No messages on ${selectedDate.format('YYYY-MM-DD')}`
+                    : "No messages"
+            }/>
+        );
+    }, [filteredData, selectedDate]);
+
     return (
         <div className={`captions`}>
             {/* 使用拆分后的SearchBar组件 */}
-            <SearchBar 
+            <SearchBar
                 searchText={searchText}
                 searchVisible={searchVisible}
                 searchResults={searchResults}
@@ -311,7 +324,7 @@ const Captions = (props) => {
             />
 
             {/* 使用拆分后的FilterSection组件 */}
-            <FilterSection 
+            <FilterSection
                 speakers={speakers}
                 filterSpeaker={filterSpeaker}
                 meetingNames={meetingNames}
@@ -323,15 +336,7 @@ const Captions = (props) => {
             />
 
             <div className={`chat-container ${isNoData ? 'no-data' : ''}`} ref={chatContainer}>
-                {filteredData.length > 0 ? (
-                    <CaptionList listData={filteredData}/>
-                ) : (
-                    <Empty description={
-                        selectedDate
-                            ? `No messages on ${selectedDate.format('YYYY-MM-DD')}`
-                            : "No messages"
-                    }/>
-                )}
+                {memoizedCaptionList}
             </div>
             <FloatButton.BackTop visibilityHeight={100} target={ () => document.querySelector('.chat-container') as HTMLElement}/>
         </div>
