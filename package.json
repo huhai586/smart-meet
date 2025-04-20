@@ -1,7 +1,7 @@
 {
   "name": "smart-meet",
   "displayName": "Smart meet",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Google Meet Enhancement Extension: Elevate Your Meeting Experience",
   "author": "Howard",
   "scripts": {
@@ -19,14 +19,14 @@
     "google-meeting-captions-resolver": "^1.0.20",
     "jspdf": "^2.5.2",
     "ogl": "^1.0.11",
-    "plasmo": "0.90.3",
+    "plasmo": "0.84.0",
     "rc-tween-one": "^3.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.5.1",
     "react-markdown": "^8.0.7",
-    "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1",
+    "rehype-raw": "^6.1.1",
+    "remark-gfm": "^3.0.1",
     "styled-components": "^6.1.14"
   },
   "devDependencies": {
@@ -36,9 +36,10 @@
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "prettier": "3.2.4",
-    "sass": "^1.85.1",
+    "sass": "1.69.5",
     "typescript": "5.3.3"
   },
+  "local_client_id": "38387869574-sp8modg7774rj4r7qo89uhrrljrvpfpu.apps.googleusercontent.com",
   "manifest": {
     "host_permissions": [
       "https://meet.google.com/*",
@@ -50,7 +51,7 @@
       "identity"
     ],
     "oauth2": {
-      "client_id": "38387869574-sp8modg7774rj4r7qo89uhrrljrvpfpu.apps.googleusercontent.com",
+      "client_id": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
       "scopes": [
         "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/userinfo.profile",
