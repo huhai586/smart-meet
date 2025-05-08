@@ -250,95 +250,81 @@ export class BackupService {
       const fileExists = existingFilesMap.has(fileName);
       console.log(`处理日期 ${date}, 文件${fileExists ? '存在' : '不存在'}`);
 
-      // 如果文件已存在且不是始终覆盖，则需要处理冲突
-      if (fileExists && !initialAlwaysOverwrite && !initialAlwaysSkip) {
+      // 如果文件已存在
+      if (fileExists) {
         const existingFile = existingFilesMap.get(fileName)!;
         
-        // 获取本地和远程文件的内容进行比较
+        // 获取本地内容
         const localContent = await this.getLocalContent(date);
-        const remoteContent = await this.getRemoteContent(existingFile.id!);
-        
-        // 使用更可靠的方式比较内容
-        const localJson = JSON.stringify(localContent);
-        const remoteJson = JSON.stringify(remoteContent);
-        
-        // 检查内容是否真的相同（仅用于日志记录，不影响冲突解决流程）
-        let contentEqual = false;
-        
-        try {
-          // 首先检查长度是否相同
-          if (localJson.length === remoteJson.length) {
-            // 然后检查消息数量是否相同
-            const localCount = Array.isArray(localContent) ? localContent.length : 0;
-            const remoteCount = Array.isArray(remoteContent) ? remoteContent.length : 0;
-            
-            if (localCount === remoteCount) {
-              // 最后检查内容是否完全相同
-              contentEqual = localJson === remoteJson;
-            }
-          }
-        } catch (error) {
-          console.error(`比较内容时出错:`, error);
-          contentEqual = false;
+        if (!Array.isArray(localContent) || localContent.length === 0) {
+          console.log(`日期 ${date} 没有有效内容，跳过`);
+          continue;
         }
-        
-        console.log(`日期 ${date} 的内容比较:`, {
-          contentEqual,
-          localSize: localJson.length,
-          remoteSize: remoteJson.length,
-          localCount: Array.isArray(localContent) ? localContent.length : 0,
-          remoteCount: Array.isArray(remoteContent) ? remoteContent.length : 0
+
+        // 计算本地文件大小
+        const localJson = JSON.stringify(localContent);
+        const localSize = localJson.length;
+        const remoteSize = parseInt(existingFile.size || '0');
+
+        console.log(`日期 ${date} 的文件大小比较:`, {
+          localSize,
+          remoteSize,
+          fileName
         });
-        
-        // 不再跳过内容相同的文件，始终显示冲突解决对话框
-        console.log(`日期 ${date} 文件已存在，显示冲突解决对话框${contentEqual ? '（内容相同）' : '（内容不同）'}`);
-        const shouldOverwrite = await onConflict({
-          fileName,
-          localDate: date,
-          localSize: localJson.length,
-          remoteSize: remoteJson.length,
-          localCount: Array.isArray(localContent) ? localContent.length : 0,
-          remoteCount: Array.isArray(remoteContent) ? remoteContent.length : 0,
-          contentEqual
-        });
-        
-        console.log(`用户选择${shouldOverwrite ? '覆盖' : '跳过'}`);
-        if (!shouldOverwrite) {
+
+        // 如果文件大小差异在1KB以内，认为是相同的
+        const sizeDiff = Math.abs(localSize - remoteSize);
+        const isSizeEqual = sizeDiff <= 1024; // 1KB = 1024 bytes
+
+        if (isSizeEqual) {
+          console.log(`日期 ${date} 的文件大小差异在1KB以内，视为相同，跳过`);
           summary.skipped.push(date);
           continue;
         }
-      } else if (fileExists && initialAlwaysSkip) {
-        console.log(`日期 ${date} 的文件存在且用户选择始终跳过`);
-        // 如果文件存在且用户选择始终跳过，则跳过此文件
-        summary.skipped.push(date);
-        continue;
-      } else if (fileExists && initialAlwaysOverwrite) {
-        console.log(`日期 ${date} 的文件存在且用户选择始终覆盖`);
-      }
 
-      // 上传文件
-      try {
+        // 如果文件大小不同，且不是始终覆盖或始终跳过，则需要处理冲突
+        if (!initialAlwaysOverwrite && !initialAlwaysSkip) {
+          console.log(`日期 ${date} 的文件大小不同，显示冲突解决对话框`);
+          const shouldOverwrite = await onConflict({
+            fileName,
+            localDate: date,
+            localSize,
+            remoteSize,
+            localCount: localContent.length,
+            remoteCount: 0, // 由于我们不再下载远程内容，这里设为0
+            contentEqual: false
+          });
+          
+          console.log(`用户选择${shouldOverwrite ? '覆盖' : '跳过'}`);
+          if (!shouldOverwrite) {
+            summary.skipped.push(date);
+            continue;
+          }
+        } else if (initialAlwaysSkip) {
+          console.log(`日期 ${date} 的文件存在且用户选择始终跳过`);
+          summary.skipped.push(date);
+          continue;
+        } else if (initialAlwaysOverwrite) {
+          console.log(`日期 ${date} 的文件存在且用户选择始终覆盖`);
+        }
+
+        // 更新现有文件
+        console.log(`更新日期 ${date} 的文件`);
+        await this.updateFile(existingFile.id!, localContent, fileName);
+        summary.uploaded.push(date);
+        summary.totalMessages += localContent.length;
+      } else {
+        // 文件不存在，创建新文件
         const content = await this.getLocalContent(date);
         if (!Array.isArray(content) || content.length === 0) {
           console.log(`日期 ${date} 没有有效内容，跳过`);
           continue;
         }
 
-        if (fileExists) {
-          // 更新现有文件
-          console.log(`更新日期 ${date} 的文件`);
-          const existingFile = existingFilesMap.get(fileName)!;
-          await this.updateFile(existingFile.id!, content, fileName);
-        } else {
-          // 创建新文件
-          console.log(`创建日期 ${date} 的文件`);
-          await this.createFile(fileName, content);
-        }
-
+        console.log(`创建日期 ${date} 的文件`);
+        await this.createFile(fileName, content);
         summary.uploaded.push(date);
         summary.totalMessages += content.length;
-      } catch (error) {
-        console.error(`Failed to upload ${fileName}:`, error);
       }
     }
 

@@ -39,7 +39,9 @@
     "sass": "1.69.5",
     "typescript": "5.3.3"
   },
-  "local_client_id": "38387869574-sp8modg7774rj4r7qo89uhrrljrvpfpu.apps.googleusercontent.com",
+  "local_client_id_home": "38387869574-sp8modg7774rj4r7qo89uhrrljrvpfpu.apps.googleusercontent.com",
+  "local_client_id_57": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",
+  "local_client_id_online": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
   "manifest": {
     "host_permissions": [
       "https://meet.google.com/*",
@@ -51,7 +53,7 @@
       "identity"
     ],
     "oauth2": {
-      "client_id": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
+      "client_id": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",
       "scopes": [
         "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/userinfo.profile",
