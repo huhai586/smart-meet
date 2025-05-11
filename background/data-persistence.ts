@@ -1,10 +1,17 @@
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from "dayjs";
+
+
+
 import { StorageFactory } from "~background/data-persistence/storage-factory";
-import type { Transcript } from '../hooks/useTranscripts';
+
+
+
+import type { Transcript } from "../hooks/useTranscripts";
+
 
 interface MessageData {
     type?: string;
-    action: 'clear' | 'addOrUpdateRecords' | 'get-transcripts' | 'restoreRecords' | 'get-days-with-messages' | 'set-current-date';
+    action: 'clear' | 'get-transcripts-only' | 'addOrUpdateRecords' | 'get-transcripts' | 'restoreRecords' | 'get-days-with-messages' | 'set-current-date';
     data?: Transcript | Transcript[];
     date?: Dayjs | number | string;
 }
@@ -12,8 +19,12 @@ interface MessageData {
 class BackgroundMessageHandler {
     private storage = StorageFactory.getInstance().getProvider();
 
+    private async getTranscripts(date?: Dayjs) {
+      return await this.storage.getRecords(date)
+    }
+
     private async syncTranscripts(date?: Dayjs): Promise<void> {
-        const records = await this.storage.getRecords(date);
+        const records = await this.getTranscripts(date);
         console.log('background.js', 'syncTranscripts', records)
         chrome.runtime.sendMessage({
             action: 'refresh-transcripts',
@@ -21,7 +32,7 @@ class BackgroundMessageHandler {
         });
     }
 
-    async handleMessage(message: MessageData): Promise<void> {
+    async handleMessage(message: MessageData): Promise<Transcript[]> {
         console.log('background.js', 'handleMessage', message)
         try {
             switch (message.action) {
@@ -81,6 +92,10 @@ class BackgroundMessageHandler {
                     await this.syncTranscripts(transcriptDate);
                     return;
 
+                case 'get-transcripts-only':
+                    const date = message.date ? dayjs(message.date) : undefined
+                    return await this.getTranscripts(date);
+
                 case 'get-days-with-messages':
                     await this.updateDaysWithMessages();
                     return;
@@ -111,14 +126,25 @@ class BackgroundMessageHandler {
     }
 }
 
+export const messageCenter = new BackgroundMessageHandler();
 
-const initialDataPersistence = () => {
-    console.log('background.js', 'BackgroundMessageHandler')
-    const handler = new BackgroundMessageHandler();
+/**
+ * 数据持久化模块
+ * 负责初始化数据持久化相关功能
+ */
+export function initDataPersistence() {
+    console.log('初始化数据持久化...');
+
+    // 设置消息监听器
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        handler.handleMessage(message).catch(console.error);
+        messageCenter.handleMessage(message).catch(console.error);
         return true; // 保持消息通道开放
     });
+
+    // 在这里添加数据持久化相关的初始化代码
+    // 例如：设置存储监听器、初始化默认值等
 }
 
+// 为了向后兼容保留别名
+const initialDataPersistence = initDataPersistence;
 export default initialDataPersistence;

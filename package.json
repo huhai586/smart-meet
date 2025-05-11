@@ -50,7 +50,9 @@
     "permissions": [
       "sidePanel",
       "storage",
-      "identity"
+      "identity",
+      "tabs",
+      "notifications"
     ],
     "oauth2": {
       "client_id": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",

@@ -1,8 +1,10 @@
 import { message } from 'antd';
 import dayjs from 'dayjs';
-import { GoogleDriveService } from '../../../utils/google-drive';
-import { StorageFactory } from '../../../background/data-persistence/storage-factory';
+import { GoogleDriveService } from "~utils/google-drive";
+import { StorageFactory } from "~background/data-persistence/storage-factory";
 import type { SyncSummary, RestoreResult, ConflictData } from '../types';
+import type { IGoogleDriveFileContent, IGoogleDriveService } from "~utils/types/google-drive.types"
+import { createJsonFile } from '../../../utils/file-utils';
 
 // 添加gapi类型声明
 declare namespace gapi.client.drive {
@@ -19,7 +21,7 @@ declare namespace gapi.client.drive {
  * 备份服务，封装备份相关的方法
  */
 export class BackupService {
-  private driveService: GoogleDriveService;
+  private driveService: IGoogleDriveService;
   private storage: any;
 
   constructor() {
@@ -58,7 +60,7 @@ export class BackupService {
   /**
    * 获取远程内容
    */
-  private async getRemoteContent(fileId: string): Promise<any[]> {
+  private async getRemoteContent(fileId: string): Promise<IGoogleDriveFileContent> {
     return await this.driveService.downloadFile(fileId);
   }
 
@@ -66,19 +68,16 @@ export class BackupService {
    * 更新文件
    */
   private async updateFile(fileId: string, content: any[], fileName: string): Promise<void> {
-    await this.driveService.uploadFile(
-      new File([JSON.stringify(content)], fileName, { type: 'application/json' }),
-      fileId
-    );
+    const file = createJsonFile(content, fileName);
+    await this.driveService.uploadFile(file, fileId);
   }
 
   /**
    * 创建文件
    */
   private async createFile(fileName: string, content: any[]): Promise<void> {
-    await this.driveService.uploadFile(
-      new File([JSON.stringify(content)], fileName, { type: 'application/json' })
-    );
+    const file = createJsonFile(content, fileName);
+    await this.driveService.uploadFile(file);
   }
 
   /**
@@ -139,12 +138,12 @@ export class BackupService {
 
       await this.storage.restoreRecords(fileContent, date);
       message.success('Records restored successfully');
-      
+
       // 通知后台更新数据
       chrome.runtime.sendMessage({
         action: 'get-days-with-messages'
       });
-      
+
       return { success: true, date: dateStr };
     } catch (error) {
       console.error('Error restoring file:', error);
@@ -175,13 +174,13 @@ export class BackupService {
         console.log(`Restoring file for date: ${dateStr}...`);
         const date = dayjs(dateStr);
         const fileContent = await this.driveService.downloadFile(file.id);
-        
+
         if (!fileContent || (Array.isArray(fileContent) && fileContent.length === 0)) {
           console.log(`File ${file.name} has no valid content, skipping...`);
           failedFiles.push(file.name);
           continue;
         }
-        
+
         await this.storage.restoreRecords(fileContent, date);
         restoredCount++;
         console.log(`Successfully restored file: ${file.name}`);
@@ -214,7 +213,7 @@ export class BackupService {
     onConflict: (conflict: ConflictData) => Promise<boolean>
   ): Promise<SyncSummary> {
     console.log('开始同步，初始状态:', { initialAlwaysOverwrite, initialAlwaysSkip });
-    
+
     const summary: SyncSummary = {
       uploaded: [],
       skipped: [],
@@ -227,7 +226,7 @@ export class BackupService {
     // 获取所有有消息的日期
     const datesWithMessages = await this.getDatesWithMessages();
     console.log('有消息的日期:', datesWithMessages);
-    
+
     if (!datesWithMessages || datesWithMessages.length === 0) {
       console.log('没有需要同步的日期');
       return summary;
@@ -236,7 +235,7 @@ export class BackupService {
     // 获取Google Drive中已存在的文件
     const existingFiles = await this.listBackupFiles();
     console.log('Google Drive中的文件:', existingFiles);
-    
+
     const existingFilesMap = new Map<string, gapi.client.drive.File>();
     existingFiles.forEach(file => {
       if (file.name) {
@@ -253,7 +252,7 @@ export class BackupService {
       // 如果文件已存在
       if (fileExists) {
         const existingFile = existingFilesMap.get(fileName)!;
-        
+
         // 获取本地内容
         const localContent = await this.getLocalContent(date);
         if (!Array.isArray(localContent) || localContent.length === 0) {
@@ -294,7 +293,7 @@ export class BackupService {
             remoteCount: 0, // 由于我们不再下载远程内容，这里设为0
             contentEqual: false
           });
-          
+
           console.log(`用户选择${shouldOverwrite ? '覆盖' : '跳过'}`);
           if (!shouldOverwrite) {
             summary.skipped.push(date);
@@ -334,4 +333,4 @@ export class BackupService {
 }
 
 // 导出单例实例
-export default new BackupService(); 
+export default new BackupService();

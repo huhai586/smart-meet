@@ -1,6 +1,5 @@
 import type { StorageProvider, StorageOptions } from './types';
 import { MemoryStorageProvider } from './memory-storage-provider';
-import { IndexedDBProvider } from './indexed-db-provider';
 
 export class StorageFactory {
     private static instance: StorageFactory;
@@ -38,4 +37,4 @@ export class StorageFactory {
         }
         return this.provider;
     }
-} 
+}

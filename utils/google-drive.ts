@@ -1,11 +1,22 @@
 import { message } from 'antd';
+import type {
+    IGoogleDriveService,
+    IGoogleDriveFolder,
+    IGoogleDriveFile,
+    IGoogleDriveFileContent
+} from './types/google-drive.types';
 
 const BACKUP_FOLDER_NAME = 'smartMeetbackup';
 
 // 添加调试信息
-console.log('GoogleDriveService loaded, chrome.identity available:', !!window.chrome?.identity);
+console.log('GoogleDriveService loaded, chrome.identity available:', !!chrome?.identity);
 
-export class GoogleDriveService {
+// 创建元数据的辅助函数
+function createMetadataBlob(metadata: object): Blob {
+    return new Blob([JSON.stringify(metadata)], { type: 'application/json' });
+}
+
+export class GoogleDriveService implements IGoogleDriveService {
     private static instance: GoogleDriveService;
     private accessToken: string | null = null;
 
@@ -13,26 +24,26 @@ export class GoogleDriveService {
         console.log('GoogleDriveService instance created');
     }
 
-    static getInstance(): GoogleDriveService {
+    static getInstance(): IGoogleDriveService {
         if (!GoogleDriveService.instance) {
             GoogleDriveService.instance = new GoogleDriveService();
         }
         return GoogleDriveService.instance;
     }
 
-    async authenticate(): Promise<boolean> {
-        console.log('GoogleDriveService.authenticate called');
-        
-        if (!window.chrome?.identity) {
+    async authenticate(interactive: boolean = true): Promise<boolean> {
+        console.log('GoogleDriveService.authenticate called, interactive:', interactive);
+
+        if (!chrome?.identity) {
             console.error('Chrome identity API not available');
             message.error('Chrome identity API not available');
             return false;
         }
-        
+
         try {
-            const token = await this.getAuthToken();
+            const token = await this.getAuthToken(interactive);
             console.log('Got auth token:', token ? `${token.substring(0, 5)}...` : 'null');
-            
+
             if (token) {
                 this.accessToken = token;
                 return true;
@@ -45,22 +56,21 @@ export class GoogleDriveService {
         }
     }
 
-    private async getAuthToken(): Promise<string | null> {
-        console.log('GoogleDriveService.getAuthToken called');
-        
+    private async getAuthToken(interactive: boolean = true): Promise<string | null> {
+        console.log('GoogleDriveService.getAuthToken called, interactive:', interactive);
+
         return new Promise((resolve) => {
-            // 指定所需的权限范围
+            // 指定所需的权限范围，移除不必要的drive.readonly
             const scopes = [
                 'https://www.googleapis.com/auth/drive.file',
-                'https://www.googleapis.com/auth/drive.readonly',
                 'https://www.googleapis.com/auth/userinfo.profile',
                 'https://www.googleapis.com/auth/userinfo.email'
             ];
-            
+
             console.log('Requesting auth token with scopes:', scopes.join(', '));
-            
-            chrome.identity.getAuthToken({ 
-                interactive: true,
+
+            chrome.identity.getAuthToken({
+                interactive: interactive,
                 scopes: scopes
             }, (token) => {
                 if (chrome.runtime.lastError) {
@@ -75,9 +85,9 @@ export class GoogleDriveService {
         });
     }
 
-    async getBackupFolder(): Promise<any | null> {
+    async getBackupFolder(): Promise<IGoogleDriveFolder | null> {
         console.log('GoogleDriveService.getBackupFolder called, checking authentication...');
-        
+
         if (!this.accessToken) {
             console.log('No access token, attempting to authenticate...');
             const authenticated = await this.authenticate();
@@ -123,7 +133,7 @@ export class GoogleDriveService {
         }
     }
 
-    private async createBackupFolder(): Promise<any> {
+    private async createBackupFolder(): Promise<IGoogleDriveFolder> {
         try {
             const response = await fetch(
                 'https://www.googleapis.com/drive/v3/files',
@@ -153,7 +163,7 @@ export class GoogleDriveService {
         }
     }
 
-    async listBackupFiles(): Promise<any[]> {
+    async listBackupFiles(): Promise<IGoogleDriveFile[]> {
         if (!this.accessToken) {
             const authenticated = await this.authenticate();
             if (!authenticated) {
@@ -189,7 +199,7 @@ export class GoogleDriveService {
         }
     }
 
-    async listFiles(): Promise<any[]> {
+    async listFiles(): Promise<IGoogleDriveFile[]> {
         if (!this.accessToken) {
             const authenticated = await this.authenticate();
             if (!authenticated) {
@@ -240,7 +250,7 @@ export class GoogleDriveService {
 
             // 创建FormData
             const formData = new FormData();
-            formData.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+            formData.append('metadata', createMetadataBlob(metadata));
             formData.append('file', file);
 
             let response;
@@ -313,7 +323,7 @@ export class GoogleDriveService {
         }
     }
 
-    async downloadFile(fileId: string): Promise<any> {
+    async downloadFile(fileId: string): Promise<IGoogleDriveFileContent> {
         if (!this.accessToken) {
             const authenticated = await this.authenticate();
             if (!authenticated) {
@@ -343,4 +353,4 @@ export class GoogleDriveService {
             throw error;
         }
     }
-} 
+}
