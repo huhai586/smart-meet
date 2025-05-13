@@ -1,7 +1,7 @@
 {
   "name": "smart-meet",
   "displayName": "Smart meet",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Google Meet Enhancement Extension: Elevate Your Meeting Experience",
   "author": "Howard",
   "scripts": {
@@ -51,8 +51,7 @@
       "sidePanel",
       "storage",
       "identity",
-      "tabs",
-      "notifications"
+      "tabs"
     ],
     "oauth2": {
       "client_id": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",

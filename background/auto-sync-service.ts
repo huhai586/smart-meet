@@ -38,8 +38,7 @@ export const autoSyncService = {
             }
 
             // 4. 使用工具函数创建标准文件名和文件对象
-            // 使用 "meeting" 前缀指示这是会议数据文件
-            const fileName = createDateFileName(date, 'meeting');
+            const fileName = createDateFileName(date);
             const file = createJsonFile(meetingData, fileName, { pretty: true });
 
             // 5. 上传文件到 Google Drive
