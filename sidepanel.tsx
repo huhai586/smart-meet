@@ -5,13 +5,11 @@ import {
     FileDoneOutlined,
     HistoryOutlined, SketchOutlined,
     GlobalOutlined,
+    LoadingOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
-
-import './all.scss';
-import Summary from "./components/summary";
-import googleAITools from './utils/google-AI';
-import useLoading from "./hooks/useLoading";
+import type { Message } from '@plasmohq/messaging';
+import { useLoading } from './hooks/useLoading';
 import Captions from "./components/captions/captions";
 import getAiSummary from "./utils/get-ai-summary";
 import save from "./utils/save";
@@ -22,6 +20,7 @@ import GlobalDatePicker from './components/GlobalDatePicker';
 import Loading from './components/Loading';
 import useI18n from './utils/i18n';
 import UILanguageSelector from './components/UILanguageSelector';
+import initAIService from './utils/initAIService';
 
 interface CaptionsRef {
     jumpToDate: (date?: dayjs.Dayjs) => void;
@@ -47,9 +46,17 @@ const SidePanel = () => {
     };
 
     useEffect(() => {
+        // 初始化AI服务
+        initAIService().catch(error => {
+            console.error('Failed to initialize AI service:', error);
+        });
+
         const updateApiKey = (request) => {
             if (request.type === 'apiKeyUpdated') {
-                googleAITools.init();
+                // 重新初始化AI服务
+                initAIService().catch(error => {
+                    console.error('Failed to reinitialize AI service:', error);
+                });
             }
         }
         chrome.runtime.onMessage.addListener(updateApiKey);

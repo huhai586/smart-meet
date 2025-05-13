@@ -1,6 +1,6 @@
 import { PROMPT, getTranslationPrompt, getSummaryPrompt } from "../constant";
 import { Actions } from "../components/captions/caption";
-import googleAITools from "./google-AI";
+import aiServiceManager from "./ai";
 import { getCurrentLanguage } from "../hooks/useTranslationLanguage";
 
 // Debounce function to prevent multiple error notifications
@@ -19,8 +19,11 @@ const showErrorNotification = (message: string) => {
 };
 
 const askAI = async (action: Actions, text: string, question?: string) => {
-    // Check if AI is ready before proceeding
-    if (!googleAITools.isAIReady()) {
+    // 获取当前AI服务实例
+    const aiService = aiServiceManager.getCurrentService();
+    
+    // 检查AI服务是否准备就绪
+    if (!aiService || !aiService.isReady()) {
         return Promise.reject('AI service not ready');
     }
 
@@ -45,23 +48,29 @@ const askAI = async (action: Actions, text: string, question?: string) => {
 
     // 判断是否为SUMMARY模式，这种模式会保存和使用上下文
     const useContext =  action === Actions.ASK;
-     prompt = useContext ? prompt : (prompt + text);
+    prompt = useContext ? prompt : (prompt + text);
 
     console.log('prompt', prompt);
-    console.warn('send message')
-    // 发送方
-    const event = new CustomEvent('global-loading-event', { detail: { loading: true} });
-    window.dispatchEvent(event);
+    console.warn('send message');
+    
+    // 发送加载事件
+    const loadingEvent = new CustomEvent('global-loading-event', { detail: { loading: true} });
+    window.dispatchEvent(loadingEvent);
 
-    return googleAITools.askGoogleAI(prompt, action, useContext).catch((res) => {
-        console.log('err', res);
-        const event = new CustomEvent('ajax-error', { detail: { error: res} });
-        window.dispatchEvent(event);
-    }).finally(() => {
-        // 接收方
-        const event = new CustomEvent('global-loading-event', { detail: { loading: false} });
-        window.dispatchEvent(event);
-    });
+    try {
+        // 使用AI服务生成响应
+        const response = await aiServiceManager.generateResponse(prompt, action, useContext);
+        return response;
+    } catch (error) {
+        console.log('err', error);
+        const errorEvent = new CustomEvent('ajax-error', { detail: { error } });
+        window.dispatchEvent(errorEvent);
+        throw error;
+    } finally {
+        // 发送完成加载事件
+        const finishEvent = new CustomEvent('global-loading-event', { detail: { loading: false} });
+        window.dispatchEvent(finishEvent);
+    }
 };
 
 export default askAI;

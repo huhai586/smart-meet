@@ -1,8 +1,6 @@
 import {useState, useEffect} from "react";
 import './styles/options.scss';
 import './styles/sidebar.scss';
-import googleAITools from "./utils/google-AI";
-import getAPIkey from "./utils/getAPIkey";
 import {Alert, Modal, Typography, Input, Button, Space, Card, theme} from "antd";
 import {
     KeyOutlined,
@@ -125,9 +123,23 @@ const Options = () => {
     }, []);
 
     useEffect(() => {
-        // 加载保存的API key
-        getAPIkey().then((res: string) => {
-            setApiKey(res);
+        // 加载保存的API keys
+        import('./utils/getAPIkey').then(({ getAllAIServiceConfigs }) => {
+            getAllAIServiceConfigs().then(({ aiServices }) => {
+                // 如果有Gemini API密钥，则显示
+                if (aiServices.gemini?.apiKey) {
+                    setApiKey(aiServices.gemini.apiKey);
+                } else {
+                    // 否则尝试从旧配置加载
+                    import('./utils/getAPIkey').then(({ default: getAPIkey }) => {
+                        getAPIkey('gemini').catch((res: string) => {
+                            info();
+                        });
+                    });
+                }
+            }).catch(() => {
+                info();
+            });
         });
     }, []);
 
@@ -138,18 +150,18 @@ const Options = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // 保存API key到Chrome存储
-        chrome.storage.sync.set(
-            { geminiApiKey: apiKey },
-            () => {
+        // 使用新的AI服务配置系统保存API key
+        import('./utils/getAPIkey').then(({ saveAIServiceConfig }) => {
+            saveAIServiceConfig('gemini', apiKey, true).then(() => {
                 setStatus('Settings saved successfully!');
-                googleAITools.init();
                 setTimeout(() => setStatus(''), 2000);
+                
+                // 通知其他部分API密钥已更新
                 chrome.runtime.sendMessage({
                     type: 'apiKeyUpdated',
                 });
-            }
-        );
+            });
+        });
     };
 
     const info = () => {
@@ -165,13 +177,6 @@ const Options = () => {
             },
         });
     };
-
-    useEffect(() => {
-        // 加载保存的API key
-        getAPIkey().catch((res: string) => {
-            info()
-        });
-    }, []);
 
     const ApiKeyContent = () => (
         <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
