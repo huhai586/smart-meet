@@ -24,8 +24,15 @@ const askAI = async (action: Actions, text: string, question?: string) => {
     
     // 检查AI服务是否准备就绪
     if (!aiService || !aiService.isReady()) {
+        // 输出日志以便调试
+        console.error(`[askAI] AI service not ready. Current service type: ${aiServiceManager.getCurrentServiceType()}`);
+        console.error(`[askAI] Initialized services: ${aiServiceManager.getInitializedServices().join(', ')}`);
+        
         return Promise.reject('AI service not ready');
     }
+
+    // 输出当前使用的服务类型
+    console.log(`[askAI] Using service: ${aiServiceManager.getCurrentServiceType()}`);
 
     // 获取当前选择的翻译语言
     const currentLanguage = await getCurrentLanguage();
@@ -46,11 +53,11 @@ const askAI = async (action: Actions, text: string, question?: string) => {
         prompt = prompt.replace('{option}', question);
     }
 
-    // 判断是否为SUMMARY模式，这种模式会保存和使用上下文
-    const useContext =  action === Actions.ASK;
+    // 判断是否为SUMMARY或ASK模式，这些模式会保存和使用上下文
+    const useContext = action === Actions.ASK || action === Actions.SUMMARY; 
     prompt = useContext ? prompt : (prompt + text);
 
-    console.log('prompt', prompt);
+    console.log(`[askAI] Action: ${action}, Use context: ${useContext}`);
     console.warn('send message');
     
     // 发送加载事件
@@ -62,7 +69,7 @@ const askAI = async (action: Actions, text: string, question?: string) => {
         const response = await aiServiceManager.generateResponse(prompt, action, useContext);
         return response;
     } catch (error) {
-        console.log('err', error);
+        console.log('[askAI] Error:', error);
         const errorEvent = new CustomEvent('ajax-error', { detail: { error } });
         window.dispatchEvent(errorEvent);
         throw error;

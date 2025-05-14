@@ -19,6 +19,7 @@
     "google-meeting-captions-resolver": "^1.0.20",
     "jspdf": "^2.5.2",
     "ogl": "^1.0.11",
+    "openai": "^4.98.0",
     "plasmo": "0.84.0",
     "rc-tween-one": "^3.0.6",
     "react": "18.2.0",

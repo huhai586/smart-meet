@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { message } from 'antd';
 import { useI18n } from '../../utils/i18n';
 import getAiSummary from '../../utils/get-ai-summary';
-import googleAITools from '../../utils/google-AI';
+import aiServiceManager from '../../utils/ai';
 import { Actions } from '../captions/caption';
 import { useDateContext } from '../../contexts/DateContext';
 import type { CardItemType } from './SummaryCard';
@@ -17,12 +17,27 @@ export const useSummary = () => {
   // 处理日期变化
   useEffect(() => {
     try {
-      console.log('Clearing AI conversation due to date change');
-      googleAITools.clearConversation(Actions.ASK);
+      console.log('[useSummary] Clearing AI conversation due to date change');
+      
+      // 获取当前 AI 服务
+      const currentService = aiServiceManager.getCurrentService();
+      if (currentService) {
+        console.log(`[useSummary] Using service: ${aiServiceManager.getCurrentServiceType()}`);
+        
+        // 如果服务支持清除对话，则清除对话
+        if (typeof currentService.clearConversation === 'function') {
+          currentService.clearConversation(Actions.ASK);
+        } else {
+          console.log('[useSummary] Current service does not support clearConversation');
+        }
+      } else {
+        console.warn('[useSummary] No active AI service found');
+      }
+      
       // 清空当前显示的卡片数据
       setCardData([]);
     } catch (error) {
-      console.error('Error clearing AI conversation:', error);
+      console.error('[useSummary] Error clearing AI conversation:', error);
       messageApi.error({
         content: t('error_clearing_conversation') || 'Error clearing conversation',
         duration: 3,

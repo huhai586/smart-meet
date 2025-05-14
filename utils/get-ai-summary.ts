@@ -1,7 +1,7 @@
 import { Actions } from "../components/captions/caption"
 import askAI from "./askAI"
 import getMeetingCaptions from './getCaptions';
-import googleAITools from "./google-AI";
+import aiServiceManager from "./ai";
 
 /**
  * 获取AI对会议内容的总结或回答特定问题

@@ -8,8 +8,7 @@ import {
     LoadingOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import type { Message } from '@plasmohq/messaging';
-import { useLoading } from './hooks/useLoading';
+import useLoading from './hooks/useLoading';
 import Captions from "./components/captions/captions";
 import getAiSummary from "./utils/get-ai-summary";
 import save from "./utils/save";
@@ -21,6 +20,10 @@ import Loading from './components/Loading';
 import useI18n from './utils/i18n';
 import UILanguageSelector from './components/UILanguageSelector';
 import initAIService from './utils/initAIService';
+import Summary from './components/summary';
+import aiServiceManager from './utils/ai';
+import { getAllAIServiceConfigs } from './utils/getAPIkey';
+import googleAITools from './utils/google-AI';
 
 interface CaptionsRef {
     jumpToDate: (date?: dayjs.Dayjs) => void;
@@ -40,23 +43,52 @@ const SidePanel = () => {
     const [current, setCurrent] = useState('captions');
     const [loading] = useLoading();
     const { t } = useI18n();
+    const [activeService, setActiveService] = useState<string>('');
 
     const onTabClick = (key: string) => {
         setCurrent(key);
     };
 
+    // 初始化和重新加载 AI 服务
+    const loadAIService = async () => {
+        try {
+            // 先获取当前活动的服务
+            const { activeAIService } = await getAllAIServiceConfigs();
+            console.log('Active AI service from storage:', activeAIService);
+            setActiveService(activeAIService || 'gemini');
+            
+            // 初始化 AI 服务
+            await initAIService();
+            
+            // 重新初始化 googleAITools
+            await googleAITools.reinit();
+            
+            // 检查初始化后的当前服务类型是否与存储中的匹配
+            const currentServiceType = aiServiceManager.getCurrentServiceType();
+            console.log('Current AI service after initialization:', currentServiceType);
+            
+            if (currentServiceType !== activeAIService) {
+                console.warn(`Service mismatch! Storage: ${activeAIService}, Current: ${currentServiceType}`);
+                if (activeAIService && aiServiceManager.isServiceInitialized(activeAIService)) {
+                    // 强制设置为存储中的活动服务
+                    aiServiceManager.setCurrentServiceType(activeAIService);
+                    console.log(`Forced service type to: ${activeAIService}`);
+                }
+            }
+        } catch (error) {
+            console.error('Failed to initialize AI service:', error);
+        }
+    };
+
     useEffect(() => {
         // 初始化AI服务
-        initAIService().catch(error => {
-            console.error('Failed to initialize AI service:', error);
-        });
+        loadAIService();
 
         const updateApiKey = (request) => {
             if (request.type === 'apiKeyUpdated') {
+                console.log('Received apiKeyUpdated message, reloading AI service');
                 // 重新初始化AI服务
-                initAIService().catch(error => {
-                    console.error('Failed to reinitialize AI service:', error);
-                });
+                loadAIService();
             }
         }
         chrome.runtime.onMessage.addListener(updateApiKey);
