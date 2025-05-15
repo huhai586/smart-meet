@@ -10,6 +10,7 @@ export interface CardItemType {
   answer: string;
   fetchComplete: boolean;
   createdAt?: number;
+  error?: string;
 }
 
 interface SummaryCardProps {
@@ -54,7 +55,11 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
       >
         <div className="summary-container">
           {item.fetchComplete && <MessageOutlined className="response-icon" />}
-          <MarkdownRenderer content={item.answer} />
+          {item.error ? (
+            <div className="summary-error-message" style={{ color: 'red' }}>{item.error}</div>
+          ) : (
+            <MarkdownRenderer content={item.answer} />
+          )}
         </div>
       </Card>
     </Spin>

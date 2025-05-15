@@ -8,7 +8,7 @@ const OpenAI = require('openai');
  */
 export class OpenAIService extends BaseAIService {
   private client: any = null;
-  
+
   constructor(config: AIServiceConfig) {
     super(config);
   }
@@ -32,12 +32,13 @@ export class OpenAIService extends BaseAIService {
         // 初始化OpenAI客户端
         this.client = new OpenAI.OpenAI({
           apiKey: this.config.apiKey,
+          dangerouslyAllowBrowser: true
         });
-        
+
         // 初始化AI对话实例
         this.aiConversations = {};
         this.isInitialized = true;
-        
+
         console.log('OpenAI service initialized');
       } catch (initError) {
         console.error('Failed to initialize OpenAI client:', initError);
@@ -63,20 +64,20 @@ export class OpenAIService extends BaseAIService {
       console.error('OpenAI client not initialized');
       return;
     }
-    
+
     // 为每个模式创建对话历史
     this.aiConversations[mode] = [
-      { 
-        role: "system", 
+      {
+        role: "system",
         content: "You are a helpful assistant for meeting transcripts."
       },
-      { 
-        role: "user", 
+      {
+        role: "user",
         content: `这是之前的会议内容: ${JSON.stringify(meetingContent)}`
       },
-      { 
-        role: "assistant", 
-        content: "我已了解会议内容，请问有什么需要我帮助的？" 
+      {
+        role: "assistant",
+        content: "我已了解会议内容，请问有什么需要我帮助的？"
       }
     ];
   }
@@ -86,7 +87,7 @@ export class OpenAIService extends BaseAIService {
    */
   protected processResponse(result: any): string {
     try {
-      if (result && result.choices && result.choices.length > 0 && 
+      if (result && result.choices && result.choices.length > 0 &&
           result.choices[0].message && result.choices[0].message.content) {
         return result.choices[0].message.content;
       }
@@ -107,30 +108,30 @@ export class OpenAIService extends BaseAIService {
     }
 
     let result;
-    
+
     try {
       if (useContext && mode) {
         // 获取或创建该模式的对话历史
         const conversation = await this.getConversation(mode);
-        
+
         // 将新的用户消息添加到对话历史
         conversation.push({ role: "user", content: prompt });
-        
+
         try {
           // 发送完整对话历史，保持上下文连贯性
           result = await this.client.chat.completions.create({
             model: this.config.modelName || "gpt-3.5-turbo",
             messages: conversation,
           });
-          
+
           // 将AI回复添加到对话历史
           if (result && result.choices && result.choices.length > 0 && result.choices[0].message) {
-            conversation.push({ 
-              role: "assistant", 
-              content: result.choices[0].message.content 
+            conversation.push({
+              role: "assistant",
+              content: result.choices[0].message.content
             });
           }
-          
+
           console.log(`Used existing OpenAI conversation for ${mode}`);
         } catch (error) {
           console.error(`Error with OpenAI conversation: ${error.message}`);
@@ -148,7 +149,7 @@ export class OpenAIService extends BaseAIService {
           ],
         });
       }
-      
+
       return this.processResponse(result);
     } catch (error) {
       console.error('Error generating response from OpenAI:', error);
@@ -162,4 +163,4 @@ export class OpenAIService extends BaseAIService {
   getServiceName(): string {
     return 'OpenAI';
   }
-} 
+}

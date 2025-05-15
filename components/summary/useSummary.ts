@@ -59,13 +59,15 @@ export const useSummary = () => {
         .then((res) => {
           newCardData[index].answer = res;
           newCardData[index].fetchComplete = true;
+          newCardData[index].error = undefined;
         })
         .catch((err) => {
           console.warn('err', err);
           newCardData[index].fetchComplete = true;
+          newCardData[index].error = typeof err === 'string' ? err : (err?.message || 'Unknown error');
           messageApi.open({
             type: 'error',
-            content: err,
+            content: newCardData[index].error,
           });
         })
         .finally(() => {

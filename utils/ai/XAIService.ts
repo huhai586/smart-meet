@@ -21,45 +21,96 @@ export class XAIService extends BaseAIService {
         return;
       }
 
-      // 这里应该初始化xAI的客户端
-      // 由于xAI的API可能不同，这里展示一个假设的实现
+      // Initialize xAI client config
       this.client = {
-        // 模拟xAI客户端初始化
-        // 实际上需要根据xAI的SDK进行实现
         apiKey: this.config.apiKey,
         model: this.config.modelName || 'grok-1',
+        /**
+         * Send a chat completion request to xAI API
+         * @param prompt User's question or prompt
+         * @param options Additional options for the request
+         */
         createCompletion: async (prompt: string, options: any = {}) => {
-          // 实际实现需要替换为真正的API调用
-          console.log('Using xAI model:', this.client.model);
-          // 假设的返回结构
+          const response = await fetch('https://api.x.ai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${this.config.apiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: this.config.modelName || 'grok-1',
+              messages: [
+                { role: 'user', content: prompt }
+              ],
+              ...options
+            })
+          });
+
+          if (!response.ok) {
+            let errorMsg = 'xAI API request failed';
+            try {
+              const error = await response.json();
+              errorMsg = error.error?.message || errorMsg;
+            } catch {}
+            throw new Error(errorMsg);
+          }
+
+          const data = await response.json();
           return {
-            text: `Response from ${this.client.model} model for: ${prompt.substring(0, 30)}...`,
-            finish_reason: 'stop',
+            text: data.choices?.[0]?.message?.content || '',
+            finish_reason: data.choices?.[0]?.finish_reason || 'stop',
           };
         },
+        /**
+         * Create a conversation object for multi-turn chat
+         */
         createConversation: () => {
-          // 返回一个虚构的会话对象
           return {
             messages: [],
+            /**
+             * Add a message to the conversation
+             */
             addMessage: function(message: { role: string, content: string }) {
               this.messages.push(message);
               return this;
             },
+            /**
+             * Execute the conversation by sending all messages to xAI API
+             */
             execute: async function() {
-              console.log('Executing XAI conversation with messages:', this.messages.length);
-              // 实际实现需要使用真正的API
+              const response = await fetch('https://api.x.ai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Bearer ${this.apiKey}`,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  model: this.model,
+                  messages: this.messages
+                })
+              });
+              if (!response.ok) {
+                let errorMsg = 'xAI API request failed';
+                try {
+                  const error = await response.json();
+                  errorMsg = error.error?.message || errorMsg;
+                } catch {}
+                throw new Error(errorMsg);
+              }
+              const data = await response.json();
               return {
-                text: `Response from xAI conversation with ${this.messages.length} messages`,
+                text: data.choices?.[0]?.message?.content || '',
+                finish_reason: data.choices?.[0]?.finish_reason || 'stop',
               };
-            }
+            },
+            apiKey: this.config.apiKey,
+            model: this.config.modelName || 'grok-1',
           };
         }
       };
-      
-      // 初始化AI对话实例
+      // Initialize AI conversation instances
       this.aiConversations = {};
       this.isInitialized = true;
-      
       console.log('XAI service initialized');
     } catch (error) {
       console.error('Failed to initialize XAI service:', error);
