@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import "./all.scss"
+import "./styles/popup.scss"
 
 import { Switch } from "antd"
 import {
@@ -51,10 +51,10 @@ const ContentMonitor = () => {
           <div className={'flex-container'}>
               <span><AudioOutlined style={{ marginRight: '8px' }} />{t('log_captions')}</span>
               <div>
-                  <Switch 
-                    checkedChildren={t('on')} 
-                    unCheckedChildren={t('off')} 
-                    onChange={toggleSwitch} 
+                  <Switch
+                    checkedChildren={t('on')}
+                    unCheckedChildren={t('off')}
+                    onChange={toggleSwitch}
                     value={switchValue}
                     style={{ backgroundColor: switchValue ? '#1a73e8' : '' }}
                   />

@@ -1,33 +1,24 @@
 import React, {useEffect, useState, useRef} from "react";
 import {message, Tabs, Tooltip, Dropdown, Menu, Button} from "antd";
 import {
-    DownloadOutlined,
     FileDoneOutlined,
     HistoryOutlined, SketchOutlined,
-    GlobalOutlined,
-    LoadingOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import useLoading from './hooks/useLoading';
 import Captions from "./components/captions/captions";
-import getAiSummary from "./utils/get-ai-summary";
-import save from "./utils/save";
-import BackupAndRestore from "./components/backup-and-restore";
 import Words from "./components/words";
-import { DateProvider, useDateContext } from './contexts/DateContext';
+import { DateProvider } from './contexts/DateContext';
 import GlobalDatePicker from './components/GlobalDatePicker';
 import Loading from './components/Loading';
 import useI18n from './utils/i18n';
-import UILanguageSelector from './components/UILanguageSelector';
 import initAIService from './utils/initAIService';
 import Summary from './components/summary';
 import aiServiceManager from './utils/ai';
 import { getAllAIServiceConfigs } from './utils/getAPIkey';
 import googleAITools from './utils/google-AI';
 
-interface CaptionsRef {
-    jumpToDate: (date?: dayjs.Dayjs) => void;
-}
+import './styles/sidepanel.scss';
 
 interface CustomErrorEvent extends Event {
     detail: {
@@ -56,17 +47,17 @@ const SidePanel = () => {
             const { activeAIService } = await getAllAIServiceConfigs();
             console.log('Active AI service from storage:', activeAIService);
             setActiveService(activeAIService || 'gemini');
-            
+
             // 初始化 AI 服务
             await initAIService();
-            
+
             // 重新初始化 googleAITools
             await googleAITools.reinit();
-            
+
             // 检查初始化后的当前服务类型是否与存储中的匹配
             const currentServiceType = aiServiceManager.getCurrentServiceType();
             console.log('Current AI service after initialization:', currentServiceType);
-            
+
             if (currentServiceType !== activeAIService) {
                 console.warn(`Service mismatch! Storage: ${activeAIService}, Current: ${currentServiceType}`);
                 if (activeAIService && aiServiceManager.isServiceInitialized(activeAIService)) {

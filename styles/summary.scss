@@ -14,7 +14,7 @@
   .summary-container {
     overflow-y: auto;
   }
-  
+
   /* 卡片交替样式 */
   .ant-spin-nested-loading {
     &:nth-child(odd) {
@@ -23,7 +23,7 @@
         border-left: 3px solid #1890ff;
       }
     }
-    
+
     &:nth-child(even) {
       .card-container {
         background-color: #f9fcff;
@@ -39,7 +39,7 @@
   transition: all 0.3s ease;
   border-radius: 8px;
   overflow: hidden;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
@@ -49,13 +49,13 @@
     border-bottom: 1px solid #f0f0f0;
     background: #fafafa;
     padding: 12px 20px;
-    
+
     .ant-card-head-title {
       font-weight: 600;
       font-size: 16px;
     }
   }
-  
+
   .ant-card-body {
     padding: 16px 20px;
   }
@@ -64,13 +64,13 @@
 .card-title-container {
   display: flex;
   align-items: center;
-  
+
   .card-title-icon {
     color: #1890ff;
     margin-right: 8px;
     font-size: 16px;
   }
-  
+
   .card-time-tag {
     margin-left: auto;
     font-size: 12px;
@@ -174,7 +174,6 @@
   right: 0;
   z-index: 100;
   border-top: 1px solid #e8e8e8;
-  width: 100%;
 
   .ant-input-group-wrapper {
     width: 100%;
@@ -184,17 +183,17 @@
       min-width: 80px;
       background: linear-gradient(135deg, #1890ff, #096dd9);
       transition: all 0.3s;
-      
+
       &:hover {
         background: linear-gradient(135deg, #40a9ff, #1890ff);
         box-shadow: 0 2px 6px rgba(24, 144, 255, 0.3);
       }
     }
-    
+
     .ant-input {
       height: 40px;
       border-radius: 4px 0 0 4px;
-      
+
       &:focus, &:hover {
         border-color: #1890ff;
         box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);

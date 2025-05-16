@@ -96,7 +96,7 @@ html, body {
 .setting{
   cursor: pointer;
   display: inline-block;
-  background: url("./images/setting.png") no-repeat;
+  background: url("../images/setting.png") no-repeat;
   width: 14px;
   height: 14px;
   background-size: contain;
@@ -126,7 +126,7 @@ html, body {
 
 .extension-title {
   min-height: 48px;
-  background-image: url('./images/popup-header.png') !important;
+  background-image: url('../images/popup-header.png') !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -164,22 +164,6 @@ html, body {
     font-size: 13px;
     color: #666;
   }
-}
-
-.ant-tabs-tab, .ant-tabs-tab-btn{
-  border: none !important;
-
-  &:focus, &:focus-visible, &:active {
-    outline: none !important;
-    box-shadow: none !important;
-  }
-}
-.ant-tabs-tabpane {
-  height: calc(100vh - 56px);
-  overflow: auto;
-}
-.ant-tabs-nav{
-  margin-bottom: 0 !important;
 }
 
 .hide {
