@@ -109,7 +109,6 @@ const Options = () => {
     return (
         <GoogleAuthProvider>
             <div className="options-container">
-                {contextHolder}
                 <Sidebar activeKey={activeKey} onChange={handleTabChange} />
                 <div className="content-area">
                     {renderContent()}

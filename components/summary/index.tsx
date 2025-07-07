@@ -26,8 +26,7 @@ const Summary: React.FC<SummaryProps> = (props) => {
   return (
     <div className="summary-wrapper">
       <div className={`summaryContainer ${!cardData.length && 'no-data'}`} ref={container}>
-        {contextHolder}
-        
+
         {cardData.map((item, index) => (
           <SummaryCard
             key={index}
@@ -36,21 +35,21 @@ const Summary: React.FC<SummaryProps> = (props) => {
             index={index}
           />
         ))}
-        
+
         {!cardData.length && (
-          <Empty 
-            description={t('summary_question')} 
+          <Empty
+            description={t('summary_question')}
             className={'summary-no-meeting-data'}
           />
         )}
       </div>
 
-      <QuestionInput 
-        onSubmit={handleQuestion} 
-        loading={requesting} 
+      <QuestionInput
+        onSubmit={handleQuestion}
+        loading={requesting}
       />
     </div>
   );
 };
 
-export default Summary; 
+export default Summary;

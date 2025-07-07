@@ -1,8 +1,8 @@
 import React from 'react';
-import { 
-  ApiOutlined, 
-  UserOutlined, 
-  CloudSyncOutlined, 
+import {
+  ApiOutlined,
+  UserOutlined,
+  CloudSyncOutlined,
   DatabaseOutlined,
   KeyOutlined,
   CalendarOutlined,
@@ -40,7 +40,7 @@ const KEY_TO_ROUTE = {
 
 const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
   const { t } = useI18n();
-  
+
   const menuItems: MenuItem[] = [
     {
       key: '1',
@@ -100,7 +100,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
           <div className="logo-icon">
             <SettingOutlined style={{ fontSize: '24px', color: '#fff' }} />
           </div>
-          <h1>Smart Meet</h1>
+          <h1>Google Meet Caption Pro</h1>
         </div>
         <div className="sidebar-description">
           {t('configure_assistant')}
@@ -108,7 +108,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
       </div>
       <div className="sidebar-menu">
         {menuItems.map(item => (
-          <a 
+          <a
             key={item.key}
             className={`menu-item ${activeKey === item.key ? 'active' : ''}`}
             onClick={() => handleMenuItemClick(item.key, item.route)}
@@ -126,4 +126,4 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

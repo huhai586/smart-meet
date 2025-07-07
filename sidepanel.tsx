@@ -145,7 +145,6 @@ const SidePanel = () => {
     return (
         <DateProvider>
             <div className={'side-panel'}>
-                {contextHolder}
                 <Loading spinning={loading} />
                 <GlobalDatePicker />
                 <Tabs

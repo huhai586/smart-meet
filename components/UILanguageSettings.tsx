@@ -39,7 +39,7 @@ const UILanguageSettings: React.FC = () => {
   return (
     <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
       <StyledTitle>{t('ui_language')}</StyledTitle>
-      
+
       <StyledCard>
         <Space direction="vertical" style={{ width: "100%" }}>
           <IconWrapper color={`${token.colorPrimary}15`} shadowColor={`${token.colorPrimary}20`}>
@@ -57,7 +57,7 @@ const UILanguageSettings: React.FC = () => {
             fontSize: "15px",
             lineHeight: "1.6"
           }}>
-            {t('ui_language_desc') || 'Choose the language for the user interface of Smart Meet.'}
+            {t('ui_language_desc') || 'Choose the language for the user interface of Google Meet Caption Pro'}
           </Text>
 
           <div style={{ textAlign: "center", marginBottom: "16px" }}>
@@ -69,4 +69,4 @@ const UILanguageSettings: React.FC = () => {
   );
 };
 
-export default UILanguageSettings; 
+export default UILanguageSettings;
