@@ -27,10 +27,10 @@ interface CustomTheme {
   t: (key: string) => string;
 }
 
-const ServiceListItem = styled.div<{
-  active: boolean,
-  configured: boolean,
-  selected: boolean
+const ServiceListItem = styled.div<{ 
+  active: boolean, 
+  configured: boolean, 
+  selected: boolean 
 }>`
   padding: 14px;
   border-radius: 10px;
@@ -129,7 +129,7 @@ const AISettings: React.FC = () => {
             }
         `;
         document.head.appendChild(styleSheet);
-
+        
         return () => {
             document.head.removeChild(styleSheet);
         };
@@ -156,22 +156,22 @@ const AISettings: React.FC = () => {
 
     // 测试API密钥是否可用
     const [testingApiKey, setTestingApiKey] = useState<boolean>(false);
-
+    
     // 测试特定服务的API密钥
     const [testingServiceKey, setTestingServiceKey] = useState<string | null>(null);
-
+    
     const testApiKey = async () => {
         if (!currentApiKey) {
             messageManager.error(t('please_enter_api_key_first'));
             return;
         }
-
+        
         setTestingApiKey(true);
-
+        
         try {
             let isValid = false;
             let errorMessage = '';
-
+            
             if (currentEditService === 'openai') {
                 try {
                     // 测试OpenAI API密钥
@@ -182,7 +182,7 @@ const AISettings: React.FC = () => {
                             'Content-Type': 'application/json'
                         }
                     });
-
+                    
                     if (response.ok) {
                         isValid = true;
                     } else {
@@ -198,7 +198,7 @@ const AISettings: React.FC = () => {
                     // 测试Google AI (Gemini) API密钥
                     // 使用一个简单的完成请求测试
                     const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models?key=' + currentApiKey);
-
+                    
                     if (response.ok) {
                         isValid = true;
                     } else {
@@ -219,7 +219,7 @@ const AISettings: React.FC = () => {
                     errorMessage = t('api_key_format_invalid');
                 }
             }
-
+            
             if (isValid) {
                 messageManager.success(t('api_key_valid'));
             } else {
@@ -235,14 +235,14 @@ const AISettings: React.FC = () => {
             messageManager.error(t('service_not_configured'));
             return;
         }
-
+        
         setTestingServiceKey(service);
         const apiKey = configuredServices[service].apiKey;
-
+        
         try {
             let isValid = false;
             let errorMessage = '';
-
+            
             if (service === 'openai') {
                 try {
                     // 测试OpenAI API密钥
@@ -253,7 +253,7 @@ const AISettings: React.FC = () => {
                             'Content-Type': 'application/json'
                         }
                     });
-
+                    
                     if (response.ok) {
                         isValid = true;
                     } else {
@@ -268,7 +268,7 @@ const AISettings: React.FC = () => {
                 try {
                     // 测试Google AI (Gemini) API密钥
                     const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models?key=' + apiKey);
-
+                    
                     if (response.ok) {
                         isValid = true;
                     } else {
@@ -288,7 +288,7 @@ const AISettings: React.FC = () => {
                     errorMessage = t('api_key_format_invalid');
                 }
             }
-
+            
             if (isValid) {
                 messageManager.success(t('api_key_valid_for_service', { service: getServiceDisplayName(service) }));
             } else {
@@ -305,14 +305,14 @@ const AISettings: React.FC = () => {
             getAllAIServiceConfigs().then(({ aiServices, activeAIService }) => {
                 setConfiguredServices(aiServices);
                 setActiveService(activeAIService);
-
+                
                 // 默认选择活动服务进行编辑
                 if (activeAIService && aiServices[activeAIService]) {
                     const service = activeAIService;
                     setCurrentEditService(service);
                     setCurrentApiKey(aiServices[service].apiKey || '');
                     setCurrentModelName(aiServices[service].modelName || '');
-
+                    
                     // 立即设置预定义的模型列表
                     if (service === 'gemini') {
                         setAvailableModels(predefinedModels.gemini);
@@ -331,7 +331,7 @@ const AISettings: React.FC = () => {
             });
         });
     }, []);
-
+    
     // 强制确保在组件挂载后立即设置预定义模型
     useEffect(() => {
         // 确保初始加载时模型列表不为空
@@ -343,7 +343,7 @@ const AISettings: React.FC = () => {
             setAvailableModels(predefinedModels.openai);
         }
     }, [currentEditService]);
-
+    
     // 当API密钥或服务类型变更时，尝试获取可用模型
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -362,15 +362,15 @@ const AISettings: React.FC = () => {
                 }
             }
         }, 500); // 添加延迟以防止频繁API调用
-
+        
         return () => clearTimeout(timer);
     }, [currentApiKey, currentEditService]);
-
+    
     // 当服务变更时立即设置对应的预定义模型列表
     useEffect(() => {
         // 先清空，然后立即设置预定义列表，避免任何延迟
         setModelLoadError('');
-
+        
         if (currentEditService === 'gemini') {
             console.log('Setting Gemini models:', predefinedModels.gemini);
             setAvailableModels(predefinedModels.gemini);
@@ -384,10 +384,10 @@ const AISettings: React.FC = () => {
     // 处理服务切换
     const handleServiceChange = (service: string) => {
         setCurrentEditService(service);
-
+        
         // 清空当前错误
         setModelLoadError('');
-
+        
         // 立即设置预定义的模型列表，无需等待API调用
         if (service === 'gemini') {
             setAvailableModels(predefinedModels.gemini);
@@ -397,22 +397,22 @@ const AISettings: React.FC = () => {
             // 对于OpenAI，如果没有API密钥，设置预定义的模型列表
             setAvailableModels(predefinedModels.openai);
         }
-
+        
         // 加载选中服务的配置
         if (configuredServices[service]) {
             setCurrentApiKey(configuredServices[service].apiKey || '');
-
+            
             // 确保当前模型名称与所选服务匹配
             const savedModelName = configuredServices[service].modelName || '';
             const defaultModelName = getDefaultModelName(service);
-
+            
             // 检查保存的模型名称是否与当前选择的服务类型相符
-            const isValidModelForService =
+            const isValidModelForService = 
                 (service === 'gemini' && savedModelName.includes('gemini')) ||
                 (service === 'openai' && savedModelName.includes('gpt')) ||
                 (service === 'xai' && savedModelName.includes('grok')) ||
                 !savedModelName; // 空值也是有效的
-
+                
             setCurrentModelName(isValidModelForService ? savedModelName : '');
         } else {
             setCurrentApiKey('');
@@ -424,15 +424,15 @@ const AISettings: React.FC = () => {
     const handleSaveService = () => {
         import('../utils/getAPIkey').then(({ saveAIServiceConfig }) => {
             const isActivating = currentEditService === activeService;
-
+            
             saveAIServiceConfig(
-                currentEditService,
-                currentApiKey,
+                currentEditService, 
+                currentApiKey, 
                 isActivating,
                 { modelName: currentModelName }
             ).then(() => {
                 setStatus('Service configuration saved successfully!');
-
+                
                 // 更新本地配置状态
                 setConfiguredServices(prev => ({
                     ...prev,
@@ -441,18 +441,18 @@ const AISettings: React.FC = () => {
                         modelName: currentModelName
                     }
                 }));
-
+                
                 // 如果这是第一个配置的服务，自动将其设为活动服务
                 const hadNoConfiguredServices = Object.values(configuredServices)
                     .every(svc => !svc?.apiKey);
-
+                
                 if (hadNoConfiguredServices) {
                     setActiveService(currentEditService);
                 }
-
+                
                 messageManager.success(t('configuration_saved'));
                 setTimeout(() => setStatus(''), 2000);
-
+                
                 // 通知其他部分API密钥已更新
                 chrome.runtime.sendMessage({
                     type: 'apiKeyUpdated',
@@ -475,7 +475,7 @@ const AISettings: React.FC = () => {
                     setActiveService(service);
                     messageManager.success(t('active_service_changed'));
                     setTimeout(() => setStatus(''), 2000);
-
+                    
                     // 通知其他部分API密钥已更新
                     chrome.runtime.sendMessage({
                         type: 'apiKeyUpdated',
@@ -533,8 +533,8 @@ const AISettings: React.FC = () => {
     const predefinedModels = {
         // Gemini 模型 - 来源: https://ai.google.dev/models/gemini
         gemini: [
-            'gemini-1.0-pro',
-            'gemini-1.5-flash',
+            'gemini-1.0-pro', 
+            'gemini-1.5-flash', 
             'gemini-1.5-pro',
             'gemini-2.0-flash',
             'gemini-2.0-pro'
@@ -563,10 +563,10 @@ const AISettings: React.FC = () => {
         console.log(`Fetching models for ${currentEditService}...`);
         setLoadingModels(true);
         setModelLoadError('');
-
+        
         try {
             let models: string[] = [];
-
+            
             if (currentEditService === 'openai') {
                 try {
                     // OpenAI提供了获取模型列表的API
@@ -578,7 +578,7 @@ const AISettings: React.FC = () => {
                             'Content-Type': 'application/json'
                         }
                     });
-
+                    
                     if (!response.ok) {
                         // 处理特定错误情况
                         if (response.status === 401) {
@@ -590,11 +590,11 @@ const AISettings: React.FC = () => {
                             throw new Error(errorMessage);
                         }
                     }
-
+                    
                     const data = await response.json();
                     // 过滤出仅支持聊天的模型
                     models = data.data
-                        .filter((model: any) =>
+                        .filter((model: any) => 
                             model.id.includes('gpt') && !model.id.includes('deprecated'))
                         .map((model: any) => model.id)
                         .sort();
@@ -607,42 +607,42 @@ const AISettings: React.FC = () => {
                     // 仍然抛出错误，但已准备好后备模型列表
                     throw error;
                 }
-
+                
             } else if (currentEditService === 'gemini') {
                 // Gemini没有提供模型列表API，使用预设的模型列表
                 console.log('Using predefined Gemini models:', predefinedModels.gemini);
                 models = [...predefinedModels.gemini]; // 使用展开运算符确保创建新数组
-
+                
                 // 直接设置这些模型，不需要进一步过滤
                 setAvailableModels(models);
                 console.log('Set Gemini models to:', models);
                 setLoadingModels(false);
                 return;
-
+                
             } else if (currentEditService === 'xai') {
                 // xAI没有提供模型列表API，使用预设的模型列表
                 console.log('Using predefined xAI models:', predefinedModels.xai);
                 models = [...predefinedModels.xai]; // 使用展开运算符确保创建新数组
-
+                
                 // 同样，可以直接设置
                 setAvailableModels(models);
                 console.log('Set xAI models to:', models);
                 setLoadingModels(false);
                 return;
             }
-
+            
             // 确保只显示当前服务对应的模型 (主要用于OpenAI，其他服务已直接返回)
             const filteredModels = models.filter(model => {
                 if (currentEditService === 'openai') return model.includes('gpt');
                 return true; // 其他服务不应该走到这里
             });
-
+            
             console.log(`Setting filtered models for ${currentEditService}:`, filteredModels);
             setAvailableModels(filteredModels);
         } catch (error) {
             console.error('Error fetching models:', error);
             setModelLoadError(error.message || t('failed_to_fetch_models'));
-
+            
             // 即使有错误，也设置一个默认的模型列表
             // 这样用户仍然可以从预设列表中选择，即使API密钥错误
             if (currentEditService === 'openai') {
@@ -664,7 +664,7 @@ const AISettings: React.FC = () => {
 
     return (
         <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
-
+            
             <div style={{ padding: "20px 30px", borderBottom: "1px solid #f0f0f0" }}>
                 <Title level={3} style={{ margin: 0, fontWeight: "bold", color: "#333" }}>
                     {t('active_ai_service')}
@@ -673,18 +673,18 @@ const AISettings: React.FC = () => {
                     {t('select_active_service')}
                 </Text>
             </div>
-
-            <div style={{
-                display: 'flex',
-                flexDirection: 'row',
-                height: "calc(100% - 100px)",
+            
+            <div style={{ 
+                display: 'flex', 
+                flexDirection: 'row', 
+                height: "calc(100% - 100px)", 
                 overflow: "hidden"
             }}>
                 {/* 左侧服务列表 */}
-                <div style={{
-                    width: '250px',
-                    borderRight: '1px solid #f0f0f0',
-                    padding: '20px',
+                <div style={{ 
+                    width: '250px', 
+                    borderRight: '1px solid #f0f0f0', 
+                    padding: '20px', 
                     overflowY: 'auto',
                     height: "100%"
                 }}>
@@ -692,9 +692,9 @@ const AISettings: React.FC = () => {
                     {supportedServices.map(service => {
                         const isConfigured = !!configuredServices[service]?.apiKey;
                         const isActive = activeService === service;
-
+                        
                         return (
-                            <ServiceListItem
+                            <ServiceListItem 
                                 key={service}
                                 active={isActive}
                                 configured={isConfigured}
@@ -709,15 +709,15 @@ const AISettings: React.FC = () => {
                                     <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>
                                         {getServiceDisplayName(service)}
                                     </div>
-                                    <StatusBadge
+                                    <StatusBadge 
                                         isSuccess={isConfigured}
                                     >
                                         {isConfigured ? t('configured') : t('not_configured')}
                                     </StatusBadge>
                                 </div>
                                 {isActive && (
-                                    <div style={{
-                                        marginLeft: '5px',
+                                    <div style={{ 
+                                        marginLeft: '5px', 
                                         color: token.colorPrimary,
                                         fontSize: '18px'
                                     }}>
@@ -728,21 +728,21 @@ const AISettings: React.FC = () => {
                         );
                     })}
                 </div>
-
+                
                 {/* 右侧服务详情和配置 */}
-                <div style={{
-                    flex: 1,
-                    padding: '30px 40px',
+                <div style={{ 
+                    flex: 1, 
+                    padding: '30px 40px', 
                     overflowY: 'auto',
                     height: "100%"
                 }}>
-                    <div style={{
-                        display: 'flex',
+                    <div style={{ 
+                        display: 'flex', 
                         alignItems: 'center',
                         marginBottom: '30px'
                     }}>
-                        <div style={{
-                            fontSize: '36px',
+                        <div style={{ 
+                            fontSize: '36px', 
                             marginRight: '15px',
                             width: '60px',
                             height: '60px',
@@ -759,8 +759,8 @@ const AISettings: React.FC = () => {
                                 {t('configure_service', { service: getServiceDisplayName(currentEditService) })}
                             </Title>
                             <Text type="secondary" style={{ fontSize: '15px' }}>
-                                {!!configuredServices[currentEditService]?.apiKey
-                                    ? t('service_configured_and_ready')
+                                {!!configuredServices[currentEditService]?.apiKey 
+                                    ? t('service_configured_and_ready') 
                                     : t('service_needs_configuration')}
                             </Text>
                         </div>
@@ -795,7 +795,7 @@ const AISettings: React.FC = () => {
                                 value={currentApiKey}
                                 onChange={(e) => setCurrentApiKey(e.target.value)}
                                 placeholder={t('enter_api_key')}
-                                style={{
+                                style={{ 
                                     height: '50px',
                                     borderRadius: '8px',
                                     flex: 1
@@ -807,7 +807,7 @@ const AISettings: React.FC = () => {
                                 onClick={testApiKey}
                                 loading={testingApiKey}
                                 disabled={!currentApiKey}
-                                style={{
+                                style={{ 
                                     marginLeft: '10px',
                                     height: '50px',
                                     borderRadius: '8px'
@@ -827,9 +827,9 @@ const AISettings: React.FC = () => {
                                     </div>
                                 )}
                                 {!loadingModels && currentApiKey && (
-                                    <Button
-                                        type="link"
-                                        size="small"
+                                    <Button 
+                                        type="link" 
+                                        size="small" 
                                         onClick={fetchAvailableModels}
                                         style={{ padding: '0', height: 'auto' }}
                                     >
@@ -837,13 +837,13 @@ const AISettings: React.FC = () => {
                                     </Button>
                                 )}
                             </div>
-
+                            
                             {modelLoadError && (
                                 <Alert
                                     message={modelLoadError}
                                     type="warning"
                                     showIcon
-                                    style={{
+                                    style={{ 
                                         marginBottom: '15px',
                                         borderRadius: '8px',
                                         display: 'flex',
@@ -857,7 +857,7 @@ const AISettings: React.FC = () => {
                                     }
                                 />
                             )}
-
+                            
                             {/* 显示模型选择下拉框 */}
                             {availableModels.length > 0 ? (
                                 <div>
@@ -871,7 +871,7 @@ const AISettings: React.FC = () => {
                                             setCurrentModelName(value);
                                         }}
                                         placeholder={getDefaultModelName(currentEditService)}
-                                        style={{
+                                        style={{ 
                                             width: '100%',
                                             height: '50px',
                                             borderRadius: '8px'
@@ -900,29 +900,29 @@ const AISettings: React.FC = () => {
                                     value={currentModelName}
                                     onChange={(e) => setCurrentModelName(e.target.value)}
                                     placeholder={getDefaultModelName(currentEditService)}
-                                    style={{
+                                    style={{ 
                                         height: '50px',
                                         borderRadius: '8px'
                                     }}
                                     disabled={loadingModels}
                                 />
                             )}
-
+                            
                             <Text type="secondary" style={{ fontSize: '13px', display: 'block', marginTop: '8px' }}>
                                 {t('leave_empty_for_default')}
                             </Text>
                         </div>
 
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
+                        <div style={{ 
+                            display: 'flex', 
+                            alignItems: 'center', 
                             marginBottom: '25px',
                             padding: '12px 16px',
                             background: '#f9f9f9',
                             borderRadius: '8px'
                         }}>
-                            <input
-                                type="checkbox"
+                            <input 
+                                type="checkbox" 
                                 id="setAsDefault"
                                 checked={activeService === currentEditService}
                                 onChange={(e) => {
@@ -930,16 +930,16 @@ const AISettings: React.FC = () => {
                                         handleServiceCardClick(currentEditService);
                                     }
                                 }}
-                                style={{
+                                style={{ 
                                     marginRight: '10px',
                                     width: '18px',
                                     height: '18px'
                                 }}
                                 disabled={!currentApiKey}
                             />
-                            <label
-                                htmlFor="setAsDefault"
-                                style={{
+                            <label 
+                                htmlFor="setAsDefault" 
+                                style={{ 
                                     cursor: currentApiKey ? 'pointer' : 'not-allowed',
                                     opacity: currentApiKey ? 1 : 0.6
                                 }}
@@ -975,4 +975,4 @@ const AISettings: React.FC = () => {
     );
 };
 
-export default AISettings;
+export default AISettings; 
