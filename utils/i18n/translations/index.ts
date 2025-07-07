@@ -12,6 +12,7 @@ import ar from './ar';
 import hi from './hi';
 import th from './th';
 import vi from './vi';
+import fa from './fa';
 
 // Import all translations
 const translations = {
@@ -28,7 +29,8 @@ const translations = {
   ar,
   hi,
   th,
-  vi
+  vi,
+  fa
 };
 
 export default translations; 

@@ -12,6 +12,7 @@ import {
 import { message } from "antd";
 import translateSingleWords from "~utils/translate-signal-words";
 import { useI18n } from '../utils/i18n';
+import messageManager from '../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { confirm } = Modal;
@@ -19,7 +20,6 @@ const { confirm } = Modal;
 const Words = (props: {currentTab: string}) => {
     const { t } = useI18n();
     const [data, setData] = useState([]);
-    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         getTranslatedWords().then((res) => {
@@ -28,18 +28,30 @@ const Words = (props: {currentTab: string}) => {
     }, [props.currentTab]);
 
     const success = (res: string) => {
-        messageApi.destroy()
-        messageApi.open({
-            type: 'success',
-            content: res,
-            icon: <InfoOutlined />,
-            duration: 5,
-        });
+        messageManager.success(res, 5);
+    };
+
+    const error = (res: string) => {
+        messageManager.error(res, 5);
     };
 
     const translate = (text: string) => {
         translateSingleWords(text).then((res) => {
-            success(res);
+            // Check if the response is an error message by looking for translation keys
+            const isErrorMessage = res.includes(t('translation_failed')) || 
+                                  res.includes(t('translation_service_not_configured')) ||
+                                  res.includes(t('translation_network_error')) ||
+                                  res.includes(t('translation_service_unavailable'));
+                                  
+            if (isErrorMessage) {
+                error(res);
+            } else {
+                success(res);
+            }
+        }).catch((err) => {
+            // This should not happen now since translateSingleWords handles errors
+            console.error('Unexpected error in translate:', err);
+            error(t('unexpected_error'));
         });
     }
 
@@ -60,13 +72,12 @@ const Words = (props: {currentTab: string}) => {
     const handleReset = () => {
         chrome.storage.local.remove('translatedWords', () => {
             setData([]);
-            message.success(t('history_cleared'));
+            messageManager.success(t('history_cleared'));
         });
     }
 
     return (
         <div className={'words-container'}>
-            {contextHolder}
             <div className="words-header">
                 <div className="header-content">
                     <div className="title-section">

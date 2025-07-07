@@ -20,6 +20,7 @@ export const supportedLanguages: Language[] = [
   { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
   { code: 'th', name: 'Thai', nativeName: 'ไทย' },
   { code: 'vi', name: 'Vietnamese', nativeName: 'Tiếng Việt' },
+  { code: 'fa', name: 'Persian', nativeName: 'فارسی' },
 ];
 
 // 默认语言

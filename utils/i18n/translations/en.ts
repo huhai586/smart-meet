@@ -168,5 +168,13 @@ export default {
   "retry": "Retry",
   "using_default_model_list": "Using default model list",
   "failed_to_fetch_models": "Failed to fetch models",
-  "invalid_api_key": "Invalid API key"
+  "invalid_api_key": "Invalid API key",
+  
+  // Translation Errors
+  "translation_service_not_configured": "Translation service is not configured. Please check your API settings.",
+  "translation_network_error": "Network error. Please check your internet connection and try again.",
+  "translation_failed": "Translation failed",
+  "translation_service_unavailable": "Translation service is currently unavailable",
+  "unexpected_error": "An unexpected error occurred. Please try again.",
+  "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration."
 }; 

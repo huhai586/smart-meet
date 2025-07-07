@@ -168,5 +168,13 @@ export default {
   "retry": "重试",
   "using_default_model_list": "使用默认模型列表",
   "failed_to_fetch_models": "获取模型列表失败",
-  "invalid_api_key": "无效的API密钥"
+  "invalid_api_key": "无效的API密钥",
+  
+  // Translation Errors
+  "translation_service_not_configured": "翻译服务未配置。请检查您的API设置。",
+  "translation_network_error": "网络错误。请检查您的网络连接并重试。",
+  "translation_failed": "翻译失败",
+  "translation_service_unavailable": "翻译服务当前不可用",
+  "unexpected_error": "发生意外错误。请重试。",
+  "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。"
 }; 

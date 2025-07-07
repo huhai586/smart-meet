@@ -15,6 +15,7 @@ import useHighLightWords from "../../hooks/useHighLightWords";
 import useDomain from "../../hooks/useDomain";
 import translateSingleWords from "~utils/translate-signal-words";
 import useI18n from "../../utils/i18n";
+import messageManager from "../../utils/message-manager";
 
 type CaptionProps = {
     data: Transcript;
@@ -39,7 +40,6 @@ const Caption = memo((props: CaptionProps) => {
     const [domainKeyWords, specificWords] = useHighLightWords();
     const [domain] = useDomain();
     const { t } = useI18n();
-    const [messageApi, contextHolder] = message.useMessage();
 
     // 使用 useMemo 缓存高亮处理的结果，并正确指定依赖项
     const captions = useMemo(() => {
@@ -50,7 +50,7 @@ const Caption = memo((props: CaptionProps) => {
         });
         const texts = data.talkContent;
         if (domainKeyWords.length > 0 || specificWords.length > 0) {
-          let spans = texts.replace(/\b(\w+)\b/g, '<span>\$1</span>');
+          let spans = texts.replace(/\b(\w+)\b/g, '<span>$1</span>');
           return highlight(spans,[...domainKeyWords, ...specificWords]);
         }
         return texts;
@@ -70,23 +70,34 @@ const Caption = memo((props: CaptionProps) => {
                 return newData;
             });
         }).catch((err) => {
-            messageApi.error({
-                content: err,
-                duration: 3,
-            });
+            console.error(`Error in handleAskAI for action ${action}:`, err);
+            
+            // Get user-friendly error message
+            const errorMessage = typeof err === 'string' ? err : 
+                               err?.message || t('unexpected_error');
+            
+            // Check for specific error types and provide appropriate messages
+            let displayMessage = errorMessage;
+            if (errorMessage.includes('AI service not ready') || 
+                errorMessage.includes('API key not valid') ||
+                errorMessage.includes('Invalid API key')) {
+                displayMessage = t('translation_service_not_configured');
+            } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+                displayMessage = t('translation_network_error');
+            }
+            
+            messageManager.error(displayMessage, 5);
         });
-    }, [data.talkContent, messageApi]);
+    }, [data.talkContent, t]);
 
     // 使用useCallback缓存函数引用
     const success = useCallback((res: string) => {
-        messageApi.destroy();
-        messageApi.open({
-            type: 'success',
-            content: res,
-            icon: <InfoOutlined />,
-            duration: 5,
-        });
-    }, [messageApi]);
+        messageManager.success(res, 5);
+    }, []);
+
+    const error = useCallback((res: string) => {
+        messageManager.error(res, 5);
+    }, []);
 
     const hasAiData = aiData.length > 0;
 
@@ -96,23 +107,43 @@ const Caption = memo((props: CaptionProps) => {
         const selectedText = selection?.toString().trim();
 
         if (selectedText && selectedText.length > 0) {
-            translateSingleWords(selectedText).then(success);
+            translateSingleWords(selectedText).then((res) => {
+                // Check if the response is an error message by looking for translation keys
+                const isErrorMessage = res.includes(t('translation_failed')) || 
+                                      res.includes(t('translation_service_not_configured')) ||
+                                      res.includes(t('translation_network_error')) ||
+                                      res.includes(t('translation_service_unavailable'));
+                                      
+                if (isErrorMessage) {
+                    error(res);
+                } else {
+                    success(res);
+                }
+            }).catch((err) => {
+                console.error('Unexpected error in handleTextSelection:', err);
+                error(t('unexpected_error'));
+            });
         }
-    }, [success]);
+    }, [t, success, error]);
 
-    // 使用useCallback缓存事件处理函数
-    const handleTextClick = useCallback((ev) => {
-        if (ev.target.tagName.toLowerCase() === 'div') {
-            return;
-        }
-
-        const text = ev.target.textContent;
-        if (domainKeyWords.includes(text) && domain) {
-            askAI(Actions.EXPLAIN, text, domain).then(success);
-            return;
-        }
-        translateSingleWords(text).then(success);
-    }, [domainKeyWords, domain, success]);
+    const handleTextClick = useCallback(() => {
+        translateSingleWords(data.talkContent).then((res) => {
+            // Check if the response is an error message by looking for translation keys
+            const isErrorMessage = res.includes(t('translation_failed')) || 
+                                  res.includes(t('translation_service_not_configured')) ||
+                                  res.includes(t('translation_network_error')) ||
+                                  res.includes(t('translation_service_unavailable'));
+                                  
+            if (isErrorMessage) {
+                error(res);
+            } else {
+                success(res);
+            }
+        }).catch((err) => {
+            console.error('Unexpected error in handleTextClick:', err);
+            error(t('unexpected_error'));
+        });
+    }, [data.talkContent, t, success, error]);
 
     // 使用useMemo缓存按钮操作文本
     const getActionText = useCallback((action: Actions): string => {
@@ -177,7 +208,6 @@ const Caption = memo((props: CaptionProps) => {
 
     return (
         <div className={'caption-container'}>
-            {contextHolder}
             <section>
                 <div className={'caption-text-container'}>
                     <div className="caption-header">

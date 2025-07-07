@@ -3,6 +3,7 @@ import { Alert, Typography, Input, Button, Space, Card, theme, message, Popover,
 import styled from '@emotion/styled';
 import useI18n from '../utils/i18n';
 import StyledTitle from './common/StyledTitle';
+import messageManager from '../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -117,7 +118,6 @@ const AISettings: React.FC = () => {
     const [status, setStatus] = useState('');
     const { token } = useToken();
     const { t } = useI18n();
-    const [messageApi, contextHolder] = message.useMessage();
 
     // CSS 样式
     useEffect(() => {
@@ -162,7 +162,7 @@ const AISettings: React.FC = () => {
     
     const testApiKey = async () => {
         if (!currentApiKey) {
-            messageApi.error(t('please_enter_api_key_first'));
+            messageManager.error(t('please_enter_api_key_first'));
             return;
         }
         
@@ -214,16 +214,16 @@ const AISettings: React.FC = () => {
                 // 在实际应用中，你应该使用xAI提供的适当API端点进行测试
                 if (currentApiKey.length > 20) {
                     isValid = true;
-                    messageApi.warning(t('api_key_format_valid_but_not_tested'));
+                    messageManager.warning(t('api_key_format_valid_but_not_tested'));
                 } else {
                     errorMessage = t('api_key_format_invalid');
                 }
             }
             
             if (isValid) {
-                messageApi.success(t('api_key_valid'));
+                messageManager.success(t('api_key_valid'));
             } else {
-                messageApi.error(errorMessage || t('api_key_invalid'));
+                messageManager.error(errorMessage || t('api_key_invalid'));
             }
         } finally {
             setTestingApiKey(false);
@@ -232,7 +232,7 @@ const AISettings: React.FC = () => {
 
     const testServiceApiKey = async (service: string) => {
         if (!configuredServices[service]?.apiKey) {
-            messageApi.error(t('service_not_configured'));
+            messageManager.error(t('service_not_configured'));
             return;
         }
         
@@ -283,16 +283,16 @@ const AISettings: React.FC = () => {
                 // xAI暂时没有简单的测试端点，我们假设密钥格式有效就是可用的
                 if (apiKey.length > 20) {
                     isValid = true;
-                    messageApi.warning(t('api_key_format_valid_but_not_tested'));
+                    messageManager.warning(t('api_key_format_valid_but_not_tested'));
                 } else {
                     errorMessage = t('api_key_format_invalid');
                 }
             }
             
             if (isValid) {
-                messageApi.success(t('api_key_valid_for_service', { service: getServiceDisplayName(service) }));
+                messageManager.success(t('api_key_valid_for_service', { service: getServiceDisplayName(service) }));
             } else {
-                messageApi.error(errorMessage || t('api_key_invalid_for_service', { service: getServiceDisplayName(service) }));
+                messageManager.error(errorMessage || t('api_key_invalid_for_service', { service: getServiceDisplayName(service) }));
             }
         } finally {
             setTestingServiceKey(null);
@@ -450,7 +450,7 @@ const AISettings: React.FC = () => {
                     setActiveService(currentEditService);
                 }
                 
-                messageApi.success(t('configuration_saved'));
+                messageManager.success(t('configuration_saved'));
                 setTimeout(() => setStatus(''), 2000);
                 
                 // 通知其他部分API密钥已更新
@@ -473,7 +473,7 @@ const AISettings: React.FC = () => {
                     configuredServices[service]
                 ).then(() => {
                     setActiveService(service);
-                    messageApi.success(t('active_service_changed'));
+                    messageManager.success(t('active_service_changed'));
                     setTimeout(() => setStatus(''), 2000);
                     
                     // 通知其他部分API密钥已更新
@@ -484,7 +484,7 @@ const AISettings: React.FC = () => {
             });
         } else {
             // 如果服务未配置，显示提示消息
-            messageApi.info(t('please_configure_api_key_first'));
+            messageManager.info(t('please_configure_api_key_first'));
         }
     };
 

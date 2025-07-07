@@ -16,7 +16,8 @@ export const getTranslationPrompt = (targetLanguage: string): string => {
     'ar': 'يرجى ترجمة النص التالي إلى اللغة العربية. لا حاجة لنص توضيحي، فقط الترجمة:',
     'hi': 'कृपया निम्नलिखित पाठ को हिंदी में अनुवाद करें। व्याख्यात्मक पाठ की आवश्यकता नहीं है, केवल अनुवाद:',
     'th': 'โปรดแปลข้อความต่อไปนี้เป็นภาษาไทย ไม่จำเป็นต้องมีข้อความอธิบาย เพียงแค่คำแปล:',
-    'vi': 'Vui lòng dịch văn bản sau sang tiếng Việt. Không cần văn bản giải thích, chỉ cần bản dịch:'
+    'vi': 'Vui lòng dịch văn bản sau sang tiếng Việt. Không cần văn bản giải thích, chỉ cần bản dịch:',
+    'fa': 'لطفاً متن زیر را به فارسی ترجمه کنید. نیازی به متن توضیحی نیست، فقط ترجمه:'
   };
 
   return languageMap[targetLanguage] || languageMap['zh']; // 默认使用中文
@@ -38,7 +39,8 @@ export const getSummaryPrompt = (targetLanguage: string): string => {
     'ar': 'فيما يلي بيانات محتوى الاجتماع. يرجى تلخيص ما تم مناقشته في هذا الاجتماع باللغة العربية:',
     'hi': 'निम्नलिखित एक बैठक सामग्री डेटा है। कृपया इस बैठक में क्या कहा गया था, इसका सारांश हिंदी में दें:',
     'th': 'ต่อไปนี้เป็นข้อมูลเนื้อหาการประชุม โปรดสรุปสิ่งที่พูดในการประชุมนี้เป็นภาษาไทย:',
-    'vi': 'Sau đây là dữ liệu nội dung cuộc họp. Vui lòng tóm tắt những gì đã được thảo luận trong cuộc họp này bằng tiếng Việt:'
+    'vi': 'Sau đây là dữ liệu nội dung cuộc họp. Vui lòng tóm tắt những gì đã được thảo luận trong cuộc họp này bằng tiếng Việt:',
+    'fa': 'در ادامه داده‌های محتوای جلسه آمده است. لطفاً آنچه در این جلسه مورد بحث قرار گرفته است را به فارسی خلاصه کنید:'
   };
 
   return languageMap[targetLanguage] || languageMap['zh']; // 默认使用中文

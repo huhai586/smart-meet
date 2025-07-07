@@ -12,6 +12,7 @@ import { useI18n } from '../utils/i18n';
 import getMeetingCaptions from '../utils/getCaptions';
 import { useDateContext } from '../contexts/DateContext';
 import saveChatLogAsTxt from '../utils/save';
+import messageManager from '../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -28,7 +29,7 @@ const Extension = (props: ExtensionPropsInterface) => {
     const [domainTags, setDomainTags] = useState([]);
     const [inputVisible, setInputVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
-    const [messageApi, contextHolder] = message.useMessage();
+
     const inputRef = useRef<InputRef>(null);
     const [highlightWordsByDescriptions, setHighlightWordsByDescriptions] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -138,16 +139,10 @@ const Extension = (props: ExtensionPropsInterface) => {
                     setModalData([...new Set(data)]);
                     showModal()
                 } else {
-                    messageApi.open({
-                        type: 'error',
-                        content: 'the response is not json array',
-                    });
+                    messageManager.error('the response is not json array');
                 }
             } catch (e) {
-                messageApi.open({
-                    type: 'error',
-                    content: 'the response is not json valid',
-                });
+                messageManager.error('the response is not json valid');
             }
 
 
@@ -185,10 +180,7 @@ const Extension = (props: ExtensionPropsInterface) => {
             
             // 如果没有会议记录
             if (uniqueMeetingNames.length === 0) {
-                messageApi.open({
-                    type: 'warning',
-                    content: t('no_meeting_data_for_export') || 'No meeting data available for export',
-                });
+                messageManager.warning(t('no_meeting_data_for_export') || 'No meeting data available for export');
                 return;
             }
             
@@ -213,10 +205,7 @@ const Extension = (props: ExtensionPropsInterface) => {
         );
         
         if (filteredTranscripts.length === 0) {
-            messageApi.open({
-                type: 'warning',
-                content: t('no_data_found') || 'No data found for the selected meeting',
-            });
+            messageManager.warning(t('no_data_found') || 'No data found for the selected meeting');
             return;
         }
         
@@ -233,10 +222,7 @@ const Extension = (props: ExtensionPropsInterface) => {
         const fileName = `${meetingName.replace(/[^a-zA-Z0-9]/g, '_')}_${selectedDate.format('YYYY-MM-DD')}.txt`;
         saveChatLogAsTxt(textContent, fileName);
         
-        messageApi.open({
-            type: 'success',
-            content: t('export_success') || 'Export successful',
-        });
+        messageManager.success(t('export_success') || 'Export successful');
     };
     
     // 确认导出选择的会议
@@ -251,7 +237,6 @@ const Extension = (props: ExtensionPropsInterface) => {
 
     return (
         <div className={'extension-container'}>
-            {contextHolder}
             <div className={'highlight-setting'}>
                 <div className={'highlight-section'}>
                     <div className={'highlight-header'}>
@@ -369,11 +354,7 @@ const Extension = (props: ExtensionPropsInterface) => {
                 <Divider style={{ margin: '32px 0 24px' }} />
                 
                 <div className="backup-restore-container">
-                    {props.jumpToCaptions ? (
-                        <BackupAndRestore jumpToCaptions={props.jumpToCaptions}/>
-                    ) : (
-                        <BackupAndRestore />
-                    )}
+                    <BackupAndRestore />
                 </div>
 
                 <Modal
