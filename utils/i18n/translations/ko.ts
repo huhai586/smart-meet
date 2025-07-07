@@ -88,8 +88,9 @@ export default {
   "search_button": "검색",
   
   // Extension
+  "extension_settings": "확장 프로그램 설정",
   "specific_highlight_words": "특정 강조 단어",
-  "specific_highlight_desc": "회의 자막에서 강조하고 싶은 특정 단어나 구문을 추가하세요.",
+  "specific_highlight_desc": "회의 캡션에서 강조하고 싶은 특정 단어나 구문을 추가하세요.",
   "add_word": "단어 추가",
   "enter_word": "단어 입력",
   "domain_specific_highlights": "도메인별 강조",

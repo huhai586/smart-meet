@@ -87,6 +87,7 @@ export default {
   "search_button": "Cerca",
   
   // Extension
+  "extension_settings": "Impostazioni Estensione",
   "specific_highlight_words": "Parole specifiche da evidenziare",
   "specific_highlight_desc": "Aggiungi parole o frasi specifiche che desideri evidenziare nei sottotitoli della riunione.",
   "add_word": "Aggiungi parola",

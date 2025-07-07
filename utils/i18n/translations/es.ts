@@ -88,8 +88,9 @@ export default {
   "search_button": "Buscar",
   
   // Extension
-  "specific_highlight_words": "Palabras destacadas específicas",
-  "specific_highlight_desc": "Agregue palabras o frases específicas que desee destacar en los subtítulos de la reunión.",
+  "extension_settings": "Configuración de Extensión",
+  "specific_highlight_words": "Palabras de Resaltado Específicas",
+  "specific_highlight_desc": "Agrega palabras o frases específicas que deseas resaltar en las transcripciones de la reunión.",
   "add_word": "Agregar palabra",
   "enter_word": "Ingrese una palabra",
   "domain_specific_highlights": "Destacados específicos del dominio",

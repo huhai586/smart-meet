@@ -88,6 +88,7 @@ export default {
   "search_button": "بحث",
   
   // Extension
+  "extension_settings": "إعدادات الإضافة",
   "specific_highlight_words": "كلمات تمييز محددة",
   "specific_highlight_desc": "أضف كلمات أو عبارات محددة ترغب في تمييزها في تعليقات الاجتماع.",
   "add_word": "إضافة كلمة",

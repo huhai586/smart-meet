@@ -88,6 +88,7 @@ export default {
   "search_button": "ค้นหา",
   
   // Extension
+  "extension_settings": "การตั้งค่าส่วนขยาย",
   "specific_highlight_words": "คำที่เน้นเฉพาะ",
   "specific_highlight_desc": "เพิ่มคำหรือวลีเฉพาะที่คุณต้องการเน้นในคำบรรยายการประชุม",
   "add_word": "เพิ่มคำ",

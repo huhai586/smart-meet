@@ -111,6 +111,7 @@ export default {
   "completed": "已完成",
   
   // Extension
+  "extension_settings": "扩展设置",
   "specific_highlight_words": "特定高亮词",
   "specific_highlight_desc": "添加您想在会议字幕中高亮显示的特定词语或短语。",
   "add_word": "添加词语",

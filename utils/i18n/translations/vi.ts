@@ -88,6 +88,7 @@ export default {
   "search_button": "Tìm kiếm",
   
   // Extension
+  "extension_settings": "Cài Đặt Tiện Ích Mở Rộng",
   "specific_highlight_words": "Từ đánh dấu cụ thể",
   "specific_highlight_desc": "Thêm các từ hoặc cụm từ cụ thể mà bạn muốn đánh dấu trong phụ đề cuộc họp.",
   "add_word": "Thêm từ",

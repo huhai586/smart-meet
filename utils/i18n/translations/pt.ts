@@ -88,7 +88,8 @@ export default {
   "search_button": "Pesquisar",
   
   // Extension
-  "specific_highlight_words": "Palavras específicas para destacar",
+  "extension_settings": "Configurações da Extensão",
+  "specific_highlight_words": "Palavras de Destaque Específicas",
   "specific_highlight_desc": "Adicione palavras ou frases específicas que você deseja destacar nas legendas da reunião.",
   "add_word": "Adicionar palavra",
   "enter_word": "Digite uma palavra",

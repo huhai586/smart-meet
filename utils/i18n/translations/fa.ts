@@ -122,6 +122,7 @@ export default {
   "completed": "تکمیل شد",
   
   // Extension
+  "extension_settings": "تنظیمات افزونه",
   "specific_highlight_words": "کلمات برجسته‌سازی خاص",
   "specific_highlight_desc": "کلمات یا عبارات خاصی را اضافه کنید که می‌خواهید در زیرنویس‌های جلسه برجسته شوند.",
   "add_word": "افزودن کلمه",

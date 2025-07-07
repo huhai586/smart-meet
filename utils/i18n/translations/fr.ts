@@ -88,8 +88,9 @@ export default {
   "search_button": "Rechercher",
   
   // Extension
-  "specific_highlight_words": "Mots spécifiques à mettre en évidence",
-  "specific_highlight_desc": "Ajoutez des mots ou des phrases spécifiques que vous souhaitez mettre en évidence dans les sous-titres de la réunion.",
+  "extension_settings": "Paramètres d'Extension",
+  "specific_highlight_words": "Mots de Surbrillance Spécifiques",
+  "specific_highlight_desc": "Ajoutez des mots ou phrases spécifiques que vous souhaitez surligner dans les sous-titres de réunion.",
   "add_word": "Ajouter un mot",
   "enter_word": "Entrez un mot",
   "domain_specific_highlights": "Mises en évidence spécifiques au domaine",

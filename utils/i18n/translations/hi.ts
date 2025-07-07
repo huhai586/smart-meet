@@ -87,6 +87,7 @@ export default {
   "search_button": "खोजें",
   
   // Extension
+  "extension_settings": "एक्सटेंशन सेटिंग्स",
   "specific_highlight_words": "विशिष्ट हाइलाइट शब्द",
   "specific_highlight_desc": "विशिष्ट शब्द या वाक्यांश जोड़ें जिन्हें आप मीटिंग कैप्शन में हाइलाइट करना चाहते हैं।",
   "add_word": "शब्द जोड़ें",

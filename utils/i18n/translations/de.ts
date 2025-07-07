@@ -88,6 +88,7 @@ export default {
   "search_button": "Suchen",
   
   // Extension
+  "extension_settings": "Erweiterungs-Einstellungen",
   "specific_highlight_words": "Spezifische Hervorhebungswörter",
   "specific_highlight_desc": "Fügen Sie spezifische Wörter oder Phrasen hinzu, die Sie in den Meeting-Untertiteln hervorheben möchten.",
   "add_word": "Wort hinzufügen",

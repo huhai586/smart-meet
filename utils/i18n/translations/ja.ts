@@ -88,8 +88,9 @@ export default {
   "search_button": "検索",
   
   // Extension
+  "extension_settings": "拡張機能設定",
   "specific_highlight_words": "特定のハイライト単語",
-  "specific_highlight_desc": "ミーティングの字幕でハイライトしたい特定の単語やフレーズを追加します。",
+  "specific_highlight_desc": "会議のキャプションでハイライトしたい特定の単語やフレーズを追加してください。",
   "add_word": "単語を追加",
   "enter_word": "単語を入力",
   "domain_specific_highlights": "ドメイン固有のハイライト",

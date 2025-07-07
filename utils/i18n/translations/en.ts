@@ -122,6 +122,7 @@ export default {
   "completed": "Completed",
   
   // Extension
+  "extension_settings": "Extension Settings",
   "specific_highlight_words": "Specific Highlight Words",
   "specific_highlight_desc": "Add specific words or phrases you want to highlight in the meeting captions.",
   "add_word": "Add Word",

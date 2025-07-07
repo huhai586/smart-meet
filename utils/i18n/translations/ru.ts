@@ -87,8 +87,9 @@ export default {
   "search_button": "Поиск",
   
   // Extension
-  "specific_highlight_words": "Конкретные слова для выделения",
-  "specific_highlight_desc": "Добавьте конкретные слова или фразы, которые вы хотите выделить в субтитрах встречи.",
+  "extension_settings": "Настройки Расширения",
+  "specific_highlight_words": "Специфические Выделяемые Слова",
+  "specific_highlight_desc": "Добавьте специфические слова или фразы, которые вы хотите выделить в субтитрах встречи.",
   "add_word": "Добавить слово",
   "enter_word": "Введите слово",
   "domain_specific_highlights": "Выделения, специфичные для домена",
