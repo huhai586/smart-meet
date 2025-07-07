@@ -112,5 +112,10 @@ export default {
   "yes_clear_all": "Oui, tout effacer",
   "no_keep_it": "Non, le garder",
   "history_cleared": "Historique de traduction effacé avec succès",
-  "no_history": "Pas encore d'historique de traduction. Cliquez sur n'importe quel mot dans les sous-titres pour le traduire."
+  "no_history": "Pas encore d'historique de traduction. Cliquez sur n'importe quel mot dans les sous-titres pour le traduire.",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "Voici le contenu précédent de la réunion : ",
+  "ai_meeting_assistant_ready": "J'ai compris le contenu de la réunion. Comment puis-je vous aider ?",
+  "ai_system_prompt_meeting": "Vous êtes un assistant utile pour les transcriptions de réunions."
 }; 

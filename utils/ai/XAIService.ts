@@ -1,5 +1,7 @@
 import type { AIServiceConfig } from './AIServiceInterface';
 import { BaseAIService } from './BaseAIService';
+import { getCurrentUILanguage } from '../../hooks/useUILanguage';
+import { getTranslation } from '../i18n';
 
 /**
  * XAI (xAI/Grok) 服务实现
@@ -126,23 +128,32 @@ export class XAIService extends BaseAIService {
       return;
     }
     
+    // 获取多语言消息
+    const currentUILanguage = await getCurrentUILanguage();
+    const langCode = currentUILanguage.code;
+    const messages = {
+      meetingContentIntro: getTranslation('ai_meeting_content_intro', langCode),
+      assistantReady: getTranslation('ai_meeting_assistant_ready', langCode),
+      systemPromptMeeting: getTranslation('ai_system_prompt_meeting', langCode)
+    };
+    
     // 创建对话并初始化
     const conversation = this.client.createConversation();
     
     // 添加系统消息和会议内容
     conversation.addMessage({
       role: 'system',
-      content: 'You are a helpful assistant for meeting transcripts.'
+      content: messages.systemPromptMeeting
     });
     
     conversation.addMessage({
       role: 'user',
-      content: `这是之前的会议内容: ${JSON.stringify(meetingContent)}`
+      content: `${messages.meetingContentIntro}${JSON.stringify(meetingContent)}`
     });
     
     conversation.addMessage({
       role: 'assistant',
-      content: '我已了解会议内容，请问有什么需要我帮助的？'
+      content: messages.assistantReady
     });
     
     // 存储会话对象

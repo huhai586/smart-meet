@@ -112,5 +112,10 @@ export default {
   "yes_clear_all": "예, 모두 지우기",
   "no_keep_it": "아니요, 유지하기",
   "history_cleared": "번역 기록이 성공적으로 지워졌습니다",
-  "no_history": "아직 번역 기록이 없습니다. 자막에서 단어를 클릭하여 번역하세요."
+  "no_history": "아직 번역 기록이 없습니다. 자막에서 단어를 클릭하여 번역하세요.",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "다음은 이전 회의 내용입니다: ",
+  "ai_meeting_assistant_ready": "회의 내용을 이해했습니다. 어떻게 도와드릴까요?",
+  "ai_system_prompt_meeting": "당신은 회의 기록을 위한 유용한 어시스턴트입니다."
 }; 

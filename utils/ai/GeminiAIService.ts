@@ -1,5 +1,7 @@
 import type { AIServiceConfig } from './AIServiceInterface';
 import { BaseAIService } from './BaseAIService';
+import { getCurrentUILanguage } from '../../hooks/useUILanguage';
+import { getTranslation } from '../i18n';
 
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -47,17 +49,26 @@ export class GeminiAIService extends BaseAIService {
       return;
     }
     
+    // 获取多语言消息
+    const currentUILanguage = await getCurrentUILanguage();
+    const langCode = currentUILanguage.code;
+    const messages = {
+      meetingContentIntro: getTranslation('ai_meeting_content_intro', langCode),
+      assistantReady: getTranslation('ai_meeting_assistant_ready', langCode),
+      systemPromptMeeting: getTranslation('ai_system_prompt_meeting', langCode)
+    };
+    
     // 创建新对话并插入会议记录作为上下文
     try {
       const chat = this.model.startChat({
         history: [
           {
             role: "user",
-            parts: [{ text: `这是之前的会议内容: ${JSON.stringify(meetingContent)}` }],
+            parts: [{ text: `${messages.meetingContentIntro}${JSON.stringify(meetingContent)}` }],
           },
           {
             role: "model", 
-            parts: [{ text: "我已了解会议内容，请问有什么需要我帮助的？" }],
+            parts: [{ text: messages.assistantReady }],
           }
         ],
       });

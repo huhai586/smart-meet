@@ -1,6 +1,8 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import getMeetingCaptions from './getCaptions';
 import { getAllAIServiceConfigs } from './getAPIkey';
+import { getCurrentUILanguage } from '../hooks/useUILanguage';
+import { getTranslation } from './i18n';
 
 const googleAITools = {
     model: null,
@@ -87,16 +89,25 @@ const googleAITools = {
         // 获取会议记录
         const meetingContent = await getMeetingCaptions();
         
+        // 获取多语言消息
+        const currentUILanguage = await getCurrentUILanguage();
+        const langCode = currentUILanguage.code;
+        const messages = {
+            meetingContentIntro: getTranslation('ai_meeting_content_intro', langCode),
+            assistantReady: getTranslation('ai_meeting_assistant_ready', langCode),
+            systemPromptMeeting: getTranslation('ai_system_prompt_meeting', langCode)
+        };
+        
         // 创建新对话并插入会议记录作为上下文
         const chat = this.model.startChat({
             history: [
                 {
                     role: "user",
-                    parts: [{ text: `这是之前的会议内容: ${JSON.stringify(meetingContent)}` }],
+                    parts: [{ text: `${messages.meetingContentIntro}${JSON.stringify(meetingContent)}` }],
                 },
                 {
                     role: "model", 
-                    parts: [{ text: "我已了解会议内容，请问有什么需要我帮助的？" }],
+                    parts: [{ text: messages.assistantReady }],
                 }
             ],
         });

@@ -112,5 +112,10 @@ export default {
   "yes_clear_all": "はい、すべてクリア",
   "no_keep_it": "いいえ、保持する",
   "history_cleared": "翻訳履歴が正常にクリアされました",
-  "no_history": "まだ翻訳履歴がありません。字幕の任意の単語をクリックして翻訳してください。"
+  "no_history": "まだ翻訳履歴がありません。字幕の任意の単語をクリックして翻訳してください。",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "以下は前回の会議内容です：",
+  "ai_meeting_assistant_ready": "会議内容を理解しました。何かお手伝いできることはありますか？",
+  "ai_system_prompt_meeting": "あなたは会議記録のための有用なアシスタントです。"
 }; 

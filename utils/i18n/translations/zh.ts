@@ -176,5 +176,10 @@ export default {
   "translation_failed": "翻译失败",
   "translation_service_unavailable": "翻译服务当前不可用",
   "unexpected_error": "发生意外错误。请重试。",
-  "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。"
+  "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "这是之前的会议内容: ",
+  "ai_meeting_assistant_ready": "我已了解会议内容，请问有什么需要我帮助的？",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts."
 }; 

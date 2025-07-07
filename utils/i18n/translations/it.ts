@@ -111,5 +111,10 @@ export default {
   "yes_clear_all": "Sì, cancella tutto",
   "no_keep_it": "No, mantienila",
   "history_cleared": "Cronologia delle traduzioni cancellata con successo",
-  "no_history": "Ancora nessuna cronologia delle traduzioni. Clicca su qualsiasi parola nei sottotitoli per tradurla."
+  "no_history": "Ancora nessuna cronologia delle traduzioni. Clicca su qualsiasi parola nei sottotitoli per tradurla.",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "Ecco il contenuto precedente della riunione: ",
+  "ai_meeting_assistant_ready": "Ho capito il contenuto della riunione. Come posso aiutarti?",
+  "ai_system_prompt_meeting": "Sei un assistente utile per le trascrizioni delle riunioni."
 }; 

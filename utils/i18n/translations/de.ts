@@ -112,5 +112,10 @@ export default {
   "yes_clear_all": "Ja, alles löschen",
   "no_keep_it": "Nein, behalten",
   "history_cleared": "Übersetzungsverlauf erfolgreich gelöscht",
-  "no_history": "Noch kein Übersetzungsverlauf. Klicken Sie auf ein beliebiges Wort in den Untertiteln, um es zu übersetzen."
+  "no_history": "Noch kein Übersetzungsverlauf. Klicken Sie auf ein beliebiges Wort in den Untertiteln, um es zu übersetzen.",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "Hier ist der vorherige Besprechungsinhalt: ",
+  "ai_meeting_assistant_ready": "Ich habe den Besprechungsinhalt verstanden. Wie kann ich Ihnen helfen?",
+  "ai_system_prompt_meeting": "Sie sind ein hilfreicher Assistent für Besprechungstranskripte."
 }; 

@@ -1,7 +1,9 @@
-import { PROMPT, getTranslationPrompt, getSummaryPrompt } from "../constant";
+import { PROMPT, getTranslationPrompt, getSummaryPrompt, getPolishPrompt, getAnalysisPrompt } from "../constant";
 import { Actions } from "../components/captions/caption";
 import aiServiceManager from "./ai";
 import { getCurrentLanguage } from "../hooks/useTranslationLanguage";
+import { getCurrentUILanguage } from "../hooks/useUILanguage";
+import { detectLanguage } from "./language-detector";
 
 // Debounce function to prevent multiple error notifications
 let errorNotificationTimeout: NodeJS.Timeout | null = null;
@@ -34,14 +36,23 @@ const askAI = async (action: Actions, text: string, question?: string) => {
     // 输出当前使用的服务类型
     console.log(`[askAI] Using service: ${aiServiceManager.getCurrentServiceType()}`);
 
-    // 获取当前选择的翻译语言
+    // 获取当前选择的翻译语言和UI语言
     const currentLanguage = await getCurrentLanguage();
-
+    const currentUILanguage = await getCurrentUILanguage();
+    
+    // 检测文本语言（用于POLISH和ANALYSIS）
+    const detectedLanguage = detectLanguage(text);
+    
+    // 输出语言检测结果（仅在POLISH和ANALYSIS时）
+    if (action === Actions.POLISH || action === Actions.ANALYSIS) {
+        console.log(`[askAI] Detected language: ${detectedLanguage}, UI language: ${currentUILanguage.code}, Action: ${action}`);
+    }
+    
     // 根据当前语言更新翻译和摘要提示
     const actionMap = {
         [Actions.TRANSLATE]: getTranslationPrompt(currentLanguage.code),
-        [Actions.POLISH]: PROMPT.POLISH,
-        [Actions.ANALYSIS]: PROMPT.ANALYSIS,
+        [Actions.POLISH]: getPolishPrompt(detectedLanguage),
+        [Actions.ANALYSIS]: getAnalysisPrompt(detectedLanguage, currentUILanguage.code),
         [Actions.ASK]: PROMPT.ASK,
         [Actions.EXPLAIN]: PROMPT.EXPLAIN,
         [Actions.DEFAULT]: PROMPT.DEFAULT,

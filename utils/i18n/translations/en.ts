@@ -176,5 +176,10 @@ export default {
   "translation_failed": "Translation failed",
   "translation_service_unavailable": "Translation service is currently unavailable",
   "unexpected_error": "An unexpected error occurred. Please try again.",
-  "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration."
+  "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration.",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "Here is the previous meeting content: ",
+  "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts."
 }; 
