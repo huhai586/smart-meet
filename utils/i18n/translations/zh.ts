@@ -198,6 +198,13 @@ export default {
   "translation_language_desc": "选择用于翻译文本内容的语言。",
   "translation_language_set": "翻译语言已设置为 {language}",
   
+  // Auto Translation
+  "auto_translate": "自动翻译",
+  "auto_translate_desc": "字幕发生变化时自动翻译",
+  "auto_translate_enabled": "自动翻译已启用",
+  "auto_translate_disabled": "自动翻译已禁用",
+  "auto_translated": "(已自动翻译)",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",
   "ai_meeting_assistant_ready": "我已了解会议内容，请问有什么需要我帮助的？",

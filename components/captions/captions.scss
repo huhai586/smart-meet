@@ -248,9 +248,6 @@
         }
 
         .caption-tools {
-          display: flex;
-          gap: 8px;
-
           button {
             padding: 4px 12px;
             border-radius: 6px;
@@ -516,11 +513,10 @@
 
 .caption-tools {
   padding: 0 4px;
-  justify-content: flex-start;
-  display: flex;
   button {
     margin-top: 4px;
     margin-right: 4px;
+    margin-left: 0.5em;
     cursor: pointer;
   }
 }

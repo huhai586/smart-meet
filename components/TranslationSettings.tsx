@@ -1,10 +1,12 @@
 import React from 'react';
-import { Typography, Card, Space, theme } from 'antd';
+import { Typography, Card, Space, theme, Switch, Divider } from 'antd';
 import styled from '@emotion/styled';
 import { TranslationOutlined } from '@ant-design/icons';
 import LanguageSelector from './LanguageSelector';
 import useI18n from '../utils/i18n';
 import StyledTitle from './common/StyledTitle';
+import { useAutoTranslate } from '../hooks/useAutoTranslate';
+import messageManager from '../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -32,9 +34,24 @@ const IconWrapper = styled.div<{color: string; shadowColor: string}>`
   box-shadow: 0 4px 12px ${props => props.shadowColor};
 `;
 
+const SwitchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+`;
+
 const TranslationSettings: React.FC = () => {
   const { token } = useToken();
   const { t } = useI18n();
+  const [autoTranslateEnabled, setAutoTranslateEnabled] = useAutoTranslate();
+
+  const handleAutoTranslateChange = (checked: boolean) => {
+    setAutoTranslateEnabled(checked);
+    messageManager.success(
+      checked ? t('auto_translate_enabled') : t('auto_translate_disabled')
+    );
+  };
 
   return (
     <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
@@ -60,9 +77,29 @@ const TranslationSettings: React.FC = () => {
             {t('translation_language_desc')}
           </Text>
 
-          <div style={{ textAlign: "center", marginBottom: "16px" }}>
+          <div style={{ textAlign: "center", marginBottom: "24px" }}>
             <LanguageSelector />
           </div>
+
+          <Divider />
+
+          <SwitchContainer>
+            <div>
+              <Text strong style={{ fontSize: "16px", marginBottom: "4px", display: "block" }}>
+                {t('auto_translate')}
+              </Text>
+              <Text type="secondary" style={{ fontSize: "14px" }}>
+                {t('auto_translate_desc')}
+              </Text>
+            </div>
+            <Switch
+              checked={autoTranslateEnabled}
+              onChange={handleAutoTranslateChange}
+              style={{ 
+                backgroundColor: autoTranslateEnabled ? token.colorSuccess : undefined 
+              }}
+            />
+          </SwitchContainer>
         </Space>
       </StyledCard>
     </div>

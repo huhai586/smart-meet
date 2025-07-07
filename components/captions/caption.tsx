@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useMemo, memo, useCallback} from "react";
+import React, {useEffect, useState, useMemo, memo, useCallback, useRef} from "react";
 import type {Transcript} from "../../hooks/useTranscripts";
 import askAI from "../../utils/askAI";
 import {Button, message} from "antd";
@@ -16,6 +16,7 @@ import useDomain from "../../hooks/useDomain";
 import translateSingleWords from "~utils/translate-signal-words";
 import useI18n from "../../utils/i18n";
 import messageManager from "../../utils/message-manager";
+import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
 
 type CaptionProps = {
     data: Transcript;
@@ -33,27 +34,35 @@ export enum Actions {
 
 // 组件主体提取到外部，避免每次重新渲染时重新创建内部函数
 const Caption = memo((props: CaptionProps) => {
-    console.count("rendering");
     const {data} = props;
 
     const [aiData, setAiData] = useState([]);
     const [domainKeyWords, specificWords] = useHighLightWords();
     const [domain] = useDomain();
     const { t } = useI18n();
+    
+    // 使用自动翻译hook
+    const { autoTranslatedContent, isAutoTranslating, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
+
+    // 组件卸载时清理自动翻译状态
+    useEffect(() => {
+        return () => {
+            cleanup();
+        };
+    }, [cleanup]);
 
     // 使用 useMemo 缓存高亮处理的结果，并正确指定依赖项
     const captions = useMemo(() => {
-        console.log('Computing caption highlight', {
-            contentLength: data.talkContent ? data.talkContent.length : 0,
-            domainKeyWordsLength: domainKeyWords.length,
-            specificWordsLength: specificWords.length
-        });
-        const texts = data.talkContent;
+
+        
+        // 始终显示原文，不被翻译内容覆盖
+        const displayContent = data.talkContent;
+        
         if (domainKeyWords.length > 0 || specificWords.length > 0) {
-          let spans = texts.replace(/\b(\w+)\b/g, '<span>$1</span>');
+          let spans = displayContent.replace(/\b(\w+)\b/g, '<span>$1</span>');
           return highlight(spans,[...domainKeyWords, ...specificWords]);
         }
-        return texts;
+        return displayContent;
     }, [data.talkContent, domainKeyWords, specificWords]);
 
     // 使用useCallback缓存函数引用
@@ -165,6 +174,7 @@ const Caption = memo((props: CaptionProps) => {
                 size={'small'}
                 icon={<TranslationOutlined />}
                 onClick={() => handleAskAI(Actions.TRANSLATE)}
+                loading={isAutoTranslating}
             >
                 {getActionText(Actions.TRANSLATE)}
             </Button>
@@ -185,7 +195,7 @@ const Caption = memo((props: CaptionProps) => {
                 {getActionText(Actions.ANALYSIS)}
             </Button>
         </div>
-    ), [handleAskAI, getActionText]);
+    ), [handleAskAI, getActionText, isAutoTranslating]);
 
     // 使用useMemo缓存AI回答部分
     const aiAnswerSection = useMemo(() => {
@@ -223,6 +233,30 @@ const Caption = memo((props: CaptionProps) => {
                         onMouseUp={handleTextSelection}
                         dangerouslySetInnerHTML={{__html: captions}}
                     ></div>
+                    
+                    {/* 自动翻译内容显示区域 */}
+                    {autoTranslatedContent && (
+                        <div className={'auto-translation-container'} style={{
+                            marginTop: '8px',
+                            padding: '8px 12px',
+                            backgroundColor: '#f0f8ff',
+                            borderLeft: '3px solid #1a73e8',
+                            borderRadius: '4px',
+                            fontSize: '14px',
+                            color: '#333'
+                        }}>
+                            <div style={{ 
+                                fontSize: '12px', 
+                                color: '#1a73e8', 
+                                marginBottom: '4px',
+                                fontWeight: '500'
+                            }}>
+                                {t('auto_translated')}
+                            </div>
+                            <div dangerouslySetInnerHTML={{__html: autoTranslatedContent}}></div>
+                        </div>
+                    )}
+                    
                     <div className="timestamp">
                         <ClockCircleOutlined style={{ marginRight: '6px', fontSize: '12px' }} />
                         {new Date(data.timestamp).toLocaleString()}
@@ -238,12 +272,6 @@ const Caption = memo((props: CaptionProps) => {
         prevProps.data.session === nextProps.data.session &&
         prevProps.data.timestamp === nextProps.data.timestamp &&
         prevProps.data.talkContent === nextProps.data.talkContent;
-
-    console.log('Caption memo compare:',
-        prevProps.data.session, nextProps.data.session,
-        prevProps.data.timestamp, nextProps.data.timestamp,
-        Boolean(propsEqual)
-    );
 
     return propsEqual;
 });

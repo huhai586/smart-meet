@@ -198,6 +198,13 @@ export default {
   "translation_language_desc": "Choose the language for translating text content.",
   "translation_language_set": "Translation language set to {language}",
   
+  // Auto Translation
+  "auto_translate": "Auto Translate",
+  "auto_translate_desc": "Automatically translate captions when they change",
+  "auto_translate_enabled": "Auto translate enabled",
+  "auto_translate_disabled": "Auto translate disabled",
+  "auto_translated": "(Auto translated)",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",
   "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",
