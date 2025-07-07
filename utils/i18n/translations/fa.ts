@@ -187,5 +187,13 @@ export default {
   "translation_failed": "ترجمه ناموفق بود",
   "translation_service_unavailable": "سرویس ترجمه در حال حاضر در دسترس نیست",
   "unexpected_error": "خطای غیرمنتظره رخ داد. لطفاً دوباره تلاش کنید.",
-  "domain_explanation_failed": "توضیح اصطلاح حوزه ناموفق بود. لطفاً پیکربندی سرویس هوش مصنوعی خود را بررسی کنید."
+  "domain_explanation_failed": "توضیح اصطلاح حوزه ناموفق بود. لطفاً پیکربندی سرویس هوش مصنوعی خود را بررسی کنید.",
+  
+  // Clear Captions
+  "clear_captions_warning": "هشدار: این عمل قابل بازگشت نیست",
+  "clear_captions_warning_desc": "این عمل همه زیرنویس‌های ثبت شده را از ذخیره‌سازی مرورگر شما به طور دائم حذف خواهد کرد.",
+  "clear_all_captions": "پاک کردن همه زیرنویس‌ها",
+  "confirm_clear_captions": "تأیید پاک کردن زیرنویس‌ها",
+  "yes_clear_data": "بله، داده‌ها را پاک کن",
+  "data_cleared_success": "داده‌ها با موفقیت پاک شدند"
 }; 

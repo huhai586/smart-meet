@@ -111,5 +111,32 @@ export default {
   "yes_clear_all": "हां, सभी साफ़ करें",
   "no_keep_it": "नहीं, इसे रखें",
   "history_cleared": "अनुवाद इतिहास सफलतापूर्वक साफ़ किया गया",
-  "no_history": "अभी तक कोई अनुवाद इतिहास नहीं है। अनुवाद के लिए कैप्शन में किसी शब्द पर क्लिक करें।"
+  "no_history": "अभी तक कोई अनुवाद इतिहास नहीं है। अनुवाद के लिए कैप्शन में किसी शब्द पर क्लिक करें।",
+  
+  // Translation Errors
+  "translation_service_not_configured": "अनुवाद सेवा कॉन्फ़िगर नहीं है। कृपया अपनी API सेटिंग्स जांचें।",
+  "translation_network_error": "नेटवर्क त्रुटि। कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।",
+  "translation_failed": "अनुवाद असफल",
+  "translation_service_unavailable": "अनुवाद सेवा वर्तमान में उपलब्ध नहीं है",
+  "unexpected_error": "एक अप्रत्याशित त्रुटि हुई। कृपया पुनः प्रयास करें।",
+  "domain_explanation_failed": "डोमेन शब्द की व्याख्या करने में असफल। कृपया अपनी AI सेवा कॉन्फ़िगरेशन जांचें।",
+  
+  // Clear Captions
+  "clear_captions_warning": "चेतावनी: यह क्रिया पूर्ववत नहीं की जा सकती",
+  "clear_captions_warning_desc": "यह आपके ब्राउज़र स्टोरेज से सभी रिकॉर्ड किए गए कैप्शन को स्थायी रूप से हटा देगा।",
+  "clear_all_captions": "सभी कैप्शन साफ़ करें",
+  "confirm_clear_captions": "कैप्शन साफ़ करने की पुष्टि करें",
+  "yes_clear_data": "हाँ, डेटा साफ़ करें",
+  "data_cleared_success": "डेटा सफलतापूर्वक साफ़ किया गया",
+  
+  // UI Language
+  "ui_language": "UI भाषा",
+  "select_ui_language": "UI भाषा चुनें",
+  "ui_language_desc": "Smart Meet के यूजर इंटरफेस के लिए भाषा चुनें",
+  "ui_language_set": "UI भाषा {language} पर सेट की गई",
+  
+  // Translation Language
+  "select_translation_language": "अनुवाद भाषा चुनें",
+  "translation_language_desc": "टेक्स्ट सामग्री का अनुवाद करने के लिए भाषा चुनें।",
+  "translation_language_set": "अनुवाद भाषा {language} पर सेट की गई"
 }; 

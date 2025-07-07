@@ -117,5 +117,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Este es el contenido previo de la reunión: ",
   "ai_meeting_assistant_ready": "He entendido el contenido de la reunión. ¿En qué puedo ayudarte?",
-  "ai_system_prompt_meeting": "Eres un asistente útil para transcripciones de reuniones."
+  "ai_system_prompt_meeting": "Eres un asistente útil para transcripciones de reuniones.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "El servicio de traducción no está configurado. Por favor, verifica tu configuración de API.",
+  "translation_network_error": "Error de red. Por favor, verifica tu conexión a internet e inténtalo de nuevo.",
+  "translation_failed": "La traducción falló",
+  "translation_service_unavailable": "El servicio de traducción no está disponible actualmente",
+  "unexpected_error": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo.",
+  "domain_explanation_failed": "No se pudo explicar el término del dominio. Por favor, verifica tu configuración del servicio de IA.",
+  
+  // Clear Captions
+  "clear_captions_warning": "Advertencia: Esta acción no se puede deshacer",
+  "clear_captions_warning_desc": "Esto eliminará permanentemente todas las transcripciones grabadas del almacenamiento de tu navegador.",
+  "clear_all_captions": "Limpiar Todas las Transcripciones",
+  "confirm_clear_captions": "Confirmar Limpiar Transcripciones",
+  "yes_clear_data": "Sí, Limpiar Datos",
+  "data_cleared_success": "Datos limpiados exitosamente",
+  
+  // UI Language
+  "ui_language": "Idioma de la Interfaz",
+  "select_ui_language": "Seleccionar Idioma de la Interfaz",
+  "ui_language_desc": "Elige el idioma para la interfaz de usuario de Smart Meet",
+  "ui_language_set": "Idioma de la interfaz establecido a {language}",
+  
+  // Translation Language
+  "select_translation_language": "Seleccionar Idioma de Traducción",
+  "translation_language_desc": "Elige el idioma para traducir el contenido del texto.",
+  "translation_language_set": "Idioma de traducción establecido a {language}"
 }; 

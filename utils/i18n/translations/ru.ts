@@ -116,5 +116,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Вот предыдущее содержание встречи: ",
   "ai_meeting_assistant_ready": "Я понял содержание встречи. Как я могу вам помочь?",
-  "ai_system_prompt_meeting": "Вы полезный помощник для расшифровок встреч."
+  "ai_system_prompt_meeting": "Вы полезный помощник для расшифровок встреч.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "Служба перевода не настроена. Пожалуйста, проверьте настройки API.",
+  "translation_network_error": "Ошибка сети. Пожалуйста, проверьте подключение к интернету и повторите попытку.",
+  "translation_failed": "Перевод не удался",
+  "translation_service_unavailable": "Служба перевода в настоящее время недоступна",
+  "unexpected_error": "Произошла неожиданная ошибка. Пожалуйста, попробуйте еще раз.",
+  "domain_explanation_failed": "Не удалось объяснить термин домена. Пожалуйста, проверьте настройки службы ИИ.",
+  
+  // Clear Captions
+  "clear_captions_warning": "Предупреждение: Это действие нельзя отменить",
+  "clear_captions_warning_desc": "Это навсегда удалит все записанные субтитры из хранилища вашего браузера.",
+  "clear_all_captions": "Очистить Все Субтитры",
+  "confirm_clear_captions": "Подтвердить Очистку Субтитров",
+  "yes_clear_data": "Да, Очистить Данные",
+  "data_cleared_success": "Данные успешно очищены",
+  
+  // UI Language
+  "ui_language": "Язык Интерфейса",
+  "select_ui_language": "Выбрать Язык Интерфейса",
+  "ui_language_desc": "Выберите язык для пользовательского интерфейса Smart Meet",
+  "ui_language_set": "Язык интерфейса установлен на {language}",
+  
+  // Translation Language
+  "select_translation_language": "Выбрать Язык Перевода",
+  "translation_language_desc": "Выберите язык для перевода текстового контента.",
+  "translation_language_set": "Язык перевода установлен на {language}"
 }; 

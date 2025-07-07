@@ -117,5 +117,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "以下は前回の会議内容です：",
   "ai_meeting_assistant_ready": "会議内容を理解しました。何かお手伝いできることはありますか？",
-  "ai_system_prompt_meeting": "あなたは会議記録のための有用なアシスタントです。"
+  "ai_system_prompt_meeting": "あなたは会議記録のための有用なアシスタントです。",
+  
+  // Translation Errors
+  "translation_service_not_configured": "翻訳サービスが設定されていません。API設定を確認してください。",
+  "translation_network_error": "ネットワークエラー。インターネット接続を確認して再試行してください。",
+  "translation_failed": "翻訳に失敗しました",
+  "translation_service_unavailable": "翻訳サービスは現在利用できません",
+  "unexpected_error": "予期しないエラーが発生しました。再試行してください。",
+  "domain_explanation_failed": "ドメイン用語の説明に失敗しました。AIサービス設定を確認してください。",
+  
+  // Clear Captions
+  "clear_captions_warning": "警告：この操作は元に戻せません",
+  "clear_captions_warning_desc": "これにより、ブラウザストレージから記録されたすべてのキャプションが永続的に削除されます。",
+  "clear_all_captions": "すべてのキャプションをクリア",
+  "confirm_clear_captions": "キャプションのクリアを確認",
+  "yes_clear_data": "はい、データをクリア",
+  "data_cleared_success": "データのクリアが成功しました",
+  
+  // UI Language
+  "ui_language": "UI言語",
+  "select_ui_language": "UI言語を選択",
+  "ui_language_desc": "Smart Meetのユーザーインターフェースの言語を選択してください",
+  "ui_language_set": "UI言語を{language}に設定しました",
+  
+  // Translation Language
+  "select_translation_language": "翻訳言語を選択",
+  "translation_language_desc": "テキストコンテンツを翻訳する言語を選択してください。",
+  "translation_language_set": "翻訳言語を{language}に設定しました"
 }; 

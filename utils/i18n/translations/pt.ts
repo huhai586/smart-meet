@@ -117,5 +117,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Aqui está o conteúdo anterior da reunião: ",
   "ai_meeting_assistant_ready": "Entendi o conteúdo da reunião. Como posso ajudá-lo?",
-  "ai_system_prompt_meeting": "Você é um assistente útil para transcrições de reuniões."
+  "ai_system_prompt_meeting": "Você é um assistente útil para transcrições de reuniões.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "O serviço de tradução não está configurado. Por favor, verifique suas configurações de API.",
+  "translation_network_error": "Erro de rede. Por favor, verifique sua conexão com a internet e tente novamente.",
+  "translation_failed": "Tradução falhou",
+  "translation_service_unavailable": "O serviço de tradução está atualmente indisponível",
+  "unexpected_error": "Ocorreu um erro inesperado. Por favor, tente novamente.",
+  "domain_explanation_failed": "Falha ao explicar o termo do domínio. Por favor, verifique sua configuração do serviço de IA.",
+  
+  // Clear Captions
+  "clear_captions_warning": "Aviso: Esta ação não pode ser desfeita",
+  "clear_captions_warning_desc": "Isso excluirá permanentemente todas as legendas gravadas do armazenamento do seu navegador.",
+  "clear_all_captions": "Limpar Todas as Legendas",
+  "confirm_clear_captions": "Confirmar Limpeza das Legendas",
+  "yes_clear_data": "Sim, Limpar Dados",
+  "data_cleared_success": "Dados limpos com sucesso",
+  
+  // UI Language
+  "ui_language": "Idioma da Interface",
+  "select_ui_language": "Selecionar Idioma da Interface",
+  "ui_language_desc": "Escolha o idioma para a interface do usuário do Smart Meet",
+  "ui_language_set": "Idioma da interface definido para {language}",
+  
+  // Translation Language
+  "select_translation_language": "Selecionar Idioma de Tradução",
+  "translation_language_desc": "Escolha o idioma para traduzir o conteúdo do texto.",
+  "translation_language_set": "Idioma de tradução definido para {language}"
 }; 

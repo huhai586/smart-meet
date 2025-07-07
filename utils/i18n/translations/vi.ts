@@ -112,5 +112,32 @@ export default {
   "yes_clear_all": "Có, xóa tất cả",
   "no_keep_it": "Không, giữ lại",
   "history_cleared": "Đã xóa lịch sử dịch thành công",
-  "no_history": "Chưa có lịch sử dịch. Nhấp vào bất kỳ từ nào trong phụ đề để dịch."
+  "no_history": "Chưa có lịch sử dịch. Nhấp vào bất kỳ từ nào trong phụ đề để dịch.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "Dịch vụ dịch thuật chưa được cấu hình. Vui lòng kiểm tra cài đặt API của bạn.",
+  "translation_network_error": "Lỗi mạng. Vui lòng kiểm tra kết nối internet và thử lại.",
+  "translation_failed": "Dịch thuật thất bại",
+  "translation_service_unavailable": "Dịch vụ dịch thuật hiện không khả dụng",
+  "unexpected_error": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
+  "domain_explanation_failed": "Không thể giải thích thuật ngữ miền. Vui lòng kiểm tra cấu hình dịch vụ AI của bạn.",
+  
+  // Clear Captions
+  "clear_captions_warning": "Cảnh báo: Hành động này không thể hoàn tác",
+  "clear_captions_warning_desc": "Điều này sẽ xóa vĩnh viễn tất cả phụ đề đã ghi lại khỏi bộ nhớ trình duyệt của bạn.",
+  "clear_all_captions": "Xóa Tất Cả Phụ Đề",
+  "confirm_clear_captions": "Xác Nhận Xóa Phụ Đề",
+  "yes_clear_data": "Có, Xóa Dữ Liệu",
+  "data_cleared_success": "Dữ liệu đã được xóa thành công",
+  
+  // UI Language
+  "ui_language": "Ngôn Ngữ Giao Diện",
+  "select_ui_language": "Chọn Ngôn Ngữ Giao Diện",
+  "ui_language_desc": "Chọn ngôn ngữ cho giao diện người dùng của Smart Meet",
+  "ui_language_set": "Ngôn ngữ giao diện đã được đặt thành {language}",
+  
+  // Translation Language
+  "select_translation_language": "Chọn Ngôn Ngữ Dịch Thuật",
+  "translation_language_desc": "Chọn ngôn ngữ để dịch nội dung văn bản.",
+  "translation_language_set": "Ngôn ngữ dịch thuật đã được đặt thành {language}"
 }; 

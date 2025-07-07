@@ -112,5 +112,32 @@ export default {
   "yes_clear_all": "نعم، مسح الكل",
   "no_keep_it": "لا، الاحتفاظ به",
   "history_cleared": "تم مسح سجل الترجمة بنجاح",
-  "no_history": "لا يوجد سجل ترجمة بعد. انقر على أي كلمة في التعليقات لترجمتها."
+  "no_history": "لا يوجد سجل ترجمة بعد. انقر على أي كلمة في التعليقات لترجمتها.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "خدمة الترجمة غير مكونة. يرجى التحقق من إعدادات API الخاصة بك.",
+  "translation_network_error": "خطأ في الشبكة. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.",
+  "translation_failed": "فشلت الترجمة",
+  "translation_service_unavailable": "خدمة الترجمة غير متاحة حالياً",
+  "unexpected_error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+  "domain_explanation_failed": "فشل في شرح مصطلح المجال. يرجى التحقق من تكوين خدمة الذكاء الاصطناعي.",
+  
+  // Clear Captions
+  "clear_captions_warning": "تحذير: لا يمكن التراجع عن هذا الإجراء",
+  "clear_captions_warning_desc": "سيؤدي هذا إلى حذف جميع التعليقات المسجلة نهائياً من تخزين المتصفح.",
+  "clear_all_captions": "مسح جميع التعليقات",
+  "confirm_clear_captions": "تأكيد مسح التعليقات",
+  "yes_clear_data": "نعم، مسح البيانات",
+  "data_cleared_success": "تم مسح البيانات بنجاح",
+  
+  // UI Language
+  "ui_language": "لغة الواجهة",
+  "select_ui_language": "اختر لغة الواجهة",
+  "ui_language_desc": "اختر لغة واجهة المستخدم لـ Smart Meet",
+  "ui_language_set": "تم تعيين لغة الواجهة إلى {language}",
+  
+  // Translation Language
+  "select_translation_language": "اختر لغة الترجمة",
+  "translation_language_desc": "اختر لغة ترجمة محتوى النص.",
+  "translation_language_set": "تم تعيين لغة الترجمة إلى {language}"
 }; 

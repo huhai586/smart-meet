@@ -117,5 +117,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Voici le contenu précédent de la réunion : ",
   "ai_meeting_assistant_ready": "J'ai compris le contenu de la réunion. Comment puis-je vous aider ?",
-  "ai_system_prompt_meeting": "Vous êtes un assistant utile pour les transcriptions de réunions."
+  "ai_system_prompt_meeting": "Vous êtes un assistant utile pour les transcriptions de réunions.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "Le service de traduction n'est pas configuré. Veuillez vérifier vos paramètres API.",
+  "translation_network_error": "Erreur réseau. Veuillez vérifier votre connexion internet et réessayer.",
+  "translation_failed": "La traduction a échoué",
+  "translation_service_unavailable": "Le service de traduction est actuellement indisponible",
+  "unexpected_error": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+  "domain_explanation_failed": "Impossible d'expliquer le terme du domaine. Veuillez vérifier votre configuration du service IA.",
+  
+  // Clear Captions
+  "clear_captions_warning": "Avertissement : Cette action ne peut pas être annulée",
+  "clear_captions_warning_desc": "Cela supprimera définitivement toutes les transcriptions enregistrées du stockage de votre navigateur.",
+  "clear_all_captions": "Effacer Toutes les Transcriptions",
+  "confirm_clear_captions": "Confirmer l'Effacement des Transcriptions",
+  "yes_clear_data": "Oui, Effacer les Données",
+  "data_cleared_success": "Données effacées avec succès",
+  
+  // UI Language
+  "ui_language": "Langue de l'Interface",
+  "select_ui_language": "Sélectionner la Langue de l'Interface",
+  "ui_language_desc": "Choisissez la langue pour l'interface utilisateur de Smart Meet",
+  "ui_language_set": "Langue de l'interface définie sur {language}",
+  
+  // Translation Language
+  "select_translation_language": "Sélectionner la Langue de Traduction",
+  "translation_language_desc": "Choisissez la langue pour traduire le contenu du texte.",
+  "translation_language_set": "Langue de traduction définie sur {language}"
 }; 

@@ -116,5 +116,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Ecco il contenuto precedente della riunione: ",
   "ai_meeting_assistant_ready": "Ho capito il contenuto della riunione. Come posso aiutarti?",
-  "ai_system_prompt_meeting": "Sei un assistente utile per le trascrizioni delle riunioni."
+  "ai_system_prompt_meeting": "Sei un assistente utile per le trascrizioni delle riunioni.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "Il servizio di traduzione non è configurato. Si prega di verificare le impostazioni API.",
+  "translation_network_error": "Errore di rete. Si prega di verificare la connessione internet e riprovare.",
+  "translation_failed": "Traduzione fallita",
+  "translation_service_unavailable": "Il servizio di traduzione è attualmente non disponibile",
+  "unexpected_error": "Si è verificato un errore imprevisto. Si prega di riprovare.",
+  "domain_explanation_failed": "Impossibile spiegare il termine del dominio. Si prega di verificare la configurazione del servizio IA.",
+  
+  // Clear Captions
+  "clear_captions_warning": "Avviso: Questa azione non può essere annullata",
+  "clear_captions_warning_desc": "Questo eliminerà permanentemente tutti i sottotitoli registrati dal tuo browser.",
+  "clear_all_captions": "Cancella Tutti i Sottotitoli",
+  "confirm_clear_captions": "Conferma Cancellazione Sottotitoli",
+  "yes_clear_data": "Sì, Cancella Dati",
+  "data_cleared_success": "Dati cancellati con successo",
+  
+  // UI Language
+  "ui_language": "Lingua Interfaccia",
+  "select_ui_language": "Seleziona Lingua Interfaccia",
+  "ui_language_desc": "Scegli la lingua per l'interfaccia utente di Smart Meet",
+  "ui_language_set": "Lingua interfaccia impostata su {language}",
+  
+  // Translation Language
+  "select_translation_language": "Seleziona Lingua di Traduzione",
+  "translation_language_desc": "Scegli la lingua per tradurre il contenuto testuale.",
+  "translation_language_set": "Lingua di traduzione impostata su {language}"
 }; 

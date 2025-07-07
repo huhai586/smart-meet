@@ -112,5 +112,32 @@ export default {
   "yes_clear_all": "ใช่ ล้างทั้งหมด",
   "no_keep_it": "ไม่ เก็บไว้",
   "history_cleared": "ล้างประวัติการแปลเรียบร้อยแล้ว",
-  "no_history": "ยังไม่มีประวัติการแปล คลิกที่คำใดๆ ในคำบรรยายเพื่อแปล"
+  "no_history": "ยังไม่มีประวัติการแปล คลิกที่คำใดๆ ในคำบรรยายเพื่อแปล",
+  
+  // Translation Errors
+  "translation_service_not_configured": "บริการแปลภาษาไม่ได้รับการกำหนดค่า กรุณาตรวจสอบการตั้งค่า API ของคุณ",
+  "translation_network_error": "ข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตและลองใหม่อีกครั้ง",
+  "translation_failed": "การแปลล้มเหลว",
+  "translation_service_unavailable": "บริการแปลภาษาไม่พร้อมใช้งานในขณะนี้",
+  "unexpected_error": "เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองใหม่อีกครั้ง",
+  "domain_explanation_failed": "ไม่สามารถอธิบายคำศัพท์ในโดเมนได้ กรุณาตรวจสอบการกำหนดค่าบริการ AI ของคุณ",
+  
+  // Clear Captions
+  "clear_captions_warning": "คำเตือน: การกระทำนี้ไม่สามารถยกเลิกได้",
+  "clear_captions_warning_desc": "การกระทำนี้จะลบคำบรรยายที่บันทึกไว้ทั้งหมดจากที่เก็บข้อมูลเบราว์เซอร์ของคุณอย่างถาวร",
+  "clear_all_captions": "ล้างคำบรรยายทั้งหมด",
+  "confirm_clear_captions": "ยืนยันการล้างคำบรรยาย",
+  "yes_clear_data": "ใช่ ล้างข้อมูล",
+  "data_cleared_success": "ล้างข้อมูลสำเร็จ",
+  
+  // UI Language
+  "ui_language": "ภาษาอินเทอร์เฟซ",
+  "select_ui_language": "เลือกภาษาอินเทอร์เฟซ",
+  "ui_language_desc": "เลือกภาษาสำหรับอินเทอร์เฟซผู้ใช้ของ Smart Meet",
+  "ui_language_set": "ตั้งค่าภาษาอินเทอร์เฟซเป็น {language}",
+  
+  // Translation Language
+  "select_translation_language": "เลือกภาษาแปล",
+  "translation_language_desc": "เลือกภาษาสำหรับแปลเนื้อหาข้อความ",
+  "translation_language_set": "ตั้งค่าภาษาแปลเป็น {language}"
 }; 

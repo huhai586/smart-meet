@@ -117,5 +117,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Hier ist der vorherige Besprechungsinhalt: ",
   "ai_meeting_assistant_ready": "Ich habe den Besprechungsinhalt verstanden. Wie kann ich Ihnen helfen?",
-  "ai_system_prompt_meeting": "Sie sind ein hilfreicher Assistent für Besprechungstranskripte."
+  "ai_system_prompt_meeting": "Sie sind ein hilfreicher Assistent für Besprechungstranskripte.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "Der Übersetzungsdienst ist nicht konfiguriert. Bitte überprüfen Sie Ihre API-Einstellungen.",
+  "translation_network_error": "Netzwerkfehler. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+  "translation_failed": "Übersetzung fehlgeschlagen",
+  "translation_service_unavailable": "Der Übersetzungsdienst ist derzeit nicht verfügbar",
+  "unexpected_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+  "domain_explanation_failed": "Domänenbegriff konnte nicht erklärt werden. Bitte überprüfen Sie Ihre KI-Servicekonfiguration.",
+  
+  // Clear Captions
+  "clear_captions_warning": "Warnung: Diese Aktion kann nicht rückgängig gemacht werden",
+  "clear_captions_warning_desc": "Dies wird alle aufgezeichneten Untertitel dauerhaft aus Ihrem Browser-Speicher löschen.",
+  "clear_all_captions": "Alle Untertitel Löschen",
+  "confirm_clear_captions": "Löschen der Untertitel Bestätigen",
+  "yes_clear_data": "Ja, Daten Löschen",
+  "data_cleared_success": "Daten erfolgreich gelöscht",
+  
+  // UI Language
+  "ui_language": "Benutzeroberflächen-Sprache",
+  "select_ui_language": "Benutzeroberflächen-Sprache Auswählen",
+  "ui_language_desc": "Wählen Sie die Sprache für die Benutzeroberfläche von Smart Meet",
+  "ui_language_set": "Benutzeroberflächen-Sprache auf {language} gesetzt",
+  
+  // Translation Language
+  "select_translation_language": "Übersetzungssprache Auswählen",
+  "translation_language_desc": "Wählen Sie die Sprache für die Übersetzung von Textinhalten.",
+  "translation_language_set": "Übersetzungssprache auf {language} gesetzt"
 }; 

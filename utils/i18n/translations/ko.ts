@@ -117,5 +117,32 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "다음은 이전 회의 내용입니다: ",
   "ai_meeting_assistant_ready": "회의 내용을 이해했습니다. 어떻게 도와드릴까요?",
-  "ai_system_prompt_meeting": "당신은 회의 기록을 위한 유용한 어시스턴트입니다."
+  "ai_system_prompt_meeting": "당신은 회의 기록을 위한 유용한 어시스턴트입니다.",
+  
+  // Translation Errors
+  "translation_service_not_configured": "번역 서비스가 구성되지 않았습니다. API 설정을 확인하세요.",
+  "translation_network_error": "네트워크 오류입니다. 인터넷 연결을 확인하고 다시 시도하세요.",
+  "translation_failed": "번역 실패",
+  "translation_service_unavailable": "번역 서비스를 현재 사용할 수 없습니다",
+  "unexpected_error": "예상치 못한 오류가 발생했습니다. 다시 시도하세요.",
+  "domain_explanation_failed": "도메인 용어 설명에 실패했습니다. AI 서비스 구성을 확인하세요.",
+  
+  // Clear Captions
+  "clear_captions_warning": "경고: 이 작업은 되돌릴 수 없습니다",
+  "clear_captions_warning_desc": "브라우저 저장소에서 기록된 모든 캡션이 영구적으로 삭제됩니다.",
+  "clear_all_captions": "모든 캡션 지우기",
+  "confirm_clear_captions": "캡션 지우기 확인",
+  "yes_clear_data": "예, 데이터 지우기",
+  "data_cleared_success": "데이터가 성공적으로 지워졌습니다",
+  
+  // UI Language
+  "ui_language": "UI 언어",
+  "select_ui_language": "UI 언어 선택",
+  "ui_language_desc": "Smart Meet의 사용자 인터페이스 언어를 선택하세요",
+  "ui_language_set": "UI 언어가 {language}로 설정되었습니다",
+  
+  // Translation Language
+  "select_translation_language": "번역 언어 선택",
+  "translation_language_desc": "텍스트 콘텐츠를 번역할 언어를 선택하세요.",
+  "translation_language_set": "번역 언어가 {language}로 설정되었습니다"
 }; 

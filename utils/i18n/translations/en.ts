@@ -178,6 +178,25 @@ export default {
   "unexpected_error": "An unexpected error occurred. Please try again.",
   "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration.",
   
+  // Clear Captions
+  "clear_captions_warning": "Warning: This action cannot be undone",
+  "clear_captions_warning_desc": "This will permanently delete all recorded captions from your browser storage.",
+  "clear_all_captions": "Clear All Captions",
+  "confirm_clear_captions": "Confirm Clear Captions",
+  "yes_clear_data": "Yes, Clear Data",
+  "data_cleared_success": "Data cleared successfully",
+  
+  // UI Language
+  "ui_language": "UI Language",
+  "select_ui_language": "Select UI Language", 
+  "ui_language_desc": "Choose the language for the user interface of Smart Meet",
+  "ui_language_set": "UI language set to {language}",
+  
+  // Translation Language
+  "select_translation_language": "Select Translation Language",
+  "translation_language_desc": "Choose the language for translating text content.",
+  "translation_language_set": "Translation language set to {language}",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",
   "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",

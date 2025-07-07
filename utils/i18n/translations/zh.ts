@@ -178,6 +178,25 @@ export default {
   "unexpected_error": "发生意外错误。请重试。",
   "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。",
   
+  // Clear Captions
+  "clear_captions_warning": "警告：此操作无法撤销",
+  "clear_captions_warning_desc": "这将永久删除浏览器存储中的所有录制字幕。",
+  "clear_all_captions": "清除所有字幕",
+  "confirm_clear_captions": "确认清除字幕",
+  "yes_clear_data": "是的，清除数据",
+  "data_cleared_success": "数据清除成功",
+  
+  // UI Language
+  "ui_language": "界面语言",
+  "select_ui_language": "选择界面语言",
+  "ui_language_desc": "选择Smart Meet的用户界面语言",
+  "ui_language_set": "界面语言已设置为 {language}",
+  
+  // Translation Language
+  "select_translation_language": "选择翻译语言",
+  "translation_language_desc": "选择用于翻译文本内容的语言。",
+  "translation_language_set": "翻译语言已设置为 {language}",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",
   "ai_meeting_assistant_ready": "我已了解会议内容，请问有什么需要我帮助的？",
