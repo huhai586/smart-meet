@@ -74,6 +74,7 @@ export default {
   "extension": "Tiện ích mở rộng",
   "translation_records": "Bản ghi dịch",
   "download_captions": "Tải xuống phụ đề",
+  "sidepanel_summary": "AI Summary",
   
   // Sidebar
   "calendar_view": "Xem lịch",

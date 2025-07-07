@@ -74,6 +74,7 @@ export default {
   "extension": "Extension",
   "translation_records": "Enregistrements de traduction",
   "download_captions": "Télécharger les sous-titres",
+  "sidepanel_summary": "AI Summary",
   
   // Sidebar
   "calendar_view": "Vue calendrier",

@@ -95,6 +95,7 @@ export default {
   "extension": "扩展",
   "translation_records": "翻译记录",
   "download_captions": "下载字幕",
+  "sidepanel_summary": "AI Summary",
   
   // Sidebar
   "calendar_view": "日历视图",

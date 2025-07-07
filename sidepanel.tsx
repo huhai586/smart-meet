@@ -128,7 +128,7 @@ const SidePanel = () => {
             children: (<Captions />),
         },
         {
-            label: t('summary'),
+            label: t('sidepanel_summary'),
             key: 'summary',
             icon: <SketchOutlined />,
             children: <Summary />,

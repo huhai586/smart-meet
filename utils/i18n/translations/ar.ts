@@ -74,6 +74,7 @@ export default {
   "extension": "الإضافة",
   "translation_records": "سجلات الترجمة",
   "download_captions": "تنزيل التعليقات",
+  "sidepanel_summary": "AI Summary",
   
   // Sidebar
   "calendar_view": "عرض التقويم",

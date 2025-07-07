@@ -74,6 +74,7 @@ export default {
   "extension": "확장",
   "translation_records": "번역 기록",
   "download_captions": "자막 다운로드",
+  "sidepanel_summary": "AI Summary",
   
   // Sidebar
   "calendar_view": "캘린더 보기",

@@ -106,6 +106,7 @@ export default {
   "extension": "Extension",
   "translation_records": "Translation records",
   "download_captions": "Download captions",
+  "sidepanel_summary": "AI Summary",
   
   // Sidebar
   "calendar_view": "Calendar View",

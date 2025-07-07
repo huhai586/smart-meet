@@ -74,6 +74,7 @@ export default {
   "extension": "ส่วนขยาย",
   "translation_records": "บันทึกการแปล",
   "download_captions": "ดาวน์โหลดคำบรรยาย",
+  "sidepanel_summary": "AI Summary",
   
   // Sidebar
   "calendar_view": "มุมมองปฏิทิน",
