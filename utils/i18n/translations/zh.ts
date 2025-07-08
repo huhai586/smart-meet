@@ -205,6 +205,14 @@ export default {
   "auto_translate_disabled": "自动翻译已禁用",
   "auto_translated": "(已自动翻译)",
   
+  // 翻译服务提供商
+  "translation_provider": "翻译服务提供商",
+  "translation_provider_desc": "选择免费翻译服务提供商",
+  "provider_google": "Google 翻译",
+  "provider_microsoft": "微软翻译",
+  "provider_ai": "AI 翻译",
+  "translation_provider_set": "翻译服务提供商已设置为 {provider}",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",
   "ai_meeting_assistant_ready": "我已了解会议内容，请问有什么需要我帮助的？",

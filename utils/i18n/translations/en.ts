@@ -205,6 +205,14 @@ export default {
   "auto_translate_disabled": "Auto translate disabled",
   "auto_translated": "(Auto translated)",
   
+  // Translation Provider
+  "translation_provider": "Translation Provider",
+  "translation_provider_desc": "Select the free translation service provider",
+  "provider_google": "Google Translate",
+  "provider_microsoft": "Microsoft Translator", 
+  "provider_ai": "AI Translation",
+  "translation_provider_set": "Translation provider set to {provider}",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",
   "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",

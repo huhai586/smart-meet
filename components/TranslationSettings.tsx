@@ -1,15 +1,17 @@
 import React from 'react';
-import { Typography, Card, Space, theme, Switch, Divider } from 'antd';
+import { Typography, Card, Space, theme, Switch, Divider, Select } from 'antd';
 import styled from '@emotion/styled';
 import { TranslationOutlined } from '@ant-design/icons';
 import LanguageSelector from './LanguageSelector';
 import useI18n from '../utils/i18n';
 import StyledTitle from './common/StyledTitle';
 import { useAutoTranslate } from '../hooks/useAutoTranslate';
+import { useTranslationProvider, getProviderDisplayName, type TranslationProvider } from '../hooks/useTranslationProvider';
 import messageManager from '../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
+const { Option } = Select;
 
 const StyledCard = styled(Card)`
   border-radius: 8px;
@@ -45,11 +47,20 @@ const TranslationSettings: React.FC = () => {
   const { token } = useToken();
   const { t } = useI18n();
   const [autoTranslateEnabled, setAutoTranslateEnabled] = useAutoTranslate();
+  const [translationProvider, setTranslationProvider] = useTranslationProvider();
 
   const handleAutoTranslateChange = (checked: boolean) => {
     setAutoTranslateEnabled(checked);
     messageManager.success(
       checked ? t('auto_translate_enabled') : t('auto_translate_disabled')
+    );
+  };
+
+  const handleProviderChange = (value: TranslationProvider) => {
+    setTranslationProvider(value);
+    const providerName = getProviderDisplayName(value);
+    messageManager.success(
+      t('translation_provider_set', { provider: providerName })
     );
   };
 
@@ -81,8 +92,6 @@ const TranslationSettings: React.FC = () => {
             <LanguageSelector />
           </div>
 
-          <Divider />
-
           <SwitchContainer>
             <div>
               <Text strong style={{ fontSize: "16px", marginBottom: "4px", display: "block" }}>
@@ -100,6 +109,39 @@ const TranslationSettings: React.FC = () => {
               }}
             />
           </SwitchContainer>
+
+          {autoTranslateEnabled && (
+            <>
+              <Divider />
+
+              <div style={{ padding: "16px 0" }}>
+                <div style={{ marginBottom: "16px" }}>
+                  <Text strong style={{ fontSize: "16px", marginBottom: "4px", display: "block" }}>
+                    {t('translation_provider')}
+                  </Text>
+                  <Text type="secondary" style={{ fontSize: "14px" }}>
+                    {t('translation_provider_desc')}
+                  </Text>
+                </div>
+                <Select
+                  value={translationProvider}
+                  onChange={handleProviderChange}
+                  style={{ width: "100%" }}
+                  size="middle"
+                >
+                  <Option value="google">
+                    {t('provider_google')}
+                  </Option>
+                  <Option value="microsoft">
+                    {t('provider_microsoft')}
+                  </Option>
+                  <Option value="ai">
+                    {t('provider_ai')}
+                  </Option>
+                </Select>
+              </div>
+            </>
+          )}
         </Space>
       </StyledCard>
     </div>

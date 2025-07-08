@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import translateSingleWords from "~utils/translate-signal-words";
+import { getCurrentTranslationProvider } from './useTranslationProvider';
+import { translateByGoogle, translateByMicrosoft, translateByAI } from '../utils/translators';
 import useI18n from "../utils/i18n";
 
 // 存储在Chrome存储中的键名
@@ -72,7 +73,23 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
       setIsAutoTranslating(true);
       lastTranslatedContentRef.current = textToTranslate;
       
-      const translatedText = await translateSingleWords(textToTranslate);
+      // 获取当前选择的翻译服务提供商
+      const provider = await getCurrentTranslationProvider();
+      let translatedText: string;
+      
+      // 根据不同的提供商调用相应的翻译函数
+      switch (provider) {
+        case 'google':
+          translatedText = await translateByGoogle(textToTranslate);
+          break;
+        case 'microsoft':
+          translatedText = await translateByMicrosoft(textToTranslate);
+          break;
+        case 'ai':
+        default:
+          translatedText = await translateByAI(textToTranslate);
+          break;
+      }
       
       // 检查是否是错误消息
       const isErrorMessage = translatedText.includes(t('translation_failed')) || 
