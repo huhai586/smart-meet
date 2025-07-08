@@ -14,6 +14,7 @@
     "@emotion/styled": "^11.14.0",
     "@google/generative-ai": "^0.21.0",
     "@mui/material": "^6.3.1",
+    "@vitalets/google-translate-api": "^9.2.1",
     "antd": "^5.23.0",
     "framer-motion": "^11.18.1",
     "google-meeting-captions-resolver": "^1.0.20",
@@ -47,6 +48,7 @@
   "manifest": {
     "host_permissions": [
       "https://meet.google.com/*",
+      "https://translate.google.com/",
       "https://www.googleapis.com/*"
     ],
     "permissions": [
