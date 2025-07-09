@@ -178,6 +178,7 @@ export default {
   "translation_service_unavailable": "翻译服务当前不可用",
   "unexpected_error": "发生意外错误。请重试。",
   "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。",
+  "google_translate_rate_limit_error": "自动翻译调用频率太高，请在设置页面-翻译频率控制 里面将值调大，或者切换其他翻译服务",
   
   // Clear Captions
   "clear_captions_warning": "警告：此操作无法撤销",

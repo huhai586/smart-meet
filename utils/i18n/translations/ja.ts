@@ -122,11 +122,12 @@ export default {
   
   // Translation Errors
   "translation_service_not_configured": "翻訳サービスが設定されていません。API設定を確認してください。",
-  "translation_network_error": "ネットワークエラー。インターネット接続を確認して再試行してください。",
+  "translation_network_error": "ネットワークエラーです。インターネット接続を確認してもう一度お試しください。",
   "translation_failed": "翻訳に失敗しました",
   "translation_service_unavailable": "翻訳サービスは現在利用できません",
-  "unexpected_error": "予期しないエラーが発生しました。再試行してください。",
-  "domain_explanation_failed": "ドメイン用語の説明に失敗しました。AIサービス設定を確認してください。",
+  "unexpected_error": "予期しないエラーが発生しました。もう一度お試しください。",
+  "domain_explanation_failed": "ドメイン用語の説明に失敗しました。AIサービスの設定を確認してください。",
+  "google_translate_rate_limit_error": "自動翻訳の呼び出し頻度が高すぎます。設定ページの翻訳頻度制御で値を大きくするか、他の翻訳サービスに切り替えてください",
   
   // Clear Captions
   "clear_captions_warning": "警告：この操作は元に戻せません",

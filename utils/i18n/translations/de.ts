@@ -121,12 +121,13 @@ export default {
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
-  "translation_service_not_configured": "Der Übersetzungsdienst ist nicht konfiguriert. Bitte überprüfen Sie Ihre API-Einstellungen.",
+  "translation_service_not_configured": "Übersetzungsdienst ist nicht konfiguriert. Bitte überprüfen Sie Ihre API-Einstellungen.",
   "translation_network_error": "Netzwerkfehler. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
   "translation_failed": "Übersetzung fehlgeschlagen",
-  "translation_service_unavailable": "Der Übersetzungsdienst ist derzeit nicht verfügbar",
+  "translation_service_unavailable": "Übersetzungsdienst ist derzeit nicht verfügbar",
   "unexpected_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
-  "domain_explanation_failed": "Domänenbegriff konnte nicht erklärt werden. Bitte überprüfen Sie Ihre KI-Servicekonfiguration.",
+  "domain_explanation_failed": "Fehler beim Erklären des Fachbegriffs. Bitte überprüfen Sie Ihre KI-Service-Konfiguration.",
+  "google_translate_rate_limit_error": "Die Häufigkeit der automatischen Übersetzungsaufrufe ist zu hoch. Bitte erhöhen Sie den Wert in Einstellungen - Übersetzungsfrequenz-Kontrolle oder wechseln Sie zu einem anderen Übersetzungsdienst",
   
   // Clear Captions
   "clear_captions_warning": "Warnung: Diese Aktion kann nicht rückgängig gemacht werden",

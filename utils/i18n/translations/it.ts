@@ -126,6 +126,7 @@ export default {
   "translation_service_unavailable": "Il servizio di traduzione è attualmente non disponibile",
   "unexpected_error": "Si è verificato un errore imprevisto. Si prega di riprovare.",
   "domain_explanation_failed": "Impossibile spiegare il termine del dominio. Si prega di verificare la configurazione del servizio IA.",
+  "google_translate_rate_limit_error": "La frequenza delle chiamate di traduzione automatica è troppo alta. Si prega di aumentare il valore in Impostazioni - Controllo Frequenza Traduzione, o passare a un altro servizio di traduzione",
   
   // Clear Captions
   "clear_captions_warning": "Avviso: Questa azione non può essere annullata",

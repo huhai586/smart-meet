@@ -123,10 +123,11 @@ export default {
   // Translation Errors
   "translation_service_not_configured": "O serviço de tradução não está configurado. Por favor, verifique suas configurações de API.",
   "translation_network_error": "Erro de rede. Por favor, verifique sua conexão com a internet e tente novamente.",
-  "translation_failed": "Tradução falhou",
+  "translation_failed": "A tradução falhou",
   "translation_service_unavailable": "O serviço de tradução está atualmente indisponível",
   "unexpected_error": "Ocorreu um erro inesperado. Por favor, tente novamente.",
   "domain_explanation_failed": "Falha ao explicar o termo do domínio. Por favor, verifique sua configuração do serviço de IA.",
+  "google_translate_rate_limit_error": "A frequência de chamadas de tradução automática é muito alta. Por favor, aumente o valor em Configurações - Controle de Frequência de Tradução, ou mude para outro serviço de tradução",
   
   // Clear Captions
   "clear_captions_warning": "Aviso: Esta ação não pode ser desfeita",

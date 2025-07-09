@@ -121,12 +121,13 @@ export default {
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
-  "translation_service_not_configured": "번역 서비스가 구성되지 않았습니다. API 설정을 확인하세요.",
-  "translation_network_error": "네트워크 오류입니다. 인터넷 연결을 확인하고 다시 시도하세요.",
-  "translation_failed": "번역 실패",
+  "translation_service_not_configured": "번역 서비스가 구성되지 않았습니다. API 설정을 확인해주세요.",
+  "translation_network_error": "네트워크 오류입니다. 인터넷 연결을 확인하고 다시 시도해주세요.",
+  "translation_failed": "번역에 실패했습니다",
   "translation_service_unavailable": "번역 서비스를 현재 사용할 수 없습니다",
-  "unexpected_error": "예상치 못한 오류가 발생했습니다. 다시 시도하세요.",
-  "domain_explanation_failed": "도메인 용어 설명에 실패했습니다. AI 서비스 구성을 확인하세요.",
+  "unexpected_error": "예상치 못한 오류가 발생했습니다. 다시 시도해주세요.",
+  "domain_explanation_failed": "도메인 용어 설명에 실패했습니다. AI 서비스 구성을 확인해주세요.",
+  "google_translate_rate_limit_error": "자동 번역 호출 빈도가 너무 높습니다. 설정 페이지의 번역 빈도 제어에서 값을 크게 하거나 다른 번역 서비스로 전환해주세요",
   
   // Clear Captions
   "clear_captions_warning": "경고: 이 작업은 되돌릴 수 없습니다",

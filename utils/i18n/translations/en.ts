@@ -178,6 +178,7 @@ export default {
   "translation_service_unavailable": "Translation service is currently unavailable",
   "unexpected_error": "An unexpected error occurred. Please try again.",
   "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration.",
+  "google_translate_rate_limit_error": "Auto translation call frequency is too high. Please increase the value in Settings - Translation Frequency Control, or switch to another translation service",
   
   // Clear Captions
   "clear_captions_warning": "Warning: This action cannot be undone",

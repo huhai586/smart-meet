@@ -1,5 +1,8 @@
 import { translate } from '@vitalets/google-translate-api';
 import { getCurrentLanguage } from '../../hooks/useTranslationLanguage';
+import messageManager from '../message-manager';
+import { getTranslation } from '../i18n';
+import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 
 /**
  * Google翻译服务工具函数
@@ -30,10 +33,12 @@ export const translateByGoogle = async (text: string): Promise<string> => {
     console.error('Google翻译错误:', error);
     
     // 根据错误类型返回相应的错误消息
-    if (error.name === 'TooManyRequestsError') {
+    if (error.name === 'TooManyRequestsError' || error.code === 429) {
+      // 获取当前UI语言并显示多语言错误提示
+      const currentUILanguage = await getCurrentUILanguage();
+      const errorMessage = getTranslation('google_translate_rate_limit_error', currentUILanguage.code);
+      messageManager.error(errorMessage);
       throw new Error('Google翻译请求过于频繁，请稍后再试');
-    } else if (error.code === 429) {
-      throw new Error('Google翻译服务暂时不可用，请稍后再试');
     } else {
       throw new Error('Google翻译服务出现问题，请稍后再试');
     }
