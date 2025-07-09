@@ -44,6 +44,34 @@ const Caption = memo((props: CaptionProps) => {
     // 使用自动翻译hook
     const { autoTranslatedContent, isAutoTranslating, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
 
+    // 监听自动翻译内容变化，触发滚动更新
+    useEffect(() => {
+        if (autoTranslatedContent) {
+            // 使用 requestAnimationFrame 确保DOM更新完成后触发事件
+            requestAnimationFrame(() => {
+                // 派发自定义事件，通知父组件内容高度可能发生变化
+                const event = new CustomEvent('captionContentChanged', {
+                    detail: { session: data.session, hasTranslation: true }
+                });
+                window.dispatchEvent(event);
+            });
+        }
+    }, [autoTranslatedContent, data.session]);
+
+    // 监听AI回答内容变化，触发滚动更新
+    useEffect(() => {
+        if (aiData.length > 0) {
+            // 使用 requestAnimationFrame 确保DOM更新完成后触发事件
+            requestAnimationFrame(() => {
+                // 派发自定义事件，通知父组件内容高度可能发生变化
+                const event = new CustomEvent('captionContentChanged', {
+                    detail: { session: data.session, hasAiContent: true }
+                });
+                window.dispatchEvent(event);
+            });
+        }
+    }, [aiData, data.session]);
+
     // 组件卸载时清理自动翻译状态
     useEffect(() => {
         return () => {

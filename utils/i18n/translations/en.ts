@@ -213,6 +213,12 @@ export default {
   "provider_ai": "AI Translation",
   "translation_provider_set": "Translation provider set to {provider}",
   
+  // Translation Frequency Control
+  "translation_frequency": "Translation Frequency Control",
+  "translation_frequency_desc": "This option controls the frequency of translation requests. Higher values mean lower request frequency and vice versa. This is to avoid high request frequencies being rejected by service providers",
+  "translation_frequency_label": "{frequency}s",
+  "translation_frequency_set": "Translation frequency set to {frequency} seconds",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",
   "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",

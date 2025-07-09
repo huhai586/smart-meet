@@ -116,9 +116,9 @@ export default {
   "no_history": "아직 번역 기록이 없습니다. 자막에서 단어를 클릭하여 번역하세요.",
   
   // AI Service Messages
-  "ai_meeting_content_intro": "다음은 이전 회의 내용입니다: ",
+  "ai_meeting_content_intro": "이전 회의 내용입니다: ",
   "ai_meeting_assistant_ready": "회의 내용을 이해했습니다. 어떻게 도와드릴까요?",
-  "ai_system_prompt_meeting": "당신은 회의 기록을 위한 유용한 어시스턴트입니다.",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
   "translation_service_not_configured": "번역 서비스가 구성되지 않았습니다. API 설정을 확인하세요.",
@@ -145,5 +145,19 @@ export default {
   // Translation Language
   "select_translation_language": "번역 언어 선택",
   "translation_language_desc": "텍스트 콘텐츠를 번역할 언어를 선택하세요.",
-  "translation_language_set": "번역 언어가 {language}로 설정되었습니다"
+  "translation_language_set": "번역 언어가 {language}로 설정되었습니다",
+  
+  // 번역 서비스 제공업체
+  "translation_provider": "번역 서비스 제공업체",
+  "translation_provider_desc": "무료 번역 서비스 제공업체 선택",
+  "provider_google": "Google 번역",
+  "provider_microsoft": "Microsoft 번역",
+  "provider_ai": "AI 번역",
+  "translation_provider_set": "번역 서비스 제공업체가 {provider}로 설정되었습니다",
+  
+  // 번역 빈도 제어
+  "translation_frequency": "번역 빈도 제어",
+  "translation_frequency_desc": "이 옵션은 번역 요청의 빈도를 제어합니다. 값이 클수록 요청 빈도가 낮아지고 반대로 작을수록 높아집니다. 이는 너무 높은 요청 빈도가 서비스 제공업체에 의해 거부되는 것을 방지하기 위함입니다",
+  "translation_frequency_label": "{frequency}초",
+  "translation_frequency_set": "번역 빈도가 {frequency}초로 설정되었습니다"
 }; 

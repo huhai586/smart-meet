@@ -118,7 +118,7 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Hier ist der vorherige Besprechungsinhalt: ",
   "ai_meeting_assistant_ready": "Ich habe den Besprechungsinhalt verstanden. Wie kann ich Ihnen helfen?",
-  "ai_system_prompt_meeting": "Sie sind ein hilfreicher Assistent für Besprechungstranskripte.",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
   "translation_service_not_configured": "Der Übersetzungsdienst ist nicht konfiguriert. Bitte überprüfen Sie Ihre API-Einstellungen.",
@@ -145,5 +145,19 @@ export default {
   // Translation Language
   "select_translation_language": "Übersetzungssprache Auswählen",
   "translation_language_desc": "Wählen Sie die Sprache für die Übersetzung von Textinhalten.",
-  "translation_language_set": "Übersetzungssprache auf {language} gesetzt"
+  "translation_language_set": "Übersetzungssprache auf {language} gesetzt",
+  
+  // Übersetzungsanbieter
+  "translation_provider": "Übersetzungsanbieter",
+  "translation_provider_desc": "Kostenlosen Übersetzungsdienstanbieter auswählen",
+  "provider_google": "Google Übersetzer",
+  "provider_microsoft": "Microsoft Übersetzer",
+  "provider_ai": "KI-Übersetzung",
+  "translation_provider_set": "Übersetzungsanbieter auf {provider} eingestellt",
+  
+  // Übersetzungsfrequenz-Kontrolle
+  "translation_frequency": "Übersetzungsfrequenz-Kontrolle",
+  "translation_frequency_desc": "Diese Option steuert die Häufigkeit von Übersetzungsanfragen. Höhere Werte bedeuten niedrigere Anfragehäufigkeit und umgekehrt. Dies dient dazu, zu vermeiden, dass hohe Anfragehäufigkeiten von Dienstanbietern abgelehnt werden",
+  "translation_frequency_label": "{frequency}s",
+  "translation_frequency_set": "Übersetzungsfrequenz auf {frequency} Sekunden eingestellt"
 }; 

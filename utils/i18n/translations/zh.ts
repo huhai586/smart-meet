@@ -213,6 +213,12 @@ export default {
   "provider_ai": "AI 翻译",
   "translation_provider_set": "翻译服务提供商已设置为 {provider}",
   
+  // 翻译频率控制
+  "translation_frequency": "翻译频率控制",
+  "translation_frequency_desc": "此选项控制翻译请求的频率，如果越大，请求的频率越低反之越高。这样是为了避免太高的请求频率被服务商拒绝服务",
+  "translation_frequency_label": "{frequency}秒",
+  "translation_frequency_set": "翻译频率已设置为 {frequency}秒",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",
   "ai_meeting_assistant_ready": "我已了解会议内容，请问有什么需要我帮助的？",

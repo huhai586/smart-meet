@@ -115,10 +115,24 @@ export default {
   "history_cleared": "Historique de traduction effacé avec succès",
   "no_history": "Pas encore d'historique de traduction. Cliquez sur n'importe quel mot dans les sous-titres pour le traduire.",
   
+  // Fournisseur de traduction
+  "translation_provider": "Fournisseur de traduction",
+  "translation_provider_desc": "Sélectionner le fournisseur de service de traduction gratuit",
+  "provider_google": "Google Traduction",
+  "provider_microsoft": "Microsoft Traducteur",
+  "provider_ai": "Traduction IA",
+  "translation_provider_set": "Fournisseur de traduction défini sur {provider}",
+  
+  // Contrôle de la fréquence de traduction
+  "translation_frequency": "Contrôle de la fréquence de traduction",
+  "translation_frequency_desc": "Cette option contrôle la fréquence des requêtes de traduction. Plus la valeur est élevée, plus la fréquence des requêtes est faible et vice versa. Ceci pour éviter que les fréquences de requêtes trop élevées soient rejetées par les fournisseurs de services",
+  "translation_frequency_label": "{frequency}s",
+  "translation_frequency_set": "Fréquence de traduction définie sur {frequency} secondes",
+  
   // AI Service Messages
-  "ai_meeting_content_intro": "Voici le contenu précédent de la réunion : ",
+  "ai_meeting_content_intro": "Voici le contenu de la réunion précédente : ",
   "ai_meeting_assistant_ready": "J'ai compris le contenu de la réunion. Comment puis-je vous aider ?",
-  "ai_system_prompt_meeting": "Vous êtes un assistant utile pour les transcriptions de réunions.",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
   "translation_service_not_configured": "Le service de traduction n'est pas configuré. Veuillez vérifier vos paramètres API.",

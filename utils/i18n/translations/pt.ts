@@ -116,9 +116,9 @@ export default {
   "no_history": "Ainda não há histórico de tradução. Clique em qualquer palavra nas legendas para traduzi-la.",
   
   // AI Service Messages
-  "ai_meeting_content_intro": "Aqui está o conteúdo anterior da reunião: ",
-  "ai_meeting_assistant_ready": "Entendi o conteúdo da reunião. Como posso ajudá-lo?",
-  "ai_system_prompt_meeting": "Você é um assistente útil para transcrições de reuniões.",
+  "ai_meeting_content_intro": "Aqui está o conteúdo da reunião anterior: ",
+  "ai_meeting_assistant_ready": "Entendi o conteúdo da reunião. Como posso ajudar?",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
   "translation_service_not_configured": "O serviço de tradução não está configurado. Por favor, verifique suas configurações de API.",
@@ -145,5 +145,19 @@ export default {
   // Translation Language
   "select_translation_language": "Selecionar Idioma de Tradução",
   "translation_language_desc": "Escolha o idioma para traduzir o conteúdo do texto.",
-  "translation_language_set": "Idioma de tradução definido para {language}"
+  "translation_language_set": "Idioma de tradução definido para {language}",
+
+  // Provedor de tradução
+  "translation_provider": "Provedor de tradução",
+  "translation_provider_desc": "Selecionar provedor de serviço de tradução gratuito",
+  "provider_google": "Google Tradutor",
+  "provider_microsoft": "Microsoft Tradutor",
+  "provider_ai": "Tradução IA",
+  "translation_provider_set": "Provedor de tradução definido para {provider}",
+  
+  // Controle de frequência de tradução
+  "translation_frequency": "Controle de frequência de tradução",
+  "translation_frequency_desc": "Esta opção controla a frequência das solicitações de tradução. Valores mais altos significam menor frequência de solicitações e vice-versa. Isso é para evitar que frequências de solicitações altas sejam rejeitadas pelos provedores de serviços",
+  "translation_frequency_label": "{frequency}s",
+  "translation_frequency_set": "Frequência de tradução definida para {frequency} segundos"
 }; 

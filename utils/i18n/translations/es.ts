@@ -116,9 +116,9 @@ export default {
   "no_history": "Aún no hay historial de traducción. Haga clic en cualquier palabra en los subtítulos para traducirla.",
   
   // AI Service Messages
-  "ai_meeting_content_intro": "Este es el contenido previo de la reunión: ",
-  "ai_meeting_assistant_ready": "He entendido el contenido de la reunión. ¿En qué puedo ayudarte?",
-  "ai_system_prompt_meeting": "Eres un asistente útil para transcripciones de reuniones.",
+  "ai_meeting_content_intro": "Aquí está el contenido de la reunión anterior: ",
+  "ai_meeting_assistant_ready": "He entendido el contenido de la reunión. ¿Cómo puedo ayudarte?",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
   "translation_service_not_configured": "El servicio de traducción no está configurado. Por favor, verifica tu configuración de API.",
@@ -145,5 +145,19 @@ export default {
   // Translation Language
   "select_translation_language": "Seleccionar Idioma de Traducción",
   "translation_language_desc": "Elige el idioma para traducir el contenido del texto.",
-  "translation_language_set": "Idioma de traducción establecido a {language}"
+  "translation_language_set": "Idioma de traducción establecido a {language}",
+  
+  // Proveedor de traducción
+  "translation_provider": "Proveedor de traducción",
+  "translation_provider_desc": "Seleccionar el proveedor de servicio de traducción gratuito",
+  "provider_google": "Google Traductor",
+  "provider_microsoft": "Microsoft Traductor",
+  "provider_ai": "Traducción IA",
+  "translation_provider_set": "Proveedor de traducción establecido en {provider}",
+  
+  // Control de frecuencia de traducción
+  "translation_frequency": "Control de frecuencia de traducción",
+  "translation_frequency_desc": "Esta opción controla la frecuencia de las solicitudes de traducción. Valores más altos significan menor frecuencia de solicitudes y viceversa. Esto es para evitar que las frecuencias de solicitudes altas sean rechazadas por los proveedores de servicios",
+  "translation_frequency_label": "{frequency}s",
+  "translation_frequency_set": "Frecuencia de traducción establecida en {frequency} segundos"
 }; 

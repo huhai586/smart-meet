@@ -116,9 +116,9 @@ export default {
   "no_history": "まだ翻訳履歴がありません。字幕の任意の単語をクリックして翻訳してください。",
   
   // AI Service Messages
-  "ai_meeting_content_intro": "以下は前回の会議内容です：",
+  "ai_meeting_content_intro": "これは以前の会議内容です：",
   "ai_meeting_assistant_ready": "会議内容を理解しました。何かお手伝いできることはありますか？",
-  "ai_system_prompt_meeting": "あなたは会議記録のための有用なアシスタントです。",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
   "translation_service_not_configured": "翻訳サービスが設定されていません。API設定を確認してください。",
@@ -145,5 +145,19 @@ export default {
   // Translation Language
   "select_translation_language": "翻訳言語を選択",
   "translation_language_desc": "テキストコンテンツを翻訳する言語を選択してください。",
-  "translation_language_set": "翻訳言語を{language}に設定しました"
+  "translation_language_set": "翻訳言語を{language}に設定しました",
+  
+  // 翻译服务提供商
+  "translation_provider": "翻訳サービスプロバイダー",
+  "translation_provider_desc": "無料翻訳サービスプロバイダーを選択",
+  "provider_google": "Google翻訳",
+  "provider_microsoft": "Microsoft翻訳",
+  "provider_ai": "AI翻訳",
+  "translation_provider_set": "翻訳サービスプロバイダーが{provider}に設定されました",
+  
+  // 翻訳頻度制御
+  "translation_frequency": "翻訳頻度制御",
+  "translation_frequency_desc": "このオプションは翻訳リクエストの頻度を制御します。値が大きいほどリクエスト頻度が低く、逆に小さいほど高くなります。これは高すぎるリクエスト頻度がサービスプロバイダーに拒否されるのを避けるためです",
+  "translation_frequency_label": "{frequency}秒",
+  "translation_frequency_set": "翻訳頻度が{frequency}秒に設定されました"
 }; 

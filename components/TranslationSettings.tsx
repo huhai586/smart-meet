@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Card, Space, theme, Switch, Divider, Select } from 'antd';
+import { Typography, Card, Space, theme, Switch, Divider, Select, Slider } from 'antd';
 import styled from '@emotion/styled';
 import { TranslationOutlined } from '@ant-design/icons';
 import LanguageSelector from './LanguageSelector';
@@ -7,6 +7,7 @@ import useI18n from '../utils/i18n';
 import StyledTitle from './common/StyledTitle';
 import { useAutoTranslate } from '../hooks/useAutoTranslate';
 import { useTranslationProvider, getProviderDisplayName, type TranslationProvider } from '../hooks/useTranslationProvider';
+import { useTranslationFrequency } from '../hooks/useTranslationFrequency';
 import messageManager from '../utils/message-manager';
 
 const { Title, Text } = Typography;
@@ -43,11 +44,16 @@ const SwitchContainer = styled.div`
   padding: 16px 0;
 `;
 
+const SliderContainer = styled.div`
+  padding: 16px 0;
+`;
+
 const TranslationSettings: React.FC = () => {
   const { token } = useToken();
   const { t } = useI18n();
   const [autoTranslateEnabled, setAutoTranslateEnabled] = useAutoTranslate();
   const [translationProvider, setTranslationProvider] = useTranslationProvider();
+  const [translationFrequency, setTranslationFrequency] = useTranslationFrequency();
 
   const handleAutoTranslateChange = (checked: boolean) => {
     setAutoTranslateEnabled(checked);
@@ -57,10 +63,40 @@ const TranslationSettings: React.FC = () => {
   };
 
   const handleProviderChange = (value: TranslationProvider) => {
-    setTranslationProvider(value);
+    console.log(`[TranslationSettings] User selected provider: ${value}`);
+    
+    // 在设置之前先检查当前存储的值
+    chrome.storage.sync.get(['translationProvider'], (result) => {
+      console.log(`[TranslationSettings] Before setting - Storage contains:`, result);
+      
+      // 设置新的翻译提供商
+      setTranslationProvider(value);
+      
+      // 延迟验证设置是否成功
+      setTimeout(() => {
+        chrome.storage.sync.get(['translationProvider'], (newResult) => {
+          console.log(`[TranslationSettings] After setting - Storage contains:`, newResult);
+          
+          // 再次测试获取函数
+          import('../hooks/useTranslationProvider').then(({ getCurrentTranslationProvider }) => {
+            getCurrentTranslationProvider().then(provider => {
+              console.log(`[TranslationSettings] getCurrentTranslationProvider returned: ${provider}`);
+            });
+          });
+        });
+      }, 500);
+    });
+    
     const providerName = getProviderDisplayName(value);
     messageManager.success(
       t('translation_provider_set', { provider: providerName })
+    );
+  };
+
+  const handleFrequencyChange = (value: number) => {
+    setTranslationFrequency(value);
+    messageManager.success(
+      t('translation_frequency_set', { frequency: value.toString() })
     );
   };
 
@@ -140,6 +176,47 @@ const TranslationSettings: React.FC = () => {
                   </Option>
                 </Select>
               </div>
+
+              <Divider />
+
+              <SliderContainer>
+                <div style={{ marginBottom: "16px" }}>
+                  <Text strong style={{ fontSize: "16px", marginBottom: "4px", display: "block" }}>
+                    {t('translation_frequency')}
+                  </Text>
+                  <Text type="secondary" style={{ fontSize: "14px", marginBottom: "16px" }}>
+                    {t('translation_frequency_desc')}
+                  </Text>
+                </div>
+                <div style={{ paddingLeft: "8px", paddingRight: "8px" }}>
+                  <Slider
+                    min={1}
+                    max={10}
+                    step={0.5}
+                    value={translationFrequency}
+                    onChange={handleFrequencyChange}
+                    tooltip={{
+                      formatter: (value) => t('translation_frequency_label', { frequency: value?.toString() || '2.5' })
+                    }}
+                    marks={{
+                      1: '1s',
+                      2.5: '2.5s',
+                      5: '5s',
+                      10: '10s'
+                    }}
+                    style={{ width: "100%" }}
+                  />
+                  <div style={{ 
+                    textAlign: "center", 
+                    marginTop: "8px", 
+                    fontSize: "14px",
+                    color: token.colorPrimary,
+                    fontWeight: "500"
+                  }}>
+                    {t('translation_frequency_label', { frequency: translationFrequency.toString() })}
+                  </div>
+                </div>
+              </SliderContainer>
             </>
           )}
         </Space>

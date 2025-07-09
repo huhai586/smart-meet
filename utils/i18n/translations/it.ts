@@ -115,9 +115,9 @@ export default {
   "no_history": "Ancora nessuna cronologia delle traduzioni. Clicca su qualsiasi parola nei sottotitoli per tradurla.",
   
   // AI Service Messages
-  "ai_meeting_content_intro": "Ecco il contenuto precedente della riunione: ",
+  "ai_meeting_content_intro": "Ecco il contenuto della riunione precedente: ",
   "ai_meeting_assistant_ready": "Ho capito il contenuto della riunione. Come posso aiutarti?",
-  "ai_system_prompt_meeting": "Sei un assistente utile per le trascrizioni delle riunioni.",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
   // Translation Errors
   "translation_service_not_configured": "Il servizio di traduzione non è configurato. Si prega di verificare le impostazioni API.",
@@ -144,5 +144,19 @@ export default {
   // Translation Language
   "select_translation_language": "Seleziona Lingua di Traduzione",
   "translation_language_desc": "Scegli la lingua per tradurre il contenuto testuale.",
-  "translation_language_set": "Lingua di traduzione impostata su {language}"
+  "translation_language_set": "Lingua di traduzione impostata su {language}",
+
+  // Fornitore di traduzione
+  "translation_provider": "Fornitore di traduzione",
+  "translation_provider_desc": "Seleziona il fornitore di servizi di traduzione gratuiti",
+  "provider_google": "Google Traduttore",
+  "provider_microsoft": "Microsoft Traduttore",
+  "provider_ai": "Traduzione IA",
+  "translation_provider_set": "Fornitore di traduzione impostato su {provider}",
+  
+  // Controllo della frequenza di traduzione
+  "translation_frequency": "Controllo della frequenza di traduzione",
+  "translation_frequency_desc": "Questa opzione controlla la frequenza delle richieste di traduzione. Valori più alti significano frequenza di richieste più bassa e viceversa. Questo per evitare che frequenze di richieste elevate vengano rifiutate dai fornitori di servizi",
+  "translation_frequency_label": "{frequency}s",
+  "translation_frequency_set": "Frequenza di traduzione impostata su {frequency} secondi"
 }; 
