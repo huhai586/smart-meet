@@ -3,6 +3,7 @@ import askAI from "~utils/askAI"
 import {setTranslatedWords} from "~utils/translate";
 import { getTranslation } from "~utils/i18n";
 import { getCurrentUILanguage } from "~hooks/useUILanguage";
+import messageManager from "~utils/message-manager";
 
 const translateSingleWords = async (text: string): Promise<string> => {
     try {
@@ -22,6 +23,16 @@ const translateSingleWords = async (text: string): Promise<string> => {
         // Return a user-friendly error message instead of throwing
         const errorMessage = typeof error === 'string' ? error : 
                            error?.message || getTranslation('translation_service_unavailable', langCode);
+        
+        // Check for rate limit errors
+        if (errorMessage.includes('rate limit') || errorMessage.includes('quota') || 
+            errorMessage.includes('429') || errorMessage.includes('Too Many Requests') ||
+            errorMessage.includes('频率') || errorMessage.includes('frequency')) {
+            // Display rate limit error message
+            const rateLimitMessage = getTranslation('google_translate_rate_limit_error', langCode);
+            messageManager.error(rateLimitMessage);
+            throw new Error('AI翻译请求过于频繁，请稍后再试');
+        }
         
         // For API not ready errors, return a specific message
         if (errorMessage.includes('AI service not ready') || 

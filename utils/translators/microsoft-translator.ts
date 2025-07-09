@@ -1,5 +1,8 @@
 import { translate } from 'microsoft-translate-api';
 import { getCurrentLanguage } from '../../hooks/useTranslationLanguage';
+import messageManager from '../message-manager';
+import { getTranslation } from '../i18n';
+import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 
 // Microsoft翻译API支持的语言代码映射
 const microsoftLangCodes = {
@@ -190,11 +193,17 @@ export const translateByMicrosoft = async (text: string): Promise<string> => {
   } catch (error) {
     console.error('Microsoft翻译错误:', error);
     
-    // 根据错误类型返回不同的错误信息
-    if (error.message?.includes('network') || error.message?.includes('fetch')) {
+    // 根据错误类型返回相应的错误消息
+    if (error.message?.includes('rate limit') || error.message?.includes('quota') || 
+        error.message?.includes('429') || error.name === 'TooManyRequestsError' || 
+        error.code === 429) {
+      // 获取当前UI语言并显示多语言错误提示
+      const currentUILanguage = await getCurrentUILanguage();
+      const errorMessage = getTranslation('google_translate_rate_limit_error', currentUILanguage.code);
+      messageManager.error(errorMessage);
+      throw new Error('Microsoft翻译请求过于频繁，请稍后再试');
+    } else if (error.message?.includes('network') || error.message?.includes('fetch')) {
       throw new Error('网络错误，请检查您的网络连接');
-    } else if (error.message?.includes('rate limit') || error.message?.includes('quota')) {
-      throw new Error('Microsoft翻译服务配额已用完');
     } else if (error.message?.includes('unauthorized') || error.message?.includes('403')) {
       throw new Error('Microsoft翻译服务认证失败');
     } else {
