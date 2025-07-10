@@ -20,7 +20,7 @@
     &:nth-child(odd) {
       .card-container {
         background-color: #fff;
-        border-left: 3px solid #1890ff;
+        border-left: 3px solid #1a73e8;
       }
     }
 
@@ -144,7 +144,7 @@
   }
 
   blockquote {
-    border-left: 4px solid #1890ff;
+    border-left: 4px solid #1a73e8;
     margin: 12px 0;
     padding: 8px 16px;
     background: #f8f9fa;
@@ -181,11 +181,11 @@
     .ant-input-search-button {
       height: 40px;
       min-width: 80px;
-      background: linear-gradient(135deg, #1890ff, #096dd9);
+      background: linear-gradient(135deg, #1a73e8, #1557b0);
       transition: all 0.3s;
 
       &:hover {
-        background: linear-gradient(135deg, #40a9ff, #1890ff);
+        background: linear-gradient(135deg, #2563eb, #1a73e8);
         box-shadow: 0 2px 6px rgba(24, 144, 255, 0.3);
       }
     }
@@ -195,7 +195,7 @@
       border-radius: 4px 0 0 4px;
 
       &:focus, &:hover {
-        border-color: #1890ff;
+        border-color: #1a73e8;
         box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
       }
     }

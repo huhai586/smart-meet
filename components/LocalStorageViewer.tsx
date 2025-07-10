@@ -264,8 +264,8 @@ const LocalStorageViewer = () => {
                 return (
                   <div style={{
                     height: '100%',
-                    background: 'rgba(24, 144, 255, 0.1)',
-                    border: '1px solid #1890ff',
+                    background: 'rgba(26, 115, 232, 0.1)',
+                    border: '1px solid #1a73e8',
                     borderRadius: '4px',
                     display: 'flex',
                     flexDirection: 'column',

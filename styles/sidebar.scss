@@ -1,12 +1,12 @@
 .sidebar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #6B73FF 100%);
+  background: linear-gradient(135deg, #1a73e8 0%, #1557b0 50%, #2563eb 100%);
   position: relative;
   height: 100vh;
   width: 280px;
   padding: 24px 0;
   box-shadow: 
     4px 0 24px rgba(0, 0, 0, 0.15),
-    0 8px 32px rgba(102, 126, 234, 0.2);
+    0 8px 32px rgba(26, 115, 232, 0.2);
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -148,7 +148,7 @@
 
       &.active {
         background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
-        color: #4263eb;
+        color: #1a73e8;
         box-shadow: 
           0 8px 24px rgba(0, 0, 0, 0.2),
           inset 0 1px 0 rgba(255, 255, 255, 0.8);

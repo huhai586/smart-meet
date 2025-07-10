@@ -42,7 +42,7 @@ const DateItem = styled(List.Item)`
 
 const StyledBadge = styled(Badge)`
   .ant-badge-count {
-    background-color: #1890ff;
+    background-color: #1a73e8;
     box-shadow: 0 0 0 1px #fff;
   }
 `;
@@ -58,7 +58,7 @@ const MonthStatistic = styled.div`
   
   .ant-statistic-content {
     font-size: 14px;
-    color: #1890ff;
+    color: #1a73e8;
   }
 `;
 
@@ -76,7 +76,7 @@ const LoadingContainer = styled.div`
   
   .loading-text {
     margin-top: 16px;
-    color: #1890ff;
+    color: #1a73e8;
   }
 `;
 
@@ -85,12 +85,12 @@ const PreviewContainer = styled.div`
   margin-left: 40px;
   padding: 8px 12px;
   background-color: #f9f9f9;
-  border-left: 3px solid #1890ff;
+  border-left: 3px solid #1a73e8;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   
   &:hover {
-    background-color: #f0f7ff;
+    background-color: #f0f8ff;
   }
 `;
 
@@ -547,7 +547,7 @@ const Calendar = () => {
                   <Statistic
                     value={month.totalMessages}
                     suffix={month.totalMessages === 1 ? "message" : "messages"}
-                    valueStyle={{ fontSize: '14px', color: '#1890ff' }}
+                    valueStyle={{ fontSize: '14px', color: '#1a73e8' }}
                   />
                 </MonthStatistic>
               </div>
@@ -569,7 +569,7 @@ const Calendar = () => {
                           alignItems: 'center',
                           justifyContent: 'center',
                           fontWeight: 'bold',
-                          color: '#1890ff'
+                          color: '#1a73e8'
                         }}>
                           {day.formattedDate}
                         </div>
@@ -689,7 +689,7 @@ const Calendar = () => {
                         }
                       }}
                       style={{
-                        backgroundColor: isHighlighted ? '#e6f7ff' : 'transparent',
+                        backgroundColor: isHighlighted ? '#e6f3ff' : 'transparent',
                         transition: 'background-color 0.3s'
                       }}
                     >

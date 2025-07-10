@@ -41,19 +41,19 @@ body {
         transition: all 0.3s;
 
         &:focus {
-          border-color: #40a9ff;
-          box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+          border-color: #1a73e8;
+          box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
           outline: none;
         }
 
         &:hover {
-          border-color: #40a9ff;
+          border-color: #1a73e8;
         }
       }
     }
 
     .save-button {
-      background: #1890ff;
+      background: #1a73e8;
       color: white;
       border: none;
       padding: 8px 16px;
@@ -63,11 +63,11 @@ body {
       transition: all 0.3s;
 
       &:hover {
-        background: #40a9ff;
+        background: #2563eb;
       }
 
       &:active {
-        background: #096dd9;
+        background: #1557b0;
       }
     }
 

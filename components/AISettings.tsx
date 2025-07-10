@@ -39,8 +39,8 @@ const ServiceListItem = styled.div<{
   display: flex;
   align-items: center;
   transition: all 0.2s ease;
-  background: ${props => props.selected ? 'rgba(22, 119, 255, 0.1)' : 'white'};
-  border: 1px solid ${props => props.selected ? '#1677ff' : '#f0f0f0'};
+  background: ${props => props.selected ? 'rgba(26, 115, 232, 0.1)' : 'white'};
+  border: 1px solid ${props => props.selected ? '#1a73e8' : '#f0f0f0'};
   position: relative;
   overflow: hidden;
   
@@ -69,8 +69,8 @@ const StatusBadge = styled.div<{ isSuccess: boolean }>`
 
 const ActiveServiceBadge = styled.div`
   margin-left: auto;
-  background-color: rgba(22, 119, 255, 0.1);
-  color: #1677ff;
+  background-color: rgba(26, 115, 232, 0.1);
+  color: #1a73e8;
   padding: 5px 12px;
   border-radius: 20px;
   font-weight: bold;
