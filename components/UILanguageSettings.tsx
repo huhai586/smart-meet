@@ -37,34 +37,45 @@ const UILanguageSettings: React.FC = () => {
   const { t } = useI18n();
 
   return (
-    <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
-      <StyledTitle>{t('ui_language')}</StyledTitle>
+    <div>
+      <StyledTitle subtitle={t('ui_language_desc')}>{t('ui_language')}</StyledTitle>
 
-      <StyledCard>
-        <Space direction="vertical" style={{ width: "100%" }}>
-          <IconWrapper color={`${token.colorPrimary}15`} shadowColor={`${token.colorPrimary}20`}>
-            <GlobalOutlined style={{ fontSize: "36px", color: token.colorPrimary }} />
-          </IconWrapper>
-
-          <Title level={4} style={{ textAlign: "center", margin: "16px 0", fontWeight: "600" }}>
-            {t('select_ui_language')}
-          </Title>
-
-          <Text type="secondary" style={{
-            display: "block",
-            textAlign: "center",
-            marginBottom: "32px",
-            fontSize: "15px",
-            lineHeight: "1.6"
+      <div style={{ padding: "0 20px" }}>
+        {/* UI Language Selector Section */}
+        <div style={{ marginBottom: "32px" }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '20px'
           }}>
-            {t('ui_language_desc') || 'Choose the language for the user interface of Google Meet Caption Pro'}
-          </Text>
+            <div style={{
+              fontSize: '36px',
+              marginRight: '15px',
+              width: '60px',
+              height: '60px',
+              background: `${token.colorPrimary}15`,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <GlobalOutlined style={{ fontSize: "32px", color: token.colorPrimary }} />
+            </div>
+            <div>
+              <Title level={4} style={{ margin: 0, fontWeight: 600, color: '#333' }}>
+                {t('select_ui_language')}
+              </Title>
+              <Text type="secondary" style={{ fontSize: '15px' }}>
+                {t('ui_language_desc')}
+              </Text>
+            </div>
+          </div>
 
-          <div style={{ textAlign: "center", marginBottom: "16px" }}>
+          <div style={{ maxWidth: "400px" }}>
             <UILanguageSelector />
           </div>
-        </Space>
-      </StyledCard>
+        </div>
+      </div>
     </div>
   );
 };

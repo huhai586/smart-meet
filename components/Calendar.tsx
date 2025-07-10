@@ -270,7 +270,7 @@ const Calendar = () => {
       setModalVisible(true);
       setModalLoading(true);
       setHighlightedRecordIndex(null);
-      
+
       // 清除内容搜索文本
       setContentSearchText('');
 
@@ -299,7 +299,7 @@ const Calendar = () => {
       setModalVisible(true);
       setModalLoading(true);
       setHighlightedRecordIndex(recordIndex);
-      
+
       // 如果有搜索词，设置内容搜索文本
       if (searchTerm) {
         setContentSearchText(searchTerm);
@@ -340,7 +340,7 @@ const Calendar = () => {
           observer.disconnect();
         }
       });
-      
+
       // 开始观察模态框内容的变化
       if (modalContentRef.current) {
         observer.observe(modalContentRef.current, {
@@ -348,7 +348,7 @@ const Calendar = () => {
           subtree: true
         });
       }
-      
+
       // 同时使用定时器作为备份方案
       const scrollToHighlight = () => {
         try {
@@ -363,14 +363,14 @@ const Calendar = () => {
           console.error('Error scrolling to highlight:', error);
         }
       };
-      
+
       // 多次尝试滚动，确保DOM已完全渲染
       const timers = [
         setTimeout(scrollToHighlight, 300),
         setTimeout(scrollToHighlight, 600),
         setTimeout(scrollToHighlight, 1000)
       ];
-      
+
       // 清理函数
       return () => {
         observer.disconnect();
@@ -391,7 +391,7 @@ const Calendar = () => {
         });
       }
     }
-    
+
     // 如果有搜索文本，尝试滚动到高亮文本
     if (contentSearchText) {
       setTimeout(() => {
@@ -493,14 +493,14 @@ const Calendar = () => {
       // 使用不区分大小写的正则表达式
       const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
       const parts = text.split(regex);
-      
+
       return (
         <>
           {parts.map((part, index) => {
             if (part.toLowerCase() === searchTerm.toLowerCase()) {
               return (
-                <HighlightedText 
-                  className="highlighted-text" 
+                <HighlightedText
+                  className="highlighted-text"
                   key={index}
                   id={`highlight-${index}`}
                 >
@@ -624,95 +624,97 @@ const Calendar = () => {
   );
 
   return (
-    <CalendarContainer>
-      <StyledTitle>{t('chat_history')}</StyledTitle>
+    <div>
+      <StyledTitle subtitle={t('chat_history_desc')}>{t('chat_history')}</StyledTitle>
 
-      <Space direction="vertical" style={{ width: '100%' }}>
-        <SearchContainer>
-          <Search
-            placeholder={t('search_content')}
-            allowClear
-            enterButton={<Button type="primary" icon={<HighlightOutlined />}>{t('search_button')}</Button>}
-            onSearch={handleContentSearch}
-            onChange={(e) => !e.target.value && handleContentSearch('')}
-            loading={searchingContentLoading}
-          />
-          {contentSearchText && (
-            <div style={{ marginTop: 8 }}>
-              <Tag color="blue">{t('search_for', { term: contentSearchText })}</Tag>
-              <Button
-                type="link"
-                size="small"
-                onClick={() => handleContentSearch('')}
-                disabled={searchingContentLoading}
-              >
-                {t('clear')}
-              </Button>
+      <div style={{ padding: "0 20px" }}>
+        <Space direction="vertical" style={{ width: '100%' }}>
+          <SearchContainer>
+            <Search
+              placeholder={t('search_content')}
+              allowClear
+              enterButton={<Button type="primary" icon={<HighlightOutlined />}>{t('search_button')}</Button>}
+              onSearch={handleContentSearch}
+              onChange={(e) => !e.target.value && handleContentSearch('')}
+              loading={searchingContentLoading}
+            />
+            {contentSearchText && (
+              <div style={{ marginTop: 8 }}>
+                <Tag color="blue">{t('search_for', { term: contentSearchText })}</Tag>
+                <Button
+                  type="link"
+                  size="small"
+                  onClick={() => handleContentSearch('')}
+                  disabled={searchingContentLoading}
+                >
+                  {t('clear')}
+                </Button>
+              </div>
+            )}
+          </SearchContainer>
+        </Space>
+
+        <Divider />
+
+        {loading || searchingContentLoading ? renderLoading() : renderMonthCollapse()}
+
+        <Modal
+          title={selectedDate ? t('chat_records', { date: dayjs(selectedDate).format('YYYY-MM-DD') }) : ''}
+          open={modalVisible}
+          onCancel={() => setModalVisible(false)}
+          footer={null}
+          width={800}
+          bodyStyle={{ maxHeight: '70vh', overflow: 'auto' }}
+        >
+          {modalLoading ? (
+            <div style={{ padding: '40px 0' }}>
+              <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+              <div style={{ marginTop: 16 }}>{t('loading')}</div>
+            </div>
+          ) : chatRecords.length === 0 ? (
+            <Empty description={t('no_records_for_date')} />
+          ) : (
+            <div ref={modalContentRef}>
+              <Spin spinning={modalLoading}>
+                <List
+                  dataSource={chatRecords}
+                  renderItem={(record, index) => {
+                    // 只有在内容搜索模式下且是高亮记录时才应用背景色
+                    const isHighlighted = highlightedRecordIndex === index && contentSearchText;
+
+                    return (
+                      <List.Item
+                        ref={(el) => {
+                          if (el) {
+                            listItemRefs.current.set(`record-${index}`, el);
+                          }
+                        }}
+                        style={{
+                          backgroundColor: isHighlighted ? '#e6f3ff' : 'transparent',
+                          transition: 'background-color 0.3s'
+                        }}
+                      >
+                        <List.Item.Meta
+                          title={record.activeSpeaker}
+                          description={
+                            contentSearchText ?
+                              highlightText(record.talkContent, contentSearchText) :
+                              record.talkContent
+                          }
+                        />
+                        <Text type="secondary">
+                          {dayjs(record.timestamp).format('HH:mm:ss')}
+                        </Text>
+                      </List.Item>
+                    );
+                  }}
+                />
+              </Spin>
             </div>
           )}
-        </SearchContainer>
-      </Space>
-
-      <Divider />
-
-      {loading || searchingContentLoading ? renderLoading() : renderMonthCollapse()}
-
-      <Modal
-        title={selectedDate ? t('chat_records', { date: dayjs(selectedDate).format('YYYY-MM-DD') }) : ''}
-        open={modalVisible}
-        onCancel={() => setModalVisible(false)}
-        footer={null}
-        width={800}
-        bodyStyle={{ maxHeight: '70vh', overflow: 'auto' }}
-      >
-        {modalLoading ? (
-          <div style={{ textAlign: 'center', padding: '40px 0' }}>
-            <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-            <div style={{ marginTop: 16 }}>{t('loading')}</div>
-          </div>
-        ) : chatRecords.length === 0 ? (
-          <Empty description={t('no_records_for_date')} />
-        ) : (
-          <div ref={modalContentRef}>
-            <Spin spinning={modalLoading}>
-              <List
-                dataSource={chatRecords}
-                renderItem={(record, index) => {
-                  // 只有在内容搜索模式下且是高亮记录时才应用背景色
-                  const isHighlighted = highlightedRecordIndex === index && contentSearchText;
-                  
-                  return (
-                    <List.Item
-                      ref={(el) => {
-                        if (el) {
-                          listItemRefs.current.set(`record-${index}`, el);
-                        }
-                      }}
-                      style={{
-                        backgroundColor: isHighlighted ? '#e6f3ff' : 'transparent',
-                        transition: 'background-color 0.3s'
-                      }}
-                    >
-                      <List.Item.Meta
-                        title={record.activeSpeaker}
-                        description={
-                          contentSearchText ?
-                            highlightText(record.talkContent, contentSearchText) :
-                            record.talkContent
-                        }
-                      />
-                      <Text type="secondary">
-                        {dayjs(record.timestamp).format('HH:mm:ss')}
-                      </Text>
-                    </List.Item>
-                  );
-                }}
-              />
-            </Spin>
-          </div>
-        )}
-      </Modal>
-    </CalendarContainer>
+        </Modal>
+      </div>
+    </div>
   );
 };
 

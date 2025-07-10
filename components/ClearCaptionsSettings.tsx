@@ -69,79 +69,90 @@ const ClearCaptionsSettings: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "40px 20px", maxWidth: "800px", margin: "0 auto" }}>
-      <StyledTitle>{t('clear_captions')}</StyledTitle>
-      
-      <StyledCard>
-        <Space direction="vertical" style={{ width: "100%" }}>
-          <IconWrapper color={`${token.colorError}15`} shadowColor={`${token.colorError}20`}>
-            <DeleteOutlined style={{ fontSize: "36px", color: token.colorError }} />
-          </IconWrapper>
+    <div>
+      <StyledTitle subtitle={t('clear_captions_desc')}>{t('clear_captions')}</StyledTitle>
 
-          <Title level={4} style={{ textAlign: "center", margin: "16px 0", fontWeight: "600" }}>
-            {t('clear_captions')}
-          </Title>
-
-          <Text type="secondary" style={{
-            display: "block",
-            textAlign: "center",
-            marginBottom: "32px",
-            fontSize: "15px",
-            lineHeight: "1.6"
+      <div style={{ padding: "0 20px" }}>
+        {/* Clear Captions Section */}
+        <div style={{ marginBottom: "32px" }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            marginBottom: '20px'
           }}>
-            {t('clear_captions_desc')}
-          </Text>
+            <div style={{
+              fontSize: '36px',
+              marginRight: '15px',
+              width: '60px',
+              height: '60px',
+              background: `${token.colorError}15`,
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <DeleteOutlined style={{ fontSize: "32px", color: token.colorError }} />
+            </div>
+            <div>
+              <Title level={4} style={{ margin: 0, fontWeight: 600, color: '#333' }}>
+                {t('clear_all_captions')}
+              </Title>
+              <Text type="secondary" style={{ fontSize: '15px' }}>
+                {t('clear_captions_warning')}
+              </Text>
+            </div>
+          </div>
 
           <Alert
-            style={{ marginBottom: "24px" }}
-            message={t('clear_captions_warning') || "Warning: This action cannot be undone"}
-            description={
-              <Text type="secondary">
-                {t('clear_captions_warning_desc') || "This will permanently delete all recorded captions from your browser storage."}
-              </Text>
-            }
+            message={t('warning')}
+            description={t('clear_captions_warning')}
             type="warning"
             showIcon
+            style={{ marginBottom: "24px", borderRadius: "8px" }}
           />
 
-          <div style={{ textAlign: "center" }}>
-            <ActionButton
-              danger
+          <div style={{ maxWidth: "200px" }}>
+            <Button
               type="primary"
+              danger
               size="large"
+              icon={<DeleteOutlined />}
               onClick={showModal}
               style={{
-                minWidth: "180px"
+                width: "100%",
+                borderRadius: "8px",
+                height: "48px",
+                fontSize: "16px",
+                fontWeight: "500"
               }}
-              icon={<DeleteOutlined />}
             >
-              {t('clear_all_captions')}
-            </ActionButton>
+              {t('clear_all_data')}
+            </Button>
           </div>
-        </Space>
-      </StyledCard>
+        </div>
 
-      <Modal
-        title={t('confirm_clear_captions')}
-        open={isModalVisible}
-        onOk={handleClear}
-        onCancel={handleCancel}
-        okText={t('yes_clear_data')}
-        cancelText={t('cancel')}
-        okButtonProps={{ danger: true }}
-      >
-        <p>{t('clear_confirm')}</p>
-        {clearSuccess && (
-          <Alert
-            style={{ marginTop: "16px" }}
-            message={t('data_cleared_success')}
-            type="success"
-            showIcon
-          />
-        )}
-      </Modal>
+        <Modal
+          title={t('confirm_clear_captions')}
+          open={isModalVisible}
+          onOk={handleClear}
+          onCancel={handleCancel}
+          okText={t('yes_clear_data')}
+          cancelText={t('cancel')}
+          okButtonProps={{ danger: true }}
+        >
+          <p>{t('clear_confirm')}</p>
+          {clearSuccess && (
+            <Alert
+              style={{ marginTop: "16px" }}
+              message={t('data_cleared_success')}
+              type="success"
+              showIcon
+            />
+          )}
+        </Modal>
+      </div>
     </div>
   );
 };
 
-export default ClearCaptionsSettings; 
+export default ClearCaptionsSettings;
