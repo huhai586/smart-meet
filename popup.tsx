@@ -38,6 +38,12 @@ const ContentMonitor = () => {
     chrome.runtime.openOptionsPage()
   }
 
+  const handleShowCaptions = () => {
+    openSidePanel();
+    // 关闭popup
+    window.close();
+  }
+
   const toggleSwitch = (v) => {
         setSwitchValue(v)
         chrome.storage.local.set({ isExtensionDisabled: !v }, () => {
@@ -101,7 +107,7 @@ const ContentMonitor = () => {
           <div className="actions-section">
               <div className="section-title">{t('quick_actions')}</div>
               
-              <div className="flex-column" onClick={openSidePanel}>
+              <div className="flex-column show-captions-card" onClick={handleShowCaptions}>
                   <div className={'height26'}><b><EyeOutlined style={{ marginRight: '8px' }} />{t('show_captions')}</b></div>
                   <span>{t('show_captions_desc')}</span>
               </div>

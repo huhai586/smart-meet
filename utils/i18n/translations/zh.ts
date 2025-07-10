@@ -4,6 +4,7 @@ export default {
   "popup_subtitle": "Google Meet 增强工具",
   "main_controls": "主要控制",
   "quick_actions": "快速操作",
+  "recommended": "推荐",
   "log_captions": "记录Google会议字幕",
   "show_captions": "显示字幕",
   "show_captions_desc": "打开侧边栏查看主要显示",
