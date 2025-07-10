@@ -285,6 +285,65 @@
             color: #1a73e8;
           }
         }
+
+        // 可点击单词的样式
+        .clickable-word {
+          display: inline;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          position: relative;
+
+          &:hover {
+            background: rgba(26, 115, 232, 0.1);
+            color: #1a73e8;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(26, 115, 232, 0.2);
+          }
+
+          &:active {
+            transform: translateY(0);
+            background: rgba(26, 115, 232, 0.2);
+          }
+
+          // 高亮词汇的样式
+          b.highlight {
+            font-weight: bold;
+            color: #e53e3e;
+            background: rgba(255, 235, 238, 0.8);
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+
+            &:hover {
+              background: rgba(255, 235, 238, 1);
+              box-shadow: 0 2px 4px rgba(229, 62, 62, 0.3);
+            }
+          }
+
+          // 当可点击单词被悬停时，内部的高亮也要有相应的样式
+          &:hover b.highlight {
+            color: #1a73e8;
+            background: rgba(240, 247, 255, 0.9);
+          }
+        }
+
+        // 独立的高亮样式（用于没有被包装在clickable-word中的高亮词汇）
+        b.highlight {
+          font-weight: bold;
+          color: #e53e3e;
+          background: rgba(255, 235, 238, 0.8);
+          padding: 2px 4px;
+          border-radius: 3px;
+          transition: all 0.2s ease;
+          cursor: pointer;
+
+          &:hover {
+            background: rgba(255, 235, 238, 1);
+            box-shadow: 0 2px 4px rgba(229, 62, 62, 0.3);
+          }
+        }
       }
 
       .timestamp {

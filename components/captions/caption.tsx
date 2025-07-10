@@ -13,10 +13,11 @@ import {
 import highlight from '../../utils/highlight';
 import useHighLightWords from "../../hooks/useHighLightWords";
 import useDomain from "../../hooks/useDomain";
-import translateSingleWords from "~utils/translate-signal-words";
 import useI18n from "../../utils/i18n";
 import messageManager from "../../utils/message-manager";
 import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
+import { getCurrentTranslationProvider } from "../../hooks/useTranslationProvider";
+import { translateByGoogle, translateByMicrosoft, translateByAI } from "../../utils/translators";
 
 type CaptionProps = {
     data: Transcript;
@@ -40,6 +41,7 @@ const Caption = memo((props: CaptionProps) => {
     const [domainKeyWords, specificWords] = useHighLightWords();
     const [domain] = useDomain();
     const { t } = useI18n();
+    const [isTranslating, setIsTranslating] = useState(false);
     
     // 使用自动翻译hook
     const { autoTranslatedContent, isAutoTranslating, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
@@ -79,19 +81,231 @@ const Caption = memo((props: CaptionProps) => {
         };
     }, [cleanup]);
 
+    // 使用useCallback缓存函数引用
+    const success = useCallback((res: string) => {
+        messageManager.success(res, 5);
+    }, []);
+
+    const error = useCallback((res: string) => {
+        messageManager.error(res, 5);
+    }, []);
+
     // 使用 useMemo 缓存高亮处理的结果，并正确指定依赖项
     const captions = useMemo(() => {
-
-        
         // 始终显示原文，不被翻译内容覆盖
         const displayContent = data.talkContent;
         
+        // 先应用高亮效果，然后再包装单词
+        let processedContent = displayContent;
+        
+        // 如果有高亮词汇，先应用高亮效果
         if (domainKeyWords.length > 0 || specificWords.length > 0) {
-          let spans = displayContent.replace(/\b(\w+)\b/g, '<span>$1</span>');
-          return highlight(spans,[...domainKeyWords, ...specificWords]);
+            processedContent = highlight(processedContent, [...domainKeyWords, ...specificWords]);
         }
-        return displayContent;
+        
+        // 将文本分割成单词并包装成可点击的span，但要避免破坏已有的HTML标签
+        const wrapWordsInSpans = (text: string): string => {
+            // 分离HTML标签和纯文本
+            const parts: Array<{type: 'html' | 'text', content: string}> = [];
+            let currentIndex = 0;
+            
+            // 找到所有HTML标签
+            const htmlTagRegex = /<[^>]+>/g;
+            let match;
+            
+            while ((match = htmlTagRegex.exec(text)) !== null) {
+                // 添加标签前的文本
+                if (match.index > currentIndex) {
+                    parts.push({
+                        type: 'text',
+                        content: text.substring(currentIndex, match.index)
+                    });
+                }
+                
+                // 添加HTML标签
+                parts.push({
+                    type: 'html',
+                    content: match[0]
+                });
+                
+                currentIndex = match.index + match[0].length;
+            }
+            
+            // 添加最后剩余的文本
+            if (currentIndex < text.length) {
+                parts.push({
+                    type: 'text',
+                    content: text.substring(currentIndex)
+                });
+            }
+            
+            // 处理每个部分
+            return parts.map(part => {
+                if (part.type === 'html') {
+                    return part.content;
+                } else {
+                    // 只对纯文本部分进行单词包装
+                    return part.content.replace(/(\S+)/g, (word) => {
+                        return `<span class="clickable-word" data-word="${word.replace(/"/g, '&quot;')}">${word}</span>`;
+                    });
+                }
+            }).join('');
+        };
+        
+        processedContent = wrapWordsInSpans(processedContent);
+        
+        return processedContent;
     }, [data.talkContent, domainKeyWords, specificWords]);
+
+    // 改进的单词点击处理函数
+    const handleWordClick = useCallback(async (event: React.MouseEvent) => {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        const target = event.target as HTMLElement;
+        
+        // 检查点击的是否是单词span或者高亮的b标签
+        let clickableElement = target;
+        let word = '';
+        
+        // 如果点击的是高亮的b标签，需要找到父级的clickable-word span
+        if (target.classList.contains('highlight')) {
+            // 向上查找clickable-word span
+            let parent = target.parentElement;
+            while (parent && !parent.classList.contains('clickable-word')) {
+                parent = parent.parentElement;
+            }
+            if (parent && parent.classList.contains('clickable-word')) {
+                clickableElement = parent;
+                word = parent.getAttribute('data-word') || '';
+            } else {
+                // 如果没有找到clickable-word，使用高亮元素的文本内容
+                word = target.textContent || '';
+            }
+        } else if (target.classList.contains('clickable-word')) {
+            word = target.getAttribute('data-word') || '';
+        } else {
+            // 向上查找是否有clickable-word父元素
+            let parent = target.parentElement;
+            while (parent && !parent.classList.contains('clickable-word')) {
+                parent = parent.parentElement;
+            }
+            if (parent && parent.classList.contains('clickable-word')) {
+                clickableElement = parent;
+                word = parent.getAttribute('data-word') || '';
+            }
+        }
+        
+        if (word && word.trim()) {
+            try {
+                console.log(`Clicked word: ${word}`);
+                
+                // 获取当前翻译提供商
+                const provider = await getCurrentTranslationProvider();
+                console.log(`[handleWordClick] Using provider: ${provider}`);
+                
+                let translatedText: string;
+                
+                // 根据不同的提供商调用相应的翻译函数
+                switch (provider) {
+                    case 'google':
+                        translatedText = await translateByGoogle(word);
+                        break;
+                    case 'microsoft':
+                        translatedText = await translateByMicrosoft(word);
+                        break;
+                    case 'ai':
+                    default:
+                        translatedText = await translateByAI(word);
+                        break;
+                }
+                
+                // 显示翻译结果
+                success(`${word} → ${translatedText}`);
+                
+            } catch (err) {
+                console.error('Unexpected error in handleWordClick:', err);
+                const errorMessage = typeof err === 'string' ? err : 
+                                   err?.message || 'Translation failed';
+                error(errorMessage);
+            }
+        } else {
+            // 如果没有找到单词，执行整句翻译逻辑
+            try {
+                // 获取当前翻译提供商
+                const provider = await getCurrentTranslationProvider();
+                console.log(`[handleWordClick] Using provider for sentence: ${provider}`);
+                
+                let translatedText: string;
+                
+                // 根据不同的提供商调用相应的翻译函数
+                switch (provider) {
+                    case 'google':
+                        translatedText = await translateByGoogle(data.talkContent);
+                        break;
+                    case 'microsoft':
+                        translatedText = await translateByMicrosoft(data.talkContent);
+                        break;
+                    case 'ai':
+                    default:
+                        translatedText = await translateByAI(data.talkContent);
+                        break;
+                }
+                
+                // 显示翻译结果
+                success(translatedText);
+                
+            } catch (err) {
+                console.error('Unexpected error in handleWordClick sentence translation:', err);
+                const errorMessage = typeof err === 'string' ? err : 
+                                   err?.message || 'Translation failed';
+                error(errorMessage);
+            }
+        }
+    }, [data.talkContent, success, error]);
+
+    const hasAiData = aiData.length > 0;
+
+    // 保留原来的文本选择功能
+    const handleTextSelection = useCallback(async () => {
+        const selection = window.getSelection();
+        const selectedText = selection?.toString().trim();
+
+        if (selectedText && selectedText.length > 0) {
+            try {
+                console.log(`Selected text: ${selectedText}`);
+                
+                // 获取当前翻译提供商
+                const provider = await getCurrentTranslationProvider();
+                console.log(`[handleTextSelection] Using provider: ${provider}`);
+                
+                let translatedText: string;
+                
+                // 根据不同的提供商调用相应的翻译函数
+                switch (provider) {
+                    case 'google':
+                        translatedText = await translateByGoogle(selectedText);
+                        break;
+                    case 'microsoft':
+                        translatedText = await translateByMicrosoft(selectedText);
+                        break;
+                    case 'ai':
+                    default:
+                        translatedText = await translateByAI(selectedText);
+                        break;
+                }
+                
+                // 显示翻译结果
+                success(`${selectedText} → ${translatedText}`);
+                
+            } catch (err) {
+                console.error('Unexpected error in handleTextSelection:', err);
+                const errorMessage = typeof err === 'string' ? err : 
+                                   err?.message || 'Translation failed';
+                error(errorMessage);
+            }
+        }
+    }, [success, error]);
 
     // 使用useCallback缓存函数引用
     const handleAskAI = useCallback((action: Actions) => {
@@ -117,54 +331,54 @@ const Caption = memo((props: CaptionProps) => {
         });
     }, [data.talkContent, t]);
 
-    // 使用useCallback缓存函数引用
-    const success = useCallback((res: string) => {
-        messageManager.success(res, 5);
-    }, []);
-
-    const error = useCallback((res: string) => {
-        messageManager.error(res, 5);
-    }, []);
-
-    const hasAiData = aiData.length > 0;
-
-    // 使用useCallback缓存事件处理函数
-    const handleTextSelection = useCallback(() => {
-        const selection = window.getSelection();
-        const selectedText = selection?.toString().trim();
-
-        if (selectedText && selectedText.length > 0) {
-            translateSingleWords(selectedText).then((res) => {
-                // 检查是否是错误信息（以"Translation failed:"开头）
-                if (res.startsWith('Translation failed:')) {
-                    error(res);
-                } else {
-                    success(res);
-                }
-            }).catch((err) => {
-                console.error('Unexpected error in handleTextSelection:', err);
-                const errorMessage = typeof err === 'string' ? err : 
-                                   err?.message || 'Unknown error occurred';
-                error(errorMessage);
-            });
-        }
-    }, [success, error]);
-
-    const handleTextClick = useCallback(() => {
-        translateSingleWords(data.talkContent).then((res) => {
-            // 检查是否是错误信息（以"Translation failed:"开头）
-            if (res.startsWith('Translation failed:')) {
-                error(res);
-            } else {
-                success(res);
+    // 新的翻译处理函数 - 使用自动翻译接口
+    const handleTranslate = useCallback(async () => {
+        try {
+            setIsTranslating(true);
+            
+            // 获取当前翻译提供商
+            const provider = await getCurrentTranslationProvider();
+            console.log(`[handleTranslate] Using provider: ${provider}`);
+            
+            let translatedText: string;
+            
+            // 根据不同的提供商调用相应的翻译函数
+            switch (provider) {
+                case 'google':
+                    translatedText = await translateByGoogle(data.talkContent);
+                    break;
+                case 'microsoft':
+                    translatedText = await translateByMicrosoft(data.talkContent);
+                    break;
+                case 'ai':
+                default:
+                    translatedText = await translateByAI(data.talkContent);
+                    break;
             }
-        }).catch((err) => {
-            console.error('Unexpected error in handleTextClick:', err);
-            const errorMessage = typeof err === 'string' ? err : 
-                               err?.message || 'Unknown error occurred';
-            error(errorMessage);
-        });
-    }, [data.talkContent, success, error]);
+            
+            // 将翻译结果添加到AI数据中显示
+            setAiData(prevData => {
+                const newData = [...prevData];
+                const matchData = newData.find((item) => item.type === Actions.TRANSLATE);
+                if (matchData) {
+                    matchData.data = translatedText;
+                } else {
+                    newData.push({type: Actions.TRANSLATE, data: translatedText});
+                }
+                return newData;
+            });
+            
+            console.log(`[handleTranslate] Translation completed: ${translatedText.substring(0, 100)}...`);
+            
+        } catch (error) {
+            console.error('Translation error:', error);
+            const errorMessage = typeof error === 'string' ? error : 
+                               error?.message || 'Translation failed';
+            messageManager.error(errorMessage, 5);
+        } finally {
+            setIsTranslating(false);
+        }
+    }, [data.talkContent]);
 
     // 使用useMemo缓存按钮操作文本
     const getActionText = useCallback((action: Actions): string => {
@@ -185,8 +399,8 @@ const Caption = memo((props: CaptionProps) => {
             <Button
                 size={'small'}
                 icon={<TranslationOutlined />}
-                onClick={() => handleAskAI(Actions.TRANSLATE)}
-                loading={isAutoTranslating}
+                onClick={handleTranslate}
+                loading={isTranslating}
             >
                 {getActionText(Actions.TRANSLATE)}
             </Button>
@@ -207,7 +421,7 @@ const Caption = memo((props: CaptionProps) => {
                 {getActionText(Actions.ANALYSIS)}
             </Button>
         </div>
-    ), [handleAskAI, getActionText, isAutoTranslating]);
+    ), [handleTranslate, handleAskAI, getActionText, isTranslating]);
 
     // 使用useMemo缓存AI回答部分
     const aiAnswerSection = useMemo(() => {
@@ -241,7 +455,7 @@ const Caption = memo((props: CaptionProps) => {
                     </div>
                     <div
                         className={'caption-text'}
-                        onClick={handleTextClick}
+                        onClick={handleWordClick}
                         onMouseUp={handleTextSelection}
                         dangerouslySetInnerHTML={{__html: captions}}
                     ></div>
