@@ -1,5 +1,9 @@
 export default {
   // Popup
+  "extension_name": "Google Meet Caption Pro",
+  "popup_subtitle": "Google Meet Enhancement Tool",
+  "main_controls": "Main Controls",
+  "quick_actions": "Quick Actions",
   "log_captions": "Log Google Meeting Captions",
   "show_captions": "Show captions",
   "show_captions_desc": "open sidebar to show main view",

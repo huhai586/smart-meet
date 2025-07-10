@@ -7,7 +7,7 @@ const STORAGE_KEY = 'translationProvider';
 export type TranslationProvider = 'google' | 'microsoft' | 'ai';
 
 // 默认翻译服务提供商
-const defaultProvider: TranslationProvider = 'google';
+const defaultProvider: TranslationProvider = 'microsoft';
 
 /**
  * 管理翻译服务提供商的Hook

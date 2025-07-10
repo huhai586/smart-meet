@@ -1,5 +1,9 @@
 export default {
   // Popup
+  "extension_name": "Google Meet Caption Pro",
+  "popup_subtitle": "Google Meet 增强工具",
+  "main_controls": "主要控制",
+  "quick_actions": "快速操作",
   "log_captions": "记录Google会议字幕",
   "show_captions": "显示字幕",
   "show_captions_desc": "打开侧边栏查看主要显示",
@@ -10,7 +14,7 @@ export default {
   "settings": "设置",
   "settings_desc": "配置AI、同步数据等",
   "clear_confirm": "您确定要清除所有字幕吗？",
-  
+
   // Captions
   "translate": "翻译",
   "explain": "解释",
@@ -18,14 +22,14 @@ export default {
   "analysis": "分析",
   "ask": "提问",
   "summary": "摘要",
-  
+
   // Common
   "on": "开启",
   "off": "关闭",
   "success": "成功",
   "error": "错误",
   "language_set": "翻译语言已设置为 {language}",
-  
+
   // Settings
   "ai_settings": "AI设置",
   "gemini_api_config": "Gemini API配置",
@@ -57,7 +61,7 @@ export default {
   "currently_default_service": "当前默认服务",
   "configuration_saved": "配置已成功保存",
   "active_service_changed": "默认服务已更改",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Google云端硬盘集成",
   "backup_section": "备份到本地",
@@ -76,7 +80,7 @@ export default {
   "skip": "跳过",
   "always_overwrite": "始终覆盖",
   "always_skip": "始终跳过",
-  
+
   // Chat History
   "chat_history": "聊天历史",
   "search_content": "搜索聊天内容",
@@ -89,18 +93,18 @@ export default {
   "no_records_for_date": "未找到此日期的聊天记录",
   "searching_content": "正在搜索聊天内容...",
   "loading_history": "正在加载聊天历史...",
-  
+
   // Sidepanel
   "captions": "字幕",
   "extension": "扩展",
   "translation_records": "翻译记录",
   "download_captions": "下载字幕",
   "sidepanel_summary": "AI Summary",
-  
+
   // Sidebar
   "calendar_view": "日历视图",
   "configure_assistant": "配置您的会议助手",
-  
+
   // Summary
   "loading": "加载中",
   "no_meeting_data": "没有会议数据",
@@ -109,7 +113,7 @@ export default {
   "search_button": "搜索",
   "error_clearing_conversation": "清除AI对话时出错。请重试。",
   "completed": "已完成",
-  
+
   // Extension
   "extension_settings": "扩展设置",
   "specific_highlight_words": "特定高亮词",
@@ -126,12 +130,12 @@ export default {
   "review_keywords": "查看并自定义为您的领域生成的关键词。点击任何关键词可将其移除。",
   "apply_keywords": "应用关键词",
   "cancel": "取消",
-  
+
   // Help & Guide
   "help_and_guide": "帮助和指南",
   "help_guide_desc": "查看欢迎指南以了解如何有效使用此扩展程序。",
   "open_welcome_guide": "打开欢迎指南",
-  
+
   // Export Captions
   "export_captions_text": "导出字幕文本",
   "export_captions_desc": "将所选日期的会议字幕导出为文本文件。",
@@ -142,7 +146,7 @@ export default {
   "select_meeting_to_export": "选择要导出的会议",
   "select_meeting_desc": "请选择要导出的会议：",
   "export": "导出",
-  
+
   // Words (Translation Records)
   "translation_history": "翻译历史",
   "reset": "重置",
@@ -153,7 +157,7 @@ export default {
   "no_keep_it": "不，保留它",
   "history_cleared": "翻译历史已成功清除",
   "no_history": "还没有翻译历史。点击字幕中的任何词语来翻译它。",
-  
+
   // API Key Testing
   "test": "测试",
   "test_api_key": "测试API密钥",
@@ -175,7 +179,7 @@ export default {
   "using_default_model_list": "使用默认模型列表",
   "failed_to_fetch_models": "获取模型列表失败",
   "invalid_api_key": "无效的API密钥",
-  
+
   // Translation Errors
   "translation_service_not_configured": "翻译服务未配置。请检查您的API设置。",
   "translation_network_error": "网络错误。请检查您的网络连接并重试。",
@@ -184,7 +188,7 @@ export default {
   "unexpected_error": "发生意外错误。请重试。",
   "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。",
   "google_translate_rate_limit_error": "自动翻译调用频率太高，请在设置页面-翻译频率控制 里面将值调大，或者切换其他翻译服务",
-  
+
   // Clear Captions
   "clear_captions_warning": "警告：此操作无法撤销",
   "clear_captions_warning_desc": "这将永久删除浏览器存储中的所有录制字幕。",
@@ -192,25 +196,25 @@ export default {
   "confirm_clear_captions": "确认清除字幕",
   "yes_clear_data": "是的，清除数据",
   "data_cleared_success": "数据清除成功",
-  
+
   // UI Language
   "ui_language": "界面语言",
   "select_ui_language": "选择界面语言",
   "ui_language_desc": "选择Smart Meet的用户界面语言",
   "ui_language_set": "界面语言已设置为 {language}",
-  
+
   // Translation Language
   "select_translation_language": "选择翻译语言",
   "translation_language_desc": "选择用于翻译文本内容的语言。",
   "translation_language_set": "翻译语言已设置为 {language}",
-  
+
   // Auto Translation
   "auto_translate": "自动翻译",
   "auto_translate_desc": "字幕发生变化时自动翻译",
   "auto_translate_enabled": "自动翻译已启用",
   "auto_translate_disabled": "自动翻译已禁用",
   "auto_translated": "(已自动翻译)",
-  
+
   // 翻译服务提供商
   "translation_provider": "翻译服务提供商",
   "translation_provider_desc": "选择免费翻译服务提供商",
@@ -218,18 +222,18 @@ export default {
   "provider_microsoft": "微软翻译",
   "provider_ai": "AI 翻译",
   "translation_provider_set": "翻译服务提供商已设置为 {provider}",
-  
+
   // 翻译频率控制
   "translation_frequency": "翻译频率控制",
   "translation_frequency_desc": "此选项控制翻译请求的频率，如果越大，请求的频率越低反之越高。这样是为了避免太高的请求频率被服务商拒绝服务",
   "translation_frequency_label": "{frequency}秒",
   "translation_frequency_set": "翻译频率已设置为 {frequency}秒",
-  
+
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",
   "ai_meeting_assistant_ready": "我已了解会议内容，请问有什么需要我帮助的？",
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
-  
+
   // Guide Animation
   "guide_animation_title": "📱 如何使用插件",
   "guide_animation_subtitle": "跟随动画指引，轻松开启智能字幕体验",
@@ -245,7 +249,7 @@ export default {
   "guide_step_5_desc": "现在您可以使用翻译、总结、导出等所有功能了！",
   "guide_start_demo": "开始演示",
   "guide_restart": "重新开始",
-  
+
   // Welcome Page
   "welcome_title": "🎉 欢迎使用 Google Meet Caption Pro",
   "welcome_subtitle": "专业的Google Meet字幕工具，支持智能总结、实时翻译等功能",

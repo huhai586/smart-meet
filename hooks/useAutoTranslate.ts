@@ -81,7 +81,7 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
       // 双重验证：直接从存储中再次获取
       const verificationResult = await new Promise<string>((resolve) => {
         chrome.storage.sync.get(['translationProvider'], (result) => {
-          const storedProvider = result['translationProvider'] || 'google';
+          const storedProvider = result['translationProvider'] || 'microsoft';
           console.log(`[executeTranslation] Direct storage verification: ${storedProvider}`);
           resolve(storedProvider);
         });
