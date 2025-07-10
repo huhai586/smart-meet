@@ -140,5 +140,26 @@ export default {
   // Translation Language
   "select_translation_language": "Chọn Ngôn Ngữ Dịch Thuật",
   "translation_language_desc": "Chọn ngôn ngữ để dịch nội dung văn bản.",
-  "translation_language_set": "Ngôn ngữ dịch thuật đã được đặt thành {language}"
+  "translation_language_set": "Ngôn ngữ dịch thuật đã được đặt thành {language}",
+  
+  // AI Service Messages
+  "ai_meeting_content_intro": "Đây là nội dung cuộc họp trước đó: ",
+  "ai_meeting_assistant_ready": "Tôi đã hiểu nội dung cuộc họp. Tôi có thể giúp gì cho bạn?",
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 Cách Sử Dụng Tiện Ích Mở Rộng",
+  "guide_animation_subtitle": "Theo dõi hướng dẫn hoạt hình để dễ dàng bắt đầu trải nghiệm phụ đề thông minh",
+  "guide_step_1_title": "1. Tham Gia Cuộc Họp Google Meet",
+  "guide_step_1_desc": "Mở Google Meet và tham gia bất kỳ cuộc họp nào",
+  "guide_step_2_title": "2. Tìm Nút Phụ Đề",
+  "guide_step_2_desc": "Tìm nút phụ đề (biểu tượng CC) trong thanh điều khiển dưới cùng của cuộc họp",
+  "guide_step_3_title": "3. Bật Phụ Đề",
+  "guide_step_3_desc": "Nhấp vào nút phụ đề và chọn \"Bật phụ đề\"",
+  "guide_step_4_title": "4. Tiện Ích Mở Rộng Tự Động Kích Hoạt",
+  "guide_step_4_desc": "Thanh bên của tiện ích mở rộng tự động kích hoạt và bắt đầu cung cấp các tính năng thông minh",
+  "guide_step_5_title": "5. Tận Hưởng Các Tính Năng Thông Minh",
+  "guide_step_5_desc": "Bây giờ bạn có thể sử dụng dịch thuật, tóm tắt, xuất và tất cả các tính năng khác!",
+  "guide_start_demo": "Bắt Đầu Demo",
+  "guide_restart": "Khởi Động Lại"
 }; 

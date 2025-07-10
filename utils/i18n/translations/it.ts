@@ -119,6 +119,22 @@ export default {
   "ai_meeting_assistant_ready": "Ho capito il contenuto della riunione. Come posso aiutarti?",
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
   
+  // Guide Animation
+  "guide_animation_title": "📱 Come Usare l'Estensione",
+  "guide_animation_subtitle": "Segui la guida animata per iniziare facilmente la tua esperienza di sottotitoli intelligenti",
+  "guide_step_1_title": "1. Partecipa a una Riunione Google Meet",
+  "guide_step_1_desc": "Apri Google Meet e partecipa a qualsiasi riunione",
+  "guide_step_2_title": "2. Trova il Pulsante Sottotitoli",
+  "guide_step_2_desc": "Individua il pulsante sottotitoli (icona CC) nella barra di controllo inferiore della riunione",
+  "guide_step_3_title": "3. Attiva i Sottotitoli",
+  "guide_step_3_desc": "Clicca sul pulsante sottotitoli e seleziona \"Attiva sottotitoli\"",
+  "guide_step_4_title": "4. Attivazione Automatica dell'Estensione",
+  "guide_step_4_desc": "La barra laterale dell'estensione si attiva automaticamente e inizia a fornire funzionalità intelligenti",
+  "guide_step_5_title": "5. Goditi le Funzionalità Intelligenti",
+  "guide_step_5_desc": "Ora puoi usare traduzione, riassunto, esportazione e tutte le altre funzionalità!",
+  "guide_start_demo": "Avvia Demo",
+  "guide_restart": "Riavvia",
+  
   // Translation Errors
   "translation_service_not_configured": "Il servizio di traduzione non è configurato. Si prega di verificare le impostazioni API.",
   "translation_network_error": "Errore di rete. Si prega di verificare la connessione internet e riprovare.",

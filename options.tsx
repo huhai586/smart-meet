@@ -10,6 +10,7 @@ import UILanguageSettings from '~components/UILanguageSettings';
 import ClearCaptionsSettings from '~components/ClearCaptionsSettings';
 import ExtensionSettings from '~components/ExtensionSettings';
 import AISettings from '~components/AISettings';
+import Welcome from '~pages/welcome';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
 
@@ -24,7 +25,8 @@ const ROUTE_MAPPING = {
   'translation': '4',
   'ui-language': '5',
   'extension': '6',
-  'clear-captions': '7'
+  'clear-captions': '7',
+  'welcome': 'welcome'
 };
 
 // 反向映射表 - 将标签页key映射到对应的路由路径
@@ -35,7 +37,8 @@ const KEY_TO_ROUTE = {
   '4': 'translation',
   '5': 'ui-language',
   '6': 'extension',
-  '7': 'clear-captions'
+  '7': 'clear-captions',
+  'welcome': 'welcome'
 };
 
 const Options = () => {
@@ -101,10 +104,21 @@ const Options = () => {
                 return <ExtensionSettings />;
             case '7':
                 return <ClearCaptionsSettings />;
+            case 'welcome':
+                return <Welcome />;
             default:
                 return <AISettings />;
         }
     };
+
+    // 如果是welcome页面，直接返回Welcome组件，不显示侧边栏
+    if (activeKey === 'welcome') {
+        return (
+            <GoogleAuthProvider>
+                <Welcome />
+            </GoogleAuthProvider>
+        );
+    }
 
     return (
         <GoogleAuthProvider>

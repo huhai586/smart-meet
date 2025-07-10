@@ -1,0 +1,120 @@
+.welcome-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 40px 20px;
+  
+  .welcome-card {
+    max-width: 890px;
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    background: white;
+    
+    .welcome-header {
+      text-align: center;
+      margin-bottom: 40px;
+      
+      .welcome-title {
+        color: #1890ff;
+        margin-bottom: 16px;
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+      
+      .welcome-subtitle {
+        font-size: 16px;
+        color: #666;
+      }
+    }
+    
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2d3748;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+      
+      .feature-card {
+        border-radius: 8px;
+        border: 1px solid #f0f0f0;
+        background: #fafafa;
+        transition: all 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .feature-title {
+          margin-bottom: 8px;
+          color: #1890ff;
+          font-weight: 600;
+        }
+        
+        .feature-description {
+          margin: 0;
+          color: #666;
+        }
+      }
+    }
+    
+    .action-buttons {
+      text-align: center;
+      
+      .action-button {
+        border-radius: 8px;
+        padding: 0 32px;
+        height: 40px;
+        font-weight: 500;
+        
+        &.primary {
+          background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+          border: none;
+          
+          &:hover {
+            background: linear-gradient(135deg, #096dd9 0%, #0050b3 100%);
+          }
+        }
+      }
+    }
+    
+    .tip-section {
+      text-align: center;
+      margin-top: 32px;
+      padding: 16px;
+      background: #f6f8fa;
+      border-radius: 8px;
+      
+      .tip-text {
+        color: #666;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.steps-container {
+  .ant-steps-item-icon {
+    border-radius: 50%;
+    background: #f0f2f5;
+    
+    &.ant-steps-item-process .ant-steps-item-icon {
+      background: #1890ff;
+      border-color: #1890ff;
+    }
+  }
+  
+  .ant-steps-item-title {
+    font-weight: 600;
+    color: #2d3748;
+  }
+  
+  .ant-steps-item-description {
+    color: #666;
+  }
+} 

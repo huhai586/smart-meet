@@ -160,5 +160,38 @@ export default {
   "translation_frequency": "翻訳頻度制御",
   "translation_frequency_desc": "このオプションは翻訳リクエストの頻度を制御します。値が大きいほどリクエスト頻度が低く、逆に小さいほど高くなります。これは高すぎるリクエスト頻度がサービスプロバイダーに拒否されるのを避けるためです",
   "translation_frequency_label": "{frequency}秒",
-  "translation_frequency_set": "翻訳頻度が{frequency}秒に設定されました"
+  "translation_frequency_set": "翻訳頻度が{frequency}秒に設定されました",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 拡張機能の使い方",
+  "guide_animation_subtitle": "アニメーションガイドに従って、スマートキャプション体験を簡単に開始",
+  "guide_step_1_title": "1. Google Meet会議に参加",
+  "guide_step_1_desc": "Google Meetを開いて任意の会議に参加してください",
+  "guide_step_2_title": "2. キャプションボタンを見つける",
+  "guide_step_2_desc": "会議下部のコントロールバーでキャプションボタン（CCアイコン）を見つけてください",
+  "guide_step_3_title": "3. キャプション機能を有効にする",
+  "guide_step_3_desc": "キャプションボタンをクリックして「キャプションをオンにする」を選択してください",
+  "guide_step_4_title": "4. 拡張機能が自動的にアクティブ化",
+  "guide_step_4_desc": "拡張機能のサイドバーが自動的にアクティブ化され、スマート機能の提供を開始します",
+  "guide_step_5_title": "5. スマート機能をお楽しみください",
+  "guide_step_5_desc": "翻訳、要約、エクスポートなど、すべての機能をご利用いただけます！",
+  "guide_start_demo": "デモを開始",
+  "guide_restart": "再開",
+  
+  // Welcome Page
+  "welcome_title": "🎉 Google Meet Caption Proへようこそ",
+  "welcome_subtitle": "スマート要約、リアルタイム翻訳などを備えたプロフェッショナルなGoogle Meetキャプションツール",
+  "welcome_quick_start": "クイックスタート",
+  "welcome_main_features": "主な機能",
+  "welcome_feature_realtime_translation": "リアルタイム翻訳",
+  "welcome_feature_realtime_translation_desc": "複数言語のリアルタイム翻訳をサポートし、言語間のコミュニケーションを容易にします",
+  "welcome_feature_smart_summary": "スマート要約",
+  "welcome_feature_smart_summary_desc": "AI技術を使用して会議のハイライトと要約を自動生成します",
+  "welcome_feature_caption_export": "キャプション エクスポート",
+  "welcome_feature_caption_export_desc": "会議のキャプションをテキスト形式でエクスポートできます",
+  "welcome_feature_multilang_support": "多言語サポート",
+  "welcome_feature_multilang_support_desc": "日本語、英語など複数言語のキャプション認識をサポートします",
+  "welcome_get_started": "開始する",
+  "welcome_open_settings": "設定を開く",
+  "welcome_tip": "💡 ヒント：拡張機能アイコン → オプションからいつでもこのページを再表示できます"
 }; 

@@ -57,6 +57,12 @@
       "identity",
       "tabs"
     ],
+    "web_accessible_resources": [
+      {
+        "resources": ["images/*"],
+        "matches": ["<all_urls>"]
+      }
+    ],
     "oauth2": {
       "client_id": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
       "scopes": [

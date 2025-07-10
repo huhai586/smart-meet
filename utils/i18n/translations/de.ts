@@ -144,9 +144,25 @@ export default {
   "ui_language_set": "Benutzeroberflächen-Sprache auf {language} gesetzt",
   
   // Translation Language
-  "select_translation_language": "Übersetzungssprache Auswählen",
-  "translation_language_desc": "Wählen Sie die Sprache für die Übersetzung von Textinhalten.",
+  "select_translation_language": "Übersetzungssprache auswählen",
+  "translation_language_desc": "Wählen Sie die Sprache zum Übersetzen von Textinhalten.",
   "translation_language_set": "Übersetzungssprache auf {language} gesetzt",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 Wie man die Erweiterung verwendet",
+  "guide_animation_subtitle": "Folgen Sie dem Animationsleitfaden, um Ihr intelligentes Untertitel-Erlebnis einfach zu starten",
+  "guide_step_1_title": "1. Google Meet-Meeting beitreten",
+  "guide_step_1_desc": "Öffnen Sie Google Meet und treten Sie einem beliebigen Meeting bei",
+  "guide_step_2_title": "2. Untertitel-Schaltfläche finden",
+  "guide_step_2_desc": "Suchen Sie die Untertitel-Schaltfläche (CC-Symbol) in der unteren Steuerungsleiste des Meetings",
+  "guide_step_3_title": "3. Untertitel aktivieren",
+  "guide_step_3_desc": "Klicken Sie auf die Untertitel-Schaltfläche und wählen Sie \"Untertitel einschalten\"",
+  "guide_step_4_title": "4. Automatische Erweiterungsaktivierung",
+  "guide_step_4_desc": "Die Erweiterungsseitenleiste wird automatisch aktiviert und beginnt, intelligente Funktionen bereitzustellen",
+  "guide_step_5_title": "5. Intelligente Funktionen genießen",
+  "guide_step_5_desc": "Jetzt können Sie Übersetzung, Zusammenfassung, Export und alle anderen Funktionen nutzen!",
+  "guide_start_demo": "Demo starten",
+  "guide_restart": "Neu starten",
   
   // Übersetzungsanbieter
   "translation_provider": "Übersetzungsanbieter",

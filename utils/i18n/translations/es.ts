@@ -145,8 +145,24 @@ export default {
   
   // Translation Language
   "select_translation_language": "Seleccionar Idioma de Traducción",
-  "translation_language_desc": "Elige el idioma para traducir el contenido del texto.",
-  "translation_language_set": "Idioma de traducción establecido a {language}",
+  "translation_language_desc": "Elija el idioma para traducir el contenido del texto.",
+  "translation_language_set": "Idioma de traducción establecido en {language}",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 Cómo Usar la Extensión",
+  "guide_animation_subtitle": "Siga la guía de animación para comenzar fácilmente su experiencia de subtítulos inteligentes",
+  "guide_step_1_title": "1. Unirse a una Reunión de Google Meet",
+  "guide_step_1_desc": "Abra Google Meet y únase a cualquier reunión",
+  "guide_step_2_title": "2. Encontrar el Botón de Subtítulos",
+  "guide_step_2_desc": "Localice el botón de subtítulos (icono CC) en la barra de control inferior de la reunión",
+  "guide_step_3_title": "3. Activar Subtítulos",
+  "guide_step_3_desc": "Haga clic en el botón de subtítulos y seleccione \"Activar subtítulos\"",
+  "guide_step_4_title": "4. Activación Automática de la Extensión",
+  "guide_step_4_desc": "La barra lateral de la extensión se activa automáticamente y comienza a proporcionar funciones inteligentes",
+  "guide_step_5_title": "5. Disfrute de las Funciones Inteligentes",
+  "guide_step_5_desc": "¡Ahora puede usar traducción, resumen, exportación y todas las demás funciones!",
+  "guide_start_demo": "Iniciar Demo",
+  "guide_restart": "Reiniciar",
   
   // Proveedor de traducción
   "translation_provider": "Proveedor de traducción",

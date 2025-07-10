@@ -138,6 +138,11 @@ export default {
   "apply_keywords": "Apply Keywords",
   "cancel": "Cancel",
   
+  // Help & Guide
+  "help_and_guide": "Help & Guide",
+  "help_guide_desc": "View the welcome guide to learn how to use this extension effectively.",
+  "open_welcome_guide": "Open Welcome Guide",
+  
   // Words (Translation Records)
   "translation_history": "Translation History",
   "reset": "Reset",
@@ -223,5 +228,38 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",
   "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",
-  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts."
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 How to Use the Extension",
+  "guide_animation_subtitle": "Follow the animation guide to easily start your smart caption experience",
+  "guide_step_1_title": "1. Join Google Meet Meeting",
+  "guide_step_1_desc": "Open Google Meet and join any meeting",
+  "guide_step_2_title": "2. Find the Captions Button",
+  "guide_step_2_desc": "Locate the captions button (CC icon) in the meeting bottom control bar",
+  "guide_step_3_title": "3. Enable Captions",
+  "guide_step_3_desc": "Click the captions button and select \"Turn on captions\"",
+  "guide_step_4_title": "4. Extension Auto-Activates",
+  "guide_step_4_desc": "The extension sidebar automatically activates and starts providing smart features",
+  "guide_step_5_title": "5. Enjoy Smart Features",
+  "guide_step_5_desc": "Now you can use translation, summary, export and all other features!",
+  "guide_start_demo": "Start Demo",
+  "guide_restart": "Restart",
+  
+  // Welcome Page
+  "welcome_title": "🎉 Welcome to Google Meet Caption Pro",
+  "welcome_subtitle": "Professional Google Meet caption tool with smart summary, real-time translation and more",
+  "welcome_quick_start": "Quick Start",
+  "welcome_main_features": "Main Features",
+  "welcome_feature_realtime_translation": "Real-time Translation",
+  "welcome_feature_realtime_translation_desc": "Support real-time translation in multiple languages for easier cross-language communication",
+  "welcome_feature_smart_summary": "Smart Summary",
+  "welcome_feature_smart_summary_desc": "Use AI technology to automatically generate meeting highlights and summaries",
+  "welcome_feature_caption_export": "Caption Export",
+  "welcome_feature_caption_export_desc": "Support exporting meeting captions as text format",
+  "welcome_feature_multilang_support": "Multi-language Support",
+  "welcome_feature_multilang_support_desc": "Support caption recognition in multiple languages including Chinese, English, etc.",
+  "welcome_get_started": "Get Started",
+  "welcome_open_settings": "Open Settings",
+  "welcome_tip": "💡 Tip: You can always revisit this page through the extension icon → Options"
 }; 

@@ -160,5 +160,38 @@ export default {
   // Translation Language
   "select_translation_language": "Sélectionner la Langue de Traduction",
   "translation_language_desc": "Choisissez la langue pour traduire le contenu du texte.",
-  "translation_language_set": "Langue de traduction définie sur {language}"
+  "translation_language_set": "Langue de traduction définie sur {language}",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 Comment Utiliser l'Extension",
+  "guide_animation_subtitle": "Suivez le guide d'animation pour commencer facilement votre expérience de sous-titres intelligents",
+  "guide_step_1_title": "1. Rejoindre une Réunion Google Meet",
+  "guide_step_1_desc": "Ouvrez Google Meet et rejoignez n'importe quelle réunion",
+  "guide_step_2_title": "2. Trouver le Bouton Sous-titres",
+  "guide_step_2_desc": "Localisez le bouton sous-titres (icône CC) dans la barre de contrôle en bas de la réunion",
+  "guide_step_3_title": "3. Activer les Sous-titres",
+  "guide_step_3_desc": "Cliquez sur le bouton sous-titres et sélectionnez \"Activer les sous-titres\"",
+  "guide_step_4_title": "4. Activation Automatique de l'Extension",
+  "guide_step_4_desc": "La barre latérale de l'extension s'active automatiquement et commence à fournir des fonctionnalités intelligentes",
+  "guide_step_5_title": "5. Profitez des Fonctionnalités Intelligentes",
+  "guide_step_5_desc": "Vous pouvez maintenant utiliser la traduction, le résumé, l'exportation et toutes les autres fonctionnalités !",
+  "guide_start_demo": "Démarrer la Démo",
+  "guide_restart": "Redémarrer",
+  
+  // Welcome Page
+  "welcome_title": "🎉 Bienvenue dans Google Meet Caption Pro",
+  "welcome_subtitle": "Outil professionnel de sous-titres Google Meet avec résumé intelligent, traduction en temps réel et plus",
+  "welcome_quick_start": "Démarrage Rapide",
+  "welcome_main_features": "Fonctionnalités Principales",
+  "welcome_feature_realtime_translation": "Traduction en Temps Réel",
+  "welcome_feature_realtime_translation_desc": "Prise en charge de la traduction en temps réel dans plusieurs langues pour faciliter la communication interlinguistique",
+  "welcome_feature_smart_summary": "Résumé Intelligent",
+  "welcome_feature_smart_summary_desc": "Utilise la technologie IA pour générer automatiquement les points forts et résumés de réunion",
+  "welcome_feature_caption_export": "Export de Sous-titres",
+  "welcome_feature_caption_export_desc": "Prise en charge de l'exportation des sous-titres de réunion au format texte",
+  "welcome_feature_multilang_support": "Support Multi-langues",
+  "welcome_feature_multilang_support_desc": "Prise en charge de la reconnaissance de sous-titres en plusieurs langues incluant le français, l'anglais, etc.",
+  "welcome_get_started": "Commencer",
+  "welcome_open_settings": "Ouvrir les Paramètres",
+  "welcome_tip": "💡 Astuce : Vous pouvez toujours revisiter cette page via l'icône d'extension → Options"
 }; 

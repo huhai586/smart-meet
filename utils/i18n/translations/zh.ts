@@ -127,6 +127,11 @@ export default {
   "apply_keywords": "应用关键词",
   "cancel": "取消",
   
+  // Help & Guide
+  "help_and_guide": "帮助和指南",
+  "help_guide_desc": "查看欢迎指南以了解如何有效使用此扩展程序。",
+  "open_welcome_guide": "打开欢迎指南",
+  
   // Export Captions
   "export_captions_text": "导出字幕文本",
   "export_captions_desc": "将所选日期的会议字幕导出为文本文件。",
@@ -223,5 +228,38 @@ export default {
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",
   "ai_meeting_assistant_ready": "我已了解会议内容，请问有什么需要我帮助的？",
-  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts."
+  "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 如何使用插件",
+  "guide_animation_subtitle": "跟随动画指引，轻松开启智能字幕体验",
+  "guide_step_1_title": "1. 加入Google Meet会议",
+  "guide_step_1_desc": "打开Google Meet并加入任意会议",
+  "guide_step_2_title": "2. 找到字幕按钮",
+  "guide_step_2_desc": "在会议底部控制栏中找到字幕按钮（CC图标）",
+  "guide_step_3_title": "3. 开启字幕功能",
+  "guide_step_3_desc": "点击字幕按钮，选择\"开启字幕\"",
+  "guide_step_4_title": "4. 插件自动激活",
+  "guide_step_4_desc": "插件侧边栏自动激活，开始提供智能功能",
+  "guide_step_5_title": "5. 享受智能功能",
+  "guide_step_5_desc": "现在您可以使用翻译、总结、导出等所有功能了！",
+  "guide_start_demo": "开始演示",
+  "guide_restart": "重新开始",
+  
+  // Welcome Page
+  "welcome_title": "🎉 欢迎使用 Google Meet Caption Pro",
+  "welcome_subtitle": "专业的Google Meet字幕工具，支持智能总结、实时翻译等功能",
+  "welcome_quick_start": "快速开始",
+  "welcome_main_features": "主要功能",
+  "welcome_feature_realtime_translation": "实时翻译",
+  "welcome_feature_realtime_translation_desc": "支持多种语言的实时翻译，让跨语言沟通更轻松",
+  "welcome_feature_smart_summary": "智能总结",
+  "welcome_feature_smart_summary_desc": "使用AI技术自动生成会议要点和总结",
+  "welcome_feature_caption_export": "字幕导出",
+  "welcome_feature_caption_export_desc": "支持导出会议字幕为文本格式",
+  "welcome_feature_multilang_support": "多语言支持",
+  "welcome_feature_multilang_support_desc": "支持中文、英文等多种语言的字幕识别",
+  "welcome_get_started": "开始使用",
+  "welcome_open_settings": "打开设置",
+  "welcome_tip": "💡 提示：您可以随时通过插件图标 → 选项来重新查看此页面"
 }; 

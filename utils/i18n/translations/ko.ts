@@ -160,5 +160,38 @@ export default {
   "translation_frequency": "번역 빈도 제어",
   "translation_frequency_desc": "이 옵션은 번역 요청의 빈도를 제어합니다. 값이 클수록 요청 빈도가 낮아지고 반대로 작을수록 높아집니다. 이는 너무 높은 요청 빈도가 서비스 제공업체에 의해 거부되는 것을 방지하기 위함입니다",
   "translation_frequency_label": "{frequency}초",
-  "translation_frequency_set": "번역 빈도가 {frequency}초로 설정되었습니다"
+  "translation_frequency_set": "번역 빈도가 {frequency}초로 설정되었습니다",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 확장 프로그램 사용법",
+  "guide_animation_subtitle": "애니메이션 가이드를 따라 스마트 캡션 경험을 쉽게 시작하세요",
+  "guide_step_1_title": "1. Google Meet 회의 참가",
+  "guide_step_1_desc": "Google Meet을 열고 회의에 참가하세요",
+  "guide_step_2_title": "2. 캡션 버튼 찾기",
+  "guide_step_2_desc": "회의 하단 제어 막대에서 캡션 버튼(CC 아이콘)을 찾으세요",
+  "guide_step_3_title": "3. 캡션 기능 활성화",
+  "guide_step_3_desc": "캡션 버튼을 클릭하고 \"캡션 켜기\"를 선택하세요",
+  "guide_step_4_title": "4. 확장 프로그램 자동 활성화",
+  "guide_step_4_desc": "확장 프로그램 사이드바가 자동으로 활성화되어 스마트 기능을 제공하기 시작합니다",
+  "guide_step_5_title": "5. 스마트 기능 즐기기",
+  "guide_step_5_desc": "이제 번역, 요약, 내보내기 등 모든 기능을 사용할 수 있습니다!",
+  "guide_start_demo": "데모 시작",
+  "guide_restart": "다시 시작",
+  
+  // Welcome Page
+  "welcome_title": "🎉 Google Meet Caption Pro에 오신 것을 환영합니다",
+  "welcome_subtitle": "스마트 요약, 실시간 번역 등을 지원하는 전문 Google Meet 캡션 도구",
+  "welcome_quick_start": "빠른 시작",
+  "welcome_main_features": "주요 기능",
+  "welcome_feature_realtime_translation": "실시간 번역",
+  "welcome_feature_realtime_translation_desc": "여러 언어의 실시간 번역을 지원하여 언어 간 소통을 더욱 쉽게 만듭니다",
+  "welcome_feature_smart_summary": "스마트 요약",
+  "welcome_feature_smart_summary_desc": "AI 기술을 사용하여 회의 하이라이트와 요약을 자동으로 생성합니다",
+  "welcome_feature_caption_export": "캡션 내보내기",
+  "welcome_feature_caption_export_desc": "회의 캡션을 텍스트 형식으로 내보낼 수 있습니다",
+  "welcome_feature_multilang_support": "다국어 지원",
+  "welcome_feature_multilang_support_desc": "한국어, 영어 등 여러 언어의 캡션 인식을 지원합니다",
+  "welcome_get_started": "시작하기",
+  "welcome_open_settings": "설정 열기",
+  "welcome_tip": "💡 팁: 확장 프로그램 아이콘 → 옵션을 통해 언제든지 이 페이지를 다시 볼 수 있습니다"
 }; 

@@ -160,5 +160,21 @@ export default {
   "translation_frequency": "Controle de frequência de tradução",
   "translation_frequency_desc": "Esta opção controla a frequência das solicitações de tradução. Valores mais altos significam menor frequência de solicitações e vice-versa. Isso é para evitar que frequências de solicitações altas sejam rejeitadas pelos provedores de serviços",
   "translation_frequency_label": "{frequency}s",
-  "translation_frequency_set": "Frequência de tradução definida para {frequency} segundos"
+  "translation_frequency_set": "Frequência de tradução definida para {frequency} segundos",
+  
+  // Guide Animation
+  "guide_animation_title": "📱 Como Usar a Extensão",
+  "guide_animation_subtitle": "Siga o guia de animação para começar facilmente sua experiência de legendas inteligentes",
+  "guide_step_1_title": "1. Participar de uma Reunião do Google Meet",
+  "guide_step_1_desc": "Abra o Google Meet e participe de qualquer reunião",
+  "guide_step_2_title": "2. Encontrar o Botão de Legendas",
+  "guide_step_2_desc": "Localize o botão de legendas (ícone CC) na barra de controle inferior da reunião",
+  "guide_step_3_title": "3. Ativar Legendas",
+  "guide_step_3_desc": "Clique no botão de legendas e selecione \"Ativar legendas\"",
+  "guide_step_4_title": "4. Ativação Automática da Extensão",
+  "guide_step_4_desc": "A barra lateral da extensão é ativada automaticamente e começa a fornecer recursos inteligentes",
+  "guide_step_5_title": "5. Aproveite os Recursos Inteligentes",
+  "guide_step_5_desc": "Agora você pode usar tradução, resumo, exportação e todos os outros recursos!",
+  "guide_start_demo": "Iniciar Demo",
+  "guide_restart": "Reiniciar"
 }; 

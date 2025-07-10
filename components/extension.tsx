@@ -1,4 +1,4 @@
-import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined, FileTextOutlined } from "@ant-design/icons"
+import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined, FileTextOutlined, QuestionCircleOutlined } from "@ant-design/icons"
 import {Alert, Button, Input, Tag, theme, type InputRef, Modal, message, Typography, Divider, Select} from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
@@ -347,6 +347,30 @@ const Extension = (props: ExtensionPropsInterface) => {
                             className="action-button"
                         >
                             {t('export_captions_button') || 'Export as TXT'}
+                        </Button>
+                    </div>
+                </div>
+
+                <div className="highlight-section">
+                    <div className={'highlight-header'}>
+                        <QuestionCircleOutlined style={{ color: '#1a73e8' }} />
+                        <span>{t('help_and_guide') || 'Help & Guide'}</span>
+                    </div>
+                    <div className={'highlight-description'}>
+                        {t('help_guide_desc') || 'View the welcome guide to learn how to use this extension effectively.'}
+                    </div>
+                    <div className="highlight-content">
+                        <Button 
+                            onClick={() => {
+                                chrome.tabs.create({
+                                    url: chrome.runtime.getURL('options.html#welcome')
+                                });
+                            }}
+                            type="default"
+                            icon={<QuestionCircleOutlined />}
+                            className="action-button"
+                        >
+                            {t('open_welcome_guide') || 'Open Welcome Guide'}
                         </Button>
                     </div>
                 </div>
