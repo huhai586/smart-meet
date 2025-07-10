@@ -64,10 +64,12 @@ export const useSummary = () => {
         .catch((err) => {
           console.warn('err', err);
           newCardData[index].fetchComplete = true;
-          newCardData[index].error = typeof err === 'string' ? err : (err?.message || 'Unknown error');
+          // 直接显示原始错误信息
+          const errorMessage = typeof err === 'string' ? err : (err?.message || 'Unknown error occurred');
+          newCardData[index].error = errorMessage;
           messageApi.open({
             type: 'error',
-            content: newCardData[index].error,
+            content: errorMessage,
           });
         })
         .finally(() => {

@@ -106,12 +106,13 @@ const SidePanel = () => {
         window.addEventListener('ajax-error', (e: CustomErrorEvent) => {
             const errorMsg = e.detail.error;
             console.log('ajax-error', errorMsg);
+            // 直接显示原始错误信息
             let message = '';
             try {
-                message = errorMsg.errorDetails?.[1]?.message || errorMsg.message;
+                message = errorMsg.errorDetails?.[1]?.message || errorMsg.message || 'Unknown error occurred';
             } catch (e) {
                 console.log({errorMsg})
-                message = 'unknown error';
+                message = 'Unknown error occurred';
             }
             messageApi.open({
                 type: 'error',

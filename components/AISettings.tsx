@@ -207,7 +207,8 @@ const AISettings: React.FC = () => {
                     }
                 } catch (error) {
                     console.error('Error testing Gemini API key:', error);
-                    errorMessage = t('network_error');
+                    // 显示具体的错误信息而不是通用的网络错误
+                    errorMessage = error.message || t('network_error');
                 }
             } else if (currentEditService === 'xai') {
                 // xAI暂时没有简单的测试端点，我们假设密钥格式有效就是可用的
@@ -277,7 +278,8 @@ const AISettings: React.FC = () => {
                     }
                 } catch (error) {
                     console.error('Error testing Gemini API key:', error);
-                    errorMessage = t('network_error');
+                    // 显示具体的错误信息而不是通用的网络错误
+                    errorMessage = error.message || t('network_error');
                 }
             } else if (service === 'xai') {
                 // xAI暂时没有简单的测试端点，我们假设密钥格式有效就是可用的

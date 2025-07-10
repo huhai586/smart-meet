@@ -109,21 +109,11 @@ const Caption = memo((props: CaptionProps) => {
         }).catch((err) => {
             console.error(`Error in handleAskAI for action ${action}:`, err);
             
-            // Get user-friendly error message
+            // 直接显示原始错误信息
             const errorMessage = typeof err === 'string' ? err : 
-                               err?.message || t('unexpected_error');
+                               err?.message || 'Unknown error occurred';
             
-            // Check for specific error types and provide appropriate messages
-            let displayMessage = errorMessage;
-            if (errorMessage.includes('AI service not ready') || 
-                errorMessage.includes('API key not valid') ||
-                errorMessage.includes('Invalid API key')) {
-                displayMessage = t('translation_service_not_configured');
-            } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
-                displayMessage = t('translation_network_error');
-            }
-            
-            messageManager.error(displayMessage, 5);
+            messageManager.error(errorMessage, 5);
         });
     }, [data.talkContent, t]);
 
@@ -145,42 +135,36 @@ const Caption = memo((props: CaptionProps) => {
 
         if (selectedText && selectedText.length > 0) {
             translateSingleWords(selectedText).then((res) => {
-                // Check if the response is an error message by looking for translation keys
-                const isErrorMessage = res.includes(t('translation_failed')) || 
-                                      res.includes(t('translation_service_not_configured')) ||
-                                      res.includes(t('translation_network_error')) ||
-                                      res.includes(t('translation_service_unavailable'));
-                                      
-                if (isErrorMessage) {
+                // 检查是否是错误信息（以"Translation failed:"开头）
+                if (res.startsWith('Translation failed:')) {
                     error(res);
                 } else {
                     success(res);
                 }
             }).catch((err) => {
                 console.error('Unexpected error in handleTextSelection:', err);
-                error(t('unexpected_error'));
+                const errorMessage = typeof err === 'string' ? err : 
+                                   err?.message || 'Unknown error occurred';
+                error(errorMessage);
             });
         }
-    }, [t, success, error]);
+    }, [success, error]);
 
     const handleTextClick = useCallback(() => {
         translateSingleWords(data.talkContent).then((res) => {
-            // Check if the response is an error message by looking for translation keys
-            const isErrorMessage = res.includes(t('translation_failed')) || 
-                                  res.includes(t('translation_service_not_configured')) ||
-                                  res.includes(t('translation_network_error')) ||
-                                  res.includes(t('translation_service_unavailable'));
-                                  
-            if (isErrorMessage) {
+            // 检查是否是错误信息（以"Translation failed:"开头）
+            if (res.startsWith('Translation failed:')) {
                 error(res);
             } else {
                 success(res);
             }
         }).catch((err) => {
             console.error('Unexpected error in handleTextClick:', err);
-            error(t('unexpected_error'));
+            const errorMessage = typeof err === 'string' ? err : 
+                               err?.message || 'Unknown error occurred';
+            error(errorMessage);
         });
-    }, [data.talkContent, t, success, error]);
+    }, [data.talkContent, success, error]);
 
     // 使用useMemo缓存按钮操作文本
     const getActionText = useCallback((action: Actions): string => {

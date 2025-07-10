@@ -16,38 +16,12 @@ const translateSingleWords = async (text: string): Promise<string> => {
     } catch (error) {
         console.error('[translateSingleWords] Error:', error);
         
-        // Get current UI language for error messages
-        const currentUILanguage = await getCurrentUILanguage();
-        const langCode = currentUILanguage.code;
-        
-        // Return a user-friendly error message instead of throwing
+        // 直接返回原始错误信息，不进行美化处理
         const errorMessage = typeof error === 'string' ? error : 
-                           error?.message || getTranslation('translation_service_unavailable', langCode);
+                           error?.message || 'Unknown error occurred';
         
-        // Check for rate limit errors
-        if (errorMessage.includes('rate limit') || errorMessage.includes('quota') || 
-            errorMessage.includes('429') || errorMessage.includes('Too Many Requests') ||
-            errorMessage.includes('频率') || errorMessage.includes('frequency')) {
-            // Display rate limit error message
-            const rateLimitMessage = getTranslation('google_translate_rate_limit_error', langCode);
-            messageManager.error(rateLimitMessage);
-            throw new Error('AI翻译请求过于频繁，请稍后再试');
-        }
-        
-        // For API not ready errors, return a specific message
-        if (errorMessage.includes('AI service not ready') || 
-            errorMessage.includes('API key not valid') ||
-            errorMessage.includes('Invalid API key')) {
-            return getTranslation('translation_service_not_configured', langCode);
-        }
-        
-        // For network errors
-        if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
-            return getTranslation('translation_network_error', langCode);
-        }
-        
-        // For other errors, return a generic message
-        return `${getTranslation('translation_failed', langCode)}: ${errorMessage}`;
+        // 直接返回原始错误信息
+        return `Translation failed: ${errorMessage}`;
     }
 }
 

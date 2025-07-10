@@ -37,13 +37,8 @@ const Words = (props: {currentTab: string}) => {
 
     const translate = (text: string) => {
         translateSingleWords(text).then((res) => {
-            // Check if the response is an error message by looking for translation keys
-            const isErrorMessage = res.includes(t('translation_failed')) || 
-                                  res.includes(t('translation_service_not_configured')) ||
-                                  res.includes(t('translation_network_error')) ||
-                                  res.includes(t('translation_service_unavailable'));
-                                  
-            if (isErrorMessage) {
+            // 检查是否是错误信息（以"Translation failed:"开头）
+            if (res.startsWith('Translation failed:')) {
                 error(res);
             } else {
                 success(res);
@@ -51,7 +46,9 @@ const Words = (props: {currentTab: string}) => {
         }).catch((err) => {
             // This should not happen now since translateSingleWords handles errors
             console.error('Unexpected error in translate:', err);
-            error(t('unexpected_error'));
+            const errorMessage = typeof err === 'string' ? err : 
+                               err?.message || 'Unknown error occurred';
+            error(errorMessage);
         });
     }
 
