@@ -286,6 +286,12 @@
           }
         }
 
+        // RTL language support
+        &.rtl {
+          direction: rtl;
+          text-align: right;
+        }
+
         // 可点击单词的样式
         .clickable-word {
           display: inline;
@@ -562,6 +568,12 @@
     &:hover {
       color: red;
     }
+  }
+
+  // RTL language support
+  &.rtl {
+    direction: rtl;
+    text-align: right;
   }
 }
 

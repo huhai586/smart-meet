@@ -18,6 +18,7 @@ import messageManager from "../../utils/message-manager";
 import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
 import { getCurrentTranslationProvider } from "../../hooks/useTranslationProvider";
 import { translateByGoogle, translateByMicrosoft, translateByAI } from "../../utils/translators";
+import { detectLanguage, isRTLLanguage } from "../../utils/language-detector";
 
 type CaptionProps = {
     data: Transcript;
@@ -91,7 +92,7 @@ const Caption = memo((props: CaptionProps) => {
     }, []);
 
     // 使用 useMemo 缓存高亮处理的结果，并正确指定依赖项
-    const captions = useMemo(() => {
+const captions = useMemo(() => {
         // 始终显示原文，不被翻译内容覆盖
         const displayContent = data.talkContent;
         
@@ -442,6 +443,15 @@ const Caption = memo((props: CaptionProps) => {
         );
     }, [aiData, hasAiData, getActionText]);
 
+
+    const [isRTL, setIsRTL] = useState(false);
+    useEffect(() => {
+        if (isRTL) return;
+        const detectedLang = detectLanguage(data.talkContent);
+        const detectedIsRTL = isRTLLanguage(detectedLang);
+        setIsRTL(detectedIsRTL);
+    }, [isRTL, data.talkContent]);
+
     return (
         <div className={'caption-container'}>
             <section>
@@ -454,7 +464,7 @@ const Caption = memo((props: CaptionProps) => {
                         {actionButtons}
                     </div>
                     <div
-                        className={'caption-text'}
+                        className={`caption-text ${isRTL ? 'rtl' : ''}`}
                         onClick={handleWordClick}
                         onMouseUp={handleTextSelection}
                         dangerouslySetInnerHTML={{__html: captions}}
