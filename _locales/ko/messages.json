@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "extension_description": {
-    "message": "실시간 번역, AI 요약, Google Drive 저장 등을 갖춘 전문적인 Google Meet 자막 도구\n\n🚀 Google Meet Caption Pro - 회의 향상 확장 프로그램\n회의를 스마트하고 효율적인 경험으로 변환하세요!\n\n✨ 핵심 기능\n📝 스마트 전사 및 번역\n실시간 자막 기록 - 회의 내용을 자동으로 캡처, 중요한 정보를 놓치지 않습니다\n다국어 번역 - 원클릭 번역으로 언어 장벽 해소\nAI 텍스트 향상 - 더 전문적인 커뮤니케이션을 위한 텍스트 품질 향상\n\n🎯 지능형 분석 및 요약\n키워드 하이라이트 - 중요한 정보를 한눈에\n문법 분석 - 전문적이고 오류 없는 커뮤니케이션 보장\nAI 회의 요약 - 회의 핵심 사항을 빠르게 생성\n\n🤖 AI 어시스턴트 채팅\nGemini AI 통합 - AI와 회의 내용 토론\n스마트 Q&A - 깊은 통찰력과 영감 획득\n\n🎁 왜 우리를 선택해야 할까요?\n| 💼 효율성 향상 | 🌍 장벽 없는 커뮤니케이션 | 📈 전문적인 품질 |\n|:---:|:---:|:---:|\n| 회의 효율성 50% 향상 | 다국어 지원 | 전문급 텍스트 최적화 |\n| 원클릭 요약 생성 | 실시간 언어 변환 | 지능형 문법 검사 |\n\n🔥 지금 체험해보세요\nGoogle Meet Caption Pro를 설치하고 스마트 회의 여정을 시작하세요!\n> 모든 회의를 효율적인 협업의 시작으로 만드세요\n간단한 설치, 즉시 스마트 회의 경험 ⚡",
+    "message": "실시간 번역, AI 요약, Google Drive 동기화 기능을 갖춘 전문 Google Meet 캡션 도구. 회의 효율성을 높입니다!",
     "description": "Description of the extension"
   }
 }
