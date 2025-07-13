@@ -108,6 +108,7 @@ const Caption = memo((props: CaptionProps) => {
     }, []);
 
     // 使用 useMemo 缓存高亮处理的结果，并正确指定依赖项
+
 const captions = useMemo(() => {
         // 始终显示原文，不被翻译内容覆盖
         const displayContent = data.talkContent;
@@ -467,14 +468,23 @@ const captions = useMemo(() => {
     }, [aiData, hasAiData, getActionText]);
 
 
-    const [isRTL, setIsRTL] = useState(false);
+    const [isRTL, setIsRTL] = useState(null);
     useEffect(() => {
-        if (isRTL) return;
+        if (!data.talkContent) return;
+        if (isRTL !== null) return;
         const detectedLang = detectLanguage(data.talkContent);
         const detectedIsRTL = isRTLLanguage(detectedLang);
         setIsRTL(detectedIsRTL);
     }, [isRTL, data.talkContent]);
 
+    const [isAutoTranslateLanguageRTL, setIsAutoTranslateLanguageRTL] = useState(null);
+  useEffect(() => {
+    if (isAutoTranslateLanguageRTL !== null) return;
+    if (!autoTranslatedContent) return;
+    const detectedLang = detectLanguage(autoTranslatedContent);
+    const detectedIsRTL = isRTLLanguage(detectedLang);
+    setIsAutoTranslateLanguageRTL(detectedIsRTL);
+  }, [isAutoTranslateLanguageRTL, autoTranslatedContent]);
     return (
         <div className={'caption-container'} ref={captionRef}>
             <section>
@@ -495,24 +505,11 @@ const captions = useMemo(() => {
                     
                     {/* 自动翻译内容显示区域 */}
                     {autoTranslatedContent && (
-                        <div className={'auto-translation-container'} style={{
-                            marginTop: '8px',
-                            padding: '8px 12px',
-                            backgroundColor: '#f0f8ff',
-                            borderLeft: '3px solid #1a73e8',
-                            borderRadius: '4px',
-                            fontSize: '14px',
-                            color: '#333'
-                        }}>
-                            <div style={{ 
-                                fontSize: '12px', 
-                                color: '#1a73e8', 
-                                marginBottom: '4px',
-                                fontWeight: '500'
-                            }}>
+                        <div className={'auto-translation-container'}>
+                            <div className={'auto-translation-label'}>
                                 {t('auto_translated')}
                             </div>
-                            <div dangerouslySetInnerHTML={{__html: autoTranslatedContent}}></div>
+                            <div className={`auto-translation-content ${isAutoTranslateLanguageRTL ? 'rtl' : ''}`} dangerouslySetInnerHTML={{__html: autoTranslatedContent}}></div>
                         </div>
                     )}
                     

@@ -188,7 +188,6 @@ export const translateByMicrosoft = async (text: string): Promise<string> => {
     // 使用microsoft-translate-api进行翻译
     // translate(text, from, to) - from设为null表示自动检测
     const result = await translate(text, null, targetLangCode);
-    console.warn(result);
     // 根据文档，返回格式是标准的，直接获取翻译结果
     const translatedText = result[0].translations[0].text;
     console.log('Microsoft translation successful:', translatedText);

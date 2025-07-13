@@ -150,7 +150,6 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
 
     // 如果当前正在翻译，将新请求存储到pending
     if (isAutoTranslating) {
-      console.warn('Translation in progress, storing to pending:', textToTranslate);
       pendingTextRef.current = textToTranslate;
       return;
     }
