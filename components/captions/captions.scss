@@ -248,6 +248,12 @@
         }
 
         .caption-tools {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 4px;
+          align-items: center;
+          overflow: hidden;
+          
           button {
             padding: 4px 12px;
             border-radius: 6px;
@@ -258,12 +264,69 @@
             font-size: 13px;
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
+            min-width: 32px;
+            white-space: nowrap;
+            flex-shrink: 1;
 
             &:hover {
               background: rgba(26, 115, 232, 0.8);
               color: white;
               border-color: rgba(26, 115, 232, 0.6);
               box-shadow: 0 2px 8px rgba(26, 115, 232, 0.2);
+            }
+            
+            // 按钮文本默认显示
+            span:not(.anticon) {
+              display: inline;
+              margin-left: 4px;
+              transition: all 0.3s ease;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+          
+          // 当容器宽度不足时，逐步隐藏按钮文本
+          @media (max-width: 600px) {
+            button {
+              span:not(.anticon) {
+                max-width: 50px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
+          }
+          
+          // 进一步缩小时，隐藏更多文本
+          @media (max-width: 500px) {
+            button {
+              span:not(.anticon) {
+                max-width: 30px;
+              }
+            }
+          }
+          
+          // 小屏幕时，完全隐藏按钮文本，只保留图标
+          @media (max-width: 420px) {
+            button {
+              padding: 4px 8px;
+              min-width: 32px;
+              
+              // 确保图标始终显示
+              .anticon {
+                display: inline-block !important;
+                margin: 0;
+              }
+              
+              // 隐藏按钮内的文本内容（但不影响图标）
+              > span:not([class*="anticon"]):not([class*="ant-btn-icon"]) {
+                display: none !important;
+              }
+              
+              // 如果文本在图标span内，隐藏文本但保留图标
+              span[class*="anticon"] + span,
+              span[class*="ant-btn-icon"] + span {
+                display: none !important;
+              }
             }
           }
         }
@@ -382,6 +445,89 @@
             border: 1px solid rgba(226, 232, 240, 0.8);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
+            
+            // 优化markdown渲染的空白
+            p {
+              margin: 0 0 8px 0;
+              
+              &:last-child {
+                margin-bottom: 0;
+              }
+            }
+            
+            ul, ol {
+              margin: 4px 0 8px 0;
+              padding-left: 20px;
+              
+              // 如果只有一个li，减少底边距
+              &:has(li:only-child) {
+                margin-bottom: 4px;
+              }
+              
+              li {
+                margin: 2px 0;
+                line-height: 1.4;
+                
+                // 如果是唯一的li，减少边距
+                &:only-child {
+                  margin: 0;
+                }
+              }
+            }
+            
+            h1, h2, h3, h4, h5, h6 {
+              margin: 8px 0 4px 0;
+              line-height: 1.3;
+              
+              &:first-child {
+                margin-top: 0;
+              }
+            }
+            
+            code {
+              background: rgba(0, 0, 0, 0.05);
+              padding: 2px 4px;
+              border-radius: 3px;
+              font-size: 13px;
+              font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            }
+            
+            pre {
+              background: rgba(0, 0, 0, 0.05);
+              padding: 8px;
+              border-radius: 4px;
+              margin: 8px 0;
+              overflow-x: auto;
+              
+              code {
+                background: none;
+                padding: 0;
+              }
+            }
+            
+            blockquote {
+              margin: 8px 0;
+              padding: 4px 12px;
+              border-left: 3px solid #1a73e8;
+              background: rgba(26, 115, 232, 0.05);
+              border-radius: 0 4px 4px 0;
+            }
+            
+            strong {
+              font-weight: 600;
+              color: #1a73e8;
+            }
+            
+            em {
+              font-style: italic;
+              color: #666;
+            }
+            
+            hr {
+              margin: 12px 0;
+              border: none;
+              border-top: 1px solid rgba(226, 232, 240, 0.8);
+            }
           }
         }
       }
@@ -580,11 +726,73 @@
 
 .caption-tools {
   padding: 0 4px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 4px;
+  align-items: center;
+  overflow: hidden;
+  
   button {
-    margin-top: 4px;
-    margin-right: 4px;
-    margin-left: 0.5em;
+    margin: 0;
     cursor: pointer;
+    padding: 4px 12px;
+    min-width: 32px;
+    white-space: nowrap;
+    flex-shrink: 1;
+    
+    // 按钮文本默认显示
+    span:not(.anticon) {
+      display: inline;
+      margin-left: 4px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  
+  // 当容器宽度不足时，逐步隐藏按钮文本
+  @media (max-width: 600px) {
+    button {
+      span:not(.anticon) {
+        max-width: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+  
+  // 进一步缩小时，隐藏更多文本
+  @media (max-width: 500px) {
+    button {
+      span:not(.anticon) {
+        max-width: 30px;
+      }
+    }
+  }
+  
+  // 小屏幕时，完全隐藏按钮文本，只保留图标
+  @media (max-width: 420px) {
+    button {
+      padding: 4px 8px;
+      min-width: 32px;
+      
+      // 确保图标始终显示
+      .anticon {
+        display: inline-block !important;
+        margin: 0;
+      }
+      
+      // 隐藏按钮内的文本内容（但不影响图标）
+      > span:not([class*="anticon"]):not([class*="ant-btn-icon"]) {
+        display: none !important;
+      }
+      
+      // 如果文本在图标span内，隐藏文本但保留图标
+      span[class*="anticon"] + span,
+      span[class*="ant-btn-icon"] + span {
+        display: none !important;
+      }
+    }
   }
 }
 
@@ -601,6 +809,89 @@
   font-size: 14px;
   border-radius: 7px;
   color: crimson;
+  
+  // 优化markdown渲染的空白
+  p {
+    margin: 0 0 8px 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  ul, ol {
+    margin: 4px 0 8px 0;
+    padding-left: 20px;
+    
+    // 如果只有一个li，减少底边距
+    &:has(li:only-child) {
+      margin-bottom: 4px;
+    }
+    
+    li {
+      margin: 2px 0;
+      line-height: 1.4;
+      
+      // 如果是唯一的li，减少边距
+      &:only-child {
+        margin: 0;
+      }
+    }
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin: 8px 0 4px 0;
+    line-height: 1.3;
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  
+  code {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+  
+  pre {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    border-radius: 4px;
+    margin: 8px 0;
+    overflow-x: auto;
+    
+    code {
+      background: none;
+      padding: 0;
+    }
+  }
+  
+  blockquote {
+    margin: 8px 0;
+    padding: 4px 12px;
+    border-left: 3px solid darkcyan;
+    background: rgba(0, 139, 139, 0.05);
+    border-radius: 0 4px 4px 0;
+  }
+  
+  strong {
+    font-weight: 600;
+    color: darkcyan;
+  }
+  
+  em {
+    font-style: italic;
+    color: #666;
+  }
+  
+  hr {
+    margin: 12px 0;
+    border: none;
+    border-top: 1px solid rgba(0, 139, 139, 0.3);
+  }
 }
 
 b {

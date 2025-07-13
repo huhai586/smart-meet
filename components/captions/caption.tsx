@@ -20,6 +20,7 @@ import { getCurrentTranslationProvider } from "../../hooks/useTranslationProvide
 import { translateByGoogle, translateByMicrosoft, translateByAI } from "../../utils/translators";
 import { detectLanguage, isRTLLanguage } from "../../utils/language-detector";
 import { setTranslatedWords } from "~utils/translate"
+import MarkdownRenderer from "../summary/MarkdownRenderer";
 
 type CaptionProps = {
     data: Transcript;
@@ -456,7 +457,9 @@ const captions = useMemo(() => {
                             <InfoOutlined style={{ marginRight: '8px', color: '#1a73e8' }} />
                             {getActionText(item.type as Actions)}
                         </div>
-                        <div className={'ai-answer-data'} dangerouslySetInnerHTML={{__html: item.data}}></div>
+                        <div className={'ai-answer-data'}>
+                            <MarkdownRenderer content={item.data} />
+                        </div>
                     </div>
                 ))}
             </div>
