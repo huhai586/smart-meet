@@ -158,6 +158,13 @@ export default {
   "no_keep_it": "不，保留它",
   "history_cleared": "翻译历史已成功清除",
   "no_history": "还没有翻译历史。点击字幕中的任何词语来翻译它。",
+  "more": "更多",
+  "pronunciation": "发音",
+  "word_details": "单词详情",
+  "loading_word_details": "正在加载单词详情...",
+  "loading_word_details_failed": "加载单词详情失败，请重试。",
+  "meanings": "词义",
+  "origin": "词源",
 
   // API Key Testing
   "test": "测试",

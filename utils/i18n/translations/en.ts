@@ -158,6 +158,13 @@ export default {
   "no_keep_it": "No, Keep It",
   "history_cleared": "Translation history cleared successfully",
   "no_history": "No translation history yet. Click on any word in the captions to translate it.",
+  "more": "More",
+  "pronunciation": "Pronunciation",
+  "word_details": "Word Details",
+  "loading_word_details": "Loading word details...",
+  "loading_word_details_failed": "Failed to load word details. Please try again.",
+  "meanings": "Meanings",
+  "origin": "Origin",
   
   // API Key Testing
   "test": "Test",

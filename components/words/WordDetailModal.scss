@@ -1,0 +1,299 @@
+.word-detail-modal {
+  .ant-modal-header {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 12px 16px;
+
+    .modal-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d3748;
+
+      .title-icon {
+        color: #1a73e8;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .ant-modal-body {
+    padding: 16px;
+    max-height: 60vh;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #cbd5e0;
+      border-radius: 2px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+  }
+
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    gap: 12px;
+
+    .ant-spin {
+      color: #1a73e8;
+    }
+
+    .ant-typography {
+      color: #718096;
+    }
+  }
+
+  .word-detail-content {
+    .word-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+
+      .word-title {
+        margin: 0;
+        color: #2d3748;
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .pronunciation-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .phonetic {
+          font-size: 14px;
+          color: #1a73e8;
+          font-family: 'Courier New', monospace;
+          font-weight: 500;
+        }
+
+        .pronunciation-btn {
+          color: #1a73e8;
+          border: 1px solid #1a73e8;
+          border-radius: 50%;
+          width: 28px;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+          font-size: 12px;
+
+          &:hover {
+            background: #1a73e8;
+            color: white;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    .meanings-section {
+      margin-bottom: 16px;
+
+      .ant-typography {
+        &.ant-typography-h4 {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-bottom: 12px;
+          color: #2d3748;
+          font-size: 16px;
+
+          .section-icon {
+            color: #1a73e8;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .meaning-card {
+        margin-bottom: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        transition: all 0.2s ease;
+
+        &:hover {
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          border-color: #1a73e8;
+        }
+
+        .ant-card-body {
+          padding: 12px;
+        }
+
+        .part-of-speech {
+          margin-bottom: 8px;
+
+          .ant-tag {
+            font-size: 11px;
+            font-weight: 500;
+            border-radius: 10px;
+            padding: 1px 6px;
+          }
+        }
+
+        .definition-item {
+          margin-bottom: 12px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .definition {
+            margin-bottom: 6px;
+            line-height: 1.5;
+
+            .ant-typography {
+              color: #2d3748;
+              font-size: 14px;
+            }
+          }
+
+          .example {
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 6px;
+            padding: 6px 8px;
+            background: #f8fafc;
+            border-radius: 4px;
+            border-left: 2px solid #1a73e8;
+
+            .example-icon {
+              color: #1a73e8;
+              font-size: 12px;
+              margin-top: 1px;
+            }
+
+            .ant-typography {
+              color: #4a5568;
+              font-size: 12px;
+              line-height: 1.4;
+            }
+          }
+
+          .synonyms {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+
+            .ant-typography {
+              color: #718096;
+              font-size: 12px;
+            }
+
+            .synonym-tag {
+              font-size: 11px;
+              color: #4a5568;
+              background: #edf2f7;
+              border: 1px solid #e2e8f0;
+              border-radius: 10px;
+              padding: 1px 4px;
+              margin: 0;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background: #e2e8f0;
+                border-color: #1a73e8;
+                color: #1a73e8;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .origin-section {
+      .ant-typography {
+        &.ant-typography-h4 {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          margin-bottom: 12px;
+          color: #2d3748;
+          font-size: 16px;
+
+          .section-icon {
+            color: #1a73e8;
+            font-size: 14px;
+          }
+        }
+      }
+
+      .origin-text {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        padding: 12px;
+        margin: 0;
+        color: #4a5568;
+        line-height: 1.5;
+        font-style: italic;
+        font-size: 13px;
+      }
+    }
+  }
+
+  .ant-alert {
+    border-radius: 6px;
+    margin: 12px 0;
+
+    .ant-alert-message {
+      font-weight: 500;
+      font-size: 13px;
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .word-detail-modal {
+    .ant-modal {
+      margin: 0;
+      max-width: 100%;
+      height: 100%;
+      border-radius: 0;
+    }
+
+    .ant-modal-content {
+      height: 100%;
+      border-radius: 0;
+    }
+
+    .ant-modal-body {
+      max-height: calc(100vh - 90px);
+    }
+
+    .word-detail-content {
+      .word-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+
+        .word-title {
+          font-size: 20px;
+        }
+
+        .pronunciation-section {
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+} 

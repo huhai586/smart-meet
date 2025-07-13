@@ -1,0 +1,316 @@
+.word-card-container {
+  width: 100%;
+  height: 100%; // 让容器适应网格高度
+  // 移除margin-bottom，让网格控制间距
+}
+
+.word-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border-radius: 10px;
+  overflow: hidden;
+  // 清新活力的基础样式
+  background: #ffffff;
+  border: 1px solid #e0f2fe;
+  box-shadow: 0 2px 10px rgba(14, 165, 233, 0.06);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(14, 165, 233, 0.12);
+    border-color: #0ea5e9;
+  }
+
+  .word-card-front,
+  .word-card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .word-card-front {
+    opacity: 1;
+    pointer-events: auto;
+    // 清新活力的蓝色渐变
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #0891b2 100%);
+    color: white;
+  }
+
+  .word-card-back {
+    opacity: 0;
+    pointer-events: none;
+    // 清新的青绿色渐变
+    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    color: white;
+  }
+
+  &.flipped {
+    .word-card-front {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .word-card-back {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  // 正面内容
+  .word-card-front {
+    .card-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .word-display {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      justify-content: center;
+
+      .word-text-area {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .word-text {
+          font-size: 14px;
+          font-weight: 600;
+          color: #ffffff;
+          text-align: center;
+          word-break: break-word;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+          letter-spacing: 0.3px;
+        }
+      }
+
+      .pronunciation-btn {
+        color: rgba(255, 255, 255, 0.95);
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        &:hover {
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.3);
+          transform: scale(1.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+  }
+
+  // 反面内容
+  .word-card-back {
+    .card-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .translation-display {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      .translation-text {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 6px;
+        
+        .translation {
+          font-size: 12px;
+          font-weight: 500;
+          color: #ffffff;
+          text-align: center;
+          line-height: 1.3;
+          word-break: break-word;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+          letter-spacing: 0.2px;
+        }
+      }
+
+      .card-actions {
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+
+        .more-btn {
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 10px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.2);
+          transition: all 0.3s ease;
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+
+          &:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .word-card {
+    border-radius: 8px;
+    
+    .word-card-front,
+    .word-card-back {
+      padding: 8px;
+    }
+    
+    .word-card-front {
+      .word-display {
+        .word-text-area {
+          .word-text {
+            font-size: 12px;
+          }
+        }
+        
+        .pronunciation-btn {
+          width: 20px;
+          height: 20px;
+          font-size: 10px;
+        }
+      }
+    }
+
+    .word-card-back {
+      .translation-display {
+        .translation-text {
+          .translation {
+            font-size: 11px;
+          }
+        }
+        
+        .card-actions {
+          .more-btn {
+            width: 16px;
+            height: 16px;
+            font-size: 9px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .word-card {
+    border-radius: 6px;
+    
+    .word-card-front,
+    .word-card-back {
+      padding: 6px;
+    }
+    
+    .word-card-front {
+      .word-display {
+        .word-text-area {
+          .word-text {
+            font-size: 11px;
+          }
+        }
+        
+        .pronunciation-btn {
+          width: 18px;
+          height: 18px;
+          font-size: 9px;
+        }
+      }
+    }
+
+    .word-card-back {
+      .translation-display {
+        .translation-text {
+          .translation {
+            font-size: 10px;
+          }
+        }
+        
+        .card-actions {
+          .more-btn {
+            width: 14px;
+            height: 14px;
+            font-size: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 加载状态样式
+.word-card {
+  .ant-card-loading-content {
+    .ant-card-loading-block {
+      background: linear-gradient(90deg, #f0f2f5 25%, #e6f7ff 50%, #f0f2f5 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s infinite;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+} 

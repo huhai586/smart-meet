@@ -216,7 +216,7 @@ const captions = useMemo(() => {
             try {
                 console.log(`Clicked word: ${word}`);
               // Save the word to translation history first
-              setTranslatedWords(word);
+              setTranslatedWords(word.replace(".", ''));
                 // 获取当前翻译提供商
                 const provider = await getCurrentTranslationProvider();
                 console.log(`[handleWordClick] Using provider: ${provider}`);
