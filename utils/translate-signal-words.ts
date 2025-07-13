@@ -7,9 +7,8 @@ import messageManager from "~utils/message-manager";
 
 const translateSingleWords = async (text: string): Promise<string> => {
     try {
-        // Save the word to translation history first
-        setTranslatedWords(text);
-        
+
+
         // Attempt to translate using AI
         const result = await askAI(Actions.TRANSLATE, text);
         return result;

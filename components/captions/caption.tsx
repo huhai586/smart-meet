@@ -19,6 +19,7 @@ import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
 import { getCurrentTranslationProvider } from "../../hooks/useTranslationProvider";
 import { translateByGoogle, translateByMicrosoft, translateByAI } from "../../utils/translators";
 import { detectLanguage, isRTLLanguage } from "../../utils/language-detector";
+import { setTranslatedWords } from "~utils/translate"
 
 type CaptionProps = {
     data: Transcript;
@@ -214,7 +215,8 @@ const captions = useMemo(() => {
         if (word && word.trim()) {
             try {
                 console.log(`Clicked word: ${word}`);
-                
+              // Save the word to translation history first
+              setTranslatedWords(word);
                 // 获取当前翻译提供商
                 const provider = await getCurrentTranslationProvider();
                 console.log(`[handleWordClick] Using provider: ${provider}`);
@@ -352,7 +354,6 @@ const captions = useMemo(() => {
     const handleTranslate = useCallback(async () => {
         try {
             setIsTranslating(true);
-            
             // 获取当前翻译提供商
             const provider = await getCurrentTranslationProvider();
             console.log(`[handleTranslate] Using provider: ${provider}`);

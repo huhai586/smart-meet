@@ -171,6 +171,10 @@ const mapToMicrosoftLangCode = (langCode: string): string => {
 export const translateByMicrosoft = async (text: string): Promise<string> => {
   console.log('Using Microsoft Translator for:', text);
   
+  // 发送加载开始事件
+  const loadingEvent = new CustomEvent('global-loading-event', { detail: { loading: true } });
+  window.dispatchEvent(loadingEvent);
+  
   try {
     // 获取目标语言
     const targetLanguage = await getCurrentLanguage();
@@ -209,5 +213,9 @@ export const translateByMicrosoft = async (text: string): Promise<string> => {
     } else {
       throw new Error('Microsoft翻译服务暂时不可用');
     }
+  } finally {
+    // 发送加载完成事件
+    const finishEvent = new CustomEvent('global-loading-event', { detail: { loading: false } });
+    window.dispatchEvent(finishEvent);
   }
 }; 
