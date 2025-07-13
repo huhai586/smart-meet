@@ -3,7 +3,7 @@ import { message } from 'antd';
 import { useI18n } from '../../utils/i18n';
 import getAiSummary from '../../utils/get-ai-summary';
 import aiServiceManager from '../../utils/ai';
-import { Actions } from '../captions/caption';
+import { Actions } from '~components/captions/types';
 import { useDateContext } from '../../contexts/DateContext';
 import type { CardItemType } from './SummaryCard';
 

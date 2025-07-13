@@ -1,5 +1,5 @@
 import { PROMPT, getTranslationPrompt, getSummaryPrompt, getPolishPrompt, getAnalysisPrompt } from "../constant";
-import { Actions } from "../components/captions/caption";
+import { Actions } from "~components/captions/types";
 import aiServiceManager from "./ai";
 import { getCurrentLanguage } from "../hooks/useTranslationLanguage";
 import { getCurrentUILanguage } from "../hooks/useUILanguage";

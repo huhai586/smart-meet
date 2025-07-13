@@ -4,7 +4,7 @@ import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
 import dayjs from 'dayjs';
 
-import { Actions } from "./captions/caption"
+import { Actions } from "~components/captions/types"
 import askAI from "../utils/askAI"
 import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
 import BackupAndRestore from "~components/backup-and-restore";

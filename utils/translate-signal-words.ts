@@ -1,4 +1,4 @@
-import { Actions } from "~components/captions/caption"
+import { Actions } from "~components/captions/types"
 import askAI from "~utils/askAI"
 import {setTranslatedWords} from "~utils/translate";
 import { getTranslation } from "~utils/i18n";
