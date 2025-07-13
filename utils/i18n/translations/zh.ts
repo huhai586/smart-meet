@@ -189,6 +189,11 @@ export default {
   "unexpected_error": "发生意外错误。请重试。",
   "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。",
   "google_translate_rate_limit_error": "自动翻译调用频率太高，请在设置页面-翻译频率控制 里面将值调大，或者切换其他翻译服务",
+  
+  // AI Error Handler
+  "ai_service_configuration_required": "需要配置AI服务",
+  "ai_service_not_configured_message": "AI服务未配置或未就绪。请前往选项页面配置您的AI服务（OpenAI、Gemini或xAI），然后再使用AI功能。",
+  "go_to_options": "前往选项",
 
   // Clear Captions
   "clear_captions_warning": "警告：此操作无法撤销",

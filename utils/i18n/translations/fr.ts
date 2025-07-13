@@ -143,6 +143,11 @@ export default {
   "domain_explanation_failed": "Impossible d'expliquer le terme du domaine. Veuillez vérifier votre configuration du service IA.",
   "google_translate_rate_limit_error": "La fréquence d'appel de traduction automatique est trop élevée. Veuillez augmenter la valeur dans Paramètres - Contrôle de la fréquence de traduction, ou passer à un autre service de traduction",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "Configuration du service IA requise",
+  "ai_service_not_configured_message": "Le service IA n'est pas configuré ou n'est pas prêt. Veuillez aller à la page Options pour configurer votre service IA (OpenAI, Gemini ou xAI) avant d'utiliser les fonctionnalités IA.",
+  "go_to_options": "Aller aux Options",
+  
   // Clear Captions
   "clear_captions_warning": "Avertissement : Cette action ne peut pas être annulée",
   "clear_captions_warning_desc": "Cela supprimera définitivement toutes les transcriptions enregistrées du stockage de votre navigateur.",

@@ -123,6 +123,11 @@ export default {
   "unexpected_error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
   "domain_explanation_failed": "فشل في شرح مصطلح المجال. يرجى التحقق من تكوين خدمة الذكاء الاصطناعي.",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "مطلوب تكوين خدمة الذكاء الاصطناعي",
+  "ai_service_not_configured_message": "خدمة الذكاء الاصطناعي غير مكونة أو غير جاهزة. يرجى الانتقال إلى صفحة الخيارات لتكوين خدمة الذكاء الاصطناعي (OpenAI أو Gemini أو xAI) قبل استخدام ميزات الذكاء الاصطناعي.",
+  "go_to_options": "انتقل إلى الخيارات",
+  
   // Clear Captions
   "clear_captions_warning": "تحذير: لا يمكن التراجع عن هذا الإجراء",
   "clear_captions_warning_desc": "سيؤدي هذا إلى حذف جميع التعليقات المسجلة نهائياً من تخزين المتصفح.",

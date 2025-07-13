@@ -190,6 +190,11 @@ export default {
   "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration.",
   "google_translate_rate_limit_error": "Auto translation call frequency is too high. Please increase the value in Settings - Translation Frequency Control, or switch to another translation service",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "AI Service Configuration Required",
+  "ai_service_not_configured_message": "AI service is not configured or ready. Please go to the Options page to configure your AI service (OpenAI, Gemini, or xAI) before using AI features.",
+  "go_to_options": "Go to Options",
+  
   // Clear Captions
   "clear_captions_warning": "Warning: This action cannot be undone",
   "clear_captions_warning_desc": "This will permanently delete all recorded captions from your browser storage.",

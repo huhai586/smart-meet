@@ -123,6 +123,11 @@ export default {
   "unexpected_error": "เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองใหม่อีกครั้ง",
   "domain_explanation_failed": "ไม่สามารถอธิบายคำศัพท์ในโดเมนได้ กรุณาตรวจสอบการกำหนดค่าบริการ AI ของคุณ",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "ต้องการการกำหนดค่าบริการ AI",
+  "ai_service_not_configured_message": "บริการ AI ไม่ได้กำหนดค่าหรือไม่พร้อมใช้งาน กรุณาไปที่หน้าตัวเลือกเพื่อกำหนดค่าบริการ AI ของคุณ (OpenAI, Gemini หรือ xAI) ก่อนใช้คุณสมบัติ AI",
+  "go_to_options": "ไปที่ตัวเลือก",
+  
   // Clear Captions
   "clear_captions_warning": "คำเตือน: การกระทำนี้ไม่สามารถยกเลิกได้",
   "clear_captions_warning_desc": "การกระทำนี้จะลบคำบรรยายที่บันทึกไว้ทั้งหมดจากที่เก็บข้อมูลเบราว์เซอร์ของคุณอย่างถาวร",

@@ -129,6 +129,11 @@ export default {
   "domain_explanation_failed": "Fehler beim Erklären des Fachbegriffs. Bitte überprüfen Sie Ihre KI-Service-Konfiguration.",
   "google_translate_rate_limit_error": "Die Häufigkeit der automatischen Übersetzungsaufrufe ist zu hoch. Bitte erhöhen Sie den Wert in Einstellungen - Übersetzungsfrequenz-Kontrolle oder wechseln Sie zu einem anderen Übersetzungsdienst",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "KI-Service-Konfiguration erforderlich",
+  "ai_service_not_configured_message": "KI-Service ist nicht konfiguriert oder nicht bereit. Bitte gehen Sie zur Optionen-Seite, um Ihren KI-Service (OpenAI, Gemini oder xAI) zu konfigurieren, bevor Sie KI-Funktionen verwenden.",
+  "go_to_options": "Zu Optionen gehen",
+  
   // Clear Captions
   "clear_captions_warning": "Warnung: Diese Aktion kann nicht rückgängig gemacht werden",
   "clear_captions_warning_desc": "Dies wird alle aufgezeichneten Untertitel dauerhaft aus Ihrem Browser-Speicher löschen.",

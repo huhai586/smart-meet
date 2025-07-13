@@ -122,6 +122,11 @@ export default {
   "unexpected_error": "एक अप्रत्याशित त्रुटि हुई। कृपया पुनः प्रयास करें।",
   "domain_explanation_failed": "डोमेन शब्द की व्याख्या करने में असफल। कृपया अपनी AI सेवा कॉन्फ़िगरेशन जांचें।",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "AI सेवा कॉन्फ़िगरेशन आवश्यक है",
+  "ai_service_not_configured_message": "AI सेवा कॉन्फ़िगर नहीं है या तैयार नहीं है। AI सुविधाओं का उपयोग करने से पहले कृपया विकल्प पृष्ठ पर जाकर अपनी AI सेवा (OpenAI, Gemini या xAI) को कॉन्फ़िगर करें।",
+  "go_to_options": "विकल्प पर जाएं",
+  
   // Clear Captions
   "clear_captions_warning": "चेतावनी: यह क्रिया पूर्ववत नहीं की जा सकती",
   "clear_captions_warning_desc": "यह आपके ब्राउज़र स्टोरेज से सभी रिकॉर्ड किए गए कैप्शन को स्थायी रूप से हटा देगा।",

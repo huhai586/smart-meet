@@ -129,6 +129,11 @@ export default {
   "domain_explanation_failed": "ドメイン用語の説明に失敗しました。AIサービスの設定を確認してください。",
   "google_translate_rate_limit_error": "自動翻訳の呼び出し頻度が高すぎます。設定ページの翻訳頻度制御で値を大きくするか、他の翻訳サービスに切り替えてください",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "AIサービスの設定が必要です",
+  "ai_service_not_configured_message": "AIサービスが設定されていないか、準備ができていません。AI機能を使用する前に、オプションページでAIサービス（OpenAI、Gemini、またはxAI）を設定してください。",
+  "go_to_options": "オプションに移動",
+  
   // Clear Captions
   "clear_captions_warning": "警告：この操作は元に戻せません",
   "clear_captions_warning_desc": "これにより、ブラウザストレージから記録されたすべてのキャプションが永続的に削除されます。",

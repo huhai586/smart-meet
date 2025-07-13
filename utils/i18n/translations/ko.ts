@@ -129,6 +129,11 @@ export default {
   "domain_explanation_failed": "도메인 용어 설명에 실패했습니다. AI 서비스 구성을 확인해주세요.",
   "google_translate_rate_limit_error": "자동 번역 호출 빈도가 너무 높습니다. 설정 페이지의 번역 빈도 제어에서 값을 크게 하거나 다른 번역 서비스로 전환해주세요",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "AI 서비스 구성이 필요합니다",
+  "ai_service_not_configured_message": "AI 서비스가 구성되지 않았거나 준비되지 않았습니다. AI 기능을 사용하기 전에 옵션 페이지로 이동하여 AI 서비스(OpenAI, Gemini 또는 xAI)를 구성해주세요.",
+  "go_to_options": "옵션으로 이동",
+  
   // Clear Captions
   "clear_captions_warning": "경고: 이 작업은 되돌릴 수 없습니다",
   "clear_captions_warning_desc": "브라우저 저장소에서 기록된 모든 캡션이 영구적으로 삭제됩니다.",

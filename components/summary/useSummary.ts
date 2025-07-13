@@ -64,13 +64,19 @@ export const useSummary = () => {
         .catch((err) => {
           console.warn('err', err);
           newCardData[index].fetchComplete = true;
-          // 直接显示原始错误信息
+          
+          // getAiSummary内部使用askAI，AI服务错误已经在askAI中处理
+          // 这里只处理其他类型的错误
           const errorMessage = typeof err === 'string' ? err : (err?.message || 'Unknown error occurred');
           newCardData[index].error = errorMessage;
-          messageApi.open({
-            type: 'error',
-            content: errorMessage,
-          });
+          
+          // 只有非AI服务错误才显示错误消息（AI服务错误已经在askAI中处理）
+          if (!errorMessage.toLowerCase().includes('ai service')) {
+            messageApi.open({
+              type: 'error',
+              content: errorMessage,
+            });
+          }
         })
         .finally(() => {
           setRequesting(false);

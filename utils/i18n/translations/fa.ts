@@ -190,6 +190,11 @@ export default {
   "unexpected_error": "خطای غیرمنتظره رخ داد. لطفاً دوباره تلاش کنید.",
   "domain_explanation_failed": "توضیح اصطلاح حوزه ناموفق بود. لطفاً پیکربندی سرویس هوش مصنوعی خود را بررسی کنید.",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "پیکربندی سرویس هوش مصنوعی لازم است",
+  "ai_service_not_configured_message": "سرویس هوش مصنوعی پیکربندی نشده یا آماده نیست. لطفاً به صفحه گزینه‌ها بروید تا سرویس هوش مصنوعی خود (OpenAI، Gemini یا xAI) را قبل از استفاده از ویژگی‌های هوش مصنوعی پیکربندی کنید.",
+  "go_to_options": "برو به گزینه‌ها",
+  
   // Clear Captions
   "clear_captions_warning": "هشدار: این عمل قابل بازگشت نیست",
   "clear_captions_warning_desc": "این عمل همه زیرنویس‌های ثبت شده را از ذخیره‌سازی مرورگر شما به طور دائم حذف خواهد کرد.",

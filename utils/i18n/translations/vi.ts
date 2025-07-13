@@ -123,6 +123,11 @@ export default {
   "unexpected_error": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
   "domain_explanation_failed": "Không thể giải thích thuật ngữ miền. Vui lòng kiểm tra cấu hình dịch vụ AI của bạn.",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "Cần cấu hình dịch vụ AI",
+  "ai_service_not_configured_message": "Dịch vụ AI chưa được cấu hình hoặc chưa sẵn sàng. Vui lòng đi đến trang Tùy chọn để cấu hình dịch vụ AI của bạn (OpenAI, Gemini hoặc xAI) trước khi sử dụng các tính năng AI.",
+  "go_to_options": "Đi đến Tùy chọn",
+  
   // Clear Captions
   "clear_captions_warning": "Cảnh báo: Hành động này không thể hoàn tác",
   "clear_captions_warning_desc": "Điều này sẽ xóa vĩnh viễn tất cả phụ đề đã ghi lại khỏi bộ nhớ trình duyệt của bạn.",

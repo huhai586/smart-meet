@@ -4,6 +4,7 @@ import aiServiceManager from "./ai";
 import { getCurrentLanguage } from "../hooks/useTranslationLanguage";
 import { getCurrentUILanguage } from "../hooks/useUILanguage";
 import { detectLanguage } from "./language-detector";
+import { handleAIError } from "./ai-error-handler";
 
 // Debounce function to prevent multiple error notifications
 let errorNotificationTimeout: NodeJS.Timeout | null = null;
@@ -30,7 +31,10 @@ const askAI = async (action: Actions, text: string, question?: string) => {
         console.error(`[askAI] AI service not ready. Current service type: ${aiServiceManager.getCurrentServiceType()}`);
         console.error(`[askAI] Initialized services: ${aiServiceManager.getInitializedServices().join(', ')}`);
         
-        return Promise.reject('AI service not ready');
+        const error = 'AI service not ready';
+        // 使用全局错误处理器处理
+        handleAIError(error);
+        return Promise.reject(error);
     }
 
     // 输出当前使用的服务类型
