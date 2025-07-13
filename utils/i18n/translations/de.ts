@@ -72,7 +72,7 @@ export default {
   // Sidepanel
   "captions": "Untertitel",
   "extension": "Erweiterung",
-  "translation_records": "Übersetzungsaufzeichnungen",
+      "translation_records": "Übersetzung",
   "download_captions": "Untertitel herunterladen",
   "sidepanel_summary": "AI Summary",
   

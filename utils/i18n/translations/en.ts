@@ -109,7 +109,7 @@ export default {
   // Sidepanel
   "captions": "Captions",
   "extension": "Extension",
-  "translation_records": "Translation records",
+      "translation_records": "Translation",
   "download_captions": "Download captions",
   "sidepanel_summary": "AI Summary",
   

@@ -72,7 +72,7 @@ export default {
   // Sidepanel
   "captions": "कैप्शन",
   "extension": "एक्सटेंशन",
-  "translation_records": "अनुवाद रिकॉर्ड",
+      "translation_records": "अनुवाद",
   "download_captions": "कैप्शन डाउनलोड करें",
   
   // Sidebar

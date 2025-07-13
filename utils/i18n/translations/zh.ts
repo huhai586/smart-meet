@@ -98,7 +98,7 @@ export default {
   // Sidepanel
   "captions": "字幕",
   "extension": "扩展",
-  "translation_records": "翻译记录",
+      "translation_records": "翻译",
   "download_captions": "下载字幕",
   "sidepanel_summary": "AI Summary",
 

@@ -72,7 +72,7 @@ export default {
   // Sidepanel
   "captions": "字幕",
   "extension": "拡張機能",
-  "translation_records": "翻訳記録",
+      "translation_records": "翻訳",
   "download_captions": "字幕をダウンロード",
   "sidepanel_summary": "AI Summary",
   

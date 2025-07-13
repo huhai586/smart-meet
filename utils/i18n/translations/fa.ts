@@ -104,7 +104,7 @@ export default {
   // Sidepanel
   "captions": "زیرنویس‌ها",
   "extension": "افزونه",
-  "translation_records": "سوابق ترجمه",
+      "translation_records": "ترجمه",
   "download_captions": "دانلود زیرنویس‌ها",
   "sidepanel_summary": "خلاصه هوش مصنوعی",
   

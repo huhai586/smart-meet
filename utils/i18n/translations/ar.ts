@@ -72,7 +72,7 @@ export default {
   // Sidepanel
   "captions": "التعليقات",
   "extension": "الإضافة",
-  "translation_records": "سجلات الترجمة",
+      "translation_records": "ترجمة",
   "download_captions": "تنزيل التعليقات",
   "sidepanel_summary": "AI Summary",
   

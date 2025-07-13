@@ -43,6 +43,7 @@ const Caption = memo((props: CaptionProps) => {
     const [domain] = useDomain();
     const { t } = useI18n();
     const [isTranslating, setIsTranslating] = useState(false);
+    const captionRef = useRef<HTMLDivElement>(null);
     
     // 使用自动翻译hook
     const { autoTranslatedContent, isAutoTranslating, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
@@ -81,6 +82,19 @@ const Caption = memo((props: CaptionProps) => {
             cleanup();
         };
     }, [cleanup]);
+
+    // 滚动函数：确保整个caption-container可见
+    const scrollToMakeVisible = useCallback(() => {
+        setTimeout(() => {
+            if (captionRef.current) {
+                captionRef.current.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'nearest',
+                    inline: 'nearest'
+                });
+            }
+        }, 100); // 短暂延迟确保DOM更新完成
+    }, []);
 
     // 使用useCallback缓存函数引用
     const success = useCallback((res: string) => {
@@ -321,6 +335,8 @@ const captions = useMemo(() => {
                 }
                 return newData;
             });
+            // 滚动确保整个caption-container可见
+            scrollToMakeVisible();
         }).catch((err) => {
             console.error(`Error in handleAskAI for action ${action}:`, err);
             
@@ -330,7 +346,7 @@ const captions = useMemo(() => {
             
             messageManager.error(errorMessage, 5);
         });
-    }, [data.talkContent, t]);
+    }, [data.talkContent, t, scrollToMakeVisible]);
 
     // 新的翻译处理函数 - 使用自动翻译接口
     const handleTranslate = useCallback(async () => {
@@ -369,6 +385,9 @@ const captions = useMemo(() => {
                 return newData;
             });
             
+            // 滚动确保整个caption-container可见
+            scrollToMakeVisible();
+            
             console.log(`[handleTranslate] Translation completed: ${translatedText.substring(0, 100)}...`);
             
         } catch (error) {
@@ -379,7 +398,7 @@ const captions = useMemo(() => {
         } finally {
             setIsTranslating(false);
         }
-    }, [data.talkContent]);
+    }, [data.talkContent, scrollToMakeVisible]);
 
     // 使用useMemo缓存按钮操作文本
     const getActionText = useCallback((action: Actions): string => {
@@ -453,7 +472,7 @@ const captions = useMemo(() => {
     }, [isRTL, data.talkContent]);
 
     return (
-        <div className={'caption-container'}>
+        <div className={'caption-container'} ref={captionRef}>
             <section>
                 <div className={'caption-text-container'}>
                     <div className="caption-header">
