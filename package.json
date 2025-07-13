@@ -2,11 +2,12 @@
   "name": "google-meet-caption-pro",
   "displayName": "Google Meet Caption Pro",
   "version": "1.3.9",
-  "description": "Professional Google Meet caption tool with smart summary, translation, and more",
+  "description": "ç",
   "author": "Howard",
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
+    "postbuild": "cp -r _locales build/chrome-mv3-prod/ && cp -r _locales build/chrome-mv3-dev/",
     "package": "plasmo package"
   },
   "dependencies": {
@@ -46,6 +47,9 @@
   "local_client_id_57": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",
   "local_client_id_online": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
   "manifest": {
+    "default_locale": "en",
+    "name": "__MSG_extension_name__",
+    "description": "__MSG_extension_description__",
     "host_permissions": [
       "https://meet.google.com/*",
       "https://translate.google.com/",

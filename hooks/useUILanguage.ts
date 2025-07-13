@@ -26,10 +26,9 @@ export const useUILanguage = (): [Language, (language: Language) => void] => {
         setCachedLanguage(lang);
       } else {
         // 如果UI语言未设置，使用默认UI语言（英文）
+        // 但不立即保存，让浏览器语言检测来处理
         setLanguageState(defaultUILanguage);
         setCachedLanguage(defaultUILanguage);
-        // 保存默认UI语言
-        chrome.storage.sync.set({ [STORAGE_KEY]: defaultUILanguage.code });
       }
     });
   }, []);
