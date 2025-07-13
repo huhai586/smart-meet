@@ -3,6 +3,7 @@ import { Card, Spin, Badge, Tag } from 'antd';
 import { LoadingOutlined, MessageOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import MarkdownRenderer from './MarkdownRenderer';
 import { useI18n } from '../../utils/i18n';
+import { useLanguageDetection } from '../captions/hooks/useLanguageDetection';
 import '../../styles/summary.scss';
 
 export interface CardItemType {
@@ -21,6 +22,9 @@ interface SummaryCardProps {
 
 const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
   const { t } = useI18n();
+  
+  // 检测回答内容的语言方向
+  const isRTL = useLanguageDetection(item.answer || '');
 
   // 格式化时间显示
   const formatTime = (timestamp: number | undefined) => {
@@ -53,7 +57,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
         className={'card-container'}
         extra={<Badge status={item.fetchComplete ? "success" : "processing"} text={item.fetchComplete ? t('completed') : t('loading')} />}
       >
-        <div className="summary-container">
+        <div className={`summary-container ${isRTL ? 'rtl' : ''}`}>
           {item.fetchComplete && <MessageOutlined className="response-icon" />}
           {item.error ? (
             <div className="summary-error-message" style={{ color: 'red' }}>{item.error}</div>

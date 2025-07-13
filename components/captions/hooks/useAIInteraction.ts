@@ -6,6 +6,7 @@ import type { AIDataItem } from '~components/captions/types';
 
 export const useAIInteraction = (scrollToMakeVisible: () => void) => {
     const [aiData, setAiData] = useState<AIDataItem[]>([]);
+    const [lastActionType, setLastActionType] = useState<Actions | undefined>(undefined);
 
     // Handle AI requests
     const handleAskAI = useCallback((action: Actions, content: string) => {
@@ -20,6 +21,8 @@ export const useAIInteraction = (scrollToMakeVisible: () => void) => {
                 }
                 return newData;
             });
+            // Set the last action type only after we get the data
+            setLastActionType(action);
             // Scroll to make the entire caption-container visible
             scrollToMakeVisible();
         }).catch((err) => {
@@ -45,6 +48,8 @@ export const useAIInteraction = (scrollToMakeVisible: () => void) => {
             }
             return newData;
         });
+        // Set the last action type for translation only after we have the data
+        setLastActionType(Actions.TRANSLATE);
         scrollToMakeVisible();
     }, [scrollToMakeVisible]);
 
@@ -54,6 +59,7 @@ export const useAIInteraction = (scrollToMakeVisible: () => void) => {
         aiData,
         hasAiData,
         handleAskAI,
-        addTranslationToAIData
+        addTranslationToAIData,
+        lastActionType
     };
 }; 

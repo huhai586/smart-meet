@@ -119,6 +119,12 @@
     padding-left: 34px;
   }
 
+  // RTL support
+  &.rtl {
+    direction: rtl;
+    text-align: right;
+  }
+
   li {
     margin-bottom: 4px;
   }

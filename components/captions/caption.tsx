@@ -22,7 +22,7 @@ const Caption = memo((props: CaptionProps) => {
     const [domainKeyWords, specificWords] = useHighLightWords();
     const [domain] = useDomain();
     const { autoTranslatedContent, isAutoTranslating, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
-    
+
     // Text processing
     const processedContent = useCaptionText(data.talkContent, domainKeyWords, specificWords);
     
@@ -31,9 +31,9 @@ const Caption = memo((props: CaptionProps) => {
     
     // Scroll functionality
     const scrollToMakeVisible = useScrollToVisible(captionRef);
-    
+
     // AI interaction
-    const { aiData, hasAiData, handleAskAI, addTranslationToAIData } = useAIInteraction(scrollToMakeVisible);
+    const { aiData, hasAiData, handleAskAI, addTranslationToAIData, lastActionType } = useAIInteraction(scrollToMakeVisible);
     
     // Language detection
     const isRTL = useLanguageDetection(data.talkContent);
@@ -41,7 +41,7 @@ const Caption = memo((props: CaptionProps) => {
     
     // Content change events
     useContentChangeEvents(autoTranslatedContent, aiData.length, data.session);
-    
+
     // Cleanup on unmount
     useEffect(() => {
         return () => {
@@ -103,6 +103,7 @@ const Caption = memo((props: CaptionProps) => {
             <AIAnswerSection
                 aiData={aiData}
                 hasAiData={hasAiData}
+                lastActionType={lastActionType}
             />
         </div>
     );
