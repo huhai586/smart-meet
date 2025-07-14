@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Google 드라이브 통합",
   "google_drive_integration_desc": "캡션 데이터를 Google 드라이브에 백업 및 복원합니다.",
+  "google_drive_access_required": "Google 드라이브 접근 권한이 필요합니다",
+  "google_drive_connect_desc": "백업 및 복원 기능을 활성화하려면 Google 계정에 연결하세요",
   "backup_section": "백업",
   "backup_desc": "회의 데이터를 Google 드라이브에 백업",
   "backup_button": "지금 백업",

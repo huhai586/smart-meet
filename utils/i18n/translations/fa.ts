@@ -61,6 +61,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "ادغام گوگل درایو",
   "google_drive_integration_desc": "پشتیبان گیری و بازیابی داده های زیرنویس خود در Google Drive",
+  "google_drive_access_required": "دسترسی به Google Drive مورد نیاز است",
+  "google_drive_connect_desc": "برای فعال کردن قابلیت‌های پشتیبان‌گیری و بازیابی، به حساب Google خود متصل شوید",
   "backup_section": "پشتیبان‌گیری محلی",
   "backup_desc": "پشتیبان‌گیری از داده‌های جلسه روز جاری در فضای ذخیره‌سازی محلی",
   "backup_button": "پشتیبان‌گیری اکنون",

@@ -66,6 +66,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Google Drive Integration",
   "google_drive_integration_desc": "Backup and restore your caption data to Google Drive",
+  "google_drive_access_required": "Google Drive Access Required",
+  "google_drive_connect_desc": "Connect to your Google account to enable backup and restore features",
   "backup_section": "Backup to Local",
   "backup_desc": "Backup your current day meeting data to local storage",
   "backup_button": "Backup Now",

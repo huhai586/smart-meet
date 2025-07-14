@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Google Driveの統合",
   "google_drive_integration_desc": "キャプションデータをGoogleドライブにバックアップおよび復元します",
+  "google_drive_access_required": "Google Driveへのアクセスが必要です",
+  "google_drive_connect_desc": "バックアップと復元機能を有効にするためにGoogleアカウントに接続してください",
   "backup_section": "バックアップ",
   "backup_desc": "ミーティングデータをGoogle Driveにバックアップする",
   "backup_button": "今すぐバックアップ",

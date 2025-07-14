@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Tích hợp Google Drive",
   "google_drive_integration_desc": "Sao lưu và khôi phục dữ liệu phụ đề của bạn vào Google Drive",
+  "google_drive_access_required": "Cần quyền truy cập Google Drive",
+  "google_drive_connect_desc": "Kết nối với tài khoản Google của bạn để kích hoạt các tính năng sao lưu và khôi phục",
   "backup_section": "Sao lưu",
   "backup_desc": "Sao lưu dữ liệu cuộc họp lên Google Drive",
   "backup_button": "Sao lưu ngay",

@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "تكامل Google Drive",
   "google_drive_integration_desc": "نسخ بيانات التسميات التوضيحية احتياطيًا واستعادتها إلى Google Drive",
+  "google_drive_access_required": "مطلوب الوصول إلى Google Drive",
+  "google_drive_connect_desc": "اتصل بحساب Google الخاص بك لتفعيل ميزات النسخ الاحتياطي والاستعادة",
   "backup_section": "النسخ الاحتياطي",
   "backup_desc": "قم بعمل نسخة احتياطية من بيانات الاجتماع إلى جوجل درايف",
   "backup_button": "نسخ احتياطي الآن",

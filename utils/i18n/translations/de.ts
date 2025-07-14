@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Google Drive-Integration",
   "google_drive_integration_desc": "Sichern und Wiederherstellen Ihrer Untertiteldaten in Google Drive",
+  "google_drive_access_required": "Google Drive-Zugriff erforderlich",
+  "google_drive_connect_desc": "Verbinden Sie sich mit Ihrem Google-Konto, um Sicherungs- und Wiederherstellungsfunktionen zu aktivieren",
   "backup_section": "Sicherung",
   "backup_desc": "Sichern Sie Ihre Meeting-Daten auf Google Drive",
   "backup_button": "Jetzt sichern",

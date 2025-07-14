@@ -225,10 +225,10 @@ const GoogleDriveIntegration: React.FC = () => {
           </div>
           <div>
             <Title level={4} style={{ margin: 0, fontWeight: 600, color: '#333' }}>
-              Google Drive Access Required
+              {t('google_drive_access_required')}
             </Title>
             <Text type="secondary" style={{ fontSize: '15px' }}>
-              Connect to your Google account to enable backup and restore features
+              {t('google_drive_connect_desc')}
             </Text>
           </div>
         </div>

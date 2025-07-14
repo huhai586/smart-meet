@@ -66,6 +66,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Google云端硬盘集成",
   "google_drive_integration_desc": "将您的字幕数据备份和恢复到Google云端硬盘",
+  "google_drive_access_required": "需要Google云端硬盘访问权限",
+  "google_drive_connect_desc": "连接到您的Google账户以启用备份和恢复功能",
   "backup_section": "备份到本地",
   "backup_desc": "将您当天的会议数据备份到本地存储",
   "backup_button": "立即备份",

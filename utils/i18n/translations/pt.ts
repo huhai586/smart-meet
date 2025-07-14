@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Integração com Google Drive",
   "google_drive_integration_desc": "Faça backup e restaure os dados de suas legendas no Google Drive",
+  "google_drive_access_required": "Acesso ao Google Drive necessário",
+  "google_drive_connect_desc": "Conecte-se à sua conta do Google para habilitar as funções de backup e restauração",
   "backup_section": "Backup",
   "backup_desc": "Fazer backup dos dados da reunião no Google Drive",
   "backup_button": "Fazer backup agora",

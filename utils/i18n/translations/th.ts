@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "การเชื่อมต่อกับ Google Drive",
   "google_drive_integration_desc": "สำรองและกู้คืนข้อมูลคำบรรยายของคุณไปยัง Google Drive",
+  "google_drive_access_required": "ต้องการการเข้าถึง Google Drive",
+  "google_drive_connect_desc": "เชื่อมต่อกับบัญชี Google ของคุณเพื่อเปิดใช้งานฟีเจอร์สำรองข้อมูลและกู้คืน",
   "backup_section": "สำรองข้อมูล",
   "backup_desc": "สำรองข้อมูลการประชุมไปยัง Google Drive",
   "backup_button": "สำรองข้อมูลตอนนี้",

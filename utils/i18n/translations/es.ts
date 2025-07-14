@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Integración con Google Drive",
   "google_drive_integration_desc": "Haga una copia de seguridad y restaure los datos de sus subtítulos en Google Drive",
+  "google_drive_access_required": "Se requiere acceso a Google Drive",
+  "google_drive_connect_desc": "Conéctese a su cuenta de Google para habilitar las funciones de copia de seguridad y restauración",
   "backup_section": "Copia de seguridad",
   "backup_desc": "Haga una copia de seguridad de sus datos de reuniones en Google Drive",
   "backup_button": "Hacer copia ahora",

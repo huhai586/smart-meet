@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Google ड्राइव एकीकरण",
   "google_drive_integration_desc": "Google ड्राइव पर अपने कैप्शन डेटा का बैकअप और पुनर्स्थापना करें",
+  "google_drive_access_required": "Google ड्राइव पहुंच आवश्यक है",
+  "google_drive_connect_desc": "बैकअप और रिस्टोर सुविधाओं को सक्षम करने के लिए अपने Google खाते से कनेक्ट करें",
   "backup_section": "बैकअप",
   "backup_desc": "मीटिंग डेटा को Google ड्राइव पर बैकअप करें",
   "backup_button": "अभी बैकअप करें",

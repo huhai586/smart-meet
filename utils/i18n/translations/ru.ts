@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Интеграция с Google Drive",
   "google_drive_integration_desc": "Резервное копирование и восстановление данных субтитров на Google Диске",
+  "google_drive_access_required": "Требуется доступ к Google Drive",
+  "google_drive_connect_desc": "Подключитесь к своей учетной записи Google, чтобы включить функции резервного копирования и восстановления",
   "backup_section": "Резервное копирование",
   "backup_desc": "Создать резервную копию данных встречи в Google Drive",
   "backup_button": "Создать резервную копию сейчас",

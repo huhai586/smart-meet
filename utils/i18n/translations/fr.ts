@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Intégration Google Drive",
   "google_drive_integration_desc": "Sauvegardez et restaurez les données de vos sous-titres sur Google Drive",
+  "google_drive_access_required": "Accès à Google Drive requis",
+  "google_drive_connect_desc": "Connectez-vous à votre compte Google pour activer les fonctions de sauvegarde et de restauration",
   "backup_section": "Sauvegarde",
   "backup_desc": "Sauvegarder vos données de réunion sur Google Drive",
   "backup_button": "Sauvegarder maintenant",

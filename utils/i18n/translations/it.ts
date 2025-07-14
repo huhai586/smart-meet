@@ -40,6 +40,8 @@ export default {
   // Google Drive Integration
   "google_drive_integration": "Integrazione con Google Drive",
   "google_drive_integration_desc": "Esegui il backup e ripristina i dati dei tuoi sottotitoli su Google Drive",
+  "google_drive_access_required": "Accesso a Google Drive richiesto",
+  "google_drive_connect_desc": "Connettiti al tuo account Google per abilitare le funzioni di backup e ripristino",
   "backup_section": "Backup",
   "backup_desc": "Esegui il backup dei dati della riunione su Google Drive",
   "backup_button": "Esegui backup ora",
