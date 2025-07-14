@@ -1,10 +1,10 @@
 import React from 'react';
 import { Typography, theme } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
-import UILanguageSelector from './UILanguageSelector';
-import useI18n from '../utils/i18n';
-import StyledTitle from './common/StyledTitle';
-import '../styles/ui-language-settings.scss';
+import UILanguageSelector from '../UILanguageSelector';
+import useI18n from '../../utils/i18n';
+import StyledTitle from '../common/StyledTitle';
+import '../../styles/ui-language-settings.scss';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;

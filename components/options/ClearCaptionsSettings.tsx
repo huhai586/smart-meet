@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Typography, Card, Space, theme, Button, Modal, Alert } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
-import useI18n from '../utils/i18n';
-import StyledTitle from './common/StyledTitle';
-import '../styles/clear-captions-settings.scss';
+import useI18n from '../../utils/i18n';
+import StyledTitle from '../common/StyledTitle';
+import '../../styles/clear-captions-settings.scss';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;

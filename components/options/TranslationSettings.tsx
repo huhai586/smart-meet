@@ -1,14 +1,14 @@
 import React from 'react';
 import { Typography, Card, Space, theme, Switch, Divider, Select, Slider } from 'antd';
 import { TranslationOutlined } from '@ant-design/icons';
-import LanguageSelector from './LanguageSelector';
-import useI18n from '../utils/i18n';
-import StyledTitle from './common/StyledTitle';
-import { useAutoTranslate } from '../hooks/useAutoTranslate';
-import { useTranslationProvider, getProviderDisplayName, type TranslationProvider } from '../hooks/useTranslationProvider';
-import { useTranslationFrequency } from '../hooks/useTranslationFrequency';
-import messageManager from '../utils/message-manager';
-import '../styles/translation-settings.scss';
+import LanguageSelector from '../LanguageSelector';
+import useI18n from '../../utils/i18n';
+import StyledTitle from '../common/StyledTitle';
+import { useAutoTranslate } from '../../hooks/useAutoTranslate';
+import { useTranslationProvider, getProviderDisplayName, type TranslationProvider } from '../../hooks/useTranslationProvider';
+import { useTranslationFrequency } from '../../hooks/useTranslationFrequency';
+import messageManager from '../../utils/message-manager';
+import '../../styles/translation-settings.scss';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -44,7 +44,7 @@ const TranslationSettings: React.FC = () => {
           console.log(`[TranslationSettings] After setting - Storage contains:`, newResult);
 
           // 再次测试获取函数
-          import('../hooks/useTranslationProvider').then(({ getCurrentTranslationProvider }) => {
+          import('../../hooks/useTranslationProvider').then(({ getCurrentTranslationProvider }) => {
             getCurrentTranslationProvider().then(provider => {
               console.log(`[TranslationSettings] getCurrentTranslationProvider returned: ${provider}`);
             });

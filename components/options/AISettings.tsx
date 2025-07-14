@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Typography, Input, Button, Space, Card, theme, message, Popover, Spin, Select } from "antd";
 import styled from '@emotion/styled';
-import useI18n from '../utils/i18n';
-import StyledTitle from './common/StyledTitle';
-import messageManager from '../utils/message-manager';
+import useI18n from '../../utils/i18n';
+import StyledTitle from '../common/StyledTitle';
+import messageManager from '../../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -303,7 +303,7 @@ const AISettings: React.FC = () => {
 
     useEffect(() => {
         // 加载保存的API keys
-        import('../utils/getAPIkey').then(({ getAllAIServiceConfigs }) => {
+        import('../../utils/getAPIkey').then(({ getAllAIServiceConfigs }) => {
             getAllAIServiceConfigs().then(({ aiServices, activeAIService }) => {
                 setConfiguredServices(aiServices);
                 setActiveService(activeAIService);
@@ -424,7 +424,7 @@ const AISettings: React.FC = () => {
 
     // 保存当前服务配置
     const handleSaveService = () => {
-        import('../utils/getAPIkey').then(({ saveAIServiceConfig }) => {
+        import('../../utils/getAPIkey').then(({ saveAIServiceConfig }) => {
             const isActivating = currentEditService === activeService;
             
             saveAIServiceConfig(
@@ -467,7 +467,7 @@ const AISettings: React.FC = () => {
     const handleServiceCardClick = (service: string) => {
         if (configuredServices[service]?.apiKey) {
             // 如果服务已配置，将其设置为活动服务
-            import('../utils/getAPIkey').then(({ saveAIServiceConfig }) => {
+            import('../../utils/getAPIkey').then(({ saveAIServiceConfig }) => {
                 saveAIServiceConfig(
                     service,
                     configuredServices[service].apiKey,

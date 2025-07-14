@@ -12,8 +12,8 @@ import {
   DeleteOutlined,
   RollbackOutlined
 } from '@ant-design/icons';
-import '../styles/sidebar.scss';
-import useI18n from '../utils/i18n';
+import '../../styles/sidebar.scss';
+import useI18n from '../../utils/i18n';
 
 interface SidebarProps {
   activeKey: string;
