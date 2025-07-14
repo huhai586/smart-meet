@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google Driveの統合",
+  "google_drive_integration_desc": "キャプションデータをGoogleドライブにバックアップおよび復元します",
   "backup_section": "バックアップ",
   "backup_desc": "ミーティングデータをGoogle Driveにバックアップする",
   "backup_button": "今すぐバックアップ",
@@ -136,8 +137,9 @@ export default {
   
   // Clear Captions
   "clear_captions_warning": "警告：この操作は元に戻せません",
-  "clear_captions_warning_desc": "これにより、ブラウザストレージから記録されたすべてのキャプションが永続的に削除されます。",
+  "clear_captions_warning_desc": "これにより、記録されたすべてのキャプションがブラウザのストレージから完全に削除されます。",
   "clear_all_captions": "すべてのキャプションをクリア",
+  "clear_all_data": "すべてのデータを消去",
   "confirm_clear_captions": "キャプションのクリアを確認",
   "yes_clear_data": "はい、データをクリア",
   "data_cleared_success": "データのクリアが成功しました",

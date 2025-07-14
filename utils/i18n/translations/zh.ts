@@ -65,6 +65,7 @@ export default {
 
   // Google Drive Integration
   "google_drive_integration": "Google云端硬盘集成",
+  "google_drive_integration_desc": "将您的字幕数据备份和恢复到Google云端硬盘",
   "backup_section": "备份到本地",
   "backup_desc": "将您当天的会议数据备份到本地存储",
   "backup_button": "立即备份",
@@ -206,6 +207,7 @@ export default {
   "clear_captions_warning": "警告：此操作无法撤销",
   "clear_captions_warning_desc": "这将永久删除浏览器存储中的所有录制字幕。",
   "clear_all_captions": "清除所有字幕",
+  "clear_all_data": "清除所有数据",
   "confirm_clear_captions": "确认清除字幕",
   "yes_clear_data": "是的，清除数据",
   "data_cleared_success": "数据清除成功",

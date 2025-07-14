@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Интеграция с Google Drive",
+  "google_drive_integration_desc": "Резервное копирование и восстановление данных субтитров на Google Диске",
   "backup_section": "Резервное копирование",
   "backup_desc": "Создать резервную копию данных встречи в Google Drive",
   "backup_button": "Создать резервную копию сейчас",
@@ -149,10 +150,11 @@ export default {
   "go_to_options": "Перейти к Параметрам",
   
   // Clear Captions
-  "clear_captions_warning": "Предупреждение: Это действие нельзя отменить",
+  "clear_captions_warning": "Предупреждение: это действие нельзя отменить",
   "clear_captions_warning_desc": "Это навсегда удалит все записанные субтитры из хранилища вашего браузера.",
-  "clear_all_captions": "Очистить Все Субтитры",
-  "confirm_clear_captions": "Подтвердить Очистку Субтитров",
+  "clear_all_captions": "Очистить все субтитры",
+  "clear_all_data": "Стереть все данные",
+  "confirm_clear_captions": "Подтвердить очистку субтитров",
   "yes_clear_data": "Да, Очистить Данные",
   "data_cleared_success": "Данные успешно очищены",
   

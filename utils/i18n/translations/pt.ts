@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Integração com Google Drive",
+  "google_drive_integration_desc": "Faça backup e restaure os dados de suas legendas no Google Drive",
   "backup_section": "Backup",
   "backup_desc": "Fazer backup dos dados da reunião no Google Drive",
   "backup_button": "Fazer backup agora",
@@ -135,10 +136,11 @@ export default {
   "go_to_options": "Ir para Opções",
   
   // Clear Captions
-  "clear_captions_warning": "Aviso: Esta ação não pode ser desfeita",
+  "clear_captions_warning": "Aviso: esta ação não pode ser desfeita",
   "clear_captions_warning_desc": "Isso excluirá permanentemente todas as legendas gravadas do armazenamento do seu navegador.",
-  "clear_all_captions": "Limpar Todas as Legendas",
-  "confirm_clear_captions": "Confirmar Limpeza das Legendas",
+  "clear_all_captions": "Limpar todas as legendas",
+  "clear_all_data": "Limpar todos os dados",
+  "confirm_clear_captions": "Confirmar limpeza de legendas",
   "yes_clear_data": "Sim, Limpar Dados",
   "data_cleared_success": "Dados limpos com sucesso",
   

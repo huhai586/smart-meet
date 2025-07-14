@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google ड्राइव एकीकरण",
+  "google_drive_integration_desc": "Google ड्राइव पर अपने कैप्शन डेटा का बैकअप और पुनर्स्थापना करें",
   "backup_section": "बैकअप",
   "backup_desc": "मीटिंग डेटा को Google ड्राइव पर बैकअप करें",
   "backup_button": "अभी बैकअप करें",
@@ -128,9 +129,10 @@ export default {
   "go_to_options": "विकल्प पर जाएं",
   
   // Clear Captions
-  "clear_captions_warning": "चेतावनी: यह क्रिया पूर्ववत नहीं की जा सकती",
-  "clear_captions_warning_desc": "यह आपके ब्राउज़र स्टोरेज से सभी रिकॉर्ड किए गए कैप्शन को स्थायी रूप से हटा देगा।",
+  "clear_captions_warning": "चेतावनी: यह कार्रवाई पूर्ववत नहीं की जा सकती",
+  "clear_captions_warning_desc": "यह आपके ब्राउज़र संग्रहण से सभी रिकॉर्ड किए गए कैप्शन को स्थायी रूप से हटा देगा।",
   "clear_all_captions": "सभी कैप्शन साफ़ करें",
+  "clear_all_data": "सभी डेटा साफ़ करें",
   "confirm_clear_captions": "कैप्शन साफ़ करने की पुष्टि करें",
   "yes_clear_data": "हाँ, डेटा साफ़ करें",
   "data_cleared_success": "डेटा सफलतापूर्वक साफ़ किया गया",

@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google Drive-Integration",
+  "google_drive_integration_desc": "Sichern und Wiederherstellen Ihrer Untertiteldaten in Google Drive",
   "backup_section": "Sicherung",
   "backup_desc": "Sichern Sie Ihre Meeting-Daten auf Google Drive",
   "backup_button": "Jetzt sichern",
@@ -136,9 +137,10 @@ export default {
   
   // Clear Captions
   "clear_captions_warning": "Warnung: Diese Aktion kann nicht rückgängig gemacht werden",
-  "clear_captions_warning_desc": "Dies wird alle aufgezeichneten Untertitel dauerhaft aus Ihrem Browser-Speicher löschen.",
-  "clear_all_captions": "Alle Untertitel Löschen",
-  "confirm_clear_captions": "Löschen der Untertitel Bestätigen",
+  "clear_captions_warning_desc": "Dadurch werden alle aufgezeichneten Untertitel dauerhaft aus dem Speicher Ihres Browsers gelöscht.",
+  "clear_all_captions": "Alle Untertitel löschen",
+  "clear_all_data": "Alle Daten löschen",
+  "confirm_clear_captions": "Löschen der Untertitel bestätigen",
   "yes_clear_data": "Ja, Daten Löschen",
   "data_cleared_success": "Daten erfolgreich gelöscht",
   

@@ -65,6 +65,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google Drive Integration",
+  "google_drive_integration_desc": "Backup and restore your caption data to Google Drive",
   "backup_section": "Backup to Local",
   "backup_desc": "Backup your current day meeting data to local storage",
   "backup_button": "Backup Now",
@@ -206,6 +207,7 @@ export default {
   "clear_captions_warning": "Warning: This action cannot be undone",
   "clear_captions_warning_desc": "This will permanently delete all recorded captions from your browser storage.",
   "clear_all_captions": "Clear All Captions",
+  "clear_all_data": "Clear All Data",
   "confirm_clear_captions": "Confirm Clear Captions",
   "yes_clear_data": "Yes, Clear Data",
   "data_cleared_success": "Data cleared successfully",

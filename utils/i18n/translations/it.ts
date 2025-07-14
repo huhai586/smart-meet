@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Integrazione con Google Drive",
+  "google_drive_integration_desc": "Esegui il backup e ripristina i dati dei tuoi sottotitoli su Google Drive",
   "backup_section": "Backup",
   "backup_desc": "Esegui il backup dei dati della riunione su Google Drive",
   "backup_button": "Esegui backup ora",
@@ -150,10 +151,11 @@ export default {
   "go_to_options": "Vai alle Opzioni",
   
   // Clear Captions
-  "clear_captions_warning": "Avviso: Questa azione non può essere annullata",
-  "clear_captions_warning_desc": "Questo eliminerà permanentemente tutti i sottotitoli registrati dal tuo browser.",
-  "clear_all_captions": "Cancella Tutti i Sottotitoli",
-  "confirm_clear_captions": "Conferma Cancellazione Sottotitoli",
+  "clear_captions_warning": "Attenzione: questa azione non può essere annullata",
+  "clear_captions_warning_desc": "Ciò eliminerà in modo permanente tutte le didascalie registrate dalla memoria del browser.",
+  "clear_all_captions": "Cancella tutte le didascalie",
+  "clear_all_data": "Cancella tutti i dati",
+  "confirm_clear_captions": "Conferma cancellazione didascalie",
   "yes_clear_data": "Sì, Cancella Dati",
   "data_cleared_success": "Dati cancellati con successo",
   

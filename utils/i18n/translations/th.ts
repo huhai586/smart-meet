@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "การเชื่อมต่อกับ Google Drive",
+  "google_drive_integration_desc": "สำรองและกู้คืนข้อมูลคำบรรยายของคุณไปยัง Google Drive",
   "backup_section": "สำรองข้อมูล",
   "backup_desc": "สำรองข้อมูลการประชุมไปยัง Google Drive",
   "backup_button": "สำรองข้อมูลตอนนี้",
@@ -130,8 +131,9 @@ export default {
   
   // Clear Captions
   "clear_captions_warning": "คำเตือน: การกระทำนี้ไม่สามารถยกเลิกได้",
-  "clear_captions_warning_desc": "การกระทำนี้จะลบคำบรรยายที่บันทึกไว้ทั้งหมดจากที่เก็บข้อมูลเบราว์เซอร์ของคุณอย่างถาวร",
+  "clear_captions_warning_desc": "การดำเนินการนี้จะลบคำบรรยายที่บันทึกไว้ทั้งหมดออกจากที่จัดเก็บข้อมูลของเบราว์เซอร์ของคุณอย่างถาวร",
   "clear_all_captions": "ล้างคำบรรยายทั้งหมด",
+  "clear_all_data": "ล้างข้อมูลทั้งหมด",
   "confirm_clear_captions": "ยืนยันการล้างคำบรรยาย",
   "yes_clear_data": "ใช่ ล้างข้อมูล",
   "data_cleared_success": "ล้างข้อมูลสำเร็จ",

@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Intégration Google Drive",
+  "google_drive_integration_desc": "Sauvegardez et restaurez les données de vos sous-titres sur Google Drive",
   "backup_section": "Sauvegarde",
   "backup_desc": "Sauvegarder vos données de réunion sur Google Drive",
   "backup_button": "Sauvegarder maintenant",
@@ -149,10 +150,11 @@ export default {
   "go_to_options": "Aller aux Options",
   
   // Clear Captions
-  "clear_captions_warning": "Avertissement : Cette action ne peut pas être annulée",
-  "clear_captions_warning_desc": "Cela supprimera définitivement toutes les transcriptions enregistrées du stockage de votre navigateur.",
-  "clear_all_captions": "Effacer Toutes les Transcriptions",
-  "confirm_clear_captions": "Confirmer l'Effacement des Transcriptions",
+  "clear_captions_warning": "Avertissement : Cette action est irréversible",
+  "clear_captions_warning_desc": "Cela supprimera définitivement toutes les légendes enregistrées de la mémoire de votre navigateur.",
+  "clear_all_captions": "Effacer toutes les légendes",
+  "clear_all_data": "Effacer toutes les données",
+  "confirm_clear_captions": "Confirmer la suppression des légendes",
   "yes_clear_data": "Oui, Effacer les Données",
   "data_cleared_success": "Données effacées avec succès",
   

@@ -38,7 +38,8 @@ export default {
   "no_api_key": "ليس لديك مفتاح واجهة برمجة تطبيقات Gemini؟",
   
   // Google Drive Integration
-  "google_drive_integration": "تكامل جوجل درايف",
+  "google_drive_integration": "تكامل Google Drive",
+  "google_drive_integration_desc": "نسخ بيانات التسميات التوضيحية احتياطيًا واستعادتها إلى Google Drive",
   "backup_section": "النسخ الاحتياطي",
   "backup_desc": "قم بعمل نسخة احتياطية من بيانات الاجتماع إلى جوجل درايف",
   "backup_button": "نسخ احتياطي الآن",
@@ -129,10 +130,11 @@ export default {
   "go_to_options": "انتقل إلى الخيارات",
   
   // Clear Captions
-  "clear_captions_warning": "تحذير: لا يمكن التراجع عن هذا الإجراء",
-  "clear_captions_warning_desc": "سيؤدي هذا إلى حذف جميع التعليقات المسجلة نهائياً من تخزين المتصفح.",
-  "clear_all_captions": "مسح جميع التعليقات",
-  "confirm_clear_captions": "تأكيد مسح التعليقات",
+  "clear_captions_warning": "تحذير: هذا الإجراء لا يمكن التراجع عنه",
+  "clear_captions_warning_desc": "سيؤدي هذا إلى حذف جميع التسميات التوضيحية المسجلة بشكل دائم من مساحة تخزين المتصفح.",
+  "clear_all_captions": "مسح جميع التسميات التوضيحية",
+  "clear_all_data": "مسح كافة البيانات",
+  "confirm_clear_captions": "تأكيد مسح التسميات التوضيحية",
   "yes_clear_data": "نعم، مسح البيانات",
   "data_cleared_success": "تم مسح البيانات بنجاح",
   

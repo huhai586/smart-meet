@@ -39,6 +39,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Integración con Google Drive",
+  "google_drive_integration_desc": "Haga una copia de seguridad y restaure los datos de sus subtítulos en Google Drive",
   "backup_section": "Copia de seguridad",
   "backup_desc": "Haga una copia de seguridad de sus datos de reuniones en Google Drive",
   "backup_button": "Hacer copia ahora",
@@ -136,9 +137,10 @@ export default {
   
   // Clear Captions
   "clear_captions_warning": "Advertencia: Esta acción no se puede deshacer",
-  "clear_captions_warning_desc": "Esto eliminará permanentemente todas las transcripciones grabadas del almacenamiento de tu navegador.",
-  "clear_all_captions": "Limpiar Todas las Transcripciones",
-  "confirm_clear_captions": "Confirmar Limpiar Transcripciones",
+  "clear_captions_warning_desc": "Esto eliminará permanentemente todos los subtítulos grabados del almacenamiento de su navegador.",
+  "clear_all_captions": "Borrar todos los subtítulos",
+  "clear_all_data": "Borrar todos los datos",
+  "confirm_clear_captions": "Confirmar borrado de subtítulos",
   "yes_clear_data": "Sí, Limpiar Datos",
   "data_cleared_success": "Datos limpiados exitosamente",
   

@@ -60,6 +60,7 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "ادغام گوگل درایو",
+  "google_drive_integration_desc": "پشتیبان گیری و بازیابی داده های زیرنویس خود در Google Drive",
   "backup_section": "پشتیبان‌گیری محلی",
   "backup_desc": "پشتیبان‌گیری از داده‌های جلسه روز جاری در فضای ذخیره‌سازی محلی",
   "backup_button": "پشتیبان‌گیری اکنون",
@@ -197,9 +198,10 @@ export default {
   
   // Clear Captions
   "clear_captions_warning": "هشدار: این عمل قابل بازگشت نیست",
-  "clear_captions_warning_desc": "این عمل همه زیرنویس‌های ثبت شده را از ذخیره‌سازی مرورگر شما به طور دائم حذف خواهد کرد.",
-  "clear_all_captions": "پاک کردن همه زیرنویس‌ها",
-  "confirm_clear_captions": "تأیید پاک کردن زیرنویس‌ها",
+  "clear_captions_warning_desc": "این کار به طور دائم تمام زیرنویس های ضبط شده را از حافظه مرورگر شما حذف می کند.",
+  "clear_all_captions": "پاک کردن همه زیرنویس ها",
+  "clear_all_data": "پاک کردن تمام داده ها",
+  "confirm_clear_captions": "تأیید پاک کردن زیرنویس ها",
   "yes_clear_data": "بله، داده‌ها را پاک کن",
   "data_cleared_success": "داده‌ها با موفقیت پاک شدند"
 }; 
