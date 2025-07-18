@@ -10,11 +10,12 @@ import { Actions } from "~components/captions/types";
 
 type CaptionProps = {
     data: Transcript;
+    disableAutoScroll: () => void;
 };
 
 // Main component extracted to external to avoid recreating internal functions on each re-render
 const Caption = memo((props: CaptionProps) => {
-    const { data } = props;
+    const { data, disableAutoScroll } = props;
     const [isTranslating, setIsTranslating] = useState(false);
     const captionRef = useRef<HTMLDivElement>(null);
     
@@ -38,9 +39,6 @@ const Caption = memo((props: CaptionProps) => {
     // Language detection
     const isRTL = useLanguageDetection(data.talkContent);
     const isAutoTranslateLanguageRTL = useLanguageDetection(autoTranslatedContent || '');
-    
-    // Content change events
-    useContentChangeEvents(autoTranslatedContent, aiData.length, data.session);
 
     // Cleanup on unmount
     useEffect(() => {
@@ -52,6 +50,7 @@ const Caption = memo((props: CaptionProps) => {
     // Handle translation with loading state
     const handleTranslate = async () => {
         try {
+            disableAutoScroll(); // Disable auto scroll when user clicks translate
             setIsTranslating(true);
             const translatedText = await handleManualTranslation(data.talkContent);
             addTranslationToAIData(translatedText);
@@ -65,6 +64,7 @@ const Caption = memo((props: CaptionProps) => {
 
     // Handle AI requests
     const onAskAI = (action: Actions) => {
+        disableAutoScroll(); // Disable auto scroll when user clicks AI actions
         handleAskAI(action, data.talkContent);
     };
 

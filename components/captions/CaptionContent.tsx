@@ -8,6 +8,7 @@ interface CaptionContentProps {
   filteredData: Transcript[];
   selectedDate?: Dayjs;
   containerRef: React.RefObject<HTMLDivElement>;
+  disableAutoScroll: () => void;
 }
 
 /**
@@ -16,14 +17,15 @@ interface CaptionContentProps {
 const CaptionContent: React.FC<CaptionContentProps> = ({ 
   filteredData, 
   selectedDate, 
-  containerRef 
+  containerRef,
+  disableAutoScroll
 }) => {
   const isNoData = filteredData.length === 0;
 
   // 使用useMemo包装CaptionList的渲染，减少重新渲染次数
   const memoizedCaptionList = useMemo(() => {
     return filteredData.length > 0 ? (
-      <CaptionList listData={filteredData} />
+      <CaptionList listData={filteredData} disableAutoScroll={disableAutoScroll} />
     ) : (
       <Empty 
         description={
@@ -33,7 +35,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
         }
       />
     );
-  }, [filteredData, selectedDate]);
+  }, [filteredData, selectedDate, disableAutoScroll]);
 
   return (
     <>

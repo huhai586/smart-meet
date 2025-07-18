@@ -5,6 +5,7 @@ import Caption from "./caption";
 
 type CaptionListProps = {
     listData: Transcript[];
+    disableAutoScroll: () => void;
 };
 
 const CaptionList = (props: CaptionListProps) => {
@@ -16,7 +17,7 @@ const CaptionList = (props: CaptionListProps) => {
   return (
       <React.Fragment>
             {props.listData.map((item: Transcript) => (
-              <Caption key={item.session} data={item} />
+              <Caption key={item.session} data={item} disableAutoScroll={props.disableAutoScroll} />
           ))}
       </React.Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import './captions.scss';
 import useTranscripts from '../../hooks/useTranscripts';
 import useAutoScroll from '../../hooks/useScroll';
@@ -46,9 +46,32 @@ const Captions = () => {
     toggleMeeting
   } = useFilter(transcripts, selectedDate);
 
-  // 只有在搜索不活跃时才使用自动滚动
-  const shouldAutoScroll = !isSearchActive;
-  useAutoScroll(chatContainer, filteredData, shouldAutoScroll);
+  // 检查最新消息是否在10分钟内
+  const isLatestMessageRecent = useMemo(() => {
+    if (filteredData.length === 0) return false;
+    
+    const latestMessage = filteredData[filteredData.length - 1];
+    const latestTimestamp = new Date(latestMessage.timestamp).getTime();
+    const currentTime = Date.now();
+    const tenMinutesInMs = 10 * 60 * 1000;
+    
+    const isRecent = (currentTime - latestTimestamp) < tenMinutesInMs;
+    
+    if (process.env.NODE_ENV === 'development') {
+      console.log('[Captions] Latest message recent check:', {
+        isRecent,
+        latestTimestamp: new Date(latestTimestamp).toLocaleTimeString(),
+        currentTime: new Date(currentTime).toLocaleTimeString(),
+        ageInMinutes: Math.floor((currentTime - latestTimestamp) / (1000 * 60))
+      });
+    }
+    
+    return isRecent;
+  }, [filteredData]);
+
+  // 计算是否应该自动滚动：搜索不活跃 && 最新消息在10分钟内
+  const shouldAutoScroll = !isSearchActive && isLatestMessageRecent;
+  const { disableAutoScroll } = useAutoScroll(chatContainer, filteredData, shouldAutoScroll);
 
   return (
     <div className={`captions`}>
@@ -84,6 +107,7 @@ const Captions = () => {
         filteredData={filteredData}
         selectedDate={selectedDate}
         containerRef={chatContainer}
+        disableAutoScroll={disableAutoScroll}
       />
     </div>
   );

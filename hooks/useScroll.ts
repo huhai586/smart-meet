@@ -1,114 +1,138 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
-import type {Transcript} from "~hooks/useTranscripts";
+import { useRef, useEffect, useCallback } from 'react';
+import type { Transcript } from "~hooks/useTranscripts";
 
-function useAutoScroll(scrollAreaRef: React.RefObject<HTMLDivElement>, data:Transcript[], shouldAutoScroll: boolean = true) {
-    const [autoScrollEnabled, setAutoScrollEnabled] = useState(true);
-    const lastDataLengthRef = useRef(data.length);
+/**
+ * 自动滚动Hook - 重新设计的简化版本
+ * 
+ * 这个Hook实现了智能的自动滚动功能，满足以下需求：
+ * 
+ * 1. **高度变化触发滚动**: 当captions list的高度发生变化时，自动滚动到底部
+ * 2. **用户操作停止滚动**: 当用户点击翻译、polish或analysis按钮时，立即停止自动滚动
+ * 3. **滚动行为停止滚动**: 当检测到用户在chat-container中滚动时，立即停止自动滚动
+ * 4. **接近底部恢复滚动**: 当用户手动滚动到距离底部100px范围内时，重新启用自动滚动
+ * 5. **历史消息不滚动**: 通过外部传入的shouldAutoScroll参数控制（已在外部检查消息时间戳）
+ * 
+ * @param scrollAreaRef - 滚动容器的引用
+ * @param data - 字幕数据数组
+ * @param shouldAutoScroll - 是否应该启用自动滚动（外部控制，包含消息时间检查）
+ * @returns 包含disableAutoScroll函数的对象，用于外部手动禁用自动滚动
+ * 
+ * @example
+ * ```typescript
+ * const chatContainer = useRef<HTMLDivElement>(null);
+ * const shouldAutoScroll = !isSearchActive && isLatestMessageRecent;
+ * const { disableAutoScroll } = useAutoScroll(chatContainer, transcripts, shouldAutoScroll);
+ * 
+ * // 在某些情况下手动禁用自动滚动
+ * const handleSomeAction = () => {
+ *   disableAutoScroll();
+ * };
+ * ```
+ */
+function useAutoScroll(
+    scrollAreaRef: React.RefObject<HTMLDivElement>, 
+    data: Transcript[], 
+    shouldAutoScroll: boolean = true
+) {
+    const isUserScrolling = useRef(false);
     const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-    const lastScrollTop = useRef(0);
-    const isScrollingRef = useRef(false);
-
-    // 增加滚动位置检测的阈值，提高准确性
-    const isNearBottom = (scrollArea: HTMLDivElement) => {
-        const threshold = 50; // 增加阈值到50px，提高检测准确性
+    
+    // 使用shouldAutoScroll作为autoScrollEnabled的默认值
+    const autoScrollEnabled = useRef(shouldAutoScroll);
+    
+    // 当shouldAutoScroll发生变化时，更新autoScrollEnabled的默认状态
+    useEffect(() => {
+        if (shouldAutoScroll && !autoScrollEnabled.current) {
+            autoScrollEnabled.current = true;
+        }
+    }, [shouldAutoScroll]);
+    
+    // Check if user is near bottom (within 100px)
+    const isNearBottom = useCallback((scrollArea: HTMLDivElement) => {
+        const threshold = 100;
         return scrollArea.scrollHeight - scrollArea.scrollTop - scrollArea.clientHeight < threshold;
-    };
+    }, []);
 
-    // 防抖的滚动处理函数
+    // Perform auto scroll to bottom
+    const scrollToBottom = useCallback(() => {
+        const scrollArea = scrollAreaRef.current;
+        if (!scrollArea || !autoScrollEnabled.current) {
+            return;
+        }
+        
+        scrollArea.scrollTop = scrollArea.scrollHeight;
+    }, []);
+
+    // Handle scroll event
     const handleScroll = useCallback(() => {
         const scrollArea = scrollAreaRef.current;
         if (!scrollArea) return;
         
-        const scrollTop = scrollArea.scrollTop;
-        lastScrollTop.current = scrollTop;
+        isUserScrolling.current = true;
         
-        // 防抖处理，避免频繁更新状态
+        // Clear existing timeout
         if (scrollTimeoutRef.current) {
             clearTimeout(scrollTimeoutRef.current);
         }
         
+        // Debounce scroll handling
         scrollTimeoutRef.current = setTimeout(() => {
             if (isNearBottom(scrollArea)) {
-                setAutoScrollEnabled(true);
+                // User scrolled near bottom, enable auto scroll
+                autoScrollEnabled.current = true;
             } else {
-                setAutoScrollEnabled(false);
+                // User scrolled away from bottom, disable auto scroll
+                autoScrollEnabled.current = false;
             }
-            isScrollingRef.current = false;
-        }, 100); // 100ms防抖延迟
+            
+            isUserScrolling.current = false;
+        }, 150);
+    }, [isNearBottom]);
+
+    // Disable auto scroll when user clicks action buttons
+    const disableAutoScroll = useCallback(() => {
+        autoScrollEnabled.current = false;
     }, []);
 
-    // 执行自动滚动的函数，增加重试机制
-    const performAutoScroll = useCallback(() => {
-        const scrollArea = scrollAreaRef.current;
-        if (!scrollArea || !autoScrollEnabled || !shouldAutoScroll) return;
-
-        isScrollingRef.current = true;
-        
-        // 立即滚动到底部
-        scrollArea.scrollTop = scrollArea.scrollHeight;
-        
-        // 由于异步内容可能还在渲染，添加延迟重试机制
-        setTimeout(() => {
-            if (scrollArea && autoScrollEnabled && shouldAutoScroll) {
-                scrollArea.scrollTop = scrollArea.scrollHeight;
-            }
-        }, 100);
-        
-        // 再次延迟重试，确保所有异步内容都已渲染
-        setTimeout(() => {
-            if (scrollArea && autoScrollEnabled && shouldAutoScroll) {
-                scrollArea.scrollTop = scrollArea.scrollHeight;
-                isScrollingRef.current = false;
-            }
-        }, 300);
-    }, [autoScrollEnabled, shouldAutoScroll]);
-
+    // Monitor container height changes using ResizeObserver
     useEffect(() => {
         const scrollArea = scrollAreaRef.current;
         if (!scrollArea) return;
 
-        // 检查是否有新消息
-        const hasNewMessages = data.length > lastDataLengthRef.current;
-        
-        // 如果有新消息，检查是否需要启用自动滚动
-        if (hasNewMessages) {
-            // 使用 requestAnimationFrame 确保 DOM 更新完成后再检查位置
-            requestAnimationFrame(() => {
-                if (scrollArea && isNearBottom(scrollArea)) {
-                    setAutoScrollEnabled(true);
-                    // 延迟执行滚动，等待可能的异步内容渲染
-                    setTimeout(() => {
-                        performAutoScroll();
-                    }, 50);
+        const resizeObserver = new ResizeObserver((entries) => {
+            for (const entry of entries) {
+                // Only scroll if auto scroll is enabled and not currently user scrolling
+                if (autoScrollEnabled.current && !isUserScrolling.current) {
+                    // Use requestAnimationFrame to ensure DOM is updated
+                    requestAnimationFrame(() => {
+                        scrollToBottom();
+                    });
                 }
-            });
-        }
-        
-        // 更新数据长度引用
-        lastDataLengthRef.current = data.length;
+            }
+        });
 
-        // 如果自动滚动已启用，执行滚动
-        if (autoScrollEnabled && shouldAutoScroll && !isScrollingRef.current) {
-            performAutoScroll();
-        }
-    }, [data, shouldAutoScroll, performAutoScroll]);
-
-    // 监听滚动事件
-    useEffect(() => {
-        const scrollAreaNode = scrollAreaRef.current;
-        if (!scrollAreaNode) return;
-
-        scrollAreaNode.addEventListener('scroll', handleScroll, { passive: true });
+        resizeObserver.observe(scrollArea);
 
         return () => {
-            scrollAreaNode.removeEventListener('scroll', handleScroll);
-            if (scrollTimeoutRef.current) {
-                clearTimeout(scrollTimeoutRef.current);
-            }
+            resizeObserver.disconnect();
+        };
+    }, [scrollToBottom]);
+
+    // Set up scroll event listener
+    useEffect(() => {
+        const scrollArea = scrollAreaRef.current;
+        if (!scrollArea) return;
+
+        scrollArea.addEventListener('scroll', handleScroll, { passive: true });
+        
+        return () => {
+            scrollArea.removeEventListener('scroll', handleScroll);
         };
     }, [handleScroll]);
 
-    // 清理函数
+
+
+    // Cleanup timeouts
     useEffect(() => {
         return () => {
             if (scrollTimeoutRef.current) {
@@ -117,24 +141,10 @@ function useAutoScroll(scrollAreaRef: React.RefObject<HTMLDivElement>, data:Tran
         };
     }, []);
 
-    // 监听Caption组件内容变化事件
-    useEffect(() => {
-        const handleCaptionContentChanged = (event: CustomEvent) => {
-            // 当Caption组件内容发生变化时，如果当前启用了自动滚动，则执行滚动
-            if (autoScrollEnabled && shouldAutoScroll) {
-                // 延迟执行滚动，确保DOM完全更新
-                setTimeout(() => {
-                    performAutoScroll();
-                }, 100);
-            }
-        };
-
-        window.addEventListener('captionContentChanged', handleCaptionContentChanged);
-
-        return () => {
-            window.removeEventListener('captionContentChanged', handleCaptionContentChanged);
-        };
-    }, [autoScrollEnabled, shouldAutoScroll, performAutoScroll]);
+    // Return disable function for external use
+    return {
+        disableAutoScroll
+    };
 }
 
 export default useAutoScroll;
