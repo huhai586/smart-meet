@@ -41,7 +41,7 @@ const ContentMonitor = () => {
   const handleShowCaptions = () => {
     openSidePanel();
     // 关闭popup
-    window.close();
+    setTimeout(window.close, 500)
   }
 
   const toggleSwitch = (v) => {
