@@ -5,6 +5,7 @@ import { GoogleDriveService } from '../utils/google-drive';
 import { StorageFactory } from '../background/data-persistence/storage-factory';
 import dayjs from 'dayjs';
 import type { UploadFile } from 'antd/es/upload/interface';
+import openSidePanel from '../utils/open-side-panel';
 
 const Account = () => {
     const [backupFiles, setBackupFiles] = useState<any[]>([]);
@@ -109,7 +110,11 @@ const Account = () => {
                             message.success(`Successfully restored chat records for ${dateStr}`);
 
                             // 打开侧边面板
-                            chrome.runtime.sendMessage({ action: "openSidePanel" });
+                            try {
+                                await openSidePanel();
+                            } catch (error) {
+                                console.error('Failed to open sidepanel after restore:', error);
+                            }
                         } else {
                             message.error('Invalid backup file format');
                         }
