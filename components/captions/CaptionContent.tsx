@@ -8,6 +8,7 @@ interface CaptionContentProps {
   filteredData: Transcript[];
   selectedDate?: Dayjs;
   containerRef: React.RefObject<HTMLDivElement>;
+  lastItemInContainerRef: React.RefObject<HTMLDivElement>;
   disableAutoScroll: () => void;
 }
 
@@ -18,6 +19,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
   filteredData, 
   selectedDate, 
   containerRef,
+  lastItemInContainerRef,
   disableAutoScroll
 }) => {
   const isNoData = filteredData.length === 0;
@@ -44,6 +46,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
         ref={containerRef}
       >
         {memoizedCaptionList}
+        <div className="last-item" ref={lastItemInContainerRef}></div>
       </div>
       <FloatButton.BackTop 
         visibilityHeight={100} 

@@ -12,21 +12,8 @@ import { scrollElementIntoView, useScrollToVisible } from "~components/captions/
  * 3. **滚动行为停止滚动**: 当检测到用户在chat-container中滚动时，立即停止自动滚动
  * 4. **接近底部恢复滚动**: 当用户手动滚动到距离底部100px范围内时，重新启用自动滚动
  * 5. **历史消息不滚动**: 通过外部传入的shouldAutoScroll参数控制（已在外部检查消息时间戳）
- *
- * @param scrollAreaRef - 滚动容器的引用
- * @returns 包含disableAutoScroll函数的对象，用于外部手动禁用自动滚动
- *
- * @example
- * ```typescript
- * const chatContainer = useRef<HTMLDivElement>(null);
- * const shouldAutoScroll = !isSearchActive && isLatestMessageRecent;
- * const { disableAutoScroll } = useAutoScroll(chatContainer, transcripts, shouldAutoScroll);
- *
- * // 在某些情况下手动禁用自动滚动
- * const handleSomeAction = () => {
- *   disableAutoScroll();
- * };
- * ```
+ * @param scrollAreaElement
+ * @param lastItemElement
  */
 function useAutoScroll(
     scrollAreaElement: HTMLDivElement,
@@ -40,15 +27,48 @@ function useAutoScroll(
         return scrollArea.scrollHeight - scrollArea.scrollTop - scrollArea.clientHeight < threshold;
     }, []);
 
-
     // Disable auto scroll when user clicks action buttons
     const disableAutoScroll = useCallback(() => {
       setAutoScroll(false)
     }, []);
 
+    // Set up Intersection Observer to watch lastItemElement visibility
+    useEffect(() => {
+        if (!scrollAreaElement || !lastItemElement || !autoScroll) {
+            return;
+        }
 
+        const intersectionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) {
+                        scrollElementIntoView(lastItemElement);
+                    }
+                });
+            },
+            {
+                root: scrollAreaElement, // 以scrollAreaElement作为观察的根元素
+                rootMargin: '0px',
+                threshold: 1
+            }
+        );
 
+        intersectionObserver.observe(lastItemElement);
 
+        return () => {
+            intersectionObserver.disconnect();
+        };
+    }, [scrollAreaElement, lastItemElement, autoScroll]);
+
+    const handleWheel =  () => {
+        setAutoScroll(false)
+    }
+    useEffect(() => {
+        scrollAreaElement.addEventListener('wheel', handleWheel);
+        return () => {
+            scrollAreaElement.removeEventListener('wheel', handleWheel);
+        }
+    }, [scrollAreaElement])
 
     // Return disable function for external use
     return {
