@@ -6,14 +6,16 @@ import { useCallback, useEffect } from "react";
 
 export const useScrollToVisible = (domRef: React.RefObject<HTMLDivElement>) => {
   return useCallback(() => {
-    window.requestAnimationFrame(() => {
-      if (domRef.current) {
-        domRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "nearest"
-        })
-      }
-    })
+    scrollElementIntoView(domRef.current)
   }, [domRef])
+}
+
+export const scrollElementIntoView = (element: HTMLDivElement) => {
+  window.requestAnimationFrame(() => {
+    element.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "nearest"
+    })
+  })
 }
