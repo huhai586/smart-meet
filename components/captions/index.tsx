@@ -17,7 +17,6 @@ import { useFilter } from './hooks/useFilter';
 const Captions = () => {
   // 引用和状态
   const chatContainer = useRef<HTMLDivElement>(null);
-  const lastItemInContainer = useRef<HTMLDivElement>(null);
   const [transcripts] = useTranscripts();
   const { selectedDate } = useDateContext();
 
@@ -48,7 +47,6 @@ const Captions = () => {
   } = useFilter(transcripts, selectedDate);
 
 
-  const { disableAutoScroll } = useAutoScroll(chatContainer.current, lastItemInContainer.current);
 
   return (
     <div className={`captions`}>
@@ -84,8 +82,6 @@ const Captions = () => {
         filteredData={filteredData}
         selectedDate={selectedDate}
         containerRef={chatContainer}
-        lastItemInContainerRef={lastItemInContainer}
-        disableAutoScroll={disableAutoScroll}
       />
     </div>
   );

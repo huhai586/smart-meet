@@ -6,7 +6,13 @@
   position: relative;
   overflow: hidden;
   
-
+  .custom-float-buttons {
+    opacity: 0.4;
+    transition: opacity 0.25s;
+    &:hover {
+      opacity: 1;
+    }
+  }
 
   .filter-section {
     padding: 12px 16px;

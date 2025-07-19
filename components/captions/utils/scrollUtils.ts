@@ -11,11 +11,9 @@ export const useScrollToVisible = (domRef: React.RefObject<HTMLDivElement>) => {
 }
 
 export const scrollElementIntoView = (element: HTMLDivElement) => {
-  window.requestAnimationFrame(() => {
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "nearest",
-      inline: "nearest"
-    })
+  element.scrollIntoView({
+    behavior: "smooth",
+    block: "end",
+    inline: "nearest"
   })
 }

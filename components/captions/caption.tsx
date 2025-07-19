@@ -6,7 +6,7 @@ import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
 import { useCaptionText, useTranslation, useAIInteraction, useLanguageDetection } from "./hooks";
 import { CaptionHeader, AutoTranslationSection, CaptionTimestamp, AIAnswerSection } from "./components";
 import { Actions } from "~components/captions/types";
-import { useScrollToVisible } from "~components/captions/utils/scrollUtils"
+import { scrollElementIntoView, useScrollToVisible } from "~components/captions/utils/scrollUtils"
 
 type CaptionProps = {
     data: Transcript;
@@ -21,20 +21,16 @@ const Caption = memo((props: CaptionProps) => {
     
     // Custom hooks
     const [domainKeyWords, specificWords] = useHighLightWords();
-    const [domain] = useDomain();
-    const { autoTranslatedContent, isAutoTranslating, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
+    const { autoTranslatedContent, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
 
     // Text processing
     const processedContent = useCaptionText(data.talkContent, domainKeyWords, specificWords);
     
     // Translation functionality
     const { handleWordClick, handleTextSelection, handleManualTranslation } = useTranslation();
-    
-    // Scroll functionality
-    const scrollToMakeVisible = useScrollToVisible(captionRef);
 
     // AI interaction
-    const { aiData, hasAiData, handleAskAI, addTranslationToAIData, lastActionType } = useAIInteraction(scrollToMakeVisible);
+    const { aiData, hasAiData, handleAskAI, addTranslationToAIData, lastActionType } = useAIInteraction();
     
     // Language detection
     const isRTL = useLanguageDetection(data.talkContent);
@@ -47,6 +43,15 @@ const Caption = memo((props: CaptionProps) => {
         };
     }, [cleanup]);
 
+  useEffect(() => {
+    if(!captionRef.current || aiData.length === 0) {
+        return;
+    }
+      setTimeout(() => {
+        scrollElementIntoView(captionRef.current)
+      }, 1000);
+    }, [aiData, captionRef])
+
     // Handle translation with loading state
     const handleTranslate = async () => {
         try {
@@ -54,7 +59,6 @@ const Caption = memo((props: CaptionProps) => {
             setIsTranslating(true);
             const translatedText = await handleManualTranslation(data.talkContent);
             addTranslationToAIData(translatedText);
-            console.log(`[handleTranslate] Translation completed: ${translatedText.substring(0, 100)}...`);
         } catch (error) {
             console.error('Translation error:', error);
         } finally {

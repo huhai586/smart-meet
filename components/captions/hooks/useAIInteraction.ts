@@ -4,7 +4,7 @@ import messageManager from '../../../utils/message-manager';
 import { Actions } from '~components/captions/types';
 import type { AIDataItem } from '~components/captions/types';
 
-export const useAIInteraction = (scrollToMakeVisible: () => void) => {
+export const useAIInteraction = () => {
     const [aiData, setAiData] = useState<AIDataItem[]>([]);
     const [lastActionType, setLastActionType] = useState<Actions | undefined>(undefined);
 
@@ -23,8 +23,6 @@ export const useAIInteraction = (scrollToMakeVisible: () => void) => {
             });
             // Set the last action type only after we get the data
             setLastActionType(action);
-            // Scroll to make the entire caption-container visible
-            scrollToMakeVisible();
         }).catch((err) => {
             console.error(`Error in handleAskAI for action ${action}:`, err);
             
@@ -34,7 +32,7 @@ export const useAIInteraction = (scrollToMakeVisible: () => void) => {
             
             messageManager.error(errorMessage, 5);
         });
-    }, [scrollToMakeVisible]);
+    }, []);
 
     // Add translation result to AI data
     const addTranslationToAIData = useCallback((translatedText: string) => {
@@ -50,8 +48,7 @@ export const useAIInteraction = (scrollToMakeVisible: () => void) => {
         });
         // Set the last action type for translation only after we have the data
         setLastActionType(Actions.TRANSLATE);
-        scrollToMakeVisible();
-    }, [scrollToMakeVisible]);
+    }, []);
 
     const hasAiData = aiData.length > 0;
 

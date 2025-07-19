@@ -1,6 +1,6 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import type { Transcript } from "~hooks/useTranscripts";
-import { scrollElementIntoView, useScrollToVisible } from "~components/captions/utils/scrollUtils"
+import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
 
 /**
  * 自动滚动Hook - 重新设计的简化版本
@@ -18,101 +18,78 @@ import { scrollElementIntoView, useScrollToVisible } from "~components/captions/
 function useAutoScroll(
     scrollAreaElement: HTMLDivElement,
     lastItemElement: HTMLDivElement,
+    filteredData: Transcript[]
 ) {
     const [autoScroll, setAutoScroll] = useState(true);
-
-    // Check if user is near bottom (within 100px)
-    const isNearBottom = useCallback((scrollArea: HTMLDivElement) => {
-        const threshold = 100;
-        return scrollArea.scrollHeight - scrollArea.scrollTop - scrollArea.clientHeight < threshold;
-    }, []);
-
     // Disable auto scroll when user clicks action buttons
     const disableAutoScroll = useCallback(() => {
       setAutoScroll(false)
     }, []);
 
-    // Set up Intersection Observer to watch lastItemElement visibility
+    // Check if scrolled to bottom and re-enable auto scroll
+    const animationFrameId = useRef<number | null>(null);
+
     useEffect(() => {
-        if (!scrollAreaElement || !lastItemElement) {
+        if (animationFrameId.current) {
+            cancelAnimationFrame(animationFrameId.current);
+        }
+        if (autoScroll === false) {
             return;
         }
-        const intersectionObserver = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (!entry.isIntersecting && autoScroll) {
-                        scrollElementIntoView(lastItemElement);
-                    }
-                });
-            },
-            {
-                root: scrollAreaElement,
-                rootMargin: '0px',
-                threshold: 1
-            }
-        );
-
-        intersectionObserver.observe(lastItemElement);
-
-        return () => {
-            intersectionObserver.disconnect();
-        };
-    }, [scrollAreaElement, lastItemElement, autoScroll]);
-
-    const handleWheel =  () => {
-        setAutoScroll(false)
-    }
-    useEffect(() => {
-        scrollAreaElement?.addEventListener('wheel', handleWheel);
-        return () => {
-            scrollAreaElement?.removeEventListener('wheel', handleWheel);
+        if (filteredData.length === 0) {
+          return;
         }
-    }, [scrollAreaElement])
+        // Check if the latest message is older than 10 minutes
+        const lastData = filteredData[filteredData.length - 1];
 
-    // Detect user scroll by monitoring scroll direction
-    useEffect(() => {
-        if (!scrollAreaElement || !autoScroll) {
-            return;
+        if (lastData) {
+            const { timestamp } = lastData;
+            const now = Date.now();
+            const messageTime = new Date(timestamp).getTime();
+            const tenMinutesAgo = now - (10 * 60 * 1000); // 10 minutes in milliseconds
+            
+            // If the latest message is older than 10 minutes, don't auto scroll
+            if (messageTime < tenMinutesAgo) {
+                console.warn('Latest message is older than 10 minutes, skipping auto scroll');
+                return;
+            }
         }
 
-        let lastScrollTop = scrollAreaElement.scrollTop;
-        let animationFrameId: number | null = null;
-
-        const handleScroll = () => {
-            const currentScrollTop = scrollAreaElement.scrollTop;
-            
-            // Clear previous animation frame
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
-            }
-            
-            // Use requestAnimationFrame to check scroll direction in next frame
-            animationFrameId = requestAnimationFrame(() => {
-                const finalScrollTop = scrollAreaElement.scrollTop;
-                
-                // If scrolled up from the initial position, it's likely user interaction
-                if (finalScrollTop < lastScrollTop) {
-                    setAutoScroll(false);
+        const loopCheck = () => {
+            const animate = () => {
+                if (autoScroll && lastItemElement) {
+                    scrollElementIntoView(lastItemElement);
+                } else {
+                    console.log('ignore scrolling');
                 }
                 
-                // Update last scroll position
-                lastScrollTop = finalScrollTop;
-            });
+                // 继续下一帧
+                if (autoScroll) {
+                    animationFrameId.current = requestAnimationFrame(animate);
+                }
+            };
+            
+            animationFrameId.current = requestAnimationFrame(animate);
         };
-
-        scrollAreaElement?.addEventListener('scroll', handleScroll);
-
+        
+        loopCheck();
+        
         return () => {
-            scrollAreaElement?.removeEventListener('scroll', handleScroll);
-            if (animationFrameId) {
-                cancelAnimationFrame(animationFrameId);
+            if (animationFrameId.current) {
+                cancelAnimationFrame(animationFrameId.current);
             }
         };
-    }, [scrollAreaElement, autoScroll]);
+    }, [autoScroll, lastItemElement, filteredData]);
 
     // Return disable function for external use
+
+    const toggleAutoScroll = () => {
+        setAutoScroll(!autoScroll)
+    }
     return {
-        disableAutoScroll
+        disableAutoScroll,
+        toggleAutoScroll,
+        autoScroll,
     };
 }
 
