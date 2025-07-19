@@ -34,20 +34,19 @@ function useAutoScroll(
 
     // Set up Intersection Observer to watch lastItemElement visibility
     useEffect(() => {
-        if (!scrollAreaElement || !lastItemElement || !autoScroll) {
+        if (!scrollAreaElement || !lastItemElement) {
             return;
         }
-
         const intersectionObserver = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    if (!entry.isIntersecting) {
+                    if (!entry.isIntersecting && autoScroll) {
                         scrollElementIntoView(lastItemElement);
                     }
                 });
             },
             {
-                root: scrollAreaElement, // 以scrollAreaElement作为观察的根元素
+                root: scrollAreaElement,
                 rootMargin: '0px',
                 threshold: 1
             }
@@ -64,11 +63,52 @@ function useAutoScroll(
         setAutoScroll(false)
     }
     useEffect(() => {
-        scrollAreaElement.addEventListener('wheel', handleWheel);
+        scrollAreaElement?.addEventListener('wheel', handleWheel);
         return () => {
-            scrollAreaElement.removeEventListener('wheel', handleWheel);
+            scrollAreaElement?.removeEventListener('wheel', handleWheel);
         }
     }, [scrollAreaElement])
+
+    // Detect user scroll by monitoring scroll direction
+    useEffect(() => {
+        if (!scrollAreaElement || !autoScroll) {
+            return;
+        }
+
+        let lastScrollTop = scrollAreaElement.scrollTop;
+        let animationFrameId: number | null = null;
+
+        const handleScroll = () => {
+            const currentScrollTop = scrollAreaElement.scrollTop;
+            
+            // Clear previous animation frame
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+            
+            // Use requestAnimationFrame to check scroll direction in next frame
+            animationFrameId = requestAnimationFrame(() => {
+                const finalScrollTop = scrollAreaElement.scrollTop;
+                
+                // If scrolled up from the initial position, it's likely user interaction
+                if (finalScrollTop < lastScrollTop) {
+                    setAutoScroll(false);
+                }
+                
+                // Update last scroll position
+                lastScrollTop = finalScrollTop;
+            });
+        };
+
+        scrollAreaElement?.addEventListener('scroll', handleScroll);
+
+        return () => {
+            scrollAreaElement?.removeEventListener('scroll', handleScroll);
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        };
+    }, [scrollAreaElement, autoScroll]);
 
     // Return disable function for external use
     return {
