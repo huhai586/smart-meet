@@ -1,0 +1,70 @@
+
+.translation-settings-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.translation-settings-switch-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.translation-settings-slider-container {
+  padding: 16px 0;
+}
+
+.translation-settings-language-selector-section {
+  margin-bottom: 32px;
+}
+
+.translation-settings-language-selector-wrapper {
+  max-width: 400px;
+}
+
+.translation-settings-section-title {
+  font-size: 16px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.translation-settings-section-description {
+  font-size: 14px;
+}
+
+.translation-settings-provider-section {
+  padding: 16px 0;
+}
+
+.translation-settings-provider-description-wrapper {
+  margin-bottom: 16px;
+}
+
+.translation-settings-provider-select {
+  width: 100%;
+  max-width: 300px;
+}
+
+.translation-settings-frequency-description-wrapper {
+  margin-bottom: 16px;
+}
+
+.translation-settings-frequency-slider-wrapper {
+  max-width: 400px;
+}
+
+.translation-settings-frequency-slider {
+  width: 100%;
+}
+
+.translation-settings-frequency-label {
+  margin-top: 8px;
+  font-size: 14px;
+  font-weight: 500;
+}

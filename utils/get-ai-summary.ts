@@ -1,4 +1,4 @@
-import { Actions } from "../components/captions/caption"
+import { Actions } from "~components/captions/types"
 import askAI from "./askAI"
 import getMeetingCaptions from './getCaptions';
 import aiServiceManager from "./ai";

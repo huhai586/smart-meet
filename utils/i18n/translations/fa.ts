@@ -60,6 +60,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "ادغام گوگل درایو",
+  "google_drive_integration_desc": "پشتیبان گیری و بازیابی داده های زیرنویس خود در Google Drive",
+  "google_drive_access_required": "دسترسی به Google Drive مورد نیاز است",
+  "google_drive_connect_desc": "برای فعال کردن قابلیت‌های پشتیبان‌گیری و بازیابی، به حساب Google خود متصل شوید",
   "backup_section": "پشتیبان‌گیری محلی",
   "backup_desc": "پشتیبان‌گیری از داده‌های جلسه روز جاری در فضای ذخیره‌سازی محلی",
   "backup_button": "پشتیبان‌گیری اکنون",
@@ -104,7 +107,7 @@ export default {
   // Sidepanel
   "captions": "زیرنویس‌ها",
   "extension": "افزونه",
-  "translation_records": "سوابق ترجمه",
+      "translation_records": "ترجمه",
   "download_captions": "دانلود زیرنویس‌ها",
   "sidepanel_summary": "خلاصه هوش مصنوعی",
   
@@ -190,11 +193,17 @@ export default {
   "unexpected_error": "خطای غیرمنتظره رخ داد. لطفاً دوباره تلاش کنید.",
   "domain_explanation_failed": "توضیح اصطلاح حوزه ناموفق بود. لطفاً پیکربندی سرویس هوش مصنوعی خود را بررسی کنید.",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "پیکربندی سرویس هوش مصنوعی لازم است",
+  "ai_service_not_configured_message": "سرویس هوش مصنوعی پیکربندی نشده یا آماده نیست. لطفاً به صفحه گزینه‌ها بروید تا سرویس هوش مصنوعی خود (OpenAI، Gemini یا xAI) را قبل از استفاده از ویژگی‌های هوش مصنوعی پیکربندی کنید.",
+  "go_to_options": "برو به گزینه‌ها",
+  
   // Clear Captions
   "clear_captions_warning": "هشدار: این عمل قابل بازگشت نیست",
-  "clear_captions_warning_desc": "این عمل همه زیرنویس‌های ثبت شده را از ذخیره‌سازی مرورگر شما به طور دائم حذف خواهد کرد.",
-  "clear_all_captions": "پاک کردن همه زیرنویس‌ها",
-  "confirm_clear_captions": "تأیید پاک کردن زیرنویس‌ها",
+  "clear_captions_warning_desc": "این کار به طور دائم تمام زیرنویس های ضبط شده را از حافظه مرورگر شما حذف می کند.",
+  "clear_all_captions": "پاک کردن همه زیرنویس ها",
+  "clear_all_data": "پاک کردن تمام داده ها",
+  "confirm_clear_captions": "تأیید پاک کردن زیرنویس ها",
   "yes_clear_data": "بله، داده‌ها را پاک کن",
   "data_cleared_success": "داده‌ها با موفقیت پاک شدند"
 }; 

@@ -1,8 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from "react"
 import { Empty, FloatButton } from 'antd';
+import { SyncOutlined, DownOutlined } from '@ant-design/icons';
 import CaptionList from './captionList';
 import type { Dayjs } from 'dayjs';
 import type { Transcript } from '../../hooks/useTranscripts';
+import useAutoScroll from "~hooks/useScroll"
+import { scrollElementIntoView } from "./utils/scrollUtils";
 
 interface CaptionContentProps {
   filteredData: Transcript[];
@@ -16,14 +19,17 @@ interface CaptionContentProps {
 const CaptionContent: React.FC<CaptionContentProps> = ({ 
   filteredData, 
   selectedDate, 
-  containerRef 
+  containerRef,
 }) => {
+  const lastItemInContainer = useRef<HTMLDivElement>(null);
+  const { disableAutoScroll, autoScroll, toggleAutoScroll } = useAutoScroll(containerRef.current, lastItemInContainer.current, filteredData);
+
   const isNoData = filteredData.length === 0;
 
   // 使用useMemo包装CaptionList的渲染，减少重新渲染次数
   const memoizedCaptionList = useMemo(() => {
     return filteredData.length > 0 ? (
-      <CaptionList listData={filteredData} />
+      <CaptionList listData={filteredData} disableAutoScroll={disableAutoScroll} />
     ) : (
       <Empty 
         description={
@@ -33,7 +39,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
         }
       />
     );
-  }, [filteredData, selectedDate]);
+  }, [filteredData, selectedDate, disableAutoScroll]);
 
   return (
     <>
@@ -42,11 +48,25 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
         ref={containerRef}
       >
         {memoizedCaptionList}
+        <div className="last-item" ref={lastItemInContainer}></div>
       </div>
-      <FloatButton.BackTop 
-        visibilityHeight={100} 
-        target={() => containerRef.current as HTMLElement}
-      />
+
+      <FloatButton.Group shape="square" style={{ insetInlineEnd: 24 }} className={'custom-float-buttons'}>
+        <FloatButton 
+          icon={<SyncOutlined />}
+          type={autoScroll ? "primary" : "default"}
+          onClick={toggleAutoScroll}
+          tooltip={autoScroll ? "Disable auto scroll" : "Enable auto scroll"}
+        />
+        <FloatButton.BackTop
+          visibilityHeight={0}
+          target={() => containerRef.current}
+          onClick={() => {
+            if (autoScroll) {
+              toggleAutoScroll();
+          }}}
+        />
+      </FloatButton.Group>
     </>
   );
 };

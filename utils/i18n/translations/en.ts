@@ -65,6 +65,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google Drive Integration",
+  "google_drive_integration_desc": "Backup and restore your caption data to Google Drive",
+  "google_drive_access_required": "Google Drive Access Required",
+  "google_drive_connect_desc": "Connect to your Google account to enable backup and restore features",
   "backup_section": "Backup to Local",
   "backup_desc": "Backup your current day meeting data to local storage",
   "backup_button": "Backup Now",
@@ -109,7 +112,7 @@ export default {
   // Sidepanel
   "captions": "Captions",
   "extension": "Extension",
-  "translation_records": "Translation records",
+      "translation_records": "Translation",
   "download_captions": "Download captions",
   "sidepanel_summary": "AI Summary",
   
@@ -158,6 +161,13 @@ export default {
   "no_keep_it": "No, Keep It",
   "history_cleared": "Translation history cleared successfully",
   "no_history": "No translation history yet. Click on any word in the captions to translate it.",
+  "more": "More",
+  "pronunciation": "Pronunciation",
+  "word_details": "Word Details",
+  "loading_word_details": "Loading word details...",
+  "loading_word_details_failed": "Failed to load word details. Please try again.",
+  "meanings": "Meanings",
+  "origin": "Origin",
   
   // API Key Testing
   "test": "Test",
@@ -190,10 +200,16 @@ export default {
   "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration.",
   "google_translate_rate_limit_error": "Auto translation call frequency is too high. Please increase the value in Settings - Translation Frequency Control, or switch to another translation service",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "AI Service Configuration Required",
+  "ai_service_not_configured_message": "AI service is not configured or ready. Please go to the Options page to configure your AI service (OpenAI, Gemini, or xAI) before using AI features.",
+  "go_to_options": "Go to Options",
+  
   // Clear Captions
   "clear_captions_warning": "Warning: This action cannot be undone",
   "clear_captions_warning_desc": "This will permanently delete all recorded captions from your browser storage.",
   "clear_all_captions": "Clear All Captions",
+  "clear_all_data": "Clear All Data",
   "confirm_clear_captions": "Confirm Clear Captions",
   "yes_clear_data": "Yes, Clear Data",
   "data_cleared_success": "Data cleared successfully",

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import './captions.scss';
 import useTranscripts from '../../hooks/useTranscripts';
 import useAutoScroll from '../../hooks/useScroll';
@@ -46,9 +46,7 @@ const Captions = () => {
     toggleMeeting
   } = useFilter(transcripts, selectedDate);
 
-  // 只有在搜索不活跃时才使用自动滚动
-  const shouldAutoScroll = !isSearchActive;
-  useAutoScroll(chatContainer, filteredData, shouldAutoScroll);
+
 
   return (
     <div className={`captions`}>

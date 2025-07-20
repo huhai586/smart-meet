@@ -12,6 +12,7 @@ import StyledTitle from '../common/StyledTitle';
 import GoogleAccountInfo from './GoogleAccountInfo';
 import { useGoogleAuth } from '../../contexts/GoogleAuthContext';
 import styled from 'styled-components';
+import useI18n from "~utils/i18n"
 
 const { Text, Title } = Typography;
 
@@ -34,6 +35,7 @@ const LoadingContainer = styled.div`
  * Google Drive集成主组件
  */
 const GoogleDriveIntegration: React.FC = () => {
+  const { t } = useI18n();
   // 获取Google认证状态
   const { isAuthenticated, user, loading, login } = useGoogleAuth();
 
@@ -223,10 +225,10 @@ const GoogleDriveIntegration: React.FC = () => {
           </div>
           <div>
             <Title level={4} style={{ margin: 0, fontWeight: 600, color: '#333' }}>
-              Google Drive Access Required
+              {t('google_drive_access_required')}
             </Title>
             <Text type="secondary" style={{ fontSize: '15px' }}>
-              Connect to your Google account to enable backup and restore features
+              {t('google_drive_connect_desc')}
             </Text>
           </div>
         </div>
@@ -255,7 +257,7 @@ const GoogleDriveIntegration: React.FC = () => {
 
   return (
     <div>
-      <StyledTitle subtitle="Backup and restore your caption data to Google Drive">Google Drive Integration</StyledTitle>
+      <StyledTitle subtitle={t('google_drive_integration_desc')}>{t('google_drive_integration')}</StyledTitle>
 
       <div style={{ padding: "0 20px" }}>
         {/* Google账号信息 */}

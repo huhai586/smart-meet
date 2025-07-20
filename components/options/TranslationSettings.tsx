@@ -1,52 +1,18 @@
 import React from 'react';
 import { Typography, Card, Space, theme, Switch, Divider, Select, Slider } from 'antd';
-import styled from '@emotion/styled';
 import { TranslationOutlined } from '@ant-design/icons';
-import LanguageSelector from './LanguageSelector';
-import useI18n from '../utils/i18n';
-import StyledTitle from './common/StyledTitle';
-import { useAutoTranslate } from '../hooks/useAutoTranslate';
-import { useTranslationProvider, getProviderDisplayName, type TranslationProvider } from '../hooks/useTranslationProvider';
-import { useTranslationFrequency } from '../hooks/useTranslationFrequency';
-import messageManager from '../utils/message-manager';
+import LanguageSelector from '../LanguageSelector';
+import useI18n from '../../utils/i18n';
+import StyledTitle from '../common/StyledTitle';
+import { useAutoTranslate } from '../../hooks/useAutoTranslate';
+import { useTranslationProvider, getProviderDisplayName, type TranslationProvider } from '../../hooks/useTranslationProvider';
+import { useTranslationFrequency } from '../../hooks/useTranslationFrequency';
+import messageManager from '../../utils/message-manager';
+import '../../styles/translation-settings.scss';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
 const { Option } = Select;
-
-const StyledCard = styled(Card)`
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-
-  &:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  }
-`;
-
-const IconWrapper = styled.div<{color: string; shadowColor: string}>`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 24px;
-  transition: all 0.3s ease;
-  background: ${props => props.color};
-  box-shadow: 0 4px 12px ${props => props.shadowColor};
-`;
-
-const SwitchContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 0;
-`;
-
-const SliderContainer = styled.div`
-  padding: 16px 0;
-`;
 
 const TranslationSettings: React.FC = () => {
   const { token } = useToken();
@@ -78,7 +44,7 @@ const TranslationSettings: React.FC = () => {
           console.log(`[TranslationSettings] After setting - Storage contains:`, newResult);
 
           // 再次测试获取函数
-          import('../hooks/useTranslationProvider').then(({ getCurrentTranslationProvider }) => {
+          import('../../hooks/useTranslationProvider').then(({ getCurrentTranslationProvider }) => {
             getCurrentTranslationProvider().then(provider => {
               console.log(`[TranslationSettings] getCurrentTranslationProvider returned: ${provider}`);
             });
@@ -106,49 +72,22 @@ const TranslationSettings: React.FC = () => {
 
       <div style={{ padding: "0 20px" }}>
         {/* Language Selector Section */}
-        <div style={{ marginBottom: "32px" }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            marginBottom: '20px'
-          }}>
-            <div style={{
-              fontSize: '36px',
-              marginRight: '15px',
-              width: '60px',
-              height: '60px',
-              background: `${token.colorSuccess}15`,
-              borderRadius: '50%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <TranslationOutlined style={{ fontSize: "32px", color: token.colorSuccess }} />
-            </div>
-            <div>
-              <Title level={4} style={{ margin: 0, fontWeight: 600, color: '#333' }}>
-                {t('select_translation_language')}
-              </Title>
-              <Text type="secondary" style={{ fontSize: '15px' }}>
-                {t('choose_target_language_for_translation')}
-              </Text>
-            </div>
-          </div>
+        <div className="translation-settings-language-selector-section">
 
-          <div style={{ maxWidth: "400px" }}>
+          <div className="translation-settings-language-selector-wrapper">
             <LanguageSelector />
           </div>
         </div>
 
         {/* Auto Translate Section */}
-        <StyledCard>
+        <Card className="translation-settings-card">
           <Space direction="vertical" style={{ width: "100%" }}>
-            <SwitchContainer>
+            <div className="translation-settings-switch-container">
               <div>
-                <Text strong style={{ fontSize: "16px", marginBottom: "4px", display: "block" }}>
+                <Text strong className="translation-settings-section-title">
                   {t('auto_translate')}
                 </Text>
-                <Text type="secondary" style={{ fontSize: "14px" }}>
+                <Text type="secondary" className="translation-settings-section-description">
                   {t('auto_translate_desc')}
                 </Text>
               </div>
@@ -159,25 +98,25 @@ const TranslationSettings: React.FC = () => {
                   backgroundColor: autoTranslateEnabled ? token.colorSuccess : undefined
                 }}
               />
-            </SwitchContainer>
+            </div>
 
             {autoTranslateEnabled && (
               <>
                 <Divider />
 
-                <div style={{ padding: "16px 0" }}>
-                  <div style={{ marginBottom: "16px" }}>
-                    <Text strong style={{ fontSize: "16px", marginBottom: "4px", display: "block" }}>
+                <div className="translation-settings-provider-section">
+                  <div className="translation-settings-provider-description-wrapper">
+                    <Text strong className="translation-settings-section-title">
                       {t('translation_provider')}
                     </Text>
-                    <Text type="secondary" style={{ fontSize: "14px" }}>
+                    <Text type="secondary" className="translation-settings-section-description">
                       {t('translation_provider_desc')}
                     </Text>
                   </div>
                   <Select
                     value={translationProvider}
                     onChange={handleProviderChange}
-                    style={{ width: "100%", maxWidth: "300px" }}
+                    className="translation-settings-provider-select"
                     size="middle"
                   >
                     <Option value="google">
@@ -194,16 +133,16 @@ const TranslationSettings: React.FC = () => {
 
                 <Divider />
 
-                <SliderContainer>
-                  <div style={{ marginBottom: "16px" }}>
-                    <Text strong style={{ fontSize: "16px", marginBottom: "4px", display: "block" }}>
+                <div className="translation-settings-slider-container">
+                  <div className="translation-settings-frequency-description-wrapper">
+                    <Text strong className="translation-settings-section-title">
                       {t('translation_frequency')}
                     </Text>
-                    <Text type="secondary" style={{ fontSize: "14px", marginBottom: "16px" }}>
+                    <Text type="secondary" className="translation-settings-section-description">
                       {t('translation_frequency_desc')}
                     </Text>
                   </div>
-                  <div style={{ maxWidth: "400px" }}>
+                  <div className="translation-settings-frequency-slider-wrapper">
                     <Slider
                       min={1}
                       max={10}
@@ -219,22 +158,22 @@ const TranslationSettings: React.FC = () => {
                         5: '5s',
                         10: '10s'
                       }}
-                      style={{ width: "100%" }}
+                      className="translation-settings-frequency-slider"
                     />
-                    <div style={{
-                      marginTop: "8px",
-                      fontSize: "14px",
-                      color: token.colorPrimary,
-                      fontWeight: "500"
-                    }}>
+                    <div
+                      className="translation-settings-frequency-label"
+                      style={{
+                        color: token.colorPrimary,
+                      }}
+                    >
                       {t('translation_frequency_label', { frequency: translationFrequency.toString() })}
                     </div>
                   </div>
-                </SliderContainer>
+                </div>
               </>
             )}
           </Space>
-        </StyledCard>
+        </Card>
       </div>
     </div>
   );

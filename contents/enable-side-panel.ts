@@ -6,9 +6,13 @@ document.addEventListener('click', (ev) => {
     const clickedElement = ev.target as HTMLElement;
     const isCaptionButton = clickedElement.closest('button[aria-label="Turn on captions"]') || clickedElement.closest('button[aria-label="开启字幕"]');
     if (isCaptionButton) {
-        getIsExtensionDisabled().then((disabled: boolean) => {
+        getIsExtensionDisabled().then(async (disabled: boolean) => {
             if (!disabled) {
-                openSidePanel();
+                try {
+                    await openSidePanel();
+                } catch (error) {
+                    console.error('Failed to open sidepanel from caption button:', error);
+                }
             }
         })
     }

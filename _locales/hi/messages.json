@@ -1,0 +1,10 @@
+{
+  "extension_name": {
+    "message": "Google Meet Caption Pro",
+    "description": "The name of the extension"
+  },
+  "extension_description": {
+    "message": "रीयल-टाइम अनुवाद, AI सारांश और Google Drive सिंक के साथ पेशेवर Google Meet कैप्शन टूल। मीटिंग दक्षता बढ़ाएं!",
+    "description": "Description of the extension"
+  }
+}

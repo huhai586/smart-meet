@@ -147,11 +147,11 @@ const SidePanel = () => {
         <DateProvider>
             <div className={'side-panel'}>
                 <Loading spinning={loading} />
-                <GlobalDatePicker />
                 <Tabs
                     items={items}
                     onChange={onTabClick}
                     activeKey={current}
+                    tabBarExtraContent={<GlobalDatePicker />}
                 />
             </div>
         </DateProvider>

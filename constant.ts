@@ -69,8 +69,8 @@ export const getPolishPrompt = (detectedLanguage: string): string => {
   return languageMap[detectedLanguage] || languageMap['en']; // 默认使用英文
 };
 
-// Analysis提示模板，根据检测到的语言和UI语言生成提示
-export const getAnalysisPrompt = (detectedLanguage: string, uiLanguage: string): string => {
+// Analysis提示模板，根据检测到的语言和翻译语言生成提示
+export const getAnalysisPrompt = (detectedLanguage: string, translationLanguage: string): string => {
   const languageNames = {
     'zh': '中文',
     'en': 'English',
@@ -90,26 +90,27 @@ export const getAnalysisPrompt = (detectedLanguage: string, uiLanguage: string):
   };
 
   const detectedLangName = languageNames[detectedLanguage] || 'English';
+  const translationLangName = languageNames[translationLanguage] || '中文';
   
   const analysisPrompts = {
-    'zh': `请用中文分析以下${detectedLangName}文本的语法结构，检查是否有语法或用词不当的地方，请简单解释，字数不要太长:`,
-    'en': `Please analyze the grammar structure of the following ${detectedLangName} text in English, check for any grammatical errors or inappropriate word usage, and provide a brief explanation:`,
-    'es': `Por favor, analiza la estructura gramatical del siguiente texto en ${detectedLangName} en español, verifica si hay errores gramaticales o uso inapropiado de palabras, y proporciona una explicación breve:`,
-    'fr': `Veuillez analyser la structure grammaticale du texte ${detectedLangName} suivant en français, vérifiez s'il y a des erreurs grammaticales ou un usage inapproprié des mots, et fournissez une explication brève:`,
-    'de': `Bitte analysieren Sie die grammatische Struktur des folgenden ${detectedLangName}-Textes auf Deutsch, prüfen Sie auf grammatische Fehler oder unangemessene Wortverwendung und geben Sie eine kurze Erklärung:`,
-    'ja': `以下の${detectedLangName}テキストの文法構造を日本語で分析し、文法エラーや不適切な単語使用がないかチェックして、簡潔な説明を提供してください:`,
-    'ko': `다음 ${detectedLangName} 텍스트의 문법 구조를 한국어로 분석하고, 문법 오류나 부적절한 단어 사용이 있는지 확인하여 간단한 설명을 제공해 주세요:`,
-    'ru': `Пожалуйста, проанализируйте грамматическую структуру следующего текста на ${detectedLangName} на русском языке, проверьте на грамматические ошибки или неуместное использование слов и дайте краткое объяснение:`,
-    'pt': `Por favor, analise a estrutura gramatical do seguinte texto em ${detectedLangName} em português, verifique se há erros gramaticais ou uso inadequado de palavras e forneça uma explicação breve:`,
-    'it': `Per favore, analizza la struttura grammaticale del seguente testo in ${detectedLangName} in italiano, controlla eventuali errori grammaticali o uso inappropriato delle parole e fornisci una spiegazione breve:`,
-    'ar': `يرجى تحليل البنية النحوية للنص التالي باللغة ${detectedLangName} باللغة العربية، والتحقق من وجود أخطاء نحوية أو استخدام غير مناسب للكلمات، وتقديم شرح موجز:`,
-    'hi': `कृपया निम्नलिखित ${detectedLangName} पाठ की व्याकरण संरचना का हिंदी में विश्लेषण करें, व्याकरण त्रुटियों या अनुचित शब्द प्रयोग की जांच करें और संक्षिप्त स्पष्टीकरण प्रदान करें:`,
-    'th': `โปรดวิเคราะห์โครงสร้างไวยากรณ์ของข้อความ${detectedLangName}ต่อไปนี้เป็นภาษาไทย ตรวจสอบข้อผิดพลาดทางไวยากรณ์หรือการใช้คำที่ไม่เหมาะสม และให้คำอธิบายสั้นๆ:`,
-    'vi': `Vui lòng phân tích cấu trúc ngữ pháp của văn bản ${detectedLangName} sau đây bằng tiếng Việt, kiểm tra lỗi ngữ pháp hoặc sử dụng từ không phù hợp, và cung cấp giải thích ngắn gọn:`,
-    'fa': `لطفاً ساختار دستوری متن ${detectedLangName} زیر را به فارسی تجزیه و تحلیل کنید، اشتباهات دستوری یا استفاده نامناسب از کلمات را بررسی کنید و توضیح مختصری ارائه دهید:`
+    'zh': `检测后面文字的语言，并用${translationLangName}精炼地分析语法要点。如果发现语法错误，请着重指出并给出正确形式，保持简洁:`,
+    'en': `Detect the language of the following text and provide a concise grammar analysis in ${translationLangName}. If there are grammar errors, emphasize them and provide correct forms, keep it brief:`,
+    'es': `Detecta el idioma del siguiente texto y proporciona un análisis gramatical conciso en ${translationLangName}. Si hay errores gramaticales, enfatízalos y proporciona las formas correctas, mantén la brevedad:`,
+    'fr': `Détectez la langue du texte suivant et fournissez une analyse grammaticale concise en ${translationLangName}. S'il y a des erreurs grammaticales, mettez-les en évidence et fournissez les formes correctes, restez bref:`,
+    'de': `Erkennen Sie die Sprache des folgenden Textes und geben Sie eine prägnante grammatische Analyse in ${translationLangName}. Bei grammatischen Fehlern betonen Sie diese und geben Sie korrekte Formen an, bleiben Sie kurz:`,
+    'ja': `以下のテキストの言語を検出し、${translationLangName}で簡潔な文法分析を提供してください。文法エラーがある場合は、それを強調し、正しい形を提供してください、簡潔に:`,
+    'ko': `다음 텍스트의 언어를 감지하고 ${translationLangName}로 간결한 문법 분석을 제공해 주세요. 문법 오류가 있다면 강조하고 올바른 형태를 제공해 주세요, 간단히:`,
+    'ru': `Определите язык следующего текста и предоставьте краткий грамматический анализ на ${translationLangName}. При наличии грамматических ошибок подчеркните их и предоставьте правильные формы, будьте лаконичны:`,
+    'pt': `Detecte o idioma do seguinte texto e forneça uma análise gramatical concisa em ${translationLangName}. Se houver erros gramaticais, enfatize-os e forneça as formas corretas, seja breve:`,
+    'it': `Rileva la lingua del seguente testo e fornisci un'analisi grammaticale concisa in ${translationLangName}. Se ci sono errori grammaticali, enfatizzali e fornisci le forme corrette, sii breve:`,
+    'ar': `اكتشف لغة النص التالي وقدم تحليلاً نحوياً موجزاً باللغة ${translationLangName}. إذا كانت هناك أخطاء نحوية، أكد عليها وقدم الأشكال الصحيحة، كن مختصراً:`,
+    'hi': `निम्नलिखित पाठ की भाषा का पता लगाएं और ${translationLangName} में संक्षिप्त व्याकरण विश्लेषण प्रदान करें। यदि व्याकरण त्रुटियां हैं, तो उन्हें जोर दें और सही रूप प्रदान करें, संक्षिप्त रखें:`,
+    'th': `ตรวจจับภาษาของข้อความต่อไปนี้และให้การวิเคราะห์ไวยากรณ์ที่กระชับเป็น${translationLangName}. หากมีข้อผิดพลาดทางไวยากรณ์ ให้เน้นและให้รูปแบบที่ถูกต้อง, ให้สั้นๆ:`,
+    'vi': `Phát hiện ngôn ngữ của văn bản sau và cung cấp phân tích ngữ pháp ngắn gọn bằng ${translationLangName}. Nếu có lỗi ngữ pháp, hãy nhấn mạnh và cung cấp dạng đúng, giữ ngắn gọn:`,
+    'fa': `زبان متن زیر را تشخیص دهید و تحلیل دستوری مختصر به ${translationLangName} ارائه دهید. اگر اشتباهات دستوری وجود دارد، آنها را تأکید کنید و اشکال صحیح را ارائه دهید، مختصر باشید:`
   };
 
-  return analysisPrompts[uiLanguage] || analysisPrompts['en']; // 默认使用英文
+  return analysisPrompts[translationLanguage] || analysisPrompts['zh']; // 默认使用中文
 };
 
 export const PROMPT = {

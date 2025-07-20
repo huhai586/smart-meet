@@ -1,9 +1,4 @@
 .global-date-picker {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 1000;
-
     .ant-picker {
         background: white;
         border: 1px solid #e8e8e8;
@@ -19,6 +14,78 @@
         }
     }
 
+    .ant-picker-cell-inner {
+        position: relative;
+
+        .message-dot {
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background-color: #ff4d4f;
+            border-radius: 50%;
+        }
+    }
+}
+
+.global-date-picker-compact {
+    position: relative;
+    display: inline-block;
+    
+    .date-display-button {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        height: auto;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+        color: #1a73e8;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        
+        &:hover {
+            background-color: rgba(26, 115, 232, 0.08);
+            color: #1557b0;
+        }
+        
+        &:focus {
+            background-color: rgba(26, 115, 232, 0.12);
+            color: #1557b0;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+        
+        .anticon {
+            font-size: 14px;
+        }
+        
+        .date-text {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: 2px;
+        }
+    }
+}
+
+.global-date-picker-popover {
+    .ant-popover-inner {
+        padding: 0;
+        border-radius: 8px;
+        box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    .ant-popover-content {
+        .ant-popover-inner-content {
+            padding: 8px;
+        }
+    }
+}
+
+.global-date-picker-dropdown {
     .ant-picker-cell-inner {
         position: relative;
 

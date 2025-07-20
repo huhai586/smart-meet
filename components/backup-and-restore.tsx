@@ -41,6 +41,8 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
             }).catch((e) => {
                 messageManager.error(t('error'));
             })
+        }).catch((e) => {
+            messageManager.error(e.message)
         });
     }
 

@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google Drive-Integration",
+  "google_drive_integration_desc": "Sichern und Wiederherstellen Ihrer Untertiteldaten in Google Drive",
+  "google_drive_access_required": "Google Drive-Zugriff erforderlich",
+  "google_drive_connect_desc": "Verbinden Sie sich mit Ihrem Google-Konto, um Sicherungs- und Wiederherstellungsfunktionen zu aktivieren",
   "backup_section": "Sicherung",
   "backup_desc": "Sichern Sie Ihre Meeting-Daten auf Google Drive",
   "backup_button": "Jetzt sichern",
@@ -72,7 +75,7 @@ export default {
   // Sidepanel
   "captions": "Untertitel",
   "extension": "Erweiterung",
-  "translation_records": "Übersetzungsaufzeichnungen",
+      "translation_records": "Übersetzung",
   "download_captions": "Untertitel herunterladen",
   "sidepanel_summary": "AI Summary",
   
@@ -129,11 +132,17 @@ export default {
   "domain_explanation_failed": "Fehler beim Erklären des Fachbegriffs. Bitte überprüfen Sie Ihre KI-Service-Konfiguration.",
   "google_translate_rate_limit_error": "Die Häufigkeit der automatischen Übersetzungsaufrufe ist zu hoch. Bitte erhöhen Sie den Wert in Einstellungen - Übersetzungsfrequenz-Kontrolle oder wechseln Sie zu einem anderen Übersetzungsdienst",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "KI-Service-Konfiguration erforderlich",
+  "ai_service_not_configured_message": "KI-Service ist nicht konfiguriert oder nicht bereit. Bitte gehen Sie zur Optionen-Seite, um Ihren KI-Service (OpenAI, Gemini oder xAI) zu konfigurieren, bevor Sie KI-Funktionen verwenden.",
+  "go_to_options": "Zu Optionen gehen",
+  
   // Clear Captions
   "clear_captions_warning": "Warnung: Diese Aktion kann nicht rückgängig gemacht werden",
-  "clear_captions_warning_desc": "Dies wird alle aufgezeichneten Untertitel dauerhaft aus Ihrem Browser-Speicher löschen.",
-  "clear_all_captions": "Alle Untertitel Löschen",
-  "confirm_clear_captions": "Löschen der Untertitel Bestätigen",
+  "clear_captions_warning_desc": "Dadurch werden alle aufgezeichneten Untertitel dauerhaft aus dem Speicher Ihres Browsers gelöscht.",
+  "clear_all_captions": "Alle Untertitel löschen",
+  "clear_all_data": "Alle Daten löschen",
+  "confirm_clear_captions": "Löschen der Untertitel bestätigen",
   "yes_clear_data": "Ja, Daten Löschen",
   "data_cleared_success": "Daten erfolgreich gelöscht",
   

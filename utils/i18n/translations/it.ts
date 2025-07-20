@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Integrazione con Google Drive",
+  "google_drive_integration_desc": "Esegui il backup e ripristina i dati dei tuoi sottotitoli su Google Drive",
+  "google_drive_access_required": "Accesso a Google Drive richiesto",
+  "google_drive_connect_desc": "Connettiti al tuo account Google per abilitare le funzioni di backup e ripristino",
   "backup_section": "Backup",
   "backup_desc": "Esegui il backup dei dati della riunione su Google Drive",
   "backup_button": "Esegui backup ora",
@@ -72,7 +75,7 @@ export default {
   // Sidepanel
   "captions": "Sottotitoli",
   "extension": "Estensione",
-  "translation_records": "Registrazioni di traduzione",
+      "translation_records": "Traduzione",
   "download_captions": "Scarica sottotitoli",
   
   // Sidebar
@@ -144,11 +147,17 @@ export default {
   "domain_explanation_failed": "Impossibile spiegare il termine del dominio. Si prega di verificare la configurazione del servizio IA.",
   "google_translate_rate_limit_error": "La frequenza delle chiamate di traduzione automatica è troppo alta. Si prega di aumentare il valore in Impostazioni - Controllo Frequenza Traduzione, o passare a un altro servizio di traduzione",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "Configurazione servizio IA richiesta",
+  "ai_service_not_configured_message": "Il servizio IA non è configurato o non è pronto. Si prega di andare alla pagina Opzioni per configurare il servizio IA (OpenAI, Gemini o xAI) prima di utilizzare le funzionalità IA.",
+  "go_to_options": "Vai alle Opzioni",
+  
   // Clear Captions
-  "clear_captions_warning": "Avviso: Questa azione non può essere annullata",
-  "clear_captions_warning_desc": "Questo eliminerà permanentemente tutti i sottotitoli registrati dal tuo browser.",
-  "clear_all_captions": "Cancella Tutti i Sottotitoli",
-  "confirm_clear_captions": "Conferma Cancellazione Sottotitoli",
+  "clear_captions_warning": "Attenzione: questa azione non può essere annullata",
+  "clear_captions_warning_desc": "Ciò eliminerà in modo permanente tutte le didascalie registrate dalla memoria del browser.",
+  "clear_all_captions": "Cancella tutte le didascalie",
+  "clear_all_data": "Cancella tutti i dati",
+  "confirm_clear_captions": "Conferma cancellazione didascalie",
   "yes_clear_data": "Sì, Cancella Dati",
   "data_cleared_success": "Dati cancellati con successo",
   

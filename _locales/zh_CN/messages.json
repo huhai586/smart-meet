@@ -1,0 +1,10 @@
+{
+  "extension_name": {
+    "message": "Google Meet 专业字幕工具",
+    "description": "The name of the extension"
+  },
+  "extension_description": {
+    "message": "专业的Google Meet字幕工具，支持实时翻译、AI总结和Google Drive同步。提升会议效率！",
+    "description": "Description of the extension"
+  }
+}

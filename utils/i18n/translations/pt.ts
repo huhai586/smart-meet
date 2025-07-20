@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Integração com Google Drive",
+  "google_drive_integration_desc": "Faça backup e restaure os dados de suas legendas no Google Drive",
+  "google_drive_access_required": "Acesso ao Google Drive necessário",
+  "google_drive_connect_desc": "Conecte-se à sua conta do Google para habilitar as funções de backup e restauração",
   "backup_section": "Backup",
   "backup_desc": "Fazer backup dos dados da reunião no Google Drive",
   "backup_button": "Fazer backup agora",
@@ -129,11 +132,17 @@ export default {
   "domain_explanation_failed": "Falha ao explicar o termo do domínio. Por favor, verifique sua configuração do serviço de IA.",
   "google_translate_rate_limit_error": "A frequência de chamadas de tradução automática é muito alta. Por favor, aumente o valor em Configurações - Controle de Frequência de Tradução, ou mude para outro serviço de tradução",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "Configuração do serviço de IA necessária",
+  "ai_service_not_configured_message": "O serviço de IA não está configurado ou não está pronto. Por favor, vá para a página de Opções para configurar seu serviço de IA (OpenAI, Gemini ou xAI) antes de usar os recursos de IA.",
+  "go_to_options": "Ir para Opções",
+  
   // Clear Captions
-  "clear_captions_warning": "Aviso: Esta ação não pode ser desfeita",
+  "clear_captions_warning": "Aviso: esta ação não pode ser desfeita",
   "clear_captions_warning_desc": "Isso excluirá permanentemente todas as legendas gravadas do armazenamento do seu navegador.",
-  "clear_all_captions": "Limpar Todas as Legendas",
-  "confirm_clear_captions": "Confirmar Limpeza das Legendas",
+  "clear_all_captions": "Limpar todas as legendas",
+  "clear_all_data": "Limpar todos os dados",
+  "confirm_clear_captions": "Confirmar limpeza de legendas",
   "yes_clear_data": "Sim, Limpar Dados",
   "data_cleared_success": "Dados limpos com sucesso",
   

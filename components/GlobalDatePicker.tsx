@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { DatePicker } from 'antd';
+import { DatePicker, Button, Popover } from 'antd';
+import { CalendarOutlined, EditOutlined } from '@ant-design/icons';
 import { useDateContext } from '../contexts/DateContext';
 import dayjs from 'dayjs';
 import './GlobalDatePicker.scss';
@@ -9,7 +10,7 @@ const GlobalDatePicker = () => {
     const { selectedDate, setSelectedDate } = useDateContext();
     const [currentDayTranscripts] = useTranscripts();
     const [datesWithMessages, setDatesWithMessages] = useState(new Set<string>());
-
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         console.warn('GlobalDatePicker.js', 'get-days-with-messages');
@@ -21,6 +22,7 @@ const GlobalDatePicker = () => {
     const handleDateChange = (date: dayjs.Dayjs | null) => {
         const newDate = date || dayjs();
         setSelectedDate(newDate);
+        setOpen(false); // Close the popover after selection
         // 通知后台更新当前日期
         chrome.runtime.sendMessage({
             action: 'set-current-date',
@@ -53,14 +55,37 @@ const GlobalDatePicker = () => {
         }
     },[])
 
+    // Format display text: MM/DD format
+    const displayText = useMemo(() => {
+        return selectedDate.format('MM/DD');
+    }, [selectedDate]);
+
     return (
-        <div className="global-date-picker">
+        <div className="global-date-picker-compact">
+            <Button 
+                type="text" 
+                className="date-display-button"
+                icon={<CalendarOutlined />}
+                onClick={() => setOpen(true)}
+            >
+                <span className="date-text">{displayText}</span>
+            </Button>
             <DatePicker
                 value={selectedDate}
                 onChange={handleDateChange}
                 allowClear={false}
                 placeholder="Select date"
-                cellRender ={dateRender}
+                cellRender={dateRender}
+                open={open}
+                onOpenChange={setOpen}
+                dropdownClassName="global-date-picker-dropdown"
+                style={{ 
+                    position: 'absolute',
+                    visibility: 'hidden',
+                    pointerEvents: 'none',
+                    width: 0,
+                    height: 0
+                }}
             />
         </div>
     );

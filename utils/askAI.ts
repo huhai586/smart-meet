@@ -1,9 +1,10 @@
 import { PROMPT, getTranslationPrompt, getSummaryPrompt, getPolishPrompt, getAnalysisPrompt } from "../constant";
-import { Actions } from "../components/captions/caption";
+import { Actions } from "~components/captions/types";
 import aiServiceManager from "./ai";
 import { getCurrentLanguage } from "../hooks/useTranslationLanguage";
 import { getCurrentUILanguage } from "../hooks/useUILanguage";
 import { detectLanguage } from "./language-detector";
+import { handleAIError } from "./ai-error-handler";
 
 // Debounce function to prevent multiple error notifications
 let errorNotificationTimeout: NodeJS.Timeout | null = null;
@@ -30,7 +31,10 @@ const askAI = async (action: Actions, text: string, question?: string) => {
         console.error(`[askAI] AI service not ready. Current service type: ${aiServiceManager.getCurrentServiceType()}`);
         console.error(`[askAI] Initialized services: ${aiServiceManager.getInitializedServices().join(', ')}`);
         
-        return Promise.reject('AI service not ready');
+        const error = 'AI service not ready';
+        // 使用全局错误处理器处理
+        handleAIError(error);
+        return Promise.reject(error);
     }
 
     // 输出当前使用的服务类型
@@ -45,14 +49,14 @@ const askAI = async (action: Actions, text: string, question?: string) => {
     
     // 输出语言检测结果（仅在POLISH和ANALYSIS时）
     if (action === Actions.POLISH || action === Actions.ANALYSIS) {
-        console.log(`[askAI] Detected language: ${detectedLanguage}, UI language: ${currentUILanguage.code}, Action: ${action}`);
+        console.log(`[askAI] Detected language: ${detectedLanguage}, Translation language: ${currentLanguage.code}, UI language: ${currentUILanguage.code}, Action: ${action}`);
     }
     
     // 根据当前语言更新翻译和摘要提示
     const actionMap = {
         [Actions.TRANSLATE]: getTranslationPrompt(currentLanguage.code),
         [Actions.POLISH]: getPolishPrompt(detectedLanguage),
-        [Actions.ANALYSIS]: getAnalysisPrompt(detectedLanguage, currentUILanguage.code),
+        [Actions.ANALYSIS]: getAnalysisPrompt(detectedLanguage, currentLanguage.code), // 使用翻译语言而不是UI语言
         [Actions.ASK]: PROMPT.ASK,
         [Actions.EXPLAIN]: PROMPT.EXPLAIN,
         [Actions.DEFAULT]: PROMPT.DEFAULT,

@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "การเชื่อมต่อกับ Google Drive",
+  "google_drive_integration_desc": "สำรองและกู้คืนข้อมูลคำบรรยายของคุณไปยัง Google Drive",
+  "google_drive_access_required": "ต้องการการเข้าถึง Google Drive",
+  "google_drive_connect_desc": "เชื่อมต่อกับบัญชี Google ของคุณเพื่อเปิดใช้งานฟีเจอร์สำรองข้อมูลและกู้คืน",
   "backup_section": "สำรองข้อมูล",
   "backup_desc": "สำรองข้อมูลการประชุมไปยัง Google Drive",
   "backup_button": "สำรองข้อมูลตอนนี้",
@@ -123,10 +126,16 @@ export default {
   "unexpected_error": "เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองใหม่อีกครั้ง",
   "domain_explanation_failed": "ไม่สามารถอธิบายคำศัพท์ในโดเมนได้ กรุณาตรวจสอบการกำหนดค่าบริการ AI ของคุณ",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "ต้องการการกำหนดค่าบริการ AI",
+  "ai_service_not_configured_message": "บริการ AI ไม่ได้กำหนดค่าหรือไม่พร้อมใช้งาน กรุณาไปที่หน้าตัวเลือกเพื่อกำหนดค่าบริการ AI ของคุณ (OpenAI, Gemini หรือ xAI) ก่อนใช้คุณสมบัติ AI",
+  "go_to_options": "ไปที่ตัวเลือก",
+  
   // Clear Captions
   "clear_captions_warning": "คำเตือน: การกระทำนี้ไม่สามารถยกเลิกได้",
-  "clear_captions_warning_desc": "การกระทำนี้จะลบคำบรรยายที่บันทึกไว้ทั้งหมดจากที่เก็บข้อมูลเบราว์เซอร์ของคุณอย่างถาวร",
+  "clear_captions_warning_desc": "การดำเนินการนี้จะลบคำบรรยายที่บันทึกไว้ทั้งหมดออกจากที่จัดเก็บข้อมูลของเบราว์เซอร์ของคุณอย่างถาวร",
   "clear_all_captions": "ล้างคำบรรยายทั้งหมด",
+  "clear_all_data": "ล้างข้อมูลทั้งหมด",
   "confirm_clear_captions": "ยืนยันการล้างคำบรรยาย",
   "yes_clear_data": "ใช่ ล้างข้อมูล",
   "data_cleared_success": "ล้างข้อมูลสำเร็จ",

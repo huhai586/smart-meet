@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Integración con Google Drive",
+  "google_drive_integration_desc": "Haga una copia de seguridad y restaure los datos de sus subtítulos en Google Drive",
+  "google_drive_access_required": "Se requiere acceso a Google Drive",
+  "google_drive_connect_desc": "Conéctese a su cuenta de Google para habilitar las funciones de copia de seguridad y restauración",
   "backup_section": "Copia de seguridad",
   "backup_desc": "Haga una copia de seguridad de sus datos de reuniones en Google Drive",
   "backup_button": "Hacer copia ahora",
@@ -72,7 +75,7 @@ export default {
   // Sidepanel
   "captions": "Subtítulos",
   "extension": "Extensión",
-  "translation_records": "Registros de traducción",
+      "translation_records": "Traducción",
   "download_captions": "Descargar subtítulos",
   "sidepanel_summary": "AI Summary",
   
@@ -129,11 +132,17 @@ export default {
   "domain_explanation_failed": "No se pudo explicar el término del dominio. Por favor, verifica tu configuración del servicio de IA.",
   "google_translate_rate_limit_error": "La frecuencia de llamadas de traducción automática es demasiado alta. Por favor, aumenta el valor en Configuración - Control de Frecuencia de Traducción, o cambia a otro servicio de traducción",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "Configuración de servicio de IA requerida",
+  "ai_service_not_configured_message": "El servicio de IA no está configurado o no está listo. Por favor, ve a la página de Opciones para configurar tu servicio de IA (OpenAI, Gemini o xAI) antes de usar las funciones de IA.",
+  "go_to_options": "Ir a Opciones",
+  
   // Clear Captions
   "clear_captions_warning": "Advertencia: Esta acción no se puede deshacer",
-  "clear_captions_warning_desc": "Esto eliminará permanentemente todas las transcripciones grabadas del almacenamiento de tu navegador.",
-  "clear_all_captions": "Limpiar Todas las Transcripciones",
-  "confirm_clear_captions": "Confirmar Limpiar Transcripciones",
+  "clear_captions_warning_desc": "Esto eliminará permanentemente todos los subtítulos grabados del almacenamiento de su navegador.",
+  "clear_all_captions": "Borrar todos los subtítulos",
+  "clear_all_data": "Borrar todos los datos",
+  "confirm_clear_captions": "Confirmar borrado de subtítulos",
   "yes_clear_data": "Sí, Limpiar Datos",
   "data_cleared_success": "Datos limpiados exitosamente",
   

@@ -1,0 +1,10 @@
+{
+  "extension_name": {
+    "message": "Google Meet Caption Pro",
+    "description": "The name of the extension"
+  },
+  "extension_description": {
+    "message": "Strumento professionale per sottotitoli Google Meet con traduzione in tempo reale, riassunto AI e sincronizzazione Google Drive.",
+    "description": "Description of the extension"
+  }
+}

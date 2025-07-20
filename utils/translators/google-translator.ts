@@ -12,6 +12,10 @@ import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 export const translateByGoogle = async (text: string): Promise<string> => {
   console.log('Using Google Translate for:', text);
   
+  // 发送加载开始事件
+  const loadingEvent = new CustomEvent('global-loading-event', { detail: { loading: true } });
+  window.dispatchEvent(loadingEvent);
+  
   try {
     // 获取目标语言
     const targetLanguage = await getCurrentLanguage();
@@ -42,5 +46,9 @@ export const translateByGoogle = async (text: string): Promise<string> => {
     } else {
       throw new Error('Google翻译服务出现问题，请稍后再试');
     }
+  } finally {
+    // 发送加载完成事件
+    const finishEvent = new CustomEvent('global-loading-event', { detail: { loading: false } });
+    window.dispatchEvent(finishEvent);
   }
 }; 

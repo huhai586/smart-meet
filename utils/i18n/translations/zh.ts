@@ -65,6 +65,9 @@ export default {
 
   // Google Drive Integration
   "google_drive_integration": "Google云端硬盘集成",
+  "google_drive_integration_desc": "将您的字幕数据备份和恢复到Google云端硬盘",
+  "google_drive_access_required": "需要Google云端硬盘访问权限",
+  "google_drive_connect_desc": "连接到您的Google账户以启用备份和恢复功能",
   "backup_section": "备份到本地",
   "backup_desc": "将您当天的会议数据备份到本地存储",
   "backup_button": "立即备份",
@@ -98,7 +101,7 @@ export default {
   // Sidepanel
   "captions": "字幕",
   "extension": "扩展",
-  "translation_records": "翻译记录",
+      "translation_records": "翻译",
   "download_captions": "下载字幕",
   "sidepanel_summary": "AI Summary",
 
@@ -158,6 +161,13 @@ export default {
   "no_keep_it": "不，保留它",
   "history_cleared": "翻译历史已成功清除",
   "no_history": "还没有翻译历史。点击字幕中的任何词语来翻译它。",
+  "more": "更多",
+  "pronunciation": "发音",
+  "word_details": "单词详情",
+  "loading_word_details": "正在加载单词详情...",
+  "loading_word_details_failed": "加载单词详情失败，请重试。",
+  "meanings": "词义",
+  "origin": "词源",
 
   // API Key Testing
   "test": "测试",
@@ -189,11 +199,17 @@ export default {
   "unexpected_error": "发生意外错误。请重试。",
   "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。",
   "google_translate_rate_limit_error": "自动翻译调用频率太高，请在设置页面-翻译频率控制 里面将值调大，或者切换其他翻译服务",
+  
+  // AI Error Handler
+  "ai_service_configuration_required": "需要配置AI服务",
+  "ai_service_not_configured_message": "AI服务未配置或未就绪。请前往选项页面配置您的AI服务（OpenAI、Gemini或xAI），然后再使用AI功能。",
+  "go_to_options": "前往选项",
 
   // Clear Captions
   "clear_captions_warning": "警告：此操作无法撤销",
   "clear_captions_warning_desc": "这将永久删除浏览器存储中的所有录制字幕。",
   "clear_all_captions": "清除所有字幕",
+  "clear_all_data": "清除所有数据",
   "confirm_clear_captions": "确认清除字幕",
   "yes_clear_data": "是的，清除数据",
   "data_cleared_success": "数据清除成功",

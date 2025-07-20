@@ -171,6 +171,10 @@ const mapToMicrosoftLangCode = (langCode: string): string => {
 export const translateByMicrosoft = async (text: string): Promise<string> => {
   console.log('Using Microsoft Translator for:', text);
   
+  // 发送加载开始事件
+  const loadingEvent = new CustomEvent('global-loading-event', { detail: { loading: true } });
+  window.dispatchEvent(loadingEvent);
+  
   try {
     // 获取目标语言
     const targetLanguage = await getCurrentLanguage();
@@ -184,7 +188,6 @@ export const translateByMicrosoft = async (text: string): Promise<string> => {
     // 使用microsoft-translate-api进行翻译
     // translate(text, from, to) - from设为null表示自动检测
     const result = await translate(text, null, targetLangCode);
-    console.warn(result);
     // 根据文档，返回格式是标准的，直接获取翻译结果
     const translatedText = result[0].translations[0].text;
     console.log('Microsoft translation successful:', translatedText);
@@ -209,5 +212,9 @@ export const translateByMicrosoft = async (text: string): Promise<string> => {
     } else {
       throw new Error('Microsoft翻译服务暂时不可用');
     }
+  } finally {
+    // 发送加载完成事件
+    const finishEvent = new CustomEvent('global-loading-event', { detail: { loading: false } });
+    window.dispatchEvent(finishEvent);
   }
 }; 

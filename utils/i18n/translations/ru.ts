@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Интеграция с Google Drive",
+  "google_drive_integration_desc": "Резервное копирование и восстановление данных субтитров на Google Диске",
+  "google_drive_access_required": "Требуется доступ к Google Drive",
+  "google_drive_connect_desc": "Подключитесь к своей учетной записи Google, чтобы включить функции резервного копирования и восстановления",
   "backup_section": "Резервное копирование",
   "backup_desc": "Создать резервную копию данных встречи в Google Drive",
   "backup_button": "Создать резервную копию сейчас",
@@ -143,11 +146,17 @@ export default {
   "unexpected_error": "Произошла неожиданная ошибка. Пожалуйста, попробуйте еще раз.",
   "domain_explanation_failed": "Не удалось объяснить термин домена. Пожалуйста, проверьте настройки службы ИИ.",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "Требуется настройка службы ИИ",
+  "ai_service_not_configured_message": "Служба ИИ не настроена или не готова. Пожалуйста, перейдите на страницу Параметры для настройки вашей службы ИИ (OpenAI, Gemini или xAI) перед использованием функций ИИ.",
+  "go_to_options": "Перейти к Параметрам",
+  
   // Clear Captions
-  "clear_captions_warning": "Предупреждение: Это действие нельзя отменить",
+  "clear_captions_warning": "Предупреждение: это действие нельзя отменить",
   "clear_captions_warning_desc": "Это навсегда удалит все записанные субтитры из хранилища вашего браузера.",
-  "clear_all_captions": "Очистить Все Субтитры",
-  "confirm_clear_captions": "Подтвердить Очистку Субтитров",
+  "clear_all_captions": "Очистить все субтитры",
+  "clear_all_data": "Стереть все данные",
+  "confirm_clear_captions": "Подтвердить очистку субтитров",
   "yes_clear_data": "Да, Очистить Данные",
   "data_cleared_success": "Данные успешно очищены",
   

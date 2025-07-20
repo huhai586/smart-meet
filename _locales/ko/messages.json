@@ -1,0 +1,10 @@
+{
+  "extension_name": {
+    "message": "Google Meet Caption Pro",
+    "description": "The name of the extension"
+  },
+  "extension_description": {
+    "message": "실시간 번역, AI 요약, Google Drive 동기화 기능을 갖춘 전문 Google Meet 캡션 도구. 회의 효율성을 높입니다!",
+    "description": "Description of the extension"
+  }
+}

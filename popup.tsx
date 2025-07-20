@@ -38,10 +38,18 @@ const ContentMonitor = () => {
     chrome.runtime.openOptionsPage()
   }
 
-  const handleShowCaptions = () => {
-    openSidePanel();
-    // 关闭popup
-    window.close();
+  const handleShowCaptions = async () => {
+    try {
+      // 等待sidepanel成功开启
+      await openSidePanel();
+      // 只有在sidepanel成功开启后才关闭popup
+      window.close();
+    } catch (error) {
+      console.error('Failed to open sidepanel:', error);
+      // 如果开启失败，可以选择显示错误消息或者仍然关闭popup
+      // 这里我们选择仍然关闭popup，避免用户界面卡住
+      setTimeout(window.close, 500);
+    }
   }
 
   const toggleSwitch = (v) => {

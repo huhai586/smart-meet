@@ -3,10 +3,10 @@ import { Typography, Button, Modal, Spin, List, message, Card, Collapse, Badge, 
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
 import { CalendarOutlined, MessageOutlined, SearchOutlined, LoadingOutlined, HighlightOutlined } from '@ant-design/icons';
-import { StorageFactory } from '../background/data-persistence/storage-factory';
-import type { Transcript } from '../hooks/useTranscripts';
-import StyledTitle from './common/StyledTitle';
-import { useI18n } from '../utils/i18n';
+import { StorageFactory } from '../../background/data-persistence/storage-factory';
+import type { Transcript } from '../../hooks/useTranscripts';
+import StyledTitle from '../common/StyledTitle';
+import { useI18n } from '../../utils/i18n';
 
 const { Title, Text, Paragraph } = Typography;
 const { Panel } = Collapse;

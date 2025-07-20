@@ -2,6 +2,7 @@ import initialDataPersistence from "./data-persistence";
 import { updateBadgeText } from "./set-badge-text";
 import { initMessageHandlers } from "./message-handlers";
 import { initTabTracking } from "./tab-tracking";
+import { detectAndSetBrowserLanguage } from "./utils/language-utils";
 
 /**
  * 背景页入口文件
@@ -9,10 +10,18 @@ import { initTabTracking } from "./tab-tracking";
  */
 
 // 监听插件安装事件
-chrome.runtime.onInstalled.addListener((details) => {
+chrome.runtime.onInstalled.addListener(async (details) => {
     console.log('插件安装事件触发:', details.reason);
     
     if (details.reason === 'install') {
+        // 首次安装时检测并设置浏览器语言
+        try {
+            const detectedLanguage = await detectAndSetBrowserLanguage();
+            console.log('已根据浏览器语言自动设置插件语言:', detectedLanguage.name);
+        } catch (error) {
+            console.error('设置浏览器语言时出错:', error);
+        }
+        
         // 首次安装时打开欢迎页面
         // 由于Plasmo的限制，我们使用options页面并导航到欢迎部分
         chrome.tabs.create({

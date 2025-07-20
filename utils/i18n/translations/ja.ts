@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google Driveの統合",
+  "google_drive_integration_desc": "キャプションデータをGoogleドライブにバックアップおよび復元します",
+  "google_drive_access_required": "Google Driveへのアクセスが必要です",
+  "google_drive_connect_desc": "バックアップと復元機能を有効にするためにGoogleアカウントに接続してください",
   "backup_section": "バックアップ",
   "backup_desc": "ミーティングデータをGoogle Driveにバックアップする",
   "backup_button": "今すぐバックアップ",
@@ -72,7 +75,7 @@ export default {
   // Sidepanel
   "captions": "字幕",
   "extension": "拡張機能",
-  "translation_records": "翻訳記録",
+      "translation_records": "翻訳",
   "download_captions": "字幕をダウンロード",
   "sidepanel_summary": "AI Summary",
   
@@ -129,10 +132,16 @@ export default {
   "domain_explanation_failed": "ドメイン用語の説明に失敗しました。AIサービスの設定を確認してください。",
   "google_translate_rate_limit_error": "自動翻訳の呼び出し頻度が高すぎます。設定ページの翻訳頻度制御で値を大きくするか、他の翻訳サービスに切り替えてください",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "AIサービスの設定が必要です",
+  "ai_service_not_configured_message": "AIサービスが設定されていないか、準備ができていません。AI機能を使用する前に、オプションページでAIサービス（OpenAI、Gemini、またはxAI）を設定してください。",
+  "go_to_options": "オプションに移動",
+  
   // Clear Captions
   "clear_captions_warning": "警告：この操作は元に戻せません",
-  "clear_captions_warning_desc": "これにより、ブラウザストレージから記録されたすべてのキャプションが永続的に削除されます。",
+  "clear_captions_warning_desc": "これにより、記録されたすべてのキャプションがブラウザのストレージから完全に削除されます。",
   "clear_all_captions": "すべてのキャプションをクリア",
+  "clear_all_data": "すべてのデータを消去",
   "confirm_clear_captions": "キャプションのクリアを確認",
   "yes_clear_data": "はい、データをクリア",
   "data_cleared_success": "データのクリアが成功しました",

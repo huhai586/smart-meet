@@ -39,6 +39,9 @@ export default {
   
   // Google Drive Integration
   "google_drive_integration": "Google ड्राइव एकीकरण",
+  "google_drive_integration_desc": "Google ड्राइव पर अपने कैप्शन डेटा का बैकअप और पुनर्स्थापना करें",
+  "google_drive_access_required": "Google ड्राइव पहुंच आवश्यक है",
+  "google_drive_connect_desc": "बैकअप और रिस्टोर सुविधाओं को सक्षम करने के लिए अपने Google खाते से कनेक्ट करें",
   "backup_section": "बैकअप",
   "backup_desc": "मीटिंग डेटा को Google ड्राइव पर बैकअप करें",
   "backup_button": "अभी बैकअप करें",
@@ -72,7 +75,7 @@ export default {
   // Sidepanel
   "captions": "कैप्शन",
   "extension": "एक्सटेंशन",
-  "translation_records": "अनुवाद रिकॉर्ड",
+      "translation_records": "अनुवाद",
   "download_captions": "कैप्शन डाउनलोड करें",
   
   // Sidebar
@@ -122,10 +125,16 @@ export default {
   "unexpected_error": "एक अप्रत्याशित त्रुटि हुई। कृपया पुनः प्रयास करें।",
   "domain_explanation_failed": "डोमेन शब्द की व्याख्या करने में असफल। कृपया अपनी AI सेवा कॉन्फ़िगरेशन जांचें।",
   
+  // AI Error Handler
+  "ai_service_configuration_required": "AI सेवा कॉन्फ़िगरेशन आवश्यक है",
+  "ai_service_not_configured_message": "AI सेवा कॉन्फ़िगर नहीं है या तैयार नहीं है। AI सुविधाओं का उपयोग करने से पहले कृपया विकल्प पृष्ठ पर जाकर अपनी AI सेवा (OpenAI, Gemini या xAI) को कॉन्फ़िगर करें।",
+  "go_to_options": "विकल्प पर जाएं",
+  
   // Clear Captions
-  "clear_captions_warning": "चेतावनी: यह क्रिया पूर्ववत नहीं की जा सकती",
-  "clear_captions_warning_desc": "यह आपके ब्राउज़र स्टोरेज से सभी रिकॉर्ड किए गए कैप्शन को स्थायी रूप से हटा देगा।",
+  "clear_captions_warning": "चेतावनी: यह कार्रवाई पूर्ववत नहीं की जा सकती",
+  "clear_captions_warning_desc": "यह आपके ब्राउज़र संग्रहण से सभी रिकॉर्ड किए गए कैप्शन को स्थायी रूप से हटा देगा।",
   "clear_all_captions": "सभी कैप्शन साफ़ करें",
+  "clear_all_data": "सभी डेटा साफ़ करें",
   "confirm_clear_captions": "कैप्शन साफ़ करने की पुष्टि करें",
   "yes_clear_data": "हाँ, डेटा साफ़ करें",
   "data_cleared_success": "डेटा सफलतापूर्वक साफ़ किया गया",
