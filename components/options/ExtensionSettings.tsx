@@ -1,9 +1,9 @@
 import React from 'react';
 import { Typography } from 'antd';
-import StyledTitle from '../common/StyledTitle';
-import Extension from '../extension';
-import { useI18n } from '../../utils/i18n';
-import '../../styles/extension-settings.scss';
+import StyledTitle from '~components/common/StyledTitle';
+import Extension from '~components/extension';
+import { useI18n } from '~utils/i18n';
+import '~styles/extension-settings.scss';
 
 const { Text } = Typography;
 
