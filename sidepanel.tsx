@@ -1,10 +1,9 @@
-import React, {useEffect, useState, useRef} from "react";
-import {message, Tabs, Tooltip, Dropdown, Menu, Button} from "antd";
+import React, {useEffect, useState} from "react";
+import {message, Tabs} from "antd";
 import {
     FileDoneOutlined,
     HistoryOutlined, SketchOutlined,
 } from '@ant-design/icons';
-import dayjs from 'dayjs';
 import useLoading from './hooks/useLoading';
 import Captions from "./components/captions/captions";
 import Words from "./components/words";
@@ -30,11 +29,11 @@ interface CustomErrorEvent extends Event {
 }
 
 const SidePanel = () => {
-    const [messageApi, contextHolder] = message.useMessage();
+    const [messageApi] = message.useMessage();
     const [current, setCurrent] = useState('captions');
     const [loading] = useLoading();
     const { t } = useI18n();
-    const [activeService, setActiveService] = useState<string>('');
+    const [_activeService, setActiveService] = useState<string>('');
 
     const onTabClick = (key: string) => {
         setCurrent(key);
@@ -110,7 +109,7 @@ const SidePanel = () => {
             let message = '';
             try {
                 message = errorMsg.errorDetails?.[1]?.message || errorMsg.message || 'Unknown error occurred';
-            } catch (e) {
+            } catch (_e) {
                 console.log({errorMsg})
                 message = 'Unknown error occurred';
             }

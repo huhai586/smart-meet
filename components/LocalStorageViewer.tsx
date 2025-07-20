@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, Calendar, Badge, Modal, List, Typography, Empty, Spin, Button, Radio, Space, Tabs } from 'antd';
+import { Card, Calendar, Badge, Modal, List, Typography, Empty, Spin, Button, Radio, Space } from 'antd';
 import { DatabaseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import dayjs, { Dayjs } from 'dayjs';
 import { StorageFactory } from "~background/data-persistence/storage-factory";

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, Card, Space, theme, Switch, Divider, Select, Slider } from 'antd';
-import { TranslationOutlined } from '@ant-design/icons';
 import LanguageSelector from '~components/LanguageSelector';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';

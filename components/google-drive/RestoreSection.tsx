@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Space, Typography, Button, Upload, theme, Card, Row, Col, Divider } from 'antd';
+import { Space, Typography, Button, Upload, theme, Row, Col, Divider } from 'antd';
 import { CloudDownloadOutlined, UploadOutlined, SyncOutlined, TableOutlined } from '@ant-design/icons';
 import { ActionButton, IconWrapper, StyledCard } from './StyledComponents';
 import FileList from './FileList';

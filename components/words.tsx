@@ -2,8 +2,7 @@ import { Typography, Button, Empty, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import '../styles/words.scss'
 import { getTranslatedWords } from "~utils/translate";
-import { 
-    DeleteOutlined,
+import {
     ExclamationCircleOutlined,
     HistoryOutlined
 } from '@ant-design/icons';

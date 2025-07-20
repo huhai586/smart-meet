@@ -11,7 +11,6 @@ import {
 } from '@ant-design/icons'
 import getIsExtensionDisabled from "./utils/get-is-extension-disabled";
 import {updateBadgeText} from "./background/set-badge-text";
-import getAPIkey from "./utils/getAPIkey";
 import openSidePanel from "~utils/open-side-panel";
 import useI18n from "./utils/i18n";
 import { useAutoTranslate } from "./hooks/useAutoTranslate";

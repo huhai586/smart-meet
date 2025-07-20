@@ -1,7 +1,5 @@
 import { Actions } from "~components/captions/types"
 import askAI from "./askAI"
-import getMeetingCaptions from './getCaptions';
-import aiServiceManager from "./ai";
 
 /**
  * 获取AI对会议内容的总结或回答特定问题

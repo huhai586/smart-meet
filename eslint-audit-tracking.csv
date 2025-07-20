@@ -1,0 +1,7 @@
+Rule ID,Severity,Count,Files Affected,Priority,Effort,Owner,Fix Strategy
+"@typescript-eslint/no-unused-vars","warning",85,32,"Medium","Low","Development Team","Remove unused variables or prefix with underscore if intentionally unused"
+"@typescript-eslint/no-explicit-any","warning",57,25,"High","Medium","Development Team","Replace `any` with proper TypeScript types or `unknown` if type is truly unknown"
+"react-hooks/exhaustive-deps","warning",9,8,"High","Medium","React Developer","Add missing dependencies to useEffect/useCallback/useMemo dependency arrays"
+"react/no-unescaped-entities","warning",2,1,"Medium","Medium","Development Team","Review ESLint documentation and apply appropriate fixes"
+"@typescript-eslint/no-namespace","warning",1,1,"Medium","Medium","Development Team","Review ESLint documentation and apply appropriate fixes"
+"@typescript-eslint/no-unused-expressions","warning",1,1,"Medium","Medium","Development Team","Review ESLint documentation and apply appropriate fixes"

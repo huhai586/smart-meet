@@ -1,9 +1,5 @@
 import { Actions } from "~components/captions/types"
 import askAI from "~utils/askAI"
-import {setTranslatedWords} from "~utils/translate";
-import { getTranslation } from "~utils/i18n";
-import { getCurrentUILanguage } from "~hooks/useUILanguage";
-import messageManager from "~utils/message-manager";
 
 const translateSingleWords = async (text: string): Promise<string> => {
     try {

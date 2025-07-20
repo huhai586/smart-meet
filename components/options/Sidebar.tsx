@@ -1,10 +1,7 @@
 import React from 'react';
 import {
   ApiOutlined,
-  UserOutlined,
   CloudSyncOutlined,
-  DatabaseOutlined,
-  KeyOutlined,
   CalendarOutlined,
   SettingOutlined,
   TranslationOutlined,

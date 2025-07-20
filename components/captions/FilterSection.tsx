@@ -25,6 +25,8 @@ const FilterButton = React.memo(({
   </Button>
 ));
 
+FilterButton.displayName = 'FilterButton';
+
 interface FilterSectionProps {
   speakers: string[];
   filterSpeaker: string[];

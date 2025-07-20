@@ -1,5 +1,5 @@
 import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined, FileTextOutlined, QuestionCircleOutlined } from "@ant-design/icons"
-import {Alert, Button, Input, Tag, theme, type InputRef, Modal, message, Typography, Divider, Select} from "antd"
+import {Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select} from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
 import dayjs from 'dayjs';
@@ -21,7 +21,7 @@ interface ExtensionPropsInterface {
     jumpToCaptions?: () => void;
 }
 
-const Extension = (props: ExtensionPropsInterface) => {
+const Extension = (_props: ExtensionPropsInterface) => {
     const { t } = useI18n();
     const [specificTags, setTags] = useState([]);
     const [domain, setDomain] = useState('');
@@ -97,10 +97,10 @@ const Extension = (props: ExtensionPropsInterface) => {
         <span key={tag} style={{ display: 'inline-block' }}>
       <Tag
           closable
-          onClose={(e) => {
-              e.preventDefault();
-              handleClose(tag);
-          }}
+                    onClose={(_e) => {
+                        _e.preventDefault();
+                        handleClose(tag);
+                    }}
       >
         {tag}
       </Tag>

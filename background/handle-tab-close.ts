@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 // 监听标签页关闭事件
-chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
+chrome.tabs.onRemoved.addListener(function(tabId, _removeInfo) {
     if (meetTabs[tabId]) {
         console.log('Google Meet 标签页被关闭:', tabId);
         console.log('关闭的会议信息:', meetTabs[tabId]);

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Typography, theme } from 'antd';
-import { GlobalOutlined } from '@ant-design/icons';
 import UILanguageSelector from '~components/UILanguageSelector';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Typography, Button, Modal, Spin, List, message, Card, Collapse, Badge, Empty, Divider, Statistic, Input, Space, Tag } from 'antd';
 import styled from '@emotion/styled';
 import dayjs from 'dayjs';
-import { CalendarOutlined, MessageOutlined, SearchOutlined, LoadingOutlined, HighlightOutlined } from '@ant-design/icons';
+import { CalendarOutlined, MessageOutlined, LoadingOutlined, HighlightOutlined } from '@ant-design/icons';
 import { StorageFactory } from '~background/data-persistence/storage-factory';
 import type { Transcript } from '~hooks/useTranscripts';
 import StyledTitle from '~components/common/StyledTitle';

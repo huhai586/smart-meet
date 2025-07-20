@@ -1,12 +1,11 @@
 import React, { useEffect, useState, memo, useRef } from "react";
 import type { Transcript } from "../../hooks/useTranscripts";
 import useHighLightWords from "../../hooks/useHighLightWords";
-import useDomain from "../../hooks/useDomain";
 import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
 import { useCaptionText, useTranslation, useAIInteraction, useLanguageDetection } from "./hooks";
 import { CaptionHeader, AutoTranslationSection, CaptionTimestamp, AIAnswerSection } from "./components";
 import { Actions } from "~components/captions/types";
-import { scrollElementIntoView, useScrollToVisible } from "~components/captions/utils/scrollUtils"
+import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
 
 type CaptionProps = {
     data: Transcript;
@@ -120,5 +119,7 @@ const Caption = memo((props: CaptionProps) => {
 
     return propsEqual;
 });
+
+Caption.displayName = 'Caption';
 
 export default Caption;

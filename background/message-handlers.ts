@@ -8,9 +8,9 @@ import { handleSyncRequest } from './sync-manager';
 import { broadcastLanguageChange } from './utils/language-utils';
 
 
-interface Message {
+interface BaseMessage {
     action: string;
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -65,7 +65,7 @@ export function initMessageHandlers() {
 /**
  * 处理打开侧边栏请求
  */
-function handleOpenSidePanel(message: any, sender: chrome.runtime.MessageSender, sendResponse?: (response?: any) => void) {
+function handleOpenSidePanel(message: BaseMessage, sender: chrome.runtime.MessageSender, sendResponse?: (_response?: unknown) => void) {
     console.log('处理打开侧边栏请求');
 
     chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
@@ -115,7 +115,7 @@ function handleOpenSidePanel(message: any, sender: chrome.runtime.MessageSender,
 /**
  * 处理语言变更请求
  */
-function handleLanguageChanged(message: Message, sendResponse?: (response?: Message) => void) {
+function handleLanguageChanged(message: BaseMessage, sendResponse?: (_response?: BaseMessage) => void) {
     broadcastLanguageChange(message.languageCode);
 
     if (sendResponse) {
@@ -129,7 +129,7 @@ function handleLanguageChanged(message: Message, sendResponse?: (response?: Mess
 /**
  * 处理会议信息更新
  */
-function handleMeetingInfoUpdate(message: Message, sender: chrome.runtime.MessageSender, sendResponse?: (response?: any) => void) {
+function handleMeetingInfoUpdate(message: BaseMessage, sender: chrome.runtime.MessageSender, sendResponse?: (_response?: unknown) => void) {
     if (sender.tab && sender.tab.id) {
         // 更新标签页信息的逻辑移到 tab-tracking.ts 中
         // 这里仅发送事件通知

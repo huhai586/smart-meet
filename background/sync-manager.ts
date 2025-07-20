@@ -7,10 +7,6 @@ import { autoSyncService } from "./auto-sync-service";
 import dayjs from "dayjs";
 import type { MeetTabInfo } from "./tab-tracking";
 
-interface Message {
-    action: string;
-    [key: string]: any;
-}
 
 // 跟踪消息处理状态
 const pendingSyncRequests = new Map<string, SyncRequestInfo>();
@@ -27,7 +23,7 @@ interface SyncRequestInfo {
 /**
  * 处理同步请求
  */
-export function handleSyncRequest(message: any, sendResponse?: (response?: any) => void) {
+export function handleSyncRequest(message: Record<string, unknown>, sendResponse?: (_response?: unknown) => void) {
     console.log('收到同步到Google Drive请求:', message);
     
     // 执行后台自动同步
@@ -83,7 +79,7 @@ export async function syncMeetingData(meetingInfo: MeetTabInfo): Promise<boolean
 /**
  * 处理同步请求
  */
-function processSyncRequest(data: any) {
+function processSyncRequest(data: Record<string, unknown>) {
     const requestId = `sync-${data.date}-${data.timestamp || Date.now()}`;
     
     // 检查是否已经处理过这个请求

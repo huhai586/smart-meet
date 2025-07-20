@@ -2,12 +2,12 @@ import type { Transcript } from '../../hooks/useTranscripts';
 import type { Dayjs } from 'dayjs';
 
 export interface StorageProvider {
-    addOrUpdateRecord(record: Transcript, successCallback?: () => void): Promise<void>;
-    getRecords(date?: Dayjs): Promise<Transcript[]>;
-    deleteRecords(date?: Dayjs): Promise<void>;
-    restoreRecords(records: Transcript[], date?: Dayjs): Promise<void>;
+    addOrUpdateRecord(_record: Transcript, _successCallback?: () => void): Promise<void>;
+    getRecords(_date?: Dayjs): Promise<Transcript[]>;
+    deleteRecords(_date?: Dayjs): Promise<void>;
+    restoreRecords(_records: Transcript[], _date?: Dayjs): Promise<void>;
     getDaysWithMessages(): Promise<string[]>;
-    setCurrentDate(date: Dayjs): Promise<void>;
+    setCurrentDate(_date: Dayjs): Promise<void>;
 }
 
 export interface StorageOptions {
@@ -18,8 +18,8 @@ export interface StorageOptions {
 }
 
 export class StorageError extends Error {
-    constructor(message: string, public originalError?: Error) {
+    constructor(message: string, public _originalError?: Error) {
         super(message);
         this.name = 'StorageError';
     }
-} 
+}

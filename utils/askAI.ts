@@ -6,20 +6,6 @@ import { getCurrentUILanguage } from "../hooks/useUILanguage";
 import { detectLanguage } from "./language-detector";
 import { handleAIError } from "./ai-error-handler";
 
-// Debounce function to prevent multiple error notifications
-let errorNotificationTimeout: NodeJS.Timeout | null = null;
-const showErrorNotification = (message: string) => {
-    if (errorNotificationTimeout) {
-        clearTimeout(errorNotificationTimeout);
-    }
-    errorNotificationTimeout = setTimeout(() => {
-        const event = new CustomEvent('ajax-error', {
-            detail: { error: { message } }
-        });
-        window.dispatchEvent(event);
-        errorNotificationTimeout = null;
-    }, 2000); // Only show error notification every 2 seconds
-};
 
 const askAI = async (action: Actions, text: string, question?: string) => {
     // 获取当前AI服务实例

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Card, Steps, Button, Typography, Space, Divider } from 'antd';
-import { PlayCircleOutlined, SettingOutlined, TranslationOutlined, FileTextOutlined } from '@ant-design/icons';
+import { Card, Button, Typography, Space, Divider } from 'antd';
 import { useI18n } from '../utils/i18n';
 import GuideAnimation from '../components/GuideAnimation';
 import './welcome.scss';

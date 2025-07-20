@@ -1,11 +1,11 @@
 export enum Actions {
-    TRANSLATE = 'Translate',
-    EXPLAIN = 'Explain',
-    POLISH = 'Polish',
-    ANALYSIS = 'Analysis',
-    ASK = 'Ask',
+    TRANSLATE = 'Translate',  
+    EXPLAIN = 'Explain',  
+    POLISH = 'Polish',  
+    ANALYSIS = 'Analysis',  
+    ASK = 'Ask',  
     DEFAULT = 'Default',
-    SUMMARY = 'Summary',
+    SUMMARY = 'Summary',  
 }
 
 export interface AIDataItem {

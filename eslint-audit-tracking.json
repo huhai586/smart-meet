@@ -1,0 +1,1728 @@
+{
+  "summary": {
+    "totalErrors": 0,
+    "totalWarnings": 155,
+    "totalIssues": 155,
+    "filesWithIssues": 56,
+    "totalRulesViolated": 6,
+    "topRules": [
+      {
+        "ruleId": "@typescript-eslint/no-unused-vars",
+        "count": 85,
+        "severity": "warning"
+      },
+      {
+        "ruleId": "@typescript-eslint/no-explicit-any",
+        "count": 57,
+        "severity": "warning"
+      },
+      {
+        "ruleId": "react-hooks/exhaustive-deps",
+        "count": 9,
+        "severity": "warning"
+      },
+      {
+        "ruleId": "react/no-unescaped-entities",
+        "count": 2,
+        "severity": "warning"
+      },
+      {
+        "ruleId": "@typescript-eslint/no-namespace",
+        "count": 1,
+        "severity": "warning"
+      }
+    ]
+  },
+  "ruleBreakdown": [
+    {
+      "ruleId": "@typescript-eslint/no-unused-vars",
+      "severity": "warning",
+      "count": 85,
+      "filesAffected": 32,
+      "fixStrategy": "Remove unused variables or prefix with underscore if intentionally unused",
+      "priority": "Medium",
+      "effort": "Low",
+      "automated": "Partially - ESLint can auto-fix some cases",
+      "owner": "Development Team",
+      "estimatedTime": "1-2 hours",
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/background/handle-tab-close.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/background/tab-tracking.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/backup-and-restore.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useTranslation.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/common/StyledTitle.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/hooks/useConflictResolution.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/index.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ExtensionSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/Sidebar.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/TranslationSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/UILanguageSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/constant.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/contents/index.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranslationProvider.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/options.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/get-is-extension-disabled.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/getCaptions.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/is-resetore-data-valid.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/translate.ts"
+      ]
+    },
+    {
+      "ruleId": "@typescript-eslint/no-explicit-any",
+      "severity": "warning",
+      "count": 57,
+      "filesAffected": 25,
+      "fixStrategy": "Replace `any` with proper TypeScript types or `unknown` if type is truly unknown",
+      "priority": "High",
+      "effort": "Medium",
+      "automated": "No - requires manual type definition",
+      "owner": "Development Team",
+      "estimatedTime": "4-8 hours",
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/Account.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/GlobalDatePicker.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/SearchBar.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/filterUtils.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ApiKeyConfig.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceConfigPanel.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceList.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/utils/model-service.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useAutoTranslate.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai-error-handler.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/AIServiceInterface.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/BaseAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/GeminiAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/OpenAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/XAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/get-file-data.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/google-calendar.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/initAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/types/google-drive.types.ts"
+      ]
+    },
+    {
+      "ruleId": "react-hooks/exhaustive-deps",
+      "severity": "warning",
+      "count": 9,
+      "filesAffected": 8,
+      "fixStrategy": "Add missing dependencies to useEffect/useCallback/useMemo dependency arrays",
+      "priority": "High",
+      "effort": "Medium",
+      "automated": "Partially - ESLint can suggest fixes",
+      "owner": "React Developer",
+      "estimatedTime": "2-4 hours",
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useSearch.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/GoogleAccountInfo.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/hooks/useConflictResolution.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ModelSelector.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/summary/useSummary.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/contexts/GoogleAuthContext.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx"
+      ]
+    },
+    {
+      "ruleId": "react/no-unescaped-entities",
+      "severity": "warning",
+      "count": 2,
+      "filesAffected": 1,
+      "fixStrategy": "Review ESLint documentation and apply appropriate fixes",
+      "priority": "Medium",
+      "effort": "Medium",
+      "automated": "Unknown",
+      "owner": "Development Team",
+      "estimatedTime": "TBD",
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx"
+      ]
+    },
+    {
+      "ruleId": "@typescript-eslint/no-namespace",
+      "severity": "warning",
+      "count": 1,
+      "filesAffected": 1,
+      "fixStrategy": "Review ESLint documentation and apply appropriate fixes",
+      "priority": "Medium",
+      "effort": "Medium",
+      "automated": "Unknown",
+      "owner": "Development Team",
+      "estimatedTime": "TBD",
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts"
+      ]
+    },
+    {
+      "ruleId": "@typescript-eslint/no-unused-expressions",
+      "severity": "warning",
+      "count": 1,
+      "filesAffected": 1,
+      "fixStrategy": "Review ESLint documentation and apply appropriate fixes",
+      "priority": "Medium",
+      "effort": "Medium",
+      "automated": "Unknown",
+      "owner": "Development Team",
+      "estimatedTime": "TBD",
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx"
+      ]
+    }
+  ],
+  "fileBreakdown": [
+    {
+      "file": "sidepanel.tsx",
+      "errors": 0,
+      "warnings": 10,
+      "total": 10
+    },
+    {
+      "file": "components/words/WordDetailModal.tsx",
+      "errors": 0,
+      "warnings": 9,
+      "total": 9
+    },
+    {
+      "file": "components/extension.tsx",
+      "errors": 0,
+      "warnings": 8,
+      "total": 8
+    },
+    {
+      "file": "components/options/Calendar.tsx",
+      "errors": 0,
+      "warnings": 8,
+      "total": 8
+    },
+    {
+      "file": "components/google-drive/services/BackupService.ts",
+      "errors": 0,
+      "warnings": 7,
+      "total": 7
+    },
+    {
+      "file": "components/LocalStorageViewer.tsx",
+      "errors": 0,
+      "warnings": 6,
+      "total": 6
+    },
+    {
+      "file": "components/options/ClearCaptionsSettings.tsx",
+      "errors": 0,
+      "warnings": 5,
+      "total": 5
+    },
+    {
+      "file": "hooks/useTranscripts.ts",
+      "errors": 0,
+      "warnings": 5,
+      "total": 5
+    },
+    {
+      "file": "pages/welcome.tsx",
+      "errors": 0,
+      "warnings": 5,
+      "total": 5
+    },
+    {
+      "file": "utils/getAPIkey.ts",
+      "errors": 0,
+      "warnings": 5,
+      "total": 5
+    },
+    {
+      "file": "components/options/Sidebar.tsx",
+      "errors": 0,
+      "warnings": 4,
+      "total": 4
+    },
+    {
+      "file": "components/options/UILanguageSettings.tsx",
+      "errors": 0,
+      "warnings": 4,
+      "total": 4
+    },
+    {
+      "file": "components/options/ai-settings/AISettings.tsx",
+      "errors": 0,
+      "warnings": 4,
+      "total": 4
+    },
+    {
+      "file": "utils/ai/BaseAIService.ts",
+      "errors": 0,
+      "warnings": 4,
+      "total": 4
+    },
+    {
+      "file": "utils/ai/XAIService.ts",
+      "errors": 0,
+      "warnings": 4,
+      "total": 4
+    },
+    {
+      "file": "components/google-drive/index.tsx",
+      "errors": 0,
+      "warnings": 3,
+      "total": 3
+    },
+    {
+      "file": "components/summary/index.tsx",
+      "errors": 0,
+      "warnings": 3,
+      "total": 3
+    },
+    {
+      "file": "components/words.tsx",
+      "errors": 0,
+      "warnings": 3,
+      "total": 3
+    },
+    {
+      "file": "options.tsx",
+      "errors": 0,
+      "warnings": 3,
+      "total": 3
+    },
+    {
+      "file": "utils/ai/GeminiAIService.ts",
+      "errors": 0,
+      "warnings": 3,
+      "total": 3
+    },
+    {
+      "file": "utils/ai/OpenAIService.ts",
+      "errors": 0,
+      "warnings": 3,
+      "total": 3
+    },
+    {
+      "file": "utils/get-file-data.ts",
+      "errors": 0,
+      "warnings": 3,
+      "total": 3
+    },
+    {
+      "file": "components/Account.tsx",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/backup-and-restore.tsx",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/captions/SearchBar.tsx",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/captions/filterUtils.ts",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/google-drive/hooks/useConflictResolution.ts",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/options/TranslationSettings.tsx",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/options/ai-settings/components/ServiceConfigPanel.tsx",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/options/ai-settings/utils/model-service.ts",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "components/summary/useSummary.ts",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "contents/index.ts",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "utils/ai-error-handler.ts",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "utils/ai/AIServiceInterface.ts",
+      "errors": 0,
+      "warnings": 2,
+      "total": 2
+    },
+    {
+      "file": "background/handle-tab-close.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "background/tab-tracking.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/GlobalDatePicker.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/captions/hooks/useSearch.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/captions/hooks/useTranslation.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/common/StyledTitle.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/google-drive/GoogleAccountInfo.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/options/ExtensionSettings.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/options/ai-settings/components/ApiKeyConfig.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/options/ai-settings/components/ModelSelector.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "components/options/ai-settings/components/ServiceList.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "constant.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "contexts/GoogleAuthContext.tsx",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "hooks/useAutoTranslate.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "hooks/useTranslationProvider.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "utils/get-is-extension-disabled.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "utils/getCaptions.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "utils/google-calendar.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "utils/initAIService.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "utils/is-resetore-data-valid.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "utils/translate.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    },
+    {
+      "file": "utils/types/google-drive.types.ts",
+      "errors": 0,
+      "warnings": 1,
+      "total": 1
+    }
+  ],
+  "detailedOccurrences": {
+    "@typescript-eslint/no-unused-vars": {
+      "ruleId": "@typescript-eslint/no-unused-vars",
+      "severity": "warning",
+      "count": 85,
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/background/handle-tab-close.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/background/tab-tracking.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/backup-and-restore.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useTranslation.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/common/StyledTitle.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/hooks/useConflictResolution.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/index.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ExtensionSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/Sidebar.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/TranslationSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/UILanguageSettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/constant.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/contents/index.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranslationProvider.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/options.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/get-is-extension-disabled.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/getCaptions.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/is-resetore-data-valid.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/translate.ts"
+      ],
+      "occurrences": [
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/background/handle-tab-close.ts",
+          "line": 40,
+          "column": 51,
+          "message": "'_removeInfo' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/background/tab-tracking.ts",
+          "line": 63,
+          "column": 42,
+          "message": "'_removeInfo' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+          "line": 152,
+          "column": 9,
+          "message": "'_handlePanelChange' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+          "line": 157,
+          "column": 9,
+          "message": "'_handleTabChange' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+          "line": 162,
+          "column": 9,
+          "message": "'_headerRender' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+          "line": 162,
+          "column": 35,
+          "message": "'_type' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+          "line": 162,
+          "column": 42,
+          "message": "'_onChange' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx",
+          "line": 186,
+          "column": 9,
+          "message": "'_renderDayView' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/backup-and-restore.tsx",
+          "line": 18,
+          "column": 27,
+          "message": "'_props' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/backup-and-restore.tsx",
+          "line": 41,
+          "column": 23,
+          "message": "'_e' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useTranslation.ts",
+          "line": 68,
+          "column": 17,
+          "message": "'clickableElement' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/common/StyledTitle.tsx",
+          "line": 17,
+          "column": 11,
+          "message": "'token' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 2,
+          "column": 9,
+          "message": "'Alert' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 2,
+          "column": 36,
+          "message": "'theme' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 2,
+          "column": 65,
+          "message": "'message' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 24,
+          "column": 20,
+          "message": "'props' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 144,
+          "column": 22,
+          "message": "'e' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/hooks/useConflictResolution.ts",
+          "line": 15,
+          "column": 9,
+          "message": "'driveService' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/index.tsx",
+          "line": 2,
+          "column": 40,
+          "message": "'Space' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/index.tsx",
+          "line": 2,
+          "column": 47,
+          "message": "'Divider' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/index.tsx",
+          "line": 49,
+          "column": 5,
+          "message": "'backupFolder' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+          "line": 89,
+          "column": 13,
+          "message": "'records' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 5,
+          "column": 45,
+          "message": "'SearchOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 11,
+          "column": 9,
+          "message": "'Title' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 12,
+          "column": 9,
+          "message": "'Panel' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 15,
+          "column": 7,
+          "message": "'CalendarContainer' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 140,
+          "column": 10,
+          "message": "'messageCountCache' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 331,
+          "column": 46,
+          "message": "'mutations' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 383,
+          "column": 9,
+          "message": "'scrollToHighlightedRecord' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx",
+          "line": 409,
+          "column": 9,
+          "message": "'handleSearch' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx",
+          "line": 2,
+          "column": 22,
+          "message": "'Card' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx",
+          "line": 2,
+          "column": 28,
+          "message": "'Space' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx",
+          "line": 8,
+          "column": 9,
+          "message": "'Title' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx",
+          "line": 8,
+          "column": 16,
+          "message": "'Text' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx",
+          "line": 12,
+          "column": 11,
+          "message": "'token' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ExtensionSettings.tsx",
+          "line": 8,
+          "column": 9,
+          "message": "'Text' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Sidebar.tsx",
+          "line": 4,
+          "column": 3,
+          "message": "'UserOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Sidebar.tsx",
+          "line": 6,
+          "column": 3,
+          "message": "'DatabaseOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Sidebar.tsx",
+          "line": 7,
+          "column": 3,
+          "message": "'KeyOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/Sidebar.tsx",
+          "line": 31,
+          "column": 7,
+          "message": "'KEY_TO_ROUTE' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/TranslationSettings.tsx",
+          "line": 3,
+          "column": 10,
+          "message": "'TranslationOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/TranslationSettings.tsx",
+          "line": 13,
+          "column": 9,
+          "message": "'Title' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/UILanguageSettings.tsx",
+          "line": 3,
+          "column": 10,
+          "message": "'GlobalOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/UILanguageSettings.tsx",
+          "line": 9,
+          "column": 9,
+          "message": "'Title' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/UILanguageSettings.tsx",
+          "line": 9,
+          "column": 16,
+          "message": "'Text' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/UILanguageSettings.tsx",
+          "line": 13,
+          "column": 11,
+          "message": "'token' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+          "line": 19,
+          "column": 13,
+          "message": "'models' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+          "line": 19,
+          "column": 21,
+          "message": "'loading' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+          "line": 19,
+          "column": 30,
+          "message": "'error' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx",
+          "line": 13,
+          "column": 42,
+          "message": "'props' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx",
+          "line": 15,
+          "column": 49,
+          "message": "'contextHolder' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words.tsx",
+          "line": 6,
+          "column": 5,
+          "message": "'DeleteOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words.tsx",
+          "line": 46,
+          "column": 11,
+          "message": "'success' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words.tsx",
+          "line": 140,
+          "column": 38,
+          "message": "'index' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 123,
+          "column": 14,
+          "message": "'err' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 130,
+          "column": 67,
+          "message": "'targetLangCode' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/constant.ts",
+          "line": 92,
+          "column": 9,
+          "message": "'detectedLangName' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/contents/index.ts",
+          "line": 32,
+          "column": 48,
+          "message": "'_sender' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/contents/index.ts",
+          "line": 32,
+          "column": 57,
+          "message": "'_sendResponse' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+          "line": 23,
+          "column": 60,
+          "message": "'_sender' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+          "line": 23,
+          "column": 74,
+          "message": "'_sendResponse' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranslationProvider.ts",
+          "line": 79,
+          "column": 32,
+          "message": "'_reject' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/options.tsx",
+          "line": 51,
+          "column": 13,
+          "message": "'t' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/options.tsx",
+          "line": 52,
+          "column": 12,
+          "message": "'messageApi' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/options.tsx",
+          "line": 52,
+          "column": 24,
+          "message": "'contextHolder' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx",
+          "line": 2,
+          "column": 16,
+          "message": "'Steps' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx",
+          "line": 3,
+          "column": 10,
+          "message": "'PlayCircleOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx",
+          "line": 3,
+          "column": 30,
+          "message": "'SettingOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx",
+          "line": 3,
+          "column": 47,
+          "message": "'TranslationOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx",
+          "line": 3,
+          "column": 68,
+          "message": "'FileTextOutlined' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 1,
+          "column": 37,
+          "message": "'useRef' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 2,
+          "column": 24,
+          "message": "'Tooltip' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 2,
+          "column": 33,
+          "message": "'Dropdown' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 2,
+          "column": 43,
+          "message": "'Menu' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 2,
+          "column": 49,
+          "message": "'Button' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 7,
+          "column": 8,
+          "message": "'dayjs' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 33,
+          "column": 24,
+          "message": "'contextHolder' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 37,
+          "column": 12,
+          "message": "'activeService' is assigned a value but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 113,
+          "column": 22,
+          "message": "'e' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/get-is-extension-disabled.ts",
+          "line": 2,
+          "column": 34,
+          "message": "'_reject' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+          "line": 25,
+          "column": 55,
+          "message": "'_reject' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+          "line": 48,
+          "column": 40,
+          "message": "'_reject' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/getCaptions.ts",
+          "line": 5,
+          "column": 34,
+          "message": "'_reject' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/is-resetore-data-valid.ts",
+          "line": 17,
+          "column": 18,
+          "message": "'_e' is defined but never used.",
+          "messageId": "unusedVar"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/translate.ts",
+          "line": 3,
+          "column": 34,
+          "message": "'_reject' is defined but never used.",
+          "messageId": "unusedVar"
+        }
+      ]
+    },
+    "@typescript-eslint/no-explicit-any": {
+      "ruleId": "@typescript-eslint/no-explicit-any",
+      "severity": "warning",
+      "count": 57,
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/Account.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/GlobalDatePicker.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/SearchBar.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/filterUtils.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ApiKeyConfig.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceConfigPanel.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceList.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/utils/model-service.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useAutoTranslate.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai-error-handler.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/AIServiceInterface.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/BaseAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/GeminiAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/OpenAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/ai/XAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/get-file-data.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/google-calendar.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/initAIService.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/utils/types/google-drive.types.ts"
+      ],
+      "occurrences": [
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/Account.tsx",
+          "line": 10,
+          "column": 52,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/Account.tsx",
+          "line": 11,
+          "column": 42,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/GlobalDatePicker.tsx",
+          "line": 45,
+          "column": 41,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/captions/SearchBar.tsx",
+          "line": 8,
+          "column": 18,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/captions/SearchBar.tsx",
+          "line": 16,
+          "column": 35,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/captions/filterUtils.ts",
+          "line": 36,
+          "column": 16,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/captions/filterUtils.ts",
+          "line": 37,
+          "column": 17,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 200,
+          "column": 70,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 257,
+          "column": 50,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx",
+          "line": 301,
+          "column": 50,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+          "line": 25,
+          "column": 20,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+          "line": 56,
+          "column": 56,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+          "line": 70,
+          "column": 53,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+          "line": 78,
+          "column": 55,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+          "line": 158,
+          "column": 32,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx",
+          "line": 13,
+          "column": 81,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ApiKeyConfig.tsx",
+          "line": 14,
+          "column": 29,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceConfigPanel.tsx",
+          "line": 14,
+          "column": 38,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceConfigPanel.tsx",
+          "line": 22,
+          "column": 29,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceList.tsx",
+          "line": 11,
+          "column": 38,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/utils/model-service.ts",
+          "line": 34,
+          "column": 23,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/utils/model-service.ts",
+          "line": 36,
+          "column": 20,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 110,
+          "column": 48,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 112,
+          "column": 66,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 146,
+          "column": 48,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 148,
+          "column": 66,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/hooks/useAutoTranslate.ts",
+          "line": 93,
+          "column": 42,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+          "line": 23,
+          "column": 55,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+          "line": 23,
+          "column": 69,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts",
+          "line": 23,
+          "column": 89,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai-error-handler.ts",
+          "line": 27,
+          "column": 31,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai-error-handler.ts",
+          "line": 106,
+          "column": 38,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/AIServiceInterface.ts",
+          "line": 16,
+          "column": 42,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/AIServiceInterface.ts",
+          "line": 34,
+          "column": 18,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/BaseAIService.ts",
+          "line": 9,
+          "column": 45,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/BaseAIService.ts",
+          "line": 54,
+          "column": 71,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/BaseAIService.ts",
+          "line": 59,
+          "column": 48,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/BaseAIService.ts",
+          "line": 79,
+          "column": 46,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/GeminiAIService.ts",
+          "line": 12,
+          "column": 18,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/GeminiAIService.ts",
+          "line": 46,
+          "column": 68,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/GeminiAIService.ts",
+          "line": 86,
+          "column": 37,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/OpenAIService.ts",
+          "line": 12,
+          "column": 19,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/OpenAIService.ts",
+          "line": 64,
+          "column": 68,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/OpenAIService.ts",
+          "line": 99,
+          "column": 37,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/XAIService.ts",
+          "line": 10,
+          "column": 19,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/XAIService.ts",
+          "line": 35,
+          "column": 59,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/XAIService.ts",
+          "line": 125,
+          "column": 68,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/ai/XAIService.ts",
+          "line": 166,
+          "column": 37,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/get-file-data.ts",
+          "line": 10,
+          "column": 47,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/get-file-data.ts",
+          "line": 16,
+          "column": 34,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/get-file-data.ts",
+          "line": 16,
+          "column": 80,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+          "line": 25,
+          "column": 39,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+          "line": 46,
+          "column": 38,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts",
+          "line": 60,
+          "column": 46,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/google-calendar.ts",
+          "line": 5,
+          "column": 11,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/initAIService.ts",
+          "line": 32,
+          "column": 59,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/utils/types/google-drive.types.ts",
+          "line": 22,
+          "column": 20,
+          "message": "Unexpected any. Specify a different type.",
+          "messageId": "unexpectedAny"
+        }
+      ]
+    },
+    "react-hooks/exhaustive-deps": {
+      "ruleId": "react-hooks/exhaustive-deps",
+      "severity": "warning",
+      "count": 9,
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useSearch.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/GoogleAccountInfo.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/hooks/useConflictResolution.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ModelSelector.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/components/summary/useSummary.ts",
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/contexts/GoogleAuthContext.tsx",
+        "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx"
+      ],
+      "occurrences": [
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useSearch.ts",
+          "line": 31,
+          "column": 6,
+          "message": "React Hook useCallback has a missing dependency: 'clearSearch'. Either include it or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/GoogleAccountInfo.tsx",
+          "line": 51,
+          "column": 6,
+          "message": "React Hook useEffect has missing dependencies: 'isAuthenticated', 'loading', and 'user'. Either include them or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/hooks/useConflictResolution.ts",
+          "line": 20,
+          "column": 6,
+          "message": "React Hook useEffect has a missing dependency: 'resetConflictState'. Either include it or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ModelSelector.tsx",
+          "line": 45,
+          "column": 6,
+          "message": "React Hook useEffect has a missing dependency: 'fetchModels'. Either include it or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/summary/useSummary.ts",
+          "line": 46,
+          "column": 6,
+          "message": "React Hook useEffect has missing dependencies: 'messageApi' and 't'. Either include them or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/summary/useSummary.ts",
+          "line": 86,
+          "column": 6,
+          "message": "React Hook useEffect has a missing dependency: 'messageApi'. Either include it or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 63,
+          "column": 6,
+          "message": "React Hook useEffect has a missing dependency: 'fetchWordDetail'. Either include it or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/contexts/GoogleAuthContext.tsx",
+          "line": 244,
+          "column": 6,
+          "message": "React Hook useEffect has a missing dependency: 'checkAuthStatus'. Either include it or remove the dependency array."
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx",
+          "line": 122,
+          "column": 8,
+          "message": "React Hook useEffect has a missing dependency: 'messageApi'. Either include it or remove the dependency array."
+        }
+      ]
+    },
+    "@typescript-eslint/no-namespace": {
+      "ruleId": "@typescript-eslint/no-namespace",
+      "severity": "warning",
+      "count": 1,
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts"
+      ],
+      "occurrences": [
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts",
+          "line": 10,
+          "column": 1,
+          "message": "ES2015 module syntax is preferred over namespaces.",
+          "messageId": "moduleSyntaxIsPreferred"
+        }
+      ]
+    },
+    "@typescript-eslint/no-unused-expressions": {
+      "ruleId": "@typescript-eslint/no-unused-expressions",
+      "severity": "warning",
+      "count": 1,
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx"
+      ],
+      "occurrences": [
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx",
+          "line": 22,
+          "column": 7,
+          "message": "Expected an assignment or function call and instead saw an expression.",
+          "messageId": "unusedExpression"
+        }
+      ]
+    },
+    "react/no-unescaped-entities": {
+      "ruleId": "react/no-unescaped-entities",
+      "severity": "warning",
+      "count": 2,
+      "files": [
+        "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx"
+      ],
+      "occurrences": [
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 199,
+          "column": 47,
+          "message": "`\"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.",
+          "messageId": "unescapedEntityAlts"
+        },
+        {
+          "file": "/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx",
+          "line": 199,
+          "column": 61,
+          "message": "`\"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`.",
+          "messageId": "unescapedEntityAlts"
+        }
+      ]
+    }
+  }
+}

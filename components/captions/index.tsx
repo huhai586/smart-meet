@@ -1,7 +1,6 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import './captions.scss';
 import useTranscripts from '../../hooks/useTranscripts';
-import useAutoScroll from '../../hooks/useScroll';
 import { useDateContext } from '../../contexts/DateContext';
 
 // 导入拆分后的组件和自定义hooks

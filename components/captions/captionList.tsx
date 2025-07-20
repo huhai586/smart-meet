@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import './captions.scss';
 import type {Transcript} from "../../hooks/useTranscripts";
 import Caption from "./caption";

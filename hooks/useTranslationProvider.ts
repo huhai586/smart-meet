@@ -76,7 +76,7 @@ export const useTranslationProvider = (): [TranslationProvider, (provider: Trans
  * @returns Promise<TranslationProvider> - 当前提供商
  */
 export const getCurrentTranslationProvider = async (): Promise<TranslationProvider> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     // 添加超时机制
     const timeout = setTimeout(() => {
       console.warn('[getCurrentTranslationProvider] Timeout, using default provider');

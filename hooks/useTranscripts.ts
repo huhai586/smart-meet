@@ -1,4 +1,4 @@
-import {useEffect, useState, useMemo, useCallback} from "react";
+import {useEffect, useState, useCallback} from "react";
 import type {Captions} from "~node_modules/google-meeting-captions-resolver";
 import { useDateContext } from '../contexts/DateContext';
 
@@ -20,7 +20,7 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
         loadContent();
     }, [loadContent]);
 
-    const handleChromeMessage = useCallback((message: any, sender: any, sendResponse: any) => {
+    const handleChromeMessage = useCallback((message: any, _sender: any, _sendResponse: any) => {
         if (message.action === 'refresh-transcripts') {
             setCurrentDayTranscripts(prevTranscripts => {
                 if (message.data.length !== prevTranscripts.length) {

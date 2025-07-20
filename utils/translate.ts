@@ -1,7 +1,6 @@
-import type {Captions} from "~node_modules/google-meeting-captions-resolver";
 
 export const getTranslatedWords: () => Promise<string[]> = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, _reject) => {
         chrome.storage.local.get('translatedWords', ({translatedWords}) => {
             console.log({translatedWords})
             resolve(translatedWords || []);

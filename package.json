@@ -11,7 +11,8 @@
     "postdev": "cp -r _locales build/chrome-mv3-dev/ && cp -r _locales build/chrome-mv3-dev/",
     "package": "plasmo package",
     "lint": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx --fix",
+    "ts-unused-exports": "ts-unused-exports"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -49,9 +50,11 @@
     "eslint-plugin-prettier": "^5.5.3",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "globals": "^16.3.0",
     "prettier": "3.2.4",
     "sass": "1.69.5",
+    "ts-unused-exports": "^11.0.1",
     "typescript": "5.3.3",
     "typescript-eslint": "^8.37.0"
   },

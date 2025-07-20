@@ -1,0 +1,274 @@
+
+> google-meet-caption-pro@1.4.2 lint
+> eslint . --ext .ts,.tsx
+
+
+/Users/huhai/WebstormProjects/smart-meet/background/handle-tab-close.ts
+  40:51  warning  '_removeInfo' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/background/tab-tracking.ts
+  63:42  warning  '_removeInfo' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/Account.tsx
+  10:52  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  11:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/GlobalDatePicker.tsx
+  45:41  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/LocalStorageViewer.tsx
+  152:9   warning  '_handlePanelChange' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  157:9   warning  '_handleTabChange' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  162:9   warning  '_headerRender' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  162:35  warning  '_type' is defined but never used                        @typescript-eslint/no-unused-vars
+  162:42  warning  '_onChange' is defined but never used                    @typescript-eslint/no-unused-vars
+  186:9   warning  '_renderDayView' is assigned a value but never used      @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/backup-and-restore.tsx
+  18:27  warning  '_props' is defined but never used  @typescript-eslint/no-unused-vars
+  41:23  warning  '_e' is defined but never used      @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/captions/SearchBar.tsx
+   8:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  16:35  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/captions/filterUtils.ts
+  36:16  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  37:17  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useSearch.ts
+  31:6  warning  React Hook useCallback has a missing dependency: 'clearSearch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/huhai/WebstormProjects/smart-meet/components/captions/hooks/useTranslation.ts
+  68:17  warning  'clickableElement' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/common/StyledTitle.tsx
+  17:11  warning  'token' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/extension.tsx
+    2:9   warning  'Alert' is defined but never used         @typescript-eslint/no-unused-vars
+    2:36  warning  'theme' is defined but never used         @typescript-eslint/no-unused-vars
+    2:65  warning  'message' is defined but never used       @typescript-eslint/no-unused-vars
+   24:20  warning  'props' is defined but never used         @typescript-eslint/no-unused-vars
+  144:22  warning  'e' is defined but never used             @typescript-eslint/no-unused-vars
+  200:70  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  257:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  301:50  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/google-drive/GoogleAccountInfo.tsx
+  51:6  warning  React Hook useEffect has missing dependencies: 'isAuthenticated', 'loading', and 'user'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/huhai/WebstormProjects/smart-meet/components/google-drive/hooks/useConflictResolution.ts
+  15:9  warning  'driveService' is assigned a value but never used                                                                      @typescript-eslint/no-unused-vars
+  20:6  warning  React Hook useEffect has a missing dependency: 'resetConflictState'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/huhai/WebstormProjects/smart-meet/components/google-drive/index.tsx
+   2:40  warning  'Space' is defined but never used                  @typescript-eslint/no-unused-vars
+   2:47  warning  'Divider' is defined but never used                @typescript-eslint/no-unused-vars
+  49:5   warning  'backupFolder' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/google-drive/services/BackupService.ts
+   10:1   warning  ES2015 module syntax is preferred over namespaces  @typescript-eslint/no-namespace
+   25:20  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+   56:56  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+   70:53  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+   78:55  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+   89:13  warning  'records' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  158:32  warning  Unexpected any. Specify a different type           @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/Calendar.tsx
+    5:45  warning  'SearchOutlined' is defined but never used                      @typescript-eslint/no-unused-vars
+   11:9   warning  'Title' is assigned a value but never used                      @typescript-eslint/no-unused-vars
+   12:9   warning  'Panel' is assigned a value but never used                      @typescript-eslint/no-unused-vars
+   15:7   warning  'CalendarContainer' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  140:10  warning  'messageCountCache' is assigned a value but never used          @typescript-eslint/no-unused-vars
+  331:46  warning  'mutations' is defined but never used                           @typescript-eslint/no-unused-vars
+  383:9   warning  'scrollToHighlightedRecord' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  409:9   warning  'handleSearch' is assigned a value but never used               @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ClearCaptionsSettings.tsx
+   2:22  warning  'Card' is defined but never used            @typescript-eslint/no-unused-vars
+   2:28  warning  'Space' is defined but never used           @typescript-eslint/no-unused-vars
+   8:9   warning  'Title' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   8:16  warning  'Text' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  12:11  warning  'token' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ExtensionSettings.tsx
+  8:9  warning  'Text' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/Sidebar.tsx
+   4:3  warning  'UserOutlined' is defined but never used           @typescript-eslint/no-unused-vars
+   6:3  warning  'DatabaseOutlined' is defined but never used       @typescript-eslint/no-unused-vars
+   7:3  warning  'KeyOutlined' is defined but never used            @typescript-eslint/no-unused-vars
+  31:7  warning  'KEY_TO_ROUTE' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/TranslationSettings.tsx
+   3:10  warning  'TranslationOutlined' is defined but never used  @typescript-eslint/no-unused-vars
+  13:9   warning  'Title' is assigned a value but never used       @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/UILanguageSettings.tsx
+   3:10  warning  'GlobalOutlined' is defined but never used  @typescript-eslint/no-unused-vars
+   9:9   warning  'Title' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   9:16  warning  'Text' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  13:11  warning  'token' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/AISettings.tsx
+  13:81  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  19:13  warning  'models' is assigned a value but never used   @typescript-eslint/no-unused-vars
+  19:21  warning  'loading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  19:30  warning  'error' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ApiKeyConfig.tsx
+  14:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ModelSelector.tsx
+  45:6  warning  React Hook useEffect has a missing dependency: 'fetchModels'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceConfigPanel.tsx
+  14:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  22:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/components/ServiceList.tsx
+  11:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/options/ai-settings/utils/model-service.ts
+  34:23  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/components/summary/index.tsx
+  13:42  warning  'props' is defined but never used                                      @typescript-eslint/no-unused-vars
+  15:49  warning  'contextHolder' is assigned a value but never used                     @typescript-eslint/no-unused-vars
+  22:7   warning  Expected an assignment or function call and instead saw an expression  @typescript-eslint/no-unused-expressions
+
+/Users/huhai/WebstormProjects/smart-meet/components/summary/useSummary.ts
+  46:6  warning  React Hook useEffect has missing dependencies: 'messageApi' and 't'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+  86:6  warning  React Hook useEffect has a missing dependency: 'messageApi'. Either include it or remove the dependency array            react-hooks/exhaustive-deps
+
+/Users/huhai/WebstormProjects/smart-meet/components/words.tsx
+    6:5   warning  'DeleteOutlined' is defined but never used    @typescript-eslint/no-unused-vars
+   46:11  warning  'success' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  140:38  warning  'index' is defined but never used             @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/components/words/WordDetailModal.tsx
+   63:6   warning  React Hook useEffect has a missing dependency: 'fetchWordDetail'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+  110:48  warning  Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  112:66  warning  Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  123:14  warning  'err' is defined but never used                                                                                     @typescript-eslint/no-unused-vars
+  130:67  warning  'targetLangCode' is defined but never used                                                                          @typescript-eslint/no-unused-vars
+  146:48  warning  Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  148:66  warning  Unexpected any. Specify a different type                                                                            @typescript-eslint/no-explicit-any
+  199:47  warning  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                     react/no-unescaped-entities
+  199:61  warning  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`                                                     react/no-unescaped-entities
+
+/Users/huhai/WebstormProjects/smart-meet/constant.ts
+  92:9  warning  'detectedLangName' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/contents/index.ts
+  32:48  warning  '_sender' is defined but never used        @typescript-eslint/no-unused-vars
+  32:57  warning  '_sendResponse' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/contexts/GoogleAuthContext.tsx
+  244:6  warning  React Hook useEffect has a missing dependency: 'checkAuthStatus'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/huhai/WebstormProjects/smart-meet/hooks/useAutoTranslate.ts
+  93:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/hooks/useTranscripts.ts
+  23:55  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  23:60  warning  '_sender' is defined but never used        @typescript-eslint/no-unused-vars
+  23:69  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  23:74  warning  '_sendResponse' is defined but never used  @typescript-eslint/no-unused-vars
+  23:89  warning  Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/hooks/useTranslationProvider.ts
+  79:32  warning  '_reject' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/options.tsx
+  51:13  warning  't' is assigned a value but never used              @typescript-eslint/no-unused-vars
+  52:12  warning  'messageApi' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  52:24  warning  'contextHolder' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/pages/welcome.tsx
+  2:16  warning  'Steps' is defined but never used                @typescript-eslint/no-unused-vars
+  3:10  warning  'PlayCircleOutlined' is defined but never used   @typescript-eslint/no-unused-vars
+  3:30  warning  'SettingOutlined' is defined but never used      @typescript-eslint/no-unused-vars
+  3:47  warning  'TranslationOutlined' is defined but never used  @typescript-eslint/no-unused-vars
+  3:68  warning  'FileTextOutlined' is defined but never used     @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/sidepanel.tsx
+    1:37  warning  'useRef' is defined but never used                                                                             @typescript-eslint/no-unused-vars
+    2:24  warning  'Tooltip' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+    2:33  warning  'Dropdown' is defined but never used                                                                           @typescript-eslint/no-unused-vars
+    2:43  warning  'Menu' is defined but never used                                                                               @typescript-eslint/no-unused-vars
+    2:49  warning  'Button' is defined but never used                                                                             @typescript-eslint/no-unused-vars
+    7:8   warning  'dayjs' is defined but never used                                                                              @typescript-eslint/no-unused-vars
+   33:24  warning  'contextHolder' is assigned a value but never used                                                             @typescript-eslint/no-unused-vars
+   37:12  warning  'activeService' is assigned a value but never used                                                             @typescript-eslint/no-unused-vars
+  113:22  warning  'e' is defined but never used                                                                                  @typescript-eslint/no-unused-vars
+  122:8   warning  React Hook useEffect has a missing dependency: 'messageApi'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/huhai/WebstormProjects/smart-meet/utils/ai-error-handler.ts
+   27:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  106:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/ai/AIServiceInterface.ts
+  16:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  34:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/ai/BaseAIService.ts
+   9:45  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  54:71  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  59:48  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  79:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/ai/GeminiAIService.ts
+  12:18  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  46:68  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  86:37  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/ai/OpenAIService.ts
+  12:19  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  64:68  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  99:37  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/ai/XAIService.ts
+   10:19  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   35:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  125:68  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  166:37  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/get-file-data.ts
+  10:47  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  16:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  16:80  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/get-is-extension-disabled.ts
+  2:34  warning  '_reject' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/utils/getAPIkey.ts
+  25:39  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  25:55  warning  '_reject' is defined but never used       @typescript-eslint/no-unused-vars
+  46:38  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  48:40  warning  '_reject' is defined but never used       @typescript-eslint/no-unused-vars
+  60:46  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/getCaptions.ts
+  5:34  warning  '_reject' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/utils/google-calendar.ts
+  5:11  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/initAIService.ts
+  32:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/huhai/WebstormProjects/smart-meet/utils/is-resetore-data-valid.ts
+  17:18  warning  '_e' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/utils/translate.ts
+  3:34  warning  '_reject' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/huhai/WebstormProjects/smart-meet/utils/types/google-drive.types.ts
+  22:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 155 problems (0 errors, 155 warnings)
+

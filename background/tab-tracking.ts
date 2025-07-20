@@ -15,11 +15,11 @@ export interface MeetTabInfo {
     title: string;
     lastActive: number;
     lastUpdated?: number;
-    [key: string]: any; // 允许额外属性
+    [key: string]: unknown; // 允许额外属性
 }
 
 interface MeetingData {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**
@@ -60,7 +60,7 @@ function handleTabUpdated(tabId: number, changeInfo: chrome.tabs.TabChangeInfo, 
 /**
  * 处理标签页关闭事件
  */
-function handleTabRemoved(tabId: number, removeInfo: chrome.tabs.TabRemoveInfo) {
+function handleTabRemoved(tabId: number, _removeInfo: chrome.tabs.TabRemoveInfo) {
     if (meetTabs[tabId]) {
         console.log('Google Meet 标签页被关闭:', tabId);
         console.log('关闭的会议信息:', meetTabs[tabId]);

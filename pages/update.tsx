@@ -23,7 +23,7 @@ const UpdatePage = () => {
                 <Typography>
                     <Title level={2}>Welcome to Google Meet Caption Pro {updates[0].version}!</Title>
                     <Paragraph>
-                        We've made some exciting improvements to enhance your meeting experience:
+                        We&apos;ve made some exciting improvements to enhance your meeting experience:
                     </Paragraph>
 
                     <List
