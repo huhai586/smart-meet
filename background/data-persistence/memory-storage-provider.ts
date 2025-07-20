@@ -1,6 +1,5 @@
 import type { StorageProvider } from './types';
 import type { Transcript } from '../../hooks/useTranscripts';
-import { StorageError } from './types';
 import dayjs, { Dayjs } from 'dayjs';
 import { IndexedDBProvider } from './indexed-db-provider';
 
@@ -162,6 +161,6 @@ export class MemoryStorageProvider implements StorageProvider {
     }
 
     // 添加数据监听
-    onRecordsChanged(callback: (records: Transcript[]) => void): void {
+    onRecordsChanged(): void {
     }
 }

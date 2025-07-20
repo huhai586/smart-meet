@@ -8,11 +8,11 @@ export const updateBadgeText = () => {
 }
 
 function updateIcon(enabled: boolean) {
-    let text = enabled ? '' : 'off';
+    const text = enabled ? '' : 'off';
     chrome.action.setBadgeText({
         text: text,
     });
-    let color = enabled ? '#008000' : 'rgba(255, 230, 0, 0.5)';
+    const color = enabled ? '#008000' : 'rgba(255, 230, 0, 0.5)';
     chrome.action.setBadgeBackgroundColor({
         color: color
     });

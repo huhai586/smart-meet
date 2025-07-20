@@ -3,7 +3,7 @@
  * 负责处理语言相关的功能
  */
 
-import { supportedLanguages, getLanguageByCode } from '../../utils/languages';
+import { supportedLanguages } from '../../utils/languages';
 import type { Language } from '../../utils/languages';
 
 /**
@@ -88,7 +88,7 @@ function findBestMatchLanguage(browserLanguage: string, acceptLanguages: string[
  */
 function normalizeLanguageCode(langCode: string): string {
     // 转换为小写
-    let normalized = langCode.toLowerCase();
+    const normalized = langCode.toLowerCase();
     
     // 处理特殊情况
     const languageMap: { [key: string]: string } = {

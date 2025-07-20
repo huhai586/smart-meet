@@ -2,7 +2,7 @@ import { autoSyncService } from "./auto-sync-service";
 import dayjs from "dayjs";
 
 // 存储Meet标签页信息的对象
-let meetTabs = {};
+const meetTabs = {};
 
 // 监听标签页更新，收集Meet标签页信息
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {

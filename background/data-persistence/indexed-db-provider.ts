@@ -213,7 +213,7 @@ export class IndexedDBProvider implements StorageProvider {
         return date1.format('YYYY-MM-DD') === date2.format('YYYY-MM-DD');
     }
 
-    async setCurrentDate(date: Dayjs): Promise<void> {
+    async setCurrentDate(): Promise<void> {
         // IndexedDBProvider 不需要跟踪当前日期，这个方法是为了满足接口要求
         return Promise.resolve();
     }

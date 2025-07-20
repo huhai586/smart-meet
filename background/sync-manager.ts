@@ -7,6 +7,11 @@ import { autoSyncService } from "./auto-sync-service";
 import dayjs from "dayjs";
 import type { MeetTabInfo } from "./tab-tracking";
 
+interface Message {
+    action: string;
+    [key: string]: any;
+}
+
 // 跟踪消息处理状态
 const pendingSyncRequests = new Map<string, SyncRequestInfo>();
 

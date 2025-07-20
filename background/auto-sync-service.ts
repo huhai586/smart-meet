@@ -1,6 +1,7 @@
 import { messageCenter } from "./data-persistence";
 import { GoogleDriveService } from "~utils/google-drive";
 import { createJsonFile, createDateFileName } from "~utils/file-utils";
+import type { Transcript } from "~hooks/useTranscripts";
 
 /**
  * 自动同步服务，负责将会议数据同步到Google Drive
@@ -86,14 +87,10 @@ export const autoSyncService = {
      * @param date 日期，格式为YYYY-MM-DD
      * @returns 会议数据对象
      */
-    getMeetingData: async function(date: string): Promise<any> {
-        return new Promise(async (resolve) => {
-            // 从本地存储获取会议数据
-            const result = await messageCenter.handleMessage({
-                action: 'get-transcripts-only',
-                date: date
-            });
-            resolve(result);
+    getMeetingData: async function(date: string): Promise<Transcript[]> {
+        return messageCenter.handleMessage({
+            action: 'get-transcripts-only',
+            date: date
         });
     },
 };

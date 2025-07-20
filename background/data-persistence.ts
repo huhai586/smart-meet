@@ -136,7 +136,7 @@ export function initDataPersistence() {
     console.log('初始化数据持久化...');
 
     // 设置消息监听器
-    chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    chrome.runtime.onMessage.addListener((message) => {
         messageCenter.handleMessage(message).catch(console.error);
         return true; // 保持消息通道开放
     });

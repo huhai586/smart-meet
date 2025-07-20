@@ -8,7 +8,10 @@
     "dev": "plasmo dev",
     "build": "plasmo build",
     "postbuild": "cp -r _locales build/chrome-mv3-prod/ && cp -r _locales build/chrome-mv3-dev/",
-    "package": "plasmo package"
+    "postdev": "cp -r _locales build/chrome-mv3-dev/ && cp -r _locales build/chrome-mv3-dev/",
+    "package": "plasmo package",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -39,9 +42,18 @@
     "@types/node": "20.11.5",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "eslint": "^9.31.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.3.0",
     "prettier": "3.2.4",
     "sass": "1.69.5",
-    "typescript": "5.3.3"
+    "typescript": "5.3.3",
+    "typescript-eslint": "^8.37.0"
   },
   "local_client_id_home": "38387869574-sp8modg7774rj4r7qo89uhrrljrvpfpu.apps.googleusercontent.com",
   "local_client_id_57": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",
@@ -63,8 +75,12 @@
     ],
     "web_accessible_resources": [
       {
-        "resources": ["images/*"],
-        "matches": ["<all_urls>"]
+        "resources": [
+          "images/*"
+        ],
+        "matches": [
+          "<all_urls>"
+        ]
       }
     ],
     "oauth2": {

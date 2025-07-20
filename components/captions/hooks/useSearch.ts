@@ -88,7 +88,7 @@ export const useSearch = (containerRef: RefObject<HTMLElement>) => {
   const goToNextMatch = useCallback(() => {
     if (searchResults.length === 0) return;
 
-    let nextMatch = currentMatch % searchResults.length + 1;
+    const nextMatch = currentMatch % searchResults.length + 1;
     setCurrentMatch(nextMatch);
     scrollToMatch(searchResults[nextMatch - 1]);
 

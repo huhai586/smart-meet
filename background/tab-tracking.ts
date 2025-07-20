@@ -18,6 +18,10 @@ export interface MeetTabInfo {
     [key: string]: any; // 允许额外属性
 }
 
+interface MeetingData {
+    [key: string]: any;
+}
+
 /**
  * 初始化标签页跟踪
  */
@@ -72,7 +76,7 @@ function handleTabRemoved(tabId: number, removeInfo: chrome.tabs.TabRemoveInfo) 
 /**
  * 更新会议信息
  */
-function updateMeetingInfo(tabId: number, data: any) {
+function updateMeetingInfo(tabId: number, data: MeetingData) {
     if (meetTabs[tabId]) {
         meetTabs[tabId] = {
             ...meetTabs[tabId],
