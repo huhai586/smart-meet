@@ -97,8 +97,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
         <span key={tag} style={{ display: 'inline-block' }}>
       <Tag
           closable
-                    onClose={(_e) => {
-                        _e.preventDefault();
+                    onClose={() => {
                         handleClose(tag);
                     }}
       >
@@ -115,8 +114,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
         <span key={tag} style={{ display: 'inline-block' }}>
       <Tag
           closable
-          onClose={(e) => {
-              e.preventDefault();
+          onClose={() => {
               removeHighlightWordInDomainTags(tag);
           }}
       >
@@ -197,7 +195,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
     };
     
     // 导出指定会议的聊天记录
-    const exportMeetingCaptions = (meetingName: string, transcripts: any[]) => {
+    const exportMeetingCaptions = (meetingName: string, transcripts: { meetingName: string; timestamp: string | number; talkContent: string; activeSpeaker: string; }[]) => {
         // 筛选指定会议和日期的记录
         const filteredTranscripts = transcripts.filter(t => 
             t.meetingName === meetingName && 
@@ -254,7 +252,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
                             leave={{opacity: 0, width: 0, scale: 0, duration: 200}}
                             onEnd={(e) => {
                                 if (e.type === 'appear' || e.type === 'enter') {
-                                    (e.target as any).style = 'display: inline-block';
+                                    (e.target as HTMLElement).style.display = 'inline-block';
                                 }
                             }}
                         >
@@ -298,7 +296,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
                             leave={{opacity: 0, width: 0, scale: 0, duration: 200}}
                             onEnd={(e) => {
                                 if (e.type === 'appear' || e.type === 'enter') {
-                                    (e.target as any).style = 'display: inline-block';
+                                    (e.target as HTMLElement).style.display = 'inline-block';
                                 }
                             }}
                         >
@@ -403,8 +401,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
                             <span key={tag}>
                                 <Tag
                                     closable
-                                    onClose={(e) => {
-                                        e.preventDefault();
+                                    onClose={() => {
                                         removeHighlightWordInModalData(tag);
                                     }}
                                 >

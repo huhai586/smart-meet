@@ -1,6 +1,12 @@
 import { useMemo } from 'react';
 import dayjs from 'dayjs';
 
+interface Transcript {
+    timestamp: number | string;
+    activeSpeaker: string;
+    meetingName: string;
+}
+
 /**
  * 创建一个记忆化的查找映射，用于快速检查值是否存在
  * @param values 值数组
@@ -33,8 +39,8 @@ export const formatDate = (timestamp: number | string, format = 'YYYY-MM-DD'): s
  * @returns 筛选后的数据
  */
 export const useTranscriptFilter = (
-  transcripts: any[],
-  selectedDate: any,
+  transcripts: Transcript[],
+  selectedDate: dayjs.Dayjs | null,
   filterSpeakers: string[],
   selectedMeeting: string
 ) => {

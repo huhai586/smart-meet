@@ -11,7 +11,7 @@ const { useToken } = theme;
 
 interface ServiceConfigPanelProps {
   service: AIServiceType;
-  configuredServices: Record<string, any>;
+  configuredServices: Record<string, { apiKey: string; modelName: string; }>;
   activeService: string;
   apiKey: string;
   modelName: string;
@@ -19,7 +19,7 @@ interface ServiceConfigPanelProps {
   onModelNameChange: (value: string) => void;
   onSaveService: () => void;
   onSetAsDefault: () => void;
-  t: (key: string, params?: any) => string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 export const ServiceConfigPanel: React.FC<ServiceConfigPanelProps> = ({

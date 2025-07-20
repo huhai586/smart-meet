@@ -1,11 +1,17 @@
 import React from 'react';
 import { Button, Input } from 'antd';
 import { SearchOutlined, UpOutlined, DownOutlined, CloseOutlined } from '@ant-design/icons';
+import { InputRef } from "antd/es/input/Input";
+
+interface SearchResult {
+    id: string;
+    // Add other properties of search results here
+}
 
 interface SearchBarProps {
   searchText: string;
   searchVisible: boolean;
-  searchResults: any[];
+  searchResults: SearchResult[];
   currentMatch: number;
   onSearchTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch: () => void;
@@ -13,7 +19,7 @@ interface SearchBarProps {
   onNextMatch: () => void;
   onToggleSearch: () => void;
   onClearSearch: () => void;
-  searchInputRef: React.RefObject<any>;
+  searchInputRef: React.RefObject<InputRef>;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({

@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
-const path = require('path');
 
 // Read and parse the eslint report
 function parseEslintReport() {
@@ -124,7 +123,6 @@ function generateSummary(errorsByRule, fileErrorCounts) {
         sum + (rule.severity === 'warning' ? rule.count : 0), 0);
     
     const filesWithIssues = Object.keys(fileErrorCounts).length;
-    const totalFiles = Object.keys(fileErrorCounts).length; // This should be total files scanned, but we'll use files with issues for now
     
     const topRules = Object.values(errorsByRule)
         .sort((a, b) => b.count - a.count)

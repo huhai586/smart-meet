@@ -31,9 +31,9 @@ export const fetchOpenAIModels = async (apiKey: string): Promise<ModelFetchResul
     const data = await response.json();
     // 过滤出仅支持聊天的模型
     const models = data.data
-      .filter((model: any) => 
+      .filter((model: { id: string; }) => 
         model.id.includes('gpt') && !model.id.includes('deprecated'))
-      .map((model: any) => model.id)
+      .map((model: { id: string; }) => model.id)
       .sort();
     
     console.log('OpenAI models fetched:', models);

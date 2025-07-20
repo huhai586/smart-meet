@@ -8,15 +8,20 @@ import messageManager from '~/utils/message-manager';
 import StyledTitle from '~/components/common/StyledTitle';
 import useI18n from '~/utils/i18n';
 
+interface AIServiceConfig {
+    apiKey: string;
+    modelName: string;
+}
+
 const AISettings: React.FC = () => {
     const { t } = useI18n();
-    const [configuredServices, setConfiguredServices] = useState<Record<string, any>>({});
+    const [configuredServices, setConfiguredServices] = useState<Record<string, AIServiceConfig>>({});
     const [activeService, setActiveService] = useState<string>('gemini');
     const [currentEditService, setCurrentEditService] = useState<string>('gemini');
     const [apiKey, setApiKey] = useState<string>('');
     const [modelName, setModelName] = useState<string>('');
 
-    const { models, loading, error } = useFetchModels(currentEditService as AIServiceType, apiKey);
+    useFetchModels(currentEditService as AIServiceType, apiKey);
 
     useEffect(() => {
         import('~/utils/getAPIkey').then(({ getAllAIServiceConfigs }) => {

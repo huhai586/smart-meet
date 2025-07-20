@@ -90,7 +90,7 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
       // 如果两次获取的结果不一致，使用存储中的值
       if (provider !== verificationResult) {
         console.warn(`[executeTranslation] Provider mismatch! Function: ${provider}, Storage: ${verificationResult}. Using storage value.`);
-        provider = verificationResult as any;
+        provider = verificationResult;
       }
       
       let translatedText: string;

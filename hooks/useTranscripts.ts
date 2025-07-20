@@ -20,7 +20,7 @@ const useTranscripts = () : [Transcript[], React.Dispatch<React.SetStateAction<T
         loadContent();
     }, [loadContent]);
 
-    const handleChromeMessage = useCallback((message: any, _sender: any, _sendResponse: any) => {
+    const handleChromeMessage = useCallback((message: { action: string; data: Transcript[]; }, _sender: chrome.runtime.MessageSender, _sendResponse: (response?: any) => void) => {
         if (message.action === 'refresh-transcripts') {
             setCurrentDayTranscripts(prevTranscripts => {
                 if (message.data.length !== prevTranscripts.length) {

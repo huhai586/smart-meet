@@ -42,7 +42,7 @@ const GlobalDatePicker = () => {
     };
 
     useEffect(() => {
-        const handleMessage = (message: any) => {
+        const handleMessage = (message: {action: string, data: string[]}) => {
             const {action, data} = message;
             if (action === 'days-with-messages') {
                 console.log('GlobalDatePicker.js', 'days-with-messages', data);

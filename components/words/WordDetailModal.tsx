@@ -79,7 +79,7 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
         await fetchFromDictionaryAPI(searchWord, targetLangCode);
       } else {
         console.log(`[WordDetailModal] Dictionary API not supported for ${targetLangCode}, using translation fallback`);
-        await fetchWithTranslationFallback(searchWord, targetLangCode);
+        await fetchWithTranslationFallback(searchWord);
       }
       
     } catch (err) {
@@ -107,9 +107,9 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
         word: entry.word,
         pronunciation: entry.phonetics?.[0]?.audio || '',
         phonetic: entry.phonetics?.[0]?.text || '',
-        meanings: entry.meanings.map((meaning: any) => ({
+        meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
           partOfSpeech: meaning.partOfSpeech,
-          definitions: meaning.definitions.slice(0, 3).map((def: any) => ({
+          definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
             definition: def.definition,
             example: def.example,
             synonyms: def.synonyms?.slice(0, 3) || []
@@ -120,14 +120,14 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
       };
       
       setWordDetail(detail);
-    } catch (err) {
+    } catch {
       console.warn(`Dictionary API failed for ${langCode}, falling back to translation`);
-      await fetchWithTranslationFallback(searchWord, langCode);
+      await fetchWithTranslationFallback(searchWord);
     }
   };
 
   // 使用英文词典作为后备方案（不进行翻译）
-  const fetchWithTranslationFallback = async (searchWord: string, targetLangCode: string) => {
+  const fetchWithTranslationFallback = async (searchWord: string) => {
     try {
       // 尝试从英文词典API获取信息
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`);
@@ -143,9 +143,9 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
         word: entry.word,
         pronunciation: entry.phonetics?.[0]?.audio || '',
         phonetic: entry.phonetics?.[0]?.text || '',
-        meanings: entry.meanings.map((meaning: any) => ({
+        meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
           partOfSpeech: meaning.partOfSpeech,
-          definitions: meaning.definitions.slice(0, 3).map((def: any) => ({
+          definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
             definition: def.definition,
             example: def.example,
             synonyms: def.synonyms?.slice(0, 3) || []

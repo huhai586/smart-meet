@@ -11,7 +11,7 @@ interface ApiKeyConfigProps {
   service: AIServiceType;
   apiKey: string;
   onApiKeyChange: (value: string) => void;
-  t: (key: string, params?: any) => string;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
 export const ApiKeyConfig: React.FC<ApiKeyConfigProps> = ({

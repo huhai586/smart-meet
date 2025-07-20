@@ -1,14 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, List, Button, Upload, Spin, message, Modal, Empty, Popconfirm } from 'antd';
 import { FolderOutlined, UploadOutlined, DeleteOutlined, CloudDownloadOutlined } from '@ant-design/icons';
-import { DriveService } from "~utils/google-drive";
+import { GoogleDriveService as DriveService } from "~utils/google-drive"
 import { StorageFactory } from '~background/data-persistence/storage-factory';
 import dayjs from 'dayjs';
-import { openSidePanel } from "~utils/open-side-panel";
+import openSidePanel from "~utils/open-side-panel";
+
+interface DriveFile {
+    id: string;
+    name: string;
+    mimeType: string;
+    modifiedTime: string;
+}
 
 const Account = () => {
-    const [backupFiles, setBackupFiles] = useState<any[]>([]);
-    const [, setBackupFolder] = useState<any | null>(null);
+    const [backupFiles, setBackupFiles] = useState<DriveFile[]>([]);
+    const [, setBackupFolder] = useState<DriveFile | null>(null);
     const [loading, setLoading] = useState(false);
     const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
     const [loadingFileId, setLoadingFileId] = useState<string | null>(null);

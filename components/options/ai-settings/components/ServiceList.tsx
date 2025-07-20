@@ -8,7 +8,7 @@ const { Text } = Typography;
 const { useToken } = theme;
 
 interface ServiceListProps {
-  configuredServices: Record<string, any>;
+  configuredServices: Record<string, { apiKey: string }>;
   activeService: string;
   currentEditService: string;
   onServiceChange: (service: AIServiceType) => void;

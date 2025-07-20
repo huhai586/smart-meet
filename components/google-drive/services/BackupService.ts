@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import dayjs from 'dayjs';
 import { GoogleDriveService } from "~utils/google-drive";
-import { StorageFactory } from "~background/data-persistence/storage-factory";
+import { StorageFactory, StorageProvider } from "~background/data-persistence/storage-factory";
 import type { SyncSummary, RestoreResult, ConflictData } from '../types';
 import type { IGoogleDriveFileContent, IGoogleDriveService } from "~utils/types/google-drive.types"
 import { createJsonFile } from '../../../utils/file-utils';
@@ -22,7 +22,7 @@ declare namespace gapi.client.drive {
  */
 export class BackupService {
   private driveService: IGoogleDriveService;
-  private storage: any;
+  private storage: StorageProvider;
 
   constructor() {
     this.driveService = GoogleDriveService.getInstance();
@@ -53,7 +53,7 @@ export class BackupService {
   /**
    * 获取本地内容
    */
-  private async getLocalContent(date: string): Promise<any[]> {
+  private async getLocalContent(date: string): Promise<IGoogleDriveFileContent> {
     return await this.storage.getRecords(dayjs(date));
   }
 
@@ -67,7 +67,7 @@ export class BackupService {
   /**
    * 更新文件
    */
-  private async updateFile(fileId: string, content: any[], fileName: string): Promise<void> {
+  private async updateFile(fileId: string, content: IGoogleDriveFileContent, fileName: string): Promise<void> {
     const file = createJsonFile(content, fileName);
     await this.driveService.uploadFile(file, fileId);
   }
@@ -75,7 +75,7 @@ export class BackupService {
   /**
    * 创建文件
    */
-  private async createFile(fileName: string, content: any[]): Promise<void> {
+  private async createFile(fileName: string, content: IGoogleDriveFileContent): Promise<void> {
     const file = createJsonFile(content, fileName);
     await this.driveService.uploadFile(file);
   }
@@ -155,7 +155,7 @@ export class BackupService {
   /**
    * 恢复所有文件的记录
    */
-  async restoreAllFiles(files: any[]): Promise<{ restoredCount: number, failedFiles: string[] }> {
+  async restoreAllFiles(files: gapi.client.drive.File[]): Promise<{ restoredCount: number, failedFiles: string[] }> {
     let restoredCount = 0;
     const failedFiles: string[] = [];
 

@@ -406,7 +406,7 @@ const Calendar = () => {
     }
   };
 
-  const _handleSearch = (value: string) => {
+  const _handleSearch = (value: string) => {
     setSearchText(value);
     // 如果内容搜索已激活，则清除内容搜索
     if (isSearchingContent) {
