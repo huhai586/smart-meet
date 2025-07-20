@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Card, Button, Typography } from 'antd';
 import { PlayCircleOutlined } from '@ant-design/icons';
 import { useI18n } from '../utils/i18n';

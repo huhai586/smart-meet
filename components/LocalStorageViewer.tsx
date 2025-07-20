@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Calendar, Badge, Modal, List, Typography, Empty, Spin, Button, Row, Col, Radio, Space, Tabs } from 'antd';
-import { DatabaseOutlined, LeftOutlined, RightOutlined, CalendarOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Card, Calendar, Badge, Modal, List, Typography, Empty, Spin, Button, Radio, Space, Tabs } from 'antd';
+import { DatabaseOutlined, LeftOutlined, RightOutlined } from '@ant-design/icons';
 import dayjs, { Dayjs } from 'dayjs';
 import { StorageFactory } from "~background/data-persistence/storage-factory";
-import type { Transcript } from "../hooks/useTranscripts";
 import type { Captions } from "google-meeting-captions-resolver";
 import type { CalendarMode } from 'antd/es/calendar/generateCalendar';
 
@@ -35,7 +34,7 @@ const LocalStorageViewer = () => {
     if (activeTab === 'day') {
       loadDayViewMessages(currentDate);
     }
-  }, [activeTab, currentDate]);
+  }, [activeTab, currentDate, loadDayViewMessages]);
 
   const loadDatesWithMessages = async () => {
     try {
@@ -51,7 +50,7 @@ const LocalStorageViewer = () => {
     }
   };
 
-  const loadDayViewMessages = async (date: Dayjs) => {
+  const loadDayViewMessages = useCallback(async (date: Dayjs) => {
     const dateStr = date.format('YYYY-MM-DD');
     if (datesWithMessages.has(dateStr)) {
       try {
@@ -84,7 +83,7 @@ const LocalStorageViewer = () => {
     } else {
       setDayViewMessages([]);
     }
-  };
+  }, [datesWithMessages]);
 
   const handleDateSelect = async (date: Dayjs) => {
     setCurrentDate(date);
@@ -150,17 +149,17 @@ const LocalStorageViewer = () => {
     setCurrentDate(currentDate.add(1, 'day'));
   };
 
-  const handlePanelChange = (date: Dayjs, mode: CalendarMode) => {
+  const _handlePanelChange = (date: Dayjs, mode: CalendarMode) => {
     setCurrentDate(date);
     setViewMode(mode);
   };
 
-  const handleTabChange = (key: string) => {
+  const _handleTabChange = (key: string) => {
     setActiveTab(key);
   };
 
   // 自定义日历头部，添加月份切换按钮
-  const headerRender = ({ value, type, onChange, onTypeChange }) => {
+  const _headerRender = ({ value, _type, _onChange, onTypeChange }) => {
     const current = value.clone();
     
     return (
@@ -184,7 +183,7 @@ const LocalStorageViewer = () => {
     );
   };
 
-  const renderDayView = () => {
+  const _renderDayView = () => {
     return (
       <div style={{ padding: '16px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>

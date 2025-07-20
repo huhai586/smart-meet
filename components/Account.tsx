@@ -1,25 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Card, List, message, Upload, Empty, Spin, Modal, Popconfirm } from 'antd';
-import { UploadOutlined, FolderOutlined, DeleteOutlined, CloudDownloadOutlined } from '@ant-design/icons';
-import { GoogleDriveService } from '../utils/google-drive';
-import { StorageFactory } from '../background/data-persistence/storage-factory';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Card, List, Button, Upload, Spin, message, Modal, Empty, Popconfirm } from 'antd';
+import { FolderOutlined, UploadOutlined, DeleteOutlined, CloudDownloadOutlined } from '@ant-design/icons';
+import { DriveService } from "~utils/google-drive";
+import { StorageFactory } from '~background/data-persistence/storage-factory';
 import dayjs from 'dayjs';
-import type { UploadFile } from 'antd/es/upload/interface';
-import openSidePanel from '../utils/open-side-panel';
+import { openSidePanel } from "~utils/open-side-panel";
 
 const Account = () => {
     const [backupFiles, setBackupFiles] = useState<any[]>([]);
-    const [backupFolder, setBackupFolder] = useState<any>(null);
+    const [, setBackupFolder] = useState<any | null>(null);
     const [loading, setLoading] = useState(false);
     const [deletingFileId, setDeletingFileId] = useState<string | null>(null);
     const [loadingFileId, setLoadingFileId] = useState<string | null>(null);
-    const driveService = GoogleDriveService.getInstance();
+    const driveService = DriveService.getInstance();
 
-    useEffect(() => {
-        loadBackupFolder();
-    }, []);
-
-    const loadBackupFolder = async () => {
+    const loadBackupFolder = useCallback(async () => {
         try {
             setLoading(true);
             const folder = await driveService.getBackupFolder();
@@ -34,7 +29,11 @@ const Account = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [driveService]);
+
+    useEffect(() => {
+        loadBackupFolder();
+    }, [loadBackupFolder]);
 
     const handleUpload = async (file: File) => {
         try {
@@ -155,6 +154,7 @@ const Account = () => {
                             <List.Item
                                 actions={[
                                     <Button
+                                        key="load"
                                         type="primary"
                                         icon={<CloudDownloadOutlined />}
                                         onClick={() => handleLoadFile(file.id, file.name)}
@@ -163,6 +163,7 @@ const Account = () => {
                                         Load
                                     </Button>,
                                     <Popconfirm
+                                        key="delete"
                                         title="Delete file"
                                         description={`Are you sure you want to delete "${file.name}"?`}
                                         onConfirm={() => handleDeleteFile(file.id)}

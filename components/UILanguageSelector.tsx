@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Select, message } from 'antd';
+import React from "react";
+import { Select } from "antd";
 import { supportedLanguages, getLanguageDisplay } from '../utils/languages';
 import useUILanguage from '../hooks/useUILanguage';
 import { setCachedLanguage, useI18n } from '../utils/i18n';

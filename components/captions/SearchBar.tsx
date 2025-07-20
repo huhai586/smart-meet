@@ -1,5 +1,5 @@
-import React, { useRef, useCallback } from 'react';
-import { Button, Input, Tooltip } from 'antd';
+import React from 'react';
+import { Button, Input } from 'antd';
 import { SearchOutlined, UpOutlined, DownOutlined, CloseOutlined } from '@ant-design/icons';
 
 interface SearchBarProps {

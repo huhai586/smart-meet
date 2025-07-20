@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Upload, message } from 'antd';
+import { Button, Upload } from 'antd';
 import { CloudUploadOutlined, CloudDownloadOutlined } from '@ant-design/icons';
 import getMeetingCaptions from '../utils/getCaptions';
 import save from '../utils/save';
@@ -15,7 +15,7 @@ interface BackupAndRestoreInterface {
     onRestore?: () => void;
 }
 
-const BackupAndRestore = (props: BackupAndRestoreInterface) => {
+const BackupAndRestore = (_props: BackupAndRestoreInterface) => {
     const { t } = useI18n();
     const { selectedDate } = useDateContext();
 
@@ -38,7 +38,7 @@ const BackupAndRestore = (props: BackupAndRestoreInterface) => {
                     messageManager.error(t('no_meeting_data'));
                 }
 
-            }).catch((e) => {
+            }).catch((_e) => {
                 messageManager.error(t('error'));
             })
         }).catch((e) => {

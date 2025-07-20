@@ -1,11 +1,10 @@
 import React, { useMemo, useRef } from "react"
 import { Empty, FloatButton } from 'antd';
-import { SyncOutlined, DownOutlined } from '@ant-design/icons';
+import { SyncOutlined } from '@ant-design/icons';
 import CaptionList from './captionList';
 import type { Dayjs } from 'dayjs';
 import type { Transcript } from '../../hooks/useTranscripts';
 import useAutoScroll from "~hooks/useScroll"
-import { scrollElementIntoView } from "./utils/scrollUtils";
 
 interface CaptionContentProps {
   filteredData: Transcript[];
