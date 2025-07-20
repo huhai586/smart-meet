@@ -60,9 +60,9 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
     if (visible && word) {
       fetchWordDetail(word);
     }
-  }, [visible, word]);
+  }, [visible, word, fetchWordDetail]);
 
-  const fetchWordDetail = async (searchWord: string) => {
+  const fetchWordDetail = useCallback(async (searchWord: string) => {
     setLoading(true);
     setError(null);
     
@@ -88,10 +88,10 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [t, fetchFromDictionaryAPI, fetchWithTranslationFallback]);
 
   // 使用词典API获取详情
-  const fetchFromDictionaryAPI = async (searchWord: string, langCode: string) => {
+  const fetchFromDictionaryAPI = useCallback(async (searchWord: string, langCode: string) => {
     try {
       const apiLang = DICTIONARY_API_LANGUAGES[langCode];
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/${apiLang}/${searchWord}`);
@@ -112,7 +112,7 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
           definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
             definition: def.definition,
             example: def.example,
-            synonyms: def.synonyms?.slice(0, 3) || []
+            synonyms: def.synonyms?.slice(0, 0) || []
           }))
         })),
         origin: entry.origin,
@@ -124,10 +124,10 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
       console.warn(`Dictionary API failed for ${langCode}, falling back to translation`);
       await fetchWithTranslationFallback(searchWord);
     }
-  };
+  }, [fetchWithTranslationFallback]);
 
   // 使用英文词典作为后备方案（不进行翻译）
-  const fetchWithTranslationFallback = async (searchWord: string) => {
+  const fetchWithTranslationFallback = useCallback(async (searchWord: string) => {
     try {
       // 尝试从英文词典API获取信息
       const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`);
@@ -160,7 +160,7 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
       console.error('English dictionary fallback failed:', err);
       throw err;
     }
-  };
+  }, []);
 
   const handlePronunciation = () => {
     if (wordDetail?.pronunciation) {
@@ -196,7 +196,7 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
             {def.example && (
               <div className="example">
                 <FileTextOutlined className="example-icon" />
-                <Text italic type="secondary">"{def.example}"</Text>
+                <Text italic type="secondary">&quot;{def.example}&quot;</Text>
               </div>
             )}
             

@@ -12,14 +12,14 @@ interface SummaryProps {
 
 const Summary: React.FC<SummaryProps> = (_props) => {
   const { t } = useI18n();
-  const { cardData, requesting, handleQuestion, contextHolder: _contextHolder } = useSummary();
+  const { cardData, requesting, handleQuestion } = useSummary();
   const container = useRef<HTMLDivElement>(null);
 
   // 滚动到最新的卡片
   useEffect(() => {
     if (container.current) {
       const lastItem = container.current.querySelector('.ant-spin-nested-loading:last-child');
-      lastItem && lastItem.scrollIntoView({ behavior: 'smooth' });
+      if (lastItem) { lastItem.scrollIntoView({ behavior: 'smooth' }); }
     }
   }, [cardData]);
 

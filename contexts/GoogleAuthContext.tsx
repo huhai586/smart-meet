@@ -41,7 +41,7 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
   const driveService = GoogleDriveService.getInstance();
 
   // 获取用户信息
-  const fetchUserInfo = async (token: string) => {
+  const fetchUserInfo = useCallback(async (token: string) => {
     console.log('Fetching user info with token:', token.substring(0, 5) + '...');
     try {
       // 添加更多调试信息
@@ -90,10 +90,10 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
       message.error('Error fetching user info: ' + (error.message || 'Unknown error'));
       return false;
     }
-  };
+  }, []);
 
   // 检查认证状态
-  const checkAuthStatus = async () => {
+  const checkAuthStatus = useCallback(async () => {
     console.log('Checking auth status...');
     setLoading(true);
     
@@ -134,7 +134,7 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
     } finally {
       setLoading(false);
     }
-  };
+  }, [fetchUserInfo]);
 
   // 登录
   const login = async (): Promise<boolean> => {
@@ -241,7 +241,7 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
     }, 500);
     
     return () => clearTimeout(timer);
-  }, []);
+  }, [checkAuthStatus]);
 
   // 监控认证状态变化
   useEffect(() => {

@@ -139,7 +139,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
                 } else {
                     messageManager.error('the response is not json array');
                 }
-            } catch (_e) {
+            } catch {
                 messageManager.error('the response is not json valid');
             }
 

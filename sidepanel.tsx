@@ -109,7 +109,7 @@ const SidePanel = () => {
             let message = '';
             try {
                 message = errorMsg.errorDetails?.[1]?.message || errorMsg.message || 'Unknown error occurred';
-            } catch (_e) {
+            } catch {
                 console.log({errorMsg})
                 message = 'Unknown error occurred';
             }
@@ -118,7 +118,7 @@ const SidePanel = () => {
                 content: message,
             });
         });
-    }, []);
+    }, [messageApi]);
 
     const items = [
         {

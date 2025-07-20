@@ -13,32 +13,6 @@ export const useSearch = (containerRef: RefObject<HTMLElement>) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // 切换搜索框显示状态
-  const toggleSearch = useCallback(() => {
-    setSearchVisible(prev => {
-      const newState = !prev;
-      if (newState) {
-        // 当搜索框显示时，聚焦输入框
-        setTimeout(() => {
-          searchInputRef.current?.focus();
-        }, 100);
-      } else {
-        // 当搜索框隐藏时，清除搜索和高亮
-        clearSearch();
-      }
-      return newState;
-    });
-  }, []);
-
-  // 处理搜索文本变化
-  const handleSearchTextChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-    // 确保输入框保持焦点
-    if (searchInputRef.current) {
-      searchInputRef.current.focus();
-    }
-  }, []);
-
   // 清除搜索
   const clearSearch = useCallback(() => {
     setSearchText('');
@@ -56,6 +30,34 @@ export const useSearch = (containerRef: RefObject<HTMLElement>) => {
       searchInputRef.current.focus();
     }
   }, [containerRef]);
+
+  // 切换搜索框显示状态
+  const toggleSearch = useCallback(() => {
+    setSearchVisible(prev => {
+      const newState = !prev;
+      if (newState) {
+        // 当搜索框显示时，聚焦输入框
+        setTimeout(() => {
+          searchInputRef.current?.focus();
+        }, 100);
+      } else {
+        // 当搜索框隐藏时，清除搜索和高亮
+        clearSearch();
+      }
+      return newState;
+    });
+  }, [clearSearch]);
+
+  // 处理搜索文本变化
+  const handleSearchTextChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+    // 确保输入框保持焦点
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, []);
+
+
 
   // 搜索功能
   const handleSearch = useCallback(() => {

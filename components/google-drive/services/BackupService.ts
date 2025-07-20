@@ -5,17 +5,7 @@ import { StorageFactory, StorageProvider } from "~background/data-persistence/st
 import type { SyncSummary, RestoreResult, ConflictData } from '../types';
 import type { IGoogleDriveFileContent, IGoogleDriveService } from "~utils/types/google-drive.types"
 import { createJsonFile } from '../../../utils/file-utils';
-
-// 添加gapi类型声明
-declare namespace gapi.client.drive {
-  interface File {
-    id?: string;
-    name?: string;
-    mimeType?: string;
-    modifiedTime?: string;
-    size?: string;
-  }
-}
+import type gapi from 'gapi';
 
 /**
  * 备份服务，封装备份相关的方法

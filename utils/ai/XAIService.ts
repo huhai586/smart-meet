@@ -7,7 +7,18 @@ import { getTranslation } from '../i18n';
  * XAI (xAI/Grok) 服务实现
  */
 export class XAIService extends BaseAIService {
-  private client: any = null;
+  private client: {
+    apiKey: string;
+    model: string;
+    createCompletion: (prompt: string, options?: unknown) => Promise<{ text: string; finish_reason: string; }>;
+    createConversation: () => {
+      messages: { role: string; content: string; }[];
+      addMessage: (message: { role: string; content: string; }) => this;
+      execute: () => Promise<{ text: string; finish_reason: string; }>;
+      apiKey: string;
+      model: string;
+    };
+  } | null = null;
   
   constructor(config: AIServiceConfig) {
     super(config);
@@ -32,7 +43,7 @@ export class XAIService extends BaseAIService {
          * @param prompt User's question or prompt
          * @param options Additional options for the request
          */
-        createCompletion: async (prompt: string, options: any = {}) => {
+        createCompletion: async (prompt: string, options: unknown = {}) => {
           const response = await fetch('https://api.x.ai/v1/chat/completions', {
             method: 'POST',
             headers: {
@@ -122,7 +133,7 @@ export class XAIService extends BaseAIService {
   /**
    * 创建对话
    */
-  protected async createConversation(mode: string, meetingContent: any): Promise<void> {
+  protected async createConversation(mode: string, meetingContent: unknown): Promise<void> {
     if (!this.client) {
       console.error('XAI client not initialized');
       return;
@@ -163,7 +174,7 @@ export class XAIService extends BaseAIService {
   /**
    * 处理AI响应
    */
-  protected processResponse(result: any): string {
+  protected processResponse(result: unknown): string {
     return result.text;
   }
 

@@ -9,7 +9,7 @@ const OpenAI = require('openai');
  * OpenAI服务实现
  */
 export class OpenAIService extends BaseAIService {
-  private client: any = null;
+  private client: typeof OpenAI | null = null;
 
   constructor(config: AIServiceConfig) {
     super(config);
@@ -61,7 +61,7 @@ export class OpenAIService extends BaseAIService {
   /**
    * 创建对话
    */
-  protected async createConversation(mode: string, meetingContent: any): Promise<void> {
+  protected async createConversation(mode: string, meetingContent: unknown): Promise<void> {
     if (!this.client) {
       console.error('OpenAI client not initialized');
       return;
@@ -96,7 +96,7 @@ export class OpenAIService extends BaseAIService {
   /**
    * 处理AI响应
    */
-  protected processResponse(result: any): string {
+  protected processResponse(result: unknown): string {
     try {
       if (result && result.choices && result.choices.length > 0 &&
           result.choices[0].message && result.choices[0].message.content) {

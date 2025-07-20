@@ -13,7 +13,7 @@ export interface IAIService {
   initConversation(mode: string): Promise<void>;
   
   // 获取特定模式的对话
-  getConversation(mode: string): Promise<any>;
+  getConversation(mode: string): Promise<unknown>;
   
   // 清除特定模式的对话
   clearConversation(mode: string): void;
@@ -31,7 +31,7 @@ export interface IAIService {
 export interface AIServiceConfig {
   apiKey: string;
   modelName?: string;
-  [key: string]: any; // 允许其他配置项
+  [key: string]: unknown; // 允许其他配置项
 }
 
 /**

@@ -1,3 +1,5 @@
+import type gapi from 'gapi';
+
 /**
  * Google Drive 文件夹接口
  */
@@ -6,6 +8,14 @@ export interface IGoogleDriveFolder {
     name: string;
     mimeType: string;
     modifiedTime: string;
+}
+
+export interface DriveFile extends gapi.client.drive.File {
+  id: string;
+  name: string;
+  mimeType: string;
+  modifiedTime: string;
+  size?: string;
 }
 
 /**
@@ -19,7 +29,7 @@ export interface IGoogleDriveFile extends IGoogleDriveFolder {
  * 下载文件内容接口
  */
 export interface IGoogleDriveFileContent {
-    [key: string]: any;
+    [key: string]: unknown;
 }
 
 /**

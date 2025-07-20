@@ -24,7 +24,7 @@ class AIErrorHandler {
      * @param error 错误信息
      * @returns true if handled, false if should be handled by caller
      */
-    public handleError(error: any): boolean {
+    public handleError(error: unknown): boolean {
         const errorMessage = typeof error === 'string' ? error : error?.message || '';
         
         // 检查是否为AI服务未准备好的错误
@@ -103,7 +103,7 @@ export const aiErrorHandler = AIErrorHandler.getInstance();
  * @param error 错误信息
  * @returns true if handled, false if should be handled by caller
  */
-export const handleAIError = (error: any): boolean => {
+export const handleAIError = (error: unknown): boolean => {
     return aiErrorHandler.handleError(error);
 };
 

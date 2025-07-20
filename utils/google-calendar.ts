@@ -2,7 +2,24 @@ import dayjs from 'dayjs';
 
 declare global {
   interface Window {
-    gapi: any;
+    gapi: {
+      load: (api: string, callback: () => void) => void;
+      client: {
+        init: (config: object) => Promise<void>;
+        calendar: {
+          events: {
+            list: (params: object) => Promise<{ result: { items: GoogleCalendarEvent[] } }>;
+          };
+        };
+      };
+      auth2: {
+        getAuthInstance: () => {
+          isSignedIn: { get: () => boolean };
+          signIn: () => Promise<void>;
+          signOut: () => Promise<void>;
+        };
+      };
+    };
   }
 }
 

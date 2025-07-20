@@ -6,7 +6,7 @@ import getMeetingCaptions from '../getCaptions';
  * 实现一些通用的功能，让子类继承和扩展
  */
 export abstract class BaseAIService implements IAIService {
-  protected aiConversations: Record<string, any> = {};
+  protected aiConversations: Record<string, unknown> = {};
   protected config: AIServiceConfig;
   protected isInitialized: boolean = false;
 
@@ -51,12 +51,12 @@ export abstract class BaseAIService implements IAIService {
   /**
    * 创建对话 - 由子类实现
    */
-  protected abstract createConversation(mode: string, meetingContent: any): Promise<void>;
+  protected abstract createConversation(mode: string, meetingContent: unknown): Promise<void>;
 
   /**
    * 获取特定模式的对话，如果不存在则创建
    */
-  async getConversation(mode: string): Promise<any> {
+  async getConversation(mode: string): Promise<unknown> {
     if (!this.aiConversations || !this.aiConversations[mode]) {
       await this.initConversation(mode);
     }
@@ -76,7 +76,7 @@ export abstract class BaseAIService implements IAIService {
   /**
    * 处理AI响应 - 由子类实现
    */
-  protected abstract processResponse(result: any): string;
+  protected abstract processResponse(result: unknown): string;
 
   /**
    * 生成响应 - 发送提示并获取回答

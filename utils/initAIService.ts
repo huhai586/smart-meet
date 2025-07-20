@@ -29,7 +29,7 @@ const initAIService = async () => {
     
     // 初始化所有已配置的服务
     const initPromises = Object.entries(aiServices).map(([type, config]) => {
-      return aiServiceManager.initService(type, config as any);
+      return aiServiceManager.initService(type, config as unknown);
     });
     
     await Promise.allSettled(initPromises);

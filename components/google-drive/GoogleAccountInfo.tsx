@@ -48,7 +48,7 @@ const GoogleAccountInfo: React.FC = () => {
   // 组件挂载时记录认证状态
   useEffect(() => {
     console.log('GoogleAccountInfo mounted - Auth State:', { isAuthenticated, user, loading });
-  }, []);
+  }, [isAuthenticated, user, loading]);
 
   // 监控认证状态变化
   useEffect(() => {

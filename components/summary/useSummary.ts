@@ -43,7 +43,7 @@ export const useSummary = () => {
         duration: 3,
       });
     }
-  }, [selectedDate]);
+  }, [selectedDate, messageApi, t]);
 
   // 处理数据请求
   useEffect(() => {
@@ -83,7 +83,7 @@ export const useSummary = () => {
           setCardData(newCardData);
         });
     });
-  }, [cardData]);
+  }, [cardData, messageApi, t]);
 
   // 添加新问题
   const handleQuestion = async (question = t('summary_question')) => {

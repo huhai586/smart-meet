@@ -25,7 +25,7 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
   const [loadingModels, setLoadingModels] = useState(false);
   const [modelLoadError, setModelLoadError] = useState('');
 
-  const fetchModels = async () => {
+  const fetchModels = useCallback(async () => {
     setLoadingModels(true);
     setModelLoadError('');
     
@@ -38,11 +38,11 @@ export const ModelSelector: React.FC<ModelSelectorProps> = ({
     } finally {
       setLoadingModels(false);
     }
-  };
+  }, [service, apiKey]);
 
   useEffect(() => {
     fetchModels();
-  }, [service, apiKey]);
+  }, [service, apiKey, fetchModels]);
 
   return (
     <div style={{ marginBottom: "25px" }}>

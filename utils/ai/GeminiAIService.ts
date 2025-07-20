@@ -9,7 +9,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
  * Gemini AI服务实现
  */
 export class GeminiAIService extends BaseAIService {
-  private model: any = null;
+  private model: GoogleGenerativeAI.GenerativeModel | null = null;
 
   constructor(config: AIServiceConfig) {
     super(config);
@@ -43,7 +43,7 @@ export class GeminiAIService extends BaseAIService {
   /**
    * 创建对话
    */
-  protected async createConversation(mode: string, meetingContent: any): Promise<void> {
+  protected async createConversation(mode: string, meetingContent: unknown): Promise<void> {
     if (!this.model) {
       console.error('Gemini model not initialized');
       return;
@@ -83,7 +83,7 @@ export class GeminiAIService extends BaseAIService {
   /**
    * 处理AI响应
    */
-  protected processResponse(result: any): string {
+  protected processResponse(result: unknown): string {
     return result.response.text();
   }
 

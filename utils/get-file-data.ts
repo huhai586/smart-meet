@@ -7,13 +7,13 @@ const getFileData = (file: UploadFile) => {
 
         // Method 1: originFileObj (most common)
         if (file.originFileObj) {
-            const obj = file.originFileObj as any;
+            const obj = file.originFileObj as File | Blob;
             if (obj instanceof File || obj instanceof Blob) {
                 fileToRead = obj;
             }
         }
         // Method 2: Check if file itself is a File object (direct file upload)
-        else if (typeof (file as any).stream === 'function' && typeof (file as any).arrayBuffer === 'function') {
+        else if (typeof (file as File).stream === 'function' && typeof (file as File).arrayBuffer === 'function') {
             fileToRead = file as unknown as File;
         }
         // Method 3: Check if file has url property and try to fetch it

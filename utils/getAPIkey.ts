@@ -22,7 +22,7 @@ const getAPIkey = (serviceType: string = 'gemini') => {
  * @returns {Promise<Record<string, any>>} - 返回AI服务配置对象
  */
 export const getAllAIServiceConfigs = () => {
-    return new Promise<Record<string, any>>((resolve, _reject) => {
+    return new Promise<Record<string, unknown>>((resolve, _reject) => {
         chrome.storage.sync.get(['aiServices', 'activeAIService'], (result) => {
             resolve({
                 aiServices: result.aiServices || {},
@@ -43,7 +43,7 @@ export const saveAIServiceConfig = (
     serviceType: string,
     apiKey: string,
     isActive: boolean = false,
-    additionalConfig: Record<string, any> = {}
+    additionalConfig: Record<string, unknown> = {}
 ) => {
     return new Promise<void>((resolve, _reject) => {
         // 先获取现有配置
@@ -57,7 +57,7 @@ export const saveAIServiceConfig = (
             };
             
             // 更新存储
-            const updateData: Record<string, any> = { aiServices };
+            const updateData: Record<string, unknown> = { aiServices };
             
             // 如果设为活动服务，则同时更新activeAIService
             if (isActive) {

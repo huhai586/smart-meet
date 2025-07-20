@@ -17,7 +17,7 @@ export const useConflictResolution = () => {
   // 组件挂载时重置状态
   useEffect(() => {
     resetConflictState();
-  }, []);
+  }, [resetConflictState]);
 
   // 添加调试日志，监控状态变化
   useEffect(() => {
