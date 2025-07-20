@@ -9,7 +9,7 @@ import TranslationSettings from '~components/options/TranslationSettings';
 import UILanguageSettings from '~components/options/UILanguageSettings';
 import ClearCaptionsSettings from '~components/options/ClearCaptionsSettings';
 import ExtensionSettings from '~components/options/ExtensionSettings';
-import AISettings from '~components/options/AISettings';
+import AISettings from '~components/options/ai-settings';
 import Welcome from '~pages/welcome';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';

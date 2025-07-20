@@ -3,7 +3,7 @@ import { Alert, Typography, Input, Button, Space, Card, theme, message, Popover,
 import styled from '@emotion/styled';
 import useI18n from '../../utils/i18n';
 import StyledTitle from '../common/StyledTitle';
-import messageManager from '../../utils/message-manager';
+import messageManager from '../../../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;

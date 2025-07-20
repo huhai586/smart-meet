@@ -8,9 +8,9 @@ import useBackupFolder from './hooks/useBackupFolder';
 import useConflictResolution from './hooks/useConflictResolution';
 import useBackupSync from './hooks/useBackupSync';
 import useFileOperations from './hooks/useFileOperations';
-import StyledTitle from '../common/StyledTitle';
+import StyledTitle from '~components/common/StyledTitle';
 import GoogleAccountInfo from './GoogleAccountInfo';
-import { useGoogleAuth } from '../../contexts/GoogleAuthContext';
+import { useGoogleAuth } from '~contexts/GoogleAuthContext';
 import styled from 'styled-components';
 import useI18n from "~utils/i18n"
 
