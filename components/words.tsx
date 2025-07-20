@@ -42,7 +42,7 @@ const Words = (props: {currentTab: string}) => {
         });
     }, [props.currentTab]);
 
-    const success = (res: string) => {
+    const _success = (res: string) => {
         messageManager.success(res, 5);
     };
 
@@ -136,7 +136,7 @@ const Words = (props: {currentTab: string}) => {
 
             {data.length > 0 ? (
                 <div className="words-grid">
-                    {data.map((word, index) => {
+                    {data.map((word, _index) => {
                         const wordData = wordTranslations.get(word);
                         return (
                             <WordCard

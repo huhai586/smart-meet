@@ -41,7 +41,7 @@ export const useTranslation = () => {
         const target = event.target as HTMLElement;
         
         // Check if clicked element is a word span or highlighted b tag
-        let clickableElement = target;
+        let _clickableElement = target;
         let word = '';
         
         // If clicked on highlighted b tag, find parent clickable-word span
@@ -51,7 +51,7 @@ export const useTranslation = () => {
                 parent = parent.parentElement;
             }
             if (parent && parent.classList.contains('clickable-word')) {
-                clickableElement = parent;
+                _clickableElement = parent;
                 word = parent.getAttribute('data-word') || '';
             } else {
                 word = target.textContent || '';
@@ -65,7 +65,7 @@ export const useTranslation = () => {
                 parent = parent.parentElement;
             }
             if (parent && parent.classList.contains('clickable-word')) {
-                clickableElement = parent;
+                _clickableElement = parent;
                 word = parent.getAttribute('data-word') || '';
             }
         }

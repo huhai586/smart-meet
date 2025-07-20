@@ -9,7 +9,7 @@ import { useTranslationFrequency } from '~hooks/useTranslationFrequency';
 import messageManager from '~utils/message-manager';
 import '~styles/translation-settings.scss';
 
-const { Title, Text } = Typography;
+const { Title: _Title, Text } = Typography;
 const { useToken } = theme;
 const { Option } = Select;
 

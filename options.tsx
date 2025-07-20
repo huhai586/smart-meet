@@ -48,8 +48,8 @@ const Options = () => {
       const hash = window.location.hash.substring(1); // 移除#号
       return ROUTE_MAPPING[hash] || '1'; // 返回对应的key，如果没有则使用默认值'1'
     });
-    const { t } = useI18n();
-    const [messageApi, contextHolder] = message.useMessage();
+    const { t: _t } = useI18n();
+    const [_messageApi, _contextHolder] = message.useMessage();
 
     // 处理标签切换
     const handleTabChange = (key: string) => {

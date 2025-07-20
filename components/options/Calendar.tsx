@@ -8,11 +8,11 @@ import type { Transcript } from '~hooks/useTranscripts';
 import StyledTitle from '~components/common/StyledTitle';
 import { useI18n } from '~utils/i18n';
 
-const { Title, Text, Paragraph } = Typography;
-const { Panel } = Collapse;
+const { Title: _Title, Text, Paragraph } = Typography;
+const { Panel: _Panel } = Collapse;
 const { Search } = Input;
 
-const CalendarContainer = styled.div`
+const _CalendarContainer = styled.div`
   background: #fff;
   padding: 24px;
   min-height: 100vh;
@@ -137,7 +137,7 @@ const Calendar = () => {
   const [modalLoading, setModalLoading] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [contentSearchText, setContentSearchText] = useState('');
-  const [messageCountCache, setMessageCountCache] = useState<Map<string, number>>(new Map());
+  const [_messageCountCache, setMessageCountCache] = useState<Map<string, number>>(new Map());
   const [allRecordsCache, setAllRecordsCache] = useState<Map<string, Transcript[]>>(new Map());
   const [isSearchingContent, setIsSearchingContent] = useState(false);
   const [searchingContentLoading, setSearchingContentLoading] = useState(false);
@@ -328,7 +328,7 @@ const Calendar = () => {
   useEffect(() => {
     if (modalVisible && contentSearchText && !modalLoading) {
       // 创建一个MutationObserver来监听DOM变化
-      const observer = new MutationObserver((mutations) => {
+      const observer = new MutationObserver((_mutations) => {
         const highlightElements = document.querySelectorAll('.highlighted-text');
         if (highlightElements && highlightElements.length > 0) {
           // 找到高亮元素后，滚动到它
@@ -379,8 +379,8 @@ const Calendar = () => {
     }
   }, [modalVisible, contentSearchText, modalLoading]);
 
-  // 滚动到高亮记录
-  const scrollToHighlightedRecord = () => {
+  // 滚动到高亮记录 (reserved for future use)
+  const _scrollToHighlightedRecord = () => {
     if (highlightedRecordIndex !== null) {
       const highlightedElement = listItemRefs.current.get(`record-${highlightedRecordIndex}`);
       if (highlightedElement && modalContentRef.current) {
@@ -406,7 +406,7 @@ const Calendar = () => {
     }
   };
 
-  const handleSearch = (value: string) => {
+  const _handleSearch = (value: string) => {
     setSearchText(value);
     // 如果内容搜索已激活，则清除内容搜索
     if (isSearchingContent) {

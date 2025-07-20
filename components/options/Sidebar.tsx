@@ -24,8 +24,8 @@ interface MenuItem {
   route: string;
 }
 
-// 路由映射表（与options.tsx中保持一致）
-const KEY_TO_ROUTE = {
+// 路由映射表（与options.tsx中保持一致，保留以备将来使用）
+const _KEY_TO_ROUTE = {
   '1': 'ai-settings',
   '2': 'google-drive',
   '3': 'calendar',

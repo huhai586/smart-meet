@@ -5,11 +5,11 @@ import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
 import '~styles/clear-captions-settings.scss';
 
-const { Title, Text } = Typography;
+const { Title: _Title, Text: _Text } = Typography;
 const { useToken } = theme;
 
 const ClearCaptionsSettings: React.FC = () => {
-  const { token } = useToken();
+  const { token: _token } = useToken();
   const { t } = useI18n();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [clearSuccess, setClearSuccess] = useState(false);

@@ -5,7 +5,7 @@ import Extension from '~components/extension';
 import { useI18n } from '~utils/i18n';
 import '~styles/extension-settings.scss';
 
-const { Text } = Typography;
+const { Text: _Text } = Typography;
 
 const ExtensionSettings: React.FC = () => {
   const { t } = useI18n();

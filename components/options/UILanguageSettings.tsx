@@ -5,11 +5,11 @@ import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
 import '~styles/ui-language-settings.scss';
 
-const { Title, Text } = Typography;
+const { Title: _Title, Text: _Text } = Typography;
 const { useToken } = theme;
 
 const UILanguageSettings: React.FC = () => {
-  const { token } = useToken();
+  const { token: _token } = useToken();
   const { t } = useI18n();
 
   return (

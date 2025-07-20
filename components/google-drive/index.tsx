@@ -46,7 +46,7 @@ const GoogleDriveIntegration: React.FC = () => {
   // 使用hooks
   const {
     backupFiles,
-    backupFolder,
+    backupFolder: _backupFolder,
     loading: folderLoading,
     loadBackupFolder,
     updateFileList

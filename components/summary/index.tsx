@@ -10,9 +10,9 @@ interface SummaryProps {
   show?: boolean;
 }
 
-const Summary: React.FC<SummaryProps> = (props) => {
+const Summary: React.FC<SummaryProps> = (_props) => {
   const { t } = useI18n();
-  const { cardData, requesting, handleQuestion, contextHolder } = useSummary();
+  const { cardData, requesting, handleQuestion, contextHolder: _contextHolder } = useSummary();
   const container = useRef<HTMLDivElement>(null);
 
   // 滚动到最新的卡片

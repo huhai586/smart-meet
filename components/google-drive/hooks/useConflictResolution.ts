@@ -12,7 +12,7 @@ export const useConflictResolution = () => {
   const [alwaysOverwrite, setAlwaysOverwrite] = useState(false);
   const [alwaysSkip, setAlwaysSkip] = useState(false);
   const [resolveConflict, setResolveConflict] = useState<((result: ConflictResolutionResult) => void) | null>(null);
-  const driveService = GoogleDriveService.getInstance();
+  const _driveService = GoogleDriveService.getInstance();
 
   // 组件挂载时重置状态
   useEffect(() => {

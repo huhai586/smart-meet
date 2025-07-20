@@ -89,7 +89,7 @@ export const getAnalysisPrompt = (detectedLanguage: string, translationLanguage:
     'fa': 'فارسی'
   };
 
-  const detectedLangName = languageNames[detectedLanguage] || 'English';
+  const _detectedLangName = languageNames[detectedLanguage] || 'English';
   const translationLangName = languageNames[translationLanguage] || '中文';
   
   const analysisPrompts = {

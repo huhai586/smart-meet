@@ -14,7 +14,7 @@ interface StyledTitleProps {
  * 采用与AI Settings相同的左对齐样式
  */
 const StyledTitle: React.FC<StyledTitleProps> = ({ children, subtitle }) => {
-  const { token } = useToken();
+  const { token: _token } = useToken();
   
   return (
     <div style={{ padding: "20px 30px", borderBottom: "1px solid #f0f0f0", marginBottom: "30px" }}>

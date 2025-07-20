@@ -86,7 +86,7 @@ export class BackupService {
   async uploadFile(file: File): Promise<boolean> {
     try {
       const content = await file.text();
-      const records = JSON.parse(content);
+      const _records = JSON.parse(content);
       const dateMatch = file.name.match(/(\d{4}-\d{2}-\d{2})\.json/);
 
       if (!dateMatch) {
