@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from "react"
 import translations from './translations';
 import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 import type { Language } from '../languages';
@@ -94,9 +94,9 @@ export const useI18n = () => {
   }, []);
   
   // 翻译函数
-  const translate = (key: string, params?: Record<string, string>): string => {
+  const translate = useCallback((key: string, params?: Record<string, string>): string => {
     return getTranslation(key, langCode, params);
-  };
+  }, []);
   
   return {
     t: translate,

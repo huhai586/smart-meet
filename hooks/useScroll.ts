@@ -46,7 +46,7 @@ function useAutoScroll(
             const { timestamp } = lastData;
             const now = Date.now();
             const messageTime = new Date(timestamp).getTime();
-            const tenMinutesAgo = now - (10 * 60 * 1000); // 10 minutes in milliseconds
+            const tenMinutesAgo = now - (2 * 60 * 1000); // 2 minutes in milliseconds
             
             // If the latest message is older than 10 minutes, don't auto scroll
             if (messageTime < tenMinutesAgo) {

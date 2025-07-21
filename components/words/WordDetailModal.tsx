@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from "react"
 import { Modal, Typography, Divider, Button, Spin, Alert, Card, Tag } from 'antd';
 import { SoundOutlined, BookOutlined, GlobalOutlined, FileTextOutlined } from '@ant-design/icons';
-import { useI18n } from '../../utils/i18n';
-import { getCurrentLanguage } from '../../hooks/useTranslationLanguage';
+import useI18n from '~utils/i18n';
+import { getCurrentLanguage } from '~hooks/useTranslationLanguage';
 import './WordDetailModal.scss';
 
 const { Title, Text, Paragraph } = Typography;
@@ -56,111 +56,8 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
   const [wordDetail, setWordDetail] = useState<WordDetail | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (visible && word) {
-      fetchWordDetail(word);
-    }
-  }, [visible, word, fetchWordDetail]);
 
-  const fetchWordDetail = useCallback(async (searchWord: string) => {
-    setLoading(true);
-    setError(null);
-    
-    try {
-      // 获取当前翻译目标语言
-      const currentLanguage = await getCurrentLanguage();
-      const targetLangCode = currentLanguage.code;
-      
-      console.log(`[WordDetailModal] Target language: ${targetLangCode} (${currentLanguage.name})`);
-      
-      // 检查目标语言是否支持词典API
-      if (isLanguageSupportedByDictionary(targetLangCode)) {
-        console.log(`[WordDetailModal] Using dictionary API for ${targetLangCode}`);
-        await fetchFromDictionaryAPI(searchWord, targetLangCode);
-      } else {
-        console.log(`[WordDetailModal] Dictionary API not supported for ${targetLangCode}, using translation fallback`);
-        await fetchWithTranslationFallback(searchWord);
-      }
-      
-    } catch (err) {
-      console.error('Error fetching word detail:', err);
-      setError(t('loading_word_details_failed') || 'Failed to fetch word details. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  }, [t, fetchFromDictionaryAPI, fetchWithTranslationFallback]);
 
-  // 使用词典API获取详情
-  const fetchFromDictionaryAPI = useCallback(async (searchWord: string, langCode: string) => {
-    try {
-      const apiLang = DICTIONARY_API_LANGUAGES[langCode];
-      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/${apiLang}/${searchWord}`);
-      
-      if (!response.ok) {
-        throw new Error('Word not found in dictionary API');
-      }
-      
-      const data = await response.json();
-      const entry = data[0];
-      
-      const detail: WordDetail = {
-        word: entry.word,
-        pronunciation: entry.phonetics?.[0]?.audio || '',
-        phonetic: entry.phonetics?.[0]?.text || '',
-        meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
-          partOfSpeech: meaning.partOfSpeech,
-          definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
-            definition: def.definition,
-            example: def.example,
-            synonyms: def.synonyms?.slice(0, 0) || []
-          }))
-        })),
-        origin: entry.origin,
-        etymology: entry.etymology
-      };
-      
-      setWordDetail(detail);
-    } catch {
-      console.warn(`Dictionary API failed for ${langCode}, falling back to translation`);
-      await fetchWithTranslationFallback(searchWord);
-    }
-  }, [fetchWithTranslationFallback]);
-
-  // 使用英文词典作为后备方案（不进行翻译）
-  const fetchWithTranslationFallback = useCallback(async (searchWord: string) => {
-    try {
-      // 尝试从英文词典API获取信息
-      const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`);
-      
-      if (!response.ok) {
-        throw new Error('Word not found in English dictionary API');
-      }
-      
-      const data = await response.json();
-      const entry = data[0];
-      
-      const detail: WordDetail = {
-        word: entry.word,
-        pronunciation: entry.phonetics?.[0]?.audio || '',
-        phonetic: entry.phonetics?.[0]?.text || '',
-        meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
-          partOfSpeech: meaning.partOfSpeech,
-          definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
-            definition: def.definition,
-            example: def.example,
-            synonyms: def.synonyms?.slice(0, 3) || []
-          }))
-        })),
-        origin: entry.origin,
-        etymology: entry.etymology
-      };
-      
-      setWordDetail(detail);
-    } catch (err) {
-      console.error('English dictionary fallback failed:', err);
-      throw err;
-    }
-  }, []);
 
   const handlePronunciation = () => {
     if (wordDetail?.pronunciation) {
@@ -176,6 +73,194 @@ const WordDetailModal: React.FC<WordDetailModalProps> = ({
       }
     }
   };
+
+  // Keep fetchWordDetail for the retry button functionality
+  const fetchWordDetail = useCallback(async (searchWord: string) => {
+    setLoading(true);
+    setError(null);
+    setWordDetail(null); // Clear previous data
+
+    try {
+      // 获取当前翻译目标语言
+      const currentLanguage = await getCurrentLanguage();
+      const targetLangCode = currentLanguage.code;
+
+      console.log(`[WordDetailModal] Target language: ${targetLangCode} (${currentLanguage.name})`);
+
+      // 直接调用API，不依赖其他useCallback函数
+      if (isLanguageSupportedByDictionary(targetLangCode)) {
+        console.log(`[WordDetailModal] Using dictionary API for ${targetLangCode}`);
+        
+        const apiLang = DICTIONARY_API_LANGUAGES[targetLangCode];
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/${apiLang}/${searchWord}`);
+        
+        if (!response.ok) {
+          throw new Error('Word not found in dictionary API');
+        }
+        
+        const data = await response.json();
+        const entry = data[0];
+        
+        const detail: WordDetail = {
+          word: entry.word,
+          pronunciation: entry.phonetics?.[0]?.audio || '',
+          phonetic: entry.phonetics?.[0]?.text || '',
+          meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
+            partOfSpeech: meaning.partOfSpeech,
+            definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
+              definition: def.definition,
+              example: def.example,
+              synonyms: def.synonyms?.slice(0, 3) || []
+            }))
+          })),
+          origin: entry.origin,
+          etymology: entry.etymology
+        };
+        
+        setWordDetail(detail);
+      } else {
+        console.log(`[WordDetailModal] Dictionary API not supported for ${targetLangCode}, using English fallback`);
+        
+        // 使用英文词典作为后备方案
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${searchWord}`);
+        
+        if (!response.ok) {
+          throw new Error('Word not found in English dictionary API');
+        }
+        
+        const data = await response.json();
+        const entry = data[0];
+        
+        const detail: WordDetail = {
+          word: entry.word,
+          pronunciation: entry.phonetics?.[0]?.audio || '',
+          phonetic: entry.phonetics?.[0]?.text || '',
+          meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
+            partOfSpeech: meaning.partOfSpeech,
+            definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
+              definition: def.definition,
+              example: def.example,
+              synonyms: def.synonyms?.slice(0, 3) || []
+            }))
+          })),
+          origin: entry.origin,
+          etymology: entry.etymology
+        };
+        
+        setWordDetail(detail);
+      }
+
+    } catch (err) {
+      console.error('Error fetching word detail:', err);
+      setError('Failed to fetch word details. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!visible || !word) return;
+
+    let isCancelled = false;
+
+    const loadWordDetail = async () => {
+      if (isCancelled) return;
+      setLoading(true);
+      setError(null);
+      setWordDetail(null); // Clear previous data
+
+      try {
+        // 获取当前翻译目标语言
+        const currentLanguage = await getCurrentLanguage();
+        const targetLangCode = currentLanguage.code;
+
+        console.log(`[WordDetailModal] Target language: ${targetLangCode} (${currentLanguage.name})`);
+
+        // 直接调用API，不依赖useCallback函数
+        if (isLanguageSupportedByDictionary(targetLangCode)) {
+          console.log(`[WordDetailModal] Using dictionary API for ${targetLangCode}`);
+          
+          const apiLang = DICTIONARY_API_LANGUAGES[targetLangCode];
+          const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/${apiLang}/${word}`);
+          
+          if (!response.ok) {
+            throw new Error('Word not found in dictionary API');
+          }
+          
+          const data = await response.json();
+          const entry = data[0];
+          
+          const detail: WordDetail = {
+            word: entry.word,
+            pronunciation: entry.phonetics?.[0]?.audio || '',
+            phonetic: entry.phonetics?.[0]?.text || '',
+            meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
+              partOfSpeech: meaning.partOfSpeech,
+              definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
+                definition: def.definition,
+                example: def.example,
+                synonyms: def.synonyms?.slice(0, 3) || []
+              }))
+            })),
+            origin: entry.origin,
+            etymology: entry.etymology
+          };
+          
+          if (!isCancelled) {
+            setWordDetail(detail);
+          }
+        } else {
+          console.log(`[WordDetailModal] Dictionary API not supported for ${targetLangCode}, using English fallback`);
+          
+          // 使用英文词典作为后备方案
+          const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+          
+          if (!response.ok) {
+            throw new Error('Word not found in English dictionary API');
+          }
+          
+          const data = await response.json();
+          const entry = data[0];
+          
+          const detail: WordDetail = {
+            word: entry.word,
+            pronunciation: entry.phonetics?.[0]?.audio || '',
+            phonetic: entry.phonetics?.[0]?.text || '',
+            meanings: entry.meanings.map((meaning: { partOfSpeech: string; definitions: { definition: string; example: string; synonyms: string[]; }[]; }) => ({
+              partOfSpeech: meaning.partOfSpeech,
+              definitions: meaning.definitions.slice(0, 3).map((def: { definition: string; example: string; synonyms: string[]; }) => ({
+                definition: def.definition,
+                example: def.example,
+                synonyms: def.synonyms?.slice(0, 3) || []
+              }))
+            })),
+            origin: entry.origin,
+            etymology: entry.etymology
+          };
+          
+          if (!isCancelled) {
+            setWordDetail(detail);
+          }
+        }
+
+      } catch (err) {
+        console.error('Error fetching word detail:', err);
+        if (!isCancelled) {
+          setError('Failed to fetch word details. Please try again.');
+        }
+      } finally {
+        if (!isCancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadWordDetail();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [visible, word]);
 
   const renderMeanings = () => {
     if (!wordDetail?.meanings) return null;
