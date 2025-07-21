@@ -14,6 +14,18 @@ export const useConflictResolution = () => {
   const [resolveConflict, setResolveConflict] = useState<((result: ConflictResolutionResult) => void) | null>(null);
   const _driveService = GoogleDriveService.getInstance();
 
+  /**
+   * 重置冲突解决状态
+   */
+  const resetConflictState = useCallback(() => {
+    console.log('重置冲突解决状态');
+    setAlwaysOverwrite(false);
+    setAlwaysSkip(false);
+    setConflictModalVisible(false);
+    setCurrentConflict(null);
+    setResolveConflict(null);
+  }, []);
+
   // 组件挂载时重置状态
   useEffect(() => {
     resetConflictState();
@@ -29,17 +41,7 @@ export const useConflictResolution = () => {
     });
   }, [conflictModalVisible, currentConflict, alwaysOverwrite, alwaysSkip]);
 
-  /**
-   * 重置冲突解决状态
-   */
-  const resetConflictState = useCallback(() => {
-    console.log('重置冲突解决状态');
-    setAlwaysOverwrite(false);
-    setAlwaysSkip(false);
-    setConflictModalVisible(false);
-    setCurrentConflict(null);
-    setResolveConflict(null);
-  }, []);
+
 
   /**
    * 处理冲突解决

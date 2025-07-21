@@ -23,5 +23,5 @@ export const getApiKeySourceUrl = (service: AIServiceType): string => {
 
 // 获取预定义模型列表
 export const getPredefinedModels = (service: AIServiceType): string[] => {
-  return PREDEFINED_MODELS[service] || [];
+  return [...(PREDEFINED_MODELS[service] || [])];
 };

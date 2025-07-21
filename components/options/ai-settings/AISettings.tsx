@@ -3,104 +3,117 @@ import { ServiceList } from '~/components/options/ai-settings/components/Service
 import { ServiceConfigPanel } from '~/components/options/ai-settings/components/ServiceConfigPanel';
 import { useFetchModels } from '~/components/options/ai-settings/hooks';
 import { type AIServiceType } from '~/components/options/ai-settings/utils/constants';
+import { 
+    type AIServiceConfig, 
+    type AIsConfig,
+    getAllAIServiceConfigs,
+    saveAIServiceConfig,
+    setActiveAIService
+} from '~/utils/getAI';
 import messageManager from '~/utils/message-manager';
 
 import StyledTitle from '~/components/common/StyledTitle';
 import useI18n from '~/utils/i18n';
-
-interface AIServiceConfig {
-    apiKey: string;
-    modelName: string;
-}
+import './ai-settings.scss';
 
 const AISettings: React.FC = () => {
     const { t } = useI18n();
-    const [configuredServices, setConfiguredServices] = useState<Record<string, AIServiceConfig>>({});
-    const [activeService, setActiveService] = useState<string>('gemini');
-    const [currentEditService, setCurrentEditService] = useState<string>('gemini');
-    const [apiKey, setApiKey] = useState<string>('');
-    const [modelName, setModelName] = useState<string>('');
+    const [aisConfig, setAisConfig] = useState<AIsConfig>({
+        active: 'gemini',
+        data: []
+    });
+    const [currentAI, setCurrentAI] = useState<AIServiceConfig>({
+        apiKey: '',
+        modelName: '',
+        aiName: 'gemini'
+    });
 
-    useFetchModels(currentEditService as AIServiceType, apiKey);
+    useFetchModels(currentAI.aiName, currentAI.apiKey);
 
     useEffect(() => {
-        import('~/utils/getAPIkey').then(({ getAllAIServiceConfigs }) => {
-            getAllAIServiceConfigs().then(({ aiServices, activeAIService }) => {
-                setConfiguredServices(aiServices);
-                setActiveService(activeAIService);
-
-                if (activeAIService && aiServices[activeAIService]) {
-                    const service = activeAIService;
-                    setCurrentEditService(service);
-                    setApiKey(aiServices[service].apiKey || '');
-                    setModelName(aiServices[service].modelName || '');
-                }
-            });
+        getAllAIServiceConfigs().then((config: AIsConfig) => {
+            setAisConfig(config);
+            
+            // Set current AI to active service or first available
+            const activeService = config.active;
+            
+            // Find and set current service config
+            const activeConfig = config.data.find(item => item.aiName === activeService);
+            if (activeConfig) {
+                setCurrentAI(activeConfig);
+            } else {
+                // If no active config found, create default for current service
+                setCurrentAI({
+                    apiKey: '',
+                    modelName: '',
+                    aiName: activeService
+                });
+            }
         });
     }, []);
 
-    const handleServiceChange = (service: AIServiceType) => {
-        setCurrentEditService(service);
-
-        if (configuredServices[service]) {
-            setApiKey(configuredServices[service].apiKey || '');
-            setModelName(configuredServices[service].modelName || '');
+    const handleAiTabChange = (aiName: AIServiceType) => {
+        // Find existing config for this service
+        const existingConfig = aisConfig.data.find(item => item.aiName === aiName);
+        if (existingConfig) {
+            setCurrentAI(existingConfig);
         } else {
-            setApiKey('');
-            setModelName('');
+            // Create new config for this service
+            setCurrentAI({
+                apiKey: '',
+                modelName: '',
+                aiName
+            });
         }
     };
 
-    const handleSaveService = () => {
-        import('~/utils/getAPIkey').then(({ saveAIServiceConfig }) => {
-            const isActivating = currentEditService === activeService;
+    const handleSaveAi = () => {
+        const isActivating = currentAI.aiName === aisConfig.active;
 
-            saveAIServiceConfig(
-                currentEditService, 
-                apiKey, 
-                isActivating,
-                { modelName }
-            ).then(() => {
-                messageManager.success(t('configuration_saved'));
+        saveAIServiceConfig(currentAI, isActivating).then(() => {
+            messageManager.success(t('configuration_saved'));
 
-                setConfiguredServices(prev => ({
-                    ...prev,
-                    [currentEditService]: {
-                        apiKey,
-                        modelName
-                    }
-                }));
-
-                const hadNoConfiguredServices = Object.values(configuredServices)
-                    .every(svc => !svc?.apiKey);
-
-                if (hadNoConfiguredServices) {
-                    setActiveService(currentEditService);
+            // Update local state
+            setAisConfig(prev => {
+                const newData = [...prev.data];
+                const existingIndex = newData.findIndex(item => item.aiName === currentAI.aiName);
+                
+                if (existingIndex >= 0) {
+                    newData[existingIndex] = currentAI;
+                } else {
+                    newData.push(currentAI);
                 }
 
-                
-                chrome.runtime.sendMessage({
-                    type: 'apiKeyUpdated',
-                });
+                // If this was the first service configured, make it active
+                const hadNoConfiguredServices = prev.data.every(svc => !svc.apiKey);
+                const newActive = hadNoConfiguredServices ? currentAI.aiName : prev.active;
+
+                return {
+                    active: newActive,
+                    data: newData
+                };
+            });
+
+            // Send message to background script
+            chrome.runtime.sendMessage({
+                type: 'apiKeyUpdated',
             });
         });
     };
 
     const handleSetAsDefault = () => {
-        if (configuredServices[currentEditService]?.apiKey) {
-            import('~/utils/getAPIkey').then(({ saveAIServiceConfig }) => {
-                saveAIServiceConfig(
-                    currentEditService, 
-                    apiKey, 
-                    true,
-                    { modelName }
-                ).then(() => {
-                    messageManager.success(t('active_service_changed'));
-                    setActiveService(currentEditService);
-                    
-                    chrome.runtime.sendMessage({
-                        type: 'apiKeyUpdated',
-                    });
+        if (currentAI.apiKey) {
+            setActiveAIService(currentAI.aiName).then(() => {
+                messageManager.success(t('active_service_changed'));
+                
+                // Update local state
+                setAisConfig(prev => ({
+                    ...prev,
+                    active: currentAI.aiName
+                }));
+                
+                chrome.runtime.sendMessage({
+                    type: 'apiKeyUpdated',
                 });
             });
         } else {
@@ -108,35 +121,41 @@ const AISettings: React.FC = () => {
         }
     };
 
+    const handleApiKeyChange = (apiKey: string) => {
+        setCurrentAI(prev => ({
+            ...prev,
+            apiKey
+        }));
+    };
+
+    const handleModelNameChange = (modelName: string) => {
+        setCurrentAI(prev => ({
+            ...prev,
+            modelName
+        }));
+    };
+
     return (
-        <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column" }}>
-            <div style={{ padding: "20px 30px", borderBottom: "1px solid #f0f0f0" }}>
+        <div className="ai-settings">
+            <div className="ai-settings__header">
                 <StyledTitle>
                     {t('active_ai_service')}
                 </StyledTitle>
             </div>
-            <div style={{ 
-                display: 'flex', 
-                flexDirection: 'row', 
-                height: "calc(100% - 100px)", 
-                overflow: "hidden"
-            }}>
+            <div className="ai-settings__content">
                 <ServiceList
-                    configuredServices={configuredServices}
-                    activeService={activeService}
-                    currentEditService={currentEditService}
-                    onServiceChange={handleServiceChange}
+                    aisConfig={aisConfig}
+                    currentEditService={currentAI.aiName}
+                    onAiTabChange={handleAiTabChange}
                     t={t}
                 />
                 <ServiceConfigPanel
-                    service={currentEditService as AIServiceType}
-                    configuredServices={configuredServices}
-                    activeService={activeService}
-                    apiKey={apiKey}
-                    modelName={modelName}
-                    onApiKeyChange={setApiKey}
-                    onModelNameChange={setModelName}
-                    onSaveService={handleSaveService}
+                    service={currentAI.aiName}
+                    aisConfig={aisConfig}
+                    currentAI={currentAI}
+                    onApiKeyChange={handleApiKeyChange}
+                    onModelNameChange={handleModelNameChange}
+                    onSaveService={handleSaveAi}
                     onSetAsDefault={handleSetAsDefault}
                     t={t}
                 />

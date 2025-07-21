@@ -14,7 +14,7 @@ import useI18n from './utils/i18n';
 import initAIService from './utils/initAIService';
 import Summary from './components/summary';
 import aiServiceManager from './utils/ai';
-import { getAllAIServiceConfigs } from './utils/getAPIkey';
+import { getAllAIServiceConfigs } from './utils/getAI';
 import googleAITools from './utils/google-AI';
 
 import './styles/sidepanel.scss';
@@ -43,9 +43,9 @@ const SidePanel = () => {
     const loadAIService = async () => {
         try {
             // 先获取当前活动的服务
-            const { activeAIService } = await getAllAIServiceConfigs();
-            console.log('Active AI service from storage:', activeAIService);
-            setActiveService(activeAIService || 'gemini');
+            const aisConfig = await getAllAIServiceConfigs();
+            console.log('Active AI service from storage:', aisConfig.active);
+            setActiveService(aisConfig.active || 'gemini');
 
             // 初始化 AI 服务
             await initAIService();
@@ -57,12 +57,12 @@ const SidePanel = () => {
             const currentServiceType = aiServiceManager.getCurrentServiceType();
             console.log('Current AI service after initialization:', currentServiceType);
 
-            if (currentServiceType !== activeAIService) {
-                console.warn(`Service mismatch! Storage: ${activeAIService}, Current: ${currentServiceType}`);
-                if (activeAIService && aiServiceManager.isServiceInitialized(activeAIService)) {
+            if (currentServiceType !== aisConfig.active) {
+                console.warn(`Service mismatch! Storage: ${aisConfig.active}, Current: ${currentServiceType}`);
+                if (aisConfig.active && aiServiceManager.isServiceInitialized(aisConfig.active)) {
                     // 强制设置为存储中的活动服务
-                    aiServiceManager.setCurrentServiceType(activeAIService);
-                    console.log(`Forced service type to: ${activeAIService}`);
+                    aiServiceManager.setCurrentServiceType(aisConfig.active);
+                    console.log(`Forced service type to: ${aisConfig.active}`);
                 }
             }
         } catch (error) {

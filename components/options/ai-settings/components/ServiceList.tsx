@@ -3,42 +3,37 @@ import { Typography, theme } from 'antd';
 import { ServiceListItem, StatusBadge, ServiceIcon } from '~/components/options/ai-settings/components/StyledComponents';
 import { getServiceDisplayName, getServiceIcon } from '~/components/options/ai-settings/utils/service-helpers';
 import { SUPPORTED_SERVICES, type AIServiceType } from '~/components/options/ai-settings/utils/constants';
+import { type AIsConfig } from '~/utils/getAI';
 
 const { Text } = Typography;
 const { useToken } = theme;
 
 interface ServiceListProps {
-  configuredServices: Record<string, { apiKey: string }>;
-  activeService: string;
+  aisConfig: AIsConfig;
   currentEditService: string;
-  onServiceChange: (service: AIServiceType) => void;
+  onAiTabChange: (service: AIServiceType) => void;
   t: (key: string) => string;
 }
 
 export const ServiceList: React.FC<ServiceListProps> = ({
-  configuredServices,
-  activeService,
+  aisConfig,
   currentEditService,
-  onServiceChange,
+  onAiTabChange,
   t
 }) => {
   const { token } = useToken();
 
+  // Helper function to check if a service is configured
+  const isServiceConfigured = (serviceName: AIServiceType): boolean => {
+    const serviceConfig = aisConfig.data.find(config => config.aiName === serviceName);
+    return !!(serviceConfig?.apiKey);
+  };
+
   return (
-    <div style={{ 
-      width: '250px', 
-      borderRight: '1px solid #f0f0f0', 
-      padding: '20px', 
-      overflowY: 'auto',
-      height: "100%"
-    }}>
-      <Text strong style={{ marginBottom: '15px', display: 'block', fontSize: '16px' }}>
-        {t('service_list')}
-      </Text>
-      
-      {SUPPORTED_SERVICES.map(service => {
-        const isConfigured = !!configuredServices[service]?.apiKey;
-        const isActive = activeService === service;
+    <div className="service-list">
+      {SUPPORTED_SERVICES.map((service) => {
+        const isConfigured = isServiceConfigured(service);
+        const isActive = aisConfig.active === service;
         
         return (
           <ServiceListItem 
@@ -46,14 +41,14 @@ export const ServiceList: React.FC<ServiceListProps> = ({
             active={isActive}
             configured={isConfigured}
             selected={currentEditService === service}
-            onClick={() => onServiceChange(service)}
+            onClick={() => onAiTabChange(service)}
             className="service-list-item"
           >
             <ServiceIcon configured={isConfigured}>
               {getServiceIcon(service)}
             </ServiceIcon>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontWeight: 'bold', marginBottom: '4px' }}>
+            <div className="service-list__item-content">
+              <div className="service-list__item-title">
                 {getServiceDisplayName(service)}
               </div>
               <StatusBadge isSuccess={isConfigured}>
@@ -61,11 +56,10 @@ export const ServiceList: React.FC<ServiceListProps> = ({
               </StatusBadge>
             </div>
             {isActive && (
-              <div style={{ 
-                marginLeft: '5px', 
-                color: token.colorPrimary,
-                fontSize: '18px'
-              }}>
+              <div 
+                className="service-list__item-active-indicator"
+                style={{ color: token.colorPrimary }}
+              >
                 ★
               </div>
             )}

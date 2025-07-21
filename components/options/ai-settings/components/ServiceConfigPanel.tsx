@@ -5,16 +5,15 @@ import { getServiceDisplayName, getServiceIcon } from '~/components/options/ai-s
 import { ApiKeyConfig } from '~/components/options/ai-settings/components/ApiKeyConfig';
 import { ModelSelector } from '~/components/options/ai-settings/components/ModelSelector';
 import { type AIServiceType } from '~/components/options/ai-settings/utils/constants';
+import { type AIsConfig, type AIServiceConfig } from '~/utils/getAI';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
 
 interface ServiceConfigPanelProps {
   service: AIServiceType;
-  configuredServices: Record<string, { apiKey: string; modelName: string; }>;
-  activeService: string;
-  apiKey: string;
-  modelName: string;
+  aisConfig: AIsConfig;
+  currentAI: AIServiceConfig;
   onApiKeyChange: (value: string) => void;
   onModelNameChange: (value: string) => void;
   onSaveService: () => void;
@@ -24,10 +23,8 @@ interface ServiceConfigPanelProps {
 
 export const ServiceConfigPanel: React.FC<ServiceConfigPanelProps> = ({
   service,
-  configuredServices,
-  activeService,
-  apiKey,
-  modelName,
+  aisConfig,
+  currentAI,
   onApiKeyChange,
   onModelNameChange,
   onSaveService,
@@ -36,121 +33,91 @@ export const ServiceConfigPanel: React.FC<ServiceConfigPanelProps> = ({
 }) => {
   const { token } = useToken();
 
+  // Check if current service is configured
+  const isServiceConfigured = !!currentAI.apiKey;
+  const isActiveService = aisConfig.active === service;
+
   return (
-    <div style={{ 
-      flex: 1, 
-      padding: '30px 40px', 
-      overflowY: 'auto',
-      height: "100%"
-    }}>
-      <div style={{ 
-        display: 'flex', 
-        alignItems: 'center',
-        marginBottom: '30px'
-      }}>
-        <div style={{ 
-          fontSize: '36px', 
-          marginRight: '15px',
-          width: '60px',
-          height: '60px',
-          background: `${token.colorPrimary}10`,
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
+    <div className="service-config-panel">
+      <div className="service-config-panel__header">
+        <div 
+          className="service-config-panel__icon"
+          style={{ background: `${token.colorPrimary}10` }}
+        >
           {getServiceIcon(service)}
         </div>
         <div>
-          <Title level={4} style={{ margin: 0, fontWeight: 600, color: '#333' }}>
+          <Title level={4} className="service-config-panel__title">
             {t('configure_service', { service: getServiceDisplayName(service) })}
           </Title>
-          <Text type="secondary" style={{ fontSize: '15px' }}>
-            {!!configuredServices[service]?.apiKey 
+          <Text type="secondary" className="service-config-panel__subtitle">
+            {isServiceConfigured 
               ? t('service_configured_and_ready') 
               : t('service_needs_configuration')}
           </Text>
         </div>
-        {!!configuredServices[service]?.apiKey && activeService === service && (
-          <ActiveServiceBadge>
-            <span style={{ marginRight: '5px' }}>★</span>
+        {isServiceConfigured && isActiveService && (
+          <ActiveServiceBadge className="service-config-panel__active-badge">
+            <span>★</span>
             {t('currently_default_service')}
           </ActiveServiceBadge>
         )}
       </div>
 
       {/* 服务配置区域 */}
-      <div style={{ maxWidth: "680px" }}>
+      <div className="service-config-panel__config-area">
         <ApiKeyConfig
           service={service}
-          apiKey={apiKey}
+          apiKey={currentAI.apiKey}
           onApiKeyChange={onApiKeyChange}
           t={t}
         />
 
         <ModelSelector
           service={service}
-          apiKey={apiKey}
-          modelName={modelName}
+          apiKey={currentAI.apiKey}
+          modelName={currentAI.modelName}
           onModelNameChange={onModelNameChange}
           t={t}
         />
 
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          marginBottom: '25px',
-          padding: '12px 16px',
-          background: '#f9f9f9',
-          borderRadius: '8px'
-        }}>
+        <div className="service-config-panel__default-checkbox">
           <input 
             type="checkbox" 
             id="setAsDefault"
-            checked={activeService === service}
+            checked={isActiveService}
             onChange={(e) => {
-              if (e.target.checked && apiKey) {
+              if (e.target.checked && currentAI.apiKey) {
                 onSetAsDefault();
               }
             }}
-            style={{ 
-              marginRight: '10px',
-              width: '18px',
-              height: '18px'
-            }}
-            disabled={!apiKey}
           />
-          <label 
-            htmlFor="setAsDefault" 
-            style={{ 
-              cursor: apiKey ? 'pointer' : 'not-allowed',
-              opacity: apiKey ? 1 : 0.6
-            }}
-          >
+          <label htmlFor="setAsDefault">
             {t('set_as_default_service')}
           </label>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+        <div className="service-config-panel__buttons">
           <ConfigButton
             type="primary"
+            size="large"
             onClick={onSaveService}
-            disabled={!apiKey}
+            disabled={!currentAI.apiKey}
+            className="config-button"
           >
-            {t('save_service_config')}
+            {t('save_configuration')}
           </ConfigButton>
-        </div>
 
-        {!!configuredServices[service]?.apiKey && activeService !== service && (
-          <div style={{ textAlign: 'center', marginTop: '15px' }}>
+          {isServiceConfigured && !isActiveService && (
             <DefaultServiceButton
-              type="default"
+              size="large"
               onClick={onSetAsDefault}
+              className="default-service-button"
             >
-              {t('set_as_default_service')}
+              {t('set_as_default')}
             </DefaultServiceButton>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

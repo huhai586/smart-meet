@@ -1,4 +1,4 @@
-import getAPIkey, { getAllAIServiceConfigs } from './getAPIkey';
+import { getAllAIServiceConfigs } from './getAI';
 import aiServiceManager from './ai';
 
 /**
@@ -8,36 +8,29 @@ import aiServiceManager from './ai';
 const initAIService = async () => {
   try {
     // 获取所有AI服务配置
-    const { aiServices, activeAIService } = await getAllAIServiceConfigs();
+    const aisConfig = await getAllAIServiceConfigs();
     
-    // 如果没有配置，尝试从旧配置中获取
-    if (Object.keys(aiServices).length === 0) {
-      try {
-        const geminiApiKey = await getAPIkey('gemini');
-        
-        // 初始化Gemini服务
-        await aiServiceManager.initService('gemini', { apiKey: geminiApiKey as string });
-        aiServiceManager.setCurrentServiceType('gemini');
-        
-        console.log('AI service initialized with legacy configuration');
-        return true;
-      } catch (error) {
-        console.warn('No legacy API key found:', error);
-        return false;
-      }
+    // 如果没有配置的服务，直接返回false
+    if (aisConfig.data.length === 0) {
+      console.log('No AI services configured');
+      return false;
     }
     
     // 初始化所有已配置的服务
-    const initPromises = Object.entries(aiServices).map(([type, config]) => {
-      return aiServiceManager.initService(type, config as unknown);
+    const initPromises = aisConfig.data.map((serviceConfig) => {
+      return aiServiceManager.initService(serviceConfig.aiName, {
+        apiKey: serviceConfig.apiKey,
+        modelName: serviceConfig.modelName
+      });
     });
     
     await Promise.allSettled(initPromises);
     
     // 设置活动服务
-    if (activeAIService && aiServiceManager.isServiceInitialized(activeAIService)) {
-      aiServiceManager.setCurrentServiceType(activeAIService);
-      console.log(`Set active AI service to ${activeAIService}`);
+    const activeService = aisConfig.active;
+    if (activeService && aiServiceManager.isServiceInitialized(activeService)) {
+      aiServiceManager.setCurrentServiceType(activeService);
+      console.log(`Set active AI service to ${activeService}`);
     } else {
       // 如果当前没有活动服务或活动服务未初始化，尝试使用第一个可用的服务
       const availableServices = aiServiceManager.getInitializedServices();

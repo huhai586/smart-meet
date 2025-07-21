@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from "react"
 import { Alert, Typography, Button, Spin, Select, Input } from 'antd';
 import { getDefaultModelName } from '~/components/options/ai-settings/utils/service-helpers';
 import { fetchAvailableModels } from '~/components/options/ai-settings/utils/model-service';

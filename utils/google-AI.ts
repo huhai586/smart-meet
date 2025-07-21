@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 import getMeetingCaptions from './getCaptions';
-import { getAllAIServiceConfigs } from './getAPIkey';
+import { getActiveAIServiceConfig } from './getAI';
 import { getCurrentUILanguage } from '../hooks/useUILanguage';
 import { getTranslation } from './i18n';
 
@@ -13,50 +13,26 @@ const googleAITools = {
         console.warn('[DEPRECATED] googleAITools is deprecated and may not respect service selection. Use aiServiceManager instead.');
         
         try {
-            // 获取所有 AI 服务配置
-            const { aiServices, activeAIService } = await getAllAIServiceConfigs();
-            console.log('[googleAITools] Active service:', activeAIService);
+            // 获取当前活动的AI服务配置
+            const activeServiceConfig = await getActiveAIServiceConfig();
+            console.log('[googleAITools] Active service:', activeServiceConfig.aiName);
             
-            if (activeAIService && aiServices[activeAIService]?.apiKey) {
-                const apiKey = aiServices[activeAIService].apiKey;
+            if (activeServiceConfig.aiName === 'gemini' && activeServiceConfig.apiKey) {
+                // 初始化 Gemini 服务
+                console.log('[googleAITools] Initializing Gemini with API key');
+                const genAI = new GoogleGenerativeAI(activeServiceConfig.apiKey);
+                const modelName = activeServiceConfig.modelName || "gemini-2.0-flash";
+                this.model = genAI.getGenerativeModel({ model: modelName });
+                this.aiConversations = {};
                 
-                if (activeAIService === 'gemini') {
-                    // 初始化 Gemini 服务
-                    console.log('[googleAITools] Initializing Gemini with API key');
-                    const genAI = new GoogleGenerativeAI(apiKey);
-                    const modelName = aiServices[activeAIService].modelName || "gemini-2.0-flash";
-                    this.model = genAI.getGenerativeModel({ model: modelName });
-                    this.aiConversations = {};
-                    
-                    return true;
-                } else {
-                    console.log(`[googleAITools] Active service is not Gemini: ${activeAIService}`);
-                    this.model = null;
-                    return false;
-                }
+                return true;
             } else {
-                // 尝试使用旧版逻辑获取 API 密钥
-                console.log('[googleAITools] No active service or missing API key, trying legacy method');
-                
-                return new Promise((resolve) => {
-                    chrome.storage.sync.get(['geminiApiKey'], (result) => {
-                        if (result.geminiApiKey) {
-                            console.log('[googleAITools] Using legacy Gemini API key');
-                            const genAI = new GoogleGenerativeAI(result.geminiApiKey);
-                            this.model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-                            // 初始化AI对话实例
-                            this.aiConversations = {};
-                            resolve(true);
-                        } else {
-                            console.error('[googleAITools] No API key found!');
-                            this.model = null;
-                            resolve(false);
-                        }
-                    });
-                });
+                console.log(`[googleAITools] Active service is not Gemini: ${activeServiceConfig.aiName}`);
+                this.model = null;
+                return false;
             }
         } catch (error) {
-            console.error('[googleAITools] Error initializing:', error);
+            console.error('[googleAITools] Initialization error:', error);
             this.model = null;
             return false;
         }

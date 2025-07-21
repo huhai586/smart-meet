@@ -1,9 +1,10 @@
 .sidebar {
   background: linear-gradient(135deg, #1a73e8 0%, #1557b0 50%, #2563eb 100%);
   position: relative;
-  height: 100vh;
+  height: auto;
   width: 280px;
   padding: 24px 0;
+  padding-bottom: 0;
   box-shadow: 
     4px 0 24px rgba(0, 0, 0, 0.15),
     0 8px 32px rgba(26, 115, 232, 0.2);
