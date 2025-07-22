@@ -96,7 +96,7 @@ export const useI18n = () => {
   // 翻译函数
   const translate = useCallback((key: string, params?: Record<string, string>): string => {
     return getTranslation(key, langCode, params);
-  }, []);
+  }, [langCode]);
   
   return {
     t: translate,

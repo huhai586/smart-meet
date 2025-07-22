@@ -22,6 +22,7 @@ export const getAppVersion = (): string => {
       }
     }
   } catch (error) {
+    console.log(error)
     // Silently fall back to hardcoded version
   }
 

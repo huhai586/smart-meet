@@ -45,7 +45,7 @@ const getAPIkey = (serviceType?: AIServiceType): Promise<string> => {
  * @returns {Promise<AIsConfig>} - Returns AI configuration object
  */
 export const getAllAIServiceConfigs = (): Promise<AIsConfig> => {
-    return new Promise<AIsConfig>((resolve, reject) => {
+    return new Promise<AIsConfig>((resolve) => {
         chrome.storage.sync.get(['AIs'], (result) => {
             if (result.AIs && result.AIs.active && result.AIs.data) {
                 resolve(result.AIs);

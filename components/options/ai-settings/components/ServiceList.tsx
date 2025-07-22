@@ -1,11 +1,10 @@
 import React from 'react';
-import { Typography, theme } from 'antd';
+import { theme } from 'antd';
 import { ServiceListItem, StatusBadge, ServiceIcon } from '~/components/options/ai-settings/components/StyledComponents';
 import { getServiceDisplayName, getServiceIcon } from '~/components/options/ai-settings/utils/service-helpers';
 import { SUPPORTED_SERVICES, type AIServiceType } from '~/components/options/ai-settings/utils/constants';
 import { type AIsConfig } from '~/utils/getAI';
 
-const { Text } = Typography;
 const { useToken } = theme;
 
 interface ServiceListProps {
