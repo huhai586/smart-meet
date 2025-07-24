@@ -6,13 +6,13 @@ import {
 } from '@ant-design/icons';
 import useLoading from './hooks/useLoading';
 import Captions from "./components/captions/captions";
-import Words from "./components/words";
+import Words from "./components/words/words";
 import { DateProvider } from './contexts/DateContext';
-import GlobalDatePicker from './components/GlobalDatePicker';
-import Loading from './components/Loading';
+import GlobalDatePicker from './components/common/GlobalDatePicker';
+import Loading from './components/common/Loading';
 import useI18n from './utils/i18n';
 import initAIService from './utils/initAIService';
-import Summary from './components/summary';
+import Summary from './components/summary/summary';
 import aiServiceManager from './utils/ai';
 import { getAllAIServiceConfigs } from './utils/getAI';
 import googleAITools from './utils/google-AI';

@@ -7,7 +7,8 @@ import {
   TranslationOutlined,
   GlobalOutlined,
   DeleteOutlined,
-  RollbackOutlined
+  RollbackOutlined,
+  DesktopOutlined
 } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
@@ -71,12 +72,18 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
     },
     {
       key: '6',
+      icon: <DesktopOutlined />,
+      label: t('meeting_interface'),
+      route: 'meeting-interface'
+    },
+    {
+      key: '7',
       icon: <RollbackOutlined />,
       label: t('extension'),
       route: 'extension'
     },
     {
-      key: '7',
+      key: '8',
       icon: <DeleteOutlined />,
       label: t('clear_captions'),
       route: 'clear-captions'

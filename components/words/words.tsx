@@ -1,16 +1,16 @@
 import { Typography, Button, Empty, Modal } from "antd";
 import React, { useEffect, useState } from "react";
-import '../styles/words.scss'
+import '../../styles/words.scss'
 import { getTranslatedWords } from "~utils/translate";
 import {
     ExclamationCircleOutlined,
     HistoryOutlined
 } from '@ant-design/icons';
 import { translateWord } from "~utils/unified-translation";
-import { useI18n } from '../utils/i18n';
-import messageManager from '../utils/message-manager';
-import WordCard from './words/WordCard';
-import WordDetailModal from './words/WordDetailModal';
+import { useI18n } from "~utils/i18n";
+import messageManager from '../../utils/message-manager';
+import WordCard from './WordCard';
+import WordDetailModal from './WordDetailModal';
 
 const { Title, Text } = Typography;
 const { confirm } = Modal;

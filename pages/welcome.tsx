@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Button, Typography, Space, Divider } from 'antd';
 import { useI18n } from '../utils/i18n';
-import GuideAnimation from '../components/GuideAnimation';
+import GuideAnimation from '../components/common/GuideAnimation';
 import './welcome.scss';
 
 const { Title, Paragraph, Text } = Typography;

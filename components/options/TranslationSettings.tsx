@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Card, Space, theme, Switch, Divider, Select, Slider } from 'antd';
-import LanguageSelector from '~components/LanguageSelector';
+import LanguageSelector from '~components/options/LanguageSelector';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
 import { useAutoTranslate } from '~hooks/useAutoTranslate';
@@ -64,6 +64,8 @@ const TranslationSettings: React.FC = () => {
       t('translation_frequency_set', { frequency: value.toString() })
     );
   };
+
+
 
   return (
     <div>
@@ -173,6 +175,8 @@ const TranslationSettings: React.FC = () => {
             )}
           </Space>
         </Card>
+
+
       </div>
     </div>
   );

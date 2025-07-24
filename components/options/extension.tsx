@@ -5,14 +5,14 @@ import { useEffect, useRef, useState } from "react"
 import dayjs from 'dayjs';
 
 import { Actions } from "~components/captions/types"
-import askAI from "../utils/askAI"
-import {getDomain, getDomainTags, getSpecificTags} from "../utils/common";
-import BackupAndRestore from "~components/backup-and-restore";
-import { useI18n } from '../utils/i18n';
-import getMeetingCaptions from '../utils/getCaptions';
-import { useDateContext } from '../contexts/DateContext';
-import saveChatLogAsTxt from '../utils/save';
-import messageManager from '../utils/message-manager';
+import askAI from "../../utils/askAI"
+import {getDomain, getDomainTags, getSpecificTags} from "../../utils/common";
+import BackupAndRestore from "~components/google-drive/backup-and-restore";
+import { useI18n } from '../../utils/i18n';
+import getMeetingCaptions from '../../utils/getCaptions';
+import { useDateContext } from '../../contexts/DateContext';
+import saveChatLogAsTxt from '../../utils/save';
+import messageManager from '../../utils/message-manager';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;

@@ -8,6 +8,7 @@ export default {
   "log_captions": "记录Google会议字幕",
   "show_captions": "显示字幕",
   "show_captions_desc": "打开侧边栏查看主要显示",
+  "hide_captions": "隐藏字幕",
   "clear_captions": "清除字幕",
   "clear_captions_desc": "所有字幕将被删除",
   "translation_language": "翻译语言",
@@ -64,7 +65,7 @@ export default {
   "active_service_changed": "默认服务已更改",
 
   // Google Drive Integration
-  "google_drive_integration": "Google云端硬盘集成",
+  "google_drive_integration": "Google云端硬盘",
   "google_drive_integration_desc": "将您的字幕数据备份和恢复到Google云端硬盘",
   "google_drive_access_required": "需要Google云端硬盘访问权限",
   "google_drive_connect_desc": "连接到您的Google账户以启用备份和恢复功能",
@@ -245,6 +246,16 @@ export default {
   "translation_frequency_desc": "此选项控制翻译请求的频率，如果越大，请求的频率越低反之越高。这样是为了避免太高的请求频率被服务商拒绝服务",
   "translation_frequency_label": "{frequency}秒",
   "translation_frequency_set": "翻译频率已设置为 {frequency}秒",
+
+  // 会议界面
+  "meeting_interface": "会议界面",
+  "meeting_interface_desc": "配置Google Meet会议的界面元素和控制选项",
+  
+  // 字幕切换按钮
+  "caption_toggle_button": "字幕切换按钮",
+  "caption_toggle_button_desc": "在Google Meet页面显示一个浮动按钮，可以快速隐藏/显示字幕",
+  "caption_toggle_enabled": "字幕切换按钮已启用",
+  "caption_toggle_disabled": "字幕切换按钮已禁用",
 
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",

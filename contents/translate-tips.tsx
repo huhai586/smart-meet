@@ -1,1 +1,144 @@
-import {useEffect} from "react";import {toast, Toaster} from "~node_modules/react-hot-toast";import type {PlasmoCSConfig} from "plasmo";import translateSingleWords from "~utils/translate-signal-words";import {getCaptionsContainer} from "~node_modules/google-meeting-captions-resolver";export const getRootContainer = () =>{    const tempDiv = document.createElement('div')    tempDiv.id = 'huhai';    document.body.appendChild(tempDiv)    console.log('getRootContainer')    return tempDiv}const PlasmoInline = () => {    const getWordAtCoordinate = (coordinates, targetX, targetY) => {        if (!coordinates || coordinates.length === 0) {            return null; // 如果坐标数组为空或不存在，则返回 null        }        for (const coord of coordinates) {            const wordX = coord.x;            const wordY = coord.y;            const wordWidth = coord.width;            const wordHeight = coord.height;            // 检查目标坐标是否在单词的边界框内            if (targetX >= wordX &&                targetX <= wordX + wordWidth &&                targetY >= wordY &&                targetY <= wordY + wordHeight) {                return coord.word; // 如果坐标在单词范围内，返回该单词            }        }        return null; // 如果遍历完所有单词都没有找到匹配的坐标，返回 null    }    const getCoordinates = (clickedDialog: Element) => {        const text = clickedDialog.textContent;        const words = text.split(/\s+/); // 使用正则表达式按空格分割文本成单词数组        const coordinates = [];        const range = document.createRange();        let currentIndex = 0; // 用于追踪在原始文本中的索引位置        for (const word of words) {            if (!word) continue; // 跳过空单词 (例如，多个空格分隔符可能产生空单词)            const wordStartIndex = text.indexOf(word, currentIndex); // 查找单词在原始文本中的起始索引            const wordEndIndex = wordStartIndex + word.length;            range.setStart(clickedDialog.firstChild, wordStartIndex);            range.setEnd(clickedDialog.firstChild, wordEndIndex);            const rect = range.getBoundingClientRect();            coordinates.push({                word: word,                x: rect.left + window.scrollX,                y: rect.top + window.scrollY,                width: rect.width,                height: rect.height            });            currentIndex = wordEndIndex; // 更新索引位置，为下一个单词查找做准备        }        range.detach();        return coordinates;    }    useEffect(() => {        document.addEventListener('click', (ev) => {            const captionsContainer = getCaptionsContainer();            const x = ev.clientX;            const y = ev.clientY;            const elements = Array.from(document.elementsFromPoint(x, y));            const clickedDialog = elements.find((ele) => {                const clickedInCaptionsArea = captionsContainer?.contains(ele as HTMLElement);                if (clickedInCaptionsArea) {                    return typeof ele.childNodes[0]?.data === 'string'; // 保留你之前的条件，如果需要的话                }                return false;            });            if (!clickedDialog) {                return;            }            const coordinates = getCoordinates(clickedDialog);            const clickedWord = getWordAtCoordinate(coordinates, x, y);            if (clickedWord) {                translateSingleWords(clickedWord).then((res) => {                    toast.success(`${clickedWord}\n${res}`);                });            }        });    }, []);    return (        <div>            <Toaster                position="top-right"                reverseOrder={false}            />        </div>    )}export default PlasmoInlineexport const config: PlasmoCSConfig = {    matches: ["https://meet.google.com/*"]}
+import { useState, useEffect } from "react";
+import { Tooltip } from "antd";
+import { MessageOutlined, MessageFilled } from "@ant-design/icons";
+import type { PlasmoCSConfig } from "plasmo";
+import { getCaptionsContainer } from "~node_modules/google-meeting-captions-resolver";
+import { t } from "~utils/i18n";
+import "./translate-tips.scss";
+
+export const getRootContainer = () => {
+    const tempDiv = document.createElement('div')
+    tempDiv.id = 'caption-toggle-container';
+    tempDiv.className = 'caption-toggle-container';
+    document.body.appendChild(tempDiv)
+    console.log('Caption toggle container created')
+    return tempDiv
+}
+
+const PlasmoInline = () => {
+    const [isHidden, setIsHidden] = useState(false);
+    const [shouldRender, setShouldRender] = useState(false);
+    const [isFeatureEnabled, setIsFeatureEnabled] = useState(false);
+
+    // 检查是否在实际的会议页面
+    const checkIfInMeeting = () => {
+        const pathname = window.location.pathname;
+
+        // 如果是根路径或只有斜杠，不渲染
+        if (pathname === '/' || pathname === '') {
+            return false;
+        }
+
+        // 检查是否有会议室代码格式 (通常是 abc-def-ghi 这样的格式)
+        const meetingCodePattern = /^\/[a-z0-9]+-[a-z0-9]+-[a-z0-9]+$/i;
+        if (meetingCodePattern.test(pathname)) {
+            return true;
+        }
+
+        // 检查其他可能的会议页面格式
+        const otherMeetingPatterns = [
+            /^\/lookup\//,  // 查找页面
+            /^\/[a-z0-9]{10,}$/i,  // 长代码格式
+        ];
+
+        return otherMeetingPatterns.some(pattern => pattern.test(pathname));
+    };
+
+    useEffect(() => {
+        // 检查功能是否启用
+        chrome.storage.local.get(['captionToggleEnabled'], (result) => {
+            setIsFeatureEnabled(result.captionToggleEnabled || false);
+        });
+
+        // 监听存储变化
+        const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
+            if (changes.captionToggleEnabled) {
+                setIsFeatureEnabled(changes.captionToggleEnabled.newValue || false);
+            }
+        };
+
+        chrome.storage.onChanged.addListener(handleStorageChange);
+
+        // 初始检查
+        setShouldRender(checkIfInMeeting());
+
+        // 监听 URL 变化（SPA 路由变化）
+        const handleLocationChange = () => {
+            setShouldRender(checkIfInMeeting());
+        };
+
+        // 监听 popstate 事件（浏览器前进后退）
+        window.addEventListener('popstate', handleLocationChange);
+
+        // 监听 pushstate 和 replacestate（程序化导航）
+        const originalPushState = history.pushState;
+        const originalReplaceState = history.replaceState;
+
+        history.pushState = function (...args) {
+            originalPushState.apply(history, args);
+            setTimeout(handleLocationChange, 0);
+        };
+
+        history.replaceState = function (...args) {
+            originalReplaceState.apply(history, args);
+            setTimeout(handleLocationChange, 0);
+        };
+
+        return () => {
+            window.removeEventListener('popstate', handleLocationChange);
+            history.pushState = originalPushState;
+            history.replaceState = originalReplaceState;
+            chrome.storage.onChanged.removeListener(handleStorageChange);
+        };
+    }, []);
+
+    const toggleCaptionsVisibility = () => {
+        const captionsContainer = getCaptionsContainer();
+
+        if (!captionsContainer) {
+            console.warn('Captions container not found');
+            return;
+        }
+
+        if (!isHidden) {
+            // 隐藏字幕：设置高度为0
+            captionsContainer.style.height = '0px';
+            captionsContainer.style.overflow = 'hidden';
+            setIsHidden(true);
+            console.log('Captions hidden');
+        } else {
+            // 显示字幕：移除我们设置的样式，恢复原始状态
+            captionsContainer.style.removeProperty('height');
+            captionsContainer.style.removeProperty('overflow');
+            setIsHidden(false);
+            console.log('Captions restored');
+        }
+    };
+
+    // 如果功能未启用或不应该渲染，返回空
+    if (!isFeatureEnabled || !shouldRender) {
+        return null;
+    }
+
+    return (
+        <div>
+            <Tooltip
+                title={isHidden ? t('show_captions') : t('hide_captions')}
+                placement="left"
+            >
+                <button
+                    onClick={toggleCaptionsVisibility}
+                    className={`caption-toggle-button ${isHidden ? 'hidden' : 'visible'}`}
+                >
+                    {isHidden ? <MessageOutlined /> : <MessageFilled />}
+                </button>
+            </Tooltip>
+        </div>
+    )
+}
+
+export default PlasmoInline
+
+export const config: PlasmoCSConfig = {
+    matches: ["https://meet.google.com/*"]
+}

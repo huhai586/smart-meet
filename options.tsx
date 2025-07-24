@@ -9,6 +9,7 @@ import TranslationSettings from '~components/options/TranslationSettings';
 import UILanguageSettings from '~components/options/UILanguageSettings';
 import ClearCaptionsSettings from '~components/options/ClearCaptionsSettings';
 import ExtensionSettings from '~components/options/ExtensionSettings';
+import MeetingInterface from '~components/options/MeetingInterface';
 import AISettings from '~components/options/ai-settings';
 import Welcome from '~pages/welcome';
 import useI18n from './utils/i18n';
@@ -24,8 +25,9 @@ const ROUTE_MAPPING = {
   'calendar': '3',
   'translation': '4',
   'ui-language': '5',
-  'extension': '6',
-  'clear-captions': '7',
+  'meeting-interface': '6',
+  'extension': '7',
+  'clear-captions': '8',
   'welcome': 'welcome'
 };
 
@@ -36,8 +38,9 @@ const KEY_TO_ROUTE = {
   '3': 'calendar',
   '4': 'translation',
   '5': 'ui-language',
-  '6': 'extension',
-  '7': 'clear-captions',
+  '6': 'meeting-interface',
+  '7': 'extension',
+  '8': 'clear-captions',
   'welcome': 'welcome'
 };
 
@@ -101,8 +104,10 @@ const Options = () => {
             case '5':
                 return <UILanguageSettings />;
             case '6':
-                return <ExtensionSettings />;
+                return <MeetingInterface />;
             case '7':
+                return <ExtensionSettings />;
+            case '8':
                 return <ClearCaptionsSettings />;
             case 'welcome':
                 return <Welcome />;

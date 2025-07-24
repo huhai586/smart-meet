@@ -3,6 +3,7 @@ export default {
   "log_captions": "Google मीटिंग कैप्शन लॉग करें",
   "show_captions": "कैप्शन दिखाएं",
   "show_captions_desc": "मुख्य प्रदर्शन देखने के लिए साइडबार खोलें",
+  "hide_captions": "कैप्शन छुपाएं",
   "clear_captions": "कैप्शन साफ़ करें",
   "clear_captions_desc": "सभी कैप्शन हटा दिए जाएंगे",
   "translation_language": "अनुवाद भाषा",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "Gemini API कुंजी नहीं है?",
   
   // Google Drive Integration
-  "google_drive_integration": "Google ड्राइव एकीकरण",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Google ड्राइव पर अपने कैप्शन डेटा का बैकअप और पुनर्स्थापना करें",
   "google_drive_access_required": "Google ड्राइव पहुंच आवश्यक है",
   "google_drive_connect_desc": "बैकअप और रिस्टोर सुविधाओं को सक्षम करने के लिए अपने Google खाते से कनेक्ट करें",
@@ -148,5 +149,15 @@ export default {
   // Translation Language
   "select_translation_language": "अनुवाद भाषा चुनें",
   "translation_language_desc": "टेक्स्ट सामग्री का अनुवाद करने के लिए भाषा चुनें।",
-  "translation_language_set": "अनुवाद भाषा {language} पर सेट की गई"
+  "translation_language_set": "अनुवाद भाषा {language} पर सेट की गई",
+
+  // मीटिंग इंटरफेस
+  "meeting_interface": "मीटिंग इंटरफेस",
+  "meeting_interface_desc": "Google Meet मीटिंग के लिए इंटरफेस तत्वों और नियंत्रणों को कॉन्फ़िगर करें",
+  
+  // कैप्शन टॉगल बटन
+  "caption_toggle_button": "कैप्शन टॉगल बटन",
+  "caption_toggle_button_desc": "Google Meet पेजों पर एक फ्लोटिंग बटन दिखाएं जो कैप्शन को जल्दी छुपाने/दिखाने के लिए है",
+  "caption_toggle_enabled": "कैप्शन टॉगल बटन सक्षम किया गया",
+  "caption_toggle_disabled": "कैप्शन टॉगल बटन अक्षम किया गया"
 }; 

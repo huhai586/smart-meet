@@ -3,6 +3,7 @@ export default {
   "log_captions": "Registra i sottotitoli della riunione Google",
   "show_captions": "Mostra sottotitoli",
   "show_captions_desc": "apri il pannello laterale per mostrare la vista principale",
+  "hide_captions": "Nascondi sottotitoli",
   "clear_captions": "Cancella sottotitoli",
   "clear_captions_desc": "tutti i sottotitoli saranno rimossi",
   "translation_language": "Lingua di traduzione",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "Non hai una chiave API Gemini?",
   
   // Google Drive Integration
-  "google_drive_integration": "Integrazione con Google Drive",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Esegui il backup e ripristina i dati dei tuoi sottotitoli su Google Drive",
   "google_drive_access_required": "Accesso a Google Drive richiesto",
   "google_drive_connect_desc": "Connettiti al tuo account Google per abilitare le funzioni di backup e ripristino",
@@ -184,5 +185,15 @@ export default {
   "translation_frequency": "Controllo della frequenza di traduzione",
   "translation_frequency_desc": "Questa opzione controlla la frequenza delle richieste di traduzione. Valori più alti significano frequenza di richieste più bassa e viceversa. Questo per evitare che frequenze di richieste elevate vengano rifiutate dai fornitori di servizi",
   "translation_frequency_label": "{frequency}s",
-  "translation_frequency_set": "Frequenza di traduzione impostata su {frequency} secondi"
+  "translation_frequency_set": "Frequenza di traduzione impostata su {frequency} secondi",
+
+  // Interfaccia riunione
+  "meeting_interface": "Interfaccia riunione",
+  "meeting_interface_desc": "Configura elementi dell'interfaccia e controlli per le riunioni Google Meet",
+  
+  // Pulsante di commutazione sottotitoli
+  "caption_toggle_button": "Pulsante di commutazione sottotitoli",
+  "caption_toggle_button_desc": "Mostra un pulsante flottante sulle pagine di Google Meet per nascondere/mostrare rapidamente i sottotitoli",
+  "caption_toggle_enabled": "Pulsante di commutazione sottotitoli abilitato",
+  "caption_toggle_disabled": "Pulsante di commutazione sottotitoli disabilitato"
 }; 

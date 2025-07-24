@@ -3,6 +3,7 @@ export default {
   "log_captions": "Googleミーティングの字幕を記録する",
   "show_captions": "字幕を表示",
   "show_captions_desc": "サイドパネルを開いてメインビューを表示",
+  "hide_captions": "字幕を非表示",
   "clear_captions": "字幕をクリア",
   "clear_captions_desc": "すべての字幕が削除されます",
   "translation_language": "翻訳言語",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "Gemini APIキーをお持ちでないですか？",
   
   // Google Drive Integration
-  "google_drive_integration": "Google Driveの統合",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "キャプションデータをGoogleドライブにバックアップおよび復元します",
   "google_drive_access_required": "Google Driveへのアクセスが必要です",
   "google_drive_connect_desc": "バックアップと復元機能を有効にするためにGoogleアカウントに接続してください",
@@ -170,6 +171,16 @@ export default {
   "translation_frequency_desc": "このオプションは翻訳リクエストの頻度を制御します。値が大きいほどリクエスト頻度が低く、逆に小さいほど高くなります。これは高すぎるリクエスト頻度がサービスプロバイダーに拒否されるのを避けるためです",
   "translation_frequency_label": "{frequency}秒",
   "translation_frequency_set": "翻訳頻度が{frequency}秒に設定されました",
+
+  // 会議インターフェース
+  "meeting_interface": "会議インターフェース",
+  "meeting_interface_desc": "Google Meet会議のインターフェース要素とコントロールを設定します",
+  
+  // 字幕切替ボタン
+  "caption_toggle_button": "字幕切替ボタン",
+  "caption_toggle_button_desc": "Google Meetページに浮動ボタンを表示して、字幕を素早く非表示/表示できます",
+  "caption_toggle_enabled": "字幕切替ボタンが有効になりました",
+  "caption_toggle_disabled": "字幕切替ボタンが無効になりました",
   
   // Guide Animation
   "guide_animation_title": "📱 拡張機能の使い方",

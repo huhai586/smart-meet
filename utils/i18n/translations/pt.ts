@@ -3,6 +3,7 @@ export default {
   "log_captions": "Registrar as legendas da reunião do Google",
   "show_captions": "Mostrar legendas",
   "show_captions_desc": "abrir o painel lateral para mostrar a visualização principal",
+  "hide_captions": "Ocultar legendas",
   "clear_captions": "Limpar legendas",
   "clear_captions_desc": "todas as legendas serão removidas",
   "translation_language": "Idioma de tradução",
@@ -170,6 +171,16 @@ export default {
   "translation_frequency_desc": "Esta opção controla a frequência das solicitações de tradução. Valores mais altos significam menor frequência de solicitações e vice-versa. Isso é para evitar que frequências de solicitações altas sejam rejeitadas pelos provedores de serviços",
   "translation_frequency_label": "{frequency}s",
   "translation_frequency_set": "Frequência de tradução definida para {frequency} segundos",
+
+  // Interface de reunião
+  "meeting_interface": "Interface de reunião",
+  "meeting_interface_desc": "Configurar elementos de interface e controles para reuniões do Google Meet",
+  
+  // Botão de alternância de legendas
+  "caption_toggle_button": "Botão de alternância de legendas",
+  "caption_toggle_button_desc": "Mostrar um botão flutuante nas páginas do Google Meet para ocultar/mostrar rapidamente as legendas",
+  "caption_toggle_enabled": "Botão de alternância de legendas ativado",
+  "caption_toggle_disabled": "Botão de alternância de legendas desativado",
   
   // Guide Animation
   "guide_animation_title": "📱 Como Usar a Extensão",

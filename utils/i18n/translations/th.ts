@@ -3,6 +3,7 @@ export default {
   "log_captions": "บันทึกคำบรรยายการประชุม Google",
   "show_captions": "แสดงคำบรรยาย",
   "show_captions_desc": "เปิดแถบด้านข้างเพื่อดูการแสดงหลัก",
+  "hide_captions": "ซ่อนคำบรรยาย",
   "clear_captions": "ล้างคำบรรยาย",
   "clear_captions_desc": "คำบรรยายทั้งหมดจะถูกลบออก",
   "translation_language": "ภาษาแปล",
@@ -149,5 +150,15 @@ export default {
   // Translation Language
   "select_translation_language": "เลือกภาษาแปล",
   "translation_language_desc": "เลือกภาษาสำหรับแปลเนื้อหาข้อความ",
-  "translation_language_set": "ตั้งค่าภาษาแปลเป็น {language}"
+  "translation_language_set": "ตั้งค่าภาษาแปลเป็น {language}",
+
+  // อินเทอร์เฟซการประชุม
+  "meeting_interface": "อินเทอร์เฟซการประชุม",
+  "meeting_interface_desc": "กำหนดค่าองค์ประกอบอินเทอร์เฟซและการควบคุมสำหรับการประชุม Google Meet",
+  
+  // ปุ่มสลับคำบรรยาย
+  "caption_toggle_button": "ปุ่มสลับคำบรรยาย",
+  "caption_toggle_button_desc": "แสดงปุ่มลอยในหน้า Google Meet เพื่อซ่อน/แสดงคำบรรยายอย่างรวดเร็ว",
+  "caption_toggle_enabled": "เปิดใช้งานปุ่มสลับคำบรรยายแล้ว",
+  "caption_toggle_disabled": "ปิดใช้งานปุ่มสลับคำบรรยายแล้ว"
 }; 

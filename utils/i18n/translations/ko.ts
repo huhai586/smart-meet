@@ -3,6 +3,7 @@ export default {
   "log_captions": "Google 회의 자막 기록",
   "show_captions": "자막 표시",
   "show_captions_desc": "사이드 패널을 열어 메인 뷰 표시",
+  "hide_captions": "자막 숨기기",
   "clear_captions": "자막 지우기",
   "clear_captions_desc": "모든 자막이 삭제됩니다",
   "translation_language": "번역 언어",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "Gemini API 키가 없으신가요?",
   
   // Google Drive Integration
-  "google_drive_integration": "Google 드라이브 통합",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "캡션 데이터를 Google 드라이브에 백업 및 복원합니다.",
   "google_drive_access_required": "Google 드라이브 접근 권한이 필요합니다",
   "google_drive_connect_desc": "백업 및 복원 기능을 활성화하려면 Google 계정에 연결하세요",
@@ -170,6 +171,16 @@ export default {
   "translation_frequency_desc": "이 옵션은 번역 요청의 빈도를 제어합니다. 값이 클수록 요청 빈도가 낮아지고 반대로 작을수록 높아집니다. 이는 너무 높은 요청 빈도가 서비스 제공업체에 의해 거부되는 것을 방지하기 위함입니다",
   "translation_frequency_label": "{frequency}초",
   "translation_frequency_set": "번역 빈도가 {frequency}초로 설정되었습니다",
+
+  // 회의 인터페이스
+  "meeting_interface": "회의 인터페이스",
+  "meeting_interface_desc": "Google Meet 회의의 인터페이스 요소와 컨트롤을 구성합니다",
+  
+  // 자막 토글 버튼
+  "caption_toggle_button": "자막 토글 버튼",
+  "caption_toggle_button_desc": "Google Meet 페이지에 플로팅 버튼을 표시하여 자막을 빠르게 숨기기/표시할 수 있습니다",
+  "caption_toggle_enabled": "자막 토글 버튼이 활성화되었습니다",
+  "caption_toggle_disabled": "자막 토글 버튼이 비활성화되었습니다",
   
   // Guide Animation
   "guide_animation_title": "📱 확장 프로그램 사용법",

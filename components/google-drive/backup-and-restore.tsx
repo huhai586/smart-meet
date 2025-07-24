@@ -1,14 +1,14 @@
 import React from 'react';
 import { Button, Upload } from 'antd';
 import { CloudUploadOutlined, CloudDownloadOutlined } from '@ant-design/icons';
-import getMeetingCaptions from '../utils/getCaptions';
-import save from '../utils/save';
-import getFileData from '../utils/get-file-data';
-import isRestoreDataValid from '../utils/is-resetore-data-valid';
-import type { Transcript } from '../hooks/useTranscripts';
-import { useI18n } from '../utils/i18n';
-import { useDateContext } from '../contexts/DateContext';
-import messageManager from '../utils/message-manager';
+import getMeetingCaptions from '../../utils/getCaptions';
+import save from '../../utils/save';
+import getFileData from '../../utils/get-file-data';
+import isRestoreDataValid from '../../utils/is-resetore-data-valid';
+import type { Transcript } from '../../hooks/useTranscripts';
+import { useI18n } from '../../utils/i18n';
+import { useDateContext } from '../../contexts/DateContext';
+import messageManager from '../../utils/message-manager';
 
 interface BackupAndRestoreInterface {
     onBackup?: () => void;

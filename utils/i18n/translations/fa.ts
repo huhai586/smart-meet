@@ -3,6 +3,7 @@ export default {
   "log_captions": "ثبت زیرنویس‌های جلسه گوگل",
   "show_captions": "نمایش زیرنویس‌ها",
   "show_captions_desc": "باز کردن نوار کناری برای نمایش نمای اصلی",
+  "hide_captions": "مخفی کردن زیرنویس‌ها",
   "clear_captions": "پاک کردن زیرنویس‌ها",
   "clear_captions_desc": "همه زیرنویس‌ها حذف خواهند شد",
   "translation_language": "زبان ترجمه",
@@ -59,7 +60,7 @@ export default {
   "active_service_changed": "سرویس پیش‌فرض تغییر کرد",
   
   // Google Drive Integration
-  "google_drive_integration": "ادغام گوگل درایو",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "پشتیبان گیری و بازیابی داده های زیرنویس خود در Google Drive",
   "google_drive_access_required": "دسترسی به Google Drive مورد نیاز است",
   "google_drive_connect_desc": "برای فعال کردن قابلیت‌های پشتیبان‌گیری و بازیابی، به حساب Google خود متصل شوید",
@@ -184,6 +185,16 @@ export default {
   "select_translation_language": "انتخاب زبان ترجمه",
   "translation_language_desc": "زبان مورد نظر برای ترجمه متن‌ها را انتخاب کنید.",
   "translation_language_set": "زبان ترجمه به {language} تنظیم شد",
+
+  // رابط جلسه
+  "meeting_interface": "رابط جلسه",
+  "meeting_interface_desc": "پیکربندی عناصر رابط و کنترل‌ها برای جلسات Google Meet",
+  
+  // دکمه تغییر وضعیت زیرنویس
+  "caption_toggle_button": "دکمه تغییر وضعیت زیرنویس",
+  "caption_toggle_button_desc": "نمایش دکمه شناور در صفحات Google Meet برای مخفی/نمایش سریع زیرنویس‌ها",
+  "caption_toggle_enabled": "دکمه تغییر وضعیت زیرنویس فعال شد",
+  "caption_toggle_disabled": "دکمه تغییر وضعیت زیرنویس غیرفعال شد",
   
   // Translation Errors
   "translation_service_not_configured": "سرویس ترجمه پیکربندی نشده است. لطفاً تنظیمات API خود را بررسی کنید.",

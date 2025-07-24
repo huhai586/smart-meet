@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography } from 'antd';
 import StyledTitle from '~components/common/StyledTitle';
-import Extension from '~components/extension';
+import Extension from '~components/options/extension';
 import { useI18n } from '~utils/i18n';
 import '~styles/extension-settings.scss';
 

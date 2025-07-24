@@ -3,6 +3,7 @@ export default {
   "log_captions": "Enregistrer les sous-titres de la réunion Google",
   "show_captions": "Afficher les sous-titres",
   "show_captions_desc": "ouvrir le panneau latéral pour afficher la vue principale",
+  "hide_captions": "Masquer les sous-titres",
   "clear_captions": "Effacer les sous-titres",
   "clear_captions_desc": "tous les sous-titres seront supprimés",
   "translation_language": "Langue de traduction",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "Vous n'avez pas de clé API Gemini ?",
   
   // Google Drive Integration
-  "google_drive_integration": "Intégration Google Drive",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Sauvegardez et restaurez les données de vos sous-titres sur Google Drive",
   "google_drive_access_required": "Accès à Google Drive requis",
   "google_drive_connect_desc": "Connectez-vous à votre compte Google pour activer les fonctions de sauvegarde et de restauration",
@@ -131,6 +132,16 @@ export default {
   "translation_frequency_desc": "Cette option contrôle la fréquence des requêtes de traduction. Plus la valeur est élevée, plus la fréquence des requêtes est faible et vice versa. Ceci pour éviter que les fréquences de requêtes trop élevées soient rejetées par les fournisseurs de services",
   "translation_frequency_label": "{frequency}s",
   "translation_frequency_set": "Fréquence de traduction définie sur {frequency} secondes",
+
+  // Interface de réunion
+  "meeting_interface": "Interface de réunion",
+  "meeting_interface_desc": "Configurer les éléments d'interface et les contrôles pour les réunions Google Meet",
+  
+  // Bouton de basculement des sous-titres
+  "caption_toggle_button": "Bouton de basculement des sous-titres",
+  "caption_toggle_button_desc": "Afficher un bouton flottant sur les pages Google Meet pour masquer/afficher rapidement les sous-titres",
+  "caption_toggle_enabled": "Bouton de basculement des sous-titres activé",
+  "caption_toggle_disabled": "Bouton de basculement des sous-titres désactivé",
   
   // AI Service Messages
   "ai_meeting_content_intro": "Voici le contenu de la réunion précédente : ",

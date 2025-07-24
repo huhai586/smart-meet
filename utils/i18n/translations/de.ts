@@ -3,6 +3,7 @@ export default {
   "log_captions": "Google-Meeting-Untertitel aufzeichnen",
   "show_captions": "Untertitel anzeigen",
   "show_captions_desc": "Seitenleiste öffnen, um die Hauptansicht anzuzeigen",
+  "hide_captions": "Untertitel ausblenden",
   "clear_captions": "Untertitel löschen",
   "clear_captions_desc": "alle Untertitel werden entfernt",
   "translation_language": "Übersetzungssprache",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "Haben Sie keinen Gemini API-Schlüssel?",
   
   // Google Drive Integration
-  "google_drive_integration": "Google Drive-Integration",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Sichern und Wiederherstellen Ihrer Untertiteldaten in Google Drive",
   "google_drive_access_required": "Google Drive-Zugriff erforderlich",
   "google_drive_connect_desc": "Verbinden Sie sich mit Ihrem Google-Konto, um Sicherungs- und Wiederherstellungsfunktionen zu aktivieren",
@@ -185,5 +186,15 @@ export default {
   "translation_frequency": "Übersetzungsfrequenz-Kontrolle",
   "translation_frequency_desc": "Diese Option steuert die Häufigkeit von Übersetzungsanfragen. Höhere Werte bedeuten niedrigere Anfragehäufigkeit und umgekehrt. Dies dient dazu, zu vermeiden, dass hohe Anfragehäufigkeiten von Dienstanbietern abgelehnt werden",
   "translation_frequency_label": "{frequency}s",
-  "translation_frequency_set": "Übersetzungsfrequenz auf {frequency} Sekunden eingestellt"
+  "translation_frequency_set": "Übersetzungsfrequenz auf {frequency} Sekunden eingestellt",
+
+  // Meeting-Oberfläche
+  "meeting_interface": "Meeting-Oberfläche",
+  "meeting_interface_desc": "Konfigurieren Sie Oberflächenelemente und Steuerelemente für Google Meet-Meetings",
+  
+  // Untertitel-Umschaltknopf
+  "caption_toggle_button": "Untertitel-Umschaltknopf",
+  "caption_toggle_button_desc": "Zeigt einen schwebenden Button auf Google Meet-Seiten an, um Untertitel schnell ein-/auszublenden",
+  "caption_toggle_enabled": "Untertitel-Umschaltknopf aktiviert",
+  "caption_toggle_disabled": "Untertitel-Umschaltknopf deaktiviert"
 }; 

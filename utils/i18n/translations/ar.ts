@@ -3,6 +3,7 @@ export default {
   "log_captions": "تسجيل تعليقات اجتماع جوجل",
   "show_captions": "عرض التعليقات",
   "show_captions_desc": "فتح اللوحة الجانبية لعرض العرض الرئيسي",
+  "hide_captions": "إخفاء التعليقات",
   "clear_captions": "مسح التعليقات",
   "clear_captions_desc": "سيتم إزالة جميع التعليقات",
   "translation_language": "لغة الترجمة",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "ليس لديك مفتاح واجهة برمجة تطبيقات Gemini؟",
   
   // Google Drive Integration
-  "google_drive_integration": "تكامل Google Drive",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "نسخ بيانات التسميات التوضيحية احتياطيًا واستعادتها إلى Google Drive",
   "google_drive_access_required": "مطلوب الوصول إلى Google Drive",
   "google_drive_connect_desc": "اتصل بحساب Google الخاص بك لتفعيل ميزات النسخ الاحتياطي والاستعادة",
@@ -149,5 +150,15 @@ export default {
   // Translation Language
   "select_translation_language": "اختر لغة الترجمة",
   "translation_language_desc": "اختر لغة ترجمة محتوى النص.",
-  "translation_language_set": "تم تعيين لغة الترجمة إلى {language}"
+  "translation_language_set": "تم تعيين لغة الترجمة إلى {language}",
+
+  // واجهة الاجتماع
+  "meeting_interface": "واجهة الاجتماع",
+  "meeting_interface_desc": "تكوين عناصر الواجهة وعناصر التحكم لاجتماعات Google Meet",
+  
+  // زر تبديل التعليقات
+  "caption_toggle_button": "زر تبديل التعليقات",
+  "caption_toggle_button_desc": "عرض زر عائم في صفحات Google Meet لإخفاء/إظهار التعليقات بسرعة",
+  "caption_toggle_enabled": "تم تفعيل زر تبديل التعليقات",
+  "caption_toggle_disabled": "تم إلغاء تفعيل زر تبديل التعليقات"
 }; 

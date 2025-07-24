@@ -8,6 +8,7 @@ export default {
   "log_captions": "Log Google Meeting Captions",
   "show_captions": "Show Captions",
   "show_captions_desc": "Open sidebar to view main display",
+  "hide_captions": "Hide Captions",
   "clear_captions": "Clear captions",
   "clear_captions_desc": "all captions will be removed",
   "translation_language": "Translation language",
@@ -64,7 +65,7 @@ export default {
   "active_service_changed": "Default service changed",
   
   // Google Drive Integration
-  "google_drive_integration": "Google Drive Integration",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Backup and restore your caption data to Google Drive",
   "google_drive_access_required": "Google Drive Access Required",
   "google_drive_connect_desc": "Connect to your Google account to enable backup and restore features",
@@ -245,6 +246,16 @@ export default {
   "translation_frequency_desc": "This option controls the frequency of translation requests. Higher values mean lower request frequency and vice versa. This is to avoid high request frequencies being rejected by service providers",
   "translation_frequency_label": "{frequency}s",
   "translation_frequency_set": "Translation frequency set to {frequency} seconds",
+  
+  // Meeting Interface
+  "meeting_interface": "Meeting Interface",
+  "meeting_interface_desc": "Configure interface elements and controls for Google Meet meetings",
+  
+  // Caption Toggle Button
+  "caption_toggle_button": "Caption Toggle Button",
+  "caption_toggle_button_desc": "Show a floating button on Google Meet pages to quickly hide/show captions",
+  "caption_toggle_enabled": "Caption toggle button enabled",
+  "caption_toggle_disabled": "Caption toggle button disabled",
   
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",

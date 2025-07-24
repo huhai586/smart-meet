@@ -3,6 +3,7 @@ export default {
   "log_captions": "Записывать субтитры Google-встречи",
   "show_captions": "Показать субтитры",
   "show_captions_desc": "открыть боковую панель для отображения основного вида",
+  "hide_captions": "Скрыть субтитры",
   "clear_captions": "Очистить субтитры",
   "clear_captions_desc": "все субтитры будут удалены",
   "translation_language": "Язык перевода",
@@ -169,5 +170,15 @@ export default {
   // Translation Language
   "select_translation_language": "Выбрать Язык Перевода",
   "translation_language_desc": "Выберите язык для перевода текстового контента.",
-  "translation_language_set": "Язык перевода установлен на {language}"
+  "translation_language_set": "Язык перевода установлен на {language}",
+
+  // Интерфейс встречи
+  "meeting_interface": "Интерфейс встречи",
+  "meeting_interface_desc": "Настройка элементов интерфейса и элементов управления для встреч Google Meet",
+  
+  // Кнопка переключения субтитров
+  "caption_toggle_button": "Кнопка переключения субтитров",
+  "caption_toggle_button_desc": "Показать плавающую кнопку на страницах Google Meet для быстрого скрытия/показа субтитров",
+  "caption_toggle_enabled": "Кнопка переключения субтитров включена",
+  "caption_toggle_disabled": "Кнопка переключения субтитров отключена"
 }; 

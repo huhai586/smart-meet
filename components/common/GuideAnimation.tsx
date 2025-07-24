@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Card, Button, Typography } from 'antd';
 import { PlayCircleOutlined } from '@ant-design/icons';
-import { useI18n } from '../utils/i18n';
+import { useI18n } from '../../utils/i18n';
 import './GuideAnimation.scss';
 
 const { Title, Text } = Typography;

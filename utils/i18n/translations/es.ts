@@ -3,6 +3,7 @@ export default {
   "log_captions": "Registrar los subtítulos de la reunión de Google",
   "show_captions": "Mostrar subtítulos",
   "show_captions_desc": "abrir el panel lateral para mostrar la vista principal",
+  "hide_captions": "Ocultar subtítulos",
   "clear_captions": "Borrar subtítulos",
   "clear_captions_desc": "todos los subtítulos serán eliminados",
   "translation_language": "Idioma de traducción",
@@ -38,7 +39,7 @@ export default {
   "no_api_key": "¿No tiene una clave API de Gemini?",
   
   // Google Drive Integration
-  "google_drive_integration": "Integración con Google Drive",
+  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Haga una copia de seguridad y restaure los datos de sus subtítulos en Google Drive",
   "google_drive_access_required": "Se requiere acceso a Google Drive",
   "google_drive_connect_desc": "Conéctese a su cuenta de Google para habilitar las funciones de copia de seguridad y restauración",
@@ -185,5 +186,15 @@ export default {
   "translation_frequency": "Control de frecuencia de traducción",
   "translation_frequency_desc": "Esta opción controla la frecuencia de las solicitudes de traducción. Valores más altos significan menor frecuencia de solicitudes y viceversa. Esto es para evitar que las frecuencias de solicitudes altas sean rechazadas por los proveedores de servicios",
   "translation_frequency_label": "{frequency}s",
-  "translation_frequency_set": "Frecuencia de traducción establecida en {frequency} segundos"
+  "translation_frequency_set": "Frecuencia de traducción establecida en {frequency} segundos",
+
+  // Interfaz de reunión
+  "meeting_interface": "Interfaz de reunión",
+  "meeting_interface_desc": "Configurar elementos de interfaz y controles para reuniones de Google Meet",
+  
+  // Botón de alternar subtítulos
+  "caption_toggle_button": "Botón de alternar subtítulos",
+  "caption_toggle_button_desc": "Mostrar un botón flotante en las páginas de Google Meet para ocultar/mostrar subtítulos rápidamente",
+  "caption_toggle_enabled": "Botón de alternar subtítulos habilitado",
+  "caption_toggle_disabled": "Botón de alternar subtítulos deshabilitado"
 }; 

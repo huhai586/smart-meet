@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, theme } from 'antd';
-import UILanguageSelector from '~components/UILanguageSelector';
+import UILanguageSelector from '~components/options/UILanguageSelector';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
 import '~styles/ui-language-settings.scss';

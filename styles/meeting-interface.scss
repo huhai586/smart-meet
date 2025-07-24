@@ -1,0 +1,47 @@
+.meeting-interface-card {
+  margin-bottom: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  
+  .ant-card-body {
+    padding: 20px;
+  }
+}
+
+.meeting-interface-switch-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.meeting-interface-option-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meeting-interface-option-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.meeting-interface-option-icon {
+  font-size: 16px;
+  color: #1890ff;
+}
+
+.meeting-interface-section-title {
+  font-size: 16px;
+  color: #262626;
+  margin: 0;
+}
+
+.meeting-interface-section-description {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 400px;
+}

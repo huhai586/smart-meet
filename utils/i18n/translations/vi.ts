@@ -3,6 +3,7 @@ export default {
   "log_captions": "Ghi lại phụ đề cuộc họp Google",
   "show_captions": "Hiển thị phụ đề",
   "show_captions_desc": "Mở thanh bên để xem màn hình chính",
+  "hide_captions": "Ẩn phụ đề",
   "clear_captions": "Xóa phụ đề",
   "clear_captions_desc": "Tất cả phụ đề sẽ bị xóa",
   "translation_language": "Ngôn ngữ dịch",
@@ -150,6 +151,16 @@ export default {
   "select_translation_language": "Chọn Ngôn Ngữ Dịch Thuật",
   "translation_language_desc": "Chọn ngôn ngữ để dịch nội dung văn bản.",
   "translation_language_set": "Ngôn ngữ dịch thuật đã được đặt thành {language}",
+
+  // Giao diện cuộc họp
+  "meeting_interface": "Giao diện cuộc họp",
+  "meeting_interface_desc": "Cấu hình các thành phần giao diện và điều khiển cho cuộc họp Google Meet",
+  
+  // Nút chuyển đổi phụ đề
+  "caption_toggle_button": "Nút chuyển đổi phụ đề",
+  "caption_toggle_button_desc": "Hiển thị nút nổi trên các trang Google Meet để nhanh chóng ẩn/hiện phụ đề",
+  "caption_toggle_enabled": "Đã bật nút chuyển đổi phụ đề",
+  "caption_toggle_disabled": "Đã tắt nút chuyển đổi phụ đề",
   
   // AI Service Messages
   "ai_meeting_content_intro": "Đây là nội dung cuộc họp trước đó: ",

@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { DatePicker, Button } from 'antd';
 import { CalendarOutlined } from '@ant-design/icons';
-import { useDateContext } from '../contexts/DateContext';
+import { useDateContext } from '../../contexts/DateContext';
 import dayjs from 'dayjs';
 import './GlobalDatePicker.scss';
-import useTranscripts from '../hooks/useTranscripts';
+import useTranscripts from '../../hooks/useTranscripts';
 
 const GlobalDatePicker = () => {
     const { selectedDate, setSelectedDate } = useDateContext();
