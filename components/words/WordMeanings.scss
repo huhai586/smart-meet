@@ -1,0 +1,129 @@
+.meanings-section {
+  margin-bottom: 16px;
+
+  .ant-typography {
+    &.ant-typography-h4 {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      color: #2d3748;
+      font-size: 16px;
+
+      .section-icon {
+        color: #1a73e8;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .meaning-card {
+    margin-bottom: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-color: #1a73e8;
+    }
+
+    .ant-card-body {
+      padding: 12px;
+    }
+
+    .part-of-speech {
+      margin-bottom: 8px;
+
+      .ant-tag {
+        font-size: 11px;
+        font-weight: 500;
+        border-radius: 10px;
+        padding: 1px 6px;
+      }
+    }
+
+    .definition-item {
+      margin-bottom: 12px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .definition {
+        margin-bottom: 6px;
+        line-height: 1.5;
+
+        .ant-typography {
+          color: #2d3748;
+          font-size: 14px;
+        }
+      }
+
+      .example {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        margin-bottom: 6px;
+        padding: 6px 8px;
+        background: #f8fafc;
+        border-radius: 4px;
+        border-left: 2px solid #1a73e8;
+
+        .example-icon {
+          color: #1a73e8;
+          font-size: 12px;
+          margin-top: 1px;
+        }
+
+        .ant-typography {
+          color: #4a5568;
+          font-size: 12px;
+          line-height: 1.4;
+        }
+      }
+
+      .synonyms {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 4px;
+
+        .ant-typography {
+          color: #718096;
+          font-size: 12px;
+        }
+
+        .synonym-tag {
+          font-size: 11px;
+          color: #4a5568;
+          background: #edf2f7;
+          border: 1px solid #e2e8f0;
+          border-radius: 10px;
+          padding: 1px 4px;
+          margin: 0;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #e2e8f0;
+            border-color: #1a73e8;
+            color: #1a73e8;
+          }
+
+          &.highlighted {
+            background: #fef5e7;
+            border-color: #f6ad55;
+            color: #c05621;
+            
+            &:hover {
+              background: #fed7aa;
+              border-color: #ed8936;
+              color: #9c4221;
+            }
+          }
+        }
+      }
+    }
+  }
+}
