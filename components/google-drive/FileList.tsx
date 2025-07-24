@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Button, Popconfirm, Typography, Empty, Spin, theme, Tooltip, Input, Space, Select } from 'antd';
-import { CloudDownloadOutlined, DeleteOutlined, SearchOutlined, FilterOutlined } from '@ant-design/icons';
+import { CloudDownloadOutlined, DeleteOutlined, SearchOutlined, FilterOutlined, DownloadOutlined } from '@ant-design/icons';
 import type { DriveFile } from './types';
 import { ActionButton } from './StyledComponents';
 import type { TableProps } from 'antd/es/table';
@@ -18,6 +18,7 @@ interface FileListProps {
   deletingFileId: string | null;
   onRestore: (fileId: string, fileName: string) => void;
   onDelete: (fileId: string) => void;
+  onDownload: (fileId: string, fileName: string) => void;
 }
 
 const FileList: React.FC<FileListProps> = ({
@@ -26,7 +27,8 @@ const FileList: React.FC<FileListProps> = ({
   loadingFileId,
   deletingFileId,
   onRestore,
-  onDelete
+  onDelete,
+  onDownload
 }) => {
   const { token } = useToken();
   const [searchText, setSearchText] = useState('');
@@ -118,6 +120,19 @@ const FileList: React.FC<FileListProps> = ({
               style={{
                 background: token.colorSuccess,
                 borderColor: token.colorSuccess
+              }}
+            />
+          </Tooltip>
+          <Tooltip title="Download to local">
+            <Button
+              type="default"
+              icon={<DownloadOutlined />}
+              onClick={() => onDownload(record.id, record.name)}
+              loading={loadingFileId === record.id}
+              size="small"
+              style={{
+                borderColor: token.colorPrimary,
+                color: token.colorPrimary
               }}
             />
           </Tooltip>

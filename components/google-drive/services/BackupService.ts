@@ -112,6 +112,39 @@ export class BackupService {
   }
 
   /**
+   * 下载文件到本地
+   */
+  async downloadFileToLocal(fileId: string, fileName: string): Promise<boolean> {
+    try {
+      // 从Google Drive下载文件内容
+      const fileContent = await this.driveService.downloadFile(fileId);
+      
+      // 创建下载链接
+      const jsonString = JSON.stringify(fileContent, null, 2);
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      
+      // 创建临时下载链接并触发下载
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // 清理URL对象
+      URL.revokeObjectURL(url);
+      
+      message.success('File downloaded successfully');
+      return true;
+    } catch (error) {
+      console.error('Error downloading file to local:', error);
+      message.error('Failed to download file');
+      return false;
+    }
+  }
+
+  /**
    * 恢复单个文件的记录
    */
   async restoreFile(fileId: string, fileName: string): Promise<RestoreResult> {

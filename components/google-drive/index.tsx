@@ -103,7 +103,8 @@ const GoogleDriveIntegration: React.FC = () => {
     handleRestore,
     handleDeleteFile,
     handleRestoreAll,
-    handleUpload
+    handleUpload,
+    handleDownload
   } = useFileOperations(updateFileList);
 
   // 删除文件的处理函数（传递当前文件列表）
@@ -187,6 +188,7 @@ const GoogleDriveIntegration: React.FC = () => {
                 onRestoreAll={onRestoreAll}
                 onRestore={handleRestore}
                 onDelete={onDeleteFile}
+                onDownload={handleDownload}
                 onRefresh={loadBackupFolder}
                 onUpload={handleUpload}
               />

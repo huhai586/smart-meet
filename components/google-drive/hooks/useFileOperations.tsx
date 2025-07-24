@@ -17,7 +17,7 @@ export const useFileOperations = (updateFileList: (files: DriveFile[]) => void) 
   const handleRestore = useCallback(async (fileId: string, fileName: string) => {
     try {
       setLoadingFileId(fileId);
-      
+
       Modal.confirm({
         title: 'Restore Confirmation',
         content: `This will restore chat records for this date. Existing records for this date will be overwritten. Continue?`,
@@ -104,6 +104,23 @@ export const useFileOperations = (updateFileList: (files: DriveFile[]) => void) 
     return await backupService.uploadFile(file);
   }, []);
 
+  /**
+   * 下载文件到本地
+   */
+  const handleDownload = useCallback(async (fileId: string, fileName: string) => {
+    try {
+      setLoadingFileId(fileId);
+      const success = await backupService.downloadFileToLocal(fileId, fileName);
+      if (!success) {
+        console.error('Download failed');
+      }
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    } finally {
+      setLoadingFileId(null);
+    }
+  }, []);
+
   return {
     loadingFileId,
     deletingFileId,
@@ -111,7 +128,8 @@ export const useFileOperations = (updateFileList: (files: DriveFile[]) => void) 
     handleRestore,
     handleDeleteFile,
     handleRestoreAll,
-    handleUpload
+    handleUpload,
+    handleDownload
   };
 };
 

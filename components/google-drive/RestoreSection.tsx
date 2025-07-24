@@ -18,6 +18,7 @@ interface RestoreSectionProps {
   onRestoreAll: () => void;
   onRestore: (fileId: string, fileName: string) => void;
   onDelete: (fileId: string) => void;
+  onDownload: (fileId: string, fileName: string) => void;
   onRefresh: () => void;
   onUpload: (file: File) => Promise<boolean>;
 }
@@ -31,6 +32,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
   onRestoreAll,
   onRestore,
   onDelete,
+  onDownload,
   onRefresh,
   onUpload
 }) => {
@@ -122,6 +124,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
             deletingFileId={deletingFileId}
             onRestore={onRestore}
             onDelete={onDelete}
+            onDownload={onDownload}
           />
         </div>
       </Space>
