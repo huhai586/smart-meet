@@ -220,11 +220,14 @@ export default {
   "select_ui_language": "选择界面语言",
   "ui_language_desc": "选择Smart Meet的用户界面语言",
   "ui_language_set": "界面语言已设置为 {language}",
+  "ui_language_selector_desc": "选择插件界面显示的语言",
 
   // Translation Language
   "select_translation_language": "选择翻译语言",
   "translation_language_desc": "选择用于翻译文本内容的语言。",
   "translation_language_set": "翻译语言已设置为 {language}",
+  "translation_target_language": "目标翻译语言",
+  "translation_target_language_desc": "设置点击字幕后翻译为的语言",
 
   // Auto Translation
   "auto_translate": "自动翻译",

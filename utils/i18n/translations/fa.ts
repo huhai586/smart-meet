@@ -185,6 +185,8 @@ export default {
   "select_translation_language": "انتخاب زبان ترجمه",
   "translation_language_desc": "زبان مورد نظر برای ترجمه متن‌ها را انتخاب کنید.",
   "translation_language_set": "زبان ترجمه به {language} تنظیم شد",
+  "translation_target_language": "زبان مقصد ترجمه",
+  "translation_target_language_desc": "زبانی را که زیرنویس‌ها هنگام کلیک به آن ترجمه می‌شوند تنظیم کنید",
 
   // رابط جلسه
   "meeting_interface": "رابط جلسه",

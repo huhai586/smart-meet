@@ -171,6 +171,8 @@ export default {
   "select_translation_language": "Выбрать Язык Перевода",
   "translation_language_desc": "Выберите язык для перевода текстового контента.",
   "translation_language_set": "Язык перевода установлен на {language}",
+  "translation_target_language": "Целевой Язык Перевода",
+  "translation_target_language_desc": "Установите язык, на который будут переводиться субтитры при нажатии",
 
   // Интерфейс встречи
   "meeting_interface": "Интерфейс встречи",

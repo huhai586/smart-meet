@@ -151,6 +151,8 @@ export default {
   "select_translation_language": "اختر لغة الترجمة",
   "translation_language_desc": "اختر لغة ترجمة محتوى النص.",
   "translation_language_set": "تم تعيين لغة الترجمة إلى {language}",
+  "translation_target_language": "لغة الترجمة المستهدفة",
+  "translation_target_language_desc": "حدد اللغة التي سيتم ترجمة الترجمات إليها عند النقر",
 
   // واجهة الاجتماع
   "meeting_interface": "واجهة الاجتماع",

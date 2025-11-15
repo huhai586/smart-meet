@@ -157,6 +157,8 @@ export default {
   "select_translation_language": "Übersetzungssprache auswählen",
   "translation_language_desc": "Wählen Sie die Sprache zum Übersetzen von Textinhalten.",
   "translation_language_set": "Übersetzungssprache auf {language} gesetzt",
+  "translation_target_language": "Ziel-Übersetzungssprache",
+  "translation_target_language_desc": "Legen Sie die Sprache fest, in die Untertitel beim Klicken übersetzt werden",
   
   // Guide Animation
   "guide_animation_title": "📱 Wie man die Erweiterung verwendet",

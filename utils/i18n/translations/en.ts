@@ -220,11 +220,14 @@ export default {
   "select_ui_language": "Select UI Language", 
   "ui_language_desc": "Choose the language for the user interface of Smart Meet",
   "ui_language_set": "UI language set to {language}",
+  "ui_language_selector_desc": "Choose the language for the extension interface",
   
   // Translation Language
   "select_translation_language": "Select Translation Language",
   "translation_language_desc": "Choose the language for translating text content.",
   "translation_language_set": "Translation language set to {language}",
+  "translation_target_language": "Target Translation Language",
+  "translation_target_language_desc": "Set the language to translate captions to when clicked",
   
   // Auto Translation
   "auto_translate": "Auto Translate",

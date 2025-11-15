@@ -1,11 +1,11 @@
 import React from 'react';
-import { Typography, theme } from 'antd';
+import { Typography, theme, Card, Space } from 'antd';
 import UILanguageSelector from '~components/options/UILanguageSelector';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
 import '~styles/ui-language-settings.scss';
 
-const { Title: _Title, Text: _Text } = Typography;
+const { Text } = Typography;
 const { useToken } = theme;
 
 const UILanguageSettings: React.FC = () => {
@@ -16,15 +16,22 @@ const UILanguageSettings: React.FC = () => {
     <div>
       <StyledTitle subtitle={t('ui_language_desc')}>{t('ui_language')}</StyledTitle>
 
-      <div className="ui-language-settings-section">
-        {/* UI Language Selector Section */}
-        <div className="ui-language-settings-selector-section">
-
-
-          <div className="ui-language-settings-selector-wrapper">
-            <UILanguageSelector />
-          </div>
-        </div>
+      <div style={{ padding: "0 20px" }}>
+        <Card className="ui-language-settings-card">
+          <Space direction="vertical" style={{ width: "100%" }}>
+            <div>
+              <Text strong className="ui-language-settings-section-title" style={{ display: 'block' }}>
+                {t('select_ui_language')}
+              </Text>
+              <Text type="secondary" className="ui-language-settings-section-description" style={{ display: 'block' }}>
+                {t('ui_language_selector_desc')}
+              </Text>
+            </div>
+            <div className="ui-language-settings-selector-wrapper">
+              <UILanguageSelector />
+            </div>
+          </Space>
+        </Card>
       </div>
     </div>
   );

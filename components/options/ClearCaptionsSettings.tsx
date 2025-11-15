@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Typography, theme, Button, Modal, Alert } from 'antd';
+import { Typography, theme, Button, Modal, Alert, Card } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
 import '~styles/clear-captions-settings.scss';
 
-const { Title: _Title, Text: _Text } = Typography;
+const { Text } = Typography;
 const { useToken } = theme;
 
 const ClearCaptionsSettings: React.FC = () => {
@@ -38,52 +38,49 @@ const ClearCaptionsSettings: React.FC = () => {
     <div>
       <StyledTitle subtitle={t('clear_captions_desc')}>{t('clear_captions')}</StyledTitle>
 
-      <div className="clear-captions-settings-section">
-        {/* Clear Captions Section */}
-        <div className="clear-captions-main-section">
+      <div style={{ padding: "0 20px" }}>
+        <Card className="clear-captions-card">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div>
+              <Text strong style={{ display: 'block', marginBottom: '4px' }}>
+                {t('clear_captions_warning')}
+              </Text>
+              <Text type="secondary" style={{ display: 'block' }}>
+                {t('clear_captions_warning_desc')}
+              </Text>
+            </div>
 
-          <Alert
-            message={t('warning')}
-            description={t('clear_captions_warning')}
-            type="warning"
-            showIcon
-            className="clear-captions-alert"
-          />
-
-          <div className="clear-captions-button-wrapper">
             <Button
               type="primary"
               danger
               size="large"
               icon={<DeleteOutlined />}
               onClick={showModal}
-              className="clear-captions-button"
             >
               {t('clear_all_data')}
             </Button>
           </div>
-        </div>
-
-        <Modal
-          title={t('confirm_clear_captions')}
-          open={isModalVisible}
-          onOk={handleClear}
-          onCancel={handleCancel}
-          okText={t('yes_clear_data')}
-          cancelText={t('cancel')}
-          okButtonProps={{ danger: true }}
-        >
-          <p>{t('clear_confirm')}</p>
-          {clearSuccess && (
-            <Alert
-              className="clear-captions-modal-alert"
-              message={t('data_cleared_success')}
-              type="success"
-              showIcon
-            />
-          )}
-        </Modal>
+        </Card>
       </div>
+
+      <Modal
+        title={t('confirm_clear_captions')}
+        open={isModalVisible}
+        onOk={handleClear}
+        onCancel={handleCancel}
+        okText={t('yes_clear_data')}
+        cancelText={t('cancel')}
+        okButtonProps={{ danger: true }}
+      >
+        <p>{t('clear_confirm')}</p>
+        {clearSuccess && (
+          <Alert
+            message={t('data_cleared_success')}
+            type="success"
+            showIcon
+          />
+        )}
+      </Modal>
     </div>
   );
 };

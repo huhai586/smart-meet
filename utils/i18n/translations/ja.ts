@@ -157,6 +157,8 @@ export default {
   "select_translation_language": "翻訳言語を選択",
   "translation_language_desc": "テキストコンテンツを翻訳する言語を選択してください。",
   "translation_language_set": "翻訳言語を{language}に設定しました",
+  "translation_target_language": "翻訳先言語",
+  "translation_target_language_desc": "クリック時に字幕を翻訳する言語を設定します",
   
   // 翻译服务提供商
   "translation_provider": "翻訳サービスプロバイダー",

@@ -150,6 +150,8 @@ export default {
   "select_translation_language": "अनुवाद भाषा चुनें",
   "translation_language_desc": "टेक्स्ट सामग्री का अनुवाद करने के लिए भाषा चुनें।",
   "translation_language_set": "अनुवाद भाषा {language} पर सेट की गई",
+  "translation_target_language": "लक्ष्य अनुवाद भाषा",
+  "translation_target_language_desc": "क्लिक करने पर कैप्शन का अनुवाद करने के लिए भाषा सेट करें",
 
   // मीटिंग इंटरफेस
   "meeting_interface": "मीटिंग इंटरफेस",

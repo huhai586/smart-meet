@@ -157,6 +157,8 @@ export default {
   "select_translation_language": "번역 언어 선택",
   "translation_language_desc": "텍스트 콘텐츠를 번역할 언어를 선택하세요.",
   "translation_language_set": "번역 언어가 {language}로 설정되었습니다",
+  "translation_target_language": "대상 번역 언어",
+  "translation_target_language_desc": "클릭 시 자막을 번역할 언어를 설정합니다",
   
   // 번역 서비스 제공업체
   "translation_provider": "번역 서비스 제공업체",

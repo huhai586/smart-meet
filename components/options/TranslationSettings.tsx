@@ -72,17 +72,25 @@ const TranslationSettings: React.FC = () => {
       <StyledTitle subtitle={t('translation_language_desc')}>{t('translation_language')}</StyledTitle>
 
       <div style={{ padding: "0 20px" }}>
-        {/* Language Selector Section */}
-        <div className="translation-settings-language-selector-section">
-
-          <div className="translation-settings-language-selector-wrapper">
-            <LanguageSelector />
-          </div>
-        </div>
-
-        {/* Auto Translate Section */}
+        {/* Translation Settings Card */}
         <Card className="translation-settings-card">
           <Space direction="vertical" style={{ width: "100%" }}>
+            {/* Language Selector Section */}
+            <div>
+              <Text strong className="translation-settings-section-title">
+                {t('translation_target_language')}
+              </Text>
+              <Text type="secondary" className="translation-settings-section-description">
+                {t('translation_target_language_desc')}
+              </Text>
+            </div>
+            <div className="translation-settings-language-selector-wrapper">
+              <LanguageSelector />
+            </div>
+
+            <Divider />
+
+            {/* Auto Translate Section */}
             <div className="translation-settings-switch-container">
               <div>
                 <Text strong className="translation-settings-section-title">
@@ -101,37 +109,9 @@ const TranslationSettings: React.FC = () => {
               />
             </div>
 
+            {/* 翻译频率 - 只在自动翻译开启时显示 */}
             {autoTranslateEnabled && (
               <>
-                <Divider />
-
-                <div className="translation-settings-provider-section">
-                  <div className="translation-settings-provider-description-wrapper">
-                    <Text strong className="translation-settings-section-title">
-                      {t('translation_provider')}
-                    </Text>
-                    <Text type="secondary" className="translation-settings-section-description">
-                      {t('translation_provider_desc')}
-                    </Text>
-                  </div>
-                  <Select
-                    value={translationProvider}
-                    onChange={handleProviderChange}
-                    className="translation-settings-provider-select"
-                    size="middle"
-                  >
-                    <Option value="google">
-                      {t('provider_google')}
-                    </Option>
-                    <Option value="microsoft">
-                      {t('provider_microsoft')}
-                    </Option>
-                    <Option value="ai">
-                      {t('provider_ai')}
-                    </Option>
-                  </Select>
-                </div>
-
                 <Divider />
 
                 <div className="translation-settings-slider-container">
@@ -173,6 +153,36 @@ const TranslationSettings: React.FC = () => {
                 </div>
               </>
             )}
+
+            <Divider />
+
+            {/* 翻译服务提供商 - 始终显示 */}
+            <div className="translation-settings-provider-section">
+              <div className="translation-settings-provider-description-wrapper">
+                <Text strong className="translation-settings-section-title">
+                  {t('translation_provider')}
+                </Text>
+                <Text type="secondary" className="translation-settings-section-description">
+                  {t('translation_provider_desc')}
+                </Text>
+              </div>
+              <Select
+                value={translationProvider}
+                onChange={handleProviderChange}
+                className="translation-settings-provider-select"
+                size="middle"
+              >
+                <Option value="google">
+                  {t('provider_google')}
+                </Option>
+                <Option value="microsoft">
+                  {t('provider_microsoft')}
+                </Option>
+                <Option value="ai">
+                  {t('provider_ai')}
+                </Option>
+              </Select>
+            </div>
           </Space>
         </Card>
 

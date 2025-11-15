@@ -11,10 +11,8 @@
 }
 
 .extension-container {
-  padding: 24px;
   background: #ffffff;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   margin-bottom: 24px;
 
@@ -216,12 +214,7 @@
     font-weight: 600;
   }
   
-  // 适配不同屏幕大小
-  @media (max-width: 768px) {
-    .extension-container {
-      padding: 16px;
-    }
-  }
+
 }
 
 // 模态框样式增强

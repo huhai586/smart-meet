@@ -181,6 +181,8 @@ export default {
   "select_translation_language": "Sélectionner la Langue de Traduction",
   "translation_language_desc": "Choisissez la langue pour traduire le contenu du texte.",
   "translation_language_set": "Langue de traduction définie sur {language}",
+  "translation_target_language": "Langue de Traduction Cible",
+  "translation_target_language_desc": "Définissez la langue vers laquelle les sous-titres seront traduits lors du clic",
   
   // Guide Animation
   "guide_animation_title": "📱 Comment Utiliser l'Extension",

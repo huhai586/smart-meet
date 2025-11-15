@@ -151,6 +151,8 @@ export default {
   "select_translation_language": "Chọn Ngôn Ngữ Dịch Thuật",
   "translation_language_desc": "Chọn ngôn ngữ để dịch nội dung văn bản.",
   "translation_language_set": "Ngôn ngữ dịch thuật đã được đặt thành {language}",
+  "translation_target_language": "Ngôn Ngữ Dịch Đích",
+  "translation_target_language_desc": "Đặt ngôn ngữ để dịch phụ đề khi nhấp chuột",
 
   // Giao diện cuộc họp
   "meeting_interface": "Giao diện cuộc họp",

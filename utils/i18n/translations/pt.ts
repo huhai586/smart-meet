@@ -157,6 +157,8 @@ export default {
   "select_translation_language": "Selecionar Idioma de Tradução",
   "translation_language_desc": "Escolha o idioma para traduzir o conteúdo do texto.",
   "translation_language_set": "Idioma de tradução definido para {language}",
+  "translation_target_language": "Idioma de Tradução de Destino",
+  "translation_target_language_desc": "Defina o idioma para o qual as legendas serão traduzidas ao clicar",
 
   // Provedor de tradução
   "translation_provider": "Provedor de tradução",

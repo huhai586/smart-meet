@@ -172,6 +172,8 @@ export default {
   "select_translation_language": "Seleziona Lingua di Traduzione",
   "translation_language_desc": "Scegli la lingua per tradurre il contenuto testuale.",
   "translation_language_set": "Lingua di traduzione impostata su {language}",
+  "translation_target_language": "Lingua di Traduzione di Destinazione",
+  "translation_target_language_desc": "Imposta la lingua in cui verranno tradotti i sottotitoli quando si fa clic",
 
   // Fornitore di traduzione
   "translation_provider": "Fornitore di traduzione",

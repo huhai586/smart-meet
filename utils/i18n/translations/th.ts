@@ -151,6 +151,8 @@ export default {
   "select_translation_language": "เลือกภาษาแปล",
   "translation_language_desc": "เลือกภาษาสำหรับแปลเนื้อหาข้อความ",
   "translation_language_set": "ตั้งค่าภาษาแปลเป็น {language}",
+  "translation_target_language": "ภาษาแปลเป้าหมาย",
+  "translation_target_language_desc": "ตั้งค่าภาษาที่จะแปลคำบรรยายเมื่อคลิก",
 
   // อินเทอร์เฟซการประชุม
   "meeting_interface": "อินเทอร์เฟซการประชุม",
