@@ -38,6 +38,12 @@ export const useTranslation = () => {
         event.preventDefault();
         event.stopPropagation();
         
+        // Check if there's selected text - if so, let handleTextSelection handle it
+        const selection = window.getSelection();
+        if (selection && selection.toString().trim().length > 0) {
+            return; // Don't process click when text is selected
+        }
+        
         const target = event.target as HTMLElement;
         
         // Check if clicked element is a word span or highlighted b tag

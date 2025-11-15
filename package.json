@@ -1,8 +1,8 @@
 {
   "name": "google-meet-caption-pro",
   "displayName": "Google Meet Caption Pro",
-  "version": "1.4.4",
-  "description": "ç",
+  "version": "1.4.5",
+  "description": "Google Meet Caption Pro",
   "author": "Howard",
   "scripts": {
     "dev": "plasmo dev",
@@ -22,7 +22,7 @@
     "@vitalets/google-translate-api": "^9.2.1",
     "antd": "^5.23.0",
     "framer-motion": "^11.18.1",
-    "google-meeting-captions-resolver": "^1.0.20",
+    "google-meeting-captions-resolver": "^1.1.1",
     "jspdf": "^2.5.2",
     "microsoft-translate-api": "^1.1.0",
     "ogl": "^1.0.11",
