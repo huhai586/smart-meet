@@ -350,6 +350,17 @@
           text-align: right;
         }
 
+        // 句子高亮包装器 - 提供连续的蓝色背景
+        .sentence-highlight-wrapper {
+          display: inline;
+          background: rgba(26, 115, 232, 0.15);
+          padding: 2px 4px;
+          border-radius: 4px;
+          animation: sentenceHighlight 0.3s ease;
+          box-decoration-break: clone;
+          -webkit-box-decoration-break: clone;
+        }
+
         // 可点击单词的样式
         .clickable-word {
           display: inline;
@@ -368,6 +379,20 @@
           &:active {
             transform: translateY(0);
             background: rgba(26, 115, 232, 0.2);
+          }
+
+          // 句子高亮时的单词样式 - 禁用 hover 效果
+          &.sentence-highlighted {
+            &:hover {
+              background: none;
+              color: inherit;
+              transform: none;
+              box-shadow: none;
+            }
+
+            &:active {
+              background: none;
+            }
           }
 
           // 高亮词汇的样式
@@ -764,6 +789,57 @@
     font-weight: bold;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border-radius: 3px;
+  }
+
+  // 句子翻译图标样式
+  .sentence-translate-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: rgba(26, 115, 232, 0.9);
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(26, 115, 232, 0.4);
+    transition: all 0.2s ease;
+    animation: iconFadeIn 0.3s ease;
+
+    &:hover {
+      background: rgba(26, 115, 232, 1);
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.6);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .anticon {
+      font-size: 14px;
+    }
+  }
+
+  // 动画
+  @keyframes sentenceHighlight {
+    from {
+      background: rgba(26, 115, 232, 0);
+    }
+    to {
+      background: rgba(26, 115, 232, 0.15);
+    }
+  }
+
+  @keyframes iconFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 

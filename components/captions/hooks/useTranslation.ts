@@ -83,7 +83,8 @@ export const useTranslation = () => {
                 setTranslatedWords(word.replace(".", ''));
                 
                 const translatedText = await translateText(word);
-                success(`${word} → ${translatedText}`);
+                // Show only translation result, not original word
+                success(translatedText);
                 
             } catch (err) {
                 console.error('Unexpected error in handleWordClick:', err);
@@ -114,7 +115,8 @@ export const useTranslation = () => {
             try {
                 console.log(`Selected text: ${selectedText}`);
                 const translatedText = await translateText(selectedText);
-                success(`${selectedText} → ${translatedText}`);
+                // Show only translation result, not original text
+                success(translatedText);
             } catch (err) {
                 console.error('Unexpected error in handleTextSelection:', err);
                 const errorMessage = typeof err === 'string' ? err : 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo, useRef } from "react";
+import React, { useEffect, useState, memo, useRef, useCallback } from "react";
 import type { Transcript } from "../../hooks/useTranscripts";
 import useHighLightWords from "../../hooks/useHighLightWords";
 import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
@@ -82,6 +82,43 @@ const Caption = memo((props: CaptionProps) => {
         handleWordClick(event, data.talkContent);
     };
 
+    // Handle sentence translation from hover - use same message style as word click
+    const handleSentenceTranslation = useCallback(async (sentence: string): Promise<void> => {
+        const messageManager = (await import('../../utils/message-manager')).default;
+        const { getCurrentTranslationProvider } = await import('../../hooks/useTranslationProvider');
+        const { translateByGoogle, translateByMicrosoft, translateByAI } = await import('../../utils/translators');
+        
+        try {
+            disableAutoScroll();
+            
+            // Get translation provider and translate
+            const provider = await getCurrentTranslationProvider();
+            let translatedText: string;
+            
+            switch (provider) {
+                case 'google':
+                    translatedText = await translateByGoogle(sentence);
+                    break;
+                case 'microsoft':
+                    translatedText = await translateByMicrosoft(sentence);
+                    break;
+                case 'ai':
+                default:
+                    translatedText = await translateByAI(sentence);
+                    break;
+            }
+            
+            // Show only the translation result, not the original text
+            messageManager.success(translatedText, 5);
+            
+        } catch (error) {
+            console.error('Sentence translation error:', error);
+            const errorMessage = typeof error === 'string' ? error : 
+                               (error as any)?.message || 'Translation failed';
+            messageManager.error(errorMessage, 5);
+        }
+    }, [disableAutoScroll]);
+
     return (
         <div className={'caption-container'} ref={captionRef}>
             <section>
@@ -99,6 +136,7 @@ const Caption = memo((props: CaptionProps) => {
                             domainKeyWords={domainKeyWords}
                             specificWords={specificWords}
                             isRTL={isRTL}
+                            onTranslateSentence={handleSentenceTranslation}
                         />
                     </div>
                     
