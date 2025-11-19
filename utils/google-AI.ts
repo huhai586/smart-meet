@@ -22,7 +22,18 @@ const googleAITools = {
                 console.log('[googleAITools] Initializing Gemini with API key');
                 const genAI = new GoogleGenerativeAI(activeServiceConfig.apiKey);
                 const modelName = activeServiceConfig.modelName || "gemini-2.0-flash";
-                this.model = genAI.getGenerativeModel({ model: modelName });
+                
+                // 构建请求选项，如果配置了 baseUrl 则使用自定义 URL
+                const requestOptions: any = {};
+                if (activeServiceConfig.baseUrl) {
+                    requestOptions.baseUrl = activeServiceConfig.baseUrl;
+                    console.log('[googleAITools] Using custom Gemini API endpoint:', activeServiceConfig.baseUrl);
+                }
+                
+                this.model = genAI.getGenerativeModel(
+                    { model: modelName },
+                    Object.keys(requestOptions).length > 0 ? requestOptions : undefined
+                );
                 this.aiConversations = {};
                 
                 return true;

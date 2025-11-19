@@ -20,7 +20,8 @@ const initAIService = async () => {
     const initPromises = aisConfig.data.map((serviceConfig) => {
       return aiServiceManager.initService(serviceConfig.aiName, {
         apiKey: serviceConfig.apiKey,
-        modelName: serviceConfig.modelName
+        modelName: serviceConfig.modelName,
+        baseUrl: serviceConfig.baseUrl // 传递 baseUrl 配置
       });
     });
     

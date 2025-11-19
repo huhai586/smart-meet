@@ -63,6 +63,10 @@ export default {
   "currently_default_service": "Currently Default Service",
   "configuration_saved": "Configuration saved successfully",
   "active_service_changed": "Default service changed",
+  "proxy_url_label": "Proxy URL",
+  "optional": "Optional",
+  "proxy_url_placeholder": "e.g., https://your-proxy-domain.com",
+  "proxy_url_hint": "If Google services are unavailable in your region, you can configure a proxy URL to access the Gemini API",
   
   // Google Drive Integration
   "google_drive_integration": "Google Drive",

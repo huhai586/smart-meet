@@ -135,6 +135,13 @@ const AISettings: React.FC = () => {
         }));
     };
 
+    const handleBaseUrlChange = (baseUrl: string) => {
+        setCurrentAI(prev => ({
+            ...prev,
+            baseUrl: baseUrl.trim() || undefined
+        }));
+    };
+
     return (
         <div className="ai-settings">
             <div className="ai-settings__header">
@@ -155,6 +162,7 @@ const AISettings: React.FC = () => {
                     currentAI={currentAI}
                     onApiKeyChange={handleApiKeyChange}
                     onModelNameChange={handleModelNameChange}
+                    onBaseUrlChange={handleBaseUrlChange}
                     onSaveService={handleSaveAi}
                     onSetAsDefault={handleSetAsDefault}
                     t={t}

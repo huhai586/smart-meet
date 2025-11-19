@@ -63,6 +63,10 @@ export default {
   "currently_default_service": "当前默认服务",
   "configuration_saved": "配置已成功保存",
   "active_service_changed": "默认服务已更改",
+  "proxy_url_label": "代理URL",
+  "optional": "可选",
+  "proxy_url_placeholder": "例如: https://your-proxy-domain.com",
+  "proxy_url_hint": "如果Google服务在您的地区不可用，可以配置代理URL来访问Gemini API",
 
   // Google Drive Integration
   "google_drive_integration": "Google云端硬盘",

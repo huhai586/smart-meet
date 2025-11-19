@@ -43,9 +43,10 @@
 // Service Config Panel Styles
 .service-config-panel {
   flex: 1;
-  padding: 30px 40px;
+  padding: 30px 40px 40px 40px; // 增加底部内边距
   overflow-y: auto;
   height: 100%;
+  box-sizing: border-box; // 确保 padding 包含在高度计算中
 
   &__header {
     display: flex;
@@ -82,6 +83,7 @@
 
   &__config-area {
     max-width: 680px;
+    padding-bottom: 20px; // 确保内容区域底部有足够空间
   }
 
   &__default-checkbox {
@@ -109,6 +111,8 @@
     display: flex;
     gap: 15px;
     margin-top: 30px;
+    margin-bottom: 40px; // 确保底部有足够的空间
+    padding-bottom: 20px; // 额外的底部内边距
 
     .config-button,
     .default-service-button {

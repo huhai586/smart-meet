@@ -58,6 +58,10 @@ export default {
   "currently_default_service": "سرویس پیش‌فرض فعلی",
   "configuration_saved": "پیکربندی با موفقیت ذخیره شد",
   "active_service_changed": "سرویس پیش‌فرض تغییر کرد",
+  "proxy_url_label": "آدرس پروکسی",
+  "optional": "اختیاری",
+  "proxy_url_placeholder": "مثال: https://your-proxy-domain.com",
+  "proxy_url_hint": "اگر سرویس‌های Google در منطقه شما در دسترس نیستند، می‌توانید یک آدرس پروکسی برای دسترسی به Gemini API پیکربندی کنید",
   
   // Google Drive Integration
   "google_drive_integration": "Google Drive",

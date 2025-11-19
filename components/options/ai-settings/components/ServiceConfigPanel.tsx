@@ -4,6 +4,7 @@ import { ActiveServiceBadge, ConfigButton, DefaultServiceButton } from '~/compon
 import { getServiceDisplayName, getServiceIcon } from '~/components/options/ai-settings/utils/service-helpers';
 import { ApiKeyConfig } from '~/components/options/ai-settings/components/ApiKeyConfig';
 import { ModelSelector } from '~/components/options/ai-settings/components/ModelSelector';
+import { ProxyUrlConfig } from '~/components/options/ai-settings/components/ProxyUrlConfig';
 import { type AIServiceType } from '~/components/options/ai-settings/utils/constants';
 import { type AIsConfig, type AIServiceConfig } from '~/utils/getAI';
 
@@ -16,6 +17,7 @@ interface ServiceConfigPanelProps {
   currentAI: AIServiceConfig;
   onApiKeyChange: (value: string) => void;
   onModelNameChange: (value: string) => void;
+  onBaseUrlChange: (value: string) => void;
   onSaveService: () => void;
   onSetAsDefault: () => void;
   t: (key: string, params?: Record<string, string | number>) => string;
@@ -27,6 +29,7 @@ export const ServiceConfigPanel: React.FC<ServiceConfigPanelProps> = ({
   currentAI,
   onApiKeyChange,
   onModelNameChange,
+  onBaseUrlChange,
   onSaveService,
   onSetAsDefault,
   t
@@ -78,6 +81,13 @@ export const ServiceConfigPanel: React.FC<ServiceConfigPanelProps> = ({
           apiKey={currentAI.apiKey}
           modelName={currentAI.modelName}
           onModelNameChange={onModelNameChange}
+          t={t}
+        />
+
+        <ProxyUrlConfig
+          service={service}
+          baseUrl={currentAI.baseUrl}
+          onBaseUrlChange={onBaseUrlChange}
           t={t}
         />
 

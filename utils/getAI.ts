@@ -5,6 +5,7 @@ export interface AIServiceConfig {
     apiKey: string;
     modelName: string;
     aiName: AIServiceType;
+    baseUrl?: string; // 自定义API端点URL（用于代理）
 }
 
 export interface AIsConfig {

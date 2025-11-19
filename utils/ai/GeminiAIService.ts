@@ -26,9 +26,18 @@ export class GeminiAIService extends BaseAIService {
       }
 
       const genAI = new GoogleGenerativeAI(this.config.apiKey);
-      this.model = genAI.getGenerativeModel({ 
-        model: this.config.modelName || "gemini-2.0-flash" 
-      });
+      
+      // 构建请求选项，如果配置了 baseUrl 则使用自定义 URL
+      const requestOptions: any = {};
+      if (this.config.baseUrl) {
+        requestOptions.baseUrl = this.config.baseUrl;
+        console.log('Using custom Gemini API endpoint:', this.config.baseUrl);
+      }
+      
+      this.model = genAI.getGenerativeModel(
+        { model: this.config.modelName || "gemini-2.0-flash" },
+        Object.keys(requestOptions).length > 0 ? requestOptions : undefined
+      );
       
       // 初始化AI对话实例
       this.aiConversations = {};

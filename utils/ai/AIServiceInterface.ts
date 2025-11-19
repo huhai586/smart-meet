@@ -31,6 +31,7 @@ export interface IAIService {
 export interface AIServiceConfig {
   apiKey: string;
   modelName?: string;
+  baseUrl?: string; // 自定义API端点URL（用于代理）
   [key: string]: unknown; // 允许其他配置项
 }
 
