@@ -2,8 +2,9 @@ import React, { useEffect, useState, memo, useRef } from "react";
 import type { Transcript } from "../../hooks/useTranscripts";
 import useHighLightWords from "../../hooks/useHighLightWords";
 import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
-import { useCaptionText, useTranslation, useAIInteraction, useLanguageDetection } from "./hooks";
+import { useTranslation, useAIInteraction, useLanguageDetection } from "./hooks";
 import { CaptionHeader, AutoTranslationSection, CaptionTimestamp, AIAnswerSection } from "./components";
+import { CaptionTextRenderer } from "./components/CaptionTextRenderer";
 import { Actions } from "~components/captions/types";
 import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
 
@@ -21,9 +22,6 @@ const Caption = memo((props: CaptionProps) => {
     // Custom hooks
     const [domainKeyWords, specificWords] = useHighLightWords();
     const { autoTranslatedContent, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
-
-    // Text processing
-    const processedContent = useCaptionText(data.talkContent, domainKeyWords, specificWords);
     
     // Translation functionality
     const { handleWordClick, handleTextSelection, handleManualTranslation } = useTranslation();
@@ -71,8 +69,16 @@ const Caption = memo((props: CaptionProps) => {
         handleAskAI(action, data.talkContent);
     };
 
-    // Handle word/text clicks
+    // Handle word/text clicks - only respond to clickable-word elements
     const onWordClick = (event: React.MouseEvent) => {
+        const target = event.target as HTMLElement;
+        
+        // Only process if clicked on or inside a clickable-word element
+        const clickableWord = target.closest('.clickable-word');
+        if (!clickableWord) {
+            return; // Ignore clicks outside clickable-word elements
+        }
+        
         handleWordClick(event, data.talkContent);
     };
 
@@ -87,12 +93,14 @@ const Caption = memo((props: CaptionProps) => {
                         isTranslating={isTranslating}
                     />
                     
-                    <div
-                        className={`caption-text ${isRTL ? 'rtl' : ''}`}
-                        onClick={onWordClick}
-                        onMouseUp={handleTextSelection}
-                        dangerouslySetInnerHTML={{__html: processedContent}}
-                    />
+                    <div onClick={onWordClick} onMouseUp={handleTextSelection}>
+                        <CaptionTextRenderer
+                            content={data.talkContent}
+                            domainKeyWords={domainKeyWords}
+                            specificWords={specificWords}
+                            isRTL={isRTL}
+                        />
+                    </div>
                     
                     <AutoTranslationSection
                         autoTranslatedContent={autoTranslatedContent}
