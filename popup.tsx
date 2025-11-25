@@ -37,6 +37,10 @@ const ContentMonitor = () => {
     chrome.runtime.openOptionsPage()
   }
 
+  const handleHeaderClick = () => {
+    chrome.tabs.create({ url: 'https://meet.google.com' });
+  }
+
   const handleShowCaptions = async () => {
     try {
       // 等待sidepanel成功开启
@@ -71,7 +75,7 @@ const ContentMonitor = () => {
   return (
       <div className="content-monitor popup-container">
           {/* 页面标题 */}
-          <div className="popup-header">
+          <div className="popup-header" onClick={handleHeaderClick} style={{ cursor: 'pointer' }}>
               <div className="header-icon google-meet-logo">
               </div>
               <div className="header-content">
