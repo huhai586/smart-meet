@@ -41,17 +41,19 @@ export class MemoryStorageProvider implements StorageProvider {
 
     private async persistToStorage(): Promise<void> {
         try {
-            const dateKey = this.currentDate.format('YYYY-MM-DD');
-            const records = this.memoryCache.get(dateKey) || [];
-
             if (this.changedRecords.size > 0) {
-                // 只更新发生变化的记录
-                const changedRecords = records.filter(record =>
-                    this.changedRecords.has(record.session)
-                );
+                // 遍历所有缓存的日期，找出所有变更的记录
+                const allChangedRecords: Transcript[] = [];
+                
+                for (const [dateKey, records] of this.memoryCache.entries()) {
+                    const changedInThisDate = records.filter(record =>
+                        this.changedRecords.has(record.session)
+                    );
+                    allChangedRecords.push(...changedInThisDate);
+                }
 
-                if (changedRecords.length > 0) {
-                    await this.indexedDBProvider.addOrUpdateRecords(changedRecords);
+                if (allChangedRecords.length > 0) {
+                    await this.indexedDBProvider.addOrUpdateRecords(allChangedRecords);
                 }
 
                 this.changedRecords.clear(); // 清除变更记录
@@ -62,7 +64,9 @@ export class MemoryStorageProvider implements StorageProvider {
     }
 
     async addOrUpdateRecord(record: Transcript): Promise<void> {
-        const dateKey = this.currentDate.format('YYYY-MM-DD');
+        // 使用记录的实际时间戳，而不是 currentDate
+        const recordDate = dayjs(record.timestamp);
+        const dateKey = recordDate.format('YYYY-MM-DD');
         const dateRecords = this.memoryCache.get(dateKey) || [];
 
         const index = dateRecords.findIndex(r => r.session === record.session);
