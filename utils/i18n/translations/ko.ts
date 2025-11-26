@@ -184,6 +184,13 @@ export default {
   "caption_toggle_enabled": "자막 토글 버튼이 활성화되었습니다",
   "caption_toggle_disabled": "자막 토글 버튼이 비활성화되었습니다",
   
+  // Sticker Note
+  "sticker_note": "스티커 노트",
+  "sticker_note_desc": "빠른 회의 메모를 위한 스티커 노트 활성화",
+  "sticker_enabled": "스티커 노트가 활성화되었습니다",
+  "sticker_disabled": "스티커 노트가 비활성화되었습니다",
+  "add_note": "노트 추가",
+  
   // Guide Animation
   "guide_animation_title": "📱 확장 프로그램 사용법",
   "guide_animation_subtitle": "애니메이션 가이드를 따라 스마트 캡션 경험을 쉽게 시작하세요",

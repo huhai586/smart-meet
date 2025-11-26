@@ -182,5 +182,12 @@ export default {
   "caption_toggle_button": "Кнопка переключения субтитров",
   "caption_toggle_button_desc": "Показать плавающую кнопку на страницах Google Meet для быстрого скрытия/показа субтитров",
   "caption_toggle_enabled": "Кнопка переключения субтитров включена",
-  "caption_toggle_disabled": "Кнопка переключения субтитров отключена"
+  "caption_toggle_disabled": "Кнопка переключения субтитров отключена",
+  
+  // Sticker Note
+  "sticker_note": "Стикер-заметка",
+  "sticker_note_desc": "Включить стикеры для быстрых заметок на встречах",
+  "sticker_enabled": "Стикер-заметка включена",
+  "sticker_disabled": "Стикер-заметка отключена",
+  "add_note": "Добавить заметку",
 }; 

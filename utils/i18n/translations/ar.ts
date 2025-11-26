@@ -162,5 +162,12 @@ export default {
   "caption_toggle_button": "زر تبديل التعليقات",
   "caption_toggle_button_desc": "عرض زر عائم في صفحات Google Meet لإخفاء/إظهار التعليقات بسرعة",
   "caption_toggle_enabled": "تم تفعيل زر تبديل التعليقات",
-  "caption_toggle_disabled": "تم إلغاء تفعيل زر تبديل التعليقات"
+  "caption_toggle_disabled": "تم إلغاء تفعيل زر تبديل التعليقات",
+  
+  // Sticker Note
+  "sticker_note": "ملاحظة لاصقة",
+  "sticker_note_desc": "تفعيل الملاحظات اللاصقة لتدوين ملاحظات الاجتماع السريعة",
+  "sticker_enabled": "تم تفعيل الملاحظة اللاصقة",
+  "sticker_disabled": "تم إلغاء تفعيل الملاحظة اللاصقة",
+  "add_note": "إضافة ملاحظة",
 }; 

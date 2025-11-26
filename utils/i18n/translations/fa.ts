@@ -202,6 +202,13 @@ export default {
   "caption_toggle_enabled": "دکمه تغییر وضعیت زیرنویس فعال شد",
   "caption_toggle_disabled": "دکمه تغییر وضعیت زیرنویس غیرفعال شد",
   
+  // Sticker Note
+  "sticker_note": "یادداشت چسبان",
+  "sticker_note_desc": "فعال‌سازی یادداشت‌های چسبان برای یادداشت‌برداری سریع جلسه",
+  "sticker_enabled": "یادداشت چسبان فعال شد",
+  "sticker_disabled": "یادداشت چسبان غیرفعال شد",
+  "add_note": "افزودن یادداشت",
+  
   // Translation Errors
   "translation_service_not_configured": "سرویس ترجمه پیکربندی نشده است. لطفاً تنظیمات API خود را بررسی کنید.",
   "translation_network_error": "خطای شبکه. لطفاً اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.",

@@ -162,5 +162,12 @@ export default {
   "caption_toggle_button": "ปุ่มสลับคำบรรยาย",
   "caption_toggle_button_desc": "แสดงปุ่มลอยในหน้า Google Meet เพื่อซ่อน/แสดงคำบรรยายอย่างรวดเร็ว",
   "caption_toggle_enabled": "เปิดใช้งานปุ่มสลับคำบรรยายแล้ว",
-  "caption_toggle_disabled": "ปิดใช้งานปุ่มสลับคำบรรยายแล้ว"
+  "caption_toggle_disabled": "ปิดใช้งานปุ่มสลับคำบรรยายแล้ว",
+  
+  // Sticker Note
+  "sticker_note": "โน้ตสติกเกอร์",
+  "sticker_note_desc": "เปิดใช้งานโน้ตสติกเกอร์สำหรับจดบันทึกการประชุมอย่างรวดเร็ว",
+  "sticker_enabled": "เปิดใช้งานโน้ตสติกเกอร์แล้ว",
+  "sticker_disabled": "ปิดใช้งานโน้ตสติกเกอร์แล้ว",
+  "add_note": "เพิ่มโน้ต",
 }; 

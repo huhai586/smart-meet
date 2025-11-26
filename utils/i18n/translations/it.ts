@@ -197,5 +197,12 @@ export default {
   "caption_toggle_button": "Pulsante di commutazione sottotitoli",
   "caption_toggle_button_desc": "Mostra un pulsante flottante sulle pagine di Google Meet per nascondere/mostrare rapidamente i sottotitoli",
   "caption_toggle_enabled": "Pulsante di commutazione sottotitoli abilitato",
-  "caption_toggle_disabled": "Pulsante di commutazione sottotitoli disabilitato"
+  "caption_toggle_disabled": "Pulsante di commutazione sottotitoli disabilitato",
+  
+  // Sticker Note
+  "sticker_note": "Nota Adesiva",
+  "sticker_note_desc": "Abilita note adesive per prendere appunti rapidi della riunione",
+  "sticker_enabled": "Nota adesiva abilitata",
+  "sticker_disabled": "Nota adesiva disabilitata",
+  "add_note": "Aggiungi Nota",
 }; 

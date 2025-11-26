@@ -164,6 +164,13 @@ export default {
   "caption_toggle_enabled": "Đã bật nút chuyển đổi phụ đề",
   "caption_toggle_disabled": "Đã tắt nút chuyển đổi phụ đề",
   
+  // Sticker Note
+  "sticker_note": "Ghi Chú Dán",
+  "sticker_note_desc": "Bật ghi chú dán để ghi chú cuộc họp nhanh chóng",
+  "sticker_enabled": "Đã bật ghi chú dán",
+  "sticker_disabled": "Đã tắt ghi chú dán",
+  "add_note": "Thêm Ghi Chú",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "Đây là nội dung cuộc họp trước đó: ",
   "ai_meeting_assistant_ready": "Tôi đã hiểu nội dung cuộc họp. Tôi có thể giúp gì cho bạn?",

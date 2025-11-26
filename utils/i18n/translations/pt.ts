@@ -184,6 +184,13 @@ export default {
   "caption_toggle_enabled": "Botão de alternância de legendas ativado",
   "caption_toggle_disabled": "Botão de alternância de legendas desativado",
   
+  // Sticker Note
+  "sticker_note": "Nota Adesiva",
+  "sticker_note_desc": "Ativar notas adesivas para fazer anotações rápidas da reunião",
+  "sticker_enabled": "Nota adesiva ativada",
+  "sticker_disabled": "Nota adesiva desativada",
+  "add_note": "Adicionar Nota",
+  
   // Guide Animation
   "guide_animation_title": "📱 Como Usar a Extensão",
   "guide_animation_subtitle": "Siga o guia de animação para começar facilmente sua experiência de legendas inteligentes",

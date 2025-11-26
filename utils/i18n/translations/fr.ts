@@ -143,6 +143,13 @@ export default {
   "caption_toggle_enabled": "Bouton de basculement des sous-titres activé",
   "caption_toggle_disabled": "Bouton de basculement des sous-titres désactivé",
   
+  // Sticker Note
+  "sticker_note": "Note Autocollante",
+  "sticker_note_desc": "Activer les notes autocollantes pour prendre des notes de réunion rapides",
+  "sticker_enabled": "Note autocollante activée",
+  "sticker_disabled": "Note autocollante désactivée",
+  "add_note": "Ajouter une Note",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "Voici le contenu de la réunion précédente : ",
   "ai_meeting_assistant_ready": "J'ai compris le contenu de la réunion. Comment puis-je vous aider ?",

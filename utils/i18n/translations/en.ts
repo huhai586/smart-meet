@@ -264,6 +264,13 @@ export default {
   "caption_toggle_enabled": "Caption toggle button enabled",
   "caption_toggle_disabled": "Caption toggle button disabled",
   
+  // Sticker Note
+  "sticker_note": "Sticker Note",
+  "sticker_note_desc": "Enable sticky notes for taking quick meeting notes",
+  "sticker_enabled": "Sticker note enabled",
+  "sticker_disabled": "Sticker note disabled",
+  "add_note": "Add Note",
+  
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",
   "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",

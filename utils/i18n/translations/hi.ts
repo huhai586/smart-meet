@@ -161,5 +161,12 @@ export default {
   "caption_toggle_button": "कैप्शन टॉगल बटन",
   "caption_toggle_button_desc": "Google Meet पेजों पर एक फ्लोटिंग बटन दिखाएं जो कैप्शन को जल्दी छुपाने/दिखाने के लिए है",
   "caption_toggle_enabled": "कैप्शन टॉगल बटन सक्षम किया गया",
-  "caption_toggle_disabled": "कैप्शन टॉगल बटन अक्षम किया गया"
+  "caption_toggle_disabled": "कैप्शन टॉगल बटन अक्षम किया गया",
+  
+  // Sticker Note
+  "sticker_note": "स्टिकर नोट",
+  "sticker_note_desc": "त्वरित मीटिंग नोट्स लेने के लिए स्टिकी नोट्स सक्षम करें",
+  "sticker_enabled": "स्टिकर नोट सक्षम किया गया",
+  "sticker_disabled": "स्टिकर नोट अक्षम किया गया",
+  "add_note": "नोट जोड़ें",
 }; 

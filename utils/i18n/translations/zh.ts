@@ -263,6 +263,13 @@ export default {
   "caption_toggle_button_desc": "在Google Meet页面显示一个浮动按钮，可以快速隐藏/显示字幕",
   "caption_toggle_enabled": "字幕切换按钮已启用",
   "caption_toggle_disabled": "字幕切换按钮已禁用",
+  
+  // 便签功能
+  "sticker_note": "便签笔记",
+  "sticker_note_desc": "启用便签功能，方便快速记录会议笔记",
+  "sticker_enabled": "便签功能已启用",
+  "sticker_disabled": "便签功能已禁用",
+  "add_note": "添加笔记",
 
   // AI Service Messages
   "ai_meeting_content_intro": "这是之前的会议内容: ",

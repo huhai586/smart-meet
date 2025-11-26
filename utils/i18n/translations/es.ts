@@ -198,5 +198,12 @@ export default {
   "caption_toggle_button": "Botón de alternar subtítulos",
   "caption_toggle_button_desc": "Mostrar un botón flotante en las páginas de Google Meet para ocultar/mostrar subtítulos rápidamente",
   "caption_toggle_enabled": "Botón de alternar subtítulos habilitado",
-  "caption_toggle_disabled": "Botón de alternar subtítulos deshabilitado"
+  "caption_toggle_disabled": "Botón de alternar subtítulos deshabilitado",
+  
+  // Sticker Note
+  "sticker_note": "Nota Adhesiva",
+  "sticker_note_desc": "Habilitar notas adhesivas para tomar notas rápidas de la reunión",
+  "sticker_enabled": "Nota adhesiva habilitada",
+  "sticker_disabled": "Nota adhesiva deshabilitada",
+  "add_note": "Agregar Nota",
 }; 

@@ -198,5 +198,12 @@ export default {
   "caption_toggle_button": "Untertitel-Umschaltknopf",
   "caption_toggle_button_desc": "Zeigt einen schwebenden Button auf Google Meet-Seiten an, um Untertitel schnell ein-/auszublenden",
   "caption_toggle_enabled": "Untertitel-Umschaltknopf aktiviert",
-  "caption_toggle_disabled": "Untertitel-Umschaltknopf deaktiviert"
+  "caption_toggle_disabled": "Untertitel-Umschaltknopf deaktiviert",
+  
+  // Sticker Note
+  "sticker_note": "Haftnotiz",
+  "sticker_note_desc": "Haftnotizen aktivieren, um schnelle Besprechungsnotizen zu machen",
+  "sticker_enabled": "Haftnotiz aktiviert",
+  "sticker_disabled": "Haftnotiz deaktiviert",
+  "add_note": "Notiz hinzufügen",
 }; 

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Tooltip } from "antd";
-import { MessageOutlined, MessageFilled } from "@ant-design/icons";
+import { Button, Space } from "antd";
+import { MessageOutlined, MessageFilled, MoreOutlined, PushpinOutlined } from "@ant-design/icons";
 import type { PlasmoCSConfig } from "plasmo";
 import { getCaptionsContainer } from "~node_modules/google-meeting-captions-resolver";
 import { t } from "~utils/i18n";
 import "./translate-tips.scss";
+import StickerNote from "~components/StickerNote";
 
 export const getRootContainer = () => {
     const tempDiv = document.createElement('div')
@@ -18,7 +19,14 @@ export const getRootContainer = () => {
 const PlasmoInline = () => {
     const [isHidden, setIsHidden] = useState(false);
     const [shouldRender, setShouldRender] = useState(false);
-    const [isFeatureEnabled, setIsFeatureEnabled] = useState(false);
+    const [captionToggleEnabled, setCaptionToggleEnabled] = useState(false);
+    const [stickerEnabled, setStickerEnabled] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [showSticker, setShowSticker] = useState(false);
+
+    useEffect(() => {
+        console.log('showSticker state changed:', showSticker);
+    }, [showSticker]);
 
     // 检查是否在实际的会议页面
     const checkIfInMeeting = () => {
@@ -46,14 +54,18 @@ const PlasmoInline = () => {
 
     useEffect(() => {
         // 检查功能是否启用
-        chrome.storage.local.get(['captionToggleEnabled'], (result) => {
-            setIsFeatureEnabled(result.captionToggleEnabled || false);
+        chrome.storage.local.get(['captionToggleEnabled', 'stickerEnabled'], (result) => {
+            setCaptionToggleEnabled(result.captionToggleEnabled || false);
+            setStickerEnabled(result.stickerEnabled || false);
         });
 
         // 监听存储变化
         const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
             if (changes.captionToggleEnabled) {
-                setIsFeatureEnabled(changes.captionToggleEnabled.newValue || false);
+                setCaptionToggleEnabled(changes.captionToggleEnabled.newValue || false);
+            }
+            if (changes.stickerEnabled) {
+                setStickerEnabled(changes.stickerEnabled.newValue || false);
             }
         };
 
@@ -115,25 +127,55 @@ const PlasmoInline = () => {
         }
     };
 
-    // 如果功能未启用或不应该渲染，返回空
-    if (!isFeatureEnabled || !shouldRender) {
+    // 如果不在会议页面，返回空
+    if (!shouldRender) {
+        return null;
+    }
+
+    // 如果两个功能都未启用，返回空
+    if (!captionToggleEnabled && !stickerEnabled) {
         return null;
     }
 
     return (
-        <div>
-            <Tooltip
-                title={isHidden ? t('show_captions') : t('hide_captions')}
-                placement="left"
+        <>
+            <div 
+                className="caption-button-group-container"
+                onMouseEnter={() => setIsExpanded(true)}
+                onMouseLeave={() => setIsExpanded(false)}
             >
-                <button
-                    onClick={toggleCaptionsVisibility}
-                    className={`caption-toggle-button ${isHidden ? 'hidden' : 'visible'}`}
-                >
-                    {isHidden ? <MessageOutlined /> : <MessageFilled />}
-                </button>
-            </Tooltip>
-        </div>
+                <Space.Compact className={`caption-button-group ${isExpanded ? 'expanded' : 'collapsed'}`}>
+                    {isExpanded && (
+                        <>
+                            {stickerEnabled && (
+                                <Button
+                                    type="primary"
+                                    icon={<PushpinOutlined />}
+                                    onClick={() => setShowSticker(!showSticker)}
+                                    className="caption-sticker-button"
+                                    title={t('add_note') || 'Add Note'}
+                                />
+                            )}
+                            {captionToggleEnabled && (
+                                <Button
+                                    type="primary"
+                                    icon={isHidden ? <MessageOutlined /> : <MessageFilled />}
+                                    onClick={toggleCaptionsVisibility}
+                                    className={`caption-action-button ${isHidden ? 'hidden' : 'visible'}`}
+                                    title={isHidden ? t('show_captions') : t('hide_captions')}
+                                />
+                            )}
+                        </>
+                    )}
+                    <Button
+                        type="primary"
+                        icon={<MoreOutlined />}
+                        className="caption-menu-button"
+                    />
+                </Space.Compact>
+            </div>
+            {showSticker && <StickerNote onClose={() => setShowSticker(false)} />}
+        </>
     )
 }
 
