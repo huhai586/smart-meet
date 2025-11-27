@@ -170,4 +170,8 @@ export default {
   "sticker_enabled": "เปิดใช้งานโน้ตสติกเกอร์แล้ว",
   "sticker_disabled": "ปิดใช้งานโน้ตสติกเกอร์แล้ว",
   "add_note": "เพิ่มโน้ต",
+  
+  // การตั้งค่าการซิงค์อัตโนมัติ
+  "auto_sync_on_meeting_end": "ซิงค์อัตโนมัติเมื่อสิ้นสุดการประชุม",
+  "auto_sync_on_meeting_end_desc": "สำรองข้อมูลอัตโนมัติเมื่อออกจากการโทร Google Meet"
 }; 

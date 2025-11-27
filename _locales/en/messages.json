@@ -6,5 +6,65 @@
   "extension_description": {
     "message": "Professional Google Meet caption tool with real-time translation, AI summary, and Google Drive sync. Boost meeting efficiency!",
     "description": "Description of the extension"
+  },
+  "sync_notification_no_data_title": {
+    "message": "No Sync Needed",
+    "description": "Notification title when there's no data to sync"
+  },
+  "sync_notification_no_data_description": {
+    "message": "No meeting records to sync today",
+    "description": "Notification description when there's no data to sync"
+  },
+  "sync_notification_success_title": {
+    "message": "Meeting Records Synced",
+    "description": "Notification title when sync is successful"
+  },
+  "sync_notification_success_description": {
+    "message": "Successfully synced $COUNT$ meeting records to Google Drive",
+    "description": "Notification description when sync is successful",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sync_notification_failed_title": {
+    "message": "Sync Failed",
+    "description": "Notification title when sync fails"
+  },
+  "sync_notification_failed_description": {
+    "message": "Unable to sync meeting records to Google Drive. This may be due to network issues or lack of authorization. Please try manual sync later",
+    "description": "Notification description when sync fails"
+  },
+  "sync_notification_error_title": {
+    "message": "Sync Error",
+    "description": "Notification title when sync encounters an error"
+  },
+  "sync_notification_error_description": {
+    "message": "An error occurred during sync: $ERROR$",
+    "description": "Notification description when sync encounters an error",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "Network timeout"
+      }
+    }
+  },
+  "sync_notification_get_data_failed_title": {
+    "message": "Sync Failed",
+    "description": "Notification title when getting data fails"
+  },
+  "sync_notification_get_data_failed_description": {
+    "message": "Unable to retrieve meeting record data. Please try manual sync later",
+    "description": "Notification description when getting data fails"
+  },
+  "auto_sync_on_meeting_end": {
+    "message": "Auto-sync on meeting end",
+    "description": "Label for auto-sync on meeting end setting"
+  },
+  "auto_sync_on_meeting_end_desc": {
+    "message": "Automatically backup when you leave a Google Meet call",
+    "description": "Description for auto-sync on meeting end setting"
   }
 }

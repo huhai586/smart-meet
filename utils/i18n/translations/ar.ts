@@ -170,4 +170,8 @@ export default {
   "sticker_enabled": "تم تفعيل الملاحظة اللاصقة",
   "sticker_disabled": "تم إلغاء تفعيل الملاحظة اللاصقة",
   "add_note": "إضافة ملاحظة",
+  
+  // إعدادات المزامنة التلقائية
+  "auto_sync_on_meeting_end": "المزامنة التلقائية عند انتهاء الاجتماع",
+  "auto_sync_on_meeting_end_desc": "النسخ الاحتياطي تلقائيًا عند مغادرة مكالمة Google Meet"
 }; 

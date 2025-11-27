@@ -190,5 +190,9 @@ export default {
   "guide_step_5_title": "5. Tận Hưởng Các Tính Năng Thông Minh",
   "guide_step_5_desc": "Bây giờ bạn có thể sử dụng dịch thuật, tóm tắt, xuất và tất cả các tính năng khác!",
   "guide_start_demo": "Bắt Đầu Demo",
-  "guide_restart": "Khởi Động Lại"
+  "guide_restart": "Khởi Động Lại",
+  
+  // Cài đặt đồng bộ tự động
+  "auto_sync_on_meeting_end": "Tự động đồng bộ khi kết thúc cuộc họp",
+  "auto_sync_on_meeting_end_desc": "Tự động sao lưu khi bạn rời khỏi cuộc gọi Google Meet"
 }; 

@@ -206,4 +206,8 @@ export default {
   "sticker_enabled": "Haftnotiz aktiviert",
   "sticker_disabled": "Haftnotiz deaktiviert",
   "add_note": "Notiz hinzufügen",
+  
+  // Automatische Synchronisierungseinstellungen
+  "auto_sync_on_meeting_end": "Automatische Synchronisierung am Ende des Meetings",
+  "auto_sync_on_meeting_end_desc": "Automatisch sichern, wenn Sie einen Google Meet-Anruf verlassen"
 }; 

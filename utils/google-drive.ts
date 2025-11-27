@@ -36,7 +36,7 @@ export class GoogleDriveService implements IGoogleDriveService {
 
         if (!chrome?.identity) {
             console.error('Chrome identity API not available');
-            message.error('Chrome identity API not available');
+            // 不在 background 中使用 message.error
             return false;
         }
 
@@ -51,7 +51,7 @@ export class GoogleDriveService implements IGoogleDriveService {
             return false;
         } catch (error) {
             console.error('Authentication error:', error);
-            message.error('Failed to authenticate with Google Drive');
+            // 不在 background 中使用 message.error
             return false;
         }
     }
@@ -59,7 +59,7 @@ export class GoogleDriveService implements IGoogleDriveService {
     private async getAuthToken(interactive: boolean = true): Promise<string | null> {
         console.log('GoogleDriveService.getAuthToken called, interactive:', interactive);
 
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
             // 指定所需的权限范围，移除不必要的drive.readonly
             const scopes = [
                 'https://www.googleapis.com/auth/drive.file',
@@ -75,11 +75,22 @@ export class GoogleDriveService implements IGoogleDriveService {
             }, (token) => {
                 if (chrome.runtime.lastError) {
                     console.error('Chrome runtime error:', chrome.runtime.lastError);
-                    message.error(`Authentication error: ${chrome.runtime.lastError.message || 'Unknown error'}`);
-                    resolve(null);
+                    const errorMessage = chrome.runtime.lastError.message || 'Unknown error';
+                    
+                    // 在 background 中不能使用 message.error，只记录日志
+                    console.error(`Authentication error: ${errorMessage}`);
+                    
+                    // 如果是非交互式且用户未授权，resolve null 而不是 reject
+                    // 这样可以让调用者决定如何处理
+                    if (!interactive) {
+                        resolve(null);
+                    } else {
+                        // 交互式失败时，reject 以便上层捕获
+                        reject(new Error(`Authentication failed: ${errorMessage}`));
+                    }
                 } else {
                     console.log('Auth token obtained successfully');
-                    resolve(token);
+                    resolve(token || null);
                 }
             });
         });
@@ -90,10 +101,9 @@ export class GoogleDriveService implements IGoogleDriveService {
 
         if (!this.accessToken) {
             console.log('No access token, attempting to authenticate...');
-            const authenticated = await this.authenticate();
+            const authenticated = await this.authenticate(false); // 非交互式
             if (!authenticated) {
                 console.error('Authentication failed, cannot get backup folder');
-                message.error('Authentication required to access Google Drive');
                 throw new Error('Not authenticated');
             }
             console.log('Authentication successful');
@@ -128,7 +138,7 @@ export class GoogleDriveService implements IGoogleDriveService {
             return await this.createBackupFolder();
         } catch (error) {
             console.error('Error getting backup folder:', error);
-            message.error('Failed to get backup folder from Google Drive');
+            // 不在 background 中使用 message.error
             throw error;
         }
     }
@@ -158,7 +168,7 @@ export class GoogleDriveService implements IGoogleDriveService {
             return folder;
         } catch (error) {
             console.error('Error creating backup folder:', error);
-            message.error('Failed to create backup folder in Google Drive');
+            // 不在 background 中使用 message.error
             throw error;
         }
     }
@@ -229,7 +239,7 @@ export class GoogleDriveService implements IGoogleDriveService {
 
     async uploadFile(file: File, existingFileId?: string): Promise<boolean> {
         if (!this.accessToken) {
-            const authenticated = await this.authenticate();
+            const authenticated = await this.authenticate(false); // 非交互式
             if (!authenticated) {
                 throw new Error('Not authenticated');
             }
@@ -287,7 +297,7 @@ export class GoogleDriveService implements IGoogleDriveService {
             return true;
         } catch (error) {
             console.error('Error uploading file:', error);
-            message.error('Failed to upload file to Google Drive');
+            // 不在 background 中使用 message.error
             return false;
         }
     }

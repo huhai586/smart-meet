@@ -229,5 +229,9 @@ export default {
   "clear_all_data": "پاک کردن تمام داده ها",
   "confirm_clear_captions": "تأیید پاک کردن زیرنویس ها",
   "yes_clear_data": "بله، داده‌ها را پاک کن",
-  "data_cleared_success": "داده‌ها با موفقیت پاک شدند"
+  "data_cleared_success": "داده‌ها با موفقیت پاک شدند",
+  
+  // تنظیمات همگام‌سازی خودکار
+  "auto_sync_on_meeting_end": "همگام‌سازی خودکار در پایان جلسه",
+  "auto_sync_on_meeting_end_desc": "پشتیبان‌گیری خودکار هنگام خروج از تماس Google Meet"
 }; 

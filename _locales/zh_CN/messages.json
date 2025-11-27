@@ -6,5 +6,65 @@
   "extension_description": {
     "message": "专业的Google Meet字幕工具，支持实时翻译、AI总结和Google Drive同步。提升会议效率！",
     "description": "Description of the extension"
+  },
+  "sync_notification_no_data_title": {
+    "message": "无需同步",
+    "description": "Notification title when there's no data to sync"
+  },
+  "sync_notification_no_data_description": {
+    "message": "当天没有会议记录需要同步",
+    "description": "Notification description when there's no data to sync"
+  },
+  "sync_notification_success_title": {
+    "message": "会议记录已同步",
+    "description": "Notification title when sync is successful"
+  },
+  "sync_notification_success_description": {
+    "message": "已成功同步 $COUNT$ 条会议记录到 Google Drive",
+    "description": "Notification description when sync is successful",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "sync_notification_failed_title": {
+    "message": "同步失败",
+    "description": "Notification title when sync fails"
+  },
+  "sync_notification_failed_description": {
+    "message": "无法同步会议记录到 Google Drive，可能是网络问题或未授权，请稍后手动同步",
+    "description": "Notification description when sync fails"
+  },
+  "sync_notification_error_title": {
+    "message": "同步出错",
+    "description": "Notification title when sync encounters an error"
+  },
+  "sync_notification_error_description": {
+    "message": "同步过程中发生错误: $ERROR$",
+    "description": "Notification description when sync encounters an error",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "网络超时"
+      }
+    }
+  },
+  "sync_notification_get_data_failed_title": {
+    "message": "同步失败",
+    "description": "Notification title when getting data fails"
+  },
+  "sync_notification_get_data_failed_description": {
+    "message": "无法获取会议记录数据，请稍后手动同步",
+    "description": "Notification description when getting data fails"
+  },
+  "auto_sync_on_meeting_end": {
+    "message": "会议结束后自动同步",
+    "description": "Label for auto-sync on meeting end setting"
+  },
+  "auto_sync_on_meeting_end_desc": {
+    "message": "当您退出 Google Meet 通话时自动备份",
+    "description": "Description for auto-sync on meeting end setting"
   }
 }

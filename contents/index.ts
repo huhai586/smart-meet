@@ -16,6 +16,54 @@ const addOrUpdateRecords = (incomingData: Captions) => {
     });
 };
 
+/**
+ * 监听退出通话按钮点击
+ * 使用事件委托，简单高效
+ */
+const setupLeaveCallListener = () => {
+    console.log('设置退出通话按钮监听器');
+    
+    // 使用事件委托监听所有点击事件
+    document.addEventListener('click', (event) => {
+        const target = event.target as Element;
+        
+        // 使用 closest 查找最近的按钮元素
+        const button = target.closest('button');
+        
+        if (button) {
+            const ariaLabel = button.getAttribute('aria-label') || '';
+            
+            // 通过 aria-label 判断是否是退出通话按钮（支持多语言）
+            const leaveCallKeywords = [
+                'Leave call', 'leave call',
+                'End call', 'end call',
+                '退出通话', '结束通话', '离开'
+            ];
+            
+            const isLeaveCallButton = leaveCallKeywords.some(keyword => ariaLabel.includes(keyword));
+            
+            if (isLeaveCallButton) {
+                console.log('检测到退出通话按钮被点击');
+                
+                // 延迟一小段时间再同步，确保最后的记录已保存
+                setTimeout(() => {
+                    chrome.runtime.sendMessage({
+                        action: 'sync-on-leave-call'
+                    }, (response) => {
+                        if (chrome.runtime.lastError) {
+                            console.error('发送同步请求失败:', chrome.runtime.lastError);
+                        } else {
+                            console.log('同步请求已发送', response);
+                        }
+                    });
+                }, 1000); // 延迟1秒
+            }
+        }
+    }, true); // 使用捕获阶段，确保能捕获到事件
+    
+    console.log('退出通话按钮监听器已设置（使用事件委托）');
+};
+
 const start = () => {
     getIsExtensionDisabled().then((disabled: boolean) => {
         isExtensionEnabled = !disabled;
@@ -23,7 +71,10 @@ const start = () => {
             getCaptions(undefined, (v) => {
                 console.log('captions', v);
                 addOrUpdateRecords(v)
-            })
+            });
+            
+            // 设置退出通话监听器
+            setupLeaveCallListener();
         }
     });
 }

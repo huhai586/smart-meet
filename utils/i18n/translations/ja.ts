@@ -222,5 +222,9 @@ export default {
   "welcome_feature_multilang_support_desc": "日本語、英語など複数言語のキャプション認識をサポートします",
   "welcome_get_started": "開始する",
   "welcome_open_settings": "設定を開く",
-  "welcome_tip": "💡 ヒント：拡張機能アイコン → オプションからいつでもこのページを再表示できます"
+  "welcome_tip": "💡 ヒント：拡張機能アイコン → オプションからいつでもこのページを再表示できます",
+  
+  // 自動同期設定
+  "auto_sync_on_meeting_end": "会議終了時に自動同期",
+  "auto_sync_on_meeting_end_desc": "Google Meet通話を終了すると自動的にバックアップします"
 }; 

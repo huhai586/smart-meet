@@ -307,5 +307,9 @@ export default {
   "welcome_feature_multilang_support_desc": "Support caption recognition in multiple languages including Chinese, English, etc.",
   "welcome_get_started": "Get Started",
   "welcome_open_settings": "Open Settings",
-  "welcome_tip": "💡 Tip: You can always revisit this page through the extension icon → Options"
+  "welcome_tip": "💡 Tip: You can always revisit this page through the extension icon → Options",
+  
+  // Auto Sync Settings
+  "auto_sync_on_meeting_end": "Auto-sync on meeting end",
+  "auto_sync_on_meeting_end_desc": "Automatically backup when you leave a Google Meet call"
 }; 

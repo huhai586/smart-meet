@@ -169,4 +169,8 @@ export default {
   "sticker_enabled": "स्टिकर नोट सक्षम किया गया",
   "sticker_disabled": "स्टिकर नोट अक्षम किया गया",
   "add_note": "नोट जोड़ें",
+  
+  // स्वचालित सिंक सेटिंग्स
+  "auto_sync_on_meeting_end": "मीटिंग समाप्त होने पर स्वचालित सिंक",
+  "auto_sync_on_meeting_end_desc": "Google Meet कॉल छोड़ने पर स्वचालित रूप से बैकअप लें"
 }; 

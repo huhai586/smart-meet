@@ -206,4 +206,8 @@ export default {
   "sticker_enabled": "Nota adhesiva habilitada",
   "sticker_disabled": "Nota adhesiva deshabilitada",
   "add_note": "Agregar Nota",
+  
+  // Configuración de sincronización automática
+  "auto_sync_on_meeting_end": "Sincronización automática al finalizar la reunión",
+  "auto_sync_on_meeting_end_desc": "Realizar copia de seguridad automáticamente al salir de una llamada de Google Meet"
 }; 

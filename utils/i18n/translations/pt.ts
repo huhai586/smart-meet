@@ -205,5 +205,9 @@ export default {
   "guide_step_5_title": "5. Aproveite os Recursos Inteligentes",
   "guide_step_5_desc": "Agora você pode usar tradução, resumo, exportação e todos os outros recursos!",
   "guide_start_demo": "Iniciar Demo",
-  "guide_restart": "Reiniciar"
+  "guide_restart": "Reiniciar",
+  
+  // Configurações de sincronização automática
+  "auto_sync_on_meeting_end": "Sincronização automática no final da reunião",
+  "auto_sync_on_meeting_end_desc": "Fazer backup automaticamente ao sair de uma chamada do Google Meet"
 }; 

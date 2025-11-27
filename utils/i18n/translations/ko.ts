@@ -222,5 +222,9 @@ export default {
   "welcome_feature_multilang_support_desc": "한국어, 영어 등 여러 언어의 캡션 인식을 지원합니다",
   "welcome_get_started": "시작하기",
   "welcome_open_settings": "설정 열기",
-  "welcome_tip": "💡 팁: 확장 프로그램 아이콘 → 옵션을 통해 언제든지 이 페이지를 다시 볼 수 있습니다"
+  "welcome_tip": "💡 팁: 확장 프로그램 아이콘 → 옵션을 통해 언제든지 이 페이지를 다시 볼 수 있습니다",
+  
+  // 자동 동기화 설정
+  "auto_sync_on_meeting_end": "회의 종료 시 자동 동기화",
+  "auto_sync_on_meeting_end_desc": "Google Meet 통화를 종료하면 자동으로 백업합니다"
 }; 

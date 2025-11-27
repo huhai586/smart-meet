@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Table, Button, Popconfirm, Typography, Empty, Spin, theme, Tooltip, Input, Space, Select } from 'antd';
-import { CloudDownloadOutlined, DeleteOutlined, SearchOutlined, FilterOutlined, DownloadOutlined } from '@ant-design/icons';
+import { CloudDownloadOutlined, DeleteOutlined, SearchOutlined, FilterOutlined, DownloadOutlined, EyeOutlined } from '@ant-design/icons';
 import type { DriveFile } from './types';
 import { ActionButton } from './StyledComponents';
 import type { TableProps } from 'antd/es/table';
 import type { SorterResult } from 'antd/es/table/interface';
 import dayjs from 'dayjs';
+import ChatRecordsModal from './ChatRecordsModal';
 
 const { Text } = Typography;
 const { useToken } = theme;
@@ -30,6 +31,13 @@ const FileList: React.FC<FileListProps> = ({
   onDelete,
   onDownload
 }) => {
+  const [chatRecordsModalVisible, setChatRecordsModalVisible] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<DriveFile | null>(null);
+
+  const handleViewRecords = (file: DriveFile) => {
+    setSelectedFile(file);
+    setChatRecordsModalVisible(true);
+  };
   const { token } = useToken();
   const [searchText, setSearchText] = useState('');
   const [sortedInfo, setSortedInfo] = useState<SorterResult<DriveFile>>({});
@@ -110,6 +118,18 @@ const FileList: React.FC<FileListProps> = ({
       key: 'actions',
       render: (_, record: DriveFile) => (
         <Space size="small">
+          <Tooltip title="View chat records">
+            <Button
+              type="default"
+              icon={<EyeOutlined />}
+              onClick={() => handleViewRecords(record)}
+              size="small"
+              style={{
+                borderColor: token.colorInfo,
+                color: token.colorInfo
+              }}
+            />
+          </Tooltip>
           <Tooltip title="Restore this backup">
             <ActionButton
               type="primary"
@@ -216,6 +236,18 @@ const FileList: React.FC<FileListProps> = ({
           />
         )}
       </Space>
+
+      {/* Chat Records Modal */}
+      {selectedFile && (
+        <ChatRecordsModal
+          visible={chatRecordsModalVisible}
+          file={selectedFile}
+          onClose={() => {
+            setChatRecordsModalVisible(false);
+            setSelectedFile(null);
+          }}
+        />
+      )}
     </Spin>
   );
 };

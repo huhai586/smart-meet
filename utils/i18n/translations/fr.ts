@@ -222,5 +222,9 @@ export default {
   "welcome_feature_multilang_support_desc": "Prise en charge de la reconnaissance de sous-titres en plusieurs langues incluant le français, l'anglais, etc.",
   "welcome_get_started": "Commencer",
   "welcome_open_settings": "Ouvrir les Paramètres",
-  "welcome_tip": "💡 Astuce : Vous pouvez toujours revisiter cette page via l'icône d'extension → Options"
+  "welcome_tip": "💡 Astuce : Vous pouvez toujours revisiter cette page via l'icône d'extension → Options",
+  
+  // Paramètres de synchronisation automatique
+  "auto_sync_on_meeting_end": "Synchronisation automatique à la fin de la réunion",
+  "auto_sync_on_meeting_end_desc": "Sauvegarder automatiquement lorsque vous quittez un appel Google Meet"
 }; 

@@ -3,6 +3,7 @@ import { updateBadgeText } from "./set-badge-text";
 import { initMessageHandlers } from "./message-handlers";
 import { initTabTracking } from "./tab-tracking";
 import { detectAndSetBrowserLanguage } from "./utils/language-utils";
+import { initLeaveCallSync } from "./sync-on-leave";
 
 /**
  * 背景页入口文件
@@ -49,6 +50,9 @@ function initBackgroundService() {
     
     // 初始化标签页跟踪
     initTabTracking();
+    
+    // 初始化退出通话同步
+    initLeaveCallSync();
 }
 
 // 执行初始化
