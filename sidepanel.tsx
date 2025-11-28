@@ -4,6 +4,7 @@ import {
     FileDoneOutlined,
     HistoryOutlined, SketchOutlined,
 } from '@ant-design/icons';
+import './utils/dayjs-config'; // Import global dayjs configuration
 import useLoading from './hooks/useLoading';
 import Captions from "./components/captions/captions";
 import Words from "./components/words/words";

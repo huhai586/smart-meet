@@ -2,6 +2,7 @@ import {useState, useEffect} from "react";
 import './styles/options.scss';
 import './styles/sidebar.scss';
 import {message} from "antd";
+import './utils/dayjs-config'; // Import global dayjs configuration
 import GoogleDriveIntegration from '~components/options/GoogleDriveIntegration';
 import Calendar from '~components/options/Calendar';
 import Sidebar from '~components/options/Sidebar';
