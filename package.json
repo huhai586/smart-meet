@@ -1,7 +1,7 @@
 {
   "name": "google-meet-caption-pro",
   "displayName": "Google Meet Caption Pro",
-  "version": "1.6.1",
+  "version": "1.6.3",
   "description": "Google Meet Caption Pro",
   "author": "Howard",
   "scripts": {
@@ -84,7 +84,7 @@
       }
     ],
     "oauth2": {
-      "client_id": "821598308749-7a0d77s50798ifvrhfu9brfp6pckf29f.apps.googleusercontent.com",
+      "client_id": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
       "scopes": [
         "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/userinfo.profile",
