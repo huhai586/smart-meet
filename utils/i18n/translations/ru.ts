@@ -19,6 +19,8 @@ export default {
   "analysis": "Анализ",
   "ask": "Спросить",
   "summary": "Резюме",
+  "no_messages": "Нет сообщений",
+  "no_messages_on_date": "Нет сообщений {date}",
   
   // Common
   "on": "вкл",
@@ -78,6 +80,19 @@ export default {
   "extension": "Расширение",
   "translation_records": "Записи переводов",
   "download_captions": "Скачать субтитры",
+  "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "Настройки Основного Интерфейса",
+  "sidepanel_settings_desc": "Настройте видимость вкладок и кнопок в основном интерфейсе в соответствии с вашим рабочим процессом.",
+  "sidepanel_visibility_settings": "Настройки Видимости Вкладок",
+  "sidepanel_visibility_desc": "Настройте, какие вкладки видны на боковой панели основного интерфейса.",
+  "captions_tab_desc": "Просмотр и управление субтитрами встречи в реальном времени",
+  "summary_tab_desc": "Создание резюме и аналитики встречи с помощью ИИ",
+  "translation_tab_desc": "Доступ к истории переводов и записям слов",
+  "caption_buttons_visibility_settings": "Кнопки Действий Субтитров",
+  "caption_buttons_visibility_desc": "Управляйте кнопками действий, которые появляются на каждом субтитре для быстрого доступа к функциям ИИ.",
+  "translate_button_desc": "Перевести текст субтитров на предпочитаемый язык",
+  "polish_button_desc": "Улучшить и отшлифовать текст субтитров с помощью ИИ",
+  "analysis_button_desc": "Получить подробный анализ и информацию из субтитров",
   
   // Sidebar
   "calendar_view": "Просмотр календаря",
@@ -86,9 +101,11 @@ export default {
   // Summary
   "loading": "Загрузка",
   "no_meeting_data": "Нет данных встречи",
-  "summary_question": "Как насчет резюме встречи?",
-  "summary_placeholder": "Пожалуйста, резюмируйте встречу",
+  "summary_question": "Пожалуйста, резюмируйте содержание сегодняшней встречи",
+  "summary_placeholder": "Пожалуйста, резюмируйте содержание сегодняшней встречи",
+  "summary_empty_state": "Пока нет резюме, введите вопрос ниже, чтобы начать",
   "search_button": "Поиск",
+  "submit_button": "Отправить",
   
   // Extension
   "extension_settings": "Настройки Расширения",
@@ -193,5 +210,53 @@ export default {
   
   // Настройки автоматической синхронизации
   "auto_sync_on_meeting_end": "Автоматическая синхронизация в конце встречи",
-  "auto_sync_on_meeting_end_desc": "Автоматически создавать резервную копию при выходе из звонка Google Meet"
+  "auto_sync_on_meeting_end_desc": "Автоматически создавать резервную копию при выходе из звонка Google Meet",
+  "auto_sync_on_startup": "Автоматическая синхронизация при запуске браузера",
+  "auto_sync_on_startup_desc": "Автоматически синхронизировать историю чата за последние 5 дней при запуске браузера",
+  
+  // Google Drive - Дополнительно
+  "backup_to_drive": "Резервное копирование на Drive",
+  "backup_title": "Резервное копирование",
+  "backup_title_desc": "Создайте резервную копию истории чата в Google Drive. Существующие файлы могут быть перезаписаны или пропущены.",
+  
+  // Google Drive - Раздел восстановления
+  "restore_files": "Восстановить файлы",
+  "restore_files_desc": "Просмотр и управление файлами резервных копий в Google Drive",
+  "view_details": "Просмотреть детали",
+  
+  // Google Drive - Список файлов
+  "backup_date": "Дата резервной копии",
+  "modified": "Изменено",
+  "actions": "Действия",
+  "view_chat_records": "Просмотреть записи чата",
+  "restore_this_backup": "Восстановить эту резервную копию",
+  "download_to_local": "Скачать локально",
+  "delete_this_backup": "Удалить эту резервную копию",
+  "delete_file": "Удалить файл",
+  "delete_file_confirm": "Вы уверены, что хотите удалить \"{fileName}\"?",
+  "search_backups": "Поиск резервных копий...",
+  "all_time": "Все время",
+  "this_week": "На этой неделе",
+  "this_month": "В этом месяце",
+  "no_matching_backup_files": "Соответствующие файлы резервных копий не найдены",
+  "no_backup_files": "Файлы резервных копий не найдены",
+  "items_count": "{count} элементов",
+  
+  // Google Drive - Аутентификация
+  "authenticating_with_google": "Аутентификация с Google...",
+  "authenticating_desc": "Пожалуйста, подождите, пока мы безопасно подключаемся к вашей учетной записи Google",
+  "logging_in": "Вход в систему...",
+  "login_with_google": "Войти через Google",
+  
+  // Вид календаря
+  "chat_history_desc": "Просмотр и поиск истории чата встреч, организованной по датам",
+  "message": "сообщение",
+  "messages": "сообщений",
+  
+  // Настройки ИИ
+  "save_configuration": "Сохранить конфигурацию",
+  
+  // Настройки расширения
+  "extension_settings_desc": "Настройка специфичных функций и поведения расширения",
+  "select_date": "Выбрать дату"
 }; 

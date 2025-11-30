@@ -19,6 +19,8 @@ export default {
   "analysis": "Phân tích",
   "ask": "Hỏi",
   "summary": "Tóm tắt",
+  "no_messages": "Không có tin nhắn",
+  "no_messages_on_date": "Không có tin nhắn vào {date}",
   
   // Common
   "on": "Bật",
@@ -79,6 +81,18 @@ export default {
   "translation_records": "Bản ghi dịch",
   "download_captions": "Tải xuống phụ đề",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "Cài đặt Giao diện Chính",
+  "sidepanel_settings_desc": "Tùy chỉnh khả năng hiển thị của các tab và nút trong giao diện chính để phù hợp với quy trình làm việc của bạn.",
+  "sidepanel_visibility_settings": "Cài đặt Hiển thị Tab",
+  "sidepanel_visibility_desc": "Cấu hình các tab hiển thị trong bảng điều khiển bên của giao diện chính.",
+  "captions_tab_desc": "Xem và quản lý phụ đề cuộc họp theo thời gian thực",
+  "summary_tab_desc": "Tạo tóm tắt và thông tin chi tiết cuộc họp bằng AI",
+  "translation_tab_desc": "Truy cập lịch sử dịch và bản ghi từ",
+  "caption_buttons_visibility_settings": "Nút Hành động Phụ đề",
+  "caption_buttons_visibility_desc": "Kiểm soát các nút hành động xuất hiện trên mỗi phụ đề để truy cập nhanh các tính năng AI.",
+  "translate_button_desc": "Dịch văn bản phụ đề sang ngôn ngữ ưa thích của bạn",
+  "polish_button_desc": "Cải thiện và tinh chỉnh văn bản phụ đề bằng AI",
+  "analysis_button_desc": "Nhận phân tích chi tiết và thông tin chi tiết từ phụ đề",
   
   // Sidebar
   "calendar_view": "Xem lịch",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "Đang tải",
   "no_meeting_data": "Không có dữ liệu cuộc họp",
-  "summary_question": "Bạn nghĩ gì về bản tóm tắt cuộc họp?",
-  "summary_placeholder": "Vui lòng tóm tắt cuộc họp",
+  "summary_question": "Vui lòng tóm tắt nội dung cuộc họp hôm nay",
+  "summary_placeholder": "Vui lòng tóm tắt nội dung cuộc họp hôm nay",
+  "summary_empty_state": "Chưa có tóm tắt, nhập câu hỏi bên dưới để bắt đầu",
   "search_button": "Tìm kiếm",
+  "submit_button": "Gửi",
   
   // Extension
   "extension_settings": "Cài Đặt Tiện Ích Mở Rộng",
@@ -194,5 +210,53 @@ export default {
   
   // Cài đặt đồng bộ tự động
   "auto_sync_on_meeting_end": "Tự động đồng bộ khi kết thúc cuộc họp",
-  "auto_sync_on_meeting_end_desc": "Tự động sao lưu khi bạn rời khỏi cuộc gọi Google Meet"
+  "auto_sync_on_meeting_end_desc": "Tự động sao lưu khi bạn rời khỏi cuộc gọi Google Meet",
+  "auto_sync_on_startup": "Tự động đồng bộ khi khởi động trình duyệt",
+  "auto_sync_on_startup_desc": "Tự động đồng bộ lịch sử trò chuyện 5 ngày gần đây khi khởi động trình duyệt",
+  
+  // Google Drive - Bổ sung
+  "backup_to_drive": "Sao lưu lên Drive",
+  "backup_title": "Sao lưu",
+  "backup_title_desc": "Sao lưu lịch sử trò chuyện của bạn lên Google Drive. Các tệp hiện có có thể được ghi đè hoặc bỏ qua.",
+  
+  // Google Drive - Phần khôi phục
+  "restore_files": "Khôi phục tệp",
+  "restore_files_desc": "Xem và quản lý các tệp sao lưu của bạn trong Google Drive",
+  "view_details": "Xem chi tiết",
+  
+  // Google Drive - Danh sách tệp
+  "backup_date": "Ngày sao lưu",
+  "modified": "Đã sửa đổi",
+  "actions": "Hành động",
+  "view_chat_records": "Xem bản ghi trò chuyện",
+  "restore_this_backup": "Khôi phục bản sao lưu này",
+  "download_to_local": "Tải xuống cục bộ",
+  "delete_this_backup": "Xóa bản sao lưu này",
+  "delete_file": "Xóa tệp",
+  "delete_file_confirm": "Bạn có chắc chắn muốn xóa \"{fileName}\" không?",
+  "search_backups": "Tìm kiếm bản sao lưu...",
+  "all_time": "Mọi thời điểm",
+  "this_week": "Tuần này",
+  "this_month": "Tháng này",
+  "no_matching_backup_files": "Không tìm thấy tệp sao lưu phù hợp",
+  "no_backup_files": "Không tìm thấy tệp sao lưu",
+  "items_count": "{count} mục",
+  
+  // Google Drive - Xác thực
+  "authenticating_with_google": "Đang xác thực với Google...",
+  "authenticating_desc": "Vui lòng đợi trong khi chúng tôi kết nối an toàn với tài khoản Google của bạn",
+  "logging_in": "Đang đăng nhập...",
+  "login_with_google": "Đăng nhập bằng Google",
+  
+  // Chế độ xem lịch
+  "chat_history_desc": "Xem và tìm kiếm lịch sử trò chuyện cuộc họp được sắp xếp theo ngày",
+  "message": "tin nhắn",
+  "messages": "tin nhắn",
+  
+  // Cài đặt AI
+  "save_configuration": "Lưu cấu hình",
+  
+  // Cài đặt tiện ích mở rộng
+  "extension_settings_desc": "Cấu hình các tính năng và hành vi cụ thể của tiện ích mở rộng",
+  "select_date": "Chọn ngày"
 }; 

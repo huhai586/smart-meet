@@ -7,6 +7,7 @@ import { StorageFactory } from '~background/data-persistence/storage-factory';
 import type { Transcript } from '~hooks/useTranscripts';
 import StyledTitle from '~components/common/StyledTitle';
 import { useI18n } from '~utils/i18n';
+import { setDayjsLocale } from '~utils/dayjs-config';
 
 const { Title: _Title, Text, Paragraph } = Typography;
 const { Panel: _Panel } = Collapse;
@@ -128,7 +129,7 @@ interface MatchedRecord {
 }
 
 const Calendar = () => {
-  const { t } = useI18n();
+  const { t, langCode } = useI18n();
   const [monthsData, setMonthsData] = useState<MonthData[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
@@ -145,6 +146,11 @@ const Calendar = () => {
 
   const listItemRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const modalContentRef = useRef<HTMLDivElement>(null);
+
+  // Set dayjs locale when language changes
+  useEffect(() => {
+    setDayjsLocale(langCode);
+  }, [langCode]);
 
   useEffect(() => {
     loadChatDays();
@@ -546,7 +552,7 @@ const Calendar = () => {
                 <MonthStatistic>
                   <Statistic
                     value={month.totalMessages}
-                    suffix={month.totalMessages === 1 ? "message" : "messages"}
+                    suffix={month.totalMessages === 1 ? t('message') : t('messages')}
                     valueStyle={{ fontSize: '14px', color: '#1a73e8' }}
                   />
                 </MonthStatistic>
@@ -578,7 +584,7 @@ const Calendar = () => {
                       description={
                         <div>
                           <MessageOutlined style={{ marginRight: 4 }} />
-                          <span>{day.messageCount} {day.messageCount === 1 ? 'message' : 'messages'}</span>
+                          <span>{day.messageCount} {day.messageCount === 1 ? t('message') : t('messages')}</span>
                         </div>
                       }
                     />

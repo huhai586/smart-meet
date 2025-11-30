@@ -5,6 +5,7 @@ import { ActionButton, IconWrapper, StyledCard } from './StyledComponents';
 import FileList from './FileList';
 import FileDetailsModal from './FileDetailsModal';
 import type { DriveFile } from './types';
+import useI18n from '~utils/i18n';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -37,6 +38,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
   onUpload
 }) => {
   const { token } = useToken();
+  const { t } = useI18n();
   const [detailsModalVisible, setDetailsModalVisible] = useState(false);
 
   return (
@@ -51,10 +53,10 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
           </Col>
           <Col xs={24} sm={16} md={18}>
             <Title level={4} style={{ margin: "0 0 8px", fontWeight: "600" }}>
-              Restore Files
+              {t('restore_files')}
             </Title>
             <Text type="secondary" style={{ fontSize: "14px", lineHeight: "1.5" }}>
-              View and manage your backup files in Google Drive
+              {t('restore_files_desc')}
             </Text>
           </Col>
         </Row>
@@ -75,7 +77,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
                   borderColor: token.colorSuccess
                 }}
               >
-                Restore All
+                {t('restore_all')}
               </ActionButton>
               {files.length > 0 && (
                 <Button
@@ -83,7 +85,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
                   onClick={() => setDetailsModalVisible(true)}
                   size="middle"
                 >
-                  View Details
+                  {t('view_details')}
                 </Button>
               )}
             </Space>
@@ -99,7 +101,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
                   icon={<UploadOutlined />}
                   size="middle"
                 >
-                  Upload
+                  {t('upload')}
                 </Button>
               </Upload>
               <Button
@@ -107,7 +109,7 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
                 onClick={onRefresh}
                 size="middle"
               >
-                Refresh
+                {t('refresh')}
               </Button>
             </Space>
           </Col>

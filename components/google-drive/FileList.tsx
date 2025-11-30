@@ -7,6 +7,7 @@ import type { TableProps } from 'antd/es/table';
 import type { SorterResult } from 'antd/es/table/interface';
 import dayjs from 'dayjs';
 import ChatRecordsModal from './ChatRecordsModal';
+import useI18n from '~utils/i18n';
 
 const { Text } = Typography;
 const { useToken } = theme;
@@ -31,6 +32,7 @@ const FileList: React.FC<FileListProps> = ({
   onDelete,
   onDownload
 }) => {
+  const { t } = useI18n();
   const [chatRecordsModalVisible, setChatRecordsModalVisible] = useState(false);
   const [selectedFile, setSelectedFile] = useState<DriveFile | null>(null);
 
@@ -87,7 +89,7 @@ const FileList: React.FC<FileListProps> = ({
 
   const columns = [
     {
-      title: 'Backup Date',
+      title: t('backup_date'),
       dataIndex: 'name',
       key: 'name',
       render: (name: string) => (
@@ -101,7 +103,7 @@ const FileList: React.FC<FileListProps> = ({
       width: '40%',
     },
     {
-      title: 'Modified',
+      title: t('modified'),
       key: 'modified',
       render: (_, record: DriveFile) => (
         <Text type="secondary" style={{ fontSize: '13px' }}>
@@ -114,11 +116,11 @@ const FileList: React.FC<FileListProps> = ({
       width: '25%',
     },
     {
-      title: 'Actions',
+      title: t('actions'),
       key: 'actions',
       render: (_, record: DriveFile) => (
         <Space size="small">
-          <Tooltip title="View chat records">
+          <Tooltip title={t('view_chat_records')}>
             <Button
               type="default"
               icon={<EyeOutlined />}
@@ -130,7 +132,7 @@ const FileList: React.FC<FileListProps> = ({
               }}
             />
           </Tooltip>
-          <Tooltip title="Restore this backup">
+          <Tooltip title={t('restore_this_backup')}>
             <ActionButton
               type="primary"
               icon={<CloudDownloadOutlined />}
@@ -143,7 +145,7 @@ const FileList: React.FC<FileListProps> = ({
               }}
             />
           </Tooltip>
-          <Tooltip title="Download to local">
+          <Tooltip title={t('download_to_local')}>
             <Button
               type="default"
               icon={<DownloadOutlined />}
@@ -156,13 +158,13 @@ const FileList: React.FC<FileListProps> = ({
               }}
             />
           </Tooltip>
-          <Tooltip title="Delete this backup">
+          <Tooltip title={t('delete_this_backup')}>
             <Popconfirm
-              title="Delete file"
-              description={`Are you sure you want to delete "${record.name}"?`}
+              title={t('delete_file')}
+              description={t('delete_file_confirm', { fileName: record.name })}
               onConfirm={() => onDelete(record.id)}
-              okText="Yes"
-              cancelText="No"
+              okText={t('yes')}
+              cancelText={t('no')}
             >
               <Button
                 type="text"
@@ -185,7 +187,7 @@ const FileList: React.FC<FileListProps> = ({
       <Space direction="vertical" style={{ width: '100%' }}>
         <div style={{ display: 'flex', gap: '8px', marginBottom: 16 }}>
           <Input
-            placeholder="Search backups..."
+            placeholder={t('search_backups')}
             prefix={<SearchOutlined />}
             value={searchText}
             onChange={e => setSearchText(e.target.value)}
@@ -198,10 +200,10 @@ const FileList: React.FC<FileListProps> = ({
             onChange={value => setTimeFilter(value)}
             suffixIcon={<FilterOutlined />}
           >
-            <Option value="all">All Time</Option>
-            <Option value="today">Today</Option>
-            <Option value="week">This Week</Option>
-            <Option value="month">This Month</Option>
+            <Option value="all">{t('all_time')}</Option>
+            <Option value="today">{t('today')}</Option>
+            <Option value="week">{t('this_week')}</Option>
+            <Option value="month">{t('this_month')}</Option>
           </Select>
         </div>
         
@@ -215,7 +217,7 @@ const FileList: React.FC<FileListProps> = ({
               showSizeChanger: true,
               pageSizeOptions: ['8', '16', '32'],
               size: 'small',
-              showTotal: (total) => `${total} items`
+              showTotal: (total) => t('items_count', { count: total.toString() })
             }}
             size="small"
             onChange={handleTableChange}
@@ -229,7 +231,7 @@ const FileList: React.FC<FileListProps> = ({
           <Empty
             description={
               <Text type="secondary" style={{ fontSize: "15px" }}>
-                {searchText || timeFilter !== 'all' ? "No matching backup files found" : "No backup files found"}
+                {searchText || timeFilter !== 'all' ? t('no_matching_backup_files') : t('no_backup_files')}
               </Text>
             }
             image={Empty.PRESENTED_IMAGE_SIMPLE}

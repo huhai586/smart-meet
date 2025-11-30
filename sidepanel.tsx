@@ -35,6 +35,49 @@ const SidePanel = () => {
     const [loading] = useLoading();
     const { t } = useI18n();
     const [_activeService, setActiveService] = useState<string>('');
+    const [visibility, setVisibility] = useState({
+        captions: true,
+        summary: true,
+        translation: true
+    });
+
+    // 加载可见性设置
+    useEffect(() => {
+        chrome.storage.local.get(['sidepanelVisibility'], (result) => {
+            if (result.sidepanelVisibility) {
+                setVisibility(result.sidepanelVisibility);
+            }
+        });
+
+        // 监听可见性设置变化
+        const handleStorageChange = (changes: any, areaName: string) => {
+            if (areaName === 'local' && changes.sidepanelVisibility) {
+                setVisibility(changes.sidepanelVisibility.newValue);
+            }
+        };
+
+        chrome.storage.onChanged.addListener(handleStorageChange);
+        return () => {
+            chrome.storage.onChanged.removeListener(handleStorageChange);
+        };
+    }, []);
+
+    // 当可见性变化时，确保当前标签页是可见的
+    useEffect(() => {
+        const allItems = [
+            { key: 'captions', visible: visibility.captions },
+            { key: 'summary', visible: visibility.summary },
+            { key: 'words', visible: visibility.translation }
+        ];
+        
+        const visibleItems = allItems.filter(item => item.visible);
+        const currentTabVisible = allItems.find(item => item.key === current)?.visible;
+        
+        // 如果当前标签页不可见，切换到第一个可见的标签页
+        if (!currentTabVisible && visibleItems.length > 0) {
+            setCurrent(visibleItems[0].key);
+        }
+    }, [visibility, current]);
 
     const onTabClick = (key: string) => {
         setCurrent(key);
@@ -121,26 +164,32 @@ const SidePanel = () => {
         });
     }, [messageApi]);
 
-    const items = [
+    const allItems = [
         {
             label: t('captions'),
             key: 'captions',
             icon: <FileDoneOutlined />,
             children: (<Captions />),
+            visible: visibility.captions
         },
         {
             label: t('sidepanel_summary'),
             key: 'summary',
             icon: <SketchOutlined />,
             children: <Summary />,
+            visible: visibility.summary
         },
         {
             label: t('translation_records'),
             key: 'words',
             icon: <HistoryOutlined />,
             children: <Words currentTab={current} />,
+            visible: visibility.translation
         },
     ];
+
+    // 只显示可见的标签页
+    const items = allItems.filter(item => item.visible);
 
 
     return (

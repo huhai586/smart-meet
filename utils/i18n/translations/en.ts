@@ -24,6 +24,8 @@ export default {
   "analysis": "Analysis",
   "ask": "Ask",
   "summary": "Summary",
+  "no_messages": "No messages",
+  "no_messages_on_date": "No messages on {date}",
   
   // Common
   "on": "on",
@@ -120,6 +122,18 @@ export default {
       "translation_records": "Translation",
   "download_captions": "Download captions",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "Main Interface Settings",
+  "sidepanel_settings_desc": "Customize the visibility of tabs and buttons in the main interface to suit your workflow.",
+  "sidepanel_visibility_settings": "Tab Visibility Settings",
+  "sidepanel_visibility_desc": "Configure which tabs are visible in the main interface sidepanel.",
+  "captions_tab_desc": "View and manage meeting captions in real-time",
+  "summary_tab_desc": "Generate AI-powered meeting summaries and insights",
+  "translation_tab_desc": "Access translation history and word records",
+  "caption_buttons_visibility_settings": "Caption Action Buttons",
+  "caption_buttons_visibility_desc": "Control which action buttons appear on each caption for quick access to AI features.",
+  "translate_button_desc": "Translate caption text to your preferred language",
+  "polish_button_desc": "Improve and refine the caption text with AI",
+  "analysis_button_desc": "Get detailed analysis and insights from the caption",
   
   // Sidebar
   "calendar_view": "Calendar View",
@@ -128,9 +142,11 @@ export default {
   // Summary
   "loading": "Loading",
   "no_meeting_data": "No meeting data",
-  "summary_question": "How about summary the meeting?",
-  "summary_placeholder": "Please summary the meeting",
+  "summary_question": "Please summarize today's meeting content",
+  "summary_placeholder": "Please summarize today's meeting content",
+  "summary_empty_state": "No summaries yet, enter a question below to start",
   "search_button": "Search",
+  "submit_button": "Submit",
   "error_clearing_conversation": "Error clearing AI conversation. Please try again.",
   "completed": "Completed",
   
@@ -311,5 +327,53 @@ export default {
   
   // Auto Sync Settings
   "auto_sync_on_meeting_end": "Auto-sync on meeting end",
-  "auto_sync_on_meeting_end_desc": "Automatically backup when you leave a Google Meet call"
+  "auto_sync_on_meeting_end_desc": "Automatically backup when you leave a Google Meet call",
+  "auto_sync_on_startup": "Auto-sync on browser startup",
+  "auto_sync_on_startup_desc": "Automatically sync recent 5 days of chat history when browser starts",
+  
+  // Google Drive - Additional
+  "backup_to_drive": "Backup to Drive",
+  "backup_title": "Backup",
+  "backup_title_desc": "Backup your chat history to Google Drive. Existing files can be overwritten or skipped.",
+  
+  // Google Drive - Restore Section
+  "restore_files": "Restore Files",
+  "restore_files_desc": "View and manage your backup files in Google Drive",
+  "view_details": "View Details",
+  
+  // Google Drive - File List
+  "backup_date": "Backup Date",
+  "modified": "Modified",
+  "actions": "Actions",
+  "view_chat_records": "View chat records",
+  "restore_this_backup": "Restore this backup",
+  "download_to_local": "Download to local",
+  "delete_this_backup": "Delete this backup",
+  "delete_file": "Delete file",
+  "delete_file_confirm": "Are you sure you want to delete \"{fileName}\"?",
+  "search_backups": "Search backups...",
+  "all_time": "All Time",
+  "this_week": "This Week",
+  "this_month": "This Month",
+  "no_matching_backup_files": "No matching backup files found",
+  "no_backup_files": "No backup files found",
+  "items_count": "{count} items",
+  
+  // Google Drive - Authentication
+  "authenticating_with_google": "Authenticating with Google...",
+  "authenticating_desc": "Please wait while we securely connect to your Google account",
+  "logging_in": "Logging in...",
+  "login_with_google": "Login with Google",
+  
+  // Calendar View
+  "chat_history_desc": "View and search your meeting chat history organized by date",
+  "message": "message",
+  "messages": "messages",
+  
+  // AI Settings
+  "save_configuration": "Save Configuration",
+  
+  // Extension Settings
+  "extension_settings_desc": "Configure extension-specific features and behaviors",
+  "select_date": "Select date"
 }; 

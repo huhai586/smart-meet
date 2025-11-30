@@ -1,10 +1,12 @@
 import { Typography, Button, Empty, Modal } from "antd";
 import React, { useEffect, useState } from "react";
 import '../../styles/words.scss'
+import '../../styles/empty-states.scss';
 import { getTranslatedWords } from "~utils/translate";
 import {
     ExclamationCircleOutlined,
-    HistoryOutlined
+    HistoryOutlined,
+    BookOutlined
 } from '@ant-design/icons';
 import { translateWord } from "~utils/unified-translation";
 import { useI18n } from "~utils/i18n";
@@ -122,14 +124,16 @@ const Words = (props: {currentTab: string}) => {
                         <HistoryOutlined className="header-icon" />
                         <Title level={4}>{t('translation_history')}</Title>
                     </div>
-                    <Button 
-                        type="text"
-                        size="small"
-                        className="reset-btn"
-                        onClick={showConfirm}
-                    >
-                        {t('reset')}
-                    </Button>
+                    {data.length > 0 && (
+                        <Button 
+                            type="text"
+                            size="small"
+                            className="reset-btn"
+                            onClick={showConfirm}
+                        >
+                            {t('reset')}
+                        </Button>
+                    )}
                 </div>
                 <Text type="secondary">{t('click_to_translate')}</Text>
             </div>
@@ -150,14 +154,16 @@ const Words = (props: {currentTab: string}) => {
                     })}
                 </div>
             ) : (
-                <Empty
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                    description={
-                        <Text type="secondary">
-                            {t('no_history')}
-                        </Text>
-                    }
-                />
+                <div className="empty-container">
+                    <Empty
+                        image={<BookOutlined style={{ fontSize: 60 }} />}
+                        description={
+                            <Text type="secondary">
+                                {t('no_history')}
+                            </Text>
+                        }
+                    />
+                </div>
             )}
 
             <WordDetailModal

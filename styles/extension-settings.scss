@@ -11,44 +11,69 @@
 }
 
 .extension-container {
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  background: transparent;
   margin-bottom: 24px;
+
+  // 页面标题样式
+  .page-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8edf5;
+
+    h3.ant-typography {
+      font-size: 24px;
+      font-weight: 600;
+      color: #1a202c;
+      margin-bottom: 8px;
+    }
+
+    .ant-typography {
+      color: #64748b;
+      line-height: 1.6;
+    }
+  }
 
   .highlight-setting {
     .highlight-section {
-      border-radius: 10px;
-      margin-bottom: 32px;
-      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      border: 1px solid #e8edf5;
       background: white;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
       transition: all 0.3s ease;
-      padding: 16px 24px;
+      padding: 24px;
 
       &:hover {
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        transform: translateY(-1px);
+        border-color: #d0d9e6;
       }
 
       .highlight-header {
         display: flex;
         align-items: center;
-        gap: 8px;
-        font-weight: 500;
+        gap: 10px;
+        font-weight: 600;
         font-size: 16px;
-        color: #2d3748;
+        color: #1a202c;
         margin-bottom: 8px;
+        
+        .anticon {
+          font-size: 18px;
+        }
       }
 
       .highlight-description {
-        color: #718096;
+        color: #64748b;
         font-size: 14px;
-        margin-bottom: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
       }
 
       .highlight-content {
         margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 0; // 移除默认间距，使用各元素自己的 margin
         
         .ant-tag {
           padding: 4px 12px;
@@ -92,10 +117,20 @@
 
         // 域名输入框样式
         .domain-inputer {
-          margin-bottom: 12px;
+          margin: 0 0 16px 0;
           border-radius: 6px;
           
           &:hover, &:focus {
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
+          }
+        }
+        
+        // DatePicker 样式
+        .ant-picker {
+          border-radius: 6px;
+          
+          &:hover, &:focus, &.ant-picker-focused {
             border-color: #1a73e8;
             box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
           }
@@ -104,43 +139,61 @@
         // 关键词描述文本框
         .ant-input {
           border-radius: 6px;
-          margin-bottom: 16px;
           
           &:hover, &:focus {
             border-color: #1a73e8;
             box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
           }
         }
+        
+        // TextArea 特殊样式
+        textarea.ant-input {
+          margin-bottom: 16px;
+        }
 
-        // 生成关键词按钮
-        .valid-words {
-          margin-top: 8px;
+        // 按钮通用样式
+        .ant-btn {
+          border-radius: 6px;
+          transition: all 0.3s ease;
+          height: 40px;
+          padding: 0 24px;
+          font-size: 14px;
+          font-weight: 500;
+          width: auto; // 不占据100%宽度
+          max-width: 150px; // 限制最大宽度
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           
-          .ant-btn {
-            border-radius: 6px;
-            transition: all 0.3s ease;
+          &.ant-btn-primary {
+            background: #1a73e8;
+            border-color: #1a73e8;
             
             &:hover {
-              color: #1a73e8;
-              border-color: #1a73e8;
-              background: #ebf5ff;
+              background: #165db5;
+              border-color: #165db5;
               transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+            }
+          }
+          
+          &.ant-btn-default {
+            border-color: #1a73e8;
+            color: #1a73e8;
+            
+            &:hover {
+              color: white;
+              background: #1a73e8;
+              border-color: #1a73e8;
+              transform: translateY(-1px);
+              box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
             }
           }
         }
-
-        // 导出按钮
-        .action-button {
-          background: #1a73e8;
-          border-color: #1a73e8;
-          border-radius: 6px;
-          transition: all 0.3s ease;
-          
-          &:hover {
-            background: #165db5;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-          }
+        
+        // 生成关键词按钮容器
+        .valid-words {
+          margin-top: 0;
         }
       }
     }
@@ -166,6 +219,36 @@
           font-weight: 600;
         }
       }
+    }
+  }
+
+  // 可见性设置项样式
+  .visibility-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f0f2f5;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .visibility-info {
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .visibility-label {
+      font-size: 15px;
+      font-weight: 500;
+      color: #1f2937;
+      margin-bottom: 4px;
     }
   }
 }

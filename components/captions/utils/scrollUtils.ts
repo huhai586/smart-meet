@@ -11,9 +11,11 @@ export const useScrollToVisible = (domRef: React.RefObject<HTMLDivElement>) => {
 }
 
 export const scrollElementIntoView = (element: HTMLDivElement) => {
+  if (!element) return;
+  
   element.scrollIntoView({
     behavior: "smooth",
-    block: "end",
+    block: "nearest",
     inline: "nearest"
   })
 }

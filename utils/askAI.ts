@@ -13,9 +13,14 @@ const askAI = async (action: Actions, text: string, question?: string) => {
     
     // 检查AI服务是否准备就绪
     if (!aiService || !aiService.isReady()) {
-        // 输出日志以便调试
-        console.error(`[askAI] AI service not ready. Current service type: ${aiServiceManager.getCurrentServiceType()}`);
-        console.error(`[askAI] Initialized services: ${aiServiceManager.getInitializedServices().join(', ')}`);
+        // 输出详细日志以便调试
+        console.error(`[askAI] AI service not ready!`);
+        console.error(`[askAI] Current service type: ${aiServiceManager.getCurrentServiceType()}`);
+        console.error(`[askAI] Initialized services: ${aiServiceManager.getInitializedServices().join(', ') || 'none'}`);
+        console.error(`[askAI] Service instance exists: ${!!aiService}`);
+        if (aiService) {
+            console.error(`[askAI] Service isReady(): ${aiService.isReady()}`);
+        }
         
         const error = 'AI service not ready';
         // 使用全局错误处理器处理

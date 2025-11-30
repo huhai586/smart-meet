@@ -19,6 +19,8 @@ export default {
   "analysis": "분석",
   "ask": "질문",
   "summary": "요약",
+  "no_messages": "메시지 없음",
+  "no_messages_on_date": "{date}에 메시지 없음",
   
   // Common
   "on": "켜기",
@@ -79,6 +81,18 @@ export default {
   "translation_records": "번역 기록",
   "download_captions": "자막 다운로드",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "메인 인터페이스 설정",
+  "sidepanel_settings_desc": "워크플로우에 맞게 메인 인터페이스의 탭과 버튼 표시를 사용자 지정합니다.",
+  "sidepanel_visibility_settings": "탭 표시 설정",
+  "sidepanel_visibility_desc": "메인 인터페이스 사이드패널에 표시할 탭을 구성합니다.",
+  "captions_tab_desc": "실시간으로 회의 자막 보기 및 관리",
+  "summary_tab_desc": "AI 기반 회의 요약 및 인사이트 생성",
+  "translation_tab_desc": "번역 기록 및 단어 기록 액세스",
+  "caption_buttons_visibility_settings": "자막 작업 버튼",
+  "caption_buttons_visibility_desc": "각 자막에 표시할 작업 버튼을 제어하여 AI 기능에 빠르게 액세스합니다.",
+  "translate_button_desc": "자막 텍스트를 원하는 언어로 번역",
+  "polish_button_desc": "AI로 자막 텍스트 개선 및 다듬기",
+  "analysis_button_desc": "자막에서 상세한 분석 및 인사이트 얻기",
   
   // Sidebar
   "calendar_view": "캘린더 보기",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "로딩 중",
   "no_meeting_data": "회의 데이터 없음",
-  "summary_question": "회의 요약은 어떨까요?",
-  "summary_placeholder": "회의를 요약해 주세요",
+  "summary_question": "오늘 회의 내용을 요약해 주세요",
+  "summary_placeholder": "오늘 회의 내용을 요약해 주세요",
+  "summary_empty_state": "아직 요약이 없습니다. 아래에 질문을 입력하여 시작하세요",
   "search_button": "검색",
+  "submit_button": "제출",
   
   // Extension
   "extension_settings": "확장 프로그램 설정",
@@ -226,5 +242,53 @@ export default {
   
   // 자동 동기화 설정
   "auto_sync_on_meeting_end": "회의 종료 시 자동 동기화",
-  "auto_sync_on_meeting_end_desc": "Google Meet 통화를 종료하면 자동으로 백업합니다"
+  "auto_sync_on_meeting_end_desc": "Google Meet 통화를 종료하면 자동으로 백업합니다",
+  "auto_sync_on_startup": "브라우저 시작 시 자동 동기화",
+  "auto_sync_on_startup_desc": "브라우저 시작 시 최근 5일간의 채팅 기록을 자동으로 동기화합니다",
+  
+  // Google Drive - 추가
+  "backup_to_drive": "드라이브에 백업",
+  "backup_title": "백업",
+  "backup_title_desc": "채팅 기록을 Google Drive에 백업합니다. 기존 파일을 덮어쓰거나 건너뛸 수 있습니다.",
+  
+  // Google Drive - 복원 섹션
+  "restore_files": "파일 복원",
+  "restore_files_desc": "Google Drive의 백업 파일을 보고 관리합니다",
+  "view_details": "세부정보 보기",
+  
+  // Google Drive - 파일 목록
+  "backup_date": "백업 날짜",
+  "modified": "수정됨",
+  "actions": "작업",
+  "view_chat_records": "채팅 기록 보기",
+  "restore_this_backup": "이 백업 복원",
+  "download_to_local": "로컬에 다운로드",
+  "delete_this_backup": "이 백업 삭제",
+  "delete_file": "파일 삭제",
+  "delete_file_confirm": "\"{fileName}\"을(를) 삭제하시겠습니까?",
+  "search_backups": "백업 검색...",
+  "all_time": "전체 기간",
+  "this_week": "이번 주",
+  "this_month": "이번 달",
+  "no_matching_backup_files": "일치하는 백업 파일을 찾을 수 없습니다",
+  "no_backup_files": "백업 파일을 찾을 수 없습니다",
+  "items_count": "{count}개 항목",
+  
+  // Google Drive - 인증
+  "authenticating_with_google": "Google 인증 중...",
+  "authenticating_desc": "Google 계정에 안전하게 연결하는 중입니다. 잠시만 기다려주세요",
+  "logging_in": "로그인 중...",
+  "login_with_google": "Google로 로그인",
+  
+  // 캘린더 보기
+  "chat_history_desc": "날짜별로 정리된 회의 채팅 기록 보기 및 검색",
+  "message": "개 메시지",
+  "messages": "개 메시지",
+  
+  // AI 설정
+  "save_configuration": "구성 저장",
+  
+  // 확장 프로그램 설정
+  "extension_settings_desc": "확장 프로그램별 기능 및 동작 구성",
+  "select_date": "날짜 선택"
 }; 

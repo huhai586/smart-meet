@@ -19,6 +19,8 @@ export default {
   "analysis": "分析",
   "ask": "質問",
   "summary": "要約",
+  "no_messages": "メッセージがありません",
+  "no_messages_on_date": "{date} にメッセージがありません",
   
   // Common
   "on": "オン",
@@ -79,6 +81,18 @@ export default {
       "translation_records": "翻訳",
   "download_captions": "字幕をダウンロード",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "メインインターフェース設定",
+  "sidepanel_settings_desc": "ワークフローに合わせて、メインインターフェースのタブとボタンの表示をカスタマイズします。",
+  "sidepanel_visibility_settings": "タブ表示設定",
+  "sidepanel_visibility_desc": "メインインターフェースのサイドパネルに表示するタブを設定します。",
+  "captions_tab_desc": "会議の字幕をリアルタイムで表示・管理",
+  "summary_tab_desc": "AI による会議の要約と洞察を生成",
+  "translation_tab_desc": "翻訳履歴と単語記録にアクセス",
+  "caption_buttons_visibility_settings": "字幕アクションボタン",
+  "caption_buttons_visibility_desc": "各字幕に表示するアクションボタンを制御し、AI機能に素早くアクセスできます。",
+  "translate_button_desc": "字幕テキストを希望の言語に翻訳",
+  "polish_button_desc": "AIで字幕テキストを改善・洗練",
+  "analysis_button_desc": "字幕から詳細な分析と洞察を取得",
   
   // Sidebar
   "calendar_view": "カレンダービュー",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "読み込み中",
   "no_meeting_data": "ミーティングデータがありません",
-  "summary_question": "ミーティングの要約はいかがですか？",
-  "summary_placeholder": "ミーティングを要約してください",
+  "summary_question": "今日の会議内容を要約してください",
+  "summary_placeholder": "今日の会議内容を要約してください",
+  "summary_empty_state": "まだ要約がありません。下に質問を入力して開始してください",
   "search_button": "検索",
+  "submit_button": "送信",
   
   // Extension
   "extension_settings": "拡張機能設定",
@@ -226,5 +242,53 @@ export default {
   
   // 自動同期設定
   "auto_sync_on_meeting_end": "会議終了時に自動同期",
-  "auto_sync_on_meeting_end_desc": "Google Meet通話を終了すると自動的にバックアップします"
+  "auto_sync_on_meeting_end_desc": "Google Meet通話を終了すると自動的にバックアップします",
+  "auto_sync_on_startup": "ブラウザ起動時に自動同期",
+  "auto_sync_on_startup_desc": "ブラウザ起動時に最近5日間のチャット履歴を自動的に同期します",
+  
+  // Google Drive - 追加
+  "backup_to_drive": "ドライブにバックアップ",
+  "backup_title": "バックアップ",
+  "backup_title_desc": "チャット履歴をGoogle Driveにバックアップします。既存のファイルは上書きまたはスキップできます。",
+  
+  // Google Drive - 復元セクション
+  "restore_files": "ファイルを復元",
+  "restore_files_desc": "Google Driveのバックアップファイルを表示および管理します",
+  "view_details": "詳細を表示",
+  
+  // Google Drive - ファイルリスト
+  "backup_date": "バックアップ日",
+  "modified": "更新日時",
+  "actions": "操作",
+  "view_chat_records": "チャット記録を表示",
+  "restore_this_backup": "このバックアップを復元",
+  "download_to_local": "ローカルにダウンロード",
+  "delete_this_backup": "このバックアップを削除",
+  "delete_file": "ファイルを削除",
+  "delete_file_confirm": "\"{fileName}\"を削除してもよろしいですか？",
+  "search_backups": "バックアップを検索...",
+  "all_time": "すべての期間",
+  "this_week": "今週",
+  "this_month": "今月",
+  "no_matching_backup_files": "一致するバックアップファイルが見つかりません",
+  "no_backup_files": "バックアップファイルが見つかりません",
+  "items_count": "{count}件",
+  
+  // Google Drive - 認証
+  "authenticating_with_google": "Googleで認証中...",
+  "authenticating_desc": "Googleアカウントに安全に接続しています。お待ちください",
+  "logging_in": "ログイン中...",
+  "login_with_google": "Googleでログイン",
+  
+  // カレンダービュー
+  "chat_history_desc": "日付別に整理された会議チャット履歴を表示および検索",
+  "message": "件のメッセージ",
+  "messages": "件のメッセージ",
+  
+  // AI設定
+  "save_configuration": "設定を保存",
+  
+  // 拡張機能設定
+  "extension_settings_desc": "拡張機能固有の機能と動作を設定します",
+  "select_date": "日付を選択"
 }; 

@@ -19,6 +19,8 @@ export default {
   "analysis": "Análise",
   "ask": "Perguntar",
   "summary": "Resumo",
+  "no_messages": "Sem mensagens",
+  "no_messages_on_date": "Sem mensagens em {date}",
   
   // Common
   "on": "ligado",
@@ -79,6 +81,18 @@ export default {
   "translation_records": "Registros de tradução",
   "download_captions": "Baixar legendas",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "Configurações da Interface Principal",
+  "sidepanel_settings_desc": "Personalize a visibilidade de abas e botões na interface principal para se adequar ao seu fluxo de trabalho.",
+  "sidepanel_visibility_settings": "Configurações de Visibilidade de Abas",
+  "sidepanel_visibility_desc": "Configure quais abas são visíveis no painel lateral da interface principal.",
+  "captions_tab_desc": "Visualize e gerencie legendas de reuniões em tempo real",
+  "summary_tab_desc": "Gere resumos e insights de reuniões com IA",
+  "translation_tab_desc": "Acesse histórico de traduções e registros de palavras",
+  "caption_buttons_visibility_settings": "Botões de Ação de Legendas",
+  "caption_buttons_visibility_desc": "Controle quais botões de ação aparecem em cada legenda para acesso rápido aos recursos de IA.",
+  "translate_button_desc": "Traduzir o texto da legenda para o seu idioma preferido",
+  "polish_button_desc": "Melhorar e refinar o texto da legenda com IA",
+  "analysis_button_desc": "Obter análise detalhada e insights das legendas",
   
   // Sidebar
   "calendar_view": "Visualização de calendário",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "Carregando",
   "no_meeting_data": "Sem dados de reunião",
-  "summary_question": "Que tal um resumo da reunião?",
-  "summary_placeholder": "Por favor, resuma a reunião",
+  "summary_question": "Por favor, resuma o conteúdo da reunião de hoje",
+  "summary_placeholder": "Por favor, resuma o conteúdo da reunião de hoje",
+  "summary_empty_state": "Ainda não há resumos, digite uma pergunta abaixo para começar",
   "search_button": "Pesquisar",
+  "submit_button": "Enviar",
   
   // Extension
   "extension_settings": "Configurações da Extensão",
@@ -209,5 +225,53 @@ export default {
   
   // Configurações de sincronização automática
   "auto_sync_on_meeting_end": "Sincronização automática no final da reunião",
-  "auto_sync_on_meeting_end_desc": "Fazer backup automaticamente ao sair de uma chamada do Google Meet"
+  "auto_sync_on_meeting_end_desc": "Fazer backup automaticamente ao sair de uma chamada do Google Meet",
+  "auto_sync_on_startup": "Sincronização automática na inicialização do navegador",
+  "auto_sync_on_startup_desc": "Sincronizar automaticamente o histórico de bate-papo dos últimos 5 dias ao iniciar o navegador",
+  
+  // Google Drive - Adicional
+  "backup_to_drive": "Fazer backup no Drive",
+  "backup_title": "Backup",
+  "backup_title_desc": "Faça backup do seu histórico de bate-papo no Google Drive. Os arquivos existentes podem ser substituídos ou ignorados.",
+  
+  // Google Drive - Seção de restauração
+  "restore_files": "Restaurar arquivos",
+  "restore_files_desc": "Visualize e gerencie seus arquivos de backup no Google Drive",
+  "view_details": "Ver detalhes",
+  
+  // Google Drive - Lista de arquivos
+  "backup_date": "Data do backup",
+  "modified": "Modificado",
+  "actions": "Ações",
+  "view_chat_records": "Ver registros de bate-papo",
+  "restore_this_backup": "Restaurar este backup",
+  "download_to_local": "Baixar localmente",
+  "delete_this_backup": "Excluir este backup",
+  "delete_file": "Excluir arquivo",
+  "delete_file_confirm": "Tem certeza de que deseja excluir \"{fileName}\"?",
+  "search_backups": "Pesquisar backups...",
+  "all_time": "Todo o tempo",
+  "this_week": "Esta semana",
+  "this_month": "Este mês",
+  "no_matching_backup_files": "Nenhum arquivo de backup correspondente encontrado",
+  "no_backup_files": "Nenhum arquivo de backup encontrado",
+  "items_count": "{count} itens",
+  
+  // Google Drive - Autenticação
+  "authenticating_with_google": "Autenticando com o Google...",
+  "authenticating_desc": "Aguarde enquanto nos conectamos com segurança à sua conta do Google",
+  "logging_in": "Fazendo login...",
+  "login_with_google": "Fazer login com o Google",
+  
+  // Visualização do calendário
+  "chat_history_desc": "Visualize e pesquise seu histórico de bate-papo de reuniões organizado por data",
+  "message": "mensagem",
+  "messages": "mensagens",
+  
+  // Configurações de IA
+  "save_configuration": "Salvar configuração",
+  
+  // Configurações de extensão
+  "extension_settings_desc": "Configurar recursos e comportamentos específicos da extensão",
+  "select_date": "Selecionar data"
 }; 

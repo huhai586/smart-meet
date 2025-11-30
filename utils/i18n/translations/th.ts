@@ -19,6 +19,8 @@ export default {
   "analysis": "วิเคราะห์",
   "ask": "ถาม",
   "summary": "สรุป",
+  "no_messages": "ไม่มีข้อความ",
+  "no_messages_on_date": "ไม่มีข้อความเมื่อ {date}",
   
   // Common
   "on": "เปิด",
@@ -79,6 +81,18 @@ export default {
   "translation_records": "บันทึกการแปล",
   "download_captions": "ดาวน์โหลดคำบรรยาย",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "การตั้งค่าอินเทอร์เฟซหลัก",
+  "sidepanel_settings_desc": "ปรับแต่งการแสดงแท็บและปุ่มในอินเทอร์เฟซหลักให้เหมาะกับเวิร์กโฟลว์ของคุณ",
+  "sidepanel_visibility_settings": "การตั้งค่าการแสดงแท็บ",
+  "sidepanel_visibility_desc": "กำหนดค่าแท็บที่จะแสดงในแผงด้านข้างของอินเทอร์เฟซหลัก",
+  "captions_tab_desc": "ดูและจัดการคำบรรยายการประชุมแบบเรียลไทม์",
+  "summary_tab_desc": "สร้างสรุปและข้อมูลเชิงลึกของการประชุมด้วย AI",
+  "translation_tab_desc": "เข้าถึงประวัติการแปลและบันทึกคำศัพท์",
+  "caption_buttons_visibility_settings": "ปุ่มการดำเนินการคำบรรยาย",
+  "caption_buttons_visibility_desc": "ควบคุมปุ่มการดำเนินการที่ปรากฏในแต่ละคำบรรยายเพื่อเข้าถึงฟีเจอร์ AI อย่างรวดเร็ว",
+  "translate_button_desc": "แปลข้อความคำบรรยายเป็นภาษาที่คุณต้องการ",
+  "polish_button_desc": "ปรับปรุงและขัดเกลาข้อความคำบรรยายด้วย AI",
+  "analysis_button_desc": "รับการวิเคราะห์โดยละเอียดและข้อมูลเชิงลึกจากคำบรรยาย",
   
   // Sidebar
   "calendar_view": "มุมมองปฏิทิน",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "กำลังโหลด",
   "no_meeting_data": "ไม่มีข้อมูลการประชุม",
-  "summary_question": "คุณคิดอย่างไรกับสรุปการประชุม?",
-  "summary_placeholder": "โปรดสรุปการประชุม",
+  "summary_question": "โปรดสรุปเนื้อหาการประชุมวันนี้",
+  "summary_placeholder": "โปรดสรุปเนื้อหาการประชุมวันนี้",
+  "summary_empty_state": "ยังไม่มีสรุป ป้อนคำถามด้านล่างเพื่อเริ่มต้น",
   "search_button": "ค้นหา",
+  "submit_button": "ส่ง",
   
   // Extension
   "extension_settings": "การตั้งค่าส่วนขยาย",
@@ -173,5 +189,53 @@ export default {
   
   // การตั้งค่าการซิงค์อัตโนมัติ
   "auto_sync_on_meeting_end": "ซิงค์อัตโนมัติเมื่อสิ้นสุดการประชุม",
-  "auto_sync_on_meeting_end_desc": "สำรองข้อมูลอัตโนมัติเมื่อออกจากการโทร Google Meet"
+  "auto_sync_on_meeting_end_desc": "สำรองข้อมูลอัตโนมัติเมื่อออกจากการโทร Google Meet",
+  "auto_sync_on_startup": "ซิงค์อัตโนมัติเมื่อเปิดเบราว์เซอร์",
+  "auto_sync_on_startup_desc": "ซิงค์ประวัติการแชท 5 วันล่าสุดโดยอัตโนมัติเมื่อเปิดเบราว์เซอร์",
+  
+  // Google Drive - เพิ่มเติม
+  "backup_to_drive": "สำรองข้อมูลไปยัง Drive",
+  "backup_title": "สำรองข้อมูล",
+  "backup_title_desc": "สำรองประวัติการแชทของคุณไปยัง Google Drive ไฟล์ที่มีอยู่สามารถเขียนทับหรือข้ามได้",
+  
+  // Google Drive - ส่วนการกู้คืน
+  "restore_files": "กู้คืนไฟล์",
+  "restore_files_desc": "ดูและจัดการไฟล์สำรองข้อมูลของคุณใน Google Drive",
+  "view_details": "ดูรายละเอียด",
+  
+  // Google Drive - รายการไฟล์
+  "backup_date": "วันที่สำรองข้อมูล",
+  "modified": "แก้ไข",
+  "actions": "การดำเนินการ",
+  "view_chat_records": "ดูบันทึกการแชท",
+  "restore_this_backup": "กู้คืนการสำรองข้อมูลนี้",
+  "download_to_local": "ดาวน์โหลดไปยังเครื่อง",
+  "delete_this_backup": "ลบการสำรองข้อมูลนี้",
+  "delete_file": "ลบไฟล์",
+  "delete_file_confirm": "คุณแน่ใจหรือไม่ว่าต้องการลบ \"{fileName}\"?",
+  "search_backups": "ค้นหาการสำรองข้อมูล...",
+  "all_time": "ทุกช่วงเวลา",
+  "this_week": "สัปดาห์นี้",
+  "this_month": "เดือนนี้",
+  "no_matching_backup_files": "ไม่พบไฟล์สำรองข้อมูลที่ตรงกัน",
+  "no_backup_files": "ไม่พบไฟล์สำรองข้อมูล",
+  "items_count": "{count} รายการ",
+  
+  // Google Drive - การตรวจสอบสิทธิ์
+  "authenticating_with_google": "กำลังตรวจสอบสิทธิ์กับ Google...",
+  "authenticating_desc": "โปรดรอสักครู่ในขณะที่เราเชื่อมต่อกับบัญชี Google ของคุณอย่างปลอดภัย",
+  "logging_in": "กำลังเข้าสู่ระบบ...",
+  "login_with_google": "เข้าสู่ระบบด้วย Google",
+  
+  // มุมมองปฏิทิน
+  "chat_history_desc": "ดูและค้นหาประวัติการแชทการประชุมที่จัดระเบียบตามวันที่",
+  "message": "ข้อความ",
+  "messages": "ข้อความ",
+  
+  // การตั้งค่า AI
+  "save_configuration": "บันทึกการกำหนดค่า",
+  
+  // การตั้งค่าส่วนขยาย
+  "extension_settings_desc": "กำหนดค่าคุณสมบัติและพฤติกรรมเฉพาะของส่วนขยาย",
+  "select_date": "เลือกวันที่"
 }; 

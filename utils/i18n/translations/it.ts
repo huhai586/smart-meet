@@ -19,6 +19,8 @@ export default {
   "analysis": "Analisi",
   "ask": "Chiedi",
   "summary": "Riepilogo",
+  "no_messages": "Nessun messaggio",
+  "no_messages_on_date": "Nessun messaggio il {date}",
   
   // Common
   "on": "attivo",
@@ -78,6 +80,19 @@ export default {
   "extension": "Estensione",
       "translation_records": "Traduzione",
   "download_captions": "Scarica sottotitoli",
+  "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "Impostazioni Interfaccia Principale",
+  "sidepanel_settings_desc": "Personalizza la visibilità di schede e pulsanti nell'interfaccia principale per adattarla al tuo flusso di lavoro.",
+  "sidepanel_visibility_settings": "Impostazioni Visibilità Schede",
+  "sidepanel_visibility_desc": "Configura quali schede sono visibili nel pannello laterale dell'interfaccia principale.",
+  "captions_tab_desc": "Visualizza e gestisci i sottotitoli delle riunioni in tempo reale",
+  "summary_tab_desc": "Genera riepiloghi e approfondimenti delle riunioni con l'IA",
+  "translation_tab_desc": "Accedi alla cronologia delle traduzioni e ai record delle parole",
+  "caption_buttons_visibility_settings": "Pulsanti di Azione dei Sottotitoli",
+  "caption_buttons_visibility_desc": "Controlla quali pulsanti di azione appaiono su ogni sottotitolo per un accesso rapido alle funzionalità IA.",
+  "translate_button_desc": "Traduci il testo dei sottotitoli nella tua lingua preferita",
+  "polish_button_desc": "Migliora e perfeziona il testo dei sottotitoli con l'IA",
+  "analysis_button_desc": "Ottieni analisi dettagliate e approfondimenti dai sottotitoli",
   
   // Sidebar
   "calendar_view": "Vista calendario",
@@ -86,9 +101,11 @@ export default {
   // Summary
   "loading": "Caricamento",
   "no_meeting_data": "Nessun dato della riunione",
-  "summary_question": "Che ne dici di un riepilogo della riunione?",
-  "summary_placeholder": "Per favore, riassumi la riunione",
+  "summary_question": "Per favore, riassumi il contenuto della riunione di oggi",
+  "summary_placeholder": "Per favore, riassumi il contenuto della riunione di oggi",
+  "summary_empty_state": "Nessun riepilogo ancora, inserisci una domanda qui sotto per iniziare",
   "search_button": "Cerca",
+  "submit_button": "Invia",
   
   // Extension
   "extension_settings": "Impostazioni Estensione",
@@ -208,5 +225,53 @@ export default {
   
   // Impostazioni di sincronizzazione automatica
   "auto_sync_on_meeting_end": "Sincronizzazione automatica alla fine della riunione",
-  "auto_sync_on_meeting_end_desc": "Backup automatico quando esci da una chiamata Google Meet"
+  "auto_sync_on_meeting_end_desc": "Backup automatico quando esci da una chiamata Google Meet",
+  "auto_sync_on_startup": "Sincronizzazione automatica all'avvio del browser",
+  "auto_sync_on_startup_desc": "Sincronizza automaticamente la cronologia chat degli ultimi 5 giorni all'avvio del browser",
+  
+  // Google Drive - Aggiuntivo
+  "backup_to_drive": "Backup su Drive",
+  "backup_title": "Backup",
+  "backup_title_desc": "Esegui il backup della cronologia chat su Google Drive. I file esistenti possono essere sovrascritti o saltati.",
+  
+  // Google Drive - Sezione di ripristino
+  "restore_files": "Ripristina file",
+  "restore_files_desc": "Visualizza e gestisci i tuoi file di backup in Google Drive",
+  "view_details": "Visualizza dettagli",
+  
+  // Google Drive - Elenco file
+  "backup_date": "Data backup",
+  "modified": "Modificato",
+  "actions": "Azioni",
+  "view_chat_records": "Visualizza registrazioni chat",
+  "restore_this_backup": "Ripristina questo backup",
+  "download_to_local": "Scarica localmente",
+  "delete_this_backup": "Elimina questo backup",
+  "delete_file": "Elimina file",
+  "delete_file_confirm": "Sei sicuro di voler eliminare \"{fileName}\"?",
+  "search_backups": "Cerca backup...",
+  "all_time": "Tutto il tempo",
+  "this_week": "Questa settimana",
+  "this_month": "Questo mese",
+  "no_matching_backup_files": "Nessun file di backup corrispondente trovato",
+  "no_backup_files": "Nessun file di backup trovato",
+  "items_count": "{count} elementi",
+  
+  // Google Drive - Autenticazione
+  "authenticating_with_google": "Autenticazione con Google...",
+  "authenticating_desc": "Attendere mentre ci connettiamo in modo sicuro al tuo account Google",
+  "logging_in": "Accesso in corso...",
+  "login_with_google": "Accedi con Google",
+  
+  // Vista calendario
+  "chat_history_desc": "Visualizza e cerca la cronologia chat delle riunioni organizzata per data",
+  "message": "messaggio",
+  "messages": "messaggi",
+  
+  // Impostazioni AI
+  "save_configuration": "Salva configurazione",
+  
+  // Impostazioni estensione
+  "extension_settings_desc": "Configura funzionalità e comportamenti specifici dell'estensione",
+  "select_date": "Seleziona data"
 }; 

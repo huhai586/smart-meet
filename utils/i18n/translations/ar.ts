@@ -19,6 +19,8 @@ export default {
   "analysis": "تحليل",
   "ask": "سؤال",
   "summary": "ملخص",
+  "no_messages": "لا توجد رسائل",
+  "no_messages_on_date": "لا توجد رسائل في {date}",
   
   // Common
   "on": "تشغيل",
@@ -79,6 +81,18 @@ export default {
       "translation_records": "ترجمة",
   "download_captions": "تنزيل التعليقات",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "إعدادات الواجهة الرئيسية",
+  "sidepanel_settings_desc": "قم بتخصيص رؤية علامات التبويب والأزرار في الواجهة الرئيسية لتناسب سير عملك.",
+  "sidepanel_visibility_settings": "إعدادات رؤية علامات التبويب",
+  "sidepanel_visibility_desc": "قم بتكوين علامات التبويب المرئية في اللوحة الجانبية للواجهة الرئيسية.",
+  "captions_tab_desc": "عرض وإدارة تعليقات الاجتماع في الوقت الفعلي",
+  "summary_tab_desc": "إنشاء ملخصات ورؤى الاجتماع بواسطة الذكاء الاصطناعي",
+  "translation_tab_desc": "الوصول إلى سجل الترجمة وسجلات الكلمات",
+  "caption_buttons_visibility_settings": "أزرار إجراءات التعليقات",
+  "caption_buttons_visibility_desc": "تحكم في أزرار الإجراءات التي تظهر على كل تعليق للوصول السريع إلى ميزات الذكاء الاصطناعي.",
+  "translate_button_desc": "ترجمة نص التعليقات إلى لغتك المفضلة",
+  "polish_button_desc": "تحسين وتنقيح نص التعليقات باستخدام الذكاء الاصطناعي",
+  "analysis_button_desc": "احصل على تحليل مفصل ورؤى من التعليقات",
   
   // Sidebar
   "calendar_view": "عرض التقويم",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "جاري التحميل",
   "no_meeting_data": "لا توجد بيانات اجتماع",
-  "summary_question": "ما رأيك في ملخص الاجتماع؟",
-  "summary_placeholder": "الرجاء تلخيص الاجتماع",
+  "summary_question": "يرجى تلخيص محتوى اجتماع اليوم",
+  "summary_placeholder": "يرجى تلخيص محتوى اجتماع اليوم",
+  "summary_empty_state": "لا توجد ملخصات بعد، أدخل سؤالاً أدناه للبدء",
   "search_button": "بحث",
+  "submit_button": "إرسال",
   
   // Extension
   "extension_settings": "إعدادات الإضافة",
@@ -173,5 +189,53 @@ export default {
   
   // إعدادات المزامنة التلقائية
   "auto_sync_on_meeting_end": "المزامنة التلقائية عند انتهاء الاجتماع",
-  "auto_sync_on_meeting_end_desc": "النسخ الاحتياطي تلقائيًا عند مغادرة مكالمة Google Meet"
+  "auto_sync_on_meeting_end_desc": "النسخ الاحتياطي تلقائيًا عند مغادرة مكالمة Google Meet",
+  "auto_sync_on_startup": "المزامنة التلقائية عند بدء تشغيل المتصفح",
+  "auto_sync_on_startup_desc": "مزامنة سجل الدردشة لآخر 5 أيام تلقائيًا عند بدء تشغيل المتصفح",
+  
+  // Google Drive - إضافي
+  "backup_to_drive": "النسخ الاحتياطي إلى Drive",
+  "backup_title": "النسخ الاحتياطي",
+  "backup_title_desc": "قم بعمل نسخة احتياطية من سجل الدردشة الخاص بك إلى Google Drive. يمكن استبدال الملفات الموجودة أو تخطيها.",
+  
+  // Google Drive - قسم الاستعادة
+  "restore_files": "استعادة الملفات",
+  "restore_files_desc": "عرض وإدارة ملفات النسخ الاحتياطي في Google Drive",
+  "view_details": "عرض التفاصيل",
+  
+  // Google Drive - قائمة الملفات
+  "backup_date": "تاريخ النسخ الاحتياطي",
+  "modified": "تم التعديل",
+  "actions": "الإجراءات",
+  "view_chat_records": "عرض سجلات الدردشة",
+  "restore_this_backup": "استعادة هذه النسخة الاحتياطية",
+  "download_to_local": "تنزيل محليًا",
+  "delete_this_backup": "حذف هذه النسخة الاحتياطية",
+  "delete_file": "حذف الملف",
+  "delete_file_confirm": "هل أنت متأكد من أنك تريد حذف \"{fileName}\"؟",
+  "search_backups": "البحث في النسخ الاحتياطية...",
+  "all_time": "كل الوقت",
+  "this_week": "هذا الأسبوع",
+  "this_month": "هذا الشهر",
+  "no_matching_backup_files": "لم يتم العثور على ملفات نسخ احتياطي مطابقة",
+  "no_backup_files": "لم يتم العثور على ملفات نسخ احتياطي",
+  "items_count": "{count} عنصر",
+  
+  // Google Drive - المصادقة
+  "authenticating_with_google": "المصادقة مع Google...",
+  "authenticating_desc": "يرجى الانتظار بينما نتصل بشكل آمن بحساب Google الخاص بك",
+  "logging_in": "جارٍ تسجيل الدخول...",
+  "login_with_google": "تسجيل الدخول باستخدام Google",
+  
+  // عرض التقويم
+  "chat_history_desc": "عرض والبحث في سجل دردشة الاجتماعات المنظم حسب التاريخ",
+  "message": "رسالة",
+  "messages": "رسائل",
+  
+  // إعدادات الذكاء الاصطناعي
+  "save_configuration": "حفظ التكوين",
+  
+  // إعدادات الامتداد
+  "extension_settings_desc": "تكوين الميزات والسلوكيات الخاصة بالامتداد",
+  "select_date": "اختر التاريخ"
 }; 

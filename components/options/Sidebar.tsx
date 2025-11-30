@@ -8,7 +8,8 @@ import {
   GlobalOutlined,
   DeleteOutlined,
   RollbackOutlined,
-  DesktopOutlined
+  DesktopOutlined,
+  AppstoreOutlined
 } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
@@ -42,48 +43,54 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
   const menuItems: MenuItem[] = [
     {
       key: '1',
+      icon: <AppstoreOutlined />,
+      label: t('sidepanel_settings'),
+      route: 'sidepanel-settings'
+    },
+    {
+      key: '2',
       icon: <ApiOutlined />,
       label: t('ai_settings'),
       route: 'ai-settings'
     },
     {
-      key: '2',
+      key: '3',
       icon: <CloudSyncOutlined />,
       label: t('google_drive_integration'),
       route: 'google-drive'
     },
     {
-      key: '3',
+      key: '4',
       icon: <CalendarOutlined />,
       label: t('calendar_view'),
       route: 'calendar'
     },
     {
-      key: '4',
+      key: '5',
       icon: <TranslationOutlined />,
       label: t('translation_language'),
       route: 'translation'
     },
     {
-      key: '5',
+      key: '6',
       icon: <GlobalOutlined />,
       label: t('ui_language'),
       route: 'ui-language'
     },
     {
-      key: '6',
+      key: '7',
       icon: <DesktopOutlined />,
       label: t('meeting_interface'),
       route: 'meeting-interface'
     },
     {
-      key: '7',
+      key: '8',
       icon: <RollbackOutlined />,
       label: t('extension'),
       route: 'extension'
     },
     {
-      key: '8',
+      key: '9',
       icon: <DeleteOutlined />,
       label: t('clear_captions'),
       route: 'clear-captions'

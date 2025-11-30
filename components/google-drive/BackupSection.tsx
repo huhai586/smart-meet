@@ -16,21 +16,31 @@ const BackupSection: React.FC<BackupSectionProps> = ({ onBackup, loading }) => {
   const { token } = useToken();
   const { t } = useI18n();
   const [autoSyncEnabled, setAutoSyncEnabled] = useState(false);
+  const [autoSyncOnStartupEnabled, setAutoSyncOnStartupEnabled] = useState(false);
   const [loadingSettings, setLoadingSettings] = useState(true);
 
   // 加载自动同步设置
   useEffect(() => {
-    chrome.storage.sync.get(['autoSyncOnLeave'], (result) => {
+    chrome.storage.sync.get(['autoSyncOnLeave', 'autoSyncOnStartup'], (result) => {
       setAutoSyncEnabled(result.autoSyncOnLeave !== false); // 默认开启
+      setAutoSyncOnStartupEnabled(result.autoSyncOnStartup === true); // 默认关闭
       setLoadingSettings(false);
     });
   }, []);
 
-  // 处理自动同步开关变化
+  // 处理会议结束后自动同步开关变化
   const handleAutoSyncChange = (checked: boolean) => {
     setAutoSyncEnabled(checked);
     chrome.storage.sync.set({ autoSyncOnLeave: checked }, () => {
-      console.log('自动同步设置已更新:', checked);
+      console.log('会议结束后自动同步设置已更新:', checked);
+    });
+  };
+
+  // 处理浏览器启动时自动同步开关变化
+  const handleAutoSyncOnStartupChange = (checked: boolean) => {
+    setAutoSyncOnStartupEnabled(checked);
+    chrome.storage.sync.set({ autoSyncOnStartup: checked }, () => {
+      console.log('浏览器启动时自动同步设置已更新:', checked);
     });
   };
 
@@ -46,17 +56,17 @@ const BackupSection: React.FC<BackupSectionProps> = ({ onBackup, loading }) => {
           </Col>
           <Col xs={24} sm={16} md={18}>
             <Title level={4} style={{ margin: "0 0 8px", fontWeight: "600" }}>
-              Backup
+              {t('backup_title')}
             </Title>
             <Text type="secondary" style={{ fontSize: "14px", lineHeight: "1.5" }}>
-              Backup your chat history to Google Drive. Existing files can be overwritten or skipped.
+              {t('backup_title_desc')}
             </Text>
           </Col>
         </Row>
 
         <Divider style={{ margin: "8px 0" }} />
 
-        {/* Auto Sync Setting */}
+        {/* Auto Sync on Meeting End Setting */}
         <Row align="middle" justify="space-between" style={{ padding: "8px 0" }}>
           <Col flex="1">
             <Space direction="vertical" size={0}>
@@ -72,6 +82,27 @@ const BackupSection: React.FC<BackupSectionProps> = ({ onBackup, loading }) => {
             <Switch
               checked={autoSyncEnabled}
               onChange={handleAutoSyncChange}
+              loading={loadingSettings}
+            />
+          </Col>
+        </Row>
+
+        {/* Auto Sync on Browser Startup Setting */}
+        <Row align="middle" justify="space-between" style={{ padding: "8px 0" }}>
+          <Col flex="1">
+            <Space direction="vertical" size={0}>
+              <Text strong style={{ fontSize: "14px" }}>
+                {t('auto_sync_on_startup')}
+              </Text>
+              <Text type="secondary" style={{ fontSize: "13px" }}>
+                {t('auto_sync_on_startup_desc')}
+              </Text>
+            </Space>
+          </Col>
+          <Col>
+            <Switch
+              checked={autoSyncOnStartupEnabled}
+              onChange={handleAutoSyncOnStartupChange}
               loading={loadingSettings}
             />
           </Col>
@@ -93,7 +124,7 @@ const BackupSection: React.FC<BackupSectionProps> = ({ onBackup, loading }) => {
               borderColor: token.colorPrimary
             }}
           >
-            Backup to Drive
+            {t('backup_to_drive')}
           </ActionButton>
         </div>
       </Space>

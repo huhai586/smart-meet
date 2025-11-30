@@ -155,10 +155,10 @@ const GoogleDriveIntegration: React.FC = () => {
             </div>
             <div>
               <Title level={4} style={{ margin: 0, fontWeight: 600, color: '#333' }}>
-                Authenticating with Google...
+                {t('authenticating_with_google')}
               </Title>
               <Text type="secondary" style={{ fontSize: '15px' }}>
-                Please wait while we securely connect to your Google account
+                {t('authenticating_desc')}
               </Text>
             </div>
           </div>
@@ -250,7 +250,7 @@ const GoogleDriveIntegration: React.FC = () => {
               fontWeight: "500"
             }}
           >
-            {isLoggingIn ? 'Logging in...' : 'Login with Google'}
+            {isLoggingIn ? t('logging_in') : t('login_with_google')}
           </Button>
         </div>
       </LoginSection>

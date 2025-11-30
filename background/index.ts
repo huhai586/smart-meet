@@ -4,6 +4,7 @@ import { initMessageHandlers } from "./message-handlers";
 import { initTabTracking } from "./tab-tracking";
 import { detectAndSetBrowserLanguage } from "./utils/language-utils";
 import { initLeaveCallSync } from "./sync-on-leave";
+import { initBrowserStartupSync } from "./browser-startup-sync";
 
 /**
  * 背景页入口文件
@@ -53,6 +54,9 @@ function initBackgroundService() {
     
     // 初始化退出通话同步
     initLeaveCallSync();
+    
+    // 初始化浏览器启动同步
+    initBrowserStartupSync();
 }
 
 // 执行初始化

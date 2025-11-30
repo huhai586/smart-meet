@@ -66,5 +66,13 @@
   "auto_sync_on_meeting_end_desc": {
     "message": "Automatically backup when you leave a Google Meet call",
     "description": "Description for auto-sync on meeting end setting"
+  },
+  "auto_sync_on_startup": {
+    "message": "Auto-sync on browser startup",
+    "description": "Label for auto-sync on browser startup setting"
+  },
+  "auto_sync_on_startup_desc": {
+    "message": "Automatically sync recent 5 days of chat history when browser starts",
+    "description": "Description for auto-sync on browser startup setting"
   }
 }

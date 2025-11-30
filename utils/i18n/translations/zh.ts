@@ -24,6 +24,8 @@ export default {
   "analysis": "分析",
   "ask": "提问",
   "summary": "摘要",
+  "no_messages": "暂无消息",
+  "no_messages_on_date": "{date} 暂无消息",
 
   // Common
   "on": "开启",
@@ -109,6 +111,18 @@ export default {
       "translation_records": "翻译",
   "download_captions": "下载字幕",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "主界面设置",
+  "sidepanel_settings_desc": "自定义主界面中标签页和按钮的可见性，以适应您的工作流程。",
+  "sidepanel_visibility_settings": "标签页可见性设置",
+  "sidepanel_visibility_desc": "配置主界面侧边栏中显示哪些标签页。",
+  "captions_tab_desc": "实时查看和管理会议字幕",
+  "summary_tab_desc": "生成AI驱动的会议摘要和见解",
+  "translation_tab_desc": "访问翻译历史和单词记录",
+  "caption_buttons_visibility_settings": "字幕操作按钮",
+  "caption_buttons_visibility_desc": "控制每条字幕上显示哪些操作按钮，以便快速访问AI功能。",
+  "translate_button_desc": "将字幕文本翻译成您的首选语言",
+  "polish_button_desc": "使用AI改进和优化字幕文本",
+  "analysis_button_desc": "从字幕中获取详细分析和见解",
 
   // Sidebar
   "calendar_view": "日历视图",
@@ -117,9 +131,11 @@ export default {
   // Summary
   "loading": "加载中",
   "no_meeting_data": "没有会议数据",
-  "summary_question": "要不要来个会议摘要？",
-  "summary_placeholder": "请总结一下会议",
+  "summary_question": "请总结一下今天的会议内容",
+  "summary_placeholder": "请总结一下今天的会议内容",
+  "summary_empty_state": "暂无摘要，在下方输入问题开始对话",
   "search_button": "搜索",
+  "submit_button": "提交",
   "error_clearing_conversation": "清除AI对话时出错。请重试。",
   "completed": "已完成",
 
@@ -311,5 +327,53 @@ export default {
   
   // 自动同步设置
   "auto_sync_on_meeting_end": "会议结束后自动同步",
-  "auto_sync_on_meeting_end_desc": "当您退出 Google Meet 通话时自动备份"
+  "auto_sync_on_meeting_end_desc": "当您退出 Google Meet 通话时自动备份",
+  "auto_sync_on_startup": "浏览器启动时自动同步",
+  "auto_sync_on_startup_desc": "浏览器启动时自动同步最近5天的聊天记录",
+  
+  // Google Drive - 额外
+  "backup_to_drive": "备份到云端硬盘",
+  "backup_title": "备份",
+  "backup_title_desc": "将您的聊天记录备份到 Google 云端硬盘。现有文件可以被覆盖或跳过。",
+  
+  // Google Drive - 恢复部分
+  "restore_files": "恢复文件",
+  "restore_files_desc": "查看和管理您在 Google 云端硬盘中的备份文件",
+  "view_details": "查看详情",
+  
+  // Google Drive - 文件列表
+  "backup_date": "备份日期",
+  "modified": "修改时间",
+  "actions": "操作",
+  "view_chat_records": "查看聊天记录",
+  "restore_this_backup": "恢复此备份",
+  "download_to_local": "下载到本地",
+  "delete_this_backup": "删除此备份",
+  "delete_file": "删除文件",
+  "delete_file_confirm": "您确定要删除 \"{fileName}\" 吗？",
+  "search_backups": "搜索备份...",
+  "all_time": "全部时间",
+  "this_week": "本周",
+  "this_month": "本月",
+  "no_matching_backup_files": "未找到匹配的备份文件",
+  "no_backup_files": "未找到备份文件",
+  "items_count": "{count} 项",
+  
+  // Google Drive - 认证
+  "authenticating_with_google": "正在连接 Google...",
+  "authenticating_desc": "请稍候，我们正在安全地连接到您的 Google 账户",
+  "logging_in": "登录中...",
+  "login_with_google": "使用 Google 登录",
+  
+  // 日历视图
+  "chat_history_desc": "查看和搜索按日期组织的会议聊天历史",
+  "message": "条消息",
+  "messages": "条消息",
+  
+  // AI 设置
+  "save_configuration": "保存配置",
+  
+  // 扩展设置
+  "extension_settings_desc": "配置扩展特定的功能和行为",
+  "select_date": "选择日期"
 }; 

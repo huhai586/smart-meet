@@ -19,6 +19,8 @@ export default {
   "analysis": "تجزیه و تحلیل",
   "ask": "سوال",
   "summary": "خلاصه",
+  "no_messages": "پیامی وجود ندارد",
+  "no_messages_on_date": "پیامی در {date} وجود ندارد",
   
   // Common
   "on": "روشن",
@@ -115,6 +117,18 @@ export default {
       "translation_records": "ترجمه",
   "download_captions": "دانلود زیرنویس‌ها",
   "sidepanel_summary": "خلاصه هوش مصنوعی",
+  "sidepanel_settings": "تنظیمات رابط اصلی",
+  "sidepanel_settings_desc": "نمایش تب‌ها و دکمه‌ها در رابط اصلی را متناسب با جریان کاری خود سفارشی کنید.",
+  "sidepanel_visibility_settings": "تنظیمات نمایش تب‌ها",
+  "sidepanel_visibility_desc": "تنظیم کنید کدام تب‌ها در پنل کناری رابط اصلی قابل مشاهده هستند.",
+  "captions_tab_desc": "مشاهده و مدیریت زیرنویس‌های جلسه به صورت زنده",
+  "summary_tab_desc": "تولید خلاصه و بینش‌های جلسه با هوش مصنوعی",
+  "translation_tab_desc": "دسترسی به تاریخچه ترجمه و سوابق کلمات",
+  "caption_buttons_visibility_settings": "دکمه‌های عملیات زیرنویس",
+  "caption_buttons_visibility_desc": "کنترل کنید کدام دکمه‌های عملیات در هر زیرنویس برای دسترسی سریع به ویژگی‌های هوش مصنوعی نمایش داده شوند.",
+  "translate_button_desc": "ترجمه متن زیرنویس به زبان دلخواه شما",
+  "polish_button_desc": "بهبود و اصلاح متن زیرنویس با هوش مصنوعی",
+  "analysis_button_desc": "دریافت تحلیل دقیق و بینش از زیرنویس‌ها",
   
   // Sidebar
   "calendar_view": "نمای تقویم",
@@ -123,9 +137,11 @@ export default {
   // Summary
   "loading": "بارگذاری",
   "no_meeting_data": "داده جلسه‌ای موجود نیست",
-  "summary_question": "خلاصه‌ای از جلسه چطور؟",
-  "summary_placeholder": "لطفاً جلسه را خلاصه کنید",
+  "summary_question": "لطفاً محتوای جلسه امروز را خلاصه کنید",
+  "summary_placeholder": "لطفاً محتوای جلسه امروز را خلاصه کنید",
+  "summary_empty_state": "هنوز خلاصه‌ای وجود ندارد، برای شروع سوالی در زیر وارد کنید",
   "search_button": "جستجو",
+  "submit_button": "ارسال",
   "error_clearing_conversation": "خطا در پاک کردن مکالمه هوش مصنوعی. لطفاً دوباره تلاش کنید.",
   "completed": "تکمیل شد",
   
@@ -233,5 +249,53 @@ export default {
   
   // تنظیمات همگام‌سازی خودکار
   "auto_sync_on_meeting_end": "همگام‌سازی خودکار در پایان جلسه",
-  "auto_sync_on_meeting_end_desc": "پشتیبان‌گیری خودکار هنگام خروج از تماس Google Meet"
+  "auto_sync_on_meeting_end_desc": "پشتیبان‌گیری خودکار هنگام خروج از تماس Google Meet",
+  "auto_sync_on_startup": "همگام‌سازی خودکار در راه‌اندازی مرورگر",
+  "auto_sync_on_startup_desc": "همگام‌سازی خودکار تاریخچه گفتگوی 5 روز اخیر هنگام راه‌اندازی مرورگر",
+  
+  // Google Drive - اضافی
+  "backup_to_drive": "پشتیبان‌گیری در Drive",
+  "backup_title": "پشتیبان‌گیری",
+  "backup_title_desc": "تاریخچه گفتگوی خود را در Google Drive پشتیبان‌گیری کنید. فایل‌های موجود می‌توانند بازنویسی یا نادیده گرفته شوند.",
+  
+  // Google Drive - بخش بازیابی
+  "restore_files": "بازیابی فایل‌ها",
+  "restore_files_desc": "مشاهده و مدیریت فایل‌های پشتیبان خود در Google Drive",
+  "view_details": "مشاهده جزئیات",
+  
+  // Google Drive - لیست فایل‌ها
+  "backup_date": "تاریخ پشتیبان‌گیری",
+  "modified": "تغییر یافته",
+  "actions": "اقدامات",
+  "view_chat_records": "مشاهده سوابق گفتگو",
+  "restore_this_backup": "بازیابی این پشتیبان",
+  "download_to_local": "دانلود محلی",
+  "delete_this_backup": "حذف این پشتیبان",
+  "delete_file": "حذف فایل",
+  "delete_file_confirm": "آیا مطمئن هستید که می‌خواهید \"{fileName}\" را حذف کنید؟",
+  "search_backups": "جستجوی پشتیبان‌ها...",
+  "all_time": "همه زمان‌ها",
+  "this_week": "این هفته",
+  "this_month": "این ماه",
+  "no_matching_backup_files": "هیچ فایل پشتیبان مطابقی یافت نشد",
+  "no_backup_files": "هیچ فایل پشتیبانی یافت نشد",
+  "items_count": "{count} مورد",
+  
+  // Google Drive - احراز هویت
+  "authenticating_with_google": "احراز هویت با Google...",
+  "authenticating_desc": "لطفاً صبر کنید تا به طور ایمن به حساب Google شما متصل شویم",
+  "logging_in": "در حال ورود...",
+  "login_with_google": "ورود با Google",
+  
+  // نمای تقویم
+  "chat_history_desc": "مشاهده و جستجوی تاریخچه گفتگوی جلسات سازماندهی شده بر اساس تاریخ",
+  "message": "پیام",
+  "messages": "پیام",
+  
+  // تنظیمات هوش مصنوعی
+  "save_configuration": "ذخیره پیکربندی",
+  
+  // تنظیمات افزونه
+  "extension_settings_desc": "پیکربندی ویژگی‌ها و رفتارهای خاص افزونه",
+  "select_date": "انتخاب تاریخ"
 }; 

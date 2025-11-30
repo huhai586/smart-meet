@@ -19,6 +19,8 @@ export default {
   "analysis": "Analyser",
   "ask": "Demander",
   "summary": "Résumé",
+  "no_messages": "Aucun message",
+  "no_messages_on_date": "Aucun message le {date}",
   
   // Common
   "on": "activé",
@@ -79,6 +81,18 @@ export default {
       "translation_records": "Traduction",
   "download_captions": "Télécharger les sous-titres",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "Paramètres de l'Interface Principale",
+  "sidepanel_settings_desc": "Personnalisez la visibilité des onglets et des boutons dans l'interface principale pour s'adapter à votre flux de travail.",
+  "sidepanel_visibility_settings": "Paramètres de Visibilité des Onglets",
+  "sidepanel_visibility_desc": "Configurez les onglets visibles dans le panneau latéral de l'interface principale.",
+  "captions_tab_desc": "Afficher et gérer les sous-titres de réunion en temps réel",
+  "summary_tab_desc": "Générer des résumés et des informations de réunion avec l'IA",
+  "translation_tab_desc": "Accéder à l'historique des traductions et aux enregistrements de mots",
+  "caption_buttons_visibility_settings": "Boutons d'Action des Sous-titres",
+  "caption_buttons_visibility_desc": "Contrôlez les boutons d'action qui apparaissent sur chaque sous-titre pour un accès rapide aux fonctionnalités IA.",
+  "translate_button_desc": "Traduire le texte des sous-titres dans votre langue préférée",
+  "polish_button_desc": "Améliorer et affiner le texte des sous-titres avec l'IA",
+  "analysis_button_desc": "Obtenir une analyse détaillée et des informations à partir des sous-titres",
   
   // Sidebar
   "calendar_view": "Vue calendrier",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "Chargement",
   "no_meeting_data": "Aucune donnée de réunion",
-  "summary_question": "Que diriez-vous d'un résumé de la réunion ?",
-  "summary_placeholder": "Veuillez résumer la réunion",
+  "summary_question": "Veuillez résumer le contenu de la réunion d'aujourd'hui",
+  "summary_placeholder": "Veuillez résumer le contenu de la réunion d'aujourd'hui",
+  "summary_empty_state": "Aucun résumé pour le moment, entrez une question ci-dessous pour commencer",
   "search_button": "Rechercher",
+  "submit_button": "Soumettre",
   
   // Extension
   "extension_settings": "Paramètres d'Extension",
@@ -226,5 +242,53 @@ export default {
   
   // Paramètres de synchronisation automatique
   "auto_sync_on_meeting_end": "Synchronisation automatique à la fin de la réunion",
-  "auto_sync_on_meeting_end_desc": "Sauvegarder automatiquement lorsque vous quittez un appel Google Meet"
+  "auto_sync_on_meeting_end_desc": "Sauvegarder automatiquement lorsque vous quittez un appel Google Meet",
+  "auto_sync_on_startup": "Synchronisation automatique au démarrage du navigateur",
+  "auto_sync_on_startup_desc": "Synchroniser automatiquement l'historique des discussions des 5 derniers jours au démarrage du navigateur",
+  
+  // Google Drive - Supplémentaire
+  "backup_to_drive": "Sauvegarder sur Drive",
+  "backup_title": "Sauvegarde",
+  "backup_title_desc": "Sauvegardez votre historique de discussion sur Google Drive. Les fichiers existants peuvent être écrasés ou ignorés.",
+  
+  // Google Drive - Section de restauration
+  "restore_files": "Restaurer les fichiers",
+  "restore_files_desc": "Afficher et gérer vos fichiers de sauvegarde dans Google Drive",
+  "view_details": "Voir les détails",
+  
+  // Google Drive - Liste des fichiers
+  "backup_date": "Date de sauvegarde",
+  "modified": "Modifié",
+  "actions": "Actions",
+  "view_chat_records": "Voir les enregistrements de discussion",
+  "restore_this_backup": "Restaurer cette sauvegarde",
+  "download_to_local": "Télécharger localement",
+  "delete_this_backup": "Supprimer cette sauvegarde",
+  "delete_file": "Supprimer le fichier",
+  "delete_file_confirm": "Êtes-vous sûr de vouloir supprimer \"{fileName}\" ?",
+  "search_backups": "Rechercher des sauvegardes...",
+  "all_time": "Tout le temps",
+  "this_week": "Cette semaine",
+  "this_month": "Ce mois-ci",
+  "no_matching_backup_files": "Aucun fichier de sauvegarde correspondant trouvé",
+  "no_backup_files": "Aucun fichier de sauvegarde trouvé",
+  "items_count": "{count} éléments",
+  
+  // Google Drive - Authentification
+  "authenticating_with_google": "Authentification avec Google...",
+  "authenticating_desc": "Veuillez patienter pendant que nous nous connectons en toute sécurité à votre compte Google",
+  "logging_in": "Connexion en cours...",
+  "login_with_google": "Se connecter avec Google",
+  
+  // Vue calendrier
+  "chat_history_desc": "Affichez et recherchez votre historique de discussion de réunion organisé par date",
+  "message": "message",
+  "messages": "messages",
+  
+  // Paramètres IA
+  "save_configuration": "Enregistrer la configuration",
+  
+  // Paramètres d'extension
+  "extension_settings_desc": "Configurer les fonctionnalités et comportements spécifiques à l'extension",
+  "select_date": "Sélectionner la date"
 }; 

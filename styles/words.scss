@@ -125,13 +125,19 @@
     }
   }
 
-  .ant-empty {
-    margin: 32px 0;
+  .empty-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    .ant-empty-description {
-      .ant-typography {
-        color: #718096;
-        font-size: 13px;
+    .ant-empty {
+      .ant-empty-description {
+        .ant-typography {
+          color: #718096;
+          font-size: 14px;
+          line-height: 1.6;
+        }
       }
     }
   }

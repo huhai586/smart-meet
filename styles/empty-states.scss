@@ -1,0 +1,36 @@
+// Empty状态的通用样式和动画
+
+// 图标脉冲动画
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+// Empty组件的图标样式
+.ant-empty {
+  .ant-empty-image {
+    height: 60px;
+    margin-bottom: 12px;
+
+    .anticon {
+      color: #bfbfbf;
+      transition: all 0.3s ease;
+
+      &:hover {
+        animation: pulse 1s ease-in-out infinite;
+        color: #8c8c8c !important;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .ant-empty-description {
+    color: #8c8c8c;
+    font-size: 14px;
+    margin-top: 0;
+  }
+}

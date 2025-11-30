@@ -1,8 +1,8 @@
-import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined, FileTextOutlined, QuestionCircleOutlined } from "@ant-design/icons"
-import {Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select} from "antd"
+import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined, FileTextOutlined, QuestionCircleOutlined, CalendarOutlined } from "@ant-design/icons"
+import {Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select, DatePicker} from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
-import dayjs from 'dayjs';
+import dayjs, { type Dayjs } from 'dayjs';
 
 import { Actions } from "~components/captions/types"
 import askAI from "../../utils/askAI"
@@ -37,6 +37,8 @@ const Extension = (_props: ExtensionPropsInterface) => {
     const [meetingNames, setMeetingNames] = useState<string[]>([]);
     const [selectedExportMeeting, setSelectedExportMeeting] = useState<string>('');
     const { selectedDate } = useDateContext();
+    // 独立的导出日期选择器状态，默认为今天
+    const [exportDate, setExportDate] = useState<Dayjs>(dayjs());
 
     useEffect(() => {
         getSpecificTags().then((res: string[]) => {
@@ -127,9 +129,12 @@ const Extension = (_props: ExtensionPropsInterface) => {
     const domainTagChild = domainTags.map(forMapDomain);
 
 
-    const preview = () => {
-        askAI(Actions.DEFAULT, `请直接返回一份Array数据，这个Array的每一个值都是单词或者单词缩写,我对这份数据的要求是: ${highlightWordsByDescriptions}，这份数据所属的行业是${domain}`).then((res) => {
-            console.log('res', res);
+    const preview = async () => {
+        try {
+            console.log('[Extension] Generating keywords...');
+            const res = await askAI(Actions.DEFAULT, `请直接返回一份Array数据，这个Array的每一个值都是单词或者单词缩写,我对这份数据的要求是: ${highlightWordsByDescriptions}，这份数据所属的行业是${domain}`);
+            console.log('[Extension] AI response:', res);
+            
             const stringWithOutJsonSymbol = res.replaceAll('```json', '').replaceAll('```', '');
             try {
                 const data = JSON.parse(stringWithOutJsonSymbol);
@@ -142,9 +147,10 @@ const Extension = (_props: ExtensionPropsInterface) => {
             } catch {
                 messageManager.error('the response is not json valid');
             }
-
-
-        })
+        } catch (error) {
+            console.error('[Extension] Failed to generate keywords:', error);
+            // Error is already handled by askAI and ai-error-handler
+        }
     }
 
     const showModal = () => {
@@ -166,12 +172,12 @@ const Extension = (_props: ExtensionPropsInterface) => {
 
     // 处理导出会议聊天记录为txt文件
     const handleExportCaptionsText = () => {
-        // 获取当前选择日期的会议记录
-        getMeetingCaptions(selectedDate).then((transcripts) => {
+        // 使用独立的 exportDate 而不是 selectedDate
+        getMeetingCaptions(exportDate).then((transcripts) => {
             // 提取会议名称列表
             const uniqueMeetingNames = Array.from(new Set(
                 transcripts
-                    .filter(t => dayjs(t.timestamp).format('YYYY-MM-DD') === selectedDate.format('YYYY-MM-DD'))
+                    .filter(t => dayjs(t.timestamp).format('YYYY-MM-DD') === exportDate.format('YYYY-MM-DD'))
                     .map(t => t.meetingName || '')
                     .filter(name => name.trim() !== '')
             ));
@@ -196,10 +202,10 @@ const Extension = (_props: ExtensionPropsInterface) => {
     
     // 导出指定会议的聊天记录
     const exportMeetingCaptions = (meetingName: string, transcripts: { meetingName: string; timestamp: string | number; talkContent: string; activeSpeaker: string; }[]) => {
-        // 筛选指定会议和日期的记录
+        // 使用 exportDate 而不是 selectedDate
         const filteredTranscripts = transcripts.filter(t => 
             t.meetingName === meetingName && 
-            dayjs(t.timestamp).format('YYYY-MM-DD') === selectedDate.format('YYYY-MM-DD')
+            dayjs(t.timestamp).format('YYYY-MM-DD') === exportDate.format('YYYY-MM-DD')
         );
         
         if (filteredTranscripts.length === 0) {
@@ -208,7 +214,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
         }
         
         // 格式化聊天记录为文本
-        let textContent = `Meeting: ${meetingName}\nDate: ${selectedDate.format('YYYY-MM-DD')}\n\n`;
+        let textContent = `Meeting: ${meetingName}\nDate: ${exportDate.format('YYYY-MM-DD')}\n\n`;
         filteredTranscripts.forEach(transcript => {
             const time = dayjs(transcript.timestamp).format('HH:mm:ss');
             // 直接使用talkContent作为聊天内容
@@ -217,7 +223,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
         });
         
         // 导出为TXT文件
-        const fileName = `${meetingName.replace(/[^a-zA-Z0-9]/g, '_')}_${selectedDate.format('YYYY-MM-DD')}.txt`;
+        const fileName = `${meetingName.replace(/[^a-zA-Z0-9]/g, '_')}_${exportDate.format('YYYY-MM-DD')}.txt`;
         saveChatLogAsTxt(textContent, fileName);
         
         messageManager.success(t('export_success') || 'Export successful');
@@ -227,7 +233,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
     const handleExportConfirm = () => {
         setIsExportModalOpen(false);
         if (selectedExportMeeting) {
-            getMeetingCaptions(selectedDate).then((transcripts) => {
+            getMeetingCaptions(exportDate).then((transcripts) => {
                 exportMeetingCaptions(selectedExportMeeting, transcripts);
             });
         }
@@ -289,26 +295,13 @@ const Extension = (_props: ExtensionPropsInterface) => {
                     </div>
                 
                     <div className="highlight-content">
-                        <Title level={5} style={{ marginBottom: '16px', color: '#2d3748' }}>{t('current_domain_tags')}</Title>
-                        <TweenOneGroup
-                            appear={false}
-                            enter={{scale: 0.8, opacity: 0, type: 'from', duration: 100}}
-                            leave={{opacity: 0, width: 0, scale: 0, duration: 200}}
-                            onEnd={(e) => {
-                                if (e.type === 'appear' || e.type === 'enter') {
-                                    (e.target as HTMLElement).style.display = 'inline-block';
-                                }
-                            }}
-                        >
-                            {domainTagChild}
-                        </TweenOneGroup>
-                        
                         <Input 
                             className='domain-inputer'
                             placeholder={t('domain_placeholder')}
                             value={domain}
                             onChange={(v) => {setDomain(v.target.value)}}
                             prefix={<GlobalOutlined style={{ color: '#a0aec0' }} />}
+                            style={{ maxWidth: '600px' }}
                         />
                         
                         <TextArea
@@ -316,12 +309,14 @@ const Extension = (_props: ExtensionPropsInterface) => {
                             placeholder={t('keywords_placeholder')}
                             onChange={(v) => { setHighlightWordsByDescriptions(v.target.value)}}
                             value={highlightWordsByDescriptions}
+                            style={{ maxWidth: '600px' }}
                         />
                         
                         <div className="valid-words">
                             <Button 
                                 onClick={preview}
                                 icon={<CloudSyncOutlined />}
+                                type="primary"
                             >
                                 {t('generate_keywords')}
                             </Button>
@@ -338,6 +333,14 @@ const Extension = (_props: ExtensionPropsInterface) => {
                         {t('export_captions_desc') || 'Export meeting captions as a text file for the selected date.'}
                     </div>
                     <div className="highlight-content">
+                        <DatePicker 
+                            value={exportDate}
+                            onChange={(date) => date && setExportDate(date)}
+                            format="YYYY-MM-DD"
+                            placeholder={t('select_date') || 'Select date'}
+                            style={{ marginBottom: '12px', maxWidth: '300px', width: '100%' }}
+                            suffixIcon={<CalendarOutlined />}
+                        />
                         <Button 
                             onClick={handleExportCaptionsText}
                             type="primary"
@@ -364,9 +367,8 @@ const Extension = (_props: ExtensionPropsInterface) => {
                                     url: chrome.runtime.getURL('options.html#welcome')
                                 });
                             }}
-                            type="default"
                             icon={<QuestionCircleOutlined />}
-                            className="action-button"
+                            className="guide-button"
                         >
                             {t('open_welcome_guide') || 'Open Welcome Guide'}
                         </Button>

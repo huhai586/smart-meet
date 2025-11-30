@@ -19,6 +19,8 @@ export default {
   "analysis": "Analysieren",
   "ask": "Fragen",
   "summary": "Zusammenfassung",
+  "no_messages": "Keine Nachrichten",
+  "no_messages_on_date": "Keine Nachrichten am {date}",
   
   // Common
   "on": "ein",
@@ -79,6 +81,18 @@ export default {
       "translation_records": "Übersetzung",
   "download_captions": "Untertitel herunterladen",
   "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "Hauptoberflächen-Einstellungen",
+  "sidepanel_settings_desc": "Passen Sie die Sichtbarkeit von Tabs und Schaltflächen in der Hauptoberfläche an Ihren Workflow an.",
+  "sidepanel_visibility_settings": "Tab-Sichtbarkeitseinstellungen",
+  "sidepanel_visibility_desc": "Konfigurieren Sie, welche Tabs im Seitenpanel der Hauptoberfläche sichtbar sind.",
+  "captions_tab_desc": "Meeting-Untertitel in Echtzeit anzeigen und verwalten",
+  "summary_tab_desc": "KI-gestützte Meeting-Zusammenfassungen und Erkenntnisse generieren",
+  "translation_tab_desc": "Auf Übersetzungsverlauf und Wortaufzeichnungen zugreifen",
+  "caption_buttons_visibility_settings": "Untertitel-Aktionsschaltflächen",
+  "caption_buttons_visibility_desc": "Steuern Sie, welche Aktionsschaltflächen bei jedem Untertitel für schnellen Zugriff auf KI-Funktionen angezeigt werden.",
+  "translate_button_desc": "Untertiteltext in Ihre bevorzugte Sprache übersetzen",
+  "polish_button_desc": "Untertiteltext mit KI verbessern und verfeinern",
+  "analysis_button_desc": "Detaillierte Analyse und Erkenntnisse aus den Untertiteln erhalten",
   
   // Sidebar
   "calendar_view": "Kalenderansicht",
@@ -87,9 +101,11 @@ export default {
   // Summary
   "loading": "Wird geladen",
   "no_meeting_data": "Keine Meeting-Daten",
-  "summary_question": "Wie wäre es mit einer Zusammenfassung des Meetings?",
-  "summary_placeholder": "Bitte fassen Sie das Meeting zusammen",
+  "summary_question": "Bitte fassen Sie den Inhalt des heutigen Meetings zusammen",
+  "summary_placeholder": "Bitte fassen Sie den Inhalt des heutigen Meetings zusammen",
+  "summary_empty_state": "Noch keine Zusammenfassungen, geben Sie unten eine Frage ein, um zu beginnen",
   "search_button": "Suchen",
+  "submit_button": "Absenden",
   
   // Extension
   "extension_settings": "Erweiterungs-Einstellungen",
@@ -209,5 +225,53 @@ export default {
   
   // Automatische Synchronisierungseinstellungen
   "auto_sync_on_meeting_end": "Automatische Synchronisierung am Ende des Meetings",
-  "auto_sync_on_meeting_end_desc": "Automatisch sichern, wenn Sie einen Google Meet-Anruf verlassen"
+  "auto_sync_on_meeting_end_desc": "Automatisch sichern, wenn Sie einen Google Meet-Anruf verlassen",
+  "auto_sync_on_startup": "Automatische Synchronisierung beim Browser-Start",
+  "auto_sync_on_startup_desc": "Chat-Verlauf der letzten 5 Tage beim Browser-Start automatisch synchronisieren",
+  
+  // Google Drive - Zusätzlich
+  "backup_to_drive": "Auf Drive sichern",
+  "backup_title": "Sicherung",
+  "backup_title_desc": "Sichern Sie Ihren Chat-Verlauf auf Google Drive. Vorhandene Dateien können überschrieben oder übersprungen werden.",
+  
+  // Google Drive - Wiederherstellungsbereich
+  "restore_files": "Dateien wiederherstellen",
+  "restore_files_desc": "Ihre Sicherungsdateien in Google Drive anzeigen und verwalten",
+  "view_details": "Details anzeigen",
+  
+  // Google Drive - Dateiliste
+  "backup_date": "Sicherungsdatum",
+  "modified": "Geändert",
+  "actions": "Aktionen",
+  "view_chat_records": "Chat-Aufzeichnungen anzeigen",
+  "restore_this_backup": "Diese Sicherung wiederherstellen",
+  "download_to_local": "Lokal herunterladen",
+  "delete_this_backup": "Diese Sicherung löschen",
+  "delete_file": "Datei löschen",
+  "delete_file_confirm": "Möchten Sie \"{fileName}\" wirklich löschen?",
+  "search_backups": "Sicherungen durchsuchen...",
+  "all_time": "Gesamte Zeit",
+  "this_week": "Diese Woche",
+  "this_month": "Dieser Monat",
+  "no_matching_backup_files": "Keine passenden Sicherungsdateien gefunden",
+  "no_backup_files": "Keine Sicherungsdateien gefunden",
+  "items_count": "{count} Elemente",
+  
+  // Google Drive - Authentifizierung
+  "authenticating_with_google": "Authentifizierung mit Google...",
+  "authenticating_desc": "Bitte warten Sie, während wir eine sichere Verbindung zu Ihrem Google-Konto herstellen",
+  "logging_in": "Anmeldung läuft...",
+  "login_with_google": "Mit Google anmelden",
+  
+  // Kalenderansicht
+  "chat_history_desc": "Zeigen Sie Ihren nach Datum organisierten Meeting-Chat-Verlauf an und durchsuchen Sie ihn",
+  "message": "Nachricht",
+  "messages": "Nachrichten",
+  
+  // KI-Einstellungen
+  "save_configuration": "Konfiguration speichern",
+  
+  // Erweiterungseinstellungen
+  "extension_settings_desc": "Erweiterungsspezifische Funktionen und Verhaltensweisen konfigurieren",
+  "select_date": "Datum auswählen"
 }; 

@@ -19,7 +19,7 @@ const QuestionInput: React.FC<QuestionInputProps> = ({ onSubmit, loading }) => {
       <Search
         disabled={loading}
         placeholder={t('summary_placeholder')}
-        enterButton={t('search_button')}
+        enterButton={t('submit_button')}
         size="large"
         onSearch={handleSearch}
       />

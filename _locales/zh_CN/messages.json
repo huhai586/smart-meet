@@ -66,5 +66,13 @@
   "auto_sync_on_meeting_end_desc": {
     "message": "当您退出 Google Meet 通话时自动备份",
     "description": "Description for auto-sync on meeting end setting"
+  },
+  "auto_sync_on_startup": {
+    "message": "浏览器启动时自动同步",
+    "description": "Label for auto-sync on browser startup setting"
+  },
+  "auto_sync_on_startup_desc": {
+    "message": "浏览器启动时自动同步最近5天的聊天记录",
+    "description": "Description for auto-sync on browser startup setting"
   }
 }

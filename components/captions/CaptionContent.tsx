@@ -1,10 +1,12 @@
 import React, { useMemo, useRef } from "react"
 import { Empty, FloatButton } from 'antd';
-import { SyncOutlined } from '@ant-design/icons';
+import { SyncOutlined, MessageOutlined } from '@ant-design/icons';
 import CaptionList from './captionList';
 import type { Dayjs } from 'dayjs';
 import type { Transcript } from '../../hooks/useTranscripts';
 import useAutoScroll from "~hooks/useScroll"
+import { useI18n } from '../../utils/i18n';
+import '../../styles/empty-states.scss';
 
 interface CaptionContentProps {
   filteredData: Transcript[];
@@ -20,6 +22,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
   selectedDate, 
   containerRef,
 }) => {
+  const { t } = useI18n();
   const lastItemInContainer = useRef<HTMLDivElement>(null);
   const { disableAutoScroll, autoScroll, toggleAutoScroll } = useAutoScroll(containerRef.current, lastItemInContainer.current, filteredData);
 
@@ -31,14 +34,15 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
       <CaptionList listData={filteredData} disableAutoScroll={disableAutoScroll} />
     ) : (
       <Empty 
+        image={<MessageOutlined style={{ fontSize: 60 }} />}
         description={
           selectedDate
-            ? `No messages on ${selectedDate.format('YYYY-MM-DD')}`
-            : "No messages"
+            ? t('no_messages_on_date', { date: selectedDate.format('YYYY-MM-DD') })
+            : t('no_messages')
         }
       />
     );
-  }, [filteredData, selectedDate, disableAutoScroll]);
+  }, [filteredData, selectedDate, disableAutoScroll, t]);
 
   return (
     <>
@@ -50,22 +54,24 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
         <div className="last-item" ref={lastItemInContainer}></div>
       </div>
 
-      <FloatButton.Group shape="square" style={{ insetInlineEnd: 24 }} className={'custom-float-buttons'}>
-        <FloatButton 
-          icon={<SyncOutlined />}
-          type={autoScroll ? "primary" : "default"}
-          onClick={toggleAutoScroll}
-          tooltip={autoScroll ? "Disable auto scroll" : "Enable auto scroll"}
-        />
-        <FloatButton.BackTop
-          visibilityHeight={0}
-          target={() => containerRef.current}
-          onClick={() => {
-            if (autoScroll) {
-              toggleAutoScroll();
-          }}}
-        />
-      </FloatButton.Group>
+      {!isNoData && (
+        <FloatButton.Group shape="square" style={{ insetInlineEnd: 24 }} className={'custom-float-buttons'}>
+          <FloatButton 
+            icon={<SyncOutlined />}
+            type={autoScroll ? "primary" : "default"}
+            onClick={toggleAutoScroll}
+            tooltip={autoScroll ? "Disable auto scroll" : "Enable auto scroll"}
+          />
+          <FloatButton.BackTop
+            visibilityHeight={0}
+            target={() => containerRef.current}
+            onClick={() => {
+              if (autoScroll) {
+                toggleAutoScroll();
+            }}}
+          />
+        </FloatButton.Group>
+      )}
     </>
   );
 };

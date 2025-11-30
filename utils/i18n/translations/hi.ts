@@ -19,6 +19,8 @@ export default {
   "analysis": "विश्लेषण",
   "ask": "पूछें",
   "summary": "सारांश",
+  "no_messages": "कोई संदेश नहीं",
+  "no_messages_on_date": "{date} को कोई संदेश नहीं",
   
   // Common
   "on": "चालू",
@@ -78,6 +80,19 @@ export default {
   "extension": "एक्सटेंशन",
       "translation_records": "अनुवाद",
   "download_captions": "कैप्शन डाउनलोड करें",
+  "sidepanel_summary": "AI Summary",
+  "sidepanel_settings": "मुख्य इंटरफ़ेस सेटिंग्स",
+  "sidepanel_settings_desc": "अपने वर्कफ़्लो के अनुरूप मुख्य इंटरफ़ेस में टैब और बटन की दृश्यता को अनुकूलित करें।",
+  "sidepanel_visibility_settings": "टैब दृश्यता सेटिंग्स",
+  "sidepanel_visibility_desc": "मुख्य इंटरफ़ेस साइडपैनल में कौन से टैब दिखाई देते हैं, यह कॉन्फ़िगर करें।",
+  "captions_tab_desc": "मीटिंग कैप्शन को रीयल-टाइम में देखें और प्रबंधित करें",
+  "summary_tab_desc": "AI-संचालित मीटिंग सारांश और अंतर्दृष्टि उत्पन्न करें",
+  "translation_tab_desc": "अनुवाद इतिहास और शब्द रिकॉर्ड तक पहुंचें",
+  "caption_buttons_visibility_settings": "कैप्शन एक्शन बटन",
+  "caption_buttons_visibility_desc": "AI सुविधाओं तक त्वरित पहुंच के लिए प्रत्येक कैप्शन पर दिखाई देने वाले एक्शन बटन को नियंत्रित करें।",
+  "translate_button_desc": "कैप्शन टेक्स्ट को अपनी पसंदीदा भाषा में अनुवाद करें",
+  "polish_button_desc": "AI के साथ कैप्शन टेक्स्ट को सुधारें और परिष्कृत करें",
+  "analysis_button_desc": "कैप्शन से विस्तृत विश्लेषण और अंतर्दृष्टि प्राप्त करें",
   
   // Sidebar
   "calendar_view": "कैलेंडर दृश्य",
@@ -86,9 +101,11 @@ export default {
   // Summary
   "loading": "लोड हो रहा है",
   "no_meeting_data": "कोई मीटिंग डेटा नहीं",
-  "summary_question": "मीटिंग सारांश के बारे में आपका क्या विचार है?",
-  "summary_placeholder": "कृपया मीटिंग का सारांश दें",
+  "summary_question": "कृपया आज की मीटिंग की सामग्री का सारांश दें",
+  "summary_placeholder": "कृपया आज की मीटिंग की सामग्री का सारांश दें",
+  "summary_empty_state": "अभी तक कोई सारांश नहीं, शुरू करने के लिए नीचे एक प्रश्न दर्ज करें",
   "search_button": "खोजें",
+  "submit_button": "सबमिट करें",
   
   // Extension
   "extension_settings": "एक्सटेंशन सेटिंग्स",
@@ -172,5 +189,53 @@ export default {
   
   // स्वचालित सिंक सेटिंग्स
   "auto_sync_on_meeting_end": "मीटिंग समाप्त होने पर स्वचालित सिंक",
-  "auto_sync_on_meeting_end_desc": "Google Meet कॉल छोड़ने पर स्वचालित रूप से बैकअप लें"
+  "auto_sync_on_meeting_end_desc": "Google Meet कॉल छोड़ने पर स्वचालित रूप से बैकअप लें",
+  "auto_sync_on_startup": "ब्राउज़र स्टार्टअप पर स्वचालित सिंक",
+  "auto_sync_on_startup_desc": "ब्राउज़र शुरू होने पर हाल के 5 दिनों की चैट हिस्ट्री को स्वचालित रूप से सिंक करें",
+  
+  // Google Drive - अतिरिक्त
+  "backup_to_drive": "Drive पर बैकअप करें",
+  "backup_title": "बैकअप",
+  "backup_title_desc": "अपनी चैट हिस्ट्री को Google Drive पर बैकअप करें। मौजूदा फ़ाइलों को अधिलेखित या छोड़ा जा सकता है।",
+  
+  // Google Drive - पुनर्स्थापना अनुभाग
+  "restore_files": "फ़ाइलें पुनर्स्थापित करें",
+  "restore_files_desc": "Google Drive में अपनी बैकअप फ़ाइलों को देखें और प्रबंधित करें",
+  "view_details": "विवरण देखें",
+  
+  // Google Drive - फ़ाइल सूची
+  "backup_date": "बैकअप तिथि",
+  "modified": "संशोधित",
+  "actions": "क्रियाएं",
+  "view_chat_records": "चैट रिकॉर्ड देखें",
+  "restore_this_backup": "इस बैकअप को पुनर्स्थापित करें",
+  "download_to_local": "स्थानीय रूप से डाउनलोड करें",
+  "delete_this_backup": "इस बैकअप को हटाएं",
+  "delete_file": "फ़ाइल हटाएं",
+  "delete_file_confirm": "क्या आप वाकई \"{fileName}\" को हटाना चाहते हैं?",
+  "search_backups": "बैकअप खोजें...",
+  "all_time": "सभी समय",
+  "this_week": "इस सप्ताह",
+  "this_month": "इस महीने",
+  "no_matching_backup_files": "कोई मेल खाने वाली बैकअप फ़ाइलें नहीं मिलीं",
+  "no_backup_files": "कोई बैकअप फ़ाइलें नहीं मिलीं",
+  "items_count": "{count} आइटम",
+  
+  // Google Drive - प्रमाणीकरण
+  "authenticating_with_google": "Google के साथ प्रमाणीकरण...",
+  "authenticating_desc": "कृपया प्रतीक्षा करें जब तक हम आपके Google खाते से सुरक्षित रूप से कनेक्ट करते हैं",
+  "logging_in": "लॉग इन हो रहा है...",
+  "login_with_google": "Google के साथ लॉगिन करें",
+  
+  // कैलेंडर दृश्य
+  "chat_history_desc": "तिथि के अनुसार व्यवस्थित मीटिंग चैट इतिहास देखें और खोजें",
+  "message": "संदेश",
+  "messages": "संदेश",
+  
+  // AI सेटिंग्स
+  "save_configuration": "कॉन्फ़िगरेशन सहेजें",
+  
+  // एक्सटेंशन सेटिंग्स
+  "extension_settings_desc": "एक्सटेंशन-विशिष्ट सुविधाओं और व्यवहार को कॉन्फ़िगर करें",
+  "select_date": "तिथि चुनें"
 }; 
