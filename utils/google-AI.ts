@@ -21,7 +21,7 @@ const googleAITools = {
                 // 初始化 Gemini 服务
                 console.log('[googleAITools] Initializing Gemini with API key');
                 const genAI = new GoogleGenerativeAI(activeServiceConfig.apiKey);
-                const modelName = activeServiceConfig.modelName || "gemini-2.0-flash";
+                const modelName = activeServiceConfig.modelName || "gemini-2.5-flash";
                 
                 // 构建请求选项，如果配置了 baseUrl 则使用自定义 URL
                 const requestOptions: any = {};

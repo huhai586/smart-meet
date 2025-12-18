@@ -35,7 +35,7 @@ export class GeminiAIService extends BaseAIService {
       }
       
       this.model = genAI.getGenerativeModel(
-        { model: this.config.modelName || "gemini-2.0-flash" },
+        { model: this.config.modelName || "gemini-2.5-flash" },
         Object.keys(requestOptions).length > 0 ? requestOptions : undefined
       );
       

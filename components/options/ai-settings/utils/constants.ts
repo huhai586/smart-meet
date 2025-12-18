@@ -8,7 +8,7 @@ export const SERVICE_DISPLAY_INFO = {
     name: 'Google Gemini',
     icon: '🧠',
     apiKeyUrl: 'https://aistudio.google.com/apikey',
-    defaultModel: 'gemini-2.0-flash'
+    defaultModel: 'gemini-2.5-flash'
   },
   openai: {
     name: 'OpenAI GPT',
@@ -32,7 +32,8 @@ export const PREDEFINED_MODELS = {
     'gemini-1.5-flash', 
     'gemini-1.5-pro',
     'gemini-2.0-flash',
-    'gemini-2.0-pro'
+    'gemini-2.0-pro',
+    'gemini-2.5-flash'
   ],
   // OpenAI 模型 - 仅作为备用，优先通过API获取
   openai: [

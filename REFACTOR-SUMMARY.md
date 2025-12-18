@@ -26,7 +26,7 @@ const AIs = {
   data: [
     {
       apiKey: 'your-gemini-key',
-      modelName: 'gemini-2.0-flash',
+      modelName: 'gemini-2.5-flash',
       aiName: 'gemini'
     },
     {
