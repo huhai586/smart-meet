@@ -131,7 +131,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
         ))}
       </div>
       <div className="sidebar-footer">
-        <div className="version">Version 1.0.0</div>
+        <div className="version">Version {chrome.runtime.getManifest().version}</div>
       </div>
     </div>
   );
