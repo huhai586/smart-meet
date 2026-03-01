@@ -26,7 +26,8 @@ const GlobalDatePicker = () => {
         setOpen(false);
     };
 
-    const dateRender = (current: dayjs.Dayjs) => {
+    const dateRender = (current: dayjs.Dayjs, info: { originNode: React.ReactNode, type: string }) => {
+        if (info.type !== 'date') return info.originNode;
         const date = current.format('YYYY-MM-DD');
         const hasMessages = datesWithMessages.has(date);
         return (
