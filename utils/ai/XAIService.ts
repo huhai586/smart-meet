@@ -1,4 +1,5 @@
-import type { AIServiceConfig } from './AIServiceInterface';
+import type { AIServiceConfig, GenerateResponseOptions } from './AIServiceInterface';
+import type { Dayjs } from 'dayjs';
 import { BaseAIService } from './BaseAIService';
 import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 import { getTranslation } from '../i18n';
@@ -19,7 +20,7 @@ export class XAIService extends BaseAIService {
       model: string;
     };
   } | null = null;
-  
+
   constructor(config: AIServiceConfig) {
     super(config);
   }
@@ -64,7 +65,7 @@ export class XAIService extends BaseAIService {
             try {
               const error = await response.json();
               errorMsg = error.error?.message || errorMsg;
-            } catch {}
+            } catch { }
             throw new Error(errorMsg);
           }
 
@@ -83,14 +84,14 @@ export class XAIService extends BaseAIService {
             /**
              * Add a message to the conversation
              */
-            addMessage: function(message: { role: string, content: string }) {
+            addMessage: function (message: { role: string, content: string }) {
               this.messages.push(message);
               return this;
             },
             /**
              * Execute the conversation by sending all messages to xAI API
              */
-            execute: async function() {
+            execute: async function () {
               const response = await fetch('https://api.x.ai/v1/chat/completions', {
                 method: 'POST',
                 headers: {
@@ -107,7 +108,7 @@ export class XAIService extends BaseAIService {
                 try {
                   const error = await response.json();
                   errorMsg = error.error?.message || errorMsg;
-                } catch {}
+                } catch { }
                 throw new Error(errorMsg);
               }
               const data = await response.json();
@@ -138,7 +139,7 @@ export class XAIService extends BaseAIService {
       console.error('XAI client not initialized');
       return;
     }
-    
+
     // 获取多语言消息
     const currentUILanguage = await getCurrentUILanguage();
     const langCode = currentUILanguage.code;
@@ -147,26 +148,26 @@ export class XAIService extends BaseAIService {
       assistantReady: getTranslation('ai_meeting_assistant_ready', langCode),
       systemPromptMeeting: getTranslation('ai_system_prompt_meeting', langCode)
     };
-    
+
     // 创建对话并初始化
     const conversation = this.client.createConversation();
-    
+
     // 添加系统消息和会议内容
     conversation.addMessage({
       role: 'system',
       content: messages.systemPromptMeeting
     });
-    
+
     conversation.addMessage({
       role: 'user',
       content: `${messages.meetingContentIntro}${JSON.stringify(meetingContent)}`
     });
-    
+
     conversation.addMessage({
       role: 'assistant',
       content: messages.assistantReady
     });
-    
+
     // 存储会话对象
     this.aiConversations[mode] = conversation;
   }
@@ -181,45 +182,47 @@ export class XAIService extends BaseAIService {
   /**
    * 生成响应
    */
-  async generateResponse(prompt: string, mode?: string, useContext?: boolean): Promise<string> {
+  async generateResponse(options: GenerateResponseOptions): Promise<string> {
+    const { prompt, mode, useContext, date } = options;
+
     if (!this.isReady() || !this.client) {
       throw new Error('XAI service not ready');
     }
 
     let result;
-    
+
     if (useContext && mode) {
       // 获取或创建对话
-      const conversation = await this.getConversation(mode);
-      
+      const conversation = await this.getConversation(mode, date);
+
       try {
         // 添加用户问题
         conversation.addMessage({
           role: 'user',
           content: prompt
         });
-        
+
         // 执行对话
         result = await conversation.execute();
-        
+
         // 添加AI回复到对话历史
         conversation.addMessage({
           role: 'assistant',
           content: result.text
         });
-        
+
         console.log(`Used existing XAI conversation for ${mode}`);
       } catch (error) {
         console.error(`Error with XAI conversation: ${error.message}`);
         // 如果对话出错，重新初始化并尝试
-        await this.initConversation(mode);
-        const newConversation = await this.getConversation(mode);
-        
+        await this.initConversation(mode, date);
+        const newConversation = await this.getConversation(mode, date);
+
         newConversation.addMessage({
           role: 'user',
           content: prompt
         });
-        
+
         result = await newConversation.execute();
       }
     } else {
@@ -228,7 +231,7 @@ export class XAIService extends BaseAIService {
         modelId: this.client.model,
       });
     }
-    
+
     return this.processResponse(result);
   }
 

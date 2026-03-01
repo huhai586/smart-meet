@@ -18,12 +18,12 @@ export const useSummary = () => {
   useEffect(() => {
     try {
       console.log('[useSummary] Clearing AI conversation due to date change');
-      
+
       // 获取当前 AI 服务
       const currentService = aiServiceManager.getCurrentService();
       if (currentService) {
         console.log(`[useSummary] Using service: ${aiServiceManager.getCurrentServiceType()}`);
-        
+
         // 如果服务支持清除对话，则清除对话
         if (typeof currentService.clearConversation === 'function') {
           currentService.clearConversation(Actions.ASK);
@@ -33,7 +33,7 @@ export const useSummary = () => {
       } else {
         console.warn('[useSummary] No active AI service found');
       }
-      
+
       // 清空当前显示的卡片数据
       setCardData([]);
     } catch (error) {
@@ -51,11 +51,11 @@ export const useSummary = () => {
       if (item.fetchComplete) {
         return;
       }
-      
+
       const newCardData = [...cardData];
       setRequesting(true);
-      
-      getAiSummary(item.question)
+
+      getAiSummary(item.question, selectedDate)
         .then((res) => {
           newCardData[index].answer = res;
           newCardData[index].fetchComplete = true;
@@ -64,12 +64,12 @@ export const useSummary = () => {
         .catch((err) => {
           console.warn('err', err);
           newCardData[index].fetchComplete = true;
-          
+
           // getAiSummary内部使用askAI，AI服务错误已经在askAI中处理
           // 这里只处理其他类型的错误
           const errorMessage = typeof err === 'string' ? err : (err?.message || 'Unknown error occurred');
           newCardData[index].error = errorMessage;
-          
+
           // 只有非AI服务错误才显示错误消息（AI服务错误已经在askAI中处理）
           if (!errorMessage.toLowerCase().includes('ai service')) {
             messageApi.open({
@@ -83,13 +83,13 @@ export const useSummary = () => {
           setCardData(newCardData);
         });
     });
-  }, [cardData, messageApi, t]);
+  }, [cardData, messageApi, t, selectedDate]);
 
   // 添加新问题
   const handleQuestion = async (question = t('summary_question')) => {
     const newCardData = [...cardData, {
-      question, 
-      answer: '', 
+      question,
+      answer: '',
       fetchComplete: false,
       createdAt: Date.now()
     }];

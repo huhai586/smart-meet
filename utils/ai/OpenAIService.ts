@@ -1,15 +1,15 @@
-import type { AIServiceConfig } from './AIServiceInterface';
+import type { AIServiceConfig, GenerateResponseOptions } from './AIServiceInterface';
+import type { Dayjs } from 'dayjs';
 import { BaseAIService } from './BaseAIService';
 import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 import { getTranslation } from '../i18n';
-// 使用require方式导入，避免类型问题
-const OpenAI = require('openai');
+import OpenAI from 'openai';
 
 /**
  * OpenAI服务实现
  */
 export class OpenAIService extends BaseAIService {
-  private client: typeof OpenAI | null = null;
+  private client: OpenAI | null = null;
 
   constructor(config: AIServiceConfig) {
     super(config);
@@ -25,14 +25,14 @@ export class OpenAIService extends BaseAIService {
         return;
       }
 
-      if (!OpenAI || !OpenAI.OpenAI) {
+      if (!OpenAI) {
         console.error('OpenAI library not properly loaded');
         return;
       }
 
       try {
         // 初始化OpenAI客户端
-        this.client = new OpenAI.OpenAI({
+        this.client = new OpenAI({
           apiKey: this.config.apiKey,
           dangerouslyAllowBrowser: true
         });
@@ -76,8 +76,7 @@ export class OpenAIService extends BaseAIService {
       systemPromptMeeting: getTranslation('ai_system_prompt_meeting', langCode)
     };
 
-    // 为每个模式创建对话历史
-    this.aiConversations[mode] = [
+    const conversationHistory: OpenAI.Chat.Completions.ChatCompletionMessageParam[] = [
       {
         role: "system",
         content: messages.systemPromptMeeting
@@ -91,16 +90,20 @@ export class OpenAIService extends BaseAIService {
         content: messages.assistantReady
       }
     ];
+    // 为每个模式创建对话历史
+    this.aiConversations[mode] = conversationHistory;
   }
 
   /**
    * 处理AI响应
    */
   protected processResponse(result: unknown): string {
+    type OpenAIResult = { choices: Array<{ message: { content: string } }> };
+    const r = result as OpenAIResult;
     try {
-      if (result && result.choices && result.choices.length > 0 &&
-          result.choices[0].message && result.choices[0].message.content) {
-        return result.choices[0].message.content;
+      if (r && r.choices && r.choices.length > 0 &&
+        r.choices[0].message && r.choices[0].message.content) {
+        return r.choices[0].message.content;
       }
       console.error('Unexpected OpenAI response format:', result);
       return "Error processing response from OpenAI.";
@@ -113,7 +116,9 @@ export class OpenAIService extends BaseAIService {
   /**
    * 生成响应
    */
-  async generateResponse(prompt: string, mode?: string, useContext?: boolean): Promise<string> {
+  async generateResponse(options: GenerateResponseOptions): Promise<string> {
+    const { prompt, mode, useContext, date } = options;
+
     if (!this.isReady() || !this.client) {
       throw new Error('OpenAI service not ready');
     }
@@ -123,7 +128,7 @@ export class OpenAIService extends BaseAIService {
     try {
       if (useContext && mode) {
         // 获取或创建该模式的对话历史
-        const conversation = await this.getConversation(mode);
+        const conversation = await this.getConversation(mode, date) as OpenAI.Chat.Completions.ChatCompletionMessageParam[];
 
         // 将新的用户消息添加到对话历史
         conversation.push({ role: "user", content: prompt });
@@ -147,8 +152,8 @@ export class OpenAIService extends BaseAIService {
         } catch (error) {
           console.error(`Error with OpenAI conversation: ${error.message}`);
           // 如果对话出错，重新初始化并尝试
-          await this.initConversation(mode);
-          return this.generateResponse(prompt, mode, useContext);
+          await this.initConversation(mode, date);
+          return this.generateResponse(options);
         }
       } else {
         // 普通模式，直接发送提示

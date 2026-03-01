@@ -1,4 +1,5 @@
-import type { IAIService, AIServiceConfig } from './AIServiceInterface';
+import type { IAIService, AIServiceConfig, GenerateResponseOptions } from './AIServiceInterface';
+import type { Dayjs } from 'dayjs';
 import getMeetingCaptions from '../getCaptions';
 
 /**
@@ -29,20 +30,20 @@ export abstract class BaseAIService implements IAIService {
   /**
    * 初始化或重置特定模式的对话 - 子类需要覆盖此方法的部分逻辑
    */
-  async initConversation(mode: string): Promise<void> {
+  async initConversation(mode: string, date: Dayjs): Promise<void> {
     if (!this.isReady()) {
       console.error('AI service not initialized');
       return;
     }
-    
+
     try {
-      // 获取会议记录
-      const meetingContent = await getMeetingCaptions();
-      
+      // 获取指定日期的会议记录
+      const meetingContent = await getMeetingCaptions(date);
+
       // 子类需要实现的创建对话逻辑
       await this.createConversation(mode, meetingContent);
-      
-      console.log(`AI conversation for ${mode} initialized`);
+
+      console.log(`AI conversation for ${mode} initialized with date: ${date.format('YYYY-MM-DD')}`);
     } catch (error) {
       console.error(`Error initializing conversation: ${error}`);
     }
@@ -56,9 +57,9 @@ export abstract class BaseAIService implements IAIService {
   /**
    * 获取特定模式的对话，如果不存在则创建
    */
-  async getConversation(mode: string): Promise<unknown> {
+  async getConversation(mode: string, date: Dayjs): Promise<unknown> {
     if (!this.aiConversations || !this.aiConversations[mode]) {
-      await this.initConversation(mode);
+      await this.initConversation(mode, date);
     }
     return this.aiConversations[mode];
   }
@@ -82,10 +83,10 @@ export abstract class BaseAIService implements IAIService {
    * 生成响应 - 发送提示并获取回答
    * 子类需要覆盖此方法
    */
-  abstract generateResponse(prompt: string, mode?: string, useContext?: boolean): Promise<string>;
+  abstract generateResponse(options: GenerateResponseOptions): Promise<string>;
 
   /**
    * 获取服务名称
    */
   abstract getServiceName(): string;
-} 
+}

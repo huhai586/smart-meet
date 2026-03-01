@@ -3,11 +3,12 @@ import type { Dayjs } from 'dayjs';
 
 export interface StorageProvider {
     addOrUpdateRecord(_record: Transcript, _successCallback?: () => void): Promise<void>;
-    getRecords(_date?: Dayjs): Promise<Transcript[]>;
+    getRecords(_date: Dayjs): Promise<Transcript[]>;
     deleteRecords(_date?: Dayjs): Promise<void>;
     restoreRecords(_records: Transcript[], _date?: Dayjs): Promise<void>;
     getDaysWithMessages(): Promise<string[]>;
     setCurrentDate(_date: Dayjs): Promise<void>;
+    getCurrentDate(): Dayjs;
 }
 
 export interface StorageOptions {

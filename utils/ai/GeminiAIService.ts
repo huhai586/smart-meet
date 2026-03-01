@@ -1,15 +1,16 @@
-import type { AIServiceConfig } from './AIServiceInterface';
+import type { AIServiceConfig, GenerateResponseOptions } from './AIServiceInterface';
+import type { Dayjs } from 'dayjs';
 import { BaseAIService } from './BaseAIService';
 import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 import { getTranslation } from '../i18n';
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { GoogleGenerativeAI, type GenerativeModel } from "@google/generative-ai";
 
 /**
  * Gemini AI服务实现
  */
 export class GeminiAIService extends BaseAIService {
-  private model: GoogleGenerativeAI.GenerativeModel | null = null;
+  private model: GenerativeModel | null = null;
 
   constructor(config: AIServiceConfig) {
     super(config);
@@ -26,23 +27,23 @@ export class GeminiAIService extends BaseAIService {
       }
 
       const genAI = new GoogleGenerativeAI(this.config.apiKey);
-      
+
       // 构建请求选项，如果配置了 baseUrl 则使用自定义 URL
       const requestOptions: any = {};
       if (this.config.baseUrl) {
         requestOptions.baseUrl = this.config.baseUrl;
         console.log('Using custom Gemini API endpoint:', this.config.baseUrl);
       }
-      
+
       this.model = genAI.getGenerativeModel(
         { model: this.config.modelName || "gemini-2.5-flash" },
         Object.keys(requestOptions).length > 0 ? requestOptions : undefined
       );
-      
+
       // 初始化AI对话实例
       this.aiConversations = {};
       this.isInitialized = true;
-      
+
       console.log('Gemini AI service initialized');
     } catch (error) {
       console.error('Failed to initialize Gemini AI service:', error);
@@ -57,7 +58,7 @@ export class GeminiAIService extends BaseAIService {
       console.error('Gemini model not initialized');
       return;
     }
-    
+
     // 获取多语言消息
     const currentUILanguage = await getCurrentUILanguage();
     const langCode = currentUILanguage.code;
@@ -66,7 +67,7 @@ export class GeminiAIService extends BaseAIService {
       assistantReady: getTranslation('ai_meeting_assistant_ready', langCode),
       systemPromptMeeting: getTranslation('ai_system_prompt_meeting', langCode)
     };
-    
+
     // 创建新对话并插入会议记录作为上下文
     try {
       const chat = this.model.startChat({
@@ -76,12 +77,12 @@ export class GeminiAIService extends BaseAIService {
             parts: [{ text: `${messages.meetingContentIntro}${JSON.stringify(meetingContent)}` }],
           },
           {
-            role: "model", 
+            role: "model",
             parts: [{ text: messages.assistantReady }],
           }
         ],
       });
-      
+
       this.aiConversations[mode] = chat;
     } catch (error) {
       console.error(`Error creating Gemini conversation: ${error}`);
@@ -93,23 +94,25 @@ export class GeminiAIService extends BaseAIService {
    * 处理AI响应
    */
   protected processResponse(result: unknown): string {
-    return result.response.text();
+    return (result as { response: { text: () => string } }).response.text();
   }
 
   /**
    * 生成响应
    */
-  async generateResponse(prompt: string, mode?: string, useContext?: boolean): Promise<string> {
+  async generateResponse(options: GenerateResponseOptions): Promise<string> {
+    const { prompt, mode, useContext, date } = options;
+
     if (!this.isReady() || !this.model) {
       throw new Error('Gemini AI service not ready');
     }
 
     let result;
-    
+
     if (useContext && mode) {
       // 获取或创建该模式的AI对话
-      const conversation = await this.getConversation(mode);
-      
+      const conversation = await this.getConversation(mode, date) as { sendMessage: (msg: string) => Promise<unknown> };
+
       // 使用已有对话发送消息，保持上下文连贯性
       try {
         result = await conversation.sendMessage(prompt);
@@ -117,15 +120,15 @@ export class GeminiAIService extends BaseAIService {
       } catch (error) {
         console.error(`Error with Gemini AI conversation: ${error.message}`);
         // 如果对话出错，重新初始化并尝试
-        await this.initConversation(mode);
-        const newConversation = await this.getConversation(mode);
+        await this.initConversation(mode, date);
+        const newConversation = await this.getConversation(mode, date) as { sendMessage: (msg: string) => Promise<unknown> };
         result = await newConversation.sendMessage(prompt);
       }
     } else {
       // 普通模式，直接发送提示
       result = await this.model.generateContent(prompt);
     }
-    
+
     return this.processResponse(result);
   }
 

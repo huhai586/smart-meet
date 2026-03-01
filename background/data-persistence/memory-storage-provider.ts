@@ -44,7 +44,7 @@ export class MemoryStorageProvider implements StorageProvider {
             if (this.changedRecords.size > 0) {
                 // 遍历所有缓存的日期，找出所有变更的记录
                 const allChangedRecords: Transcript[] = [];
-                
+
                 for (const [dateKey, records] of this.memoryCache.entries()) {
                     const changedInThisDate = records.filter(record =>
                         this.changedRecords.has(record.session)
@@ -81,16 +81,14 @@ export class MemoryStorageProvider implements StorageProvider {
         this.schedulePersist();
     }
 
-    async getRecords(date?: Dayjs): Promise<Transcript[]> {
-        // 如果没有提供日期，使用当前设置的日期
-        const targetDate = date || this.currentDate;
-        const dateKey = targetDate.format('YYYY-MM-DD');
+    async getRecords(date: Dayjs): Promise<Transcript[]> {
+        const dateKey = date.format('YYYY-MM-DD');
 
         const dataInMemory = this.memoryCache.get(dateKey) || [];
         if (dataInMemory.length > 0) {
             return dataInMemory;
         }
-        return this.indexedDBProvider.getRecords(targetDate);
+        return this.indexedDBProvider.getRecords(date);
 
     }
 

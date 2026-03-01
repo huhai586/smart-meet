@@ -1,12 +1,12 @@
-const globals = require("globals");
-const tseslint = require("typescript-eslint");
-const react = require("eslint-plugin-react");
-const reactHooks = require("eslint-plugin-react-hooks");
-const unusedImports = require("eslint-plugin-unused-imports");
-const importPlugin = require("eslint-plugin-import");
-const prettier = require("eslint-config-prettier");
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
+import unusedImports from "eslint-plugin-unused-imports";
+import importPlugin from "eslint-plugin-import";
+import prettier from "eslint-config-prettier";
 
-module.exports = tseslint.config(
+export default tseslint.config(
     {
         ignores: ["node_modules/", ".plasmo/", "build/"],
     },

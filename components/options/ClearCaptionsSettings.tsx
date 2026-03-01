@@ -3,6 +3,7 @@ import { Typography, theme, Button, Modal, Alert, Card } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
+import { sendBackgroundMessage } from '~background/message-center';
 import '~styles/clear-captions-settings.scss';
 
 const { Text } = Typography;
@@ -25,7 +26,7 @@ const ClearCaptionsSettings: React.FC = () => {
   const handleClear = () => {
     // 清除全部字幕数据
     chrome.storage.local.set({ recordedContents: [] }, () => {
-      chrome.runtime.sendMessage({ action: "clear" });
+      sendBackgroundMessage({ action: "clear" });
       setClearSuccess(true);
       setTimeout(() => {
         setClearSuccess(false);

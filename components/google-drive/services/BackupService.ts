@@ -6,6 +6,7 @@ import type { SyncSummary, RestoreResult, ConflictData } from '../types';
 import type { IGoogleDriveFileContent, IGoogleDriveService } from "~utils/types/google-drive.types"
 import { createJsonFile } from '../../../utils/file-utils';
 import type gapi from 'gapi';
+import { sendBackgroundMessage } from '~background/message-center';
 
 /**
  * 备份服务，封装备份相关的方法
@@ -118,12 +119,12 @@ export class BackupService {
     try {
       // 从Google Drive下载文件内容
       const fileContent = await this.driveService.downloadFile(fileId);
-      
+
       // 创建下载链接
       const jsonString = JSON.stringify(fileContent, null, 2);
       const blob = new Blob([jsonString], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
-      
+
       // 创建临时下载链接并触发下载
       const link = document.createElement('a');
       link.href = url;
@@ -131,10 +132,10 @@ export class BackupService {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       // 清理URL对象
       URL.revokeObjectURL(url);
-      
+
       message.success('File downloaded successfully');
       return true;
     } catch (error) {
@@ -163,7 +164,7 @@ export class BackupService {
       message.success('Records restored successfully');
 
       // 通知后台更新数据
-      chrome.runtime.sendMessage({
+      sendBackgroundMessage({
         action: 'get-days-with-messages'
       });
 
@@ -216,7 +217,7 @@ export class BackupService {
     console.log(`Restore complete. Restored: ${restoredCount}, Failed: ${failedFiles.length}`);
 
     // 通知后台更新数据
-    chrome.runtime.sendMessage({
+    sendBackgroundMessage({
       action: 'get-days-with-messages'
     });
 

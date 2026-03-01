@@ -1,21 +1,11 @@
-import type {Transcript} from "~hooks/useTranscripts";
+import type { Transcript } from "~hooks/useTranscripts";
 import { Dayjs } from 'dayjs';
 
-const getMeetingCaptions = (selectedDate?: Dayjs): Promise<Transcript[]> => {
-    return new Promise((resolve, _reject) => {
-        const handleMessage = (message) => {
-            if (message.action === 'refresh-transcripts') {
-                console.log('getCaptions.js', 'refresh-transcripts', message.data)
-                resolve(message.data as Transcript[]);
-                chrome.runtime.onMessage.removeListener(handleMessage);
-            }
-        }
-        chrome.runtime.sendMessage({
-            action: 'get-transcripts',
-            date: selectedDate
-        });
-        chrome.runtime.onMessage.addListener(handleMessage);
-    });
+const getMeetingCaptions = async (selectedDate: Dayjs): Promise<Transcript[]> => {
+    const result = await chrome.runtime.sendMessage({ action: 'get-transcripts', date: selectedDate });
+    console.warn({result, selectedDate})
+    return Array.isArray(result) ? result : [];
 }
 
 export default getMeetingCaptions;
+

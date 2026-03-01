@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import { GoogleDriveService } from "~utils/google-drive";
 import { StorageFactory } from "~background/data-persistence/storage-factory";
-import { messageCenter } from "./data-persistence";
+import { messageCenter } from "./message-center";
 import type { Transcript } from "~hooks/useTranscripts";
 
 /**
@@ -14,7 +14,7 @@ export class BrowserStartupSyncService {
     private storage = StorageFactory.getInstance().getProvider();
     private driveService = GoogleDriveService.getInstance();
 
-    private constructor() {}
+    private constructor() { }
 
     static getInstance(): BrowserStartupSyncService {
         if (!BrowserStartupSyncService.instance) {
@@ -29,11 +29,11 @@ export class BrowserStartupSyncService {
     initStartupListener(): void {
         chrome.runtime.onStartup.addListener(async () => {
             console.log('浏览器启动，检查自动同步设置...');
-            
+
             // 检查用户是否启用了浏览器启动时自动同步
             chrome.storage.sync.get(['autoSyncOnStartup'], async (result) => {
                 const isEnabled = result.autoSyncOnStartup === true;
-                
+
                 if (isEnabled) {
                     console.log('浏览器启动自动同步已启用，开始同步最近5天的数据...');
                     await this.syncRecentData();
@@ -128,7 +128,7 @@ export class BrowserStartupSyncService {
         try {
             // 1. 下载文件内容
             const fileContent = await this.driveService.downloadFile(fileId);
-            
+
             // 2. 验证数据格式
             if (!Array.isArray(fileContent)) {
                 console.error(`${date}: 下载的数据格式不正确`);
@@ -143,7 +143,7 @@ export class BrowserStartupSyncService {
                 action: 'restoreRecords',
                 data: records,
                 date: date
-            });
+            }, {}, () => { });
 
             console.log(`${date}: 数据恢复成功`);
         } catch (error) {

@@ -1,6 +1,5 @@
-import initialDataPersistence from "./data-persistence";
+import initialDataPersistence from "./message-center";
 import { updateBadgeText } from "./set-badge-text";
-import { initMessageHandlers } from "./message-handlers";
 import { initTabTracking } from "./tab-tracking";
 import { detectAndSetBrowserLanguage } from "./utils/language-utils";
 import { initLeaveCallSync } from "./sync-on-leave";
@@ -14,7 +13,7 @@ import { initBrowserStartupSync } from "./browser-startup-sync";
 // 监听插件安装事件
 chrome.runtime.onInstalled.addListener(async (details) => {
     console.log('插件安装事件触发:', details.reason);
-    
+
     if (details.reason === 'install') {
         // 首次安装时检测并设置浏览器语言
         try {
@@ -23,7 +22,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
         } catch (error) {
             console.error('设置浏览器语言时出错:', error);
         }
-        
+
         // 首次安装时打开欢迎页面
         // 由于Plasmo的限制，我们使用options页面并导航到欢迎部分
         chrome.tabs.create({
@@ -39,29 +38,26 @@ chrome.runtime.onInstalled.addListener(async (details) => {
 // 后台服务初始化函数
 function initBackgroundService() {
     console.log('初始化背景页服务...');
-    
+
     // 初始化徽章文本
     updateBadgeText();
-    
-    // 初始化数据持久化
+
+    // 初始化统一消息处理中心（含数据持久化与系统消息）
     initialDataPersistence();
-    
-    // 初始化消息处理器
-    initMessageHandlers();
-    
+
     // 初始化标签页跟踪
     initTabTracking();
-    
+
     // 初始化退出通话同步
     initLeaveCallSync();
-    
+
     // 初始化浏览器启动同步
     initBrowserStartupSync();
 }
 
 // 执行初始化
 initBackgroundService();
-export {}
+export { }
 
 console.log("Background service worker initialized successfully.");
 

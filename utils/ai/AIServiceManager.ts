@@ -1,4 +1,4 @@
-import type { IAIService, AIServiceConfig } from './AIServiceInterface';
+import type { IAIService, AIServiceConfig, GenerateResponseOptions } from './AIServiceInterface';
 import { AIServiceFactoryManager } from './AIServiceFactory';
 
 /**
@@ -42,7 +42,7 @@ export class AIServiceManager {
       console.log(`AI service ${type} initialized`);
       return service;
     }
-    
+
     console.error(`Failed to initialize AI service: ${type}`);
     return null;
   }
@@ -72,12 +72,12 @@ export class AIServiceManager {
   public getService(type?: string): IAIService | null {
     const serviceType = type || this.currentServiceType;
     const service = this.services.get(serviceType);
-    
+
     if (!service) {
       console.error(`AI service ${serviceType} not found`);
       return null;
     }
-    
+
     return service;
   }
 
@@ -106,16 +106,16 @@ export class AIServiceManager {
   /**
    * 向当前AI服务发送请求
    */
-  public async generateResponse(prompt: string, mode?: string, useContext?: boolean): Promise<string> {
+  public async generateResponse(options: GenerateResponseOptions): Promise<string> {
     const service = this.getCurrentService();
     if (!service) {
       throw new Error('No active AI service available');
     }
-    
+
     if (!service.isReady()) {
       throw new Error('Current AI service is not ready');
     }
-    
-    return service.generateResponse(prompt, mode, useContext);
+
+    return service.generateResponse(options);
   }
-} 
+}

@@ -1,7 +1,8 @@
-import { messageCenter } from "./data-persistence";
+import { StorageFactory } from "~background/data-persistence/storage-factory";
 import { GoogleDriveService } from "~utils/google-drive";
 import { createJsonFile, createDateFileName } from "~utils/file-utils";
 import type { Transcript } from "~hooks/useTranscripts";
+import dayjs from 'dayjs';
 
 /**
  * 自动同步服务，负责将会议数据同步到Google Drive
@@ -12,11 +13,11 @@ export const autoSyncService = {
      * @param date 日期，格式为YYYY-MM-DD
      * @returns 同步是否成功
      */
-    autoSync: async function(date: string): Promise<boolean> {
+    autoSync: async function (date: string): Promise<boolean> {
         try {
             console.log(`开始同步 ${date} 的会议数据到Google Drive`);
 
-            // 1. 获取需要同步的会议数据
+            // 1. 获取需要同步的会议数据（直接调用storage，无需走message通道）
             const meetingData = await this.getMeetingData(date);
             if (!meetingData || (Array.isArray(meetingData) && meetingData.length === 0)) {
                 console.warn(`没有找到 ${date} 的会议数据或数据为空`);
@@ -83,14 +84,12 @@ export const autoSyncService = {
     },
 
     /**
-     * 获取指定日期的会议数据
+     * 获取指定日期的会议数据（直接访问storage，无需经过message通道）
      * @param date 日期，格式为YYYY-MM-DD
      * @returns 会议数据对象
      */
-    getMeetingData: async function(date: string): Promise<Transcript[]> {
-        return messageCenter.handleMessage({
-            action: 'get-transcripts-only',
-            date: date
-        });
+    getMeetingData: async function (date: string): Promise<Transcript[]> {
+        const storage = StorageFactory.getInstance().getProvider();
+        return storage.getRecords(dayjs(date));
     },
 };

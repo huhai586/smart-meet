@@ -9,6 +9,7 @@ import type { Transcript } from '../../hooks/useTranscripts';
 import { useI18n } from '../../utils/i18n';
 import { useDateContext } from '../../contexts/DateContext';
 import messageManager from '../../utils/message-manager';
+import { sendBackgroundMessage } from '~background/message-center';
 
 interface BackupAndRestoreInterface {
     onBackup?: () => void;
@@ -29,7 +30,7 @@ const BackupAndRestore = (_props: BackupAndRestoreInterface) => {
             isRestoreDataValid(fileString).then((captions: Transcript[]) => {
                 console.log('import data', captions)
                 if (captions.length > 0) {
-                    chrome.runtime.sendMessage({
+                    sendBackgroundMessage({
                         action: 'restoreRecords',
                         data: captions
                     });

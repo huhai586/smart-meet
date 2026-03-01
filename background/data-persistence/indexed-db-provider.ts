@@ -15,7 +15,7 @@ export class IndexedDBProvider implements StorageProvider {
     async restoreRecords(records: Transcript[], date?: Dayjs): Promise<void> {
         try {
             const store = await this.getStore('readwrite');
-            
+
             if (date) {
                 // 如果指定了日期，只恢复该日期的记录
                 const dateKey = date.format('YYYY-MM-DD');
@@ -23,17 +23,17 @@ export class IndexedDBProvider implements StorageProvider {
                     const recordDate = dayjs(record.timestamp).format('YYYY-MM-DD');
                     return recordDate === dateKey;
                 });
-                
+
                 // 先删除该日期的现有记录
                 await this.deleteRecords(date);
-                
+
                 // 添加新记录
                 return new Promise((resolve, reject) => {
                     const transaction = store.transaction;
-                    
+
                     transaction.oncomplete = () => resolve();
                     transaction.onerror = () => reject(new StorageError('Failed to restore records'));
-                    
+
                     dateRecords.forEach(record => {
                         store.put(record);
                     });
@@ -41,13 +41,13 @@ export class IndexedDBProvider implements StorageProvider {
             } else {
                 // 如果没有指定日期，恢复所有记录
                 await this.deleteRecords(); // 清空所有记录
-                
+
                 return new Promise((resolve, reject) => {
                     const transaction = store.transaction;
-                    
+
                     transaction.oncomplete = () => resolve();
                     transaction.onerror = () => reject(new StorageError('Failed to restore records'));
-                    
+
                     records.forEach(record => {
                         store.put(record);
                     });
@@ -103,14 +103,13 @@ export class IndexedDBProvider implements StorageProvider {
         }
     }
 
-    async getRecords(date?: Dayjs): Promise<Transcript[]> {
+    async getRecords(date: Dayjs): Promise<Transcript[]> {
         try {
             const store = await this.getStore('readonly');
-            const targetDate = date || dayjs();
-            
+
             // 计算目标日期的起始和结束时间戳
-            const startTimestamp = targetDate.startOf('day').valueOf();
-            const endTimestamp = targetDate.endOf('day').valueOf();
+            const startTimestamp = date.startOf('day').valueOf();
+            const endTimestamp = date.endOf('day').valueOf();
 
             return new Promise((resolve, reject) => {
                 // 使用时间戳索引
@@ -172,7 +171,7 @@ export class IndexedDBProvider implements StorageProvider {
             const store = await this.getStore('readwrite');
             return new Promise((resolve, reject) => {
                 const transaction = store.transaction;
-                
+
                 transaction.oncomplete = () => resolve();
                 transaction.onerror = () => reject(new StorageError('Failed to batch update records'));
 
@@ -200,7 +199,7 @@ export class IndexedDBProvider implements StorageProvider {
                         const date = dayjs(record.timestamp).format('YYYY-MM-DD');
                         uniqueDays.add(date);
                     });
-                    
+
                     resolve(Array.from(uniqueDays));
                 };
             });
@@ -208,7 +207,7 @@ export class IndexedDBProvider implements StorageProvider {
             throw new StorageError('Failed to get days with messages', error as Error);
         }
     }
-    
+
     private isSameDay(date1: Dayjs, date2: Dayjs): boolean {
         return date1.format('YYYY-MM-DD') === date2.format('YYYY-MM-DD');
     }
@@ -216,5 +215,10 @@ export class IndexedDBProvider implements StorageProvider {
     async setCurrentDate(): Promise<void> {
         // IndexedDBProvider 不需要跟踪当前日期，这个方法是为了满足接口要求
         return Promise.resolve();
+    }
+
+    getCurrentDate(): Dayjs {
+        // IndexedDBProvider 不跟踪当前日期，返回今天
+        return dayjs();
     }
 } 

@@ -5,6 +5,7 @@ import { GoogleDriveService as DriveService } from "~utils/google-drive"
 import { StorageFactory } from '~background/data-persistence/storage-factory';
 import dayjs from 'dayjs';
 import openSidePanel from "~utils/open-side-panel";
+import { sendBackgroundMessage } from '~background/message-center';
 
 interface DriveFile {
     id: string;
@@ -107,7 +108,7 @@ const Account = () => {
                         // 只恢复特定日期的记录
                         if (Array.isArray(fileContent)) {
                             // 使用后台消息处理器恢复记录，并传递日期参数
-                            chrome.runtime.sendMessage({
+                            sendBackgroundMessage({
                                 action: 'restoreRecords',
                                 data: fileContent,
                                 date: date.valueOf() // 转换为时间戳
