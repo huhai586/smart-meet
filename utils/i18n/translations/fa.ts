@@ -11,7 +11,7 @@ export default {
   "settings": "تنظیمات",
   "settings_desc": "پیکربندی هوش مصنوعی، همگام‌سازی داده‌ها و موارد دیگر",
   "clear_confirm": "آیا مطمئن هستید که می‌خواهید همه زیرنویس‌ها را پاک کنید؟",
-  
+
   // Captions
   "translate": "ترجمه",
   "explain": "توضیح",
@@ -21,14 +21,14 @@ export default {
   "summary": "خلاصه",
   "no_messages": "پیامی وجود ندارد",
   "no_messages_on_date": "پیامی در {date} وجود ندارد",
-  
+
   // Common
   "on": "روشن",
   "off": "خاموش",
   "success": "موفقیت",
   "error": "خطا",
   "language_set": "زبان ترجمه به {language} تنظیم شد",
-  
+
   // Settings
   "ai_settings": "تنظیمات هوش مصنوعی",
   "gemini_api_config": "پیکربندی API جمینی",
@@ -64,7 +64,7 @@ export default {
   "optional": "اختیاری",
   "proxy_url_placeholder": "مثال: https://your-proxy-domain.com",
   "proxy_url_hint": "اگر سرویس‌های Google در منطقه شما در دسترس نیستند، می‌توانید یک آدرس پروکسی برای دسترسی به Gemini API پیکربندی کنید",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "پشتیبان گیری و بازیابی داده های زیرنویس خود در Google Drive",
@@ -86,7 +86,7 @@ export default {
   "skip": "رد کردن",
   "always_overwrite": "همیشه بازنویسی",
   "always_skip": "همیشه رد کردن",
-  
+
   // Export Captions
   "export_captions_text": "صادرات متن زیرنویس‌ها",
   "export_captions_desc": "صادرات زیرنویس‌های جلسه به صورت فایل متنی برای تاریخ انتخاب شده.",
@@ -97,7 +97,7 @@ export default {
   "select_meeting_to_export": "انتخاب جلسه برای صادرات",
   "select_meeting_desc": "لطفاً جلسه‌ای را برای صادرات انتخاب کنید:",
   "export": "صادرات",
-  
+
   // Chat History
   "chat_history": "تاریخچه چت",
   "search_content": "جستجو در محتوای چت",
@@ -110,11 +110,11 @@ export default {
   "no_records_for_date": "سوابق چت برای این تاریخ یافت نشد",
   "searching_content": "جستجو در محتوای چت...",
   "loading_history": "بارگذاری تاریخچه چت...",
-  
+
   // Sidepanel
   "captions": "زیرنویس‌ها",
   "extension": "افزونه",
-      "translation_records": "ترجمه",
+  "translation_records": "ترجمه",
   "download_captions": "دانلود زیرنویس‌ها",
   "sidepanel_summary": "خلاصه هوش مصنوعی",
   "sidepanel_settings": "تنظیمات رابط اصلی",
@@ -129,11 +129,11 @@ export default {
   "translate_button_desc": "ترجمه متن زیرنویس به زبان دلخواه شما",
   "polish_button_desc": "بهبود و اصلاح متن زیرنویس با هوش مصنوعی",
   "analysis_button_desc": "دریافت تحلیل دقیق و بینش از زیرنویس‌ها",
-  
+
   // Sidebar
   "calendar_view": "نمای تقویم",
   "configure_assistant": "پیکربندی دستیار جلسه شما",
-  
+
   // Summary
   "loading": "بارگذاری",
   "no_meeting_data": "داده جلسه‌ای موجود نیست",
@@ -144,7 +144,7 @@ export default {
   "submit_button": "ارسال",
   "error_clearing_conversation": "خطا در پاک کردن مکالمه هوش مصنوعی. لطفاً دوباره تلاش کنید.",
   "completed": "تکمیل شد",
-  
+
   // Extension
   "extension_settings": "تنظیمات افزونه",
   "specific_highlight_words": "کلمات برجسته‌سازی خاص",
@@ -161,18 +161,29 @@ export default {
   "review_keywords": "کلیدواژه‌های تولید شده برای حوزه خود را بررسی و سفارشی کنید. روی هر کلیدواژه کلیک کنید تا حذف شود.",
   "apply_keywords": "اعمال کلیدواژه‌ها",
   "cancel": "لغو",
-  
+
   // Words (Translation Records)
+  "longman_3000": "لانگمن ۳۰۰۰",
+  "longman_tab_desc": "مرور و تمرین واژگان رایج لانگمن ۳۰۰۰",
+  "search_words": "جستجوی کلمات...",
+  "no_words_found": "کلمه‌ای یافت نشد",
+  "added_to_starred": "به نشان‌گذاری شده‌ها اضافه شد",
+  "removed_from_starred": "از نشان‌گذاری شده‌ها حذف شد",
+  "starred": "نشان‌گذاری شده",
+  "total_vocabulary": "کل واژگان",
+  "starred_words": "تعداد نشان‌گذاری شده",
+  "all": "همه",
+  "mastered": "یاد گرفته شده",
   "translation_history": "تاریخچه ترجمه",
   "reset": "بازنشانی",
-  "click_to_translate": "روی هر کلمه کلیک کنید تا ترجمه آن را دوباره ببینید",
+  "click_to_translate": "برای نمایش کلیک کنید",
   "clear_history_confirm": "آیا مطمئن هستید که می‌خواهید همه تاریخچه ترجمه را پاک کنید؟",
   "clear_history_desc": "این عمل قابل بازگشت نیست.",
   "yes_clear_all": "بله، همه را پاک کن",
   "no_keep_it": "نه، نگه دار",
   "history_cleared": "تاریخچه ترجمه با موفقیت پاک شد",
   "no_history": "هنوز تاریخچه ترجمه‌ای وجود ندارد. روی هر کلمه در زیرنویس‌ها کلیک کنید تا ترجمه شود.",
-  
+
   // API Key Testing
   "test": "آزمایش",
   "test_api_key": "آزمایش کلید API",
@@ -200,7 +211,7 @@ export default {
   "select_ui_language": "انتخاب زبان رابط کاربری",
   "ui_language_desc": "زبان رابط کاربری Smart Meet را انتخاب کنید.",
   "ui_language_set": "زبان رابط کاربری به {language} تنظیم شد",
-  
+
   // Translation Language
   "select_translation_language": "انتخاب زبان ترجمه",
   "translation_language_desc": "زبان مورد نظر برای ترجمه متن‌ها را انتخاب کنید.",
@@ -211,20 +222,20 @@ export default {
   // رابط جلسه
   "meeting_interface": "رابط جلسه",
   "meeting_interface_desc": "پیکربندی عناصر رابط و کنترل‌ها برای جلسات Google Meet",
-  
+
   // دکمه تغییر وضعیت زیرنویس
   "caption_toggle_button": "دکمه تغییر وضعیت زیرنویس",
   "caption_toggle_button_desc": "نمایش دکمه شناور در صفحات Google Meet برای مخفی/نمایش سریع زیرنویس‌ها",
   "caption_toggle_enabled": "دکمه تغییر وضعیت زیرنویس فعال شد",
   "caption_toggle_disabled": "دکمه تغییر وضعیت زیرنویس غیرفعال شد",
-  
+
   // Sticker Note
   "sticker_note": "یادداشت چسبان",
   "sticker_note_desc": "فعال‌سازی یادداشت‌های چسبان برای یادداشت‌برداری سریع جلسه",
   "sticker_enabled": "یادداشت چسبان فعال شد",
   "sticker_disabled": "یادداشت چسبان غیرفعال شد",
   "add_note": "افزودن یادداشت",
-  
+
   // Translation Errors
   "translation_service_not_configured": "سرویس ترجمه پیکربندی نشده است. لطفاً تنظیمات API خود را بررسی کنید.",
   "translation_network_error": "خطای شبکه. لطفاً اتصال اینترنت خود را بررسی کنید و دوباره تلاش کنید.",
@@ -232,12 +243,12 @@ export default {
   "translation_service_unavailable": "سرویس ترجمه در حال حاضر در دسترس نیست",
   "unexpected_error": "خطای غیرمنتظره رخ داد. لطفاً دوباره تلاش کنید.",
   "domain_explanation_failed": "توضیح اصطلاح حوزه ناموفق بود. لطفاً پیکربندی سرویس هوش مصنوعی خود را بررسی کنید.",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "پیکربندی سرویس هوش مصنوعی لازم است",
   "ai_service_not_configured_message": "سرویس هوش مصنوعی پیکربندی نشده یا آماده نیست. لطفاً به صفحه گزینه‌ها بروید تا سرویس هوش مصنوعی خود (OpenAI، Gemini یا xAI) را قبل از استفاده از ویژگی‌های هوش مصنوعی پیکربندی کنید.",
   "go_to_options": "برو به گزینه‌ها",
-  
+
   // Clear Captions
   "clear_captions_warning": "هشدار: این عمل قابل بازگشت نیست",
   "clear_captions_warning_desc": "این کار به طور دائم تمام زیرنویس های ضبط شده را از حافظه مرورگر شما حذف می کند.",
@@ -246,23 +257,23 @@ export default {
   "confirm_clear_captions": "تأیید پاک کردن زیرنویس ها",
   "yes_clear_data": "بله، داده‌ها را پاک کن",
   "data_cleared_success": "داده‌ها با موفقیت پاک شدند",
-  
+
   // تنظیمات همگام‌سازی خودکار
   "auto_sync_on_meeting_end": "همگام‌سازی خودکار در پایان جلسه",
   "auto_sync_on_meeting_end_desc": "پشتیبان‌گیری خودکار هنگام خروج از تماس Google Meet",
   "auto_sync_on_startup": "همگام‌سازی خودکار در راه‌اندازی مرورگر",
   "auto_sync_on_startup_desc": "همگام‌سازی خودکار تاریخچه گفتگوی 5 روز اخیر هنگام راه‌اندازی مرورگر",
-  
+
   // Google Drive - اضافی
   "backup_to_drive": "پشتیبان‌گیری در Drive",
   "backup_title": "پشتیبان‌گیری",
   "backup_title_desc": "تاریخچه گفتگوی خود را در Google Drive پشتیبان‌گیری کنید. فایل‌های موجود می‌توانند بازنویسی یا نادیده گرفته شوند.",
-  
+
   // Google Drive - بخش بازیابی
   "restore_files": "بازیابی فایل‌ها",
   "restore_files_desc": "مشاهده و مدیریت فایل‌های پشتیبان خود در Google Drive",
   "view_details": "مشاهده جزئیات",
-  
+
   // Google Drive - لیست فایل‌ها
   "backup_date": "تاریخ پشتیبان‌گیری",
   "modified": "تغییر یافته",
@@ -280,21 +291,21 @@ export default {
   "no_matching_backup_files": "هیچ فایل پشتیبان مطابقی یافت نشد",
   "no_backup_files": "هیچ فایل پشتیبانی یافت نشد",
   "items_count": "{count} مورد",
-  
+
   // Google Drive - احراز هویت
   "authenticating_with_google": "احراز هویت با Google...",
   "authenticating_desc": "لطفاً صبر کنید تا به طور ایمن به حساب Google شما متصل شویم",
   "logging_in": "در حال ورود...",
   "login_with_google": "ورود با Google",
-  
+
   // نمای تقویم
   "chat_history_desc": "مشاهده و جستجوی تاریخچه گفتگوی جلسات سازماندهی شده بر اساس تاریخ",
   "message": "پیام",
   "messages": "پیام",
-  
+
   // تنظیمات هوش مصنوعی
   "save_configuration": "ذخیره پیکربندی",
-  
+
   // تنظیمات افزونه
   "extension_settings_desc": "پیکربندی ویژگی‌ها و رفتارهای خاص افزونه",
   "select_date": "انتخاب تاریخ"

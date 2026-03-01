@@ -11,7 +11,7 @@ export default {
   "settings": "الإعدادات",
   "settings_desc": "تكوين الذكاء الاصطناعي، مزامنة البيانات وغيرها",
   "clear_confirm": "هل أنت متأكد من مسح جميع التعليقات؟",
-  
+
   // Captions
   "translate": "ترجمة",
   "explain": "شرح",
@@ -21,14 +21,14 @@ export default {
   "summary": "ملخص",
   "no_messages": "لا توجد رسائل",
   "no_messages_on_date": "لا توجد رسائل في {date}",
-  
+
   // Common
   "on": "تشغيل",
   "off": "إيقاف",
   "success": "نجاح",
   "error": "خطأ",
   "language_set": "تم تعيين لغة الترجمة إلى {language}",
-  
+
   // Settings
   "ai_settings": "إعدادات الذكاء الاصطناعي",
   "gemini_api_config": "تكوين واجهة برمجة تطبيقات Gemini",
@@ -39,7 +39,7 @@ export default {
   "save_settings": "حفظ الإعدادات",
   "settings_saved": "تم حفظ الإعدادات بنجاح!",
   "no_api_key": "ليس لديك مفتاح واجهة برمجة تطبيقات Gemini؟",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "نسخ بيانات التسميات التوضيحية احتياطيًا واستعادتها إلى Google Drive",
@@ -61,7 +61,7 @@ export default {
   "skip": "تخطي",
   "always_overwrite": "استبدال دائمًا",
   "always_skip": "تخطي دائمًا",
-  
+
   // Chat History
   "chat_history": "سجل المحادثة",
   "search_content": "البحث في محتوى المحادثة",
@@ -74,11 +74,11 @@ export default {
   "no_records_for_date": "لم يتم العثور على سجلات محادثة لهذا التاريخ",
   "searching_content": "البحث في محتوى المحادثة...",
   "loading_history": "تحميل سجل المحادثة...",
-  
+
   // Sidepanel
   "captions": "التعليقات",
   "extension": "الإضافة",
-      "translation_records": "ترجمة",
+  "translation_records": "ترجمة",
   "download_captions": "تنزيل التعليقات",
   "sidepanel_summary": "AI Summary",
   "sidepanel_settings": "إعدادات الواجهة الرئيسية",
@@ -93,11 +93,11 @@ export default {
   "translate_button_desc": "ترجمة نص التعليقات إلى لغتك المفضلة",
   "polish_button_desc": "تحسين وتنقيح نص التعليقات باستخدام الذكاء الاصطناعي",
   "analysis_button_desc": "احصل على تحليل مفصل ورؤى من التعليقات",
-  
+
   // Sidebar
   "calendar_view": "عرض التقويم",
   "configure_assistant": "تكوين مساعد الاجتماعات",
-  
+
   // Summary
   "loading": "جاري التحميل",
   "no_meeting_data": "لا توجد بيانات اجتماع",
@@ -106,7 +106,7 @@ export default {
   "summary_empty_state": "لا توجد ملخصات بعد، أدخل سؤالاً أدناه للبدء",
   "search_button": "بحث",
   "submit_button": "إرسال",
-  
+
   // Extension
   "extension_settings": "إعدادات الإضافة",
   "specific_highlight_words": "كلمات تمييز محددة",
@@ -123,18 +123,29 @@ export default {
   "review_keywords": "راجع وخصص الكلمات الرئيسية المولدة لمجالك. انقر على أي كلمة رئيسية لإزالتها.",
   "apply_keywords": "تطبيق الكلمات الرئيسية",
   "cancel": "إلغاء",
-  
+
   // Words (Translation Records)
+  "longman_3000": "لونجمان 3000",
+  "longman_tab_desc": "مراجعة وممارسة مفردات لونجمان 3000 الشائعة",
+  "search_words": "بحث عن كلمات...",
+  "no_words_found": "لم يتم العثور على كلمات",
+  "added_to_starred": "تمت الإضافة إلى المفضلة",
+  "removed_from_starred": "تمت الإزالة من المفضلة",
+  "starred": "المفضلة",
+  "total_vocabulary": "إجمالي المفردات",
+  "starred_words": "الكلمات المميزة",
+  "all": "الكل",
+  "mastered": "متمكن",
   "translation_history": "سجل الترجمة",
   "reset": "إعادة تعيين",
-  "click_to_translate": "انقر على أي كلمة لرؤية ترجمتها مرة أخرى",
+  "click_to_translate": "انقر للكشف",
   "clear_history_confirm": "هل أنت متأكد من مسح كل سجل الترجمة؟",
   "clear_history_desc": "لا يمكن التراجع عن هذا الإجراء.",
   "yes_clear_all": "نعم، مسح الكل",
   "no_keep_it": "لا، الاحتفاظ به",
   "history_cleared": "تم مسح سجل الترجمة بنجاح",
   "no_history": "لا يوجد سجل ترجمة بعد. انقر على أي كلمة في التعليقات لترجمتها.",
-  
+
   // Translation Errors
   "translation_service_not_configured": "خدمة الترجمة غير مكونة. يرجى التحقق من إعدادات API الخاصة بك.",
   "translation_network_error": "خطأ في الشبكة. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى.",
@@ -142,12 +153,12 @@ export default {
   "translation_service_unavailable": "خدمة الترجمة غير متاحة حالياً",
   "unexpected_error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
   "domain_explanation_failed": "فشل في شرح مصطلح المجال. يرجى التحقق من تكوين خدمة الذكاء الاصطناعي.",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "مطلوب تكوين خدمة الذكاء الاصطناعي",
   "ai_service_not_configured_message": "خدمة الذكاء الاصطناعي غير مكونة أو غير جاهزة. يرجى الانتقال إلى صفحة الخيارات لتكوين خدمة الذكاء الاصطناعي (OpenAI أو Gemini أو xAI) قبل استخدام ميزات الذكاء الاصطناعي.",
   "go_to_options": "انتقل إلى الخيارات",
-  
+
   // Clear Captions
   "clear_captions_warning": "تحذير: هذا الإجراء لا يمكن التراجع عنه",
   "clear_captions_warning_desc": "سيؤدي هذا إلى حذف جميع التسميات التوضيحية المسجلة بشكل دائم من مساحة تخزين المتصفح.",
@@ -156,13 +167,13 @@ export default {
   "confirm_clear_captions": "تأكيد مسح التسميات التوضيحية",
   "yes_clear_data": "نعم، مسح البيانات",
   "data_cleared_success": "تم مسح البيانات بنجاح",
-  
+
   // UI Language
   "ui_language": "لغة الواجهة",
   "select_ui_language": "اختر لغة الواجهة",
   "ui_language_desc": "اختر لغة واجهة المستخدم لـ Smart Meet",
   "ui_language_set": "تم تعيين لغة الواجهة إلى {language}",
-  
+
   // Translation Language
   "select_translation_language": "اختر لغة الترجمة",
   "translation_language_desc": "اختر لغة ترجمة محتوى النص.",
@@ -173,36 +184,36 @@ export default {
   // واجهة الاجتماع
   "meeting_interface": "واجهة الاجتماع",
   "meeting_interface_desc": "تكوين عناصر الواجهة وعناصر التحكم لاجتماعات Google Meet",
-  
+
   // زر تبديل التعليقات
   "caption_toggle_button": "زر تبديل التعليقات",
   "caption_toggle_button_desc": "عرض زر عائم في صفحات Google Meet لإخفاء/إظهار التعليقات بسرعة",
   "caption_toggle_enabled": "تم تفعيل زر تبديل التعليقات",
   "caption_toggle_disabled": "تم إلغاء تفعيل زر تبديل التعليقات",
-  
+
   // Sticker Note
   "sticker_note": "ملاحظة لاصقة",
   "sticker_note_desc": "تفعيل الملاحظات اللاصقة لتدوين ملاحظات الاجتماع السريعة",
   "sticker_enabled": "تم تفعيل الملاحظة اللاصقة",
   "sticker_disabled": "تم إلغاء تفعيل الملاحظة اللاصقة",
   "add_note": "إضافة ملاحظة",
-  
+
   // إعدادات المزامنة التلقائية
   "auto_sync_on_meeting_end": "المزامنة التلقائية عند انتهاء الاجتماع",
   "auto_sync_on_meeting_end_desc": "النسخ الاحتياطي تلقائيًا عند مغادرة مكالمة Google Meet",
   "auto_sync_on_startup": "المزامنة التلقائية عند بدء تشغيل المتصفح",
   "auto_sync_on_startup_desc": "مزامنة سجل الدردشة لآخر 5 أيام تلقائيًا عند بدء تشغيل المتصفح",
-  
+
   // Google Drive - إضافي
   "backup_to_drive": "النسخ الاحتياطي إلى Drive",
   "backup_title": "النسخ الاحتياطي",
   "backup_title_desc": "قم بعمل نسخة احتياطية من سجل الدردشة الخاص بك إلى Google Drive. يمكن استبدال الملفات الموجودة أو تخطيها.",
-  
+
   // Google Drive - قسم الاستعادة
   "restore_files": "استعادة الملفات",
   "restore_files_desc": "عرض وإدارة ملفات النسخ الاحتياطي في Google Drive",
   "view_details": "عرض التفاصيل",
-  
+
   // Google Drive - قائمة الملفات
   "backup_date": "تاريخ النسخ الاحتياطي",
   "modified": "تم التعديل",
@@ -220,21 +231,21 @@ export default {
   "no_matching_backup_files": "لم يتم العثور على ملفات نسخ احتياطي مطابقة",
   "no_backup_files": "لم يتم العثور على ملفات نسخ احتياطي",
   "items_count": "{count} عنصر",
-  
+
   // Google Drive - المصادقة
   "authenticating_with_google": "المصادقة مع Google...",
   "authenticating_desc": "يرجى الانتظار بينما نتصل بشكل آمن بحساب Google الخاص بك",
   "logging_in": "جارٍ تسجيل الدخول...",
   "login_with_google": "تسجيل الدخول باستخدام Google",
-  
+
   // عرض التقويم
   "chat_history_desc": "عرض والبحث في سجل دردشة الاجتماعات المنظم حسب التاريخ",
   "message": "رسالة",
   "messages": "رسائل",
-  
+
   // إعدادات الذكاء الاصطناعي
   "save_configuration": "حفظ التكوين",
-  
+
   // إعدادات الامتداد
   "extension_settings_desc": "تكوين الميزات والسلوكيات الخاصة بالامتداد",
   "select_date": "اختر التاريخ"

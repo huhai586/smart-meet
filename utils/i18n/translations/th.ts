@@ -11,7 +11,7 @@ export default {
   "settings": "การตั้งค่า",
   "settings_desc": "กำหนดค่า AI, ซิงค์ข้อมูล และอื่นๆ",
   "clear_confirm": "คุณแน่ใจหรือไม่ว่าต้องการล้างคำบรรยายทั้งหมด?",
-  
+
   // Captions
   "translate": "แปล",
   "explain": "อธิบาย",
@@ -21,14 +21,14 @@ export default {
   "summary": "สรุป",
   "no_messages": "ไม่มีข้อความ",
   "no_messages_on_date": "ไม่มีข้อความเมื่อ {date}",
-  
+
   // Common
   "on": "เปิด",
   "off": "ปิด",
   "success": "สำเร็จ",
   "error": "ข้อผิดพลาด",
   "language_set": "ตั้งค่าภาษาแปลเป็น {language}",
-  
+
   // Settings
   "ai_settings": "การตั้งค่า AI",
   "gemini_api_config": "การกำหนดค่า Gemini API",
@@ -39,7 +39,7 @@ export default {
   "save_settings": "บันทึกการตั้งค่า",
   "settings_saved": "บันทึกการตั้งค่าเรียบร้อยแล้ว!",
   "no_api_key": "ไม่มีคีย์ Gemini API?",
-  
+
   // Google Drive Integration
   "google_drive_integration": "การเชื่อมต่อกับ Google Drive",
   "google_drive_integration_desc": "สำรองและกู้คืนข้อมูลคำบรรยายของคุณไปยัง Google Drive",
@@ -61,7 +61,7 @@ export default {
   "skip": "ข้าม",
   "always_overwrite": "เขียนทับเสมอ",
   "always_skip": "ข้ามเสมอ",
-  
+
   // Chat History
   "chat_history": "ประวัติการแชท",
   "search_content": "ค้นหาในเนื้อหาแชท",
@@ -74,7 +74,7 @@ export default {
   "no_records_for_date": "ไม่พบบันทึกแชทสำหรับวันที่นี้",
   "searching_content": "กำลังค้นหาในเนื้อหาแชท...",
   "loading_history": "กำลังโหลดประวัติแชท...",
-  
+
   // Sidepanel
   "captions": "คำบรรยาย",
   "extension": "ส่วนขยาย",
@@ -93,11 +93,11 @@ export default {
   "translate_button_desc": "แปลข้อความคำบรรยายเป็นภาษาที่คุณต้องการ",
   "polish_button_desc": "ปรับปรุงและขัดเกลาข้อความคำบรรยายด้วย AI",
   "analysis_button_desc": "รับการวิเคราะห์โดยละเอียดและข้อมูลเชิงลึกจากคำบรรยาย",
-  
+
   // Sidebar
   "calendar_view": "มุมมองปฏิทิน",
   "configure_assistant": "กำหนดค่าผู้ช่วยการประชุม",
-  
+
   // Summary
   "loading": "กำลังโหลด",
   "no_meeting_data": "ไม่มีข้อมูลการประชุม",
@@ -106,7 +106,7 @@ export default {
   "summary_empty_state": "ยังไม่มีสรุป ป้อนคำถามด้านล่างเพื่อเริ่มต้น",
   "search_button": "ค้นหา",
   "submit_button": "ส่ง",
-  
+
   // Extension
   "extension_settings": "การตั้งค่าส่วนขยาย",
   "specific_highlight_words": "คำที่เน้นเฉพาะ",
@@ -123,18 +123,29 @@ export default {
   "review_keywords": "ตรวจสอบและปรับแต่งคำสำคัญที่สร้างขึ้นสำหรับโดเมนของคุณ คลิกที่คำสำคัญใดๆ เพื่อลบออก",
   "apply_keywords": "ใช้คำสำคัญ",
   "cancel": "ยกเลิก",
-  
+
   // Words (Translation Records)
+  "longman_3000": "Longman 3000",
+  "longman_tab_desc": "ทบทวนและฝึกฝนคำศัพท์ทั่วไป Longman 3000",
+  "search_words": "ค้นหาคำศัพท์...",
+  "no_words_found": "ไม่พบคำศัพท์",
+  "added_to_starred": "เพิ่มในรายการที่ติดดาวแล้ว",
+  "removed_from_starred": "เอาออกจากรายการที่ติดดาวแล้ว",
+  "starred": "ติดดาว",
+  "total_vocabulary": "คำศัพท์ทั้งหมด",
+  "starred_words": "จำนวนที่ติดดาว",
+  "all": "ทั้งหมด",
+  "mastered": "เชี่ยวชาญแล้ว",
   "translation_history": "ประวัติการแปล",
   "reset": "รีเซ็ต",
-  "click_to_translate": "คลิกที่คำใดๆ เพื่อดูการแปลอีกครั้ง",
+  "click_to_translate": "คลิกเพื่อดู",
   "clear_history_confirm": "คุณแน่ใจหรือไม่ว่าต้องการล้างประวัติการแปลทั้งหมด?",
   "clear_history_desc": "การกระทำนี้ไม่สามารถเรียกคืนได้",
   "yes_clear_all": "ใช่ ล้างทั้งหมด",
   "no_keep_it": "ไม่ เก็บไว้",
   "history_cleared": "ล้างประวัติการแปลเรียบร้อยแล้ว",
   "no_history": "ยังไม่มีประวัติการแปล คลิกที่คำใดๆ ในคำบรรยายเพื่อแปล",
-  
+
   // Translation Errors
   "translation_service_not_configured": "บริการแปลภาษาไม่ได้รับการกำหนดค่า กรุณาตรวจสอบการตั้งค่า API ของคุณ",
   "translation_network_error": "ข้อผิดพลาดเครือข่าย กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตและลองใหม่อีกครั้ง",
@@ -142,12 +153,12 @@ export default {
   "translation_service_unavailable": "บริการแปลภาษาไม่พร้อมใช้งานในขณะนี้",
   "unexpected_error": "เกิดข้อผิดพลาดที่ไม่คาดคิด กรุณาลองใหม่อีกครั้ง",
   "domain_explanation_failed": "ไม่สามารถอธิบายคำศัพท์ในโดเมนได้ กรุณาตรวจสอบการกำหนดค่าบริการ AI ของคุณ",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "ต้องการการกำหนดค่าบริการ AI",
   "ai_service_not_configured_message": "บริการ AI ไม่ได้กำหนดค่าหรือไม่พร้อมใช้งาน กรุณาไปที่หน้าตัวเลือกเพื่อกำหนดค่าบริการ AI ของคุณ (OpenAI, Gemini หรือ xAI) ก่อนใช้คุณสมบัติ AI",
   "go_to_options": "ไปที่ตัวเลือก",
-  
+
   // Clear Captions
   "clear_captions_warning": "คำเตือน: การกระทำนี้ไม่สามารถยกเลิกได้",
   "clear_captions_warning_desc": "การดำเนินการนี้จะลบคำบรรยายที่บันทึกไว้ทั้งหมดออกจากที่จัดเก็บข้อมูลของเบราว์เซอร์ของคุณอย่างถาวร",
@@ -156,13 +167,13 @@ export default {
   "confirm_clear_captions": "ยืนยันการล้างคำบรรยาย",
   "yes_clear_data": "ใช่ ล้างข้อมูล",
   "data_cleared_success": "ล้างข้อมูลสำเร็จ",
-  
+
   // UI Language
   "ui_language": "ภาษาอินเทอร์เฟซ",
   "select_ui_language": "เลือกภาษาอินเทอร์เฟซ",
   "ui_language_desc": "เลือกภาษาสำหรับอินเทอร์เฟซผู้ใช้ของ Smart Meet",
   "ui_language_set": "ตั้งค่าภาษาอินเทอร์เฟซเป็น {language}",
-  
+
   // Translation Language
   "select_translation_language": "เลือกภาษาแปล",
   "translation_language_desc": "เลือกภาษาสำหรับแปลเนื้อหาข้อความ",
@@ -173,36 +184,36 @@ export default {
   // อินเทอร์เฟซการประชุม
   "meeting_interface": "อินเทอร์เฟซการประชุม",
   "meeting_interface_desc": "กำหนดค่าองค์ประกอบอินเทอร์เฟซและการควบคุมสำหรับการประชุม Google Meet",
-  
+
   // ปุ่มสลับคำบรรยาย
   "caption_toggle_button": "ปุ่มสลับคำบรรยาย",
   "caption_toggle_button_desc": "แสดงปุ่มลอยในหน้า Google Meet เพื่อซ่อน/แสดงคำบรรยายอย่างรวดเร็ว",
   "caption_toggle_enabled": "เปิดใช้งานปุ่มสลับคำบรรยายแล้ว",
   "caption_toggle_disabled": "ปิดใช้งานปุ่มสลับคำบรรยายแล้ว",
-  
+
   // Sticker Note
   "sticker_note": "โน้ตสติกเกอร์",
   "sticker_note_desc": "เปิดใช้งานโน้ตสติกเกอร์สำหรับจดบันทึกการประชุมอย่างรวดเร็ว",
   "sticker_enabled": "เปิดใช้งานโน้ตสติกเกอร์แล้ว",
   "sticker_disabled": "ปิดใช้งานโน้ตสติกเกอร์แล้ว",
   "add_note": "เพิ่มโน้ต",
-  
+
   // การตั้งค่าการซิงค์อัตโนมัติ
   "auto_sync_on_meeting_end": "ซิงค์อัตโนมัติเมื่อสิ้นสุดการประชุม",
   "auto_sync_on_meeting_end_desc": "สำรองข้อมูลอัตโนมัติเมื่อออกจากการโทร Google Meet",
   "auto_sync_on_startup": "ซิงค์อัตโนมัติเมื่อเปิดเบราว์เซอร์",
   "auto_sync_on_startup_desc": "ซิงค์ประวัติการแชท 5 วันล่าสุดโดยอัตโนมัติเมื่อเปิดเบราว์เซอร์",
-  
+
   // Google Drive - เพิ่มเติม
   "backup_to_drive": "สำรองข้อมูลไปยัง Drive",
   "backup_title": "สำรองข้อมูล",
   "backup_title_desc": "สำรองประวัติการแชทของคุณไปยัง Google Drive ไฟล์ที่มีอยู่สามารถเขียนทับหรือข้ามได้",
-  
+
   // Google Drive - ส่วนการกู้คืน
   "restore_files": "กู้คืนไฟล์",
   "restore_files_desc": "ดูและจัดการไฟล์สำรองข้อมูลของคุณใน Google Drive",
   "view_details": "ดูรายละเอียด",
-  
+
   // Google Drive - รายการไฟล์
   "backup_date": "วันที่สำรองข้อมูล",
   "modified": "แก้ไข",
@@ -220,21 +231,21 @@ export default {
   "no_matching_backup_files": "ไม่พบไฟล์สำรองข้อมูลที่ตรงกัน",
   "no_backup_files": "ไม่พบไฟล์สำรองข้อมูล",
   "items_count": "{count} รายการ",
-  
+
   // Google Drive - การตรวจสอบสิทธิ์
   "authenticating_with_google": "กำลังตรวจสอบสิทธิ์กับ Google...",
   "authenticating_desc": "โปรดรอสักครู่ในขณะที่เราเชื่อมต่อกับบัญชี Google ของคุณอย่างปลอดภัย",
   "logging_in": "กำลังเข้าสู่ระบบ...",
   "login_with_google": "เข้าสู่ระบบด้วย Google",
-  
+
   // มุมมองปฏิทิน
   "chat_history_desc": "ดูและค้นหาประวัติการแชทการประชุมที่จัดระเบียบตามวันที่",
   "message": "ข้อความ",
   "messages": "ข้อความ",
-  
+
   // การตั้งค่า AI
   "save_configuration": "บันทึกการกำหนดค่า",
-  
+
   // การตั้งค่าส่วนขยาย
   "extension_settings_desc": "กำหนดค่าคุณสมบัติและพฤติกรรมเฉพาะของส่วนขยาย",
   "select_date": "เลือกวันที่"

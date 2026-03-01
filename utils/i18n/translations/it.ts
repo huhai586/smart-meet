@@ -11,7 +11,7 @@ export default {
   "settings": "Impostazioni",
   "settings_desc": "configura IA, sincronizza dati e altro",
   "clear_confirm": "Sei sicuro di voler cancellare tutti i sottotitoli?",
-  
+
   // Captions
   "translate": "Traduci",
   "explain": "Spiega",
@@ -21,14 +21,14 @@ export default {
   "summary": "Riepilogo",
   "no_messages": "Nessun messaggio",
   "no_messages_on_date": "Nessun messaggio il {date}",
-  
+
   // Common
   "on": "attivo",
   "off": "disattivo",
   "success": "Successo",
   "error": "Errore",
   "language_set": "Lingua di traduzione impostata su {language}",
-  
+
   // Settings
   "ai_settings": "Impostazioni IA",
   "gemini_api_config": "Configurazione API Gemini",
@@ -39,7 +39,7 @@ export default {
   "save_settings": "Salva impostazioni",
   "settings_saved": "Impostazioni salvate con successo!",
   "no_api_key": "Non hai una chiave API Gemini?",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Esegui il backup e ripristina i dati dei tuoi sottotitoli su Google Drive",
@@ -61,7 +61,7 @@ export default {
   "skip": "Salta",
   "always_overwrite": "Sovrascrivi sempre",
   "always_skip": "Salta sempre",
-  
+
   // Chat History
   "chat_history": "Cronologia chat",
   "search_content": "Cerca nel contenuto della chat",
@@ -74,11 +74,11 @@ export default {
   "no_records_for_date": "Nessuna registrazione chat trovata per questa data",
   "searching_content": "Ricerca nel contenuto della chat...",
   "loading_history": "Caricamento della cronologia chat...",
-  
+
   // Sidepanel
   "captions": "Sottotitoli",
   "extension": "Estensione",
-      "translation_records": "Traduzione",
+  "translation_records": "Traduzione",
   "download_captions": "Scarica sottotitoli",
   "sidepanel_summary": "AI Summary",
   "sidepanel_settings": "Impostazioni Interfaccia Principale",
@@ -93,11 +93,11 @@ export default {
   "translate_button_desc": "Traduci il testo dei sottotitoli nella tua lingua preferita",
   "polish_button_desc": "Migliora e perfeziona il testo dei sottotitoli con l'IA",
   "analysis_button_desc": "Ottieni analisi dettagliate e approfondimenti dai sottotitoli",
-  
+
   // Sidebar
   "calendar_view": "Vista calendario",
   "configure_assistant": "Configura il tuo assistente per le riunioni",
-  
+
   // Summary
   "loading": "Caricamento",
   "no_meeting_data": "Nessun dato della riunione",
@@ -106,7 +106,7 @@ export default {
   "summary_empty_state": "Nessun riepilogo ancora, inserisci una domanda qui sotto per iniziare",
   "search_button": "Cerca",
   "submit_button": "Invia",
-  
+
   // Extension
   "extension_settings": "Impostazioni Estensione",
   "specific_highlight_words": "Parole specifiche da evidenziare",
@@ -123,23 +123,34 @@ export default {
   "review_keywords": "Rivedi e personalizza le parole chiave generate per il tuo dominio. Clicca su qualsiasi parola chiave per rimuoverla.",
   "apply_keywords": "Applica parole chiave",
   "cancel": "Annulla",
-  
+
   // Words (Translation Records)
+  "longman_3000": "Longman 3000",
+  "longman_tab_desc": "Revisione e pratica del vocabolario comune Longman 3000",
+  "search_words": "Cerca parole...",
+  "no_words_found": "Nessuna parola trovata",
+  "added_to_starred": "Aggiunto ai preferiti",
+  "removed_from_starred": "Rimosso dai preferiti",
+  "starred": "Preferiti",
+  "total_vocabulary": "Vocabolario totale",
+  "starred_words": "Parole preferite",
+  "all": "Tutto",
+  "mastered": "Padroneggiato",
   "translation_history": "Cronologia traduzioni",
   "reset": "Reimposta",
-  "click_to_translate": "Clicca su qualsiasi parola per vedere nuovamente la sua traduzione",
+  "click_to_translate": "Fai clic per rivelare",
   "clear_history_confirm": "Sei sicuro di voler cancellare tutta la cronologia delle traduzioni?",
   "clear_history_desc": "Questa azione non può essere annullata.",
   "yes_clear_all": "Sì, cancella tutto",
   "no_keep_it": "No, mantienila",
   "history_cleared": "Cronologia delle traduzioni cancellata con successo",
   "no_history": "Ancora nessuna cronologia delle traduzioni. Clicca su qualsiasi parola nei sottotitoli per tradurla.",
-  
+
   // AI Service Messages
   "ai_meeting_content_intro": "Ecco il contenuto della riunione precedente: ",
   "ai_meeting_assistant_ready": "Ho capito il contenuto della riunione. Come posso aiutarti?",
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
-  
+
   // Guide Animation
   "guide_animation_title": "📱 Come Usare l'Estensione",
   "guide_animation_subtitle": "Segui la guida animata per iniziare facilmente la tua esperienza di sottotitoli intelligenti",
@@ -155,7 +166,7 @@ export default {
   "guide_step_5_desc": "Ora puoi usare traduzione, riassunto, esportazione e tutte le altre funzionalità!",
   "guide_start_demo": "Avvia Demo",
   "guide_restart": "Riavvia",
-  
+
   // Translation Errors
   "translation_service_not_configured": "Il servizio di traduzione non è configurato. Si prega di verificare le impostazioni API.",
   "translation_network_error": "Errore di rete. Si prega di verificare la connessione internet e riprovare.",
@@ -164,12 +175,12 @@ export default {
   "unexpected_error": "Si è verificato un errore imprevisto. Si prega di riprovare.",
   "domain_explanation_failed": "Impossibile spiegare il termine del dominio. Si prega di verificare la configurazione del servizio IA.",
   "google_translate_rate_limit_error": "La frequenza delle chiamate di traduzione automatica è troppo alta. Si prega di aumentare il valore in Impostazioni - Controllo Frequenza Traduzione, o passare a un altro servizio di traduzione",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "Configurazione servizio IA richiesta",
   "ai_service_not_configured_message": "Il servizio IA non è configurato o non è pronto. Si prega di andare alla pagina Opzioni per configurare il servizio IA (OpenAI, Gemini o xAI) prima di utilizzare le funzionalità IA.",
   "go_to_options": "Vai alle Opzioni",
-  
+
   // Clear Captions
   "clear_captions_warning": "Attenzione: questa azione non può essere annullata",
   "clear_captions_warning_desc": "Ciò eliminerà in modo permanente tutte le didascalie registrate dalla memoria del browser.",
@@ -178,13 +189,13 @@ export default {
   "confirm_clear_captions": "Conferma cancellazione didascalie",
   "yes_clear_data": "Sì, Cancella Dati",
   "data_cleared_success": "Dati cancellati con successo",
-  
+
   // UI Language
   "ui_language": "Lingua Interfaccia",
   "select_ui_language": "Seleziona Lingua Interfaccia",
   "ui_language_desc": "Scegli la lingua per l'interfaccia utente di Smart Meet",
   "ui_language_set": "Lingua interfaccia impostata su {language}",
-  
+
   // Translation Language
   "select_translation_language": "Seleziona Lingua di Traduzione",
   "translation_language_desc": "Scegli la lingua per tradurre il contenuto testuale.",
@@ -199,7 +210,7 @@ export default {
   "provider_microsoft": "Microsoft Traduttore",
   "provider_ai": "Traduzione IA",
   "translation_provider_set": "Fornitore di traduzione impostato su {provider}",
-  
+
   // Controllo della frequenza di traduzione
   "translation_frequency": "Controllo della frequenza di traduzione",
   "translation_frequency_desc": "Questa opzione controlla la frequenza delle richieste di traduzione. Valori più alti significano frequenza di richieste più bassa e viceversa. Questo per evitare che frequenze di richieste elevate vengano rifiutate dai fornitori di servizi",
@@ -209,36 +220,36 @@ export default {
   // Interfaccia riunione
   "meeting_interface": "Interfaccia riunione",
   "meeting_interface_desc": "Configura elementi dell'interfaccia e controlli per le riunioni Google Meet",
-  
+
   // Pulsante di commutazione sottotitoli
   "caption_toggle_button": "Pulsante di commutazione sottotitoli",
   "caption_toggle_button_desc": "Mostra un pulsante flottante sulle pagine di Google Meet per nascondere/mostrare rapidamente i sottotitoli",
   "caption_toggle_enabled": "Pulsante di commutazione sottotitoli abilitato",
   "caption_toggle_disabled": "Pulsante di commutazione sottotitoli disabilitato",
-  
+
   // Sticker Note
   "sticker_note": "Nota Adesiva",
   "sticker_note_desc": "Abilita note adesive per prendere appunti rapidi della riunione",
   "sticker_enabled": "Nota adesiva abilitata",
   "sticker_disabled": "Nota adesiva disabilitata",
   "add_note": "Aggiungi Nota",
-  
+
   // Impostazioni di sincronizzazione automatica
   "auto_sync_on_meeting_end": "Sincronizzazione automatica alla fine della riunione",
   "auto_sync_on_meeting_end_desc": "Backup automatico quando esci da una chiamata Google Meet",
   "auto_sync_on_startup": "Sincronizzazione automatica all'avvio del browser",
   "auto_sync_on_startup_desc": "Sincronizza automaticamente la cronologia chat degli ultimi 5 giorni all'avvio del browser",
-  
+
   // Google Drive - Aggiuntivo
   "backup_to_drive": "Backup su Drive",
   "backup_title": "Backup",
   "backup_title_desc": "Esegui il backup della cronologia chat su Google Drive. I file esistenti possono essere sovrascritti o saltati.",
-  
+
   // Google Drive - Sezione di ripristino
   "restore_files": "Ripristina file",
   "restore_files_desc": "Visualizza e gestisci i tuoi file di backup in Google Drive",
   "view_details": "Visualizza dettagli",
-  
+
   // Google Drive - Elenco file
   "backup_date": "Data backup",
   "modified": "Modificato",
@@ -256,21 +267,21 @@ export default {
   "no_matching_backup_files": "Nessun file di backup corrispondente trovato",
   "no_backup_files": "Nessun file di backup trovato",
   "items_count": "{count} elementi",
-  
+
   // Google Drive - Autenticazione
   "authenticating_with_google": "Autenticazione con Google...",
   "authenticating_desc": "Attendere mentre ci connettiamo in modo sicuro al tuo account Google",
   "logging_in": "Accesso in corso...",
   "login_with_google": "Accedi con Google",
-  
+
   // Vista calendario
   "chat_history_desc": "Visualizza e cerca la cronologia chat delle riunioni organizzata per data",
   "message": "messaggio",
   "messages": "messaggi",
-  
+
   // Impostazioni AI
   "save_configuration": "Salva configurazione",
-  
+
   // Impostazioni estensione
   "extension_settings_desc": "Configura funzionalità e comportamenti specifici dell'estensione",
   "select_date": "Seleziona data"

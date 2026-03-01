@@ -11,7 +11,7 @@ export default {
   "settings": "सेटिंग्स",
   "settings_desc": "AI कॉन्फ़िगर करें, डेटा सिंक करें और अधिक",
   "clear_confirm": "क्या आप वाकई सभी कैप्शन साफ़ करना चाहते हैं?",
-  
+
   // Captions
   "translate": "अनुवाद",
   "explain": "व्याख्या",
@@ -21,14 +21,14 @@ export default {
   "summary": "सारांश",
   "no_messages": "कोई संदेश नहीं",
   "no_messages_on_date": "{date} को कोई संदेश नहीं",
-  
+
   // Common
   "on": "चालू",
   "off": "बंद",
   "success": "सफलता",
   "error": "त्रुटि",
   "language_set": "अनुवाद भाषा {language} पर सेट की गई",
-  
+
   // Settings
   "ai_settings": "AI सेटिंग्स",
   "gemini_api_config": "Gemini API कॉन्फ़िगरेशन",
@@ -39,7 +39,7 @@ export default {
   "save_settings": "सेटिंग्स सहेजें",
   "settings_saved": "सेटिंग्स सफलतापूर्वक सहेजी गईं!",
   "no_api_key": "Gemini API कुंजी नहीं है?",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Google ड्राइव पर अपने कैप्शन डेटा का बैकअप और पुनर्स्थापना करें",
@@ -61,7 +61,7 @@ export default {
   "skip": "छोड़ें",
   "always_overwrite": "हमेशा ओवरराइट करें",
   "always_skip": "हमेशा छोड़ें",
-  
+
   // Chat History
   "chat_history": "चैट इतिहास",
   "search_content": "चैट सामग्री में खोजें",
@@ -74,11 +74,11 @@ export default {
   "no_records_for_date": "इस तिथि के लिए कोई चैट रिकॉर्ड नहीं मिला",
   "searching_content": "चैट सामग्री में खोज रहे हैं...",
   "loading_history": "चैट इतिहास लोड हो रहा है...",
-  
+
   // Sidepanel
   "captions": "कैप्शन",
   "extension": "एक्सटेंशन",
-      "translation_records": "अनुवाद",
+  "translation_records": "अनुवाद",
   "download_captions": "कैप्शन डाउनलोड करें",
   "sidepanel_summary": "AI Summary",
   "sidepanel_settings": "मुख्य इंटरफ़ेस सेटिंग्स",
@@ -93,11 +93,11 @@ export default {
   "translate_button_desc": "कैप्शन टेक्स्ट को अपनी पसंदीदा भाषा में अनुवाद करें",
   "polish_button_desc": "AI के साथ कैप्शन टेक्स्ट को सुधारें और परिष्कृत करें",
   "analysis_button_desc": "कैप्शन से विस्तृत विश्लेषण और अंतर्दृष्टि प्राप्त करें",
-  
+
   // Sidebar
   "calendar_view": "कैलेंडर दृश्य",
   "configure_assistant": "मीटिंग सहायक कॉन्फ़िगर करें",
-  
+
   // Summary
   "loading": "लोड हो रहा है",
   "no_meeting_data": "कोई मीटिंग डेटा नहीं",
@@ -106,7 +106,7 @@ export default {
   "summary_empty_state": "अभी तक कोई सारांश नहीं, शुरू करने के लिए नीचे एक प्रश्न दर्ज करें",
   "search_button": "खोजें",
   "submit_button": "सबमिट करें",
-  
+
   // Extension
   "extension_settings": "एक्सटेंशन सेटिंग्स",
   "specific_highlight_words": "विशिष्ट हाइलाइट शब्द",
@@ -123,18 +123,29 @@ export default {
   "review_keywords": "अपने डोमेन के लिए जनरेट किए गए कीवर्ड की समीक्षा करें और अनुकूलित करें। किसी कीवर्ड को हटाने के लिए उस पर क्लिक करें।",
   "apply_keywords": "कीवर्ड लागू करें",
   "cancel": "रद्द करें",
-  
+
   // Words (Translation Records)
+  "longman_3000": "लॉन्गमैन 3000",
+  "longman_tab_desc": "लॉन्गमैन 3000 सामान्य शब्दावली समीक्षा और अभ्यास",
+  "search_words": "शब्द खोजें...",
+  "no_words_found": "कोई शब्द नहीं मिला",
+  "added_to_starred": "पसंदीदा में जोड़ा गया",
+  "removed_from_starred": "पसंदीदा से हटाया गया",
+  "starred": "पसंदीदा",
+  "total_vocabulary": "कुल शब्दावली",
+  "starred_words": "चिह्नित शब्द",
+  "all": "सभी",
+  "mastered": "निपुण",
   "translation_history": "अनुवाद इतिहास",
   "reset": "रीसेट करें",
-  "click_to_translate": "किसी शब्द पर क्लिक करके उसका अनुवाद फिर से देखें",
+  "click_to_translate": "देखने के लिए क्लिक करें",
   "clear_history_confirm": "क्या आप वाकई सभी अनुवाद इतिहास साफ़ करना चाहते हैं?",
   "clear_history_desc": "यह क्रिया पूर्ववत नहीं की जा सकती।",
   "yes_clear_all": "हां, सभी साफ़ करें",
   "no_keep_it": "नहीं, इसे रखें",
   "history_cleared": "अनुवाद इतिहास सफलतापूर्वक साफ़ किया गया",
   "no_history": "अभी तक कोई अनुवाद इतिहास नहीं है। अनुवाद के लिए कैप्शन में किसी शब्द पर क्लिक करें।",
-  
+
   // Translation Errors
   "translation_service_not_configured": "अनुवाद सेवा कॉन्फ़िगर नहीं है। कृपया अपनी API सेटिंग्स जांचें।",
   "translation_network_error": "नेटवर्क त्रुटि। कृपया अपना इंटरनेट कनेक्शन जांचें और पुनः प्रयास करें।",
@@ -142,12 +153,12 @@ export default {
   "translation_service_unavailable": "अनुवाद सेवा वर्तमान में उपलब्ध नहीं है",
   "unexpected_error": "एक अप्रत्याशित त्रुटि हुई। कृपया पुनः प्रयास करें।",
   "domain_explanation_failed": "डोमेन शब्द की व्याख्या करने में असफल। कृपया अपनी AI सेवा कॉन्फ़िगरेशन जांचें।",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "AI सेवा कॉन्फ़िगरेशन आवश्यक है",
   "ai_service_not_configured_message": "AI सेवा कॉन्फ़िगर नहीं है या तैयार नहीं है। AI सुविधाओं का उपयोग करने से पहले कृपया विकल्प पृष्ठ पर जाकर अपनी AI सेवा (OpenAI, Gemini या xAI) को कॉन्फ़िगर करें।",
   "go_to_options": "विकल्प पर जाएं",
-  
+
   // Clear Captions
   "clear_captions_warning": "चेतावनी: यह कार्रवाई पूर्ववत नहीं की जा सकती",
   "clear_captions_warning_desc": "यह आपके ब्राउज़र संग्रहण से सभी रिकॉर्ड किए गए कैप्शन को स्थायी रूप से हटा देगा।",
@@ -156,13 +167,13 @@ export default {
   "confirm_clear_captions": "कैप्शन साफ़ करने की पुष्टि करें",
   "yes_clear_data": "हाँ, डेटा साफ़ करें",
   "data_cleared_success": "डेटा सफलतापूर्वक साफ़ किया गया",
-  
+
   // UI Language
   "ui_language": "UI भाषा",
   "select_ui_language": "UI भाषा चुनें",
   "ui_language_desc": "Smart Meet के यूजर इंटरफेस के लिए भाषा चुनें",
   "ui_language_set": "UI भाषा {language} पर सेट की गई",
-  
+
   // Translation Language
   "select_translation_language": "अनुवाद भाषा चुनें",
   "translation_language_desc": "टेक्स्ट सामग्री का अनुवाद करने के लिए भाषा चुनें।",
@@ -173,36 +184,36 @@ export default {
   // मीटिंग इंटरफेस
   "meeting_interface": "मीटिंग इंटरफेस",
   "meeting_interface_desc": "Google Meet मीटिंग के लिए इंटरफेस तत्वों और नियंत्रणों को कॉन्फ़िगर करें",
-  
+
   // कैप्शन टॉगल बटन
   "caption_toggle_button": "कैप्शन टॉगल बटन",
   "caption_toggle_button_desc": "Google Meet पेजों पर एक फ्लोटिंग बटन दिखाएं जो कैप्शन को जल्दी छुपाने/दिखाने के लिए है",
   "caption_toggle_enabled": "कैप्शन टॉगल बटन सक्षम किया गया",
   "caption_toggle_disabled": "कैप्शन टॉगल बटन अक्षम किया गया",
-  
+
   // Sticker Note
   "sticker_note": "स्टिकर नोट",
   "sticker_note_desc": "त्वरित मीटिंग नोट्स लेने के लिए स्टिकी नोट्स सक्षम करें",
   "sticker_enabled": "स्टिकर नोट सक्षम किया गया",
   "sticker_disabled": "स्टिकर नोट अक्षम किया गया",
   "add_note": "नोट जोड़ें",
-  
+
   // स्वचालित सिंक सेटिंग्स
   "auto_sync_on_meeting_end": "मीटिंग समाप्त होने पर स्वचालित सिंक",
   "auto_sync_on_meeting_end_desc": "Google Meet कॉल छोड़ने पर स्वचालित रूप से बैकअप लें",
   "auto_sync_on_startup": "ब्राउज़र स्टार्टअप पर स्वचालित सिंक",
   "auto_sync_on_startup_desc": "ब्राउज़र शुरू होने पर हाल के 5 दिनों की चैट हिस्ट्री को स्वचालित रूप से सिंक करें",
-  
+
   // Google Drive - अतिरिक्त
   "backup_to_drive": "Drive पर बैकअप करें",
   "backup_title": "बैकअप",
   "backup_title_desc": "अपनी चैट हिस्ट्री को Google Drive पर बैकअप करें। मौजूदा फ़ाइलों को अधिलेखित या छोड़ा जा सकता है।",
-  
+
   // Google Drive - पुनर्स्थापना अनुभाग
   "restore_files": "फ़ाइलें पुनर्स्थापित करें",
   "restore_files_desc": "Google Drive में अपनी बैकअप फ़ाइलों को देखें और प्रबंधित करें",
   "view_details": "विवरण देखें",
-  
+
   // Google Drive - फ़ाइल सूची
   "backup_date": "बैकअप तिथि",
   "modified": "संशोधित",
@@ -220,21 +231,21 @@ export default {
   "no_matching_backup_files": "कोई मेल खाने वाली बैकअप फ़ाइलें नहीं मिलीं",
   "no_backup_files": "कोई बैकअप फ़ाइलें नहीं मिलीं",
   "items_count": "{count} आइटम",
-  
+
   // Google Drive - प्रमाणीकरण
   "authenticating_with_google": "Google के साथ प्रमाणीकरण...",
   "authenticating_desc": "कृपया प्रतीक्षा करें जब तक हम आपके Google खाते से सुरक्षित रूप से कनेक्ट करते हैं",
   "logging_in": "लॉग इन हो रहा है...",
   "login_with_google": "Google के साथ लॉगिन करें",
-  
+
   // कैलेंडर दृश्य
   "chat_history_desc": "तिथि के अनुसार व्यवस्थित मीटिंग चैट इतिहास देखें और खोजें",
   "message": "संदेश",
   "messages": "संदेश",
-  
+
   // AI सेटिंग्स
   "save_configuration": "कॉन्फ़िगरेशन सहेजें",
-  
+
   // एक्सटेंशन सेटिंग्स
   "extension_settings_desc": "एक्सटेंशन-विशिष्ट सुविधाओं और व्यवहार को कॉन्फ़िगर करें",
   "select_date": "तिथि चुनें"

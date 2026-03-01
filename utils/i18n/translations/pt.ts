@@ -11,7 +11,7 @@ export default {
   "settings": "Configurações",
   "settings_desc": "configurar IA, sincronizar dados, etc.",
   "clear_confirm": "Tem certeza de que deseja limpar todas as legendas?",
-  
+
   // Captions
   "translate": "Traduzir",
   "explain": "Explicar",
@@ -21,14 +21,14 @@ export default {
   "summary": "Resumo",
   "no_messages": "Sem mensagens",
   "no_messages_on_date": "Sem mensagens em {date}",
-  
+
   // Common
   "on": "ligado",
   "off": "desligado",
   "success": "Sucesso",
   "error": "Erro",
   "language_set": "Idioma de tradução definido para {language}",
-  
+
   // Settings
   "ai_settings": "Configurações de IA",
   "gemini_api_config": "Configuração da API Gemini",
@@ -39,7 +39,7 @@ export default {
   "save_settings": "Salvar configurações",
   "settings_saved": "Configurações salvas com sucesso!",
   "no_api_key": "Não tem uma chave de API Gemini?",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Integração com Google Drive",
   "google_drive_integration_desc": "Faça backup e restaure os dados de suas legendas no Google Drive",
@@ -61,7 +61,7 @@ export default {
   "skip": "Pular",
   "always_overwrite": "Sempre sobrescrever",
   "always_skip": "Sempre pular",
-  
+
   // Chat History
   "chat_history": "Histórico de chat",
   "search_content": "Pesquisar no conteúdo do chat",
@@ -74,7 +74,7 @@ export default {
   "no_records_for_date": "Nenhum registro de chat encontrado para esta data",
   "searching_content": "Pesquisando conteúdo do chat...",
   "loading_history": "Carregando histórico de chat...",
-  
+
   // Sidepanel
   "captions": "Legendas",
   "extension": "Extensão",
@@ -93,11 +93,11 @@ export default {
   "translate_button_desc": "Traduzir o texto da legenda para o seu idioma preferido",
   "polish_button_desc": "Melhorar e refinar o texto da legenda com IA",
   "analysis_button_desc": "Obter análise detalhada e insights das legendas",
-  
+
   // Sidebar
   "calendar_view": "Visualização de calendário",
   "configure_assistant": "Configurar seu assistente de reuniões",
-  
+
   // Summary
   "loading": "Carregando",
   "no_meeting_data": "Sem dados de reunião",
@@ -106,7 +106,7 @@ export default {
   "summary_empty_state": "Ainda não há resumos, digite uma pergunta abaixo para começar",
   "search_button": "Pesquisar",
   "submit_button": "Enviar",
-  
+
   // Extension
   "extension_settings": "Configurações da Extensão",
   "specific_highlight_words": "Palavras de Destaque Específicas",
@@ -123,23 +123,34 @@ export default {
   "review_keywords": "Revise e personalize as palavras-chave geradas para seu domínio. Clique em qualquer palavra-chave para removê-la.",
   "apply_keywords": "Aplicar palavras-chave",
   "cancel": "Cancelar",
-  
+
   // Words (Translation Records)
+  "longman_3000": "Longman 3000",
+  "longman_tab_desc": "Revisão e prática de vocabulário comum Longman 3000",
+  "search_words": "Pesquisar palavras...",
+  "no_words_found": "Nenhuma palavra encontrada",
+  "added_to_starred": "Adicionado aos favoritos",
+  "removed_from_starred": "Removido dos favoritos",
+  "starred": "Favoritos",
+  "total_vocabulary": "Vocabulário total",
+  "starred_words": "Palavras favoritas",
+  "all": "Tudo",
+  "mastered": "Dominado",
   "translation_history": "Histórico de tradução",
   "reset": "Redefinir",
-  "click_to_translate": "Clique em qualquer palavra para ver sua tradução novamente",
+  "click_to_translate": "Clique para revelar",
   "clear_history_confirm": "Tem certeza de que deseja limpar todo o histórico de tradução?",
   "clear_history_desc": "Esta ação não pode ser desfeita.",
   "yes_clear_all": "Sim, limpar tudo",
   "no_keep_it": "Não, manter",
   "history_cleared": "Histórico de tradução limpo com sucesso",
   "no_history": "Ainda não há histórico de tradução. Clique em qualquer palavra nas legendas para traduzi-la.",
-  
+
   // AI Service Messages
   "ai_meeting_content_intro": "Aqui está o conteúdo da reunião anterior: ",
   "ai_meeting_assistant_ready": "Entendi o conteúdo da reunião. Como posso ajudar?",
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
-  
+
   // Translation Errors
   "translation_service_not_configured": "O serviço de tradução não está configurado. Por favor, verifique suas configurações de API.",
   "translation_network_error": "Erro de rede. Por favor, verifique sua conexão com a internet e tente novamente.",
@@ -148,12 +159,12 @@ export default {
   "unexpected_error": "Ocorreu um erro inesperado. Por favor, tente novamente.",
   "domain_explanation_failed": "Falha ao explicar o termo do domínio. Por favor, verifique sua configuração do serviço de IA.",
   "google_translate_rate_limit_error": "A frequência de chamadas de tradução automática é muito alta. Por favor, aumente o valor em Configurações - Controle de Frequência de Tradução, ou mude para outro serviço de tradução",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "Configuração do serviço de IA necessária",
   "ai_service_not_configured_message": "O serviço de IA não está configurado ou não está pronto. Por favor, vá para a página de Opções para configurar seu serviço de IA (OpenAI, Gemini ou xAI) antes de usar os recursos de IA.",
   "go_to_options": "Ir para Opções",
-  
+
   // Clear Captions
   "clear_captions_warning": "Aviso: esta ação não pode ser desfeita",
   "clear_captions_warning_desc": "Isso excluirá permanentemente todas as legendas gravadas do armazenamento do seu navegador.",
@@ -162,13 +173,13 @@ export default {
   "confirm_clear_captions": "Confirmar limpeza de legendas",
   "yes_clear_data": "Sim, Limpar Dados",
   "data_cleared_success": "Dados limpos com sucesso",
-  
+
   // UI Language
   "ui_language": "Idioma da Interface",
   "select_ui_language": "Selecionar Idioma da Interface",
   "ui_language_desc": "Escolha o idioma para a interface do usuário do Smart Meet",
   "ui_language_set": "Idioma da interface definido para {language}",
-  
+
   // Translation Language
   "select_translation_language": "Selecionar Idioma de Tradução",
   "translation_language_desc": "Escolha o idioma para traduzir o conteúdo do texto.",
@@ -183,7 +194,7 @@ export default {
   "provider_microsoft": "Microsoft Tradutor",
   "provider_ai": "Tradução IA",
   "translation_provider_set": "Provedor de tradução definido para {provider}",
-  
+
   // Controle de frequência de tradução
   "translation_frequency": "Controle de frequência de tradução",
   "translation_frequency_desc": "Esta opção controla a frequência das solicitações de tradução. Valores mais altos significam menor frequência de solicitações e vice-versa. Isso é para evitar que frequências de solicitações altas sejam rejeitadas pelos provedores de serviços",
@@ -193,20 +204,20 @@ export default {
   // Interface de reunião
   "meeting_interface": "Interface de reunião",
   "meeting_interface_desc": "Configurar elementos de interface e controles para reuniões do Google Meet",
-  
+
   // Botão de alternância de legendas
   "caption_toggle_button": "Botão de alternância de legendas",
   "caption_toggle_button_desc": "Mostrar um botão flutuante nas páginas do Google Meet para ocultar/mostrar rapidamente as legendas",
   "caption_toggle_enabled": "Botão de alternância de legendas ativado",
   "caption_toggle_disabled": "Botão de alternância de legendas desativado",
-  
+
   // Sticker Note
   "sticker_note": "Nota Adesiva",
   "sticker_note_desc": "Ativar notas adesivas para fazer anotações rápidas da reunião",
   "sticker_enabled": "Nota adesiva ativada",
   "sticker_disabled": "Nota adesiva desativada",
   "add_note": "Adicionar Nota",
-  
+
   // Guide Animation
   "guide_animation_title": "📱 Como Usar a Extensão",
   "guide_animation_subtitle": "Siga o guia de animação para começar facilmente sua experiência de legendas inteligentes",
@@ -222,23 +233,23 @@ export default {
   "guide_step_5_desc": "Agora você pode usar tradução, resumo, exportação e todos os outros recursos!",
   "guide_start_demo": "Iniciar Demo",
   "guide_restart": "Reiniciar",
-  
+
   // Configurações de sincronização automática
   "auto_sync_on_meeting_end": "Sincronização automática no final da reunião",
   "auto_sync_on_meeting_end_desc": "Fazer backup automaticamente ao sair de uma chamada do Google Meet",
   "auto_sync_on_startup": "Sincronização automática na inicialização do navegador",
   "auto_sync_on_startup_desc": "Sincronizar automaticamente o histórico de bate-papo dos últimos 5 dias ao iniciar o navegador",
-  
+
   // Google Drive - Adicional
   "backup_to_drive": "Fazer backup no Drive",
   "backup_title": "Backup",
   "backup_title_desc": "Faça backup do seu histórico de bate-papo no Google Drive. Os arquivos existentes podem ser substituídos ou ignorados.",
-  
+
   // Google Drive - Seção de restauração
   "restore_files": "Restaurar arquivos",
   "restore_files_desc": "Visualize e gerencie seus arquivos de backup no Google Drive",
   "view_details": "Ver detalhes",
-  
+
   // Google Drive - Lista de arquivos
   "backup_date": "Data do backup",
   "modified": "Modificado",
@@ -256,21 +267,21 @@ export default {
   "no_matching_backup_files": "Nenhum arquivo de backup correspondente encontrado",
   "no_backup_files": "Nenhum arquivo de backup encontrado",
   "items_count": "{count} itens",
-  
+
   // Google Drive - Autenticação
   "authenticating_with_google": "Autenticando com o Google...",
   "authenticating_desc": "Aguarde enquanto nos conectamos com segurança à sua conta do Google",
   "logging_in": "Fazendo login...",
   "login_with_google": "Fazer login com o Google",
-  
+
   // Visualização do calendário
   "chat_history_desc": "Visualize e pesquise seu histórico de bate-papo de reuniões organizado por data",
   "message": "mensagem",
   "messages": "mensagens",
-  
+
   // Configurações de IA
   "save_configuration": "Salvar configuração",
-  
+
   // Configurações de extensão
   "extension_settings_desc": "Configurar recursos e comportamentos específicos da extensão",
   "select_date": "Selecionar data"

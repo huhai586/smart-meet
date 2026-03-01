@@ -108,7 +108,7 @@ export default {
   // Sidepanel
   "captions": "字幕",
   "extension": "扩展",
-      "translation_records": "翻译",
+  "translation_records": "翻译",
   "download_captions": "下载字幕",
   "sidepanel_summary": "AI Summary",
   "sidepanel_settings": "主界面设置",
@@ -173,9 +173,20 @@ export default {
   "export": "导出",
 
   // Words (Translation Records)
+  "longman_3000": "朗文 3000",
+  "longman_tab_desc": "朗文 3000 常用词汇复习与练习",
+  "search_words": "搜索单词...",
+  "no_words_found": "未找到相关单词",
+  "added_to_starred": "已加入收藏",
+  "removed_from_starred": "已移出收藏",
+  "starred": "已收藏",
+  "total_vocabulary": "总词汇量",
+  "starred_words": "已收藏词数",
+  "all": "全部",
+  "mastered": "已掌握",
+  "click_to_translate": "点击查看翻译",
   "translation_history": "翻译历史",
   "reset": "重置",
-  "click_to_translate": "点击任何词语再次查看其翻译",
   "clear_history_confirm": "您确定要清除所有翻译历史吗？",
   "clear_history_desc": "此操作无法撤销。",
   "yes_clear_all": "是的，全部清除",
@@ -220,7 +231,7 @@ export default {
   "unexpected_error": "发生意外错误。请重试。",
   "domain_explanation_failed": "无法解释领域术语。请检查您的AI服务配置。",
   "google_translate_rate_limit_error": "自动翻译调用频率太高，请在设置页面-翻译频率控制 里面将值调大，或者切换其他翻译服务",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "需要配置AI服务",
   "ai_service_not_configured_message": "AI服务未配置或未就绪。请前往选项页面配置您的AI服务（OpenAI、Gemini或xAI），然后再使用AI功能。",
@@ -273,13 +284,13 @@ export default {
   // 会议界面
   "meeting_interface": "会议界面",
   "meeting_interface_desc": "配置Google Meet会议的界面元素和控制选项",
-  
+
   // 字幕切换按钮
   "caption_toggle_button": "字幕切换按钮",
   "caption_toggle_button_desc": "在Google Meet页面显示一个浮动按钮，可以快速隐藏/显示字幕",
   "caption_toggle_enabled": "字幕切换按钮已启用",
   "caption_toggle_disabled": "字幕切换按钮已禁用",
-  
+
   // 便签功能
   "sticker_note": "便签笔记",
   "sticker_note_desc": "启用便签功能，方便快速记录会议笔记",
@@ -324,23 +335,23 @@ export default {
   "welcome_get_started": "开始使用",
   "welcome_open_settings": "打开设置",
   "welcome_tip": "💡 提示：您可以随时通过插件图标 → 选项来重新查看此页面",
-  
+
   // 自动同步设置
   "auto_sync_on_meeting_end": "会议结束后自动同步",
   "auto_sync_on_meeting_end_desc": "当您退出 Google Meet 通话时自动备份",
   "auto_sync_on_startup": "浏览器启动时自动同步",
   "auto_sync_on_startup_desc": "浏览器启动时自动同步最近5天的聊天记录",
-  
+
   // Google Drive - 额外
   "backup_to_drive": "备份到云端硬盘",
   "backup_title": "备份",
   "backup_title_desc": "将您的聊天记录备份到 Google 云端硬盘。现有文件可以被覆盖或跳过。",
-  
+
   // Google Drive - 恢复部分
   "restore_files": "恢复文件",
   "restore_files_desc": "查看和管理您在 Google 云端硬盘中的备份文件",
   "view_details": "查看详情",
-  
+
   // Google Drive - 文件列表
   "backup_date": "备份日期",
   "modified": "修改时间",
@@ -358,21 +369,21 @@ export default {
   "no_matching_backup_files": "未找到匹配的备份文件",
   "no_backup_files": "未找到备份文件",
   "items_count": "{count} 项",
-  
+
   // Google Drive - 认证
   "authenticating_with_google": "正在连接 Google...",
   "authenticating_desc": "请稍候，我们正在安全地连接到您的 Google 账户",
   "logging_in": "登录中...",
   "login_with_google": "使用 Google 登录",
-  
+
   // 日历视图
   "chat_history_desc": "查看和搜索按日期组织的会议聊天历史",
   "message": "条消息",
   "messages": "条消息",
-  
+
   // AI 设置
   "save_configuration": "保存配置",
-  
+
   // 扩展设置
   "extension_settings_desc": "配置扩展特定的功能和行为",
   "select_date": "选择日期"

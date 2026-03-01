@@ -11,7 +11,7 @@ export default {
   "settings": "設定",
   "settings_desc": "AI設定、データ同期など",
   "clear_confirm": "すべての字幕をクリアしてもよろしいですか？",
-  
+
   // Captions
   "translate": "翻訳",
   "explain": "説明",
@@ -21,14 +21,14 @@ export default {
   "summary": "要約",
   "no_messages": "メッセージがありません",
   "no_messages_on_date": "{date} にメッセージがありません",
-  
+
   // Common
   "on": "オン",
   "off": "オフ",
   "success": "成功",
   "error": "エラー",
   "language_set": "翻訳言語が{language}に設定されました",
-  
+
   // Settings
   "ai_settings": "AI設定",
   "gemini_api_config": "Gemini API設定",
@@ -39,7 +39,7 @@ export default {
   "save_settings": "設定を保存",
   "settings_saved": "設定が正常に保存されました！",
   "no_api_key": "Gemini APIキーをお持ちでないですか？",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "キャプションデータをGoogleドライブにバックアップおよび復元します",
@@ -61,7 +61,7 @@ export default {
   "skip": "スキップ",
   "always_overwrite": "常に上書き",
   "always_skip": "常にスキップ",
-  
+
   // Chat History
   "chat_history": "チャット履歴",
   "search_content": "チャット内容を検索",
@@ -74,11 +74,11 @@ export default {
   "no_records_for_date": "この日付のチャット記録が見つかりません",
   "searching_content": "チャット内容を検索中...",
   "loading_history": "チャット履歴を読み込み中...",
-  
+
   // Sidepanel
   "captions": "字幕",
   "extension": "拡張機能",
-      "translation_records": "翻訳",
+  "translation_records": "翻訳",
   "download_captions": "字幕をダウンロード",
   "sidepanel_summary": "AI Summary",
   "sidepanel_settings": "メインインターフェース設定",
@@ -93,11 +93,11 @@ export default {
   "translate_button_desc": "字幕テキストを希望の言語に翻訳",
   "polish_button_desc": "AIで字幕テキストを改善・洗練",
   "analysis_button_desc": "字幕から詳細な分析と洞察を取得",
-  
+
   // Sidebar
   "calendar_view": "カレンダービュー",
   "configure_assistant": "ミーティングアシスタントを設定",
-  
+
   // Summary
   "loading": "読み込み中",
   "no_meeting_data": "ミーティングデータがありません",
@@ -106,7 +106,7 @@ export default {
   "summary_empty_state": "まだ要約がありません。下に質問を入力して開始してください",
   "search_button": "検索",
   "submit_button": "送信",
-  
+
   // Extension
   "extension_settings": "拡張機能設定",
   "specific_highlight_words": "特定のハイライト単語",
@@ -123,23 +123,34 @@ export default {
   "review_keywords": "ドメイン用に生成されたキーワードを確認してカスタマイズします。キーワードをクリックして削除できます。",
   "apply_keywords": "キーワードを適用",
   "cancel": "キャンセル",
-  
+
   // Words (Translation Records)
+  "longman_3000": "ロングマン3000",
+  "longman_tab_desc": "ロングマン3000常用語彙の復習と練習",
+  "search_words": "単語を検索...",
+  "no_words_found": "単語が見つかりません",
+  "added_to_starred": "ブックマークに追加しました",
+  "removed_from_starred": "ブックマークから削除しました",
+  "starred": "ブックマーク",
+  "total_vocabulary": "総語彙数",
+  "starred_words": "ブックマーク件数",
+  "all": "すべて",
+  "mastered": "習得済み",
   "translation_history": "翻訳履歴",
   "reset": "リセット",
-  "click_to_translate": "任意の単語をクリックして再度翻訳を表示",
+  "click_to_translate": "クリックして表示",
   "clear_history_confirm": "翻訳履歴をすべてクリアしてもよろしいですか？",
   "clear_history_desc": "この操作は元に戻せません。",
   "yes_clear_all": "はい、すべてクリア",
   "no_keep_it": "いいえ、保持する",
   "history_cleared": "翻訳履歴が正常にクリアされました",
   "no_history": "まだ翻訳履歴がありません。字幕の任意の単語をクリックして翻訳してください。",
-  
+
   // AI Service Messages
   "ai_meeting_content_intro": "これは以前の会議内容です：",
   "ai_meeting_assistant_ready": "会議内容を理解しました。何かお手伝いできることはありますか？",
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
-  
+
   // Translation Errors
   "translation_service_not_configured": "翻訳サービスが設定されていません。API設定を確認してください。",
   "translation_network_error": "ネットワークエラーです。インターネット接続を確認してもう一度お試しください。",
@@ -148,12 +159,12 @@ export default {
   "unexpected_error": "予期しないエラーが発生しました。もう一度お試しください。",
   "domain_explanation_failed": "ドメイン用語の説明に失敗しました。AIサービスの設定を確認してください。",
   "google_translate_rate_limit_error": "自動翻訳の呼び出し頻度が高すぎます。設定ページの翻訳頻度制御で値を大きくするか、他の翻訳サービスに切り替えてください",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "AIサービスの設定が必要です",
   "ai_service_not_configured_message": "AIサービスが設定されていないか、準備ができていません。AI機能を使用する前に、オプションページでAIサービス（OpenAI、Gemini、またはxAI）を設定してください。",
   "go_to_options": "オプションに移動",
-  
+
   // Clear Captions
   "clear_captions_warning": "警告：この操作は元に戻せません",
   "clear_captions_warning_desc": "これにより、記録されたすべてのキャプションがブラウザのストレージから完全に削除されます。",
@@ -162,20 +173,20 @@ export default {
   "confirm_clear_captions": "キャプションのクリアを確認",
   "yes_clear_data": "はい、データをクリア",
   "data_cleared_success": "データのクリアが成功しました",
-  
+
   // UI Language
   "ui_language": "UI言語",
   "select_ui_language": "UI言語を選択",
   "ui_language_desc": "Smart Meetのユーザーインターフェースの言語を選択してください",
   "ui_language_set": "UI言語を{language}に設定しました",
-  
+
   // Translation Language
   "select_translation_language": "翻訳言語を選択",
   "translation_language_desc": "テキストコンテンツを翻訳する言語を選択してください。",
   "translation_language_set": "翻訳言語を{language}に設定しました",
   "translation_target_language": "翻訳先言語",
   "translation_target_language_desc": "クリック時に字幕を翻訳する言語を設定します",
-  
+
   // 翻译服务提供商
   "translation_provider": "翻訳サービスプロバイダー",
   "translation_provider_desc": "無料翻訳サービスプロバイダーを選択",
@@ -183,7 +194,7 @@ export default {
   "provider_microsoft": "Microsoft翻訳",
   "provider_ai": "AI翻訳",
   "translation_provider_set": "翻訳サービスプロバイダーが{provider}に設定されました",
-  
+
   // 翻訳頻度制御
   "translation_frequency": "翻訳頻度制御",
   "translation_frequency_desc": "このオプションは翻訳リクエストの頻度を制御します。値が大きいほどリクエスト頻度が低く、逆に小さいほど高くなります。これは高すぎるリクエスト頻度がサービスプロバイダーに拒否されるのを避けるためです",
@@ -193,20 +204,20 @@ export default {
   // 会議インターフェース
   "meeting_interface": "会議インターフェース",
   "meeting_interface_desc": "Google Meet会議のインターフェース要素とコントロールを設定します",
-  
+
   // 字幕切替ボタン
   "caption_toggle_button": "字幕切替ボタン",
   "caption_toggle_button_desc": "Google Meetページに浮動ボタンを表示して、字幕を素早く非表示/表示できます",
   "caption_toggle_enabled": "字幕切替ボタンが有効になりました",
   "caption_toggle_disabled": "字幕切替ボタンが無効になりました",
-  
+
   // Sticker Note
   "sticker_note": "付箋メモ",
   "sticker_note_desc": "会議メモを素早く取るための付箋機能を有効にする",
   "sticker_enabled": "付箋メモが有効になりました",
   "sticker_disabled": "付箋メモが無効になりました",
   "add_note": "メモを追加",
-  
+
   // Guide Animation
   "guide_animation_title": "📱 拡張機能の使い方",
   "guide_animation_subtitle": "アニメーションガイドに従って、スマートキャプション体験を簡単に開始",
@@ -222,7 +233,7 @@ export default {
   "guide_step_5_desc": "翻訳、要約、エクスポートなど、すべての機能をご利用いただけます！",
   "guide_start_demo": "デモを開始",
   "guide_restart": "再開",
-  
+
   // Welcome Page
   "welcome_title": "🎉 Google Meet Caption Proへようこそ",
   "welcome_subtitle": "スマート要約、リアルタイム翻訳などを備えたプロフェッショナルなGoogle Meetキャプションツール",
@@ -239,23 +250,23 @@ export default {
   "welcome_get_started": "開始する",
   "welcome_open_settings": "設定を開く",
   "welcome_tip": "💡 ヒント：拡張機能アイコン → オプションからいつでもこのページを再表示できます",
-  
+
   // 自動同期設定
   "auto_sync_on_meeting_end": "会議終了時に自動同期",
   "auto_sync_on_meeting_end_desc": "Google Meet通話を終了すると自動的にバックアップします",
   "auto_sync_on_startup": "ブラウザ起動時に自動同期",
   "auto_sync_on_startup_desc": "ブラウザ起動時に最近5日間のチャット履歴を自動的に同期します",
-  
+
   // Google Drive - 追加
   "backup_to_drive": "ドライブにバックアップ",
   "backup_title": "バックアップ",
   "backup_title_desc": "チャット履歴をGoogle Driveにバックアップします。既存のファイルは上書きまたはスキップできます。",
-  
+
   // Google Drive - 復元セクション
   "restore_files": "ファイルを復元",
   "restore_files_desc": "Google Driveのバックアップファイルを表示および管理します",
   "view_details": "詳細を表示",
-  
+
   // Google Drive - ファイルリスト
   "backup_date": "バックアップ日",
   "modified": "更新日時",
@@ -273,21 +284,21 @@ export default {
   "no_matching_backup_files": "一致するバックアップファイルが見つかりません",
   "no_backup_files": "バックアップファイルが見つかりません",
   "items_count": "{count}件",
-  
+
   // Google Drive - 認証
   "authenticating_with_google": "Googleで認証中...",
   "authenticating_desc": "Googleアカウントに安全に接続しています。お待ちください",
   "logging_in": "ログイン中...",
   "login_with_google": "Googleでログイン",
-  
+
   // カレンダービュー
   "chat_history_desc": "日付別に整理された会議チャット履歴を表示および検索",
   "message": "件のメッセージ",
   "messages": "件のメッセージ",
-  
+
   // AI設定
   "save_configuration": "設定を保存",
-  
+
   // 拡張機能設定
   "extension_settings_desc": "拡張機能固有の機能と動作を設定します",
   "select_date": "日付を選択"

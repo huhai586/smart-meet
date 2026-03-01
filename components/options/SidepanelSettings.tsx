@@ -9,6 +9,7 @@ interface SidepanelVisibility {
     captions: boolean;
     summary: boolean;
     translation: boolean;
+    longman: boolean;
 }
 
 interface CaptionButtonsVisibility {
@@ -25,7 +26,8 @@ const SidepanelSettings: React.FC = () => {
     const [visibility, setVisibility] = useState<SidepanelVisibility>({
         captions: true,
         summary: true,
-        translation: true
+        translation: true,
+        longman: false
     });
 
     const [buttonsVisibility, setButtonsVisibility] = useState<CaptionButtonsVisibility>({
@@ -133,6 +135,22 @@ const SidepanelSettings: React.FC = () => {
                             <Switch
                                 checked={visibility.translation}
                                 onChange={(checked) => updateVisibility('translation', checked)}
+                            />
+                        </div>
+
+                        <div className="visibility-item">
+                            <div className="visibility-info">
+                                <SketchOutlined style={{ fontSize: '20px', color: '#1a73e8', marginRight: '12px' }} />
+                                <div>
+                                    <div className="visibility-label">{t('longman_3000')}</div>
+                                    <Text type="secondary" style={{ fontSize: '13px' }}>
+                                        {t('longman_tab_desc')}
+                                    </Text>
+                                </div>
+                            </div>
+                            <Switch
+                                checked={visibility.longman}
+                                onChange={(checked) => updateVisibility('longman', checked)}
                             />
                         </div>
                     </div>

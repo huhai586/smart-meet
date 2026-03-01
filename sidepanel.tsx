@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-import {message, Tabs} from "antd";
+import React, { useEffect, useState } from "react";
+import { message, Tabs } from "antd";
 import {
     FileDoneOutlined,
     HistoryOutlined, SketchOutlined,
@@ -14,6 +14,7 @@ import Loading from './components/common/Loading';
 import useI18n from './utils/i18n';
 import initAIService from './utils/initAIService';
 import Summary from './components/summary/summary';
+import Longman3000 from "./components/longman/Longman3000";
 import aiServiceManager from './utils/ai';
 import { getAllAIServiceConfigs } from './utils/getAI';
 import googleAITools from './utils/google-AI';
@@ -23,7 +24,7 @@ import './styles/sidepanel.scss';
 interface CustomErrorEvent extends Event {
     detail: {
         error: {
-            errorDetails?: Array<{message: string}>;
+            errorDetails?: Array<{ message: string }>;
             message?: string;
         };
     };
@@ -38,7 +39,8 @@ const SidePanel = () => {
     const [visibility, setVisibility] = useState({
         captions: true,
         summary: true,
-        translation: true
+        translation: true,
+        longman: false
     });
 
     // 加载可见性设置
@@ -67,12 +69,13 @@ const SidePanel = () => {
         const allItems = [
             { key: 'captions', visible: visibility.captions },
             { key: 'summary', visible: visibility.summary },
-            { key: 'words', visible: visibility.translation }
+            { key: 'words', visible: visibility.translation },
+            { key: 'longman', visible: visibility.longman }
         ];
-        
+
         const visibleItems = allItems.filter(item => item.visible);
         const currentTabVisible = allItems.find(item => item.key === current)?.visible;
-        
+
         // 如果当前标签页不可见，切换到第一个可见的标签页
         if (!currentTabVisible && visibleItems.length > 0) {
             setCurrent(visibleItems[0].key);
@@ -129,7 +132,7 @@ const SidePanel = () => {
         return () => {
             chrome.runtime.onMessage.removeListener(updateApiKey);
         }
-    },[]);
+    }, []);
 
     useEffect(() => {
         const handleMessage = (message) => {
@@ -154,7 +157,7 @@ const SidePanel = () => {
             try {
                 message = errorMsg.errorDetails?.[1]?.message || errorMsg.message || 'Unknown error occurred';
             } catch {
-                console.log({errorMsg})
+                console.log({ errorMsg })
                 message = 'Unknown error occurred';
             }
             messageApi.open({
@@ -185,6 +188,13 @@ const SidePanel = () => {
             icon: <HistoryOutlined />,
             children: <Words currentTab={current} />,
             visible: visibility.translation
+        },
+        {
+            label: t('longman_3000'),
+            key: 'longman',
+            icon: <SketchOutlined />,
+            children: <Longman3000 />,
+            visible: visibility.longman
         },
     ];
 

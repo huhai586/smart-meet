@@ -16,7 +16,7 @@ export default {
   "settings": "Settings",
   "settings_desc": "configure AI, sync data and more",
   "clear_confirm": "Are you sure you want to clear all captions?",
-  
+
   // Captions
   "translate": "Translate",
   "explain": "Explain",
@@ -26,14 +26,14 @@ export default {
   "summary": "Summary",
   "no_messages": "No messages",
   "no_messages_on_date": "No messages on {date}",
-  
+
   // Common
   "on": "on",
   "off": "off",
   "success": "Success",
   "error": "Error",
   "language_set": "Translation language set to {language}",
-  
+
   // Settings
   "ai_settings": "AI Settings",
   "gemini_api_config": "Gemini API Configuration",
@@ -69,7 +69,7 @@ export default {
   "optional": "Optional",
   "proxy_url_placeholder": "e.g., https://your-proxy-domain.com",
   "proxy_url_hint": "If Google services are unavailable in your region, you can configure a proxy URL to access the Gemini API",
-  
+
   // Google Drive Integration
   "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Backup and restore your caption data to Google Drive",
@@ -91,7 +91,7 @@ export default {
   "skip": "Skip",
   "always_overwrite": "Always overwrite",
   "always_skip": "Always skip",
-  
+
   // Export Captions
   "export_captions_text": "Export Captions Text",
   "export_captions_desc": "Export meeting captions as a text file for the selected date.",
@@ -102,7 +102,7 @@ export default {
   "select_meeting_to_export": "Select Meeting to Export",
   "select_meeting_desc": "Please select a meeting to export:",
   "export": "Export",
-  
+
   // Chat History
   "chat_history": "Chat History",
   "search_content": "Search in chat content",
@@ -115,11 +115,11 @@ export default {
   "no_records_for_date": "No chat records found for this date",
   "searching_content": "Searching chat content...",
   "loading_history": "Loading chat history...",
-  
+
   // Sidepanel
   "captions": "Captions",
   "extension": "Extension",
-      "translation_records": "Translation",
+  "translation_records": "Translation",
   "download_captions": "Download captions",
   "sidepanel_summary": "AI Summary",
   "sidepanel_settings": "Main Interface Settings",
@@ -134,11 +134,11 @@ export default {
   "translate_button_desc": "Translate caption text to your preferred language",
   "polish_button_desc": "Improve and refine the caption text with AI",
   "analysis_button_desc": "Get detailed analysis and insights from the caption",
-  
+
   // Sidebar
   "calendar_view": "Calendar View",
   "configure_assistant": "Configure your meeting assistant",
-  
+
   // Summary
   "loading": "Loading",
   "no_meeting_data": "No meeting data",
@@ -149,7 +149,7 @@ export default {
   "submit_button": "Submit",
   "error_clearing_conversation": "Error clearing AI conversation. Please try again.",
   "completed": "Completed",
-  
+
   // Extension
   "extension_settings": "Extension Settings",
   "specific_highlight_words": "Specific Highlight Words",
@@ -166,16 +166,25 @@ export default {
   "review_keywords": "Review and customize the generated keywords for your domain. Click on any keyword to remove it.",
   "apply_keywords": "Apply Keywords",
   "cancel": "Cancel",
-  
+
   // Help & Guide
   "help_and_guide": "Help & Guide",
   "help_guide_desc": "View the welcome guide to learn how to use this extension effectively.",
   "open_welcome_guide": "Open Welcome Guide",
-  
+
   // Words (Translation Records)
-  "translation_history": "Translation History",
-  "reset": "Reset",
-  "click_to_translate": "Click on any word to see its translation again",
+  "longman_3000": "Longman 3000",
+  "longman_tab_desc": "Longman 3000 common vocabulary review and practice",
+  "search_words": "Search words...",
+  "no_words_found": "No words found",
+  "added_to_starred": "Added to starred",
+  "removed_from_starred": "Removed from starred",
+  "starred": "Starred",
+  "total_vocabulary": "Total Words",
+  "starred_words": "Starred Count",
+  "all": "All",
+  "mastered": "Mastered",
+  "click_to_translate": "Click to reveal",
   "clear_history_confirm": "Are you sure you want to clear all translation history?",
   "clear_history_desc": "This action cannot be undone.",
   "yes_clear_all": "Yes, Clear All",
@@ -189,7 +198,7 @@ export default {
   "loading_word_details_failed": "Failed to load word details. Please try again.",
   "meanings": "Meanings",
   "origin": "Origin",
-  
+
   // API Key Testing
   "test": "Test",
   "test_api_key": "Test API Key",
@@ -211,7 +220,7 @@ export default {
   "using_default_model_list": "Using default model list",
   "failed_to_fetch_models": "Failed to fetch models",
   "invalid_api_key": "Invalid API key",
-  
+
   // Translation Errors
   "translation_service_not_configured": "Translation service is not configured. Please check your API settings.",
   "translation_network_error": "Network error. Please check your internet connection and try again.",
@@ -220,12 +229,12 @@ export default {
   "unexpected_error": "An unexpected error occurred. Please try again.",
   "domain_explanation_failed": "Failed to explain domain term. Please check your AI service configuration.",
   "google_translate_rate_limit_error": "Auto translation call frequency is too high. Please increase the value in Settings - Translation Frequency Control, or switch to another translation service",
-  
+
   // AI Error Handler
   "ai_service_configuration_required": "AI Service Configuration Required",
   "ai_service_not_configured_message": "AI service is not configured or ready. Please go to the Options page to configure your AI service (OpenAI, Gemini, or xAI) before using AI features.",
   "go_to_options": "Go to Options",
-  
+
   // Clear Captions
   "clear_captions_warning": "Warning: This action cannot be undone",
   "clear_captions_warning_desc": "This will permanently delete all recorded captions from your browser storage.",
@@ -234,64 +243,64 @@ export default {
   "confirm_clear_captions": "Confirm Clear Captions",
   "yes_clear_data": "Yes, Clear Data",
   "data_cleared_success": "Data cleared successfully",
-  
+
   // UI Language
   "ui_language": "UI Language",
-  "select_ui_language": "Select UI Language", 
+  "select_ui_language": "Select UI Language",
   "ui_language_desc": "Choose the language for the user interface of Smart Meet",
   "ui_language_set": "UI language set to {language}",
   "ui_language_selector_desc": "Choose the language for the extension interface",
-  
+
   // Translation Language
   "select_translation_language": "Select Translation Language",
   "translation_language_desc": "Choose the language for translating text content.",
   "translation_language_set": "Translation language set to {language}",
   "translation_target_language": "Target Translation Language",
   "translation_target_language_desc": "Set the language to translate captions to when clicked",
-  
+
   // Auto Translation
   "auto_translate": "Auto Translate",
   "auto_translate_desc": "Automatically translate captions when they change",
   "auto_translate_enabled": "Auto translate enabled",
   "auto_translate_disabled": "Auto translate disabled",
   "auto_translated": "(Auto translated)",
-  
+
   // Translation Provider
   "translation_provider": "Translation Provider",
   "translation_provider_desc": "Select the free translation service provider",
   "provider_google": "Google Translate",
-  "provider_microsoft": "Microsoft Translator", 
+  "provider_microsoft": "Microsoft Translator",
   "provider_ai": "AI Translation",
   "translation_provider_set": "Translation provider set to {provider}",
-  
+
   // Translation Frequency Control
   "translation_frequency": "Translation Frequency Control",
   "translation_frequency_desc": "This option controls the frequency of translation requests. Higher values mean lower request frequency and vice versa. This is to avoid high request frequencies being rejected by service providers",
   "translation_frequency_label": "{frequency}s",
   "translation_frequency_set": "Translation frequency set to {frequency} seconds",
-  
+
   // Meeting Interface
   "meeting_interface": "Meeting Interface",
   "meeting_interface_desc": "Configure interface elements and controls for Google Meet meetings",
-  
+
   // Caption Toggle Button
   "caption_toggle_button": "Caption Toggle Button",
   "caption_toggle_button_desc": "Show a floating button on Google Meet pages to quickly hide/show captions",
   "caption_toggle_enabled": "Caption toggle button enabled",
   "caption_toggle_disabled": "Caption toggle button disabled",
-  
+
   // Sticker Note
   "sticker_note": "Sticker Note",
   "sticker_note_desc": "Enable sticky notes for taking quick meeting notes",
   "sticker_enabled": "Sticker note enabled",
   "sticker_disabled": "Sticker note disabled",
   "add_note": "Add Note",
-  
+
   // AI Service Messages
   "ai_meeting_content_intro": "Here is the previous meeting content: ",
   "ai_meeting_assistant_ready": "I have understood the meeting content. How can I help you?",
   "ai_system_prompt_meeting": "You are a helpful assistant for meeting transcripts.",
-  
+
   // Guide Animation
   "guide_animation_title": "📱 How to Use the Extension",
   "guide_animation_subtitle": "Follow the animation guide to easily start your smart caption experience",
@@ -307,7 +316,7 @@ export default {
   "guide_step_5_desc": "Now you can use translation, summary, export and all other features!",
   "guide_start_demo": "Start Demo",
   "guide_restart": "Restart",
-  
+
   // Welcome Page
   "welcome_title": "🎉 Welcome to Google Meet Caption Pro",
   "welcome_subtitle": "Professional Google Meet caption tool with smart summary, real-time translation and more",
@@ -324,23 +333,23 @@ export default {
   "welcome_get_started": "Get Started",
   "welcome_open_settings": "Open Settings",
   "welcome_tip": "💡 Tip: You can always revisit this page through the extension icon → Options",
-  
+
   // Auto Sync Settings
   "auto_sync_on_meeting_end": "Auto-sync on meeting end",
   "auto_sync_on_meeting_end_desc": "Automatically backup when you leave a Google Meet call",
   "auto_sync_on_startup": "Auto-sync on browser startup",
   "auto_sync_on_startup_desc": "Automatically sync recent 5 days of chat history when browser starts",
-  
+
   // Google Drive - Additional
   "backup_to_drive": "Backup to Drive",
   "backup_title": "Backup",
   "backup_title_desc": "Backup your chat history to Google Drive. Existing files can be overwritten or skipped.",
-  
+
   // Google Drive - Restore Section
   "restore_files": "Restore Files",
   "restore_files_desc": "View and manage your backup files in Google Drive",
   "view_details": "View Details",
-  
+
   // Google Drive - File List
   "backup_date": "Backup Date",
   "modified": "Modified",
@@ -358,21 +367,21 @@ export default {
   "no_matching_backup_files": "No matching backup files found",
   "no_backup_files": "No backup files found",
   "items_count": "{count} items",
-  
+
   // Google Drive - Authentication
   "authenticating_with_google": "Authenticating with Google...",
   "authenticating_desc": "Please wait while we securely connect to your Google account",
   "logging_in": "Logging in...",
   "login_with_google": "Login with Google",
-  
+
   // Calendar View
   "chat_history_desc": "View and search your meeting chat history organized by date",
   "message": "message",
   "messages": "messages",
-  
+
   // AI Settings
   "save_configuration": "Save Configuration",
-  
+
   // Extension Settings
   "extension_settings_desc": "Configure extension-specific features and behaviors",
   "select_date": "Select date"
