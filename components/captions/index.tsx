@@ -7,8 +7,7 @@ import { useDateContext } from '../../contexts/DateContext';
 import SearchBar from './SearchBar';
 import FilterSection from './FilterSection';
 import CaptionContent from './CaptionContent';
-import { useSearch } from './hooks/useSearch';
-import { useFilter } from './hooks/useFilter';
+import { useSearch, useFilter } from './hooks';
 
 /**
  * 字幕主组件
@@ -33,7 +32,7 @@ const Captions = () => {
     goToPrevMatch,
     toggleSearch,
     clearSearch
-  } = useSearch(chatContainer);
+  } = useSearch(chatContainer, selectedDate);
 
   const {
     speakers,

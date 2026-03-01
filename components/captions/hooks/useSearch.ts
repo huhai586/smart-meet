@@ -1,17 +1,19 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { RefObject, ChangeEvent } from 'react';
+import type { Dayjs } from 'dayjs';
 import { findAndHighlightMatches, clearHighlights, scrollToMatch } from '../searchUtils';
+import { useSearchUpdate } from './useSearchUpdate';
 
 /**
  * 处理字幕搜索的自定义Hook
  */
-export const useSearch = (containerRef: RefObject<HTMLElement>) => {
+export const useSearch = (containerRef: RefObject<HTMLElement>, selectedDate?: Dayjs) => {
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState<HTMLElement[]>([]);
   const [currentMatch, setCurrentMatch] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchInputRef = useRef<any>(null);
 
   // 清除搜索
   const clearSearch = useCallback(() => {
@@ -59,8 +61,12 @@ export const useSearch = (containerRef: RefObject<HTMLElement>) => {
 
 
 
-  // 搜索功能
   const handleSearch = useCallback(() => {
+    // 每次搜索前先清除旧的高亮，防止结果累积或过时
+    if (containerRef.current) {
+      clearHighlights(containerRef.current);
+    }
+
     if (!searchText.trim() || !containerRef.current) {
       setSearchResults([]);
       setCurrentMatch(0);
@@ -78,6 +84,8 @@ export const useSearch = (containerRef: RefObject<HTMLElement>) => {
     if (results.length > 0) {
       setCurrentMatch(1);
       scrollToMatch(results[0] as HTMLElement); // 类型断言
+    } else {
+      setCurrentMatch(0);
     }
 
     // 确保搜索后输入框仍然保持焦点
@@ -85,6 +93,9 @@ export const useSearch = (containerRef: RefObject<HTMLElement>) => {
       searchInputRef.current.focus();
     }
   }, [searchText, containerRef]);
+
+  // 内部集成日期变化自动更新搜索的逻辑
+  useSearchUpdate(selectedDate!, searchVisible, searchText, handleSearch);
 
   // 导航到下一个匹配项
   const goToNextMatch = useCallback(() => {

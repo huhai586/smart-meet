@@ -1,4 +1,7 @@
 export { useCaptionText } from './useCaptionText';
 export { useTranslation } from './useTranslation';
 export { useAIInteraction } from './useAIInteraction';
-export { useLanguageDetection } from './useLanguageDetection'; 
+export { useLanguageDetection } from './useLanguageDetection';
+export { useSearchUpdate } from './useSearchUpdate';
+export { useFilter } from './useFilter';
+export { useSearch } from './useSearch';
