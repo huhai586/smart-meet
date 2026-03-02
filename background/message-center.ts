@@ -51,8 +51,26 @@ class BackgroundMessageHandler {
         });
     }
 
-    async handleMessage(message: MessageData, sender: chrome.runtime.MessageSender, sendResponse: (data?: unknown) => void): Promise<void> {
+    async handleMessage(message: MessageData, sender: chrome.runtime.MessageSender, sendResponse: (data?: unknown) => void): Promise<boolean> {
         console.log('background.js', 'handleMessage', message);
+
+        // 定义此处理器负责的 action 列表
+        const handledActions = [
+            'clear',
+            'addOrUpdateRecords',
+            'restoreRecords',
+            'get-transcripts',
+            'get-days-with-messages',
+            'openSidePanel',
+            'languageChanged',
+            'sync-to-google-drive',
+            'update_meeting_info'
+        ];
+
+        if (!handledActions.includes(message.action)) {
+            return false; // 不处理此消息，让其他监听器处理
+        }
+
         try {
             switch (message.action) {
                 // ── 数据持久化相关 ──────────────────────────────────────────
@@ -60,11 +78,13 @@ class BackgroundMessageHandler {
                     await this.storage.deleteRecords();
                     await this.syncTranscripts();
                     await this.updateDaysWithMessages();
+                    sendResponse({ success: true });
                     break;
 
                 case 'addOrUpdateRecords':
                     await this.storage.addOrUpdateRecord(message.data);
                     await this.syncTranscripts();
+                    sendResponse({ success: true });
                     break;
 
                 case 'restoreRecords': {
@@ -91,32 +111,34 @@ class BackgroundMessageHandler {
                             await this.syncTranscripts();
                         }
                     }
+                    sendResponse({ success: true });
                     break;
                 }
 
                 case 'get-transcripts': {
                     const records = await this.storage.getRecords(dayjs(message.date));
                     sendResponse(records);
-                    return;
+                    break;
                 }
 
                 case 'get-days-with-messages':
                     await this.updateDaysWithMessages();
-                    return;
+                    sendResponse({ success: true });
+                    break;
 
                 // ── 系统消息相关 ──────────────────────────────────────────
                 case 'openSidePanel':
                     this.handleOpenSidePanel(sender, sendResponse);
-                    return;
+                    break;
 
                 case 'languageChanged':
                     broadcastLanguageChange(message.languageCode);
                     sendResponse({ success: true, action: '' });
-                    return;
+                    break;
 
                 case 'sync-to-google-drive':
                     handleSyncRequest(message, sendResponse);
-                    return;
+                    break;
 
                 case 'update_meeting_info':
                     if (sender.tab?.id) {
@@ -127,12 +149,13 @@ class BackgroundMessageHandler {
                         });
                     }
                     sendResponse({ success: true });
-                    return;
+                    break;
             }
         } catch (error) {
             console.error('Error handling message:', error);
-            chrome.runtime.sendMessage({ action: 'error', error: 'Failed to process request' });
+            sendResponse({ success: false, error: 'Failed to process request' });
         }
+        return true; // 表示已处理并会异步响应
     }
 }
 
@@ -146,8 +169,8 @@ export function initMessageCenter() {
     console.log('初始化消息处理中心...');
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        messageCenter.handleMessage(message, sender, sendResponse).catch(console.error);
-        return true; // 保持消息通道开放，支持异步响应
+        // handleMessage 现在返回 boolean，表示是否接管了此消息
+        return messageCenter.handleMessage(message, sender, sendResponse) as unknown as boolean;
     });
 }
 
