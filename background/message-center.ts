@@ -30,8 +30,8 @@ export function sendBackgroundMessage(message: MessageData): void {
 class BackgroundMessageHandler {
     private storage = StorageFactory.getInstance().getProvider();
 
-    private async syncTranscripts(): Promise<void> {
-        chrome.runtime.sendMessage({ action: 'transcripts-updated' });
+    private async syncTranscripts(record?: Transcript): Promise<void> {
+        chrome.runtime.sendMessage({ action: 'transcripts-updated', data: record });
     }
 
     private async updateDaysWithMessages(): Promise<void> {
@@ -76,14 +76,14 @@ class BackgroundMessageHandler {
                 // ── 数据持久化相关 ──────────────────────────────────────────
                 case 'clear':
                     await this.storage.deleteRecords();
-                    await this.syncTranscripts();
+                    await this.syncTranscripts(); // 不传 data → UI 全量拉取
                     await this.updateDaysWithMessages();
                     sendResponse({ success: true });
                     break;
 
                 case 'addOrUpdateRecords':
                     await this.storage.addOrUpdateRecord(message.data);
-                    await this.syncTranscripts();
+                    await this.syncTranscripts(message.data); // 增量推送最新记录
                     sendResponse({ success: true });
                     break;
 
@@ -155,11 +155,28 @@ class BackgroundMessageHandler {
             console.error('Error handling message:', error);
             sendResponse({ success: false, error: 'Failed to process request' });
         }
-        return true; // 表示已处理并会异步响应
     }
 }
 
 export const messageCenter = new BackgroundMessageHandler();
+
+/**
+ * 检查消息是否属于后台处理中心负责
+ */
+function isHandledAction(action: string | undefined): boolean {
+    const handledActions = [
+        'clear',
+        'addOrUpdateRecords',
+        'restoreRecords',
+        'get-transcripts',
+        'get-days-with-messages',
+        'openSidePanel',
+        'languageChanged',
+        'sync-to-google-drive',
+        'update_meeting_info'
+    ];
+    return !!action && handledActions.includes(action);
+}
 
 /**
  * 统一消息处理中心初始化
@@ -169,8 +186,14 @@ export function initMessageCenter() {
     console.log('初始化消息处理中心...');
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-        // handleMessage 现在返回 boolean，表示是否接管了此消息
-        return messageCenter.handleMessage(message, sender, sendResponse) as unknown as boolean;
+        if (isHandledAction(message?.action)) {
+            // 这里不使用 await，直接触发异步处理函数
+            // 必须同步返回 true 才能保持 sendResponse 通道开启
+            messageCenter.handleMessage(message, sender, sendResponse);
+            return true;
+        }
+        // 对于不关心的消息，显式返回 false，释放给其他监听器
+        return false;
     });
 }
 
