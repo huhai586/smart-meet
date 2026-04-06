@@ -1,4 +1,4 @@
-# Google Meet Caption Pro
+# 我叫copilot
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ijnhmeefekamlgipkcandcpmccamgcna)](https://chromewebstore.google.com/detail/google-meet-caption-pro/ijnhmeefekamlgipkcandcpmccamgcna)
 [![Rating](https://img.shields.io/chrome-web-store/rating/ijnhmeefekamlgipkcandcpmccamgcna)](https://chromewebstore.google.com/detail/google-meet-caption-pro/ijnhmeefekamlgipkcandcpmccamgcna)
