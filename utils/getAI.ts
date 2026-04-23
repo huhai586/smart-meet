@@ -1,24 +1,27 @@
-import { type AIServiceType } from '../components/options/ai-settings/utils/constants';
+/**
+ * AI service configuration types (now using string-based provider IDs)
+ */
 
 // Define the new AI configuration structure
 export interface AIServiceConfig {
     apiKey: string;
     modelName: string;
-    aiName: AIServiceType;
+    aiName: string; // provider ID from provider-registry, e.g. 'openai', 'google-gemini', 'deepseek'
     baseUrl?: string; // 自定义API端点URL（用于代理）
 }
 
 export interface AIsConfig {
-    active: AIServiceType;
+    active: string;
     data: AIServiceConfig[];
 }
 
+
 /**
  * Get API key for specific AI service or active service
- * @param {AIServiceType} serviceType - AI service type, if not provided, use active service
+ * @param {string} serviceType - AI provider ID, if not provided, use active service
  * @returns {Promise<string>} - Returns API key
  */
-const getAPIkey = (serviceType?: AIServiceType): Promise<string> => {
+const getAPIkey = (serviceType?: string): Promise<string> => {
     return new Promise((resolve, reject) => {
         chrome.storage.sync.get(['AIs'], (result) => {
             if (!result.AIs || !result.AIs.data || result.AIs.data.length === 0) {
@@ -43,20 +46,14 @@ const getAPIkey = (serviceType?: AIServiceType): Promise<string> => {
 
 /**
  * Get all AI service configurations
- * @returns {Promise<AIsConfig>} - Returns AI configuration object
  */
 export const getAllAIServiceConfigs = (): Promise<AIsConfig> => {
     return new Promise<AIsConfig>((resolve) => {
         chrome.storage.sync.get(['AIs'], (result) => {
-            if (result.AIs && result.AIs.active && result.AIs.data) {
+            if (result.AIs && Array.isArray(result.AIs.data)) {
                 resolve(result.AIs);
             } else {
-                // Return default configuration if no data exists
-                const defaultConfig: AIsConfig = {
-                    active: 'gemini',
-                    data: []
-                };
-                resolve(defaultConfig);
+                resolve({ active: '', data: [] });
             }
         });
     });
@@ -102,9 +99,9 @@ export const saveAIServiceConfig = (
 
 /**
  * Remove AI service configuration
- * @param {AIServiceType} aiName - AI service name to remove
+ * @param {string} aiName - AI service name to remove
  */
-export const removeAIServiceConfig = (aiName: AIServiceType): Promise<void> => {
+export const removeAIServiceConfig = (aiName: string): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
         getAllAIServiceConfigs().then((currentConfig) => {
             // Remove the service configuration
@@ -116,7 +113,7 @@ export const removeAIServiceConfig = (aiName: AIServiceType): Promise<void> => {
             if (currentConfig.active === aiName) {
                 currentConfig.active = currentConfig.data.length > 0 
                     ? currentConfig.data[0].aiName 
-                    : 'gemini';
+                    : 'google-gemini';
             }
             
             // Save to storage
@@ -129,9 +126,9 @@ export const removeAIServiceConfig = (aiName: AIServiceType): Promise<void> => {
 
 /**
  * Set active AI service
- * @param {AIServiceType} aiName - AI service name to set as active
+ * @param {string} aiName - AI service name to set as active
  */
-export const setActiveAIService = (aiName: AIServiceType): Promise<void> => {
+export const setActiveAIService = (aiName: string): Promise<void> => {
     return new Promise<void>((resolve, reject) => {
         getAllAIServiceConfigs().then((currentConfig) => {
             // Check if the service exists in configuration

@@ -1,5 +1,13 @@
-import type { IAIService, AIServiceConfig, GenerateResponseOptions } from './AIServiceInterface';
-import { AIServiceFactoryManager } from './AIServiceFactory';
+import type { GenerateResponseOptions } from './UnifiedAIService';
+import { UnifiedAIService, type IAIService } from './UnifiedAIService';
+
+// AIServiceConfig 直接在此定义，不再依赖 AIServiceInterface
+export interface AIServiceConfig {
+  apiKey: string;
+  modelName?: string;
+  baseUrl?: string;
+  [key: string]: unknown;
+}
 
 /**
  * AI服务管理类
@@ -7,13 +15,10 @@ import { AIServiceFactoryManager } from './AIServiceFactory';
  */
 export class AIServiceManager {
   private static instance: AIServiceManager;
-  private currentServiceType: string = 'gemini';
+  private currentServiceType: string = '';
   private services: Map<string, IAIService> = new Map();
-  private factoryManager: AIServiceFactoryManager;
 
-  private constructor() {
-    this.factoryManager = AIServiceFactoryManager.getInstance();
-  }
+  private constructor() {}
 
   /**
    * 获取服务管理器实例（单例模式）
@@ -34,17 +39,21 @@ export class AIServiceManager {
       this.services.delete(type);
     }
 
-    // 创建新服务
-    const service = this.factoryManager.createService(type, config);
-    if (service) {
+    // 使用 UnifiedAIService 创建服务
+    try {
+      const service = new UnifiedAIService(type, {
+        apiKey: config.apiKey,
+        baseURL: config.baseUrl,
+        modelName: config.modelName,
+      });
       service.init();
       this.services.set(type, service);
       console.log(`AI service ${type} initialized`);
       return service;
+    } catch (error) {
+      console.error(`Failed to initialize AI service: ${type}`, error);
+      return null;
     }
-
-    console.error(`Failed to initialize AI service: ${type}`);
-    return null;
   }
 
   /**

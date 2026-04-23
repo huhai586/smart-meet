@@ -1,5 +1,6 @@
 import { getAllAIServiceConfigs } from './getAI';
 import aiServiceManager from './ai';
+import { providerRegistry } from './ai/provider-registry';
 
 /**
  * 初始化AI服务
@@ -7,6 +8,9 @@ import aiServiceManager from './ai';
  */
 const initAIService = async () => {
   try {
+    // 加载自定义 providers
+    await providerRegistry.loadCustomProviders();
+    
     // 获取所有AI服务配置
     const aisConfig = await getAllAIServiceConfigs();
     
@@ -21,7 +25,7 @@ const initAIService = async () => {
       return aiServiceManager.initService(serviceConfig.aiName, {
         apiKey: serviceConfig.apiKey,
         modelName: serviceConfig.modelName,
-        baseUrl: serviceConfig.baseUrl // 传递 baseUrl 配置
+        baseUrl: serviceConfig.baseUrl
       });
     });
     
