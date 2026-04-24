@@ -193,6 +193,18 @@ export default {
   "provider_google": "Google翻訳",
   "provider_microsoft": "Microsoft翻訳",
   "provider_ai": "AI翻訳",
+  "provider_google_desc": "無料、設定不要",
+  "provider_microsoft_desc": "無料、設定不要",
+  "provider_ai_desc": "設定済みのAIサービスを使用",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "高品質翻訳、認証キーが必要",
+  "deepl_settings": "DeepL設定",
+  "deepl_auth_key": "認証キー",
+  "deepl_auth_key_placeholder": "DeepL認証キーを入力",
+  "deepl_auth_key_help": "deepl.comで認証キーを取得",
+  "deepl_settings_saved": "DeepL設定を保存しました",
+  "deepl_auth_key_required": "認証キーは必須です",
+  "save": "保存",
   "translation_provider_set": "翻訳サービスプロバイダーが{provider}に設定されました",
 
   // 翻訳頻度制御

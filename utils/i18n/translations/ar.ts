@@ -248,5 +248,25 @@ export default {
 
   // إعدادات الامتداد
   "extension_settings_desc": "تكوين الميزات والسلوكيات الخاصة بالامتداد",
-  "select_date": "اختر التاريخ"
+  "select_date": "اختر التاريخ",
+
+  // مزود الترجمة
+  "translation_provider": "مزود الترجمة",
+  "translation_provider_desc": "اختر مزود خدمة الترجمة",
+  "provider_google": "Google Translate",
+  "provider_microsoft": "مترجم Microsoft",
+  "provider_ai": "ترجمة الذكاء الاصطناعي",
+  "provider_google_desc": "مجاني، لا يحتاج إلى تكوين",
+  "provider_microsoft_desc": "مجاني، لا يحتاج إلى تكوين",
+  "provider_ai_desc": "يستخدم خدمة الذكاء الاصطناعي المكوّنة",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "ترجمات عالية الجودة، يتطلب مفتاح المصادقة",
+  "deepl_settings": "إعدادات DeepL",
+  "deepl_auth_key": "مفتاح المصادقة",
+  "deepl_auth_key_placeholder": "أدخل مفتاح المصادقة الخاص بـ DeepL",
+  "deepl_auth_key_help": "احصل على مفتاحك من deepl.com",
+  "deepl_settings_saved": "تم حفظ إعدادات DeepL",
+  "deepl_auth_key_required": "مفتاح المصادقة مطلوب",
+  "save": "حفظ",
+  "translation_provider_set": "تم تعيين مزود الترجمة إلى {provider}"
 }; 

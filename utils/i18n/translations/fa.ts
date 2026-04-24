@@ -308,5 +308,25 @@ export default {
 
   // تنظیمات افزونه
   "extension_settings_desc": "پیکربندی ویژگی‌ها و رفتارهای خاص افزونه",
-  "select_date": "انتخاب تاریخ"
+  "select_date": "انتخاب تاریخ",
+
+  // ارائه‌دهنده ترجمه
+  "translation_provider": "ارائه‌دهنده ترجمه",
+  "translation_provider_desc": "ارائه‌دهنده خدمات ترجمه را انتخاب کنید",
+  "provider_google": "Google Translate",
+  "provider_microsoft": "مترجم Microsoft",
+  "provider_ai": "ترجمه هوش مصنوعی",
+  "provider_google_desc": "رایگان، بدون نیاز به پیکربندی",
+  "provider_microsoft_desc": "رایگان، بدون نیاز به پیکربندی",
+  "provider_ai_desc": "از سرویس هوش مصنوعی پیکربندی‌شده شما استفاده می‌کند",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "ترجمه‌های با کیفیت بالا، نیاز به کلید احراز هویت دارد",
+  "deepl_settings": "تنظیمات DeepL",
+  "deepl_auth_key": "کلید احراز هویت",
+  "deepl_auth_key_placeholder": "کلید احراز هویت DeepL خود را وارد کنید",
+  "deepl_auth_key_help": "کلید خود را از deepl.com دریافت کنید",
+  "deepl_settings_saved": "تنظیمات DeepL ذخیره شد",
+  "deepl_auth_key_required": "کلید احراز هویت الزامی است",
+  "save": "ذخیره",
+  "translation_provider_set": "ارائه‌دهنده ترجمه به {provider} تنظیم شد"
 }; 

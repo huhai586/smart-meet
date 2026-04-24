@@ -1,17 +1,35 @@
-import React from 'react';
-import { Typography, Card, Space, theme, Switch, Divider, Select, Slider } from 'antd';
+import React, { useState } from 'react';
+import { Typography, Card, Space, theme, Switch, Divider, Slider, Modal, Form, Input, Button, Tooltip } from 'antd';
+import { CheckOutlined, SettingOutlined } from '@ant-design/icons';
 import LanguageSelector from '~components/options/LanguageSelector';
 import useI18n from '~utils/i18n';
 import StyledTitle from '~components/common/StyledTitle';
 import { useAutoTranslate } from '~hooks/useAutoTranslate';
-import { useTranslationProvider, getProviderDisplayName, type TranslationProvider } from '~hooks/useTranslationProvider';
+import {
+  useTranslationProvider,
+  useDeepLConfig,
+  type TranslationProvider,
+} from '~hooks/useTranslationProvider';
 import { useTranslationFrequency } from '~hooks/useTranslationFrequency';
 import messageManager from '~utils/message-manager';
 import '~styles/translation-settings.scss';
 
-const { Title: _Title, Text } = Typography;
+const { Text } = Typography;
 const { useToken } = theme;
-const { Option } = Select;
+
+interface ProviderItem {
+  id: TranslationProvider;
+  nameKey: string;
+  descKey: string;
+  hasSettings: boolean;
+}
+
+const PROVIDER_LIST: ProviderItem[] = [
+  { id: 'google',    nameKey: 'provider_google',    descKey: 'provider_google_desc',    hasSettings: false },
+  { id: 'microsoft', nameKey: 'provider_microsoft', descKey: 'provider_microsoft_desc', hasSettings: false },
+  { id: 'ai',        nameKey: 'provider_ai',        descKey: 'provider_ai_desc',        hasSettings: false },
+  { id: 'deepl',     nameKey: 'provider_deepl',     descKey: 'provider_deepl_desc',     hasSettings: true  },
+];
 
 const TranslationSettings: React.FC = () => {
   const { token } = useToken();
@@ -19,6 +37,10 @@ const TranslationSettings: React.FC = () => {
   const [autoTranslateEnabled, setAutoTranslateEnabled] = useAutoTranslate();
   const [translationProvider, setTranslationProvider] = useTranslationProvider();
   const [translationFrequency, setTranslationFrequency] = useTranslationFrequency();
+  const [deepLConfig, setDeepLConfig] = useDeepLConfig();
+
+  const [deepLModalOpen, setDeepLModalOpen] = useState(false);
+  const [deepLForm] = Form.useForm<{ auth_key: string }>();
 
   const handleAutoTranslateChange = (checked: boolean) => {
     setAutoTranslateEnabled(checked);
@@ -27,35 +49,9 @@ const TranslationSettings: React.FC = () => {
     );
   };
 
-  const handleProviderChange = (value: TranslationProvider) => {
-    console.log(`[TranslationSettings] User selected provider: ${value}`);
-
-    // 在设置之前先检查当前存储的值
-    chrome.storage.sync.get(['translationProvider'], (result) => {
-      console.log(`[TranslationSettings] Before setting - Storage contains:`, result);
-
-      // 设置新的翻译提供商
-      setTranslationProvider(value);
-
-      // 延迟验证设置是否成功
-      setTimeout(() => {
-        chrome.storage.sync.get(['translationProvider'], (newResult) => {
-          console.log(`[TranslationSettings] After setting - Storage contains:`, newResult);
-
-          // 再次测试获取函数
-          import('~hooks/useTranslationProvider').then(({ getCurrentTranslationProvider }) => {
-            getCurrentTranslationProvider().then(provider => {
-              console.log(`[TranslationSettings] getCurrentTranslationProvider returned: ${provider}`);
-            });
-          });
-        });
-      }, 500);
-    });
-
-    const providerName = getProviderDisplayName(value);
-    messageManager.success(
-      t('translation_provider_set', { provider: providerName })
-    );
+  const handleSelectProvider = (id: TranslationProvider) => {
+    setTranslationProvider(id);
+    messageManager.success(t('translation_provider_set', { provider: t(PROVIDER_LIST.find(p => p.id === id)?.nameKey ?? '') }));
   };
 
   const handleFrequencyChange = (value: number) => {
@@ -65,16 +61,27 @@ const TranslationSettings: React.FC = () => {
     );
   };
 
+  const openDeepLSettings = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    deepLForm.setFieldsValue({ auth_key: deepLConfig.auth_key });
+    setDeepLModalOpen(true);
+  };
 
+  const handleDeepLSave = () => {
+    deepLForm.validateFields().then((values) => {
+      setDeepLConfig({ auth_key: values.auth_key.trim() });
+      setDeepLModalOpen(false);
+      messageManager.success(t('deepl_settings_saved'));
+    });
+  };
 
   return (
     <div>
       <StyledTitle subtitle={t('translation_language_desc')}>{t('translation_language')}</StyledTitle>
 
-      <div style={{ padding: "0 20px" }}>
-        {/* Translation Settings Card */}
+      <div style={{ padding: '0 20px' }}>
         <Card className="translation-settings-card">
-          <Space direction="vertical" style={{ width: "100%" }}>
+          <Space direction="vertical" style={{ width: '100%' }}>
             {/* Language Selector Section */}
             <div>
               <Text strong className="translation-settings-section-title">
@@ -103,17 +110,14 @@ const TranslationSettings: React.FC = () => {
               <Switch
                 checked={autoTranslateEnabled}
                 onChange={handleAutoTranslateChange}
-                style={{
-                  backgroundColor: autoTranslateEnabled ? token.colorSuccess : undefined
-                }}
+                style={{ backgroundColor: autoTranslateEnabled ? token.colorSuccess : undefined }}
               />
             </div>
 
-            {/* 翻译频率 - 只在自动翻译开启时显示 */}
+            {/* Translation Frequency - only when auto-translate is on */}
             {autoTranslateEnabled && (
               <>
                 <Divider />
-
                 <div className="translation-settings-slider-container">
                   <div className="translation-settings-frequency-description-wrapper">
                     <Text strong className="translation-settings-section-title">
@@ -131,21 +135,15 @@ const TranslationSettings: React.FC = () => {
                       value={translationFrequency}
                       onChange={handleFrequencyChange}
                       tooltip={{
-                        formatter: (value) => t('translation_frequency_label', { frequency: value?.toString() || '2.5' })
+                        formatter: (value) =>
+                          t('translation_frequency_label', { frequency: value?.toString() || '2.5' }),
                       }}
-                      marks={{
-                        1: '1s',
-                        2.5: '2.5s',
-                        5: '5s',
-                        10: '10s'
-                      }}
+                      marks={{ 1: '1s', 2.5: '2.5s', 5: '5s', 10: '10s' }}
                       className="translation-settings-frequency-slider"
                     />
                     <div
                       className="translation-settings-frequency-label"
-                      style={{
-                        color: token.colorPrimary,
-                      }}
+                      style={{ color: token.colorPrimary }}
                     >
                       {t('translation_frequency_label', { frequency: translationFrequency.toString() })}
                     </div>
@@ -156,7 +154,7 @@ const TranslationSettings: React.FC = () => {
 
             <Divider />
 
-            {/* 翻译服务提供商 - 始终显示 */}
+            {/* Translation Provider List */}
             <div className="translation-settings-provider-section">
               <div className="translation-settings-provider-description-wrapper">
                 <Text strong className="translation-settings-section-title">
@@ -166,28 +164,80 @@ const TranslationSettings: React.FC = () => {
                   {t('translation_provider_desc')}
                 </Text>
               </div>
-              <Select
-                value={translationProvider}
-                onChange={handleProviderChange}
-                className="translation-settings-provider-select"
-                size="middle"
-              >
-                <Option value="google">
-                  {t('provider_google')}
-                </Option>
-                <Option value="microsoft">
-                  {t('provider_microsoft')}
-                </Option>
-                <Option value="ai">
-                  {t('provider_ai')}
-                </Option>
-              </Select>
+
+              <div className="translation-provider-list">
+                {PROVIDER_LIST.map((provider) => {
+                  const isActive = translationProvider === provider.id;
+                  return (
+                    <div
+                      key={provider.id}
+                      className={`translation-provider-item${isActive ? ' translation-provider-item--active' : ''}`}
+                      onClick={() => handleSelectProvider(provider.id)}
+                      style={{
+                        borderColor: isActive ? token.colorPrimary : token.colorBorderSecondary,
+                        backgroundColor: isActive ? token.colorPrimaryBg : token.colorBgContainer,
+                      }}
+                    >
+                      <div className="translation-provider-item__check">
+                        {isActive && (
+                          <CheckOutlined style={{ color: token.colorPrimary, fontSize: 14 }} />
+                        )}
+                      </div>
+
+                      <div className="translation-provider-item__info">
+                        <Text strong style={{ color: isActive ? token.colorPrimary : token.colorText }}>
+                          {t(provider.nameKey)}
+                        </Text>
+                        <Text type="secondary" className="translation-provider-item__desc">
+                          {t(provider.descKey)}
+                        </Text>
+                      </div>
+
+                      {provider.hasSettings && (
+                        <Tooltip title={t('deepl_settings')}>
+                          <Button
+                            type="text"
+                            size="small"
+                            icon={<SettingOutlined />}
+                            className="translation-provider-item__settings-btn"
+                            onClick={openDeepLSettings}
+                          />
+                        </Tooltip>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </Space>
         </Card>
-
-
       </div>
+
+      {/* DeepL Settings Modal */}
+      <Modal
+        title={t('deepl_settings')}
+        open={deepLModalOpen}
+        onOk={handleDeepLSave}
+        onCancel={() => setDeepLModalOpen(false)}
+        okText={t('save')}
+        cancelText={t('cancel')}
+        destroyOnClose
+      >
+        <Form form={deepLForm} layout="vertical" style={{ marginTop: 16 }}>
+          <Form.Item
+            name="auth_key"
+            label={t('deepl_auth_key')}
+            rules={[{ required: true, message: t('deepl_auth_key_required') }]}
+            extra={
+              <a href="https://www.deepl.com/pro#developer" target="_blank" rel="noopener noreferrer">
+                {t('deepl_auth_key_help')}
+              </a>
+            }
+          >
+            <Input.Password placeholder={t('deepl_auth_key_placeholder')} />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 };

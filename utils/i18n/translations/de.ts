@@ -209,6 +209,18 @@ export default {
   "provider_google": "Google Übersetzer",
   "provider_microsoft": "Microsoft Übersetzer",
   "provider_ai": "KI-Übersetzung",
+  "provider_google_desc": "Kostenlos, keine Konfiguration erforderlich",
+  "provider_microsoft_desc": "Kostenlos, keine Konfiguration erforderlich",
+  "provider_ai_desc": "Verwendet Ihren konfigurierten KI-Dienst",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "Hochwertige Übersetzungen, API-Schlüssel erforderlich",
+  "deepl_settings": "DeepL-Einstellungen",
+  "deepl_auth_key": "API-Schlüssel",
+  "deepl_auth_key_placeholder": "DeepL API-Schlüssel eingeben",
+  "deepl_auth_key_help": "API-Schlüssel auf deepl.com erhalten",
+  "deepl_settings_saved": "DeepL-Einstellungen gespeichert",
+  "deepl_auth_key_required": "API-Schlüssel ist erforderlich",
+  "save": "Speichern",
   "translation_provider_set": "Übersetzungsanbieter auf {provider} eingestellt",
 
   // Übersetzungsfrequenz-Kontrolle

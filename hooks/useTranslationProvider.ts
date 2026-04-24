@@ -2,12 +2,19 @@ import { useState, useEffect } from 'react';
 
 // 存储在Chrome存储中的键名
 const STORAGE_KEY = 'translationProvider';
+const DEEPL_CONFIG_KEY = 'deeplConfig';
 
 // 翻译服务提供商类型
-export type TranslationProvider = 'google' | 'microsoft' | 'ai';
+export type TranslationProvider = 'google' | 'microsoft' | 'ai' | 'deepl';
+
+export interface DeepLConfig {
+  auth_key: string;
+}
 
 // 默认翻译服务提供商
 const defaultProvider: TranslationProvider = 'microsoft';
+
+const VALID_PROVIDERS: TranslationProvider[] = ['google', 'microsoft', 'ai', 'deepl'];
 
 /**
  * 管理翻译服务提供商的Hook
@@ -29,7 +36,7 @@ export const useTranslationProvider = (): [TranslationProvider, (provider: Trans
     console.log(`[setProvider] Setting translation provider to: ${newProvider}`);
     
     // 验证提供商值的有效性
-    if (!['google', 'microsoft', 'ai'].includes(newProvider)) {
+    if (!VALID_PROVIDERS.includes(newProvider)) {
       console.error(`[setProvider] Invalid provider: ${newProvider}`);
       return;
     }
@@ -99,7 +106,7 @@ export const getCurrentTranslationProvider = async (): Promise<TranslationProvid
         console.log(`[getCurrentTranslationProvider] Selected provider: ${provider}`);
         
         // 验证提供商值的有效性
-        if (!['google', 'microsoft', 'ai'].includes(provider)) {
+        if (!VALID_PROVIDERS.includes(provider as TranslationProvider)) {
           console.warn(`[getCurrentTranslationProvider] Invalid provider: ${provider}, using default`);
           resolve(defaultProvider);
           return;
@@ -128,7 +135,42 @@ export const getProviderDisplayName = (provider: TranslationProvider): string =>
       return 'Microsoft Translator';
     case 'ai':
       return 'AI Translation';
+    case 'deepl':
+      return 'DeepL';
     default:
       return 'Google Translate';
   }
+};
+
+/**
+ * 管理 DeepL 配置的 Hook
+ */
+export const useDeepLConfig = (): [DeepLConfig, (config: DeepLConfig) => void] => {
+  const [config, setConfigState] = useState<DeepLConfig>({ auth_key: '' });
+
+  useEffect(() => {
+    chrome.storage.sync.get([DEEPL_CONFIG_KEY], (result) => {
+      if (result[DEEPL_CONFIG_KEY]) {
+        setConfigState(result[DEEPL_CONFIG_KEY]);
+      }
+    });
+  }, []);
+
+  const setConfig = (newConfig: DeepLConfig) => {
+    setConfigState(newConfig);
+    chrome.storage.sync.set({ [DEEPL_CONFIG_KEY]: newConfig });
+  };
+
+  return [config, setConfig];
+};
+
+/**
+ * 获取 DeepL auth_key
+ */
+export const getDeepLAuthKey = async (): Promise<string> => {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get([DEEPL_CONFIG_KEY], (result) => {
+      resolve(result[DEEPL_CONFIG_KEY]?.auth_key ?? '');
+    });
+  });
 }; 

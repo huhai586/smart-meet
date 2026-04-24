@@ -193,6 +193,18 @@ export default {
   "provider_google": "Google 번역",
   "provider_microsoft": "Microsoft 번역",
   "provider_ai": "AI 번역",
+  "provider_google_desc": "무료, 설정 필요 없음",
+  "provider_microsoft_desc": "무료, 설정 필요 없음",
+  "provider_ai_desc": "구성된 AI 서비스 사용",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "고품질 번역, 인증 키 필요",
+  "deepl_settings": "DeepL 설정",
+  "deepl_auth_key": "인증 키",
+  "deepl_auth_key_placeholder": "DeepL 인증 키 입력",
+  "deepl_auth_key_help": "deepl.com에서 인증 키 받기",
+  "deepl_settings_saved": "DeepL 설정이 저장되었습니다",
+  "deepl_auth_key_required": "인증 키는 필수입니다",
+  "save": "저장",
   "translation_provider_set": "번역 서비스 제공업체가 {provider}로 설정되었습니다",
 
   // 번역 빈도 제어

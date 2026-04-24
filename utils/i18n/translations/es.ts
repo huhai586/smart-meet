@@ -209,6 +209,18 @@ export default {
   "provider_google": "Google Traductor",
   "provider_microsoft": "Microsoft Traductor",
   "provider_ai": "Traducción IA",
+  "provider_google_desc": "Gratuito, no requiere configuración",
+  "provider_microsoft_desc": "Gratuito, no requiere configuración",
+  "provider_ai_desc": "Utiliza tu servicio de IA configurado",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "Traducciones de alta calidad, requiere clave de autenticación",
+  "deepl_settings": "Configuración de DeepL",
+  "deepl_auth_key": "Clave de autenticación",
+  "deepl_auth_key_placeholder": "Introduce tu clave de autenticación de DeepL",
+  "deepl_auth_key_help": "Obtén tu clave en deepl.com",
+  "deepl_settings_saved": "Configuración de DeepL guardada",
+  "deepl_auth_key_required": "La clave de autenticación es obligatoria",
+  "save": "Guardar",
   "translation_provider_set": "Proveedor de traducción establecido en {provider}",
 
   // Control de frecuencia de traducción

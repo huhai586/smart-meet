@@ -248,5 +248,25 @@ export default {
 
   // एक्सटेंशन सेटिंग्स
   "extension_settings_desc": "एक्सटेंशन-विशिष्ट सुविधाओं और व्यवहार को कॉन्फ़िगर करें",
-  "select_date": "तिथि चुनें"
+  "select_date": "तिथि चुनें",
+
+  // अनुवाद प्रदाता
+  "translation_provider": "अनुवाद प्रदाता",
+  "translation_provider_desc": "अनुवाद सेवा प्रदाता चुनें",
+  "provider_google": "Google Translate",
+  "provider_microsoft": "Microsoft अनुवादक",
+  "provider_ai": "AI अनुवाद",
+  "provider_google_desc": "मुफ़्‍त, कोई कॉन्फ़िगरेशन आवश्यक नहीं",
+  "provider_microsoft_desc": "मुफ़्‍त, कोई कॉन्फ़िगरेशन आवश्यक नहीं",
+  "provider_ai_desc": "आपकी कॉन्फ़िगर की गई AI सेवा का उपयोग करता है",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "उच्च गुणवत्ता वाले अनुवाद, प्रमाणीकरण कुंजी आवश्यक है",
+  "deepl_settings": "DeepL सेटिंग्स",
+  "deepl_auth_key": "प्रमाणीकरण कुंजी",
+  "deepl_auth_key_placeholder": "DeepL प्रमाणीकरण कुंजी दर्ज करें",
+  "deepl_auth_key_help": "deepl.com पर अपनी कुंजी प्राप्त करें",
+  "deepl_settings_saved": "DeepL सेटिंग्स सहेजी गईं",
+  "deepl_auth_key_required": "प्रमाणीकरण कुंजी आवश्यक है",
+  "save": "सहेजें",
+  "translation_provider_set": "अनुवाद प्रदाता {provider} पर सेट किया गया"
 }; 

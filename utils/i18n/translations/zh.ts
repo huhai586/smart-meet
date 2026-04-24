@@ -273,6 +273,18 @@ export default {
   "provider_google": "Google 翻译",
   "provider_microsoft": "微软翻译",
   "provider_ai": "AI 翻译",
+  "provider_google_desc": "免费，无需配置",
+  "provider_microsoft_desc": "免费，无需配置",
+  "provider_ai_desc": "使用您配置的 AI 服务",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "高质量翻译，需要 Auth Key",
+  "deepl_settings": "DeepL 设置",
+  "deepl_auth_key": "Auth Key",
+  "deepl_auth_key_placeholder": "输入您的 DeepL Auth Key",
+  "deepl_auth_key_help": "前往 deepl.com 获取 Auth Key",
+  "deepl_settings_saved": "DeepL 设置已保存",
+  "deepl_auth_key_required": "Auth Key 不能为空",
+  "save": "保存",
   "translation_provider_set": "翻译服务提供商已设置为 {provider}",
 
   // 翻译频率控制

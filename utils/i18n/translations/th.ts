@@ -248,5 +248,25 @@ export default {
 
   // การตั้งค่าส่วนขยาย
   "extension_settings_desc": "กำหนดค่าคุณสมบัติและพฤติกรรมเฉพาะของส่วนขยาย",
-  "select_date": "เลือกวันที่"
+  "select_date": "เลือกวันที่",
+
+  // ผู้ให้บริการแปล
+  "translation_provider": "ผู้ให้บริการแปล",
+  "translation_provider_desc": "เลือกผู้ให้บริการแปลภาษา",
+  "provider_google": "Google Translate",
+  "provider_microsoft": "Microsoft Translator",
+  "provider_ai": "การแปลด้วย AI",
+  "provider_google_desc": "ฟรี ไม่ต้องตั้งค่า",
+  "provider_microsoft_desc": "ฟรี ไม่ต้องตั้งค่า",
+  "provider_ai_desc": "ใช้บริการ AI ที่คุณตั้งค่าไว้",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "การแปลคุณภาพสูง ต้องใช้คีย์การยืนยันตัวตน",
+  "deepl_settings": "การตั้งค่า DeepL",
+  "deepl_auth_key": "คีย์การยืนยันตัวตน",
+  "deepl_auth_key_placeholder": "ป้อนคีย์การยืนยันตัวตน DeepL ของคุณ",
+  "deepl_auth_key_help": "รับคีย์ของคุณที่ deepl.com",
+  "deepl_settings_saved": "บันทึกการตั้งค่า DeepL แล้ว",
+  "deepl_auth_key_required": "จำเป็นต้องมีคีย์การยืนยันตัวตน",
+  "save": "บันทึก",
+  "translation_provider_set": "ตั้งค่าผู้ให้บริการแปลเป็น {provider}"
 }; 

@@ -269,5 +269,25 @@ export default {
 
   // Cài đặt tiện ích mở rộng
   "extension_settings_desc": "Cấu hình các tính năng và hành vi cụ thể của tiện ích mở rộng",
-  "select_date": "Chọn ngày"
+  "select_date": "Chọn ngày",
+
+  // Nhà cung cấp dịch thuật
+  "translation_provider": "Nhà cung cấp dịch thuật",
+  "translation_provider_desc": "Chọn nhà cung cấp dịch vụ dịch thuật",
+  "provider_google": "Google Dịch",
+  "provider_microsoft": "Microsoft Dịch",
+  "provider_ai": "Dịch AI",
+  "provider_google_desc": "Miễn phí, không cần cấu hình",
+  "provider_microsoft_desc": "Miễn phí, không cần cấu hình",
+  "provider_ai_desc": "Sử dụng dịch vụ AI đã cấu hình",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "Bản dịch chất lượng cao, yêu cầu khóa xác thực",
+  "deepl_settings": "Cài đặt DeepL",
+  "deepl_auth_key": "Khóa xác thực",
+  "deepl_auth_key_placeholder": "Nhập khóa xác thực DeepL của bạn",
+  "deepl_auth_key_help": "Lấy khóa của bạn tại deepl.com",
+  "deepl_settings_saved": "Đã lưu cài đặt DeepL",
+  "deepl_auth_key_required": "Khóa xác thực là bắt buộc",
+  "save": "Lưu",
+  "translation_provider_set": "Nhà cung cấp dịch thuật được đặt thành {provider}"
 }; 

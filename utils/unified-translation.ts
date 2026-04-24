@@ -1,5 +1,5 @@
 import { getCurrentTranslationProvider } from '../hooks/useTranslationProvider';
-import { translateByGoogle, translateByMicrosoft, translateByAI } from './translators';
+import { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeepL } from './translators';
 import { getCurrentUILanguage } from '../hooks/useUILanguage';
 import { getTranslation } from './i18n';
 import messageManager from './message-manager';
@@ -31,6 +31,10 @@ export const translateText = async (text: string): Promise<string> => {
       case 'microsoft':
         console.log('[translateText] Using Microsoft Translator');
         translatedText = await translateByMicrosoft(text);
+        break;
+      case 'deepl':
+        console.log('[translateText] Using DeepL');
+        translatedText = await translateByDeepL(text);
         break;
       case 'ai':
       default:

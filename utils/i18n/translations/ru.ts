@@ -269,5 +269,25 @@ export default {
 
   // Настройки расширения
   "extension_settings_desc": "Настройка специфичных функций и поведения расширения",
-  "select_date": "Выбрать дату"
+  "select_date": "Выбрать дату",
+
+  // Провайдер перевода
+  "translation_provider": "Провайдер перевода",
+  "translation_provider_desc": "Выберите провайдера службы перевода",
+  "provider_google": "Google Переводчик",
+  "provider_microsoft": "Microsoft Переводчик",
+  "provider_ai": "Перевод ИИ",
+  "provider_google_desc": "Бесплатно, настройка не требуется",
+  "provider_microsoft_desc": "Бесплатно, настройка не требуется",
+  "provider_ai_desc": "Использует настроенный сервис ИИ",
+  "provider_deepl": "DeepL",
+  "provider_deepl_desc": "Высококачественные переводы, требуется ключ аутентификации",
+  "deepl_settings": "Настройки DeepL",
+  "deepl_auth_key": "Ключ аутентификации",
+  "deepl_auth_key_placeholder": "Введите ключ аутентификации DeepL",
+  "deepl_auth_key_help": "Получите ключ на deepl.com",
+  "deepl_settings_saved": "Настройки DeepL сохранены",
+  "deepl_auth_key_required": "Ключ аутентификации обязателен",
+  "save": "Сохранить",
+  "translation_provider_set": "Провайдер перевода установлен на {provider}"
 }; 
