@@ -296,5 +296,34 @@ export default {
 
   // Impostazioni estensione
   "extension_settings_desc": "Configura funzionalità e comportamenti specifici dell'estensione",
-  "select_date": "Seleziona data"
-}; 
+  "select_date": "Seleziona data",
+  // AI Settings - Provider UI
+  "configuration_removed": "Configurazione rimossa",
+  "add_custom_provider": "Aggiungi provider personalizzato",
+  "add": "Aggiungi",
+  "provider_name": "Nome del provider",
+  "api_base_url": "URL base API",
+  "openai_compatible_hint": "Deve essere un endpoint compatibile con OpenAI",
+  "default_model": "Modello predefinito",
+  "search_providers": "Cerca provider...",
+  "select_provider_hint": "Seleziona un provider da configurare",
+  "select_provider_desc": "Scegli dall'elenco a sinistra",
+  "set_as_default": "Imposta come servizio predefinito",
+  "default_service_desc": "Usa questo provider per tutte le funzionalità AI",
+  "configuration": "Configurazione",
+  "get_api_key": "Ottieni chiave API",
+  "model": "Modello",
+  "select_model": "Seleziona un modello",
+  "models_from_cache": "Elenco modelli dalla cache · aggiornamento ogni 24h",
+  "base_url": "URL base",
+  "base_url_hint": "Sostituisci l'endpoint API predefinito (es. per proxy)",
+  "testing": "Test connessione in corso...",
+  "connection_success": "Connessione riuscita",
+  "test_connection": "Testa connessione",
+  "remove": "Rimuovi",
+  "category_international": "Internazionale",
+  "category_chinese": "Cinese",
+  "category_local": "Locale",
+  "category_custom": "Personalizzato",
+  "active_badge": "Attivo",
+};

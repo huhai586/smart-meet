@@ -1,6 +1,11 @@
 import { useState, useRef, useEffect } from "react";
-import { CloseOutlined } from "@ant-design/icons";
 import "./StickerNote.scss";
+
+const CloseIcon = () => (
+    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+    </svg>
+);
 
 interface StickerNoteProps {
     onClose: () => void;
@@ -86,10 +91,12 @@ const StickerNote: React.FC<StickerNoteProps> = ({ onClose }) => {
         >
             <div className="sticker-note-header">
                 <span className="sticker-note-title">📝 Meeting Note</span>
-                <CloseOutlined
+                <span
                     className="sticker-note-close"
                     onClick={onClose}
-                />
+                >
+                    <CloseIcon />
+                </span>
             </div>
             <textarea
                 className="sticker-note-content"

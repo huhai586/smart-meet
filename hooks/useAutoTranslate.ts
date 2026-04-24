@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getCurrentTranslationProvider } from './useTranslationProvider';
-import { translateByGoogle, translateByMicrosoft, translateByAI } from '../utils/translators';
+import { translateByGoogle, translateByMicrosoft } from '../utils/translators';
 import { getTranslationFrequency, frequencyToMs } from './useTranslationFrequency';
 import useI18n from "../utils/i18n";
 
@@ -108,6 +108,7 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
         case 'ai':
         default:
           console.log('[executeTranslation] Using AI Translation');
+          const { default: translateByAI } = await import('../utils/translate-signal-words');
           translatedText = await translateByAI(textToTranslate);
           break;
       }

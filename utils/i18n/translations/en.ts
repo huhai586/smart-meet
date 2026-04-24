@@ -396,5 +396,34 @@ export default {
 
   // Extension Settings
   "extension_settings_desc": "Configure extension-specific features and behaviors",
-  "select_date": "Select date"
-}; 
+  "select_date": "Select date",
+  // AI Settings - Provider UI
+  "configuration_removed": "Configuration removed",
+  "add_custom_provider": "Add Custom Provider",
+  "add": "Add",
+  "provider_name": "Provider Name",
+  "api_base_url": "API Base URL",
+  "openai_compatible_hint": "Must be OpenAI-compatible endpoint",
+  "default_model": "Default Model",
+  "search_providers": "Search providers...",
+  "select_provider_hint": "Select a provider to configure",
+  "select_provider_desc": "Choose from the list on the left",
+  "set_as_default": "Set as default service",
+  "default_service_desc": "Use this provider for all AI features",
+  "configuration": "Configuration",
+  "get_api_key": "Get API key",
+  "model": "Model",
+  "select_model": "Select a model",
+  "models_from_cache": "Model list from cache · updates every 24h",
+  "base_url": "Base URL",
+  "base_url_hint": "Override the default API endpoint (e.g., for proxy)",
+  "testing": "Testing connection...",
+  "connection_success": "Connection successful",
+  "test_connection": "Test Connection",
+  "remove": "Remove",
+  "category_international": "International",
+  "category_chinese": "Chinese",
+  "category_local": "Local",
+  "category_custom": "Custom",
+  "active_badge": "Active",
+};

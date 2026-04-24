@@ -313,5 +313,34 @@ export default {
 
   // 拡張機能設定
   "extension_settings_desc": "拡張機能固有の機能と動作を設定します",
-  "select_date": "日付を選択"
-}; 
+  "select_date": "日付を選択",
+  // AI Settings - Provider UI
+  "configuration_removed": "設定を削除しました",
+  "add_custom_provider": "カスタムプロバイダーを追加",
+  "add": "追加",
+  "provider_name": "プロバイダー名",
+  "api_base_url": "APIベースURL",
+  "openai_compatible_hint": "OpenAI互換エンドポイントである必要があります",
+  "default_model": "デフォルトモデル",
+  "search_providers": "プロバイダーを検索...",
+  "select_provider_hint": "設定するプロバイダーを選択",
+  "select_provider_desc": "左のリストから選択してください",
+  "set_as_default": "デフォルトサービスに設定",
+  "default_service_desc": "すべてのAI機能にこのプロバイダーを使用",
+  "configuration": "設定",
+  "get_api_key": "APIキーを取得",
+  "model": "モデル",
+  "select_model": "モデルを選択",
+  "models_from_cache": "キャッシュからのモデル一覧 · 24時間ごとに更新",
+  "base_url": "ベースURL",
+  "base_url_hint": "デフォルトAPIエンドポイントを上書き（例：プロキシ用）",
+  "testing": "接続テスト中...",
+  "connection_success": "接続成功",
+  "test_connection": "接続テスト",
+  "remove": "削除",
+  "category_international": "国際",
+  "category_chinese": "中国",
+  "category_local": "ローカル",
+  "category_custom": "カスタム",
+  "active_badge": "使用中",
+};

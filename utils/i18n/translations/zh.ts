@@ -398,5 +398,34 @@ export default {
 
   // 扩展设置
   "extension_settings_desc": "配置扩展特定的功能和行为",
-  "select_date": "选择日期"
-}; 
+  "select_date": "选择日期",
+  // AI Settings - Provider UI
+  "configuration_removed": "配置已删除",
+  "add_custom_provider": "添加自定义服务商",
+  "add": "添加",
+  "provider_name": "服务商名称",
+  "api_base_url": "API 基础 URL",
+  "openai_compatible_hint": "必须是 OpenAI 兼容的接口地址",
+  "default_model": "默认模型",
+  "search_providers": "搜索服务商...",
+  "select_provider_hint": "选择一个服务商进行配置",
+  "select_provider_desc": "从左侧列表中选择",
+  "set_as_default": "设为默认服务",
+  "default_service_desc": "将此服务商用于所有 AI 功能",
+  "configuration": "配置",
+  "get_api_key": "获取 API 密钥",
+  "model": "模型",
+  "select_model": "选择模型",
+  "models_from_cache": "模型列表来自缓存 · 每 24 小时更新",
+  "base_url": "基础 URL",
+  "base_url_hint": "覆盖默认 API 地址（例如用于代理）",
+  "testing": "正在测试连接...",
+  "connection_success": "连接成功",
+  "test_connection": "测试连接",
+  "remove": "删除",
+  "category_international": "国际",
+  "category_chinese": "国内",
+  "category_local": "本地",
+  "category_custom": "自定义",
+  "active_badge": "使用中",
+};

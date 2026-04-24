@@ -296,5 +296,34 @@ export default {
 
   // Erweiterungseinstellungen
   "extension_settings_desc": "Erweiterungsspezifische Funktionen und Verhaltensweisen konfigurieren",
-  "select_date": "Datum auswählen"
-}; 
+  "select_date": "Datum auswählen",
+  // AI Settings - Provider UI
+  "configuration_removed": "Konfiguration entfernt",
+  "add_custom_provider": "Benutzerdefinierten Anbieter hinzufügen",
+  "add": "Hinzufügen",
+  "provider_name": "Anbieterbezeichnung",
+  "api_base_url": "API-Basis-URL",
+  "openai_compatible_hint": "Muss ein OpenAI-kompatibler Endpunkt sein",
+  "default_model": "Standardmodell",
+  "search_providers": "Anbieter suchen...",
+  "select_provider_hint": "Wählen Sie einen Anbieter zur Konfiguration",
+  "select_provider_desc": "Wählen Sie aus der Liste links",
+  "set_as_default": "Als Standarddienst festlegen",
+  "default_service_desc": "Diesen Anbieter für alle KI-Funktionen verwenden",
+  "configuration": "Konfiguration",
+  "get_api_key": "API-Schlüssel erhalten",
+  "model": "Modell",
+  "select_model": "Modell auswählen",
+  "models_from_cache": "Modellliste aus Cache · wird alle 24h aktualisiert",
+  "base_url": "Basis-URL",
+  "base_url_hint": "Standard-API-Endpunkt überschreiben (z. B. für Proxy)",
+  "testing": "Verbindung wird getestet...",
+  "connection_success": "Verbindung erfolgreich",
+  "test_connection": "Verbindung testen",
+  "remove": "Entfernen",
+  "category_international": "International",
+  "category_chinese": "Chinesisch",
+  "category_local": "Lokal",
+  "category_custom": "Benutzerdefiniert",
+  "active_badge": "Aktiv",
+};

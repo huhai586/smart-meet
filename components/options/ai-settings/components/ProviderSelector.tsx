@@ -18,11 +18,11 @@ interface ProviderSelectorProps {
   t: (key: string) => string;
 }
 
-const CATEGORY_LABELS: Record<ProviderCategory, { en: string; zh: string }> = {
-  international: { en: 'International', zh: '国际' },
-  chinese: { en: 'Chinese', zh: '国内' },
-  local: { en: 'Local', zh: '本地' },
-  custom: { en: 'Custom', zh: '自定义' },
+const CATEGORY_KEYS: Record<ProviderCategory, string> = {
+  international: 'category_international',
+  chinese: 'category_chinese',
+  local: 'category_local',
+  custom: 'category_custom',
 };
 
 const ProviderSelector: React.FC<ProviderSelectorProps> = ({
@@ -73,7 +73,7 @@ const ProviderSelector: React.FC<ProviderSelectorProps> = ({
           return (
             <div key={category} className="provider-selector__category">
               <div className="provider-selector__category-label">
-                {CATEGORY_LABELS[category]?.en || category}
+                {t(CATEGORY_KEYS[category]) || category}
               </div>
               {providers.map((provider) => (
                 <ProviderItem
@@ -83,6 +83,7 @@ const ProviderSelector: React.FC<ProviderSelectorProps> = ({
                   isConfigured={configuredSet.has(provider.id)}
                   isActive={aisConfig.active === provider.id}
                   onClick={() => onSelectProvider(provider.id)}
+                  t={t}
                 />
               ))}
             </div>
@@ -106,7 +107,8 @@ const ProviderItem: React.FC<{
   isConfigured: boolean;
   isActive: boolean;
   onClick: () => void;
-}> = ({ provider, isSelected, isConfigured, isActive, onClick }) => {
+  t: (key: string) => string;
+}> = ({ provider, isSelected, isConfigured, isActive, onClick, t }) => {
   const classNames = [
     'provider-item',
     isSelected && 'provider-item--selected',
@@ -123,7 +125,7 @@ const ProviderItem: React.FC<{
         )}
       </div>
       <div className="provider-item__status">
-        {isActive && <span className="provider-item__active-badge">Active</span>}
+        {isActive && <span className="provider-item__active-badge">{t('active_badge')}</span>}
         {isConfigured && !isActive && <span>✓</span>}
       </div>
     </div>

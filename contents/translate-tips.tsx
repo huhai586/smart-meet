@@ -1,11 +1,33 @@
 import { useState, useEffect } from "react";
-import { Button, Space } from "antd";
-import { MessageOutlined, MessageFilled, MoreOutlined, PushpinOutlined } from "@ant-design/icons";
 import type { PlasmoCSConfig } from "plasmo";
 import { getCaptionsContainer } from "~node_modules/google-meeting-captions-resolver";
 import { t } from "~utils/i18n";
 import "./translate-tips.scss";
 import StickerNote from "~components/StickerNote";
+
+const MessageOutlinedIcon = () => (
+    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z" />
+    </svg>
+);
+
+const MessageFilledIcon = () => (
+    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+    </svg>
+);
+
+const MoreOutlinedIcon = () => (
+    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
+        <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+    </svg>
+);
+
+const PushpinOutlinedIcon = () => (
+    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
+        <path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z" />
+    </svg>
+);
 
 export const getRootContainer = () => {
     const tempDiv = document.createElement('div')
@@ -144,35 +166,33 @@ const PlasmoInline = () => {
                 onMouseEnter={() => setIsExpanded(true)}
                 onMouseLeave={() => setIsExpanded(false)}
             >
-                <Space.Compact className={`caption-button-group ${isExpanded ? 'expanded' : 'collapsed'}`}>
+                <div className={`caption-button-group ${isExpanded ? 'expanded' : 'collapsed'}`}>
                     {isExpanded && (
                         <>
                             {stickerEnabled && (
-                                <Button
-                                    type="primary"
-                                    icon={<PushpinOutlined />}
+                                <button
+                                    className="cs-btn caption-sticker-button"
                                     onClick={() => setShowSticker(!showSticker)}
-                                    className="caption-sticker-button"
                                     title={t('add_note') || 'Add Note'}
-                                />
+                                >
+                                    <PushpinOutlinedIcon />
+                                </button>
                             )}
                             {captionToggleEnabled && (
-                                <Button
-                                    type="primary"
-                                    icon={isHidden ? <MessageOutlined /> : <MessageFilled />}
+                                <button
+                                    className={`cs-btn caption-action-button ${isHidden ? 'hidden' : 'visible'}`}
                                     onClick={toggleCaptionsVisibility}
-                                    className={`caption-action-button ${isHidden ? 'hidden' : 'visible'}`}
                                     title={isHidden ? t('show_captions') : t('hide_captions')}
-                                />
+                                >
+                                    {isHidden ? <MessageOutlinedIcon /> : <MessageFilledIcon />}
+                                </button>
                             )}
                         </>
                     )}
-                    <Button
-                        type="primary"
-                        icon={<MoreOutlined />}
-                        className="caption-menu-button"
-                    />
-                </Space.Compact>
+                    <button className="cs-btn caption-menu-button">
+                        <MoreOutlinedIcon />
+                    </button>
+                </div>
             </div>
             {showSticker && <StickerNote onClose={() => setShowSticker(false)} />}
         </>

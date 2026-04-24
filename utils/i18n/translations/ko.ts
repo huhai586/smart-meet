@@ -313,5 +313,34 @@ export default {
 
   // 확장 프로그램 설정
   "extension_settings_desc": "확장 프로그램별 기능 및 동작 구성",
-  "select_date": "날짜 선택"
-}; 
+  "select_date": "날짜 선택",
+  // AI Settings - Provider UI
+  "configuration_removed": "구성이 삭제되었습니다",
+  "add_custom_provider": "사용자 지정 공급자 추가",
+  "add": "추가",
+  "provider_name": "공급자 이름",
+  "api_base_url": "API 기본 URL",
+  "openai_compatible_hint": "OpenAI 호환 엔드포인트여야 합니다",
+  "default_model": "기본 모델",
+  "search_providers": "공급자 검색...",
+  "select_provider_hint": "구성할 공급자를 선택하세요",
+  "select_provider_desc": "왼쪽 목록에서 선택하세요",
+  "set_as_default": "기본 서비스로 설정",
+  "default_service_desc": "모든 AI 기능에 이 공급자를 사용",
+  "configuration": "구성",
+  "get_api_key": "API 키 가져오기",
+  "model": "모델",
+  "select_model": "모델 선택",
+  "models_from_cache": "캐시의 모델 목록 · 24시간마다 업데이트",
+  "base_url": "기본 URL",
+  "base_url_hint": "기본 API 엔드포인트 재정의 (예: 프록시용)",
+  "testing": "연결 테스트 중...",
+  "connection_success": "연결 성공",
+  "test_connection": "연결 테스트",
+  "remove": "제거",
+  "category_international": "국제",
+  "category_chinese": "중국",
+  "category_local": "로컬",
+  "category_custom": "사용자 지정",
+  "active_badge": "활성",
+};
