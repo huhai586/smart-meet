@@ -1,25 +1,20 @@
 // 导出接口
-export type { IAIService, IAIServiceFactory, AIServiceConfig } from './AIServiceInterface';
+export type { IAIService, GenerateResponseOptions } from './UnifiedAIService';
 
-// 导出基础类
-export { BaseAIService } from './BaseAIService';
+// 导出统一服务实现
+export { UnifiedAIService } from './UnifiedAIService';
 
-// 导出具体服务实现
-export { GeminiAIService } from './GeminiAIService';
-export { OpenAIService } from './OpenAIService';
-export { XAIService } from './XAIService';
+// 导出调用层（原生 SDK）
+export { generateChatCompletion, testConnection, fetchAvailableModels } from './model-factory';
+export type { ModelConfig, ChatMessage } from './model-factory';
 
-// 导出工厂类
-export { 
-  GeminiAIServiceFactory, 
-  OpenAIServiceFactory, 
-  XAIServiceFactory,
-  AIServiceFactoryManager 
-} from './AIServiceFactory';
+// 导出 Provider 注册表
+export { providerRegistry } from './provider-registry';
+export type { ProviderDefinition, ProviderCategory, ProviderType } from './provider-registry';
 
 // 导出服务管理类
 export { AIServiceManager } from './AIServiceManager';
 
-// 提供默认导出 - 服务管理器实例
+// 默认导出：服务管理器单例
 import { AIServiceManager } from './AIServiceManager';
-export default AIServiceManager.getInstance(); 
+export default AIServiceManager.getInstance();
