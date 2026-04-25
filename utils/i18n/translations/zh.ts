@@ -163,14 +163,23 @@ export default {
 
   // Export Captions
   "export_captions_text": "导出字幕文本",
-  "export_captions_desc": "将所选日期的会议字幕导出为文本文件。",
+  "export_captions_desc": "导出所选日期的会议字幕。",
   "export_captions_button": "导出为TXT",
+  "export_as_txt": "导出为TXT",
+  "export_as_json": "导出为JSON",
   "no_meeting_data_for_export": "没有可供导出的会议数据",
   "no_data_found": "未找到所选会议的数据",
   "export_success": "导出成功",
   "select_meeting_to_export": "选择要导出的会议",
   "select_meeting_desc": "请选择要导出的会议：",
   "export": "导出",
+  "reset": "重置",
+
+  // Font Size Control
+  "font_size_control": "字体大小控制",
+  "font_size_control_desc": "分别调整字幕和AI摘要的字体大小，每步在默认值基础上增减1px。",
+  "captions_font_size": "字幕",
+  "summary_font_size": "AI摘要",
 
   // Words (Translation Records)
   "longman_3000": "朗文 3000",

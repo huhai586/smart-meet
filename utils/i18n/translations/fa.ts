@@ -89,14 +89,23 @@ export default {
 
   // Export Captions
   "export_captions_text": "صادرات متن زیرنویس‌ها",
-  "export_captions_desc": "صادرات زیرنویس‌های جلسه به صورت فایل متنی برای تاریخ انتخاب شده.",
+  "export_captions_desc": "صادرات زیرنویس‌های جلسه برای تاریخ انتخاب شده.",
   "export_captions_button": "صادرات به صورت TXT",
+  "export_as_txt": "صادرات به صورت TXT",
+  "export_as_json": "صادرات به صورت JSON",
   "no_meeting_data_for_export": "داده‌ای برای صادرات موجود نیست",
   "no_data_found": "داده‌ای برای جلسه انتخاب شده یافت نشد",
   "export_success": "صادرات موفقیت‌آمیز",
   "select_meeting_to_export": "انتخاب جلسه برای صادرات",
   "select_meeting_desc": "لطفاً جلسه‌ای را برای صادرات انتخاب کنید:",
   "export": "صادرات",
+  "reset": "بازنشانی",
+
+  // Font Size Control
+  "font_size_control": "کنترل اندازه فونت",
+  "font_size_control_desc": "اندازه فونت زیرنویس‌ها و خلاصه هوش مصنوعی را تنظیم کنید. هر مرحله ۱ پیکسل نسبت به مقدار پیش‌فرض تغییر می‌کند.",
+  "captions_font_size": "زیرنویس‌ها",
+  "summary_font_size": "خلاصه هوش مصنوعی",
 
   // Chat History
   "chat_history": "تاریخچه چت",

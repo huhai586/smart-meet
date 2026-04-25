@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "Всегда перезаписывать",
   "always_skip": "Всегда пропускать",
 
+  // Export Captions
+  "export_captions_text": "Экспорт текста субтитров",
+  "export_captions_desc": "Экспорт субтитров встречи за выбранную дату.",
+  "export_captions_button": "Экспорт в TXT",
+  "export_as_txt": "Экспорт в TXT",
+  "export_as_json": "Экспорт в JSON",
+  "no_meeting_data_for_export": "Нет данных встречи для экспорта",
+  "no_data_found": "Данные для выбранной встречи не найдены",
+  "export_success": "Экспорт выполнен успешно",
+  "select_meeting_to_export": "Выберите встречу для экспорта",
+  "select_meeting_desc": "Пожалуйста, выберите встречу для экспорта:",
+  "export": "Экспорт",
+  "reset": "Сбросить",
+
+  // Font Size Control
+  "font_size_control": "Управление размером шрифта",
+  "font_size_control_desc": "Настройте размер шрифта субтитров и резюме ИИ. Каждый шаг изменяет размер на 1px относительно значения по умолчанию.",
+  "captions_font_size": "Субтитры",
+  "summary_font_size": "Резюме ИИ",
+
   // Chat History
   "chat_history": "История чата",
   "search_content": "Поиск в содержимом чата",

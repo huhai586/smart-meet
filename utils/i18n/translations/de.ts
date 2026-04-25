@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "Immer überschreiben",
   "always_skip": "Immer überspringen",
 
+  // Export Captions
+  "export_captions_text": "Untertitel-Text exportieren",
+  "export_captions_desc": "Meeting-Untertitel für das ausgewählte Datum exportieren.",
+  "export_captions_button": "Als TXT exportieren",
+  "export_as_txt": "Als TXT exportieren",
+  "export_as_json": "Als JSON exportieren",
+  "no_meeting_data_for_export": "Keine Meeting-Daten zum Exportieren verfügbar",
+  "no_data_found": "Keine Daten für das ausgewählte Meeting gefunden",
+  "export_success": "Export erfolgreich",
+  "select_meeting_to_export": "Meeting zum Exportieren auswählen",
+  "select_meeting_desc": "Bitte wählen Sie ein Meeting zum Exportieren aus:",
+  "export": "Exportieren",
+  "reset": "Zurücksetzen",
+
+  // Font Size Control
+  "font_size_control": "Schriftgröße anpassen",
+  "font_size_control_desc": "Schriftgröße für Untertitel und KI-Zusammenfassung anpassen. Jeder Schritt ändert die Größe um 1px gegenüber dem Standard.",
+  "captions_font_size": "Untertitel",
+  "summary_font_size": "KI-Zusammenfassung",
+
   // Chat History
   "chat_history": "Chat-Verlauf",
   "search_content": "Im Chat-Inhalt suchen",

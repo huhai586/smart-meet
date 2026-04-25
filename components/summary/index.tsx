@@ -6,6 +6,7 @@ import { useDateContext } from '../../contexts/DateContext';
 import SummaryCard from './SummaryCard';
 import QuestionInput from './QuestionInput';
 import { useSummary } from './useSummary';
+import useFontSizeOffset from '../../hooks/useFontSizeOffset';
 import '../../styles/summary.scss';
 import '../../styles/empty-states.scss';
 
@@ -17,8 +18,14 @@ const Summary: React.FC<SummaryProps> = (_props) => {
   const { t } = useI18n();
   const { selectedDate } = useDateContext();
   const { cardData, requesting, handleQuestion } = useSummary();
+  const summaryFontOffset = useFontSizeOffset('summaryFontSizeOffset');
   const container = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  // Apply font size as a CSS variable on :root so all descendant rules can use it
+  useEffect(() => {
+    document.documentElement.style.setProperty('--summary-font-size', `${13 + summaryFontOffset}px`);
+  }, [summaryFontOffset]);
 
   // 每次 cardData 变化（新问题 or AI 回复完成）时滚动到底部
   useEffect(() => {

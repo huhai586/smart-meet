@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "Sempre sobrescrever",
   "always_skip": "Sempre pular",
 
+  // Export Captions
+  "export_captions_text": "Exportar texto de legendas",
+  "export_captions_desc": "Exportar legendas da reunião para a data selecionada.",
+  "export_captions_button": "Exportar como TXT",
+  "export_as_txt": "Exportar como TXT",
+  "export_as_json": "Exportar como JSON",
+  "no_meeting_data_for_export": "Nenhum dado de reunião disponível para exportação",
+  "no_data_found": "Nenhum dado encontrado para a reunião selecionada",
+  "export_success": "Exportação bem-sucedida",
+  "select_meeting_to_export": "Selecionar reunião para exportar",
+  "select_meeting_desc": "Por favor selecione uma reunião para exportar:",
+  "export": "Exportar",
+  "reset": "Redefinir",
+
+  // Font Size Control
+  "font_size_control": "Controle de tamanho de fonte",
+  "font_size_control_desc": "Ajuste o tamanho da fonte das legendas e do resumo IA. Cada passo altera o tamanho em 1px em relação ao padrão.",
+  "captions_font_size": "Legendas",
+  "summary_font_size": "Resumo IA",
+
   // Chat History
   "chat_history": "Histórico de chat",
   "search_content": "Pesquisar no conteúdo do chat",

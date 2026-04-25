@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "استبدال دائمًا",
   "always_skip": "تخطي دائمًا",
 
+  // Export Captions
+  "export_captions_text": "تصدير نص التسميات التوضيحية",
+  "export_captions_desc": "تصدير تسميات الاجتماع للتاريخ المحدد.",
+  "export_captions_button": "تصدير كـ TXT",
+  "export_as_txt": "تصدير كـ TXT",
+  "export_as_json": "تصدير كـ JSON",
+  "no_meeting_data_for_export": "لا توجد بيانات اجتماع متاحة للتصدير",
+  "no_data_found": "لم يتم العثور على بيانات للاجتماع المحدد",
+  "export_success": "تم التصدير بنجاح",
+  "select_meeting_to_export": "اختر اجتماعًا للتصدير",
+  "select_meeting_desc": "يرجى اختيار اجتماع للتصدير:",
+  "export": "تصدير",
+  "reset": "إعادة تعيين",
+
+  // Font Size Control
+  "font_size_control": "التحكم في حجم الخط",
+  "font_size_control_desc": "اضبط حجم خط التسميات التوضيحية وملخص الذكاء الاصطناعي. كل خطوة تغير الحجم بمقدار 1px عن القيمة الافتراضية.",
+  "captions_font_size": "التسميات التوضيحية",
+  "summary_font_size": "ملخص الذكاء الاصطناعي",
+
   // Chat History
   "chat_history": "سجل المحادثة",
   "search_content": "البحث في محتوى المحادثة",

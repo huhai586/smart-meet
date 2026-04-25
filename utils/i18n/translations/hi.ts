@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "हमेशा ओवरराइट करें",
   "always_skip": "हमेशा छोड़ें",
 
+  // Export Captions
+  "export_captions_text": "कैप्शन टेक्स्ट निर्यात करें",
+  "export_captions_desc": "चुनी हुई तारीख के लिए मीटिंग कैप्शन निर्यात करें।",
+  "export_captions_button": "TXT के रूप में निर्यात करें",
+  "export_as_txt": "TXT के रूप में निर्यात करें",
+  "export_as_json": "JSON के रूप में निर्यात करें",
+  "no_meeting_data_for_export": "निर्यात के लिए कोई मीटिंग डेटा उपलब्ध नहीं",
+  "no_data_found": "चुनी हुई मीटिंग के लिए कोई डेटा नहीं मिला",
+  "export_success": "निर्यात सफल",
+  "select_meeting_to_export": "निर्यात के लिए मीटिंग चुनें",
+  "select_meeting_desc": "कृपया निर्यात के लिए एक मीटिंग चुनें:",
+  "export": "निर्यात करें",
+  "reset": "रीसेट करें",
+
+  // Font Size Control
+  "font_size_control": "फ़ॉन्ट आकार नियंत्रण",
+  "font_size_control_desc": "कैप्शन और AI सारांश का फ़ॉन्ट आकार समायोजित करें। प्रत्येक चरण डिफ़ॉल्ट से 1px बदलता है।",
+  "captions_font_size": "कैप्शन",
+  "summary_font_size": "AI सारांश",
+
   // Chat History
   "chat_history": "चैट इतिहास",
   "search_content": "चैट सामग्री में खोजें",

@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "常に上書き",
   "always_skip": "常にスキップ",
 
+  // Export Captions
+  "export_captions_text": "字幕テキストをエクスポート",
+  "export_captions_desc": "選択した日付のミーティング字幕をエクスポートします。",
+  "export_captions_button": "TXTでエクスポート",
+  "export_as_txt": "TXTでエクスポート",
+  "export_as_json": "JSONでエクスポート",
+  "no_meeting_data_for_export": "エクスポートできるミーティングデータがありません",
+  "no_data_found": "選択したミーティングのデータが見つかりません",
+  "export_success": "エクスポート成功",
+  "select_meeting_to_export": "エクスポートするミーティングを選択",
+  "select_meeting_desc": "エクスポートするミーティングを選択してください：",
+  "export": "エクスポート",
+  "reset": "リセット",
+
+  // Font Size Control
+  "font_size_control": "フォントサイズ調整",
+  "font_size_control_desc": "字幕とAI要約のフォントサイズを個別に調整できます。1ステップでデフォルトから1px変更されます。",
+  "captions_font_size": "字幕",
+  "summary_font_size": "AI要約",
+
   // Chat History
   "chat_history": "チャット履歴",
   "search_content": "チャット内容を検索",

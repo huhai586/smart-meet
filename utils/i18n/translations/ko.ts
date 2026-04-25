@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "항상 덮어쓰기",
   "always_skip": "항상 건너뛰기",
 
+  // Export Captions
+  "export_captions_text": "자막 텍스트 내보내기",
+  "export_captions_desc": "선택한 날짜의 회의 자막을 내보냅니다.",
+  "export_captions_button": "TXT로 내보내기",
+  "export_as_txt": "TXT로 내보내기",
+  "export_as_json": "JSON으로 내보내기",
+  "no_meeting_data_for_export": "내보낼 회의 데이터가 없습니다",
+  "no_data_found": "선택한 회의에 대한 데이터를 찾을 수 없습니다",
+  "export_success": "내보내기 성공",
+  "select_meeting_to_export": "내보낼 회의 선택",
+  "select_meeting_desc": "내보낼 회의를 선택하세요:",
+  "export": "내보내기",
+  "reset": "초기화",
+
+  // Font Size Control
+  "font_size_control": "글자 크기 조절",
+  "font_size_control_desc": "자막과 AI 요약의 글자 크기를 각각 조절할 수 있습니다. 각 단계는 기본값에서 1px씩 변경됩니다.",
+  "captions_font_size": "자막",
+  "summary_font_size": "AI 요약",
+
   // Chat History
   "chat_history": "채팅 기록",
   "search_content": "채팅 내용 검색",

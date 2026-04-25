@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "Toujours écraser",
   "always_skip": "Toujours ignorer",
 
+  // Export Captions
+  "export_captions_text": "Exporter le texte des sous-titres",
+  "export_captions_desc": "Exporter les sous-titres de la réunion pour la date sélectionnée.",
+  "export_captions_button": "Exporter en TXT",
+  "export_as_txt": "Exporter en TXT",
+  "export_as_json": "Exporter en JSON",
+  "no_meeting_data_for_export": "Aucune donnée de réunion disponible pour l'export",
+  "no_data_found": "Aucune donnée trouvée pour la réunion sélectionnée",
+  "export_success": "Export réussi",
+  "select_meeting_to_export": "Sélectionner une réunion à exporter",
+  "select_meeting_desc": "Veuillez sélectionner une réunion à exporter :",
+  "export": "Exporter",
+  "reset": "Réinitialiser",
+
+  // Font Size Control
+  "font_size_control": "Contrôle de la taille de police",
+  "font_size_control_desc": "Ajustez la taille de police des sous-titres et du résumé IA. Chaque étape modifie la taille de 1px par rapport à la valeur par défaut.",
+  "captions_font_size": "Sous-titres",
+  "summary_font_size": "Résumé IA",
+
   // Chat History
   "chat_history": "Historique des discussions",
   "search_content": "Rechercher dans le contenu des discussions",

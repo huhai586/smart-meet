@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "Luôn ghi đè",
   "always_skip": "Luôn bỏ qua",
 
+  // Export Captions
+  "export_captions_text": "Xuất văn bản phụ đề",
+  "export_captions_desc": "Xuất phụ đề cuộc họp cho ngày đã chọn.",
+  "export_captions_button": "Xuất dạng TXT",
+  "export_as_txt": "Xuất dạng TXT",
+  "export_as_json": "Xuất dạng JSON",
+  "no_meeting_data_for_export": "Không có dữ liệu cuộc họp để xuất",
+  "no_data_found": "Không tìm thấy dữ liệu cho cuộc họp đã chọn",
+  "export_success": "Xuất thành công",
+  "select_meeting_to_export": "Chọn cuộc họp để xuất",
+  "select_meeting_desc": "Vui lòng chọn một cuộc họp để xuất:",
+  "export": "Xuất",
+  "reset": "Đặt lại",
+
+  // Font Size Control
+  "font_size_control": "Điều chỉnh cỡ chữ",
+  "font_size_control_desc": "Điều chỉnh cỡ chữ của phụ đề và tóm tắt AI riêng biệt. Mỗi bước thay đổi 1px so với mặc định.",
+  "captions_font_size": "Phụ đề",
+  "summary_font_size": "Tóm tắt AI",
+
   // Chat History
   "chat_history": "Lịch sử trò chuyện",
   "search_content": "Tìm kiếm trong nội dung trò chuyện",

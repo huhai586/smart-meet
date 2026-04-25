@@ -1,7 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import './captions.scss';
 import useTranscripts from '../../hooks/useTranscripts';
 import { useDateContext } from '../../contexts/DateContext';
+import useFontSizeOffset from '../../hooks/useFontSizeOffset';
 
 // 导入拆分后的组件和自定义hooks
 import SearchBar from './SearchBar';
@@ -17,6 +18,13 @@ const Captions = () => {
   const chatContainer = useRef<HTMLDivElement>(null);
   const [transcripts] = useTranscripts();
   const { selectedDate } = useDateContext();
+
+  const captionFontOffset = useFontSizeOffset('captionFontSizeOffset');
+
+  // Apply font size as a CSS variable on :root so all descendant rules can use it
+  useEffect(() => {
+    document.documentElement.style.setProperty('--caption-font-size', `${16 + captionFontOffset}px`);
+  }, [captionFontOffset]);
 
   // 使用自定义hooks处理搜索和过滤
   const {

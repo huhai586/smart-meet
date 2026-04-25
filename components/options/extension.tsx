@@ -1,4 +1,4 @@
-import { PlusOutlined, TagOutlined, FileTextOutlined, QuestionCircleOutlined, CalendarOutlined } from "@ant-design/icons"
+import { PlusOutlined, TagOutlined, FileTextOutlined, QuestionCircleOutlined, CalendarOutlined, FontSizeOutlined, MinusOutlined } from "@ant-design/icons"
 import { Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select, DatePicker } from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
@@ -29,6 +29,17 @@ const Extension = (_props: ExtensionPropsInterface) => {
     const [selectedExportMeeting, setSelectedExportMeeting] = useState<string>('');
     const [pendingExportFormat, setPendingExportFormat] = useState<'txt' | 'json'>('txt');
     const [exportDate, setExportDate] = useState<Dayjs>(dayjs());
+
+    // Font size offsets (relative px adjustment from base)
+    const [captionFontOffset, setCaptionFontOffset] = useState(0);
+    const [summaryFontOffset, setSummaryFontOffset] = useState(0);
+
+    useEffect(() => {
+        chrome.storage.local.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
+            setCaptionFontOffset(result.captionFontSizeOffset ?? 0);
+            setSummaryFontOffset(result.summaryFontSizeOffset ?? 0);
+        });
+    }, []);
 
     useEffect(() => {
         getSpecificTags().then((res: string[]) => {
@@ -183,21 +194,114 @@ const Extension = (_props: ExtensionPropsInterface) => {
                     </div>
                 </div>
 
+                {/* ── Font size control ── */}
+                <div className="highlight-section">
+                    <div className={'highlight-header'}>
+                        <FontSizeOutlined style={{ color: '#1a73e8' }} />
+                        <span>{t('font_size_control')}</span>
+                    </div>
+                    <div className={'highlight-description'}>
+                        {t('font_size_control_desc')}
+                    </div>
+                    <div className="highlight-content" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                        {/* Captions row */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <span style={{ minWidth: '100px', fontSize: '14px', color: '#4a5568' }}>
+                                {t('captions_font_size')}
+                            </span>
+                            <Button
+                                size="small"
+                                icon={<MinusOutlined />}
+                                disabled={captionFontOffset <= -6}
+                                onClick={() => {
+                                    const next = captionFontOffset - 1;
+                                    setCaptionFontOffset(next);
+                                    chrome.storage.local.set({ captionFontSizeOffset: next });
+                                }}
+                            />
+                            <span style={{ minWidth: '52px', textAlign: 'center', fontSize: '13px', color: '#718096' }}>
+                                {16 + captionFontOffset}px {captionFontOffset !== 0 && `(${captionFontOffset > 0 ? '+' : ''}${captionFontOffset})`}
+                            </span>
+                            <Button
+                                size="small"
+                                icon={<PlusOutlined />}
+                                disabled={captionFontOffset >= 10}
+                                onClick={() => {
+                                    const next = captionFontOffset + 1;
+                                    setCaptionFontOffset(next);
+                                    chrome.storage.local.set({ captionFontSizeOffset: next });
+                                }}
+                            />
+                            {captionFontOffset !== 0 && (
+                                <Button
+                                    size="small"
+                                    onClick={() => {
+                                        setCaptionFontOffset(0);
+                                        chrome.storage.local.set({ captionFontSizeOffset: 0 });
+                                    }}
+                                >
+                                    {t('reset')}
+                                </Button>
+                            )}
+                        </div>
+                        {/* AI Summary row */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                            <span style={{ minWidth: '100px', fontSize: '14px', color: '#4a5568' }}>
+                                {t('summary_font_size')}
+                            </span>
+                            <Button
+                                size="small"
+                                icon={<MinusOutlined />}
+                                disabled={summaryFontOffset <= -6}
+                                onClick={() => {
+                                    const next = summaryFontOffset - 1;
+                                    setSummaryFontOffset(next);
+                                    chrome.storage.local.set({ summaryFontSizeOffset: next });
+                                }}
+                            />
+                            <span style={{ minWidth: '52px', textAlign: 'center', fontSize: '13px', color: '#718096' }}>
+                                {13 + summaryFontOffset}px {summaryFontOffset !== 0 && `(${summaryFontOffset > 0 ? '+' : ''}${summaryFontOffset})`}
+                            </span>
+                            <Button
+                                size="small"
+                                icon={<PlusOutlined />}
+                                disabled={summaryFontOffset >= 10}
+                                onClick={() => {
+                                    const next = summaryFontOffset + 1;
+                                    setSummaryFontOffset(next);
+                                    chrome.storage.local.set({ summaryFontSizeOffset: next });
+                                }}
+                            />
+                            {summaryFontOffset !== 0 && (
+                                <Button
+                                    size="small"
+                                    onClick={() => {
+                                        setSummaryFontOffset(0);
+                                        chrome.storage.local.set({ summaryFontSizeOffset: 0 });
+                                    }}
+                                >
+                                    {t('reset')}
+                                </Button>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
                 {/* ── Export captions ── */}
                 <div className="highlight-section">
                     <div className={'highlight-header'}>
                         <FileTextOutlined style={{ color: '#1a73e8' }} />
-                        <span>{t('export_captions_text') || 'Export Captions Text'}</span>
+                        <span>{t('export_captions_text')}</span>
                     </div>
                     <div className={'highlight-description'}>
-                        {t('export_captions_desc') || 'Export meeting captions for the selected date.'}
+                        {t('export_captions_desc')}
                     </div>
                     <div className="highlight-content">
                         <DatePicker
                             value={exportDate}
                             onChange={(date) => date && setExportDate(date)}
                             format="YYYY-MM-DD"
-                            placeholder={t('select_date') || 'Select date'}
+                            placeholder={t('select_date')}
                             style={{ marginBottom: '12px', maxWidth: '300px', width: '100%' }}
                             suffixIcon={<CalendarOutlined />}
                         />
@@ -208,14 +312,14 @@ const Extension = (_props: ExtensionPropsInterface) => {
                                 icon={<FileTextOutlined />}
                                 className="action-button"
                             >
-                                {t('export_as_txt') || 'Export as TXT'}
+                                {t('export_as_txt')}
                             </Button>
                             <Button
                                 onClick={() => handleExport('json')}
                                 icon={<FileTextOutlined />}
                                 className="action-button"
                             >
-                                {t('export_as_json') || 'Export as JSON'}
+                                {t('export_as_json')}
                             </Button>
                         </div>
                     </div>
@@ -252,18 +356,18 @@ const Extension = (_props: ExtensionPropsInterface) => {
                     title={
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                             <FileTextOutlined style={{ color: '#1a73e8', fontSize: '20px' }} />
-                            <span>{t('select_meeting_to_export') || 'Select Meeting to Export'}</span>
+                            <span>{t('select_meeting_to_export')}</span>
                         </div>
                     }
                     open={isExportModalOpen}
                     onOk={handleExportConfirm}
                     onCancel={() => setIsExportModalOpen(false)}
-                    okText={t('export') || 'Export'}
-                    cancelText={t('cancel') || 'Cancel'}
+                    okText={t('export')}
+                    cancelText={t('cancel')}
                     className="extension-modal"
                 >
                     <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
-                        {t('select_meeting_desc') || 'Please select a meeting to export:'}
+                        {t('select_meeting_desc')}
                     </Text>
                     <Select
                         style={{ width: '100%' }}

@@ -62,6 +62,26 @@ export default {
   "always_overwrite": "เขียนทับเสมอ",
   "always_skip": "ข้ามเสมอ",
 
+  // Export Captions
+  "export_captions_text": "ส่งออกข้อความคำบรรยาย",
+  "export_captions_desc": "ส่งออกคำบรรยายการประชุมสำหรับวันที่เลือก",
+  "export_captions_button": "ส่งออกเป็น TXT",
+  "export_as_txt": "ส่งออกเป็น TXT",
+  "export_as_json": "ส่งออกเป็น JSON",
+  "no_meeting_data_for_export": "ไม่มีข้อมูลการประชุมสำหรับการส่งออก",
+  "no_data_found": "ไม่พบข้อมูลสำหรับการประชุมที่เลือก",
+  "export_success": "ส่งออกสำเร็จ",
+  "select_meeting_to_export": "เลือกการประชุมที่จะส่งออก",
+  "select_meeting_desc": "กรุณาเลือกการประชุมที่จะส่งออก:",
+  "export": "ส่งออก",
+  "reset": "รีเซ็ต",
+
+  // Font Size Control
+  "font_size_control": "ควบคุมขนาดตัวอักษร",
+  "font_size_control_desc": "ปรับขนาดตัวอักษรของคำบรรยายและสรุป AI แยกกัน แต่ละขั้นตอนเปลี่ยนขนาด 1px จากค่าเริ่มต้น",
+  "captions_font_size": "คำบรรยาย",
+  "summary_font_size": "สรุป AI",
+
   // Chat History
   "chat_history": "ประวัติการแชท",
   "search_content": "ค้นหาในเนื้อหาแชท",

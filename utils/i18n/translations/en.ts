@@ -94,14 +94,23 @@ export default {
 
   // Export Captions
   "export_captions_text": "Export Captions Text",
-  "export_captions_desc": "Export meeting captions as a text file for the selected date.",
+  "export_captions_desc": "Export meeting captions for the selected date.",
   "export_captions_button": "Export as TXT",
+  "export_as_txt": "Export as TXT",
+  "export_as_json": "Export as JSON",
   "no_meeting_data_for_export": "No meeting data available for export",
   "no_data_found": "No data found for the selected meeting",
   "export_success": "Export successful",
   "select_meeting_to_export": "Select Meeting to Export",
   "select_meeting_desc": "Please select a meeting to export:",
   "export": "Export",
+  "reset": "Reset",
+
+  // Font Size Control
+  "font_size_control": "Font Size Control",
+  "font_size_control_desc": "Adjust font size for captions and AI summary. Each step changes the size by 1px relative to the default.",
+  "captions_font_size": "Captions",
+  "summary_font_size": "AI Summary",
 
   // Chat History
   "chat_history": "Chat History",
