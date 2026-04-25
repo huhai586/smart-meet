@@ -201,6 +201,10 @@ export default {
   "caption_toggle_button_desc": "Afficher un bouton flottant sur les pages Google Meet pour masquer/afficher rapidement les sous-titres",
   "caption_toggle_enabled": "Bouton de basculement des sous-titres activé",
   "caption_toggle_disabled": "Bouton de basculement des sous-titres désactivé",
+  "captions_disabled_title": "Sous-titres désactivés",
+  "captions_disabled_body": "Cette extension dépend des sous-titres Google Meet pour recevoir le contenu de la réunion. Les sous-titres sont actuellement désactivés — aucun nouveau sous-titre ne sera capturé.\n\nRéactivez les sous-titres pour continuer à recevoir les transcriptions.",
+  "captions_disabled_reenable": "Réactiver les sous-titres",
+  "captions_disabled_dismiss": "Compris",
 
   // Sticker Note
   "sticker_note": "Note Autocollante",

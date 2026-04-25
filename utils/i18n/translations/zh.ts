@@ -311,6 +311,10 @@ export default {
   "caption_toggle_button_desc": "在Google Meet页面显示一个浮动按钮，可以快速隐藏/显示字幕",
   "caption_toggle_enabled": "字幕切换按钮已启用",
   "caption_toggle_disabled": "字幕切换按钮已禁用",
+  "captions_disabled_title": "字幕已关闭",
+  "captions_disabled_body": "本插件依赖 Google Meet 的字幕功能来接收会议内容。当前字幕已关闭，将无法收到新的字幕信息。\n\n如需继续接收字幕，请重新开启。",
+  "captions_disabled_reenable": "重新开启字幕",
+  "captions_disabled_dismiss": "我知道了",
 
   // 便签功能
   "sticker_note": "便签笔记",

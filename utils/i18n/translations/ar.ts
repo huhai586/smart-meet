@@ -210,6 +210,10 @@ export default {
   "caption_toggle_button_desc": "عرض زر عائم في صفحات Google Meet لإخفاء/إظهار التعليقات بسرعة",
   "caption_toggle_enabled": "تم تفعيل زر تبديل التعليقات",
   "caption_toggle_disabled": "تم إلغاء تفعيل زر تبديل التعليقات",
+  "captions_disabled_title": "تم إيقاف تشغيل التعليقات",
+  "captions_disabled_body": "يعتمد هذا الامتداد على تعليقات Google Meet لاستقبال محتوى الاجتماع. التعليقات معطلة حاليًا — لن يتم التقاط تعليقات جديدة.\n\nأعد تفعيل التعليقات لمواصلة استقبال النصوص.",
+  "captions_disabled_reenable": "إعادة تفعيل التعليقات",
+  "captions_disabled_dismiss": "فهمت",
 
   // Sticker Note
   "sticker_note": "ملاحظة لاصقة",

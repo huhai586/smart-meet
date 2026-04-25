@@ -237,6 +237,10 @@ export default {
   "caption_toggle_button_desc": "نمایش دکمه شناور در صفحات Google Meet برای مخفی/نمایش سریع زیرنویس‌ها",
   "caption_toggle_enabled": "دکمه تغییر وضعیت زیرنویس فعال شد",
   "caption_toggle_disabled": "دکمه تغییر وضعیت زیرنویس غیرفعال شد",
+  "captions_disabled_title": "زیرنویس خاموش شد",
+  "captions_disabled_body": "این افزونه برای دریافت محتوای جلسه به زیرنویس Google Meet وابسته است. زیرنویس در حال حاضر خاموش است — زیرنویس‌های جدید ضبط نخواهند شد.\n\nبرای ادامه دریافت متن، زیرنویس را دوباره فعال کنید.",
+  "captions_disabled_reenable": "فعال‌سازی مجدد زیرنویس",
+  "captions_disabled_dismiss": "متوجه شدم",
 
   // Sticker Note
   "sticker_note": "یادداشت چسبان",

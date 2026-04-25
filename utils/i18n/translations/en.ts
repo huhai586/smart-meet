@@ -309,6 +309,10 @@ export default {
   "caption_toggle_button_desc": "Show a floating button on Google Meet pages to quickly hide/show captions",
   "caption_toggle_enabled": "Caption toggle button enabled",
   "caption_toggle_disabled": "Caption toggle button disabled",
+  "captions_disabled_title": "Captions Turned Off",
+  "captions_disabled_body": "This extension relies on Google Meet captions to receive meeting content. Captions are currently off — new captions will not be captured.\n\nRe-enable captions to continue receiving transcripts.",
+  "captions_disabled_reenable": "Re-enable Captions",
+  "captions_disabled_dismiss": "Got It",
 
   // Sticker Note
   "sticker_note": "Sticker Note",

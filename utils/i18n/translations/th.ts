@@ -210,6 +210,10 @@ export default {
   "caption_toggle_button_desc": "แสดงปุ่มลอยในหน้า Google Meet เพื่อซ่อน/แสดงคำบรรยายอย่างรวดเร็ว",
   "caption_toggle_enabled": "เปิดใช้งานปุ่มสลับคำบรรยายแล้ว",
   "caption_toggle_disabled": "ปิดใช้งานปุ่มสลับคำบรรยายแล้ว",
+  "captions_disabled_title": "ปิดคำบรรยายแล้ว",
+  "captions_disabled_body": "ส่วนขยายนี้ต้องใช้คำบรรยายของ Google Meet เพื่อรับเนื้อหาการประชุม ขณะนี้คำบรรยายปิดอยู่ — คำบรรยายใหม่จะไม่ถูกบันทึก\n\nเปิดใช้คำบรรยายอีกครั้งเพื่อรับการถอดความต่อไป",
+  "captions_disabled_reenable": "เปิดใช้คำบรรยายอีกครั้ง",
+  "captions_disabled_dismiss": "รับทราบ",
 
   // Sticker Note
   "sticker_note": "โน้ตสติกเกอร์",

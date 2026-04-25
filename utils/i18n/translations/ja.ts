@@ -242,6 +242,10 @@ export default {
   "caption_toggle_button_desc": "Google Meetページに浮動ボタンを表示して、字幕を素早く非表示/表示できます",
   "caption_toggle_enabled": "字幕切替ボタンが有効になりました",
   "caption_toggle_disabled": "字幕切替ボタンが無効になりました",
+  "captions_disabled_title": "字幕がオフになりました",
+  "captions_disabled_body": "この拡張機能は、会議内容を受信するためにGoogle Meetの字幕機能を使用します。現在字幕はオフになっており、新しい字幕は取得されません。\n\n字幕の取得を続けるには、再度オンにしてください。",
+  "captions_disabled_reenable": "字幕を再度オンにする",
+  "captions_disabled_dismiss": "わかりました",
 
   // Sticker Note
   "sticker_note": "付箋メモ",

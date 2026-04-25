@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useEffect, useMemo, useState, useCallback } from 'react';
 import './captions.scss';
 import useTranscripts from '../../hooks/useTranscripts';
 import { useDateContext } from '../../contexts/DateContext';
@@ -10,6 +10,7 @@ import FilterSection from './FilterSection';
 import CaptionContent from './CaptionContent';
 import { useSearch, useFilter } from './hooks';
 import { computeSpeakerColors } from './utils/speakerColor';
+import CaptionsDisabledWarning from './CaptionsDisabledWarning';
 
 /**
  * 字幕主组件
@@ -19,6 +20,7 @@ const Captions = () => {
   const chatContainer = useRef<HTMLDivElement>(null);
   const [transcripts] = useTranscripts();
   const { selectedDate } = useDateContext();
+  const [showCaptionsWarning, setShowCaptionsWarning] = useState(false);
 
   const captionFontOffset = useFontSizeOffset('captionFontSizeOffset');
 
@@ -26,6 +28,46 @@ const Captions = () => {
   useEffect(() => {
     document.documentElement.style.setProperty('--caption-font-size', `${16 + captionFontOffset}px`);
   }, [captionFontOffset]);
+
+  // On mount: ask the active Google Meet tab to auto-enable captions
+  useEffect(() => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tabId = tabs[0]?.id;
+      if (!tabId) return;
+      chrome.tabs.sendMessage(tabId, { action: 'enableGoogleMeetingCaptions' }, (response) => {
+        if (chrome.runtime.lastError) {
+          // Content script may not be injected yet (e.g. non-Meet tab) — non-fatal
+          console.debug('[Captions] enableGoogleMeetingCaptions:', chrome.runtime.lastError.message);
+          return;
+        }
+        console.log('[Captions] enableGoogleMeetingCaptions response:', response);
+      });
+    });
+  }, []);
+
+  // Listen for the content script notifying that the user turned captions off
+  useEffect(() => {
+    const handleMessage = (message: { action: string }) => {
+      if (message.action === 'captionsTurnedOff') {
+        setShowCaptionsWarning(true);
+      }
+    };
+    chrome.runtime.onMessage.addListener(handleMessage);
+    return () => chrome.runtime.onMessage.removeListener(handleMessage);
+  }, []);
+
+  const handleDismissWarning = useCallback(() => setShowCaptionsWarning(false), []);
+
+  const handleReEnableCaptions = useCallback(() => {
+    setShowCaptionsWarning(false);
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tabId = tabs[0]?.id;
+      if (!tabId) return;
+      chrome.tabs.sendMessage(tabId, { action: 'enableGoogleMeetingCaptions' }, () => {
+        void chrome.runtime.lastError; // suppress "no receiver" error when non-Meet tab
+      });
+    });
+  }, []);
 
   // 使用自定义hooks处理搜索和过滤
   const {
@@ -64,6 +106,14 @@ const Captions = () => {
 
   return (
     <div className={`captions`}>
+      {/* Apple-style warning overlay when user turned captions off */}
+      {showCaptionsWarning && (
+        <CaptionsDisabledWarning
+          onDismiss={handleDismissWarning}
+          onReEnable={handleReEnableCaptions}
+        />
+      )}
+
       {/* 搜索栏组件 */}
       <SearchBar
         searchText={searchText}

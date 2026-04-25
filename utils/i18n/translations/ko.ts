@@ -242,6 +242,10 @@ export default {
   "caption_toggle_button_desc": "Google Meet 페이지에 플로팅 버튼을 표시하여 자막을 빠르게 숨기기/표시할 수 있습니다",
   "caption_toggle_enabled": "자막 토글 버튼이 활성화되었습니다",
   "caption_toggle_disabled": "자막 토글 버튼이 비활성화되었습니다",
+  "captions_disabled_title": "자막이 꺼졌습니다",
+  "captions_disabled_body": "이 확장 프로그램은 회의 내용을 수신하기 위해 Google Meet 자막 기능을 사용합니다. 현재 자막이 꺼져 있어 새로운 자막을 캡처할 수 없습니다.\n\n자막을 계속 수신하려면 다시 활성화하세요.",
+  "captions_disabled_reenable": "자막 다시 활성화",
+  "captions_disabled_dismiss": "알겠습니다",
 
   // Sticker Note
   "sticker_note": "스티커 노트",

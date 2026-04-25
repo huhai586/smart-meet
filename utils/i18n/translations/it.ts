@@ -258,6 +258,10 @@ export default {
   "caption_toggle_button_desc": "Mostra un pulsante flottante sulle pagine di Google Meet per nascondere/mostrare rapidamente i sottotitoli",
   "caption_toggle_enabled": "Pulsante di commutazione sottotitoli abilitato",
   "caption_toggle_disabled": "Pulsante di commutazione sottotitoli disabilitato",
+  "captions_disabled_title": "Sottotitoli disattivati",
+  "captions_disabled_body": "Questa estensione si affida ai sottotitoli di Google Meet per ricevere i contenuti della riunione. I sottotitoli sono attualmente disattivati — i nuovi sottotitoli non verranno acquisiti.\n\nRiattiva i sottotitoli per continuare a ricevere le trascrizioni.",
+  "captions_disabled_reenable": "Riattiva sottotitoli",
+  "captions_disabled_dismiss": "Capito",
 
   // Sticker Note
   "sticker_note": "Nota Adesiva",

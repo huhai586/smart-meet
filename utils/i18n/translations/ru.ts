@@ -231,6 +231,10 @@ export default {
   "caption_toggle_button_desc": "Показать плавающую кнопку на страницах Google Meet для быстрого скрытия/показа субтитров",
   "caption_toggle_enabled": "Кнопка переключения субтитров включена",
   "caption_toggle_disabled": "Кнопка переключения субтитров отключена",
+  "captions_disabled_title": "Субтитры отключены",
+  "captions_disabled_body": "Это расширение использует субтитры Google Meet для получения содержимого встречи. Субтитры сейчас отключены — новые субтитры не будут фиксироваться.\n\nВключите субтитры снова, чтобы продолжить получать транскрипции.",
+  "captions_disabled_reenable": "Включить субтитры снова",
+  "captions_disabled_dismiss": "Понятно",
 
   // Sticker Note
   "sticker_note": "Стикер-заметка",

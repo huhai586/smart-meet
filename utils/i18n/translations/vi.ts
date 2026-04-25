@@ -210,6 +210,10 @@ export default {
   "caption_toggle_button_desc": "Hiển thị nút nổi trên các trang Google Meet để nhanh chóng ẩn/hiện phụ đề",
   "caption_toggle_enabled": "Đã bật nút chuyển đổi phụ đề",
   "caption_toggle_disabled": "Đã tắt nút chuyển đổi phụ đề",
+  "captions_disabled_title": "Phụ đề đã tắt",
+  "captions_disabled_body": "Tiện ích mở rộng này dựa vào phụ đề Google Meet để nhận nội dung cuộc họp. Phụ đề hiện đang tắt — phụ đề mới sẽ không được ghi lại.\n\nBật lại phụ đề để tiếp tục nhận bản chép lời.",
+  "captions_disabled_reenable": "Bật lại phụ đề",
+  "captions_disabled_dismiss": "Đã hiểu",
 
   // Sticker Note
   "sticker_note": "Ghi Chú Dán",

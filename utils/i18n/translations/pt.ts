@@ -242,6 +242,10 @@ export default {
   "caption_toggle_button_desc": "Mostrar um botão flutuante nas páginas do Google Meet para ocultar/mostrar rapidamente as legendas",
   "caption_toggle_enabled": "Botão de alternância de legendas ativado",
   "caption_toggle_disabled": "Botão de alternância de legendas desativado",
+  "captions_disabled_title": "Legendas desativadas",
+  "captions_disabled_body": "Esta extensão depende das legendas do Google Meet para receber o conteúdo da reunião. As legendas estão atualmente desativadas — novas legendas não serão capturadas.\n\nReative as legendas para continuar recebendo transcrições.",
+  "captions_disabled_reenable": "Reativar legendas",
+  "captions_disabled_dismiss": "Entendido",
 
   // Sticker Note
   "sticker_note": "Nota Adesiva",

@@ -210,6 +210,10 @@ export default {
   "caption_toggle_button_desc": "Google Meet पेजों पर एक फ्लोटिंग बटन दिखाएं जो कैप्शन को जल्दी छुपाने/दिखाने के लिए है",
   "caption_toggle_enabled": "कैप्शन टॉगल बटन सक्षम किया गया",
   "caption_toggle_disabled": "कैप्शन टॉगल बटन अक्षम किया गया",
+  "captions_disabled_title": "कैप्शन बंद हो गए",
+  "captions_disabled_body": "यह एक्सटेंशन मीटिंग सामग्री प्राप्त करने के लिए Google Meet कैप्शन पर निर्भर करता है। वर्तमान में कैप्शन बंद हैं — नए कैप्शन कैप्चर नहीं होंगे।\n\nट्रांसक्रिप्ट प्राप्त करना जारी रखने के लिए कैप्शन फिर से चालू करें।",
+  "captions_disabled_reenable": "कैप्शन फिर से चालू करें",
+  "captions_disabled_dismiss": "समझ गया",
 
   // Sticker Note
   "sticker_note": "स्टिकर नोट",

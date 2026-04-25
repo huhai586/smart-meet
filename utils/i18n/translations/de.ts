@@ -258,6 +258,10 @@ export default {
   "caption_toggle_button_desc": "Zeigt einen schwebenden Button auf Google Meet-Seiten an, um Untertitel schnell ein-/auszublenden",
   "caption_toggle_enabled": "Untertitel-Umschaltknopf aktiviert",
   "caption_toggle_disabled": "Untertitel-Umschaltknopf deaktiviert",
+  "captions_disabled_title": "Untertitel deaktiviert",
+  "captions_disabled_body": "Diese Erweiterung benötigt die Google Meet Untertitel, um Meetinginhalte zu empfangen. Untertitel sind derzeit deaktiviert – neue Untertitel werden nicht erfasst.\n\nAktivieren Sie die Untertitel erneut, um die Transkription fortzusetzen.",
+  "captions_disabled_reenable": "Untertitel erneut aktivieren",
+  "captions_disabled_dismiss": "Verstanden",
 
   // Sticker Note
   "sticker_note": "Haftnotiz",
