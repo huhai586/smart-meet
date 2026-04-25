@@ -12,6 +12,7 @@ interface CaptionContentProps {
   filteredData: Transcript[];
   selectedDate?: Dayjs;
   containerRef: React.RefObject<HTMLDivElement>;
+  speakerColorMap: Map<string, string>;
 }
 
 /**
@@ -21,6 +22,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
   filteredData, 
   selectedDate, 
   containerRef,
+  speakerColorMap,
 }) => {
   const { t } = useI18n();
   const lastItemInContainer = useRef<HTMLDivElement>(null);
@@ -31,7 +33,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
   // 使用useMemo包装CaptionList的渲染，减少重新渲染次数
   const memoizedCaptionList = useMemo(() => {
     return filteredData.length > 0 ? (
-      <CaptionList listData={filteredData} disableAutoScroll={disableAutoScroll} />
+      <CaptionList listData={filteredData} disableAutoScroll={disableAutoScroll} speakerColorMap={speakerColorMap} />
     ) : (
       <Empty 
         image={<MessageOutlined style={{ fontSize: 60 }} />}
@@ -42,7 +44,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
         }
       />
     );
-  }, [filteredData, selectedDate, disableAutoScroll, t]);
+  }, [filteredData, selectedDate, disableAutoScroll, speakerColorMap, t]);
 
   return (
     <>

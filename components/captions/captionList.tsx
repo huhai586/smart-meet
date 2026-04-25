@@ -6,6 +6,7 @@ import Caption from "./caption";
 type CaptionListProps = {
     listData: Transcript[];
     disableAutoScroll: () => void;
+    speakerColorMap: Map<string, string>;
 };
 
 const CaptionList = (props: CaptionListProps) => {
@@ -17,7 +18,12 @@ const CaptionList = (props: CaptionListProps) => {
   return (
       <React.Fragment>
             {props.listData.map((item: Transcript) => (
-              <Caption key={item.session} data={item} disableAutoScroll={props.disableAutoScroll} />
+              <Caption
+                key={item.session}
+                data={item}
+                disableAutoScroll={props.disableAutoScroll}
+                color={props.speakerColorMap.get(item.activeSpeaker) ?? '#6E6E73'}
+              />
           ))}
       </React.Fragment>
   );

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import './captions.scss';
 import useTranscripts from '../../hooks/useTranscripts';
 import { useDateContext } from '../../contexts/DateContext';
@@ -9,6 +9,7 @@ import SearchBar from './SearchBar';
 import FilterSection from './FilterSection';
 import CaptionContent from './CaptionContent';
 import { useSearch, useFilter } from './hooks';
+import { computeSpeakerColors } from './utils/speakerColor';
 
 /**
  * 字幕主组件
@@ -52,6 +53,13 @@ const Captions = () => {
     toggleMeeting
   } = useFilter(transcripts, selectedDate);
 
+  // Compute colors from ALL transcripts (not date-filtered) so the same speaker
+  // always gets the same color regardless of which date is selected.
+  const speakerColorMap = useMemo(() => {
+    const allSpeakers = Array.from(new Set(transcripts.map(t => t.activeSpeaker)));
+    return computeSpeakerColors(allSpeakers);
+  }, [transcripts]);
+
 
 
   return (
@@ -88,6 +96,7 @@ const Captions = () => {
         filteredData={filteredData}
         selectedDate={selectedDate}
         containerRef={chatContainer}
+        speakerColorMap={speakerColorMap}
       />
     </div>
   );

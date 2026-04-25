@@ -35,6 +35,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onClearSearch,
   searchInputRef
 }) => {
+  const handlePressEnter = () => {
+    if (searchResults.length > 0) {
+      onNextMatch();
+    } else {
+      onSearch();
+    }
+  };
+
   return (
     <div className={`search-bar ${searchVisible ? 'visible' : ''}`}>
       <div className="search-input-container">
@@ -44,7 +52,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           placeholder="Search in messages..."
           value={searchText}
           onChange={onSearchTextChange}
-          onPressEnter={onSearch}
+          onPressEnter={handlePressEnter}
           className="search-input"
           autoFocus={searchVisible}
           suffix={

@@ -159,8 +159,10 @@ export const useSearch = (containerRef: RefObject<HTMLElement>, selectedDate?: D
         handleSearch();
       }
 
-      // F3 或 Enter 查找下一个
-      if ((e.key === 'F3' || (e.key === 'Enter' && e.shiftKey === false)) && isSearchActive) {
+      // F3 或 Enter 查找下一个（输入框聚焦时由 onPressEnter 处理，避免重复触发）
+      const inputEl = searchInputRef.current?.input ?? null;
+      const inputHasFocus = inputEl !== null && document.activeElement === inputEl;
+      if ((e.key === 'F3' || (e.key === 'Enter' && !e.shiftKey && !inputHasFocus)) && isSearchActive) {
         e.preventDefault();
         goToNextMatch();
       }
