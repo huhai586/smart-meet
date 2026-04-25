@@ -3,6 +3,7 @@ import { message } from 'antd';
 import { useI18n } from '../../utils/i18n';
 import getAiSummary from '../../utils/get-ai-summary';
 import aiServiceManager from '../../utils/ai';
+import { providerRegistry } from '../../utils/ai/provider-registry';
 import { Actions } from '~components/captions/types';
 import { useDateContext } from '../../contexts/DateContext';
 import type { CardItemType } from './SummaryCard';
@@ -87,11 +88,18 @@ export const useSummary = () => {
 
   // 添加新问题
   const handleQuestion = async (question = t('summary_question')) => {
+    const serviceType = aiServiceManager.getCurrentServiceType();
+    const provider = providerRegistry.getById(serviceType);
+
     const newCardData = [...cardData, {
       question,
       answer: '',
       fetchComplete: false,
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      providerId: serviceType || '',
+      providerName: provider?.name || serviceType || 'AI',
+      providerIcon: provider?.icon || '🤖',
+      modelName: provider?.defaultModel || ''
     }];
     setCardData(newCardData);
   };

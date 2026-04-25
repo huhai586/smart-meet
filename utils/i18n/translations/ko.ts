@@ -343,4 +343,15 @@ export default {
   "category_local": "로컬",
   "category_custom": "사용자 지정",
   "active_badge": "활성",
+
+  // Summary message UI
+  "view_more": "자세히 보기",
+  "view_less": "접기",
+  "error_request_failed": "요청 실패",
+  "error_status": "오류",
+  "time_just_now": "방금",
+  "time_minutes_ago": "{n}분 전",
+  "time_hours_ago": "{n}시간 전",
+  "error_expand": "요청 실패 · 자세히 보기",
+  "error_collapse": "접기",
 };

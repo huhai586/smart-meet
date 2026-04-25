@@ -319,4 +319,15 @@ export default {
   "category_local": "Địa phương",
   "category_custom": "Tùy chỉnh",
   "active_badge": "Đang dùng",
+
+  // Summary message UI
+  "view_more": "Xem chi tiết",
+  "view_less": "Ẩn chi tiết",
+  "error_request_failed": "Yêu cầu thất bại",
+  "error_status": "Lỗi",
+  "time_just_now": "vừa xong",
+  "time_minutes_ago": "{n} phút trước",
+  "time_hours_ago": "{n} giờ trước",
+  "error_expand": "Yêu cầu thất bại · nhấn để xem chi tiết",
+  "error_collapse": "Ẩn chi tiết",
 };

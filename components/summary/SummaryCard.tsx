@@ -1,7 +1,7 @@
-import React from 'react';
-import { Card, Spin, Badge, Tag } from 'antd';
-import { LoadingOutlined, MessageOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import MarkdownRenderer from './MarkdownRenderer';
+import ProviderIcon from '../common/ProviderIcon';
 import { useI18n } from '../../utils/i18n';
 import { useLanguageDetection } from '../captions/hooks/useLanguageDetection';
 import '../../styles/summary.scss';
@@ -12,6 +12,10 @@ export interface CardItemType {
   fetchComplete: boolean;
   createdAt?: number;
   error?: string;
+  providerId?: string;
+  providerName?: string;
+  providerIcon?: string;
+  modelName?: string;
 }
 
 interface SummaryCardProps {
@@ -20,53 +24,104 @@ interface SummaryCardProps {
   index: number;
 }
 
-const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
-  const { t } = useI18n();
-  
-  // 检测回答内容的语言方向
-  const isRTL = useLanguageDetection(item.answer || '');
-
-  // 格式化时间显示
-  const formatTime = (timestamp: number | undefined) => {
+const useRelativeTime = (timestamp: number | undefined, t: (k: string, p?: Record<string, string>) => string): string => {
+  const compute = () => {
     if (!timestamp) return '';
-    const date = new Date(timestamp);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const diffMs = Date.now() - timestamp;
+    const diffMin = Math.floor(diffMs / 60000);
+    if (diffMin < 1) return t('time_just_now');
+    if (diffMin < 60) return t('time_minutes_ago', { n: String(diffMin) });
+    const diffHr = Math.floor(diffMin / 60);
+    if (diffHr < 24) return t('time_hours_ago', { n: String(diffHr) });
+    return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   };
 
+  const [label, setLabel] = useState(compute);
+
+  useEffect(() => {
+    if (!timestamp) return;
+    const id = setInterval(() => setLabel(compute()), 30000);
+    return () => clearInterval(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [timestamp]);
+
+  return label;
+};
+
+const ErrorDetails: React.FC<{ error: string }> = ({ error }) => {
+  const [expanded, setExpanded] = useState(false);
+  const { t } = useI18n();
+
   return (
-    <Spin
-      spinning={loading && !item.fetchComplete}
-      indicator={<LoadingOutlined spin />}
-      size="large"
-      fullscreen={false}
-      tip={t('loading')}
-      key={index}
-    >
-      <Card
-        title={
-          <div className="card-title-container">
-            <QuestionCircleOutlined className="card-title-icon" />
-            <span>{item.question}</span>
-            {item.createdAt && (
-              <Tag color="blue" className="card-time-tag">
-                {formatTime(item.createdAt)}
-              </Tag>
-            )}
-          </div>
-        }
-        className={'card-container'}
-        extra={<Badge status={item.fetchComplete ? "success" : "processing"} text={item.fetchComplete ? t('completed') : t('loading')} />}
+    <div className="summary-error-details">
+      <span
+        className="summary-error-details__trigger"
+        onClick={() => setExpanded(v => !v)}
+        role="button"
+        tabIndex={0}
+        onKeyDown={e => e.key === 'Enter' && setExpanded(v => !v)}
       >
-        <div className={`summary-container ${isRTL ? 'rtl' : ''}`}>
-          {item.fetchComplete && <MessageOutlined className="response-icon" />}
-          {item.error ? (
-            <div className="summary-error-message" style={{ color: 'red' }}>{item.error}</div>
+        {expanded ? t('error_collapse') : t('error_expand')}
+      </span>
+      {expanded && (
+        <pre className="summary-error-details__pre">{error}</pre>
+      )}
+    </div>
+  );
+};
+
+const LoadingDots: React.FC = () => (
+  <div className="message-ai__loading">
+    <span className="message-ai__loading-dot" />
+    <span className="message-ai__loading-dot" />
+    <span className="message-ai__loading-dot" />
+  </div>
+);
+
+const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
+  const { t } = useI18n();
+  const isRTL = useLanguageDetection(item.answer || '');
+  const isLoading = loading && !item.fetchComplete;
+  const relativeTime = useRelativeTime(item.createdAt, t);
+
+  const cardClass = [
+    'message-ai',
+    item.error ? 'message-ai--error' : '',
+    isLoading ? 'message-ai--loading' : '',
+  ].filter(Boolean).join(' ');
+
+  return (
+    <div className="message-group" key={index}>
+      {/* User question bubble */}
+      <div className="message-user">
+        <div className="message-user__bubble">
+          <QuestionCircleOutlined className="message-user__icon" />
+          <span className="message-user__text">{item.question}</span>
+        </div>
+      </div>
+
+      {/* Meta row: outside the card, above-left */}
+      <div className="message-ai-meta">
+        <ProviderIcon providerId={item.providerId || ''} size={15} className="message-ai-meta__icon" />
+        <span className="message-ai-meta__name">{item.providerName || 'AI'}</span>
+        {relativeTime && (
+          <span className="message-ai-meta__time">{relativeTime}</span>
+        )}
+      </div>
+
+      {/* AI response card */}
+      <div className={cardClass}>
+        <div className={`message-ai__content ${isRTL ? 'rtl' : ''}`}>
+          {isLoading ? (
+            <LoadingDots />
+          ) : item.error ? (
+            <ErrorDetails error={item.error} />
           ) : (
             <MarkdownRenderer content={item.answer} />
           )}
         </div>
-      </Card>
-    </Spin>
+      </div>
+    </div>
   );
 };
 

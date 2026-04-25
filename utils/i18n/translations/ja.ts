@@ -343,4 +343,15 @@ export default {
   "category_local": "ローカル",
   "category_custom": "カスタム",
   "active_badge": "使用中",
+
+  // Summary message UI
+  "view_more": "詳細を表示",
+  "view_less": "詳細を隠す",
+  "error_request_failed": "リクエスト失敗",
+  "error_status": "エラー",
+  "time_just_now": "たった今",
+  "time_minutes_ago": "{n}分前",
+  "time_hours_ago": "{n}時間前",
+  "error_expand": "リクエスト失敗・タップして詳細を表示",
+  "error_collapse": "詳細を閉じる",
 };

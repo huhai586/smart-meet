@@ -358,4 +358,15 @@ export default {
   "category_local": "محلی",
   "category_custom": "سفارشی",
   "active_badge": "فعال",
+
+  // Summary message UI
+  "view_more": "نمایش جزئیات",
+  "view_less": "پنهان کردن جزئیات",
+  "error_request_failed": "درخواست ناموفق بود",
+  "error_status": "خطا",
+  "time_just_now": "همین الان",
+  "time_minutes_ago": "{n} دق پیش",
+  "time_hours_ago": "{n} ساعت پیش",
+  "error_expand": "درخواست ناموفق · برای جزئیات بزنید",
+  "error_collapse": "پنهان کردن",
 };

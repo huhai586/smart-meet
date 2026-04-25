@@ -326,4 +326,15 @@ export default {
   "category_local": "Lokal",
   "category_custom": "Benutzerdefiniert",
   "active_badge": "Aktiv",
+
+  // Summary message UI
+  "view_more": "Details anzeigen",
+  "view_less": "Details verbergen",
+  "error_request_failed": "Anfrage fehlgeschlagen",
+  "error_status": "Fehler",
+  "time_just_now": "gerade eben",
+  "time_minutes_ago": "vor {n} Min.",
+  "time_hours_ago": "vor {n} Std.",
+  "error_expand": "Anfrage fehlgeschlagen · tippen für Details",
+  "error_collapse": "Details schließen",
 };

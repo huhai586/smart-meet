@@ -1,12 +1,13 @@
 import React from 'react';
 import { Typography, theme } from 'antd';
 import { ActiveServiceBadge, ConfigButton, DefaultServiceButton } from '~/components/options/ai-settings/components/StyledComponents';
-import { getServiceDisplayName, getServiceIcon } from '~/components/options/ai-settings/utils/service-helpers';
+import { getServiceDisplayName } from '~/components/options/ai-settings/utils/service-helpers';
 import { ApiKeyConfig } from '~/components/options/ai-settings/components/ApiKeyConfig';
 import { ModelSelector } from '~/components/options/ai-settings/components/ModelSelector';
 import { ProxyUrlConfig } from '~/components/options/ai-settings/components/ProxyUrlConfig';
 import { type AIServiceType } from '~/components/options/ai-settings/utils/constants';
 import { type AIsConfig, type AIServiceConfig } from '~/utils/getAI';
+import ProviderIcon from '~/components/common/ProviderIcon';
 
 const { Title, Text } = Typography;
 const { useToken } = theme;
@@ -47,7 +48,7 @@ export const ServiceConfigPanel: React.FC<ServiceConfigPanelProps> = ({
           className="service-config-panel__icon"
           style={{ background: `${token.colorPrimary}10` }}
         >
-          {getServiceIcon(service)}
+          <ProviderIcon providerId={service} size={28} />
         </div>
         <div>
           <Title level={4} className="service-config-panel__title">

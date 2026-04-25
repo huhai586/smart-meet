@@ -7,6 +7,7 @@ import { Input } from 'antd';
 import { SearchOutlined, PlusOutlined } from '@ant-design/icons';
 import { providerRegistry, type ProviderDefinition, type ProviderCategory } from '~/utils/ai/provider-registry';
 import type { AIsConfig } from '~/utils/getAI';
+import ProviderIcon from '~/components/common/ProviderIcon';
 
 interface ProviderSelectorProps {
   aisConfig: AIsConfig;
@@ -117,7 +118,7 @@ const ProviderItem: React.FC<{
 
   return (
     <div className={classNames} onClick={onClick}>
-      <div className="provider-item__icon">{provider.icon}</div>
+      <div className="provider-item__icon"><ProviderIcon providerId={provider.id} size={20} /></div>
       <div className="provider-item__info">
         <div className="provider-item__name">{provider.name}</div>
         {provider.description && (

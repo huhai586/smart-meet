@@ -428,4 +428,15 @@ export default {
   "category_local": "本地",
   "category_custom": "自定义",
   "active_badge": "使用中",
+
+  // Summary message UI
+  "view_more": "展开详情",
+  "view_less": "收起详情",
+  "error_request_failed": "请求失败",
+  "error_status": "错误",
+  "time_just_now": "刚刚",
+  "time_minutes_ago": "{n} 分钟前",
+  "time_hours_ago": "{n} 小时前",
+  "error_expand": "请求失败·点击查看详情",
+  "error_collapse": "收起详情",
 };

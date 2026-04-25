@@ -298,4 +298,15 @@ export default {
   "category_local": "محلي",
   "category_custom": "مخصص",
   "active_badge": "نشط",
+
+  // Summary message UI
+  "view_more": "عرض التفاصيل",
+  "view_less": "إخفاء التفاصيل",
+  "error_request_failed": "فشل الطلب",
+  "error_status": "خطأ",
+  "time_just_now": "للتو",
+  "time_minutes_ago": "منذ {n} دق",
+  "time_hours_ago": "منذ {n} س",
+  "error_expand": "فشل الطلب · انقر للتفاصيل",
+  "error_collapse": "إخفاء التفاصيل",
 };

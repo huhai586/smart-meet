@@ -326,4 +326,15 @@ export default {
   "category_local": "Locale",
   "category_custom": "Personalizzato",
   "active_badge": "Attivo",
+
+  // Summary message UI
+  "view_more": "Mostra dettagli",
+  "view_less": "Nascondi dettagli",
+  "error_request_failed": "Richiesta fallita",
+  "error_status": "Errore",
+  "time_just_now": "proprio ora",
+  "time_minutes_ago": "{n} min fa",
+  "time_hours_ago": "{n} ore fa",
+  "error_expand": "Richiesta fallita · tocca per i dettagli",
+  "error_collapse": "Nascondi dettagli",
 };

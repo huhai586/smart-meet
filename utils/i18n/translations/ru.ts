@@ -319,4 +319,15 @@ export default {
   "category_local": "Локальный",
   "category_custom": "Пользовательский",
   "active_badge": "Активен",
+
+  // Summary message UI
+  "view_more": "Показать подробности",
+  "view_less": "Скрыть подробности",
+  "error_request_failed": "Ошибка запроса",
+  "error_status": "Ошибка",
+  "time_just_now": "только что",
+  "time_minutes_ago": "{n} мин назад",
+  "time_hours_ago": "{n} ч назад",
+  "error_expand": "Ошибка · нажмите для подробностей",
+  "error_collapse": "Скрыть",
 };

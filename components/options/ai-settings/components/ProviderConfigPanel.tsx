@@ -6,6 +6,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Input, Select, Button, Switch, Tooltip, message } from 'antd';
 import { LinkOutlined, CheckCircleFilled, CloseCircleFilled, LoadingOutlined, ReloadOutlined } from '@ant-design/icons';
 import { providerRegistry, type ProviderDefinition } from '~/utils/ai/provider-registry';
+import ProviderIcon from '~/components/common/ProviderIcon';
 import { fetchAvailableModels, testConnection, type ModelConfig } from '~/utils/ai/model-factory';
 import type { AIServiceConfig, AIsConfig } from '~/utils/getAI';
 
@@ -125,7 +126,7 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
     return (
       <div className="provider-config">
         <div className="provider-config__empty">
-          <div className="provider-config__empty-icon">🤖</div>
+          <div className="provider-config__empty-icon"><ProviderIcon providerId="" size={40} /></div>
           <div className="provider-config__empty-text">
             {t('select_provider_hint') || 'Select a provider to configure'}
           </div>
@@ -143,7 +144,7 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
     <div className="provider-config">
       {/* Header */}
       <div className="provider-config__header">
-        <div className="provider-config__icon">{provider.icon}</div>
+        <div className="provider-config__icon"><ProviderIcon providerId={provider.id} size={32} /></div>
         <div className="provider-config__title-area">
           <h2 className="provider-config__title">{provider.name}</h2>
           <div className="provider-config__subtitle">

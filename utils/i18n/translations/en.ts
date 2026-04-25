@@ -426,4 +426,15 @@ export default {
   "category_local": "Local",
   "category_custom": "Custom",
   "active_badge": "Active",
+
+  // Summary message UI
+  "view_more": "View details",
+  "view_less": "Hide details",
+  "error_request_failed": "Request failed",
+  "error_status": "Error",
+  "time_just_now": "just now",
+  "time_minutes_ago": "{n} min ago",
+  "time_hours_ago": "{n} hr ago",
+  "error_expand": "Request failed · tap to see details",
+  "error_collapse": "Hide details",
 };

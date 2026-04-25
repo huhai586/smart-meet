@@ -343,4 +343,15 @@ export default {
   "category_local": "Local",
   "category_custom": "Personnalisé",
   "active_badge": "Actif",
+
+  // Summary message UI
+  "view_more": "Voir les détails",
+  "view_less": "Masquer les détails",
+  "error_request_failed": "Échec de la requête",
+  "error_status": "Erreur",
+  "time_just_now": "à l'instant",
+  "time_minutes_ago": "il y a {n} min",
+  "time_hours_ago": "il y a {n} h",
+  "error_expand": "Requête échouée · appuyer pour voir les détails",
+  "error_collapse": "Masquer les détails",
 };

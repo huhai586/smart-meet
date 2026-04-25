@@ -298,4 +298,15 @@ export default {
   "category_local": "ท้องถิ่น",
   "category_custom": "กำหนดเอง",
   "active_badge": "ใช้งานอยู่",
+
+  // Summary message UI
+  "view_more": "ดูรายละเอียด",
+  "view_less": "ซ่อนรายละเอียด",
+  "error_request_failed": "คำขอล้มเหลว",
+  "error_status": "ข้อผิดพลาด",
+  "time_just_now": "เมื่อกี้นี้",
+  "time_minutes_ago": "{n} นาทีที่แล้ว",
+  "time_hours_ago": "{n} ชั่วโมงที่แล้ว",
+  "error_expand": "คำขอล้มเหลว · แตะเพื่อดูรายละเอียด",
+  "error_collapse": "ซ่อนรายละเอียด",
 };

@@ -298,4 +298,15 @@ export default {
   "category_local": "स्थानीय",
   "category_custom": "कस्टम",
   "active_badge": "सक्रिय",
+
+  // Summary message UI
+  "view_more": "विवरण देखें",
+  "view_less": "विवरण छुपाएं",
+  "error_request_failed": "अनुरोध विफल",
+  "error_status": "त्रुटि",
+  "time_just_now": "अभी",
+  "time_minutes_ago": "{n} मिनट पहले",
+  "time_hours_ago": "{n} घंटे पहले",
+  "error_expand": "अनुरोध विफल · विवरण देखें",
+  "error_collapse": "विवरण छुपाएं",
 };

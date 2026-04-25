@@ -1,9 +1,10 @@
 import React from 'react';
 import { theme } from 'antd';
 import { ServiceListItem, StatusBadge, ServiceIcon } from '~/components/options/ai-settings/components/StyledComponents';
-import { getServiceDisplayName, getServiceIcon } from '~/components/options/ai-settings/utils/service-helpers';
+import { getServiceDisplayName } from '~/components/options/ai-settings/utils/service-helpers';
 import { SUPPORTED_SERVICES, type AIServiceType } from '~/components/options/ai-settings/utils/constants';
 import { type AIsConfig } from '~/utils/getAI';
+import ProviderIcon from '~/components/common/ProviderIcon';
 
 const { useToken } = theme;
 
@@ -44,7 +45,7 @@ export const ServiceList: React.FC<ServiceListProps> = ({
             className="service-list-item"
           >
             <ServiceIcon configured={isConfigured}>
-              {getServiceIcon(service)}
+              <ProviderIcon providerId={service} size={20} />
             </ServiceIcon>
             <div className="service-list__item-content">
               <div className="service-list__item-title">
