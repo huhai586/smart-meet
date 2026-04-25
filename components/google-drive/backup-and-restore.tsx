@@ -59,7 +59,7 @@ const BackupAndRestore = (_props: BackupAndRestoreInterface) => {
                     {t('backup')}
                 </Button>
                 <Upload
-                    accept=".json"
+                    accept=".json,.txt"
                     beforeUpload={() => false}
                     onChange={handleUploadChange}
                     showUploadList={false}

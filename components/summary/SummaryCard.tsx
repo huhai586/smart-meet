@@ -109,18 +109,21 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
         )}
       </div>
 
-      {/* AI response card */}
-      <div className={cardClass}>
-        <div className={`message-ai__content ${isRTL ? 'rtl' : ''}`}>
-          {isLoading ? (
-            <LoadingDots />
-          ) : item.error ? (
-            <ErrorDetails error={item.error} />
-          ) : (
-            <MarkdownRenderer content={item.answer} />
-          )}
+      {/* Loading dots outside the card while waiting */}
+      {isLoading && <LoadingDots />}
+
+      {/* AI response card — only rendered once there is content or an error */}
+      {!isLoading && (
+        <div className={cardClass}>
+          <div className={`message-ai__content ${isRTL ? 'rtl' : ''}`}>
+            {item.error ? (
+              <ErrorDetails error={item.error} />
+            ) : (
+              <MarkdownRenderer content={item.answer} />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

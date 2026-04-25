@@ -18,13 +18,11 @@ const Summary: React.FC<SummaryProps> = (_props) => {
   const { selectedDate } = useDateContext();
   const { cardData, requesting, handleQuestion } = useSummary();
   const container = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
-  // 滚动到最新的卡片
+  // 每次 cardData 变化（新问题 or AI 回复完成）时滚动到底部
   useEffect(() => {
-    if (container.current) {
-      const lastItem = container.current.querySelector('.ant-spin-nested-loading:last-child');
-      if (lastItem) { lastItem.scrollIntoView({ behavior: 'smooth' }); }
-    }
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [cardData]);
 
   // 格式化日期为 月/日
@@ -42,6 +40,8 @@ const Summary: React.FC<SummaryProps> = (_props) => {
             index={index}
           />
         ))}
+
+        <div ref={bottomRef} />
 
         {!cardData.length && (
           <Empty
