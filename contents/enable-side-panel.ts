@@ -15,8 +15,12 @@ const captionOffSelector = CAPTIONS_OFF_BUTTON_LABELS
 document.addEventListener('click', (ev) => {
     const clickedElement = ev.target as HTMLElement;
 
-    // User clicked "Turn on captions" → open sidepanel
+    // User clicked "Turn on captions" → open sidepanel + notify that captions are on
     if (clickedElement.closest(captionOnSelector)) {
+        // Notify sidepanel so it can dismiss any "captions off" warning
+        chrome.runtime.sendMessage({ action: 'captionsTurnedOn' }, () => {
+            void chrome.runtime.lastError;
+        });
         getIsExtensionDisabled().then(async (disabled: boolean) => {
             if (!disabled) {
                 try {

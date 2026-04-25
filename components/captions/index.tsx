@@ -45,11 +45,13 @@ const Captions = () => {
     });
   }, []);
 
-  // Listen for the content script notifying that the user turned captions off
+  // Listen for the content script notifying captions state changes
   useEffect(() => {
     const handleMessage = (message: { action: string }) => {
       if (message.action === 'captionsTurnedOff') {
         setShowCaptionsWarning(true);
+      } else if (message.action === 'captionsTurnedOn') {
+        setShowCaptionsWarning(false);
       }
     };
     chrome.runtime.onMessage.addListener(handleMessage);
