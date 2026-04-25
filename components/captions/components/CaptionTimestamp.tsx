@@ -1,5 +1,4 @@
 import React from 'react';
-import { ClockCircleOutlined } from '@ant-design/icons';
 
 interface CaptionTimestampProps {
     timestamp: number;
@@ -8,8 +7,7 @@ interface CaptionTimestampProps {
 const CaptionTimestamp: React.FC<CaptionTimestampProps> = ({ timestamp }) => {
     return (
         <div className="timestamp">
-            <ClockCircleOutlined style={{ marginRight: '6px', fontSize: '12px' }} />
-            {new Date(timestamp).toLocaleString()}
+            {new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </div>
     );
 };

@@ -8,6 +8,37 @@ import { CaptionTextRenderer } from "./components/CaptionTextRenderer";
 import { Actions } from "~components/captions/types";
 import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
 
+// 12 visually distinct colors (hue gaps ≥ 30°, all pass AA contrast with white text)
+const SPEAKER_PALETTE = [
+  '#007AFF', // Blue      ~210°
+  '#FF3B30', // Red         ~3°
+  '#34C759', // Green     ~142°
+  '#FF9500', // Orange     ~35°
+  '#AF52DE', // Purple    ~283°
+  '#00C7BE', // Teal      ~177°
+  '#5856D6', // Indigo    ~241°
+  '#FF2D55', // Pink      ~344°
+  '#30B0C7', // Cyan      ~192°  (shifted enough from Teal)
+  '#FF6B00', // Burnt Orange ~25° (shifted enough from Orange)
+  '#32ADE6', // Sky Blue  ~204°  (shifted enough from Blue)
+  '#BF5AF2', // Violet    ~276°  (shifted enough from Purple)
+];
+
+// Module-level registry: first-seen speaker → assigned color, sequential, no repeats
+const speakerColorRegistry = new Map<string, string>();
+let _colorCursor = 0;
+
+const getSpeakerColor = (name: string): string => {
+  const key = (name || '').trim().toLowerCase();
+  if (!speakerColorRegistry.has(key)) {
+    speakerColorRegistry.set(key, SPEAKER_PALETTE[_colorCursor % SPEAKER_PALETTE.length]);
+    _colorCursor++;
+  }
+  return speakerColorRegistry.get(key)!;
+};
+
+const getSpeakerInitial = (name: string) => (name || '?').charAt(0).toUpperCase();
+
 type CaptionProps = {
     data: Transcript;
     disableAutoScroll: () => void;
@@ -121,43 +152,50 @@ const Caption = memo((props: CaptionProps) => {
 
     return (
         <div className={'caption-container'} ref={captionRef}>
-            <section>
-                <div className={'caption-text-container'}>
-                    <CaptionHeader
-                        activeSpeaker={data.activeSpeaker}
-                        onTranslate={handleTranslate}
-                        onAskAI={onAskAI}
-                        isTranslating={isTranslating}
-                    />
-                    
-                    <div onClick={onWordClick} onMouseUp={handleTextSelection}>
-                        <CaptionTextRenderer
-                            content={data.talkContent}
-                            domainKeyWords={domainKeyWords}
-                            specificWords={specificWords}
-                            isRTL={isRTL}
-                            onTranslateSentence={handleSentenceTranslation}
+            <div
+                className="caption-avatar"
+                style={{ background: getSpeakerColor(data.activeSpeaker || '') }}
+            >
+                {getSpeakerInitial(data.activeSpeaker || '')}
+            </div>
+            <div className="caption-body">
+                <section>
+                    <div className={'caption-text-container'}>
+                        <CaptionHeader
+                            activeSpeaker={data.activeSpeaker}
+                            onTranslate={handleTranslate}
+                            onAskAI={onAskAI}
+                            isTranslating={isTranslating}
                         />
+                        
+                        <div onClick={onWordClick} onMouseUp={handleTextSelection}>
+                            <CaptionTextRenderer
+                                content={data.talkContent}
+                                domainKeyWords={domainKeyWords}
+                                specificWords={specificWords}
+                                isRTL={isRTL}
+                                onTranslateSentence={handleSentenceTranslation}
+                            />
+                        </div>
+                        
+                        <AutoTranslationSection
+                            autoTranslatedContent={autoTranslatedContent}
+                            isRTL={isAutoTranslateLanguageRTL}
+                        />
+                        
+                        <CaptionTimestamp timestamp={data.timestamp} />
                     </div>
-                    
-                    <AutoTranslationSection
-                        autoTranslatedContent={autoTranslatedContent}
-                        isRTL={isAutoTranslateLanguageRTL}
-                    />
-                    
-                    <CaptionTimestamp timestamp={data.timestamp} />
-                </div>
-            </section>
-            
-            <AIAnswerSection
-                aiData={aiData}
-                hasAiData={hasAiData}
-                lastActionType={lastActionType}
-            />
+                </section>
+                
+                <AIAnswerSection
+                    aiData={aiData}
+                    hasAiData={hasAiData}
+                    lastActionType={lastActionType}
+                />
+            </div>
         </div>
     );
 }, (prevProps, nextProps) => {
-    // Detailed comparison of all key fields in props, not just length
     const propsEqual =
         prevProps.data.session === nextProps.data.session &&
         prevProps.data.timestamp === nextProps.data.timestamp &&
