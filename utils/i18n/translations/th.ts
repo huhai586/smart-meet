@@ -329,4 +329,19 @@ export default {
   "time_hours_ago": "{n} ชั่วโมงที่แล้ว",
   "error_expand": "คำขอล้มเหลว · แตะเพื่อดูรายละเอียด",
   "error_collapse": "ซ่อนรายละเอียด",
+
+  // Custom Prompts
+  "custom_prompts": "พรอมต์ที่กำหนดเอง",
+  "custom_prompts_desc": "สร้างเทมเพลตพรอมต์ที่นำมาใช้ซ้ำสำหรับ AI Summary",
+  "custom_prompts_empty": "ยังไม่มีพรอมต์ คลิก + เพื่อเพิ่ม",
+  "go_to_extension_settings": "ไปที่ การตั้งค่า → ส่วนขยาย เพื่อเพิ่มพรอมต์",
+  "add_prompt": "เพิ่มพรอมต์",
+  "edit_prompt": "แก้ไขพรอมต์",
+  "prompt_title": "ชื่อเรื่อง",
+  "prompt_title_placeholder": "เช่น: ดึงคำศัพท์ขั้นสูง",
+  "prompt_content": "เนื้อหาพรอมต์",
+  "prompt_content_placeholder": "ป้อนข้อความพรอมต์…",
+  "select_prompt": "เลือกพรอมต์",
+  "apply_prompts": "นำไปใช้ ({n} รายการที่เลือก)",
+  "save": "บันทึก",
 };

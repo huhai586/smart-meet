@@ -357,4 +357,19 @@ export default {
   "time_hours_ago": "vor {n} Std.",
   "error_expand": "Anfrage fehlgeschlagen · tippen für Details",
   "error_collapse": "Details schließen",
+
+  // Custom Prompts
+  "custom_prompts": "Eigene Prompts",
+  "custom_prompts_desc": "Erstelle wiederverwendbare Prompt-Vorlagen für die KI-Zusammenfassung.",
+  "custom_prompts_empty": "Noch keine Prompts. Klicke auf + zum Hinzufügen.",
+  "go_to_extension_settings": "Gehe zu Einstellungen → Erweiterung, um Prompts hinzuzufügen.",
+  "add_prompt": "Prompt hinzufügen",
+  "edit_prompt": "Prompt bearbeiten",
+  "prompt_title": "Titel",
+  "prompt_title_placeholder": "z. B. Vokabeln extrahieren",
+  "prompt_content": "Prompt-Inhalt",
+  "prompt_content_placeholder": "Prompt-Text eingeben…",
+  "select_prompt": "Prompt auswählen",
+  "apply_prompts": "Anwenden ({n} ausgewählt)",
+  "save": "Speichern",
 };

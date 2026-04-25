@@ -98,43 +98,29 @@ const WordCard: React.FC<WordCardProps> = ({
   return (
     <div className="word-card-container">
       <div className={`word-card ${isFlipped ? 'flipped' : ''}`}>
-        {/* 正面 - 显示单词 */}
+        {/* 正面 - 单词 */}
         <div className="word-card-front" onClick={handleCardClick}>
-          <div className="card-content">
-            <div className="word-display">
-              <div className="word-text-area">
-                <span className="word-text">{word}</span>
-              </div>
-              <span
-                className="pronunciation-btn"
-                onClick={handlePronunciation}
-                onMouseDown={handlePronunciation}
-                title={t('pronunciation')}
-              >
-                <SoundOutlined />
-              </span>
-            </div>
-          </div>
+          <span className="word-text">{word}</span>
+          <span
+            className="pronunciation-btn"
+            onClick={handlePronunciation}
+            onMouseDown={handlePronunciation}
+            title={t('pronunciation')}
+          >
+            <SoundOutlined />
+          </span>
         </div>
 
-        {/* 反面 - 显示翻译 */}
+        {/* 反面 - 翻译 */}
         <div className="word-card-back" onClick={handleCardClick}>
-          <div className="card-content">
-            <div className="translation-display">
-              <div className="translation-text">
-                <span className="translation">{translation}</span>
-              </div>
-              <div className="card-actions">
-                <span
-                  className="more-btn"
-                  onClick={handleMoreClick}
-                  title={t('more')}
-                >
-                  <MoreOutlined />
-                </span>
-              </div>
-            </div>
-          </div>
+          <span className="translation">{translation}</span>
+          <span
+            className="more-btn"
+            onClick={handleMoreClick}
+            title={t('more')}
+          >
+            <MoreOutlined />
+          </span>
         </div>
       </div>
     </div>

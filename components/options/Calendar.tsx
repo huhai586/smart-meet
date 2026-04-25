@@ -126,6 +126,7 @@ interface MatchedRecord {
   transcript: Transcript;
   matchIndex: number; // 匹配的位置
   previewText: string; // 预览文本
+  recordIndex: number; // 在完整记录列表中的实际索引
 }
 
 const Calendar = () => {
@@ -330,60 +331,25 @@ const Calendar = () => {
     }
   };
 
-  // 在模态框打开后，确保滚动到高亮文本
+  // 在模态框打开后，滚动到被点击的高亮记录
   useEffect(() => {
-    if (modalVisible && contentSearchText && !modalLoading) {
-      // 创建一个MutationObserver来监听DOM变化
-      const observer = new MutationObserver((_mutations) => {
-        const highlightElements = document.querySelectorAll('.highlighted-text');
-        if (highlightElements && highlightElements.length > 0) {
-          // 找到高亮元素后，滚动到它
-          highlightElements[0].scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-          });
-          // 完成后断开观察器
-          observer.disconnect();
-        }
-      });
-
-      // 开始观察模态框内容的变化
-      if (modalContentRef.current) {
-        observer.observe(modalContentRef.current, {
-          childList: true,
-          subtree: true
-        });
-      }
-
-      // 同时使用定时器作为备份方案
-      const scrollToHighlight = () => {
-        try {
-          const highlightElements = document.querySelectorAll('.highlighted-text');
-          if (highlightElements && highlightElements.length > 0) {
-            highlightElements[0].scrollIntoView({
-              behavior: 'smooth',
-              block: 'center'
-            });
-          }
-        } catch (error) {
-          console.error('Error scrolling to highlight:', error);
+    if (modalVisible && highlightedRecordIndex !== null && !modalLoading) {
+      const scrollToRecord = () => {
+        const el = document.getElementById(`calendar-record-${highlightedRecordIndex}`);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
       };
 
-      // 多次尝试滚动，确保DOM已完全渲染
+      // 等待 modal 动画 + 列表渲染完成后再滚动
       const timers = [
-        setTimeout(scrollToHighlight, 300),
-        setTimeout(scrollToHighlight, 600),
-        setTimeout(scrollToHighlight, 1000)
+        setTimeout(scrollToRecord, 350),
+        setTimeout(scrollToRecord, 700),
       ];
 
-      // 清理函数
-      return () => {
-        observer.disconnect();
-        timers.forEach(timer => clearTimeout(timer));
-      };
+      return () => timers.forEach(clearTimeout);
     }
-  }, [modalVisible, contentSearchText, modalLoading]);
+  }, [modalVisible, highlightedRecordIndex, modalLoading]);
 
   // 滚动到高亮记录 (reserved for future use)
   const _scrollToHighlightedRecord = () => {
@@ -470,7 +436,8 @@ const Calendar = () => {
               matchedRecords.push({
                 transcript: record,
                 matchIndex,
-                previewText
+                previewText,
+                recordIndex: i
               });
 
               // 只保留最多3条匹配记录
@@ -597,7 +564,7 @@ const Calendar = () => {
                       {day.matchedRecords.map((match, index) => (
                         <PreviewContainer
                           key={index}
-                          onClick={() => handlePreviewClick(day.date, day.matchedRecords!.findIndex(m => m === match), contentSearchText)}
+                          onClick={() => handlePreviewClick(day.date, match.recordIndex, contentSearchText)}
                         >
                           <Space direction="vertical" size={0} style={{ width: '100%' }}>
                             <Text type="secondary" style={{ fontSize: '12px' }}>
@@ -690,11 +657,7 @@ const Calendar = () => {
 
                     return (
                       <List.Item
-                        ref={(el) => {
-                          if (el) {
-                            listItemRefs.current.set(`record-${index}`, el);
-                          }
-                        }}
+                        id={`calendar-record-${index}`}
                         style={{
                           backgroundColor: isHighlighted ? '#e6f3ff' : 'transparent',
                           transition: 'background-color 0.3s'

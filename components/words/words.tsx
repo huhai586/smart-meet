@@ -5,8 +5,8 @@ import '../../styles/empty-states.scss';
 import { getTranslatedWords } from "~utils/translate";
 import {
     ExclamationCircleOutlined,
-    HistoryOutlined,
-    BookOutlined
+    BookOutlined,
+    ReloadOutlined
 } from '@ant-design/icons';
 import { translateWord } from "~utils/unified-translation";
 import { useI18n } from "~utils/i18n";
@@ -119,23 +119,19 @@ const Words = (props: {currentTab: string}) => {
     return (
         <div className={'words-container'}>
             <div className="words-header">
-                <div className="header-content">
-                    <div className="title-section">
-                        <HistoryOutlined className="header-icon" />
-                        <Title level={4}>{t('translation_history')}</Title>
-                    </div>
-                    {data.length > 0 && (
-                        <Button 
-                            type="text"
-                            size="small"
-                            className="reset-btn"
-                            onClick={showConfirm}
-                        >
-                            {t('reset')}
-                        </Button>
-                    )}
+                <div className="header-left">
+                    <span className="header-title">{t('translation_history')}</span>
+                    <span className="header-subtitle">{t('click_to_translate')}</span>
                 </div>
-                <Text type="secondary">{t('click_to_translate')}</Text>
+                {data.length > 0 && (
+                    <button
+                        className="reset-icon-btn"
+                        onClick={showConfirm}
+                        title={t('reset')}
+                    >
+                        <ReloadOutlined />
+                    </button>
+                )}
             </div>
 
             {data.length > 0 ? (

@@ -374,4 +374,19 @@ export default {
   "time_hours_ago": "{n}時間前",
   "error_expand": "リクエスト失敗・タップして詳細を表示",
   "error_collapse": "詳細を閉じる",
+
+  // Custom Prompts
+  "custom_prompts": "カスタムプロンプト",
+  "custom_prompts_desc": "AI サマリー用の再利用可能なプロンプトテンプレートを作成します。",
+  "custom_prompts_empty": "プロンプトがありません。+ をクリックして追加してください。",
+  "go_to_extension_settings": "設定 → 拡張機能 でプロンプトを追加してください。",
+  "add_prompt": "プロンプトを追加",
+  "edit_prompt": "プロンプトを編集",
+  "prompt_title": "タイトル",
+  "prompt_title_placeholder": "例：上級語彙を抽出する",
+  "prompt_content": "プロンプト内容",
+  "prompt_content_placeholder": "プロンプトのテキストを入力…",
+  "select_prompt": "プロンプトを選択",
+  "apply_prompts": "適用（{n} 件選択中）",
+  "save": "保存",
 };

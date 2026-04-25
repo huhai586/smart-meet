@@ -1,5 +1,5 @@
-import { PlusOutlined, TagOutlined, FileTextOutlined, QuestionCircleOutlined, CalendarOutlined, FontSizeOutlined, MinusOutlined } from "@ant-design/icons"
-import { Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select, DatePicker } from "antd"
+import { PlusOutlined, TagOutlined, FileTextOutlined, QuestionCircleOutlined, CalendarOutlined, FontSizeOutlined, MinusOutlined, EditOutlined, DeleteOutlined, RobotOutlined } from "@ant-design/icons"
+import { Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select, DatePicker, List, Space } from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
 import dayjs, { type Dayjs } from 'dayjs';
@@ -9,7 +9,8 @@ import { useI18n } from '../../utils/i18n';
 import getMeetingCaptions from '../../utils/getCaptions';
 import saveChatLogAsTxt from '../../utils/save';
 import { createJsonFile, downloadFile } from '../../utils/file-utils';
-import messageManager from '../../utils/message-manager';
+import messageManager from '../../utils/message-manager'
+import { type CustomPrompt, getCustomPrompts, saveCustomPrompts, generatePromptId } from '../../utils/customPrompts';
 
 const { Text } = Typography;
 
@@ -34,6 +35,13 @@ const Extension = (_props: ExtensionPropsInterface) => {
     const [captionFontOffset, setCaptionFontOffset] = useState(0);
     const [summaryFontOffset, setSummaryFontOffset] = useState(0);
 
+    // Custom prompts
+    const [customPrompts, setCustomPrompts] = useState<CustomPrompt[]>([]);
+    const [promptModalOpen, setPromptModalOpen] = useState(false);
+    const [editingPrompt, setEditingPrompt] = useState<CustomPrompt | null>(null);
+    const [promptTitle, setPromptTitle] = useState('');
+    const [promptContent, setPromptContent] = useState('');
+
     useEffect(() => {
         chrome.storage.local.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
             setCaptionFontOffset(result.captionFontSizeOffset ?? 0);
@@ -50,6 +58,51 @@ const Extension = (_props: ExtensionPropsInterface) => {
     useEffect(() => {
         chrome.storage.local.set({ specificHighlightWords: specificTags });
     }, [specificTags]);
+
+    useEffect(() => {
+        getCustomPrompts().then(setCustomPrompts);
+    }, []);
+
+    const openAddPrompt = () => {
+        setEditingPrompt(null);
+        setPromptTitle('');
+        setPromptContent('');
+        setPromptModalOpen(true);
+    };
+
+    const openEditPrompt = (prompt: CustomPrompt) => {
+        setEditingPrompt(prompt);
+        setPromptTitle(prompt.title);
+        setPromptContent(prompt.content);
+        setPromptModalOpen(true);
+    };
+
+    const handlePromptSave = async () => {
+        if (!promptTitle.trim() || !promptContent.trim()) return;
+        let updated: CustomPrompt[];
+        if (editingPrompt) {
+            updated = customPrompts.map(p =>
+                p.id === editingPrompt.id
+                    ? { ...p, title: promptTitle.trim(), content: promptContent.trim() }
+                    : p
+            );
+        } else {
+            updated = [...customPrompts, {
+                id: generatePromptId(),
+                title: promptTitle.trim(),
+                content: promptContent.trim(),
+            }];
+        }
+        await saveCustomPrompts(updated);
+        setCustomPrompts(updated);
+        setPromptModalOpen(false);
+    };
+
+    const handlePromptDelete = async (id: string) => {
+        const updated = customPrompts.filter(p => p.id !== id);
+        await saveCustomPrompts(updated);
+        setCustomPrompts(updated);
+    };
 
     useEffect(() => {
         if (inputVisible) {
@@ -325,6 +378,62 @@ const Extension = (_props: ExtensionPropsInterface) => {
                     </div>
                 </div>
 
+                {/* ── Custom Prompts ── */}
+                <div className="highlight-section">
+                    <div className={'highlight-header'}>
+                        <RobotOutlined style={{ color: '#1a73e8' }} />
+                        <span>{t('custom_prompts')}</span>
+                    </div>
+                    <div className={'highlight-description'}>
+                        {t('custom_prompts_desc')}
+                    </div>
+                    <div className="highlight-content">
+                        <List
+                            dataSource={customPrompts}
+                            locale={{ emptyText: t('custom_prompts_empty') }}
+                            renderItem={(prompt) => (
+                                <List.Item
+                                    style={{ padding: '8px 0', borderBottom: '1px solid #f0f0f0' }}
+                                    actions={[
+                                        <Button
+                                            key="edit"
+                                            type="text"
+                                            size="small"
+                                            icon={<EditOutlined />}
+                                            onClick={() => openEditPrompt(prompt)}
+                                        />,
+                                        <Button
+                                            key="delete"
+                                            type="text"
+                                            size="small"
+                                            danger
+                                            icon={<DeleteOutlined />}
+                                            onClick={() => handlePromptDelete(prompt.id)}
+                                        />,
+                                    ]}
+                                >
+                                    <List.Item.Meta
+                                        title={<span style={{ fontSize: '13px', fontWeight: 500 }}>{prompt.title}</span>}
+                                        description={
+                                            <span style={{ fontSize: '12px', color: '#888', display: 'block', maxWidth: '340px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                                {prompt.content}
+                                            </span>
+                                        }
+                                    />
+                                </List.Item>
+                            )}
+                        />
+                        <Button
+                            type="dashed"
+                            icon={<PlusOutlined />}
+                            onClick={openAddPrompt}
+                            style={{ marginTop: '10px', width: '100%' }}
+                        >
+                            {t('add_prompt')}
+                        </Button>
+                    </div>
+                </div>
+
                 {/* ── Help & Guide ── */}
                 <div className="highlight-section">
                     <div className={'highlight-header'}>
@@ -341,15 +450,56 @@ const Extension = (_props: ExtensionPropsInterface) => {
                                     url: chrome.runtime.getURL('options.html#welcome')
                                 });
                             }}
-                            icon={<QuestionCircleOutlined />}
-                            className="guide-button"
+                            type="default"
+                            style={{ width: 'fit-content' }}
                         >
-                            {t('open_welcome_guide') || 'Open Welcome Guide'}
+                            <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                                <QuestionCircleOutlined />
+                                {t('open_welcome_guide') || 'Open Welcome Guide'}
+                            </span>
                         </Button>
                     </div>
                 </div>
 
                 <Divider style={{ margin: '32px 0 24px' }} />
+
+                {/* ── Prompt add/edit modal ── */}
+                <Modal
+                    title={editingPrompt ? t('edit_prompt') : t('add_prompt')}
+                    open={promptModalOpen}
+                    onOk={handlePromptSave}
+                    onCancel={() => setPromptModalOpen(false)}
+                    okText={t('save')}
+                    cancelText={t('cancel')}
+                    okButtonProps={{ disabled: !promptTitle.trim() || !promptContent.trim() }}
+                    className="extension-modal"
+                >
+                    <Space direction="vertical" style={{ width: '100%' }} size={12}>
+                        <div>
+                            <div style={{ fontSize: '13px', color: '#555', marginBottom: '6px' }}>{t('prompt_title')}</div>
+                            <Input
+                                value={promptTitle}
+                                onChange={e => setPromptTitle(e.target.value)}
+                                placeholder={t('prompt_title_placeholder')}
+                                maxLength={50}
+                                showCount
+                            />
+                        </div>
+                        <div>
+                            <div style={{ fontSize: '13px', color: '#555', marginBottom: '6px' }}>{t('prompt_content')}</div>
+                            <Input.TextArea
+                                value={promptContent}
+                                onChange={e => setPromptContent(e.target.value)}
+                                placeholder={t('prompt_content_placeholder')}
+                                rows={4}
+                                maxLength={1000}
+                            />
+                            <div style={{ textAlign: 'right', fontSize: '12px', color: '#bbb', marginTop: '4px' }}>
+                                {promptContent.length} / 1000
+                            </div>
+                        </div>
+                    </Space>
+                </Modal>
 
                 {/* ── Select meeting modal ── */}
                 <Modal

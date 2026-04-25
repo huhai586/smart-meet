@@ -1,128 +1,73 @@
 .words-container {
-  padding: 12px;
+  padding: 16px 12px;
   height: 100%;
   display: flex;
   flex-direction: column;
+  background: #F2F2F7;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
 
   .words-header {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    padding: 12px 16px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(14, 165, 233, 0.08);
-    border: 1px solid rgba(14, 165, 233, 0.1);
-    margin-bottom: 14px;
-    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    padding: 0 4px;
 
-    &:hover {
-      box-shadow: 0 8px 32px rgba(14, 165, 233, 0.12);
-      transform: translateY(-1px);
-    }
-
-    .header-content {
+    .header-left {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
+      flex-direction: column;
+      gap: 2px;
 
-      .title-section {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        .header-icon {
-          font-size: 16px;
-          color: #0ea5e9;
-          filter: drop-shadow(0 2px 4px rgba(14, 165, 233, 0.2));
-        }
-
-        h4.ant-typography {
-          margin: 0;
-          color: #0f172a;
-          font-size: 14px;
-          font-weight: 600;
-          letter-spacing: -0.025em;
-        }
+      .header-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1C1C1E;
+        letter-spacing: -0.4px;
+        margin: 0;
+        line-height: 1.2;
       }
 
-      .reset-btn {
-        color: #64748b;
-        font-size: 12px;
-        padding: 4px 10px;
-        height: 26px;
-        opacity: 0.9;
-        transition: all 0.3s ease;
-        border-radius: 6px;
-        background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-        border: 1px solid #cbd5e1;
-        font-weight: 500;
-
-        &:hover {
-          color: #e11d48;
-          opacity: 1;
-          background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-          border-color: #fda4af;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(225, 29, 72, 0.15);
-        }
+      .header-subtitle {
+        font-size: 13px;
+        color: #8E8E93;
+        margin: 0;
+        font-weight: 400;
       }
     }
 
-    .ant-typography {
-      color: #475569;
-      font-size: 12px;
-      margin: 0;
-      font-weight: 500;
+    .reset-icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(142, 142, 147, 0.12);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #8E8E93;
+      font-size: 15px;
+      transition: background 0.15s, color 0.15s;
+      flex-shrink: 0;
+      margin-top: 2px;
+
+      &:hover {
+        background: rgba(255, 59, 48, 0.1);
+        color: #FF3B30;
+      }
     }
   }
 
   .words-grid {
     flex: 1;
-    padding: 0 4px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    grid-auto-rows: 85px;
-    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-auto-rows: 80px;
+    gap: 10px;
+    overflow-y: auto;
+    align-content: start;
 
-    &::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
-      border-radius: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    &::-webkit-scrollbar-track {
-      background: rgba(14, 165, 233, 0.05);
-      border-radius: 3px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(135deg, #0284c7 0%, #0891b2 100%);
-    }
-
-    // 响应式设计
-    @media (max-width: 1200px) {
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      grid-auto-rows: 80px;
-      gap: 10px;
-    }
-
-    @media (max-width: 768px) {
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      grid-auto-rows: 75px;
-      gap: 8px;
-      padding: 0 2px;
-    }
-
-    @media (max-width: 480px) {
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      grid-auto-rows: 70px;
-      gap: 6px;
-      padding: 0;
-    }
+    &::-webkit-scrollbar { width: 0; }
   }
 
   .empty-container {
@@ -131,116 +76,9 @@
     justify-content: center;
     align-items: center;
 
-    .ant-empty {
-      .ant-empty-description {
-        .ant-typography {
-          color: #718096;
-          font-size: 14px;
-          line-height: 1.6;
-        }
-      }
-    }
-  }
-
-  .ant-picker {
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    padding: 8px 12px;
-    height: 36px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-    transition: all 0.3s ease;
-    background: white;
-
-    &:hover {
-      border-color: #1a73e8;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    &.ant-picker-focused {
-      border-color: #1a73e8;
-      box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.1);
-    }
-
-    .ant-picker-input {
-      input {
-        font-size: 14px;
-        color: #2d3748;
-        font-weight: 500;
-
-        &::placeholder {
-          color: #a0aec0;
-        }
-      }
-
-      .ant-picker-suffix {
-        color: #1a73e8;
-        font-size: 16px;
-      }
-    }
-  }
-
-  .ant-picker-dropdown {
-    .ant-picker-panel-container {
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-      border: 1px solid #e2e8f0;
-      overflow: hidden;
-
-      .ant-picker-panel {
-        border: none;
-
-        .ant-picker-header {
-          border-bottom: 1px solid #f0f2f5;
-          padding: 12px 8px;
-
-          button {
-            color: #1a73e8;
-            
-            &:hover {
-              color: #1557b0;
-            }
-          }
-
-          .ant-picker-header-view {
-            font-weight: 600;
-            color: #2d3748;
-          }
-        }
-
-        .ant-picker-body {
-          padding: 8px;
-
-          .ant-picker-content {
-            th {
-              color: #718096;
-              font-weight: 500;
-            }
-
-            td {
-              &.ant-picker-cell {
-                color: #2d3748;
-                border-radius: 4px;
-                transition: all 0.2s ease;
-
-                &:hover .ant-picker-cell-inner {
-                  background: #f0f7ff;
-                }
-
-                &.ant-picker-cell-selected .ant-picker-cell-inner {
-                  background: #1a73e8;
-                  border-radius: 4px;
-                  font-weight: 500;
-                }
-
-                &.ant-picker-cell-today .ant-picker-cell-inner::before {
-                  border: 1px solid #1a73e8;
-                  border-radius: 4px;
-                }
-              }
-            }
-          }
-        }
-      }
+    .ant-empty-description .ant-typography {
+      color: #8E8E93;
+      font-size: 14px;
     }
   }
 }
