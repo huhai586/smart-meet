@@ -329,4 +329,19 @@ export default {
   "time_hours_ago": "منذ {n} س",
   "error_expand": "فشل الطلب · انقر للتفاصيل",
   "error_collapse": "إخفاء التفاصيل",
+
+  // Custom Prompts
+  "custom_prompts": "موجهات مخصصة",
+  "custom_prompts_desc": "أنشئ قوالب موجهات قابلة لإعادة الاستخدام لملخص الذكاء الاصطناعي.",
+  "custom_prompts_empty": "لا توجد موجهات بعد. انقر + للإضافة.",
+  "go_to_extension_settings": "اذهب إلى الإعدادات ← الامتداد لإضافة موجهات.",
+  "add_prompt": "إضافة موجه",
+  "edit_prompt": "تعديل الموجه",
+  "prompt_title": "العنوان",
+  "prompt_title_placeholder": "مثال: استخراج المفردات المتقدمة",
+  "prompt_content": "محتوى الموجه",
+  "prompt_content_placeholder": "أدخل نص الموجه…",
+  "select_prompt": "اختر موجهاً",
+  "apply_prompts": "تطبيق ({n} محدد)",
+  "save": "حفظ",
 };

@@ -374,4 +374,19 @@ export default {
   "time_hours_ago": "il y a {n} h",
   "error_expand": "Requête échouée · appuyer pour voir les détails",
   "error_collapse": "Masquer les détails",
+
+  // Custom Prompts
+  "custom_prompts": "Prompts personnalisés",
+  "custom_prompts_desc": "Créez des modèles de prompts réutilisables pour le résumé IA.",
+  "custom_prompts_empty": "Aucun prompt. Cliquez sur + pour en ajouter.",
+  "go_to_extension_settings": "Allez dans Paramètres → Extension pour ajouter des prompts.",
+  "add_prompt": "Ajouter un prompt",
+  "edit_prompt": "Modifier le prompt",
+  "prompt_title": "Titre",
+  "prompt_title_placeholder": "ex. Extraire le vocabulaire avancé",
+  "prompt_content": "Contenu du prompt",
+  "prompt_content_placeholder": "Saisissez le texte du prompt…",
+  "select_prompt": "Sélectionner un prompt",
+  "apply_prompts": "Appliquer ({n} sélectionné(s))",
+  "save": "Enregistrer",
 };

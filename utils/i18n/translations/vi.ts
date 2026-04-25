@@ -350,4 +350,19 @@ export default {
   "time_hours_ago": "{n} giờ trước",
   "error_expand": "Yêu cầu thất bại · nhấn để xem chi tiết",
   "error_collapse": "Ẩn chi tiết",
+
+  // Custom Prompts
+  "custom_prompts": "Prompt tùy chỉnh",
+  "custom_prompts_desc": "Tạo các mẫu prompt có thể tái sử dụng cho tóm tắt AI.",
+  "custom_prompts_empty": "Chưa có prompt nào. Nhấn + để thêm.",
+  "go_to_extension_settings": "Vào Cài đặt → Tiện ích mở rộng để thêm prompt.",
+  "add_prompt": "Thêm prompt",
+  "edit_prompt": "Chỉnh sửa prompt",
+  "prompt_title": "Tiêu đề",
+  "prompt_title_placeholder": "VD: Trích xuất từ vựng nâng cao",
+  "prompt_content": "Nội dung prompt",
+  "prompt_content_placeholder": "Nhập văn bản prompt…",
+  "select_prompt": "Chọn prompt",
+  "apply_prompts": "Áp dụng ({n} đã chọn)",
+  "save": "Lưu",
 };

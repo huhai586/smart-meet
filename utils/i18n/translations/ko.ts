@@ -374,4 +374,19 @@ export default {
   "time_hours_ago": "{n}시간 전",
   "error_expand": "요청 실패 · 자세히 보기",
   "error_collapse": "접기",
+
+  // Custom Prompts
+  "custom_prompts": "커스텀 프롬프트",
+  "custom_prompts_desc": "AI 요약을 위한 재사용 가능한 프롬프트 템플릿을 만드세요.",
+  "custom_prompts_empty": "프롬프트가 없습니다. +를 클릭하여 추가하세요.",
+  "go_to_extension_settings": "프롬프트를 추가하려면 설정 → 확장으로 이동하세요.",
+  "add_prompt": "프롬프트 추가",
+  "edit_prompt": "프롬프트 편집",
+  "prompt_title": "제목",
+  "prompt_title_placeholder": "예: 고급 어휘 추출",
+  "prompt_content": "프롬프트 내용",
+  "prompt_content_placeholder": "프롬프트 텍스트 입력…",
+  "select_prompt": "프롬프트 선택",
+  "apply_prompts": "적용 ({n}개 선택됨)",
+  "save": "저장",
 };

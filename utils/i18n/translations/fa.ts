@@ -378,4 +378,19 @@ export default {
   "time_hours_ago": "{n} ساعت پیش",
   "error_expand": "درخواست ناموفق · برای جزئیات بزنید",
   "error_collapse": "پنهان کردن",
+
+  // Custom Prompts
+  "custom_prompts": "پرامپت‌های سفارشی",
+  "custom_prompts_desc": "قالب‌های پرامپت قابل استفاده مجدد برای خلاصه هوش مصنوعی بسازید.",
+  "custom_prompts_empty": "هنوز پرامپتی وجود ندارد. برای افزودن + را بزنید.",
+  "go_to_extension_settings": "برای افزودن پرامپت به تنظیمات ← افزونه بروید.",
+  "add_prompt": "افزودن پرامپت",
+  "edit_prompt": "ویرایش پرامپت",
+  "prompt_title": "عنوان",
+  "prompt_title_placeholder": "مثال: استخراج لغات پیشرفته",
+  "prompt_content": "محتوای پرامپت",
+  "prompt_content_placeholder": "متن پرامپت را وارد کنید…",
+  "select_prompt": "انتخاب پرامپت",
+  "apply_prompts": "اعمال ({n} انتخاب شده)",
+  "save": "ذخیره",
 };

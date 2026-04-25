@@ -448,4 +448,19 @@ export default {
   "time_hours_ago": "{n} 小时前",
   "error_expand": "请求失败·点击查看详情",
   "error_collapse": "收起详情",
+
+  // Custom Prompts
+  "custom_prompts": "自定义 Prompt",
+  "custom_prompts_desc": "创建可复用的 Prompt 模板，在 AI Summary 对话时一键填充到输入框。",
+  "custom_prompts_empty": "暂无 Prompt，点击 + 添加。",
+  "go_to_extension_settings": "前往 设置 → 拓展 页面添加 Prompt。",
+  "add_prompt": "添加 Prompt",
+  "edit_prompt": "编辑 Prompt",
+  "prompt_title": "标题",
+  "prompt_title_placeholder": "例如：提取高级词汇",
+  "prompt_content": "Prompt 内容",
+  "prompt_content_placeholder": "请输入 Prompt 文本…",
+  "select_prompt": "选择 Prompt",
+  "apply_prompts": "应用（已选 {n} 个）",
+  "save": "保存",
 };

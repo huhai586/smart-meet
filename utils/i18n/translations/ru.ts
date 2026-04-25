@@ -350,4 +350,19 @@ export default {
   "time_hours_ago": "{n} ч назад",
   "error_expand": "Ошибка · нажмите для подробностей",
   "error_collapse": "Скрыть",
+
+  // Custom Prompts
+  "custom_prompts": "Пользовательские промпты",
+  "custom_prompts_desc": "Создавайте многоразовые шаблоны промптов для резюме ИИ.",
+  "custom_prompts_empty": "Промптов нет. Нажмите +, чтобы добавить.",
+  "go_to_extension_settings": "Перейдите в Настройки → Расширение, чтобы добавить промпты.",
+  "add_prompt": "Добавить промпт",
+  "edit_prompt": "Редактировать промпт",
+  "prompt_title": "Заголовок",
+  "prompt_title_placeholder": "напр. Извлечь продвинутую лексику",
+  "prompt_content": "Содержание промпта",
+  "prompt_content_placeholder": "Введите текст промпта…",
+  "select_prompt": "Выбрать промпт",
+  "apply_prompts": "Применить ({n} выбрано)",
+  "save": "Сохранить",
 };

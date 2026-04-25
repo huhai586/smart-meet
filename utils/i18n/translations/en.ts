@@ -446,4 +446,19 @@ export default {
   "time_hours_ago": "{n} hr ago",
   "error_expand": "Request failed · tap to see details",
   "error_collapse": "Hide details",
+
+  // Custom Prompts
+  "custom_prompts": "Custom Prompts",
+  "custom_prompts_desc": "Create reusable prompt templates for AI Summary. Select one or more when chatting to fill them into the input box.",
+  "custom_prompts_empty": "No prompts yet. Click + to add one.",
+  "go_to_extension_settings": "Go to Settings → Extension to add prompts.",
+  "add_prompt": "Add Prompt",
+  "edit_prompt": "Edit Prompt",
+  "prompt_title": "Title",
+  "prompt_title_placeholder": "e.g. Extract advanced vocabulary",
+  "prompt_content": "Prompt Content",
+  "prompt_content_placeholder": "Enter the prompt text…",
+  "select_prompt": "Select Prompt",
+  "apply_prompts": "Apply ({n} selected)",
+  "save": "Save",
 };

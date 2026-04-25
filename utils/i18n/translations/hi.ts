@@ -329,4 +329,19 @@ export default {
   "time_hours_ago": "{n} घंटे पहले",
   "error_expand": "अनुरोध विफल · विवरण देखें",
   "error_collapse": "विवरण छुपाएं",
+
+  // Custom Prompts
+  "custom_prompts": "कस्टम प्रॉम्प्ट",
+  "custom_prompts_desc": "AI सारांश के लिए पुनः उपयोग योग्य प्रॉम्प्ट टेम्पलेट बनाएं।",
+  "custom_prompts_empty": "अभी कोई प्रॉम्प्ट नहीं। + पर क्लिक करें।",
+  "go_to_extension_settings": "प्रॉम्प्ट जोड़ने के लिए सेटिंग → एक्सटेंशन पर जाएं।",
+  "add_prompt": "प्रॉम्प्ट जोड़ें",
+  "edit_prompt": "प्रॉम्प्ट संपादित करें",
+  "prompt_title": "शीर्षक",
+  "prompt_title_placeholder": "जैसे: उन्नत शब्दावली निकालें",
+  "prompt_content": "प्रॉम्प्ट सामग्री",
+  "prompt_content_placeholder": "प्रॉम्प्ट टेक्स्ट दर्ज करें…",
+  "select_prompt": "प्रॉम्प्ट चुनें",
+  "apply_prompts": "लागू करें ({n} चयनित)",
+  "save": "सहेजें",
 };
