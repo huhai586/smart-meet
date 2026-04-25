@@ -1,21 +1,17 @@
-import { PlusOutlined, TagOutlined, GlobalOutlined, CloudSyncOutlined, FileTextOutlined, QuestionCircleOutlined, CalendarOutlined } from "@ant-design/icons"
-import {Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select, DatePicker} from "antd"
+import { PlusOutlined, TagOutlined, FileTextOutlined, QuestionCircleOutlined, CalendarOutlined } from "@ant-design/icons"
+import { Button, Input, Tag, type InputRef, Modal, Typography, Divider, Select, DatePicker } from "antd"
 import { TweenOneGroup } from "rc-tween-one"
 import { useEffect, useRef, useState } from "react"
 import dayjs, { type Dayjs } from 'dayjs';
 
-import { Actions } from "~components/captions/types"
-import askAI from "../../utils/askAI"
-import {getDomain, getDomainTags, getSpecificTags} from "../../utils/common";
-import BackupAndRestore from "~components/google-drive/backup-and-restore";
+import { getSpecificTags } from "../../utils/common";
 import { useI18n } from '../../utils/i18n';
 import getMeetingCaptions from '../../utils/getCaptions';
-import { useDateContext } from '../../contexts/DateContext';
 import saveChatLogAsTxt from '../../utils/save';
+import { createJsonFile, downloadFile } from '../../utils/file-utils';
 import messageManager from '../../utils/message-manager';
 
-const { Title, Text } = Typography;
-const { TextArea } = Input;
+const { Text } = Typography;
 
 interface ExtensionPropsInterface {
     jumpToCaptions?: () => void;
@@ -24,48 +20,25 @@ interface ExtensionPropsInterface {
 const Extension = (_props: ExtensionPropsInterface) => {
     const { t } = useI18n();
     const [specificTags, setTags] = useState([]);
-    const [domain, setDomain] = useState('');
-    const [modalData, setModalData] = useState([]);
-    const [domainTags, setDomainTags] = useState([]);
     const [inputVisible, setInputVisible] = useState(false);
     const [inputValue, setInputValue] = useState('');
 
     const inputRef = useRef<InputRef>(null);
-    const [highlightWordsByDescriptions, setHighlightWordsByDescriptions] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [isExportModalOpen, setIsExportModalOpen] = useState(false);
     const [meetingNames, setMeetingNames] = useState<string[]>([]);
     const [selectedExportMeeting, setSelectedExportMeeting] = useState<string>('');
-    const { selectedDate } = useDateContext();
-    // 独立的导出日期选择器状态，默认为今天
+    const [pendingExportFormat, setPendingExportFormat] = useState<'txt' | 'json'>('txt');
     const [exportDate, setExportDate] = useState<Dayjs>(dayjs());
 
     useEffect(() => {
         getSpecificTags().then((res: string[]) => {
             setTags(res);
         });
-
-        getDomainTags().then((res: string[]) => {
-            setDomainTags(res);
-        });
-
-        getDomain().then((res: string) => {
-            setDomain(res);
-        });
     }, []);
 
     useEffect(() => {
-        chrome.storage.local.set({ specificHighlightWords: specificTags }, function() {
-            console.log('specificTags is set to ' + specificTags);
-        });
-        chrome.storage.local.set({ highlightWordsByDescriptions: domainTags }, function() {
-            console.log('domainTags is set to ' + domainTags);
-        });
-        chrome.storage.local.set({ domain: domain }, function() {
-            console.log('domain is set to ' + domain);
-        });
-
-    }, [specificTags, domainTags, domain]);
+        chrome.storage.local.set({ specificHighlightWords: specificTags });
+    }, [specificTags]);
 
     useEffect(() => {
         if (inputVisible) {
@@ -74,13 +47,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
     }, [inputVisible]);
 
     const handleClose = (removedTag: string) => {
-        const newTags = specificTags.filter((tag) => tag !== removedTag);
-        console.log(newTags);
-        setTags(newTags);
-    };
-
-    const showInput = () => {
-        setInputVisible(true);
+        setTags(specificTags.filter((tag) => tag !== removedTag));
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,144 +64,75 @@ const Extension = (_props: ExtensionPropsInterface) => {
 
     const forMap = (tag: string) => (
         <span key={tag} style={{ display: 'inline-block' }}>
-      <Tag
-          closable
-                    onClose={() => {
-                        handleClose(tag);
-                    }}
-      >
-        {tag}
-      </Tag>
-    </span>
-    );
-
-    const removeHighlightWordInDomainTags = (word: string) => {
-        const newDomainTags = domainTags.filter((tag) => tag !== word);
-        setDomainTags(newDomainTags);
-    };
-    const forMapDomain = (tag: string) => (
-        <span key={tag} style={{ display: 'inline-block' }}>
-      <Tag
-          closable
-          onClose={() => {
-              removeHighlightWordInDomainTags(tag);
-          }}
-      >
-        {tag}
-      </Tag>
-    </span>
+            <Tag closable onClose={() => handleClose(tag)}>
+                {tag}
+            </Tag>
+        </span>
     );
 
     const tagChild = specificTags.map(forMap);
-    const domainTagChild = domainTags.map(forMapDomain);
 
+    // ── Export helpers ────────────────────────────────────────────────────────
 
-    const preview = async () => {
-        try {
-            console.log('[Extension] Generating keywords...');
-            const res = await askAI(Actions.DEFAULT, `请直接返回一份Array数据，这个Array的每一个值都是单词或者单词缩写,我对这份数据的要求是: ${highlightWordsByDescriptions}，这份数据所属的行业是${domain}`);
-            console.log('[Extension] AI response:', res);
-            
-            const stringWithOutJsonSymbol = res.replaceAll('```json', '').replaceAll('```', '');
-            try {
-                const data = JSON.parse(stringWithOutJsonSymbol);
-                if (Array.isArray(data)) {
-                    setModalData([...new Set(data)]);
-                    showModal()
-                } else {
-                    messageManager.error('the response is not json array');
-                }
-            } catch {
-                messageManager.error('the response is not json valid');
-            }
-        } catch (error) {
-            console.error('[Extension] Failed to generate keywords:', error);
-            // Error is already handled by askAI and ai-error-handler
+    const doExport = (meetingName: string, transcripts: { meetingName: string; timestamp: string | number; talkContent: string; activeSpeaker: string; }[], format: 'txt' | 'json') => {
+        const filtered = transcripts.filter(t =>
+            t.meetingName === meetingName &&
+            dayjs(t.timestamp).format('YYYY-MM-DD') === exportDate.format('YYYY-MM-DD')
+        );
+
+        if (filtered.length === 0) {
+            messageManager.warning(t('no_data_found') || 'No data found for the selected meeting');
+            return;
         }
-    }
 
-    const showModal = () => {
-        setIsModalOpen(true);
+        const safeName = meetingName.replace(/[^a-zA-Z0-9]/g, '_');
+        const dateStr = exportDate.format('YYYY-MM-DD');
+
+        if (format === 'json') {
+            const file = createJsonFile(filtered, `${safeName}_${dateStr}.json`, { pretty: true });
+            downloadFile(file);
+        } else {
+            let textContent = `Meeting: ${meetingName}\nDate: ${dateStr}\n\n`;
+            filtered.forEach(tr => {
+                const time = dayjs(tr.timestamp).format('HH:mm:ss');
+                textContent += `[${time}] ${tr.activeSpeaker || 'Unknown'}: ${tr.talkContent || '(no content)'}\n\n`;
+            });
+            saveChatLogAsTxt(textContent, `${safeName}_${dateStr}.txt`);
+        }
+
+        messageManager.success(t('export_success') || 'Export successful');
     };
 
-    const handleOk = () => {
-        setIsModalOpen(false);
-        setDomainTags(modalData);
-    };
-
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-    const removeHighlightWordInModalData = (word: string) => {
-        const newModalData = modalData.filter((tag) => tag !== word);
-        setModalData(newModalData);
-    };
-
-    // 处理导出会议聊天记录为txt文件
-    const handleExportCaptionsText = () => {
-        // 使用独立的 exportDate 而不是 selectedDate
+    const handleExport = (format: 'txt' | 'json') => {
         getMeetingCaptions(exportDate).then((transcripts) => {
-            // 提取会议名称列表
             const uniqueMeetingNames = Array.from(new Set(
                 transcripts
-                    .filter(t => dayjs(t.timestamp).format('YYYY-MM-DD') === exportDate.format('YYYY-MM-DD'))
-                    .map(t => t.meetingName || '')
+                    .filter(tr => dayjs(tr.timestamp).format('YYYY-MM-DD') === exportDate.format('YYYY-MM-DD'))
+                    .map(tr => tr.meetingName || '')
                     .filter(name => name.trim() !== '')
             ));
-            
-            // 如果没有会议记录
+
             if (uniqueMeetingNames.length === 0) {
                 messageManager.warning(t('no_meeting_data_for_export') || 'No meeting data available for export');
                 return;
             }
-            
-            // 如果只有一个会议，直接导出
+
             if (uniqueMeetingNames.length === 1) {
-                exportMeetingCaptions(uniqueMeetingNames[0], transcripts);
+                doExport(uniqueMeetingNames[0], transcripts, format);
             } else {
-                // 如果有多个会议，弹出选择框
+                setPendingExportFormat(format);
                 setMeetingNames(uniqueMeetingNames);
                 setSelectedExportMeeting(uniqueMeetingNames[0]);
                 setIsExportModalOpen(true);
             }
         });
     };
-    
-    // 导出指定会议的聊天记录
-    const exportMeetingCaptions = (meetingName: string, transcripts: { meetingName: string; timestamp: string | number; talkContent: string; activeSpeaker: string; }[]) => {
-        // 使用 exportDate 而不是 selectedDate
-        const filteredTranscripts = transcripts.filter(t => 
-            t.meetingName === meetingName && 
-            dayjs(t.timestamp).format('YYYY-MM-DD') === exportDate.format('YYYY-MM-DD')
-        );
-        
-        if (filteredTranscripts.length === 0) {
-            messageManager.warning(t('no_data_found') || 'No data found for the selected meeting');
-            return;
-        }
-        
-        // 格式化聊天记录为文本
-        let textContent = `Meeting: ${meetingName}\nDate: ${exportDate.format('YYYY-MM-DD')}\n\n`;
-        filteredTranscripts.forEach(transcript => {
-            const time = dayjs(transcript.timestamp).format('HH:mm:ss');
-            // 直接使用talkContent作为聊天内容
-            const messageContent = transcript.talkContent || '(no content)';
-            textContent += `[${time}] ${transcript.activeSpeaker || 'Unknown'}: ${messageContent}\n\n`;
-        });
-        
-        // 导出为TXT文件
-        const fileName = `${meetingName.replace(/[^a-zA-Z0-9]/g, '_')}_${exportDate.format('YYYY-MM-DD')}.txt`;
-        saveChatLogAsTxt(textContent, fileName);
-        
-        messageManager.success(t('export_success') || 'Export successful');
-    };
-    
-    // 确认导出选择的会议
+
     const handleExportConfirm = () => {
         setIsExportModalOpen(false);
         if (selectedExportMeeting) {
             getMeetingCaptions(exportDate).then((transcripts) => {
-                exportMeetingCaptions(selectedExportMeeting, transcripts);
+                doExport(selectedExportMeeting, transcripts, pendingExportFormat);
             });
         }
     };
@@ -242,6 +140,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
     return (
         <div className={'extension-container'}>
             <div className={'highlight-setting'}>
+                {/* ── Specific highlight words ── */}
                 <div className={'highlight-section'}>
                     <div className={'highlight-header'}>
                         <TagOutlined style={{ color: '#1a73e8' }} />
@@ -250,7 +149,6 @@ const Extension = (_props: ExtensionPropsInterface) => {
                     <div className={'highlight-description'}>
                         {t('specific_highlight_desc')}
                     </div>
-                
                     <div className={'highlight-content'}>
                         <TweenOneGroup
                             appear={false}
@@ -278,62 +176,24 @@ const Extension = (_props: ExtensionPropsInterface) => {
                                 placeholder={t('enter_word')}
                             />
                         ) : (
-                            <Tag onClick={showInput} className={'add-more'}>
+                            <Tag onClick={() => setInputVisible(true)} className={'add-more'}>
                                 <PlusOutlined /> {t('add_word')}
                             </Tag>
                         )}
                     </div>
                 </div>
 
-                <div className={'highlight-section'}>
-                    <div className={'highlight-header'}>
-                        <GlobalOutlined style={{ color: '#1a73e8' }} />
-                        <span>{t('domain_specific_highlights')}</span>
-                    </div>
-                    <div className={'highlight-description'}>
-                        {t('domain_specific_desc')}
-                    </div>
-                
-                    <div className="highlight-content">
-                        <Input 
-                            className='domain-inputer'
-                            placeholder={t('domain_placeholder')}
-                            value={domain}
-                            onChange={(v) => {setDomain(v.target.value)}}
-                            prefix={<GlobalOutlined style={{ color: '#a0aec0' }} />}
-                            style={{ maxWidth: '600px' }}
-                        />
-                        
-                        <TextArea
-                            rows={4}
-                            placeholder={t('keywords_placeholder')}
-                            onChange={(v) => { setHighlightWordsByDescriptions(v.target.value)}}
-                            value={highlightWordsByDescriptions}
-                            style={{ maxWidth: '600px' }}
-                        />
-                        
-                        <div className="valid-words">
-                            <Button 
-                                onClick={preview}
-                                icon={<CloudSyncOutlined />}
-                                type="primary"
-                            >
-                                {t('generate_keywords')}
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-
+                {/* ── Export captions ── */}
                 <div className="highlight-section">
                     <div className={'highlight-header'}>
                         <FileTextOutlined style={{ color: '#1a73e8' }} />
                         <span>{t('export_captions_text') || 'Export Captions Text'}</span>
                     </div>
                     <div className={'highlight-description'}>
-                        {t('export_captions_desc') || 'Export meeting captions as a text file for the selected date.'}
+                        {t('export_captions_desc') || 'Export meeting captions for the selected date.'}
                     </div>
                     <div className="highlight-content">
-                        <DatePicker 
+                        <DatePicker
                             value={exportDate}
                             onChange={(date) => date && setExportDate(date)}
                             format="YYYY-MM-DD"
@@ -341,17 +201,27 @@ const Extension = (_props: ExtensionPropsInterface) => {
                             style={{ marginBottom: '12px', maxWidth: '300px', width: '100%' }}
                             suffixIcon={<CalendarOutlined />}
                         />
-                        <Button 
-                            onClick={handleExportCaptionsText}
-                            type="primary"
-                            icon={<FileTextOutlined />}
-                            className="action-button"
-                        >
-                            {t('export_captions_button') || 'Export as TXT'}
-                        </Button>
+                        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                            <Button
+                                onClick={() => handleExport('txt')}
+                                type="primary"
+                                icon={<FileTextOutlined />}
+                                className="action-button"
+                            >
+                                {t('export_as_txt') || 'Export as TXT'}
+                            </Button>
+                            <Button
+                                onClick={() => handleExport('json')}
+                                icon={<FileTextOutlined />}
+                                className="action-button"
+                            >
+                                {t('export_as_json') || 'Export as JSON'}
+                            </Button>
+                        </div>
                     </div>
                 </div>
 
+                {/* ── Help & Guide ── */}
                 <div className="highlight-section">
                     <div className={'highlight-header'}>
                         <QuestionCircleOutlined style={{ color: '#1a73e8' }} />
@@ -361,7 +231,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
                         {t('help_guide_desc') || 'View the welcome guide to learn how to use this extension effectively.'}
                     </div>
                     <div className="highlight-content">
-                        <Button 
+                        <Button
                             onClick={() => {
                                 chrome.tabs.create({
                                     url: chrome.runtime.getURL('options.html#welcome')
@@ -376,44 +246,8 @@ const Extension = (_props: ExtensionPropsInterface) => {
                 </div>
 
                 <Divider style={{ margin: '32px 0 24px' }} />
-                
-                <div className="backup-restore-container">
-                    <BackupAndRestore />
-                </div>
 
-                <Modal
-                    title={
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <TagOutlined style={{ color: '#1a73e8', fontSize: '20px' }} />
-                            <span>{t('preview_keywords')}</span>
-                        </div>
-                    }
-                    open={isModalOpen}
-                    onOk={handleOk}
-                    onCancel={handleCancel}
-                    okText={t('apply_keywords')}
-                    cancelText={t('cancel')}
-                    className="extension-modal"
-                >
-                    <Text type="secondary" style={{ display: 'block', marginBottom: '16px' }}>
-                        {t('review_keywords')}
-                    </Text>
-                    <div>
-                        {modalData.map((tag) => (
-                            <span key={tag}>
-                                <Tag
-                                    closable
-                                    onClose={() => {
-                                        removeHighlightWordInModalData(tag);
-                                    }}
-                                >
-                                    {tag}
-                                </Tag>
-                            </span>
-                        ))}
-                    </div>
-                </Modal>
-
+                {/* ── Select meeting modal ── */}
                 <Modal
                     title={
                         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
