@@ -1,29 +1,28 @@
 // ============================================================
-// AI Settings - Apple-style Design System
+// AI Settings - Apple-style Design System (Refined)
 // ============================================================
 
 // Design Tokens
-$border-color: #e5e5ea;
 $bg-primary: #ffffff;
 $bg-secondary: #f5f5f7;
-$bg-hover: #f0f0f5;
-$bg-active: #e8e8f0;
-$bg-selected: rgba(0, 122, 255, 0.08);
+$bg-field: #f2f2f7;
+$bg-hover: rgba(0, 0, 0, 0.04);
 $text-primary: #1d1d1f;
 $text-secondary: #6e6e73;
-$text-tertiary: #86868b;
+$text-tertiary: #8e8e93;
 $accent-color: #007aff;
-$accent-hover: #0056b3;
+$accent-hover: #0056cc;
 $success-color: #34c759;
 $warning-color: #ff9500;
 $danger-color: #ff3b30;
-$radius-sm: 8px;
+$radius-sm: 10px;
 $radius-md: 12px;
 $radius-lg: 16px;
-$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-$shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
-$shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+$radius-pill: 100px;
+$shadow-card: 0 1px 4px rgba(0, 0, 0, 0.06), 0 0 0 0.5px rgba(0, 0, 0, 0.08);
+$shadow-icon: 0 1px 3px rgba(0, 0, 0, 0.12), 0 0 0 0.5px rgba(0, 0, 0, 0.06);
 $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
+$font-stack: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
 // ============================================================
 // Main Layout
@@ -34,6 +33,7 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   display: flex;
   flex-direction: column;
   background: $bg-primary;
+  font-family: $font-stack;
 
   &__header {
     padding: 0 0 8px;
@@ -48,30 +48,38 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 // ============================================================
-// Provider Selector (Left Panel)
+// Provider Selector (Left Panel) — Frosted Glass Sidebar
 // ============================================================
 .provider-selector {
-  width: 300px;
-  min-width: 300px;
-  border-right: 1px solid $border-color;
+  width: 240px;
+  min-width: 240px;
+  border-right: 0.5px solid rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  background: $bg-secondary;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
 
   &__search {
-    padding: 16px;
-    border-bottom: 1px solid $border-color;
+    padding: 10px 10px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
 
     .ant-input-affix-wrapper {
-      border-radius: $radius-md;
-      border: 1px solid $border-color;
-      background: $bg-primary;
-      padding: 8px 12px;
+      border-radius: $radius-pill;
+      border: none !important;
+      background: $bg-field !important;
+      padding: 6px 12px;
+      box-shadow: none !important;
       transition: $transition;
 
       &:hover, &:focus-within {
-        border-color: $accent-color;
-        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        background: rgba(0, 122, 255, 0.07) !important;
+      }
+
+      .ant-input {
+        background: transparent !important;
+        font-size: 13px;
+        font-family: $font-stack;
       }
     }
   }
@@ -79,40 +87,55 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   &__list {
     flex: 1;
     overflow-y: auto;
-    padding: 8px;
+    padding: 6px;
 
-    // Custom scrollbar
+    // macOS thin scrollbar — only visible on hover
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
     &::-webkit-scrollbar {
-      width: 6px;
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      background: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 3px;
+      background: transparent;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    &:hover {
+      scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+      &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+      }
     }
   }
 
   &__category {
     &-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: $text-tertiary;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 12px 12px 6px;
+      letter-spacing: 0.6px;
+      padding: 10px 8px 4px;
       user-select: none;
+      font-family: $font-stack;
     }
   }
 
   &__add-custom {
-    padding: 12px 16px;
-    border-top: 1px solid $border-color;
+    padding: 10px 10px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
 
     .ant-btn {
       width: 100%;
       border-radius: $radius-md;
-      height: 40px;
+      height: 36px;
+      font-size: 13px;
       font-weight: 500;
-      border: 1px dashed $border-color;
+      border: 1px dashed rgba(0, 0, 0, 0.15);
       color: $text-secondary;
       background: transparent;
       transition: $transition;
@@ -120,21 +143,21 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
       &:hover {
         border-color: $accent-color;
         color: $accent-color;
-        background: $bg-selected;
+        background: rgba(0, 122, 255, 0.05);
       }
     }
   }
 }
 
-// Provider Item Card
+// Provider Item
 .provider-item {
   display: flex;
   align-items: center;
-  padding: 10px 12px;
-  border-radius: $radius-sm;
+  padding: 7px 10px;
+  border-radius: 20px;
   cursor: pointer;
   transition: $transition;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
   position: relative;
 
   &:hover {
@@ -142,10 +165,32 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   &--selected {
-    background: $bg-selected;
+    background: $accent-color !important;
+
+    .provider-item__name {
+      color: #ffffff;
+    }
+
+    .provider-item__desc {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .provider-item__status {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .provider-item__active-badge {
+      background: rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+    }
+
+    .provider-item__icon {
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: $shadow-icon;
+    }
 
     &:hover {
-      background: $bg-selected;
+      background: $accent-hover !important;
     }
   }
 
@@ -153,20 +198,26 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     .provider-item__status {
       color: $success-color;
     }
+
+    &.provider-item--selected .provider-item__status {
+      color: rgba(255, 255, 255, 0.9);
+    }
   }
 
   &__icon {
-    width: 36px;
-    height: 36px;
-    border-radius: $radius-sm;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 18px;
     background: $bg-primary;
-    box-shadow: $shadow-sm;
-    margin-right: 10px;
+    box-shadow: $shadow-icon;
+    margin-right: 9px;
     flex-shrink: 0;
+    overflow: hidden;
+    transition: $transition;
   }
 
   &__info {
@@ -175,42 +226,45 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   &__name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: $text-primary;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: $font-stack;
   }
 
   &__desc {
     font-size: 11px;
     color: $text-tertiary;
     margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__status {
-    font-size: 12px;
+    font-size: 11px;
     color: $text-tertiary;
     flex-shrink: 0;
-    margin-left: 8px;
+    margin-left: 6px;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
   }
 
   &__active-badge {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
     color: $accent-color;
-    background: rgba(0, 122, 255, 0.1);
-    padding: 2px 6px;
+    background: rgba(0, 122, 255, 0.12);
+    padding: 2px 5px;
     border-radius: 4px;
     text-transform: uppercase;
     letter-spacing: 0.3px;
   }
 }
-
 // ============================================================
 // Provider Config Panel (Right Panel)
 // ============================================================
@@ -219,33 +273,47 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   padding: 32px 40px;
   overflow-y: auto;
   background: $bg-primary;
+  font-family: $font-stack;
 
-  // Custom scrollbar
+  // macOS thin scrollbar — only visible on hover
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
   }
   &::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
+    background: transparent;
+    border-radius: 2px;
+  }
+  &:hover {
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+    }
   }
 
   &__header {
     display: flex;
     align-items: center;
-    margin-bottom: 32px;
-    gap: 16px;
+    margin-bottom: 28px;
+    gap: 14px;
   }
 
   &__icon {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
     border-radius: $radius-md;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 26px;
     background: $bg-secondary;
-    box-shadow: $shadow-sm;
+    box-shadow: $shadow-card;
+    overflow: hidden;
   }
 
   &__title-area {
@@ -253,11 +321,13 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
   &__title {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 600;
     color: $text-primary;
     margin: 0;
     line-height: 1.3;
+    letter-spacing: -0.02em;
+    font-family: $font-stack;
   }
 
   &__subtitle {
@@ -266,7 +336,7 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     margin-top: 2px;
   }
 
-  // Empty state when no provider is selected
+  // Empty state
   &__empty {
     display: flex;
     flex-direction: column;
@@ -278,12 +348,13 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     &-icon {
       font-size: 48px;
       margin-bottom: 16px;
-      opacity: 0.5;
+      opacity: 0.4;
     }
 
     &-text {
       font-size: 16px;
       font-weight: 500;
+      font-family: $font-stack;
     }
 
     &-hint {
@@ -294,53 +365,67 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 
   // Form Sections
   &__section {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 
     &-title {
-      font-size: 13px;
+      font-size: 11px;
       font-weight: 600;
-      color: $text-secondary;
+      color: $text-tertiary;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
+      letter-spacing: 0.6px;
+      margin-bottom: 8px;
+      padding-left: 4px;
+      font-family: $font-stack;
     }
   }
 
-  // Config Card
+  // Config Card — white card, ultra-thin border, grouped list style
   &__card {
-    background: $bg-secondary;
+    background: $bg-primary;
     border-radius: $radius-md;
-    padding: 20px;
-    border: 1px solid transparent;
-    transition: $transition;
-
-    &:hover {
-      border-color: $border-color;
-    }
+    overflow: hidden;
+    box-shadow: $shadow-card;
   }
 
-  // Form Fields
+  // Form Fields — horizontal row layout (iOS Settings style)
   &__field {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 12px 16px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+    gap: 12px;
+    min-height: 50px;
 
     &:last-child {
-      margin-bottom: 0;
+      border-bottom: none;
     }
 
     &-label {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       font-size: 14px;
       font-weight: 500;
       color: $text-primary;
-      margin-bottom: 8px;
+      min-width: 88px;
+      max-width: 88px;
+      flex-shrink: 0;
+      padding-top: 9px;
+      font-family: $font-stack;
+    }
+
+    &-control {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
     }
 
     &-hint {
       font-size: 12px;
       color: $text-tertiary;
-      margin-top: 6px;
+      line-height: 1.4;
 
       a {
         color: $accent-color;
@@ -352,30 +437,69 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
       }
     }
 
+    // Ant Design input overrides — borderless, #F2F2F7 background
     .ant-input,
-    .ant-select-selector {
+    .ant-input-affix-wrapper {
       border-radius: $radius-sm !important;
-      border-color: $border-color !important;
+      border: none !important;
+      background: $bg-field !important;
+      box-shadow: none !important;
       transition: $transition;
+      font-family: $font-stack;
 
       &:hover {
-        border-color: #c8c8cc !important;
+        background: #ebebf0 !important;
       }
 
-      &:focus,
-      &.ant-select-focused {
-        border-color: $accent-color !important;
-        box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1) !important;
+      &.ant-input-affix-wrapper-focused,
+      &:focus-within {
+        background: rgba(0, 122, 255, 0.06) !important;
+        outline: 2px solid rgba(0, 122, 255, 0.28) !important;
+        outline-offset: 0 !important;
       }
     }
 
     .ant-input {
-      padding: 10px 12px;
+      padding: 9px 12px;
       font-size: 14px;
+    }
+
+    .ant-input-affix-wrapper {
+      padding: 9px 12px;
+
+      .ant-input {
+        padding: 0 !important;
+        background: transparent !important;
+      }
     }
 
     .ant-select {
       width: 100%;
+
+      .ant-select-selector {
+        border-radius: $radius-sm !important;
+        border: none !important;
+        background: $bg-field !important;
+        box-shadow: none !important;
+        padding: 0 12px !important;
+        height: 38px !important;
+        transition: $transition;
+        font-family: $font-stack;
+
+        .ant-select-selection-item {
+          line-height: 38px !important;
+        }
+      }
+
+      &.ant-select-focused .ant-select-selector {
+        background: rgba(0, 122, 255, 0.06) !important;
+        outline: 2px solid rgba(0, 122, 255, 0.28) !important;
+        outline-offset: 0 !important;
+      }
+
+      &:hover .ant-select-selector {
+        background: #ebebf0 !important;
+      }
     }
   }
 
@@ -385,40 +509,48 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     align-items: center;
     justify-content: space-between;
     padding: 14px 20px;
-    background: $bg-secondary;
+    background: $bg-primary;
     border-radius: $radius-md;
     margin-bottom: 24px;
+    box-shadow: $shadow-card;
 
     &-label {
       font-size: 14px;
       font-weight: 500;
       color: $text-primary;
+      font-family: $font-stack;
     }
 
     &-desc {
       font-size: 12px;
       color: $text-tertiary;
+      margin-top: 2px;
+    }
+
+    // Green toggle (Apple default active colour)
+    .ant-switch-checked {
+      background: $success-color !important;
     }
   }
 
-  // Connection test
+  // Connection test result — inside the card as a bottom row
   &__test {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 16px;
-    padding: 12px 16px;
-    border-radius: $radius-sm;
+    padding: 11px 16px;
     font-size: 13px;
     font-weight: 500;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+    font-family: $font-stack;
 
     &--success {
-      background: rgba(52, 199, 89, 0.1);
+      background: rgba(52, 199, 89, 0.07);
       color: $success-color;
     }
 
     &--error {
-      background: rgba(255, 59, 48, 0.1);
+      background: rgba(255, 59, 48, 0.07);
       color: $danger-color;
     }
 
@@ -431,38 +563,55 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
   // Action Buttons
   &__actions {
     display: flex;
-    gap: 12px;
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid $border-color;
+    gap: 10px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
 
     .ant-btn {
       border-radius: $radius-sm;
-      height: 42px;
+      height: 40px;
       font-weight: 500;
       font-size: 14px;
-      padding: 0 24px;
+      padding: 0 22px;
       transition: $transition;
+      font-family: $font-stack;
     }
 
+    // Primary — Save Configuration
     .ant-btn-primary {
       background: $accent-color;
       border-color: $accent-color;
       box-shadow: none;
+      letter-spacing: -0.02em;
 
       &:hover {
         background: $accent-hover;
         border-color: $accent-hover;
+        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.28);
       }
     }
 
+    // Secondary — Test Connection (ghost, blue text)
     .ant-btn-default {
-      border-color: $border-color;
-      color: $text-secondary;
+      border: none;
+      background: rgba(0, 0, 0, 0.05);
+      color: $accent-color;
 
       &:hover {
-        border-color: $accent-color;
-        color: $accent-color;
+        background: rgba(0, 122, 255, 0.08);
+        color: $accent-hover;
+      }
+    }
+
+    // Danger — Remove
+    .ant-btn-dangerous {
+      border: none;
+      background: rgba(255, 59, 48, 0.07);
+      color: $danger-color;
+
+      &:hover {
+        background: rgba(255, 59, 48, 0.12);
       }
     }
   }
@@ -484,6 +633,8 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
     .ant-modal-title {
       font-size: 18px;
       font-weight: 600;
+      letter-spacing: -0.02em;
+      font-family: $font-stack;
     }
   }
 
@@ -496,15 +647,26 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
 
     label {
       display: block;
-      font-size: 14px;
-      font-weight: 500;
-      color: $text-primary;
-      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      color: $text-tertiary;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      font-family: $font-stack;
     }
 
     .ant-input {
       border-radius: $radius-sm;
+      border: none;
+      background: $bg-field;
       padding: 10px 12px;
+      font-family: $font-stack;
+
+      &:focus {
+        background: rgba(0, 122, 255, 0.05);
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.25);
+      }
     }
 
     &-hint {
@@ -513,4 +675,4 @@ $transition: all 0.2s cubic-bezier(0.25, 0.1, 0.25, 1);
       margin-top: 4px;
     }
   }
-} 
+}

@@ -185,18 +185,20 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
               <div className="provider-config__field-label">
                 API Key
               </div>
-              <Input.Password
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                placeholder={t('enter_api_key') || 'Enter your API key'}
-              />
-              {provider.apiKeyUrl && (
-                <div className="provider-config__field-hint">
-                  <a href={provider.apiKeyUrl} target="_blank" rel="noopener noreferrer">
-                    <LinkOutlined /> {t('get_api_key') || 'Get API key'} →
-                  </a>
-                </div>
-              )}
+              <div className="provider-config__field-control">
+                <Input.Password
+                  value={apiKey}
+                  onChange={(e) => setApiKey(e.target.value)}
+                  placeholder={t('enter_api_key') || 'Enter your API key'}
+                />
+                {provider.apiKeyUrl && (
+                  <div className="provider-config__field-hint">
+                    <a href={provider.apiKeyUrl} target="_blank" rel="noopener noreferrer">
+                      <LinkOutlined /> {t('get_api_key') || 'Get API key'} →
+                    </a>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 
@@ -211,40 +213,44 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
                   icon={<ReloadOutlined spin={modelsFetching} />}
                   onClick={handleRefreshModels}
                   disabled={modelsFetching}
-                  style={{ marginLeft: 4, color: modelsFromCache ? '#86868b' : '#34c759' }}
+                  style={{ marginLeft: 2, color: modelsFromCache ? '#8e8e93' : '#34c759' }}
                 />
               </Tooltip>
             </div>
-            <Select
-              value={modelName}
-              onChange={setModelName}
-              options={modelOptions}
-              showSearch
-              loading={modelsFetching}
-              placeholder={t('select_model') || 'Select a model'}
-              filterOption={(input, option) =>
-                (option?.label as string)?.toLowerCase().includes(input.toLowerCase())
-              }
-            />
-            {modelsFromCache && (
-              <div className="provider-config__field-hint">
-                {t('models_from_cache') || 'Model list from cache · updates every 24h'}
-              </div>
-            )}
+            <div className="provider-config__field-control">
+              <Select
+                value={modelName}
+                onChange={setModelName}
+                options={modelOptions}
+                showSearch
+                loading={modelsFetching}
+                placeholder={t('select_model') || 'Select a model'}
+                filterOption={(input, option) =>
+                  (option?.label as string)?.toLowerCase().includes(input.toLowerCase())
+                }
+              />
+              {modelsFromCache && (
+                <div className="provider-config__field-hint">
+                  {t('models_from_cache') || 'Model list from cache · updates every 24h'}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Base URL (optional) */}
           <div className="provider-config__field">
             <div className="provider-config__field-label">
-              {provider.type === 'ollama' ? 'Ollama URL' : `${t('base_url') || 'Base URL'} (${t('optional') || 'Optional'})`}
+              {provider.type === 'ollama' ? 'Ollama URL' : (t('base_url') || 'Base URL')}
             </div>
-            <Input
-              value={baseUrl}
-              onChange={(e) => setBaseUrl(e.target.value)}
-              placeholder={provider.defaultBaseURL}
-            />
-            <div className="provider-config__field-hint">
-              {t('base_url_hint') || 'Override the default API endpoint (e.g., for proxy)'}
+            <div className="provider-config__field-control">
+              <Input
+                value={baseUrl}
+                onChange={(e) => setBaseUrl(e.target.value)}
+                placeholder={provider.defaultBaseURL || (t('optional') || 'Optional')}
+              />
+              <div className="provider-config__field-hint">
+                {t('base_url_hint') || 'Override the default API endpoint (e.g., for proxy)'}
+              </div>
             </div>
           </div>
 
