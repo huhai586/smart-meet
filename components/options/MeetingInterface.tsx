@@ -1,18 +1,107 @@
 import React from 'react';
-import { Typography, Card, Space, theme, Switch } from 'antd';
+import { Switch } from 'antd';
 import { MessageOutlined, PushpinOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 import useI18n from '~utils/i18n';
-import StyledTitle from '~components/common/StyledTitle';
 import useCaptionToggle from '~hooks/useCaptionToggle';
 import useStickerToggle from '~hooks/useStickerToggle';
 import messageManager from '~utils/message-manager';
-import '~styles/meeting-interface.scss';
 
-const { Text } = Typography;
-const { useToken } = theme;
+/* ── Styled Components ── */
+
+const PageWrapper = styled.div`
+  padding: 0 20px;
+  max-width: 800px;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
+`;
+
+const PageHeader = styled.div`
+  padding: 0 0 24px;
+`;
+
+const PageTitle = styled.h1`
+  font-size: 28px;
+  font-weight: 700;
+  color: #1C1C1E;
+  letter-spacing: -0.5px;
+  margin: 0 0 4px;
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+`;
+
+const PageSubtitle = styled.p`
+  font-size: 13px;
+  color: #8E8E93;
+  margin: 0;
+  line-height: 1.4;
+`;
+
+const SectionLabel = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  color: #8E8E93;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 0 4px 8px;
+`;
+
+const SettingGroup = styled.div`
+  background: #fff;
+  border-radius: 12px;
+  border: 0.5px solid rgba(60, 60, 67, 0.14);
+  overflow: hidden;
+  margin-bottom: 8px;
+`;
+
+const SettingRow = styled.div<{ $last?: boolean }>`
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: #fff;
+  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid rgba(60, 60, 67, 0.12)')};
+  gap: 12px;
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.018);
+  }
+`;
+
+const IconSquircle = styled.div<{ $color: string }>`
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: ${({ $color }) => $color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 15px;
+`;
+
+const RowContent = styled.div`
+  flex: 1;
+  min-width: 0;
+`;
+
+const RowTitle = styled.div`
+  font-size: 15px;
+  font-weight: 400;
+  color: #1C1C1E;
+  line-height: 1.3;
+`;
+
+const SectionFooter = styled.p`
+  font-size: 12px;
+  color: #8E8E93;
+  padding: 6px 4px 20px;
+  margin: 0;
+  line-height: 1.5;
+`;
+
+/* ── Component ── */
 
 const MeetingInterface: React.FC = () => {
-  const { token } = useToken();
   const { t } = useI18n();
   const [captionToggleEnabled, setCaptionToggleEnabled] = useCaptionToggle();
   const [stickerEnabled, setStickerEnabled] = useStickerToggle();
@@ -31,60 +120,46 @@ const MeetingInterface: React.FC = () => {
     );
   };
 
+  const items = [
+    {
+      icon: <MessageOutlined />,
+      color: '#007AFF',
+      label: t('caption_toggle_button'),
+      desc: t('caption_toggle_button_desc'),
+      checked: captionToggleEnabled,
+      onChange: handleCaptionToggleChange,
+    },
+    {
+      icon: <PushpinOutlined />,
+      color: '#FF9500',
+      label: t('sticker_note'),
+      desc: t('sticker_note_desc'),
+      checked: stickerEnabled,
+      onChange: handleStickerToggleChange,
+    },
+  ];
+
   return (
-    <div>
-      <StyledTitle subtitle={t('meeting_interface_desc')}>{t('meeting_interface')}</StyledTitle>
+    <PageWrapper>
+      <PageHeader>
+        <PageTitle>{t('meeting_interface')}</PageTitle>
+        <PageSubtitle>{t('meeting_interface_desc')}</PageSubtitle>
+      </PageHeader>
 
-      <div style={{ padding: "0 20px" }}>
-        {/* Caption Toggle Button Section */}
-        <Card className="meeting-interface-card">
-          <Space direction="vertical" style={{ width: "100%" }} size="large">
-            <div className="meeting-interface-switch-container">
-              <div className="meeting-interface-option-content">
-                <div className="meeting-interface-option-header">
-                  <MessageOutlined className="meeting-interface-option-icon" />
-                  <Text strong className="meeting-interface-section-title">
-                    {t('caption_toggle_button')}
-                  </Text>
-                </div>
-                <Text type="secondary" className="meeting-interface-section-description">
-                  {t('caption_toggle_button_desc')}
-                </Text>
-              </div>
-              <Switch
-                checked={captionToggleEnabled}
-                onChange={handleCaptionToggleChange}
-                style={{
-                  backgroundColor: captionToggleEnabled ? token.colorSuccess : undefined
-                }}
-              />
-            </div>
-
-            {/* Sticker Note Section */}
-            <div className="meeting-interface-switch-container">
-              <div className="meeting-interface-option-content">
-                <div className="meeting-interface-option-header">
-                  <PushpinOutlined className="meeting-interface-option-icon" />
-                  <Text strong className="meeting-interface-section-title">
-                    {t('sticker_note')}
-                  </Text>
-                </div>
-                <Text type="secondary" className="meeting-interface-section-description">
-                  {t('sticker_note_desc')}
-                </Text>
-              </div>
-              <Switch
-                checked={stickerEnabled}
-                onChange={handleStickerToggleChange}
-                style={{
-                  backgroundColor: stickerEnabled ? token.colorSuccess : undefined
-                }}
-              />
-            </div>
-          </Space>
-        </Card>
-      </div>
-    </div>
+      <SectionLabel>{t('meeting_interface')}</SectionLabel>
+      <SettingGroup>
+        {items.map((item, idx) => (
+          <SettingRow key={item.label} $last={idx === items.length - 1}>
+            <IconSquircle $color={item.color}>{item.icon}</IconSquircle>
+            <RowContent>
+              <RowTitle>{item.label}</RowTitle>
+            </RowContent>
+            <Switch checked={item.checked} onChange={item.onChange} />
+          </SettingRow>
+        ))}
+      </SettingGroup>
+      <SectionFooter>{t('meeting_interface_desc')}</SectionFooter>
+    </PageWrapper>
   );
 };
 
