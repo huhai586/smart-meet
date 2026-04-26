@@ -5,7 +5,7 @@ import {message} from "antd";
 import './utils/dayjs-config'; // Import global dayjs configuration
 import { setDayjsLocale } from './utils/dayjs-config';
 import GoogleDriveIntegration from '~components/options/GoogleDriveIntegration';
-import Calendar from '~components/options/Calendar';
+import CalendarWithAI from '~components/options/CalendarWithAI';
 import Sidebar from '~components/options/Sidebar';
 import TranslationSettings from '~components/options/TranslationSettings';
 import UILanguageSettings from '~components/options/UILanguageSettings';
@@ -153,7 +153,7 @@ const Options = () => {
                 console.log('Rendering GoogleDriveIntegration');
                 return <GoogleDriveIntegration />;
             case '4':
-                return <Calendar />;
+                return <CalendarWithAI />;
             case '5':
                 return <TranslationSettings />;
             case '6':
