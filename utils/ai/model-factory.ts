@@ -69,18 +69,18 @@ export async function generateChatCompletion(
 
     case 'google': {
       const genAI = new GoogleGenerativeAI(config.apiKey || '');
-      const genModel = genAI.getGenerativeModel({ model: modelName });
       const systemMsg = messages.find(m => m.role === 'system');
+      const genModel = genAI.getGenerativeModel({
+        model: modelName,
+        ...(systemMsg ? { systemInstruction: systemMsg.content } : {}),
+      });
       const chatMsgs = messages.filter(m => m.role !== 'system');
       const lastMsg = chatMsgs[chatMsgs.length - 1];
       const history = chatMsgs.slice(0, -1).map(m => ({
         role: m.role === 'assistant' ? 'model' as const : 'user' as const,
         parts: [{ text: m.content }],
       }));
-      const chat = genModel.startChat({
-        history,
-        ...(systemMsg ? { systemInstruction: systemMsg.content } : {}),
-      });
+      const chat = genModel.startChat({ history });
       const result = await chat.sendMessage(lastMsg?.content || '');
       return result.response.text();
     }
