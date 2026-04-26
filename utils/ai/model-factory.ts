@@ -6,7 +6,6 @@
  * - @google/generative-ai：Google Gemini
  * - @anthropic-ai/sdk：Anthropic Claude
  */
-import OpenAI from 'openai';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Anthropic from '@anthropic-ai/sdk';
 import { providerRegistry } from './provider-registry';
@@ -41,32 +40,44 @@ export async function generateChatCompletion(
 
   switch (provider.type) {
     case 'openai-compatible': {
-      const client = new OpenAI({
-        apiKey: config.apiKey || 'no-key',
-        baseURL: config.baseURL || provider.defaultBaseURL,
-        dangerouslyAllowBrowser: true,
-        maxRetries: 0,
+      const baseURL = (config.baseURL || provider.defaultBaseURL).replace(/\/$/, '');
+      const resp = await fetch(`${baseURL}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${config.apiKey || 'no-key'}`,
+        },
+        body: JSON.stringify({ model: modelName, messages }),
       });
-      const resp = await client.chat.completions.create({
-        model: modelName,
-        messages: messages as OpenAI.Chat.ChatCompletionMessageParam[],
-      });
-      return resp.choices[0]?.message?.content || '';
+      if (!resp.ok) {
+        let errMsg = `HTTP ${resp.status}`;
+        try {
+          const errData = await resp.json();
+          errMsg = errData?.error?.message || errData?.message || errMsg;
+        } catch { /* ignore */ }
+        throw new Error(errMsg);
+      }
+      const data = await resp.json();
+      return data.choices?.[0]?.message?.content || '';
     }
 
     case 'ollama': {
       const baseURL = (config.baseURL || provider.defaultBaseURL).replace(/\/$/, '') + '/v1';
-      const client = new OpenAI({
-        apiKey: 'ollama',
-        baseURL,
-        dangerouslyAllowBrowser: true,
-        maxRetries: 0,
+      const resp = await fetch(`${baseURL}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: modelName, messages }),
       });
-      const resp = await client.chat.completions.create({
-        model: modelName,
-        messages: messages as OpenAI.Chat.ChatCompletionMessageParam[],
-      });
-      return resp.choices[0]?.message?.content || '';
+      if (!resp.ok) {
+        let errMsg = `HTTP ${resp.status}`;
+        try {
+          const errData = await resp.json();
+          errMsg = errData?.error?.message || errData?.message || errMsg;
+        } catch { /* ignore */ }
+        throw new Error(errMsg);
+      }
+      const data = await resp.json();
+      return data.choices?.[0]?.message?.content || '';
     }
 
     case 'google': {
@@ -311,27 +322,32 @@ export async function fetchAvailableModels(
     return { models: [...provider.models] };
   }
 
-  // OpenAI-compatible：用 SDK 的 models.list()，自动处理分页
+  // OpenAI-compatible：直接 fetch /models，手动带 Authorization 头
+  // （浏览器扩展环境中 OpenAI SDK 有时不正确地附加鉴权头，故统一用 fetch）
   if (provider.type === 'openai-compatible') {
     try {
-      const client = new OpenAI({
-        apiKey: config.apiKey || 'no-key',
-        baseURL: (config.baseURL || provider.defaultBaseURL).replace(/\/$/, ''),
-        dangerouslyAllowBrowser: true,
+      const baseURL = (config.baseURL || provider.defaultBaseURL).replace(/\/$/, '');
+      const resp = await fetch(`${baseURL}/models`, {
+        headers: { 'Authorization': `Bearer ${config.apiKey || 'no-key'}` },
       });
-      const page = await client.models.list();
-      const models: string[] = [];
-      for await (const model of page) {
-        if (isChatModel(model.id)) models.push(model.id);
-      }
-      models.sort();
-      if (models.length > 0) {
-        await writeModelCache(cacheKey, models);
-        return { models };
+      if (!resp.ok) {
+        let errMsg = `HTTP ${resp.status}`;
+        try {
+          const errData = await resp.json();
+          errMsg = errData?.error?.message || errData?.message || errMsg;
+        } catch { /* ignore */ }
+        if (options.forceRefresh) return { models: [...provider.models], error: errMsg };
+      } else {
+        const data = await resp.json();
+        const rawList: { id: string }[] = Array.isArray(data) ? data : (data.data ?? []);
+        const models = rawList.map(m => m.id).filter(isChatModel).sort();
+        if (models.length > 0) {
+          await writeModelCache(cacheKey, models);
+          return { models };
+        }
       }
     } catch (e) {
       if (options.forceRefresh) {
-        // openai SDK 的错误对象上有 message 字段，包含原始 API 错误描述
         const msg = e instanceof Error ? e.message : String(e);
         return { models: [...provider.models], error: msg };
       }
