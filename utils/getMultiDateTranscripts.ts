@@ -10,12 +10,10 @@ export interface MultiDateResult {
 /**
  * Fetch transcripts for a date range (inclusive on both ends).
  * Enumerates each day and calls the background 'get-transcripts' message.
- * Truncates total content to ~8000 chars to avoid exceeding LLM context limits.
  */
 export async function getMultiDateTranscripts(
   startDate: Dayjs,
   endDate: Dayjs,
-  maxChars = 8000
 ): Promise<MultiDateResult> {
   const start = startDate.startOf('day');
   const end = endDate.startOf('day');
@@ -44,18 +42,8 @@ export async function getMultiDateTranscripts(
 
   all.sort((a, b) => a.timestamp - b.timestamp);
 
-  // Truncate to maxChars to protect context window
-  let charCount = 0;
-  const truncated: Transcript[] = [];
-  for (const t of all) {
-    const len = (t.talkContent || '').length;
-    if (charCount + len > maxChars) break;
-    charCount += len;
-    truncated.push(t);
-  }
-
   return {
-    transcripts: truncated,
+    transcripts: all,
     dateCount: end.diff(start, 'day') + 1,
     totalRecords: all.length,
   };
