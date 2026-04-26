@@ -105,9 +105,9 @@
 
   // ── Error state ──
   &--error {
-    border-color: #ffb3b3;
-    background: #fff8f8;
-    box-shadow: 0 1px 6px rgba(229, 57, 53, 0.1);
+    border-color: #e8e8e8;
+    background: #fff8f7;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   }
 
   // ── Loading state ──
@@ -237,28 +237,53 @@
   40%           { transform: scale(1);   opacity: 1;   }
 }
 
-// ─── Error details ────────────────────────────────────────────────────────────
-.summary-error-details {
+// ─── Error card (Apple-style) ───────────────────────────────────────────────
+.summary-error-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  &__row {
+  gap: 6px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  &__icon {
+    font-size: 15px;
+    color: #ff6b6b;
+    flex-shrink: 0;
+    position: relative;
+    top: -1px;
+  }
+
+  &__title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1c1c1e;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    letter-spacing: -0.1px;
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 12px;
+    color: #636366;
+    line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  }
+
+  &__actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 2px;
   }
-  &__trigger {
-    font-size: 13px;
-    color: #e53935;
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-decoration-style: dotted;
-    user-select: none;
 
-    &:hover {
-      color: #b71c1c;
-    }
+  &__actions-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   &__retry-btn {
@@ -266,38 +291,65 @@
     align-items: center;
     justify-content: center;
     font-size: 13px;
-    color: #e53935;
+    color: #ff6b6b;
     background: none;
     border: none;
     padding: 2px;
     cursor: pointer;
     flex-shrink: 0;
-    transition: opacity 0.15s ease, transform 0.15s ease;
+    transition: opacity 0.15s ease, transform 0.2s ease;
     line-height: 1;
 
     &:hover {
       opacity: 0.65;
-      transform: rotate(45deg);
+      transform: rotate(60deg);
     }
 
     &:active {
       opacity: 0.4;
-      transform: rotate(90deg);
+      transform: rotate(180deg);
+    }
+  }
+
+  &__details-btn {
+    font-size: 11px;
+    color: #8e8e93;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #636366;
+    }
+  }
+
+  &__action-link {
+    font-size: 12px;
+    font-weight: 400;
+    color: #8e8e93;
+    text-decoration: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: #636366;
     }
   }
 
   &__pre {
-    margin: 0;
-    padding: 10px 12px;
-    background: #fff0f0;
-    border-left: 3px solid #ffb3b3;
-    border-radius: 0 4px 4px 0;
-    font-size: 11px;
-    color: #b71c1c;
+    margin: 2px 0 0;
+    padding: 8px 10px;
+    background: #f2f2f7;
+    border-radius: 6px;
+    font-size: 10.5px;
+    color: #8e8e93;
     white-space: pre-wrap;
     word-break: break-all;
-    font-family: monospace;
-    max-height: 180px;
+    font-family: 'SF Mono', 'Menlo', monospace;
+    max-height: 120px;
     overflow-y: auto;
     line-height: 1.6;
   }

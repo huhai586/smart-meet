@@ -1,10 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { QuestionCircleOutlined, ReloadOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, ReloadOutlined, ExclamationCircleFilled } from '@ant-design/icons';
 import MarkdownRenderer from './MarkdownRenderer';
 import ProviderIcon from '../common/ProviderIcon';
 import { useI18n } from '../../utils/i18n';
 import { useLanguageDetection } from '../captions/hooks/useLanguageDetection';
 import '../../styles/summary.scss';
+
+// ── Per-provider billing URLs ─────────────────────────────────────────────────
+const BILLING_URLS: Record<string, string> = {
+  'openai':        'https://platform.openai.com/account/billing',
+  'google-gemini': 'https://ai.google.dev/pricing',
+  'anthropic':     'https://console.anthropic.com/settings/plans',
+  'xai-grok':      'https://x.ai/api',
+  'deepseek':      'https://platform.deepseek.com/usage',
+  'mistral':       'https://console.mistral.ai/billing',
+  'groq':          'https://console.groq.com/settings/billing',
+  'together':      'https://api.together.xyz/settings/billing',
+  'perplexity':    'https://www.perplexity.ai/settings/api',
+  'qwen':          'https://dashscope.console.aliyun.com/billing',
+  'zhipu':         'https://open.bigmodel.cn/finance/overview',
+  'moonshot':      'https://platform.moonshot.cn/console/billing',
+  'doubao':        'https://console.volcengine.com/ark',
+  'baichuan':      'https://platform.baichuan-ai.com/console/recharge',
+  'yi':            'https://platform.lingyiwanwu.com/recharge',
+  'minimax':       'https://platform.minimaxi.com/user-center/basic-information',
+  'siliconflow':   'https://cloud.siliconflow.cn/account/finance/recharge',
+};
+
+// ── Error classification ──────────────────────────────────────────────────────
+interface ParsedError {
+  title: string;
+  description: string;
+  actionLabel?: string;
+  actionUrl?: string;
+}
+
+const parseErrorMessage = (error: string, t: (k: string) => string, providerId?: string): ParsedError => {
+  const e = error.toLowerCase();
+  const billingUrl = providerId ? BILLING_URLS[providerId] : undefined;
+
+  if (e.includes('429') || e.includes('quota') || e.includes('rate limit') || e.includes('too many requests')) {
+    return {
+      title: t('err_title_quota'),
+      description: t('err_desc_quota'),
+      actionLabel: billingUrl ? t('err_action_quota') : undefined,
+      actionUrl: billingUrl,
+    };
+  }
+  if (e.includes('401') || e.includes('invalid api key') || e.includes('authentication') || e.includes('api key')) {
+    return {
+      title: t('err_title_auth'),
+      description: t('err_desc_auth'),
+    };
+  }
+  if (e.includes('403') || e.includes('permission') || e.includes('forbidden')) {
+    return {
+      title: t('err_title_permission'),
+      description: t('err_desc_permission'),
+    };
+  }
+  if (e.includes('network') || e.includes('fetch') || e.includes('failed to fetch') || e.includes('econnrefused')) {
+    return {
+      title: t('err_title_network'),
+      description: t('err_desc_network'),
+    };
+  }
+  if (e.includes('model') || e.includes('not found') || e.includes('404')) {
+    return {
+      title: t('err_title_model'),
+      description: t('err_desc_model'),
+    };
+  }
+  return {
+    title: t('err_title_generic'),
+    description: t('err_desc_generic'),
+  };
+};
 
 export interface CardItemType {
   question: string;
@@ -49,34 +120,56 @@ const useRelativeTime = (timestamp: number | undefined, t: (k: string, p?: Recor
   return label;
 };
 
-const ErrorDetails: React.FC<{ error: string; onRetry?: () => void }> = ({ error, onRetry }) => {
+const ErrorDetails: React.FC<{ error: string; providerId?: string; onRetry?: () => void }> = ({ error, providerId, onRetry }) => {
   const [expanded, setExpanded] = useState(false);
   const { t } = useI18n();
+  const parsed = parseErrorMessage(error, t, providerId);
 
   return (
-    <div className="summary-error-details">
-      <div className="summary-error-details__row">
-        <span
-          className="summary-error-details__trigger"
-          onClick={() => setExpanded(v => !v)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={e => e.key === 'Enter' && setExpanded(v => !v)}
-        >
-          {expanded ? t('error_collapse') : t('error_expand')}
-        </span>
-        {onRetry && (
+    <div className="summary-error-card">
+      {/* Header: icon + title */}
+      <div className="summary-error-card__header">
+        <ExclamationCircleFilled className="summary-error-card__icon" />
+        <span className="summary-error-card__title">{parsed.title}</span>
+      </div>
+
+      {/* Description */}
+      <p className="summary-error-card__desc">{parsed.description}</p>
+
+      {/* Actions */}
+      <div className="summary-error-card__actions">
+        <div className="summary-error-card__actions-left">
+          {onRetry && (
+            <button
+              className="summary-error-card__retry-btn"
+              onClick={onRetry}
+              title={t('error_retry') || 'Retry'}
+            >
+              <ReloadOutlined />
+            </button>
+          )}
           <button
-            className="summary-error-details__retry-btn"
-            onClick={onRetry}
-            title={t('error_retry') || 'Retry'}
+            className="summary-error-card__details-btn"
+            onClick={() => setExpanded(v => !v)}
           >
-            <ReloadOutlined />
+            {expanded ? t('error_collapse') : t('error_details')}
           </button>
+        </div>
+        {parsed.actionLabel && parsed.actionUrl && (
+          <a
+            className="summary-error-card__action-link"
+            href={parsed.actionUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {parsed.actionLabel} →
+          </a>
         )}
       </div>
+
+      {/* Technical details (collapsed by default) */}
       {expanded && (
-        <pre className="summary-error-details__pre">{error}</pre>
+        <pre className="summary-error-card__pre">{error}</pre>
       )}
     </div>
   );
@@ -129,7 +222,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index, onRetry
         <div className={cardClass}>
           <div className={`message-ai__content ${isRTL ? 'rtl' : ''}`}>
             {item.error ? (
-              <ErrorDetails error={item.error} onRetry={onRetry} />
+              <ErrorDetails error={item.error} providerId={item.providerId} onRetry={onRetry} />
             ) : (
               <MarkdownRenderer content={item.answer} />
             )}
