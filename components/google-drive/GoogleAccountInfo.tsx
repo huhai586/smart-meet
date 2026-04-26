@@ -1,149 +1,122 @@
-import React, { useEffect } from 'react';
-import { Button, Avatar, Dropdown, Space, Spin, Typography, message } from 'antd';
-import { GoogleOutlined, LogoutOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Avatar, Popover, Divider, Typography } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
 import { useGoogleAuth } from '../../contexts/GoogleAuthContext';
 import styled from 'styled-components';
-import type { MenuProps } from 'antd';
 
 const { Text } = Typography;
 
-const AccountContainer = styled.div`
+const AvatarTrigger = styled.button`
+  background: none;
+  border: none;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: 8px 16px;
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  border: 1px solid #e0e0e0;
-  min-width: 180px;
+  gap: 6px;
+  padding: 4px 8px 4px 4px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+
+  &:hover {
+    background: rgba(60, 60, 67, 0.08);
+  }
 `;
 
-const UserInfo = styled.div`
+const PopoverBody = styled.div`
+  min-width: 210px;
+  margin: -12px -16px;
+`;
+
+const UserInfoRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+`;
+
+const SignOutBtn = styled.button`
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 20px;
-  transition: all 0.3s ease;
   width: 100%;
-  
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-`;
-
-const StyledAvatar = styled(Avatar)`
+  background: none;
+  border: none;
+  padding: 10px 16px;
   cursor: pointer;
+  border-radius: 0;
+  font-size: 14px;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+  color: #FF3B30;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 59, 48, 0.06);
+  }
 `;
 
 const GoogleAccountInfo: React.FC = () => {
-  const { isAuthenticated, user, loading, login, logout } = useGoogleAuth();
+  const { isAuthenticated, user, logout } = useGoogleAuth();
 
-  // 组件挂载时记录认证状态
-  useEffect(() => {
-    console.log('GoogleAccountInfo mounted - Auth State:', { isAuthenticated, user, loading });
-  }, [isAuthenticated, user, loading]);
+  if (!isAuthenticated || !user) return null;
 
-  // 监控认证状态变化
-  useEffect(() => {
-    console.log('GoogleAccountInfo - Auth State changed:', { isAuthenticated, user, loading });
-  }, [isAuthenticated, user, loading]);
-
-  const handleLogin = async () => {
-    try {
-      console.log('Attempting to login...');
-      const success = await login();
-      console.log('Login result:', success);
-      
-      if (success) {
-        message.success('Successfully logged in to Google');
-      } else {
-        message.error('Failed to login to Google');
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      message.error('Error during login process');
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      console.log('Logging out...');
-      await logout();
-      message.success('Successfully logged out');
-    } catch (error) {
-      console.error('Logout error:', error);
-      message.error('Error during logout process');
-    }
-  };
-
-  if (loading) {
-    return (
-      <AccountContainer>
-        <Space>
-          <Spin size="small" />
-          <Text>Loading account info...</Text>
-        </Space>
-      </AccountContainer>
-    );
-  }
-
-  if (!isAuthenticated || !user) {
-    return (
-      <AccountContainer>
-        <Button 
-          type="primary" 
-          icon={<GoogleOutlined />} 
-          onClick={handleLogin}
-          size="middle"
-          style={{ width: '100%' }}
-        >
-          Login with Google
-        </Button>
-      </AccountContainer>
-    );
-  }
-
-  const items: MenuProps['items'] = [
-    {
-      key: 'email',
-      label: user.email,
-      disabled: true,
-    },
-    {
-      key: 'divider',
-      type: 'divider',
-    },
-    {
-      key: 'logout',
-      label: (
-        <Space>
+  const popoverContent = (
+    <PopoverBody>
+      <UserInfoRow>
+        <Avatar src={user.picture} size={38}>
+          {!user.picture && user.name.charAt(0).toUpperCase()}
+        </Avatar>
+        <div style={{ minWidth: 0 }}>
+          <div style={{
+            fontWeight: 600,
+            fontSize: 14,
+            lineHeight: '1.3',
+            color: '#1C1C1E',
+            fontFamily: "-apple-system, 'SF Pro Text', sans-serif",
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}>
+            {user.name}
+          </div>
+          <Text type="secondary" style={{ fontSize: 12 }}>{user.email}</Text>
+        </div>
+      </UserInfoRow>
+      <Divider style={{ margin: 0, borderColor: 'rgba(60, 60, 67, 0.12)' }} />
+      <div style={{ padding: '4px 0' }}>
+        <SignOutBtn onClick={() => logout()}>
           <LogoutOutlined />
           Sign out
-        </Space>
-      ),
-      onClick: handleLogout,
-    },
-  ];
+        </SignOutBtn>
+      </div>
+    </PopoverBody>
+  );
 
   return (
-    <AccountContainer>
-      <Dropdown menu={{ items }} placement="bottomRight" arrow trigger={['click']}>
-        <UserInfo>
-          <StyledAvatar src={user.picture} size="small">
-            {!user.picture && user.name.charAt(0).toUpperCase()}
-          </StyledAvatar>
-          <Text strong style={{ flex: 1 }}>{user.name}</Text>
-        </UserInfo>
-      </Dropdown>
-    </AccountContainer>
+    <Popover
+      content={popoverContent}
+      trigger="click"
+      placement="bottomRight"
+      overlayInnerStyle={{ padding: '12px 16px', borderRadius: 12, overflow: 'hidden' }}
+    >
+      <AvatarTrigger>
+        <Avatar src={user.picture} size={26}>
+          {!user.picture && user.name.charAt(0).toUpperCase()}
+        </Avatar>
+        <span style={{
+          fontSize: 13,
+          fontWeight: 500,
+          color: '#1C1C1E',
+          maxWidth: 80,
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+        }}>
+          {user.name.split(' ')[0]}
+        </span>
+      </AvatarTrigger>
+    </Popover>
   );
 };
 
-export default GoogleAccountInfo; 
+export default GoogleAccountInfo;
