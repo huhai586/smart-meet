@@ -5,15 +5,11 @@ import {message} from "antd";
 import './utils/dayjs-config'; // Import global dayjs configuration
 import { setDayjsLocale } from './utils/dayjs-config';
 import GoogleDriveIntegration from '~components/options/GoogleDriveIntegration';
-import CalendarWithAI from '~components/options/CalendarWithAI';
 import Sidebar from '~components/options/Sidebar';
-import TranslationSettings from '~components/options/TranslationSettings';
-import UILanguageSettings from '~components/options/UILanguageSettings';
-import ClearCaptionsSettings from '~components/options/ClearCaptionsSettings';
-import ExtensionSettings from '~components/options/ExtensionSettings';
-import MeetingInterface from '~components/options/MeetingInterface';
-import SidepanelSettings from '~components/options/SidepanelSettings';
-import AISettings from '~components/options/ai-settings';
+import General from '~components/options/tabs/General';
+import InterfaceAppearance from '~components/options/tabs/InterfaceAppearance';
+import AIAndTranslation from '~components/options/tabs/AIAndTranslation';
+import HistoryRecords from '~components/options/tabs/HistoryRecords';
 import Welcome from '~pages/welcome';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
@@ -24,31 +20,23 @@ import { getAllAIServiceConfigs } from './utils/getAI';
 console.log('Options page loaded, GoogleAuthProvider imported:', !!GoogleAuthProvider);
 
 // 路由映射表 - 将路由路径映射到对应的标签页key
-const ROUTE_MAPPING = {
-  'sidepanel-settings': '1',
-  'ai-settings': '2',
-  'google-drive': '3',
-  'calendar': '4',
-  'translation': '5',
-  'ui-language': '6',
-  'meeting-interface': '7',
-  'extension': '8',
-  'clear-captions': '9',
-  'welcome': 'welcome'
+const ROUTE_MAPPING: Record<string, string> = {
+  'general': '1',
+  'interface': '2',
+  'ai-translation': '3',
+  'history': '4',
+  'cloud-sync': '5',
+  'welcome': 'welcome',
 };
 
 // 反向映射表 - 将标签页key映射到对应的路由路径
-const KEY_TO_ROUTE = {
-  '1': 'sidepanel-settings',
-  '2': 'ai-settings',
-  '3': 'google-drive',
-  '4': 'calendar',
-  '5': 'translation',
-  '6': 'ui-language',
-  '7': 'meeting-interface',
-  '8': 'extension',
-  '9': 'clear-captions',
-  'welcome': 'welcome'
+const KEY_TO_ROUTE: Record<string, string> = {
+  '1': 'general',
+  '2': 'interface',
+  '3': 'ai-translation',
+  '4': 'history',
+  '5': 'cloud-sync',
+  'welcome': 'welcome',
 };
 
 const Options = () => {
@@ -134,7 +122,7 @@ const Options = () => {
     // 初始加载时设置URL哈希（如果没有的话）
     useEffect(() => {
       if (!window.location.hash) {
-        window.location.hash = 'sidepanel-settings';
+        window.location.hash = 'general';
       }
     }, []);
 
@@ -146,28 +134,19 @@ const Options = () => {
     const renderContent = () => {
         switch (activeKey) {
             case '1':
-                return <SidepanelSettings />;
+                return <General />;
             case '2':
-                return <AISettings />;
+                return <InterfaceAppearance />;
             case '3':
-                console.log('Rendering GoogleDriveIntegration');
-                return <GoogleDriveIntegration />;
+                return <AIAndTranslation />;
             case '4':
-                return <CalendarWithAI />;
+                return <HistoryRecords />;
             case '5':
-                return <TranslationSettings />;
-            case '6':
-                return <UILanguageSettings />;
-            case '7':
-                return <MeetingInterface />;
-            case '8':
-                return <ExtensionSettings />;
-            case '9':
-                return <ClearCaptionsSettings />;
+                return <GoogleDriveIntegration />;
             case 'welcome':
                 return <Welcome />;
             default:
-                return <SidepanelSettings />;
+                return <General />;
         }
     };
 

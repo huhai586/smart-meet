@@ -64,7 +64,7 @@ const AIChatPanel: React.FC = () => {
               href="#"
               onClick={e => {
                 e.preventDefault();
-                window.location.hash = 'ai-settings';
+                window.location.hash = 'ai-translation';
               }}
             >
               前往 AI 设置

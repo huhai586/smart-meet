@@ -482,4 +482,24 @@ export default {
   "select_prompt": "选择 Prompt",
   "apply_prompts": "应用（已选 {n} 个）",
   "save": "保存",
+
+  // Options Tab Names (new 5-tab structure)
+  "tab_general": "通用",
+  "tab_general_desc": "语言、字体大小、帮助与数据管理",
+  "tab_interface": "界面",
+  "tab_interface_desc": "侧边栏标签页、字幕按钮、会议浮层与高亮词",
+  "tab_ai_translation": "AI 助手",
+  "tab_ai_translation_desc": "AI 服务商、自定义提示词与翻译设置",
+  "tab_history": "日历记录",
+  "tab_history_desc": "历史会议、AI 对话与导出",
+  "tab_cloud_sync": "云端硬盘",
+  "tab_cloud_sync_desc": "Google Drive 备份与恢复",
+
+  // Shared UI
+  "data_management": "数据管理",
+  "highlight_words_section": "字幕高亮",
+  "yes": "是",
+  "delete_prompt": "删除 Prompt",
+  "delete_prompt_confirm": "确定要删除此 Prompt 吗？",
+  "meeting_history_tab": "会议记录",
 };

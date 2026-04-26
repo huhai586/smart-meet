@@ -16,7 +16,11 @@ import StyledTitle from '~/components/common/StyledTitle';
 import useI18n from '~/utils/i18n';
 import './ai-settings.scss';
 
-const AISettings: React.FC = () => {
+interface AISettingsProps {
+    hideHeader?: boolean;
+}
+
+const AISettings: React.FC<AISettingsProps> = ({ hideHeader = false }) => {
     const { t } = useI18n();
     const [aisConfig, setAisConfig] = useState<AIsConfig>({
         active: 'google-gemini',
@@ -106,11 +110,13 @@ const AISettings: React.FC = () => {
 
     return (
         <div className="ai-settings">
-            <div className="ai-settings__header">
-                <StyledTitle>
-                    {t('active_ai_service')}
-                </StyledTitle>
-            </div>
+            {!hideHeader && (
+                <div className="ai-settings__header">
+                    <StyledTitle>
+                        {t('active_ai_service')}
+                    </StyledTitle>
+                </div>
+            )}
             <div className="ai-settings__content">
                 <ProviderSelector
                     aisConfig={aisConfig}

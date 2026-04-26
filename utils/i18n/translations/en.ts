@@ -483,4 +483,24 @@ export default {
 
   // Words / Translation History
   "translation_history": "Translation History",
+
+  // Options Tab Names (new 5-tab structure)
+  "tab_general": "General",
+  "tab_general_desc": "Language, font size, help and data management",
+  "tab_interface": "Interface",
+  "tab_interface_desc": "Sidepanel tabs, caption buttons, meeting overlay and highlight words",
+  "tab_ai_translation": "AI & Translation",
+  "tab_ai_translation_desc": "AI service providers, custom prompts and translation settings",
+  "tab_history": "Calendar",
+  "tab_history_desc": "Meeting history, AI assistant and export",
+  "tab_cloud_sync": "Cloud Sync",
+  "tab_cloud_sync_desc": "Google Drive backup and restore",
+
+  // Shared UI
+  "data_management": "Data Management",
+  "highlight_words_section": "Caption Highlights",
+  "yes": "Yes",
+  "delete_prompt": "Delete Prompt",
+  "delete_prompt_confirm": "Are you sure you want to delete this prompt?",
+  "meeting_history_tab": "History",
 };

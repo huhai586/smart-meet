@@ -1,15 +1,10 @@
 import React from 'react';
 import {
-  ApiOutlined,
-  CloudSyncOutlined,
-  CalendarOutlined,
   SettingOutlined,
-  TranslationOutlined,
-  GlobalOutlined,
-  DeleteOutlined,
-  RollbackOutlined,
-  DesktopOutlined,
-  AppstoreOutlined
+  LayoutOutlined,
+  RobotOutlined,
+  CalendarOutlined,
+  CloudOutlined,
 } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
@@ -26,75 +21,40 @@ interface MenuItem {
   route: string;
 }
 
-// 路由映射表（与options.tsx中保持一致，保留以备将来使用）
-const _KEY_TO_ROUTE = {
-  '1': 'ai-settings',
-  '2': 'google-drive',
-  '3': 'calendar',
-  '4': 'translation',
-  '5': 'ui-language',
-  '6': 'extension',
-  '7': 'clear-captions'
-};
-
 const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
   const { t } = useI18n();
 
   const menuItems: MenuItem[] = [
     {
       key: '1',
-      icon: <AppstoreOutlined />,
-      label: t('sidepanel_settings'),
-      route: 'sidepanel-settings'
+      icon: <SettingOutlined />,
+      label: t('tab_general'),
+      route: 'general',
     },
     {
       key: '2',
-      icon: <ApiOutlined />,
-      label: t('ai_settings'),
-      route: 'ai-settings'
+      icon: <LayoutOutlined />,
+      label: t('tab_interface'),
+      route: 'interface',
     },
     {
       key: '3',
-      icon: <CloudSyncOutlined />,
-      label: t('google_drive_integration'),
-      route: 'google-drive'
+      icon: <RobotOutlined />,
+      label: t('tab_ai_translation'),
+      route: 'ai-translation',
     },
     {
       key: '4',
       icon: <CalendarOutlined />,
-      label: t('calendar_view'),
-      route: 'calendar'
+      label: t('tab_history'),
+      route: 'history',
     },
     {
       key: '5',
-      icon: <TranslationOutlined />,
-      label: t('translation_language'),
-      route: 'translation'
+      icon: <CloudOutlined />,
+      label: t('tab_cloud_sync'),
+      route: 'cloud-sync',
     },
-    {
-      key: '6',
-      icon: <GlobalOutlined />,
-      label: t('ui_language'),
-      route: 'ui-language'
-    },
-    {
-      key: '7',
-      icon: <DesktopOutlined />,
-      label: t('meeting_interface'),
-      route: 'meeting-interface'
-    },
-    {
-      key: '8',
-      icon: <RollbackOutlined />,
-      label: t('extension'),
-      route: 'extension'
-    },
-    {
-      key: '9',
-      icon: <DeleteOutlined />,
-      label: t('clear_captions'),
-      route: 'clear-captions'
-    }
   ];
 
   // 处理菜单项点击

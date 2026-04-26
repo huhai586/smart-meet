@@ -160,7 +160,11 @@ const SectionFooter = styled.p`
 
 /* ── Component ── */
 
-const TranslationSettings: React.FC = () => {
+interface TranslationSettingsProps {
+  hideHeader?: boolean;
+}
+
+const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = false }) => {
   const { t } = useI18n();
   const [language, setLanguage] = useTranslationLanguage();
   const [autoTranslateEnabled, setAutoTranslateEnabled] = useAutoTranslate();
@@ -205,9 +209,11 @@ const TranslationSettings: React.FC = () => {
 
   return (
     <PageWrapper>
-      <PageHeader>
-        <PageTitle>{t('translation_language')}</PageTitle>
-      </PageHeader>
+      {!hideHeader && (
+        <PageHeader>
+          <PageTitle>{t('translation_language')}</PageTitle>
+        </PageHeader>
+      )}
 
       {/* Section 1: General Settings */}
       <SectionLabel>{t('translation_target_language')}</SectionLabel>

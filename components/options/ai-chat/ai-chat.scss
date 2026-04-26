@@ -134,7 +134,7 @@
   // ── Bubbles ───────────────────────────────────────────────
   &__bubble-row {
     display: flex;
-    max-width: 85%;
+    max-width: 80%;
 
     &--user {
       align-self: flex-end;
@@ -143,6 +143,7 @@
 
     &--ai {
       align-self: flex-start;
+      max-width: 88%;
     }
   }
 
@@ -477,38 +478,8 @@
   }
 }
 
-// ── Segment Control (CalendarWithAI) ──────────────────────────
-.segment-control {
-  display: flex;
-  background: #E5E5EA;
-  border-radius: 9px;
-  padding: 2px;
-  margin: 16px 20px 0;
-
-  &__btn {
-    flex: 1;
-    padding: 6px 0;
-    border: none;
-    border-radius: 7px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-    background: transparent;
-    color: #3C3C43;
-    font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif;
-
-    &--active {
-      background: #FFFFFF;
-      color: #1C1C1E;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-    }
-
-    &:hover:not(&--active) {
-      color: #1C1C1E;
-    }
-  }
-}
+// ── Segment Control (legacy – kept for reference, not used in new layout) ──
+// .segment-control { ... }
 
 .calendar-with-ai {
   display: flex;
