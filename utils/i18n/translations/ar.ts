@@ -333,6 +333,7 @@ export default {
   "time_hours_ago": "منذ {n} س",
   "error_expand": "فشل الطلب · انقر للتفاصيل",
   "error_collapse": "إخفاء التفاصيل",
+  "error_retry": "إعادة المحاولة",
 
   // Custom Prompts
   "custom_prompts": "موجهات مخصصة",

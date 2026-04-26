@@ -333,6 +333,7 @@ export default {
   "time_hours_ago": "{n} घंटे पहले",
   "error_expand": "अनुरोध विफल · विवरण देखें",
   "error_collapse": "विवरण छुपाएं",
+  "error_retry": "पुनः प्रयास",
 
   // Custom Prompts
   "custom_prompts": "कस्टम प्रॉम्प्ट",

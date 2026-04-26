@@ -382,6 +382,7 @@ export default {
   "time_hours_ago": "{n} ساعت پیش",
   "error_expand": "درخواست ناموفق · برای جزئیات بزنید",
   "error_collapse": "پنهان کردن",
+  "error_retry": "تلاش مجدد",
 
   // Custom Prompts
   "custom_prompts": "پرامپت‌های سفارشی",

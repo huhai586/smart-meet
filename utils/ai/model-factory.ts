@@ -45,6 +45,7 @@ export async function generateChatCompletion(
         apiKey: config.apiKey || 'no-key',
         baseURL: config.baseURL || provider.defaultBaseURL,
         dangerouslyAllowBrowser: true,
+        maxRetries: 0,
       });
       const resp = await client.chat.completions.create({
         model: modelName,
@@ -59,6 +60,7 @@ export async function generateChatCompletion(
         apiKey: 'ollama',
         baseURL,
         dangerouslyAllowBrowser: true,
+        maxRetries: 0,
       });
       const resp = await client.chat.completions.create({
         model: modelName,

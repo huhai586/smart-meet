@@ -378,6 +378,7 @@ export default {
   "time_hours_ago": "{n}시간 전",
   "error_expand": "요청 실패 · 자세히 보기",
   "error_collapse": "접기",
+  "error_retry": "재시도",
 
   // Custom Prompts
   "custom_prompts": "커스텀 프롬프트",

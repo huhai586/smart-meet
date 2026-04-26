@@ -354,6 +354,7 @@ export default {
   "time_hours_ago": "{n} giờ trước",
   "error_expand": "Yêu cầu thất bại · nhấn để xem chi tiết",
   "error_collapse": "Ẩn chi tiết",
+  "error_retry": "Thử lại",
 
   // Custom Prompts
   "custom_prompts": "Prompt tùy chỉnh",

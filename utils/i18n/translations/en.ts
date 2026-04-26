@@ -450,6 +450,7 @@ export default {
   "time_hours_ago": "{n} hr ago",
   "error_expand": "Request failed · tap to see details",
   "error_collapse": "Hide details",
+  "error_retry": "Retry",
 
   // Custom Prompts
   "custom_prompts": "Custom Prompts",

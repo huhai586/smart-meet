@@ -333,6 +333,7 @@ export default {
   "time_hours_ago": "{n} ชั่วโมงที่แล้ว",
   "error_expand": "คำขอล้มเหลว · แตะเพื่อดูรายละเอียด",
   "error_collapse": "ซ่อนรายละเอียด",
+  "error_retry": "ลองอีกครั้ง",
 
   // Custom Prompts
   "custom_prompts": "พรอมต์ที่กำหนดเอง",

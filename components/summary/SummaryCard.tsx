@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, ReloadOutlined } from '@ant-design/icons';
 import MarkdownRenderer from './MarkdownRenderer';
 import ProviderIcon from '../common/ProviderIcon';
 import { useI18n } from '../../utils/i18n';
@@ -22,6 +22,7 @@ interface SummaryCardProps {
   item: CardItemType;
   loading: boolean;
   index: number;
+  onRetry?: () => void;
 }
 
 const useRelativeTime = (timestamp: number | undefined, t: (k: string, p?: Record<string, string>) => string): string => {
@@ -48,21 +49,32 @@ const useRelativeTime = (timestamp: number | undefined, t: (k: string, p?: Recor
   return label;
 };
 
-const ErrorDetails: React.FC<{ error: string }> = ({ error }) => {
+const ErrorDetails: React.FC<{ error: string; onRetry?: () => void }> = ({ error, onRetry }) => {
   const [expanded, setExpanded] = useState(false);
   const { t } = useI18n();
 
   return (
     <div className="summary-error-details">
-      <span
-        className="summary-error-details__trigger"
-        onClick={() => setExpanded(v => !v)}
-        role="button"
-        tabIndex={0}
-        onKeyDown={e => e.key === 'Enter' && setExpanded(v => !v)}
-      >
-        {expanded ? t('error_collapse') : t('error_expand')}
-      </span>
+      <div className="summary-error-details__row">
+        <span
+          className="summary-error-details__trigger"
+          onClick={() => setExpanded(v => !v)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => e.key === 'Enter' && setExpanded(v => !v)}
+        >
+          {expanded ? t('error_collapse') : t('error_expand')}
+        </span>
+        {onRetry && (
+          <button
+            className="summary-error-details__retry-btn"
+            onClick={onRetry}
+            title={t('error_retry') || 'Retry'}
+          >
+            <ReloadOutlined />
+          </button>
+        )}
+      </div>
       {expanded && (
         <pre className="summary-error-details__pre">{error}</pre>
       )}
@@ -78,7 +90,7 @@ const LoadingDots: React.FC = () => (
   </div>
 );
 
-const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
+const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index, onRetry }) => {
   const { t } = useI18n();
   const isRTL = useLanguageDetection(item.answer || '');
   const isLoading = loading && !item.fetchComplete;
@@ -117,7 +129,7 @@ const SummaryCard: React.FC<SummaryCardProps> = ({ item, loading, index }) => {
         <div className={cardClass}>
           <div className={`message-ai__content ${isRTL ? 'rtl' : ''}`}>
             {item.error ? (
-              <ErrorDetails error={item.error} />
+              <ErrorDetails error={item.error} onRetry={onRetry} />
             ) : (
               <MarkdownRenderer content={item.answer} />
             )}

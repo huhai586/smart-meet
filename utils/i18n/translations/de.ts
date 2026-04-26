@@ -361,6 +361,7 @@ export default {
   "time_hours_ago": "vor {n} Std.",
   "error_expand": "Anfrage fehlgeschlagen · tippen für Details",
   "error_collapse": "Details schließen",
+  "error_retry": "Erneut versuchen",
 
   // Custom Prompts
   "custom_prompts": "Eigene Prompts",

@@ -17,7 +17,7 @@ interface SummaryProps {
 const Summary: React.FC<SummaryProps> = (_props) => {
   const { t } = useI18n();
   const { selectedDate } = useDateContext();
-  const { cardData, requesting, handleQuestion } = useSummary();
+  const { cardData, requesting, handleQuestion, handleRetry } = useSummary();
   const summaryFontOffset = useFontSizeOffset('summaryFontSizeOffset');
   const container = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -45,6 +45,7 @@ const Summary: React.FC<SummaryProps> = (_props) => {
             item={item}
             loading={requesting}
             index={index}
+            onRetry={() => handleRetry(index)}
           />
         ))}
 

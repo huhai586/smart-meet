@@ -354,6 +354,7 @@ export default {
   "time_hours_ago": "{n} ч назад",
   "error_expand": "Ошибка · нажмите для подробностей",
   "error_collapse": "Скрыть",
+  "error_retry": "Повторить",
 
   // Custom Prompts
   "custom_prompts": "Пользовательские промпты",

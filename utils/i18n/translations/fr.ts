@@ -378,6 +378,7 @@ export default {
   "time_hours_ago": "il y a {n} h",
   "error_expand": "Requête échouée · appuyer pour voir les détails",
   "error_collapse": "Masquer les détails",
+  "error_retry": "Réessayer",
 
   // Custom Prompts
   "custom_prompts": "Prompts personnalisés",

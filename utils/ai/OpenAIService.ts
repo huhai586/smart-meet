@@ -34,7 +34,8 @@ export class OpenAIService extends BaseAIService {
         // 初始化OpenAI客户端
         this.client = new OpenAI({
           apiKey: this.config.apiKey,
-          dangerouslyAllowBrowser: true
+          dangerouslyAllowBrowser: true,
+          maxRetries: 0,
         });
 
         // 初始化AI对话实例
@@ -151,9 +152,7 @@ export class OpenAIService extends BaseAIService {
           console.log(`Used existing OpenAI conversation for ${mode}`);
         } catch (error) {
           console.error(`Error with OpenAI conversation: ${error.message}`);
-          // 如果对话出错，重新初始化并尝试
-          await this.initConversation(mode, date);
-          return this.generateResponse(options);
+          throw error;
         }
       } else {
         // 普通模式，直接发送提示

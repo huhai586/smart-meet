@@ -361,6 +361,7 @@ export default {
   "time_hours_ago": "{n} h atrás",
   "error_expand": "Falha na solicitação · toque para ver detalhes",
   "error_collapse": "Ocultar detalhes",
+  "error_retry": "Tentar novamente",
 
   // Custom Prompts
   "custom_prompts": "Prompts personalizados",

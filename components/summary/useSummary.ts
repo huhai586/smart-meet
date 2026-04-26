@@ -104,10 +104,20 @@ export const useSummary = () => {
     setCardData(newCardData);
   };
 
+  // 重试指定索引的问题
+  const handleRetry = (index: number) => {
+    setCardData(prev => {
+      const newData = [...prev];
+      newData[index] = { ...newData[index], fetchComplete: false, error: undefined, answer: '' };
+      return newData;
+    });
+  };
+
   return {
     cardData,
     requesting,
     handleQuestion,
+    handleRetry,
     contextHolder
   };
 }; 

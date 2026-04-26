@@ -452,6 +452,7 @@ export default {
   "time_hours_ago": "{n} 小时前",
   "error_expand": "请求失败·点击查看详情",
   "error_collapse": "收起详情",
+  "error_retry": "重试",
 
   // Custom Prompts
   "custom_prompts": "自定义 Prompt",

@@ -378,6 +378,7 @@ export default {
   "time_hours_ago": "{n}時間前",
   "error_expand": "リクエスト失敗・タップして詳細を表示",
   "error_collapse": "詳細を閉じる",
+  "error_retry": "再試行",
 
   // Custom Prompts
   "custom_prompts": "カスタムプロンプト",

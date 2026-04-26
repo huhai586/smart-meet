@@ -104,13 +104,7 @@ export class UnifiedAIService implements IAIService {
         return text;
       } catch (error) {
         console.error(`Error with ${this.providerId} conversation:`, error);
-        // 重试：重新初始化对话
-        await this.initConversation(mode, date);
-        const fresh = await this.getConversation(mode, date);
-        fresh.push({ role: 'user', content: prompt });
-        const text = await generateChatCompletion(this.providerId, this.config, fresh);
-        fresh.push({ role: 'assistant', content: text });
-        return text;
+        throw error;
       }
     }
 
