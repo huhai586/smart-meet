@@ -7,7 +7,7 @@ import {
     type AIsConfig,
     getAllAIServiceConfigs,
     saveAIServiceConfig,
-    setActiveAIService,
+    clearActiveAIService,
     removeAIServiceConfig,
 } from '~/utils/getAI';
 import messageManager from '~/utils/message-manager';
@@ -66,10 +66,22 @@ const AISettings: React.FC = () => {
         });
     };
 
-    const handleSetActive = (providerId: string) => {
-        setActiveAIService(providerId).then(() => {
+    const handleActivate = (serviceConfig: AIServiceConfig) => {
+        saveAIServiceConfig(serviceConfig, true).then(() => {
             messageManager.success(t('active_service_changed'));
-            setAisConfig(prev => ({ ...prev, active: providerId }));
+            setAisConfig(prev => {
+                const newData = [...prev.data];
+                const idx = newData.findIndex(d => d.aiName === serviceConfig.aiName);
+                if (idx >= 0) newData[idx] = serviceConfig; else newData.push(serviceConfig);
+                return { active: serviceConfig.aiName, data: newData };
+            });
+            chrome.runtime.sendMessage({ type: 'apiKeyUpdated' });
+        });
+    };
+
+    const handleUnsetActive = () => {
+        clearActiveAIService().then(() => {
+            setAisConfig(prev => ({ ...prev, active: '' }));
             chrome.runtime.sendMessage({ type: 'apiKeyUpdated' });
         });
     };
@@ -114,7 +126,8 @@ const AISettings: React.FC = () => {
                     providerId={selectedProvider}
                     aisConfig={aisConfig}
                     onSave={handleSave}
-                    onSetActive={handleSetActive}
+                    onActivate={handleActivate}
+                    onUnsetActive={handleUnsetActive}
                     onRemove={handleRemove}
                     t={t}
                 />

@@ -14,7 +14,8 @@ interface ProviderConfigPanelProps {
   providerId: string;
   aisConfig: AIsConfig;
   onSave: (config: AIServiceConfig) => void;
-  onSetActive: (providerId: string) => void;
+  onActivate: (config: AIServiceConfig) => void;
+  onUnsetActive: () => void;
   onRemove: (providerId: string) => void;
   t: (key: string) => string;
 }
@@ -25,7 +26,8 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
   providerId,
   aisConfig,
   onSave,
-  onSetActive,
+  onActivate,
+  onUnsetActive,
   onRemove,
   t,
 }) => {
@@ -98,7 +100,7 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
   }, [providerId, apiKey, baseUrl, provider, modelsFetching]);
 
   const isActive = aisConfig.active === providerId;
-  const isConfigured = aisConfig.data.some(d => d.aiName === providerId && d.apiKey);
+  const isConfigured = aisConfig.data.some(d => d.aiName === providerId && (d.apiKey || !provider?.requiresApiKey));
 
   const handleTest = useCallback(async () => {
     setTestStatus('loading');
@@ -167,9 +169,9 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
         <Switch
           checked={isActive}
           onChange={(checked) => {
-            if (checked) onSetActive(providerId);
+            if (checked) onActivate({ apiKey, modelName, aiName: providerId, baseUrl: baseUrl || undefined });
+            else onUnsetActive();
           }}
-          disabled={!isConfigured && !apiKey}
         />
       </div>
 

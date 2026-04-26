@@ -149,6 +149,20 @@ export const setActiveAIService = (aiName: string): Promise<void> => {
 };
 
 /**
+ * Clear active AI service (set active to empty string)
+ */
+export const clearActiveAIService = (): Promise<void> => {
+    return new Promise<void>((resolve, reject) => {
+        getAllAIServiceConfigs().then((currentConfig) => {
+            currentConfig.active = '';
+            chrome.storage.sync.set({ AIs: currentConfig }, () => {
+                resolve();
+            });
+        }).catch(reject);
+    });
+};
+
+/**
  * Get active AI service configuration
  * @returns {Promise<AIServiceConfig>} - Returns active service configuration
  */
