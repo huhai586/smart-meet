@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Switch, Slider, Modal, Form, Input, Select } from 'antd';
-import { CheckOutlined, RightOutlined, GlobalOutlined, ApiOutlined, RobotOutlined, TranslationOutlined } from '@ant-design/icons';
+import { CheckOutlined, RightOutlined, GlobalOutlined, ApiOutlined, RobotOutlined, TranslationOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import useI18n from '~utils/i18n';
 import { useAutoTranslate } from '~hooks/useAutoTranslate';
@@ -13,6 +13,7 @@ import { useTranslationFrequency } from '~hooks/useTranslationFrequency';
 import { supportedLanguages, getLanguageDisplay } from '~utils/languages';
 import useTranslationLanguage from '~hooks/useTranslationLanguage';
 import messageManager from '~utils/message-manager';
+import LocalTranslatorModal from './LocalTranslatorModal';
 
 /* ── Provider definitions ── */
 interface ProviderItem {
@@ -28,6 +29,7 @@ const PROVIDER_LIST: ProviderItem[] = [
   { id: 'microsoft', nameKey: 'provider_microsoft', icon: <ApiOutlined />,         iconColor: '#00A4EF', hasSettings: false },
   { id: 'ai',        nameKey: 'provider_ai',        icon: <RobotOutlined />,       iconColor: '#5E5CE6', hasSettings: false },
   { id: 'deepl',     nameKey: 'provider_deepl',     icon: <TranslationOutlined />, iconColor: '#0F2B46', hasSettings: true  },
+  { id: 'local',     nameKey: 'provider_local',     icon: <ThunderboltOutlined />, iconColor: '#34C759', hasSettings: true  },
 ];
 
 /* ── Styled Components ── */
@@ -174,6 +176,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
 
   const [deepLModalOpen, setDeepLModalOpen] = useState(false);
   const [deepLForm] = Form.useForm<{ auth_key: string }>();
+  const [localModalOpen, setLocalModalOpen] = useState(false);
 
   const handleAutoTranslateChange = (checked: boolean) => {
     setAutoTranslateEnabled(checked);
@@ -195,6 +198,11 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
     e.stopPropagation();
     deepLForm.setFieldsValue({ auth_key: deepLConfig.auth_key });
     setDeepLModalOpen(true);
+  };
+
+  const openLocalSettings = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLocalModalOpen(true);
   };
 
   const handleDeepLSave = () => {
@@ -295,7 +303,8 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
               $clickable
               onClick={() => {
                 handleSelectProvider(provider.id);
-                if (provider.hasSettings && isActive) openDeepLSettings({ stopPropagation: () => {} } as any);
+                if (provider.id === 'deepl' && provider.hasSettings && isActive) openDeepLSettings({ stopPropagation: () => {} } as any);
+                if (provider.id === 'local' && provider.hasSettings) openLocalSettings({ stopPropagation: () => {} } as any);
               }}
             >
               <IconSquircle $color={provider.iconColor}>{provider.icon}</IconSquircle>
@@ -307,7 +316,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
                 {provider.hasSettings && (
                   <RightOutlined
                     style={{ color: '#C7C7CC', fontSize: 13, marginLeft: isActive ? 6 : 0 }}
-                    onClick={openDeepLSettings}
+                    onClick={provider.id === 'local' ? openLocalSettings : openDeepLSettings}
                   />
                 )}
               </RowValue>
@@ -316,6 +325,15 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
         })}
       </SettingGroup>
       <SectionFooter>{t('translation_provider_desc')}</SectionFooter>
+
+      {/* Local AI Translator Modal */}
+      <LocalTranslatorModal
+        open={localModalOpen}
+        onClose={() => setLocalModalOpen(false)}
+        onConfirm={() => {
+          handleSelectProvider('local');
+        }}
+      />
 
       {/* DeepL Settings Modal */}
       <Modal

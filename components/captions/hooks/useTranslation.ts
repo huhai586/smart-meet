@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { getCurrentTranslationProvider } from '../../../hooks/useTranslationProvider';
-import { translateByGoogle, translateByMicrosoft, translateByAI } from '../../../utils/translators';
+import { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeepL, translateByLocal } from '../../../utils/translators';
 import { setTranslatedWords } from '../../../utils/translate';
 import messageManager from '../../../utils/message-manager';
 
@@ -24,6 +24,10 @@ export const useTranslation = () => {
                 return await translateByGoogle(text);
             case 'microsoft':
                 return await translateByMicrosoft(text);
+            case 'deepl':
+                return await translateByDeepL(text);
+            case 'local':
+                return await translateByLocal(text);
             case 'ai':
             default:
                 return await translateByAI(text);

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getCurrentTranslationProvider } from './useTranslationProvider';
-import { translateByGoogle, translateByMicrosoft } from '../utils/translators';
+import { translateByGoogle, translateByMicrosoft, translateByLocal } from '../utils/translators';
 import { getTranslationFrequency, frequencyToMs } from './useTranslationFrequency';
 import useI18n from "../utils/i18n";
 
@@ -90,7 +90,7 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
       // 如果两次获取的结果不一致，使用存储中的值
       if (provider !== verificationResult) {
         console.warn(`[executeTranslation] Provider mismatch! Function: ${provider}, Storage: ${verificationResult}. Using storage value.`);
-        provider = verificationResult;
+        provider = verificationResult as typeof provider;
       }
       
       let translatedText: string;
@@ -104,6 +104,10 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
         case 'microsoft':
           console.log('[executeTranslation] Using Microsoft Translator');
           translatedText = await translateByMicrosoft(textToTranslate);
+          break;
+        case 'local':
+          console.log('[executeTranslation] Using Local AI Translator');
+          translatedText = await translateByLocal(textToTranslate);
           break;
         case 'ai':
         default:

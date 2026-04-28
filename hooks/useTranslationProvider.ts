@@ -3,18 +3,23 @@ import { useState, useEffect } from 'react';
 // 存储在Chrome存储中的键名
 const STORAGE_KEY = 'translationProvider';
 const DEEPL_CONFIG_KEY = 'deeplConfig';
+const LOCAL_TRANSLATOR_CONFIG_KEY = 'localTranslatorConfig';
 
 // 翻译服务提供商类型
-export type TranslationProvider = 'google' | 'microsoft' | 'ai' | 'deepl';
+export type TranslationProvider = 'google' | 'microsoft' | 'ai' | 'deepl' | 'local';
 
 export interface DeepLConfig {
   auth_key: string;
 }
 
+export interface LocalTranslatorConfig {
+  sourceLanguage: string;
+}
+
 // 默认翻译服务提供商
 const defaultProvider: TranslationProvider = 'microsoft';
 
-const VALID_PROVIDERS: TranslationProvider[] = ['google', 'microsoft', 'ai', 'deepl'];
+const VALID_PROVIDERS: TranslationProvider[] = ['google', 'microsoft', 'ai', 'deepl', 'local'];
 
 /**
  * 管理翻译服务提供商的Hook
@@ -137,6 +142,8 @@ export const getProviderDisplayName = (provider: TranslationProvider): string =>
       return 'AI Translation';
     case 'deepl':
       return 'DeepL';
+    case 'local':
+      return 'Local AI Translation';
     default:
       return 'Google Translate';
   }
@@ -171,6 +178,39 @@ export const getDeepLAuthKey = async (): Promise<string> => {
   return new Promise((resolve) => {
     chrome.storage.sync.get([DEEPL_CONFIG_KEY], (result) => {
       resolve(result[DEEPL_CONFIG_KEY]?.auth_key ?? '');
+    });
+  });
+};
+
+/**
+ * 管理 LocalTranslator 配置的 Hook
+ */
+export const useLocalTranslatorConfig = (): [LocalTranslatorConfig, (config: LocalTranslatorConfig) => void] => {
+  const [config, setConfigState] = useState<LocalTranslatorConfig>({ sourceLanguage: 'en' });
+
+  useEffect(() => {
+    chrome.storage.sync.get([LOCAL_TRANSLATOR_CONFIG_KEY], (result) => {
+      if (result[LOCAL_TRANSLATOR_CONFIG_KEY]) {
+        setConfigState(result[LOCAL_TRANSLATOR_CONFIG_KEY]);
+      }
+    });
+  }, []);
+
+  const setConfig = (newConfig: LocalTranslatorConfig) => {
+    setConfigState(newConfig);
+    chrome.storage.sync.set({ [LOCAL_TRANSLATOR_CONFIG_KEY]: newConfig });
+  };
+
+  return [config, setConfig];
+};
+
+/**
+ * 获取 LocalTranslator 配置
+ */
+export const getLocalTranslatorConfig = async (): Promise<LocalTranslatorConfig> => {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get([LOCAL_TRANSLATOR_CONFIG_KEY], (result) => {
+      resolve(result[LOCAL_TRANSLATOR_CONFIG_KEY] ?? { sourceLanguage: 'en' });
     });
   });
 }; 

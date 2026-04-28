@@ -89,7 +89,7 @@ const Caption = memo((props: CaptionProps) => {
     const handleSentenceTranslation = useCallback(async (sentence: string): Promise<void> => {
         const messageManager = (await import('../../utils/message-manager')).default;
         const { getCurrentTranslationProvider } = await import('../../hooks/useTranslationProvider');
-        const { translateByGoogle, translateByMicrosoft, translateByAI } = await import('../../utils/translators');
+        const { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeepL, translateByLocal } = await import('../../utils/translators');
         
         try {
             disableAutoScroll();
@@ -104,6 +104,12 @@ const Caption = memo((props: CaptionProps) => {
                     break;
                 case 'microsoft':
                     translatedText = await translateByMicrosoft(sentence);
+                    break;
+                case 'deepl':
+                    translatedText = await translateByDeepL(sentence);
+                    break;
+                case 'local':
+                    translatedText = await translateByLocal(sentence);
                     break;
                 case 'ai':
                 default:
