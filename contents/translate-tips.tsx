@@ -104,7 +104,7 @@ const PlasmoInline = () => {
 
     useEffect(() => {
         // Load feature flags
-        chrome.storage.local.get(['captionToggleEnabled', 'stickerEnabled'], (result) => {
+        chrome.storage.sync.get(['captionToggleEnabled', 'stickerEnabled'], (result) => {
             setCaptionToggleEnabled(result.captionToggleEnabled || false);
             setStickerEnabled(result.stickerEnabled || false);
         });

@@ -193,7 +193,7 @@ const General: React.FC = () => {
   const [clearSuccess, setClearSuccess] = useState(false);
 
   useEffect(() => {
-    chrome.storage.local.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
+    chrome.storage.sync.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
       setCaptionFontOffset(result.captionFontSizeOffset ?? 0);
       setSummaryFontOffset(result.summaryFontSizeOffset ?? 0);
     });
@@ -201,12 +201,12 @@ const General: React.FC = () => {
 
   const handleCaptionFont = (next: number) => {
     setCaptionFontOffset(next);
-    chrome.storage.local.set({ captionFontSizeOffset: next });
+    chrome.storage.sync.set({ captionFontSizeOffset: next });
   };
 
   const handleSummaryFont = (next: number) => {
     setSummaryFontOffset(next);
-    chrome.storage.local.set({ summaryFontSizeOffset: next });
+    chrome.storage.sync.set({ summaryFontSizeOffset: next });
   };
 
   const handleClear = () => {

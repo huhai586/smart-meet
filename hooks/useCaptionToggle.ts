@@ -7,7 +7,7 @@ export const useCaptionToggle = () => {
 
   useEffect(() => {
     // 从存储中加载设置
-    chrome.storage.local.get([STORAGE_KEY], (result) => {
+    chrome.storage.sync.get([STORAGE_KEY], (result) => {
       setEnabled(result[STORAGE_KEY] || false); // 默认关闭
     });
 
@@ -27,7 +27,7 @@ export const useCaptionToggle = () => {
 
   const setEnabledValue = (value: boolean) => {
     setEnabled(value);
-    chrome.storage.local.set({ [STORAGE_KEY]: value });
+    chrome.storage.sync.set({ [STORAGE_KEY]: value });
   };
 
   return [enabled, setEnabledValue] as const;

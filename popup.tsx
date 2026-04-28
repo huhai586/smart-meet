@@ -57,7 +57,7 @@ const ContentMonitor = () => {
 
   const toggleSwitch = (v) => {
         setSwitchValue(v)
-        chrome.storage.local.set({ isExtensionDisabled: !v }, () => {
+        chrome.storage.sync.set({ isExtensionDisabled: !v }, () => {
             console.log('isExtensionDisabled is set to ' + !v);
             chrome.tabs.query({},function(tabs) {
                 tabs.forEach((tab) => {

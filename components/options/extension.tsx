@@ -282,7 +282,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
 
   /* ── Effects ── */
   useEffect(() => {
-    chrome.storage.local.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
+    chrome.storage.sync.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
       setCaptionFontOffset(result.captionFontSizeOffset ?? 0);
       setSummaryFontOffset(result.summaryFontSizeOffset ?? 0);
     });
@@ -293,7 +293,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
   }, []);
 
   useEffect(() => {
-    chrome.storage.local.set({ specificHighlightWords: specificTags });
+    chrome.storage.sync.set({ specificHighlightWords: specificTags });
   }, [specificTags]);
 
   useEffect(() => {
@@ -318,12 +318,12 @@ const Extension = (_props: ExtensionPropsInterface) => {
   /* ── Font size handlers ── */
   const handleCaptionFont = (next: number) => {
     setCaptionFontOffset(next);
-    chrome.storage.local.set({ captionFontSizeOffset: next });
+    chrome.storage.sync.set({ captionFontSizeOffset: next });
   };
 
   const handleSummaryFont = (next: number) => {
     setSummaryFontOffset(next);
-    chrome.storage.local.set({ summaryFontSizeOffset: next });
+    chrome.storage.sync.set({ summaryFontSizeOffset: next });
   };
 
   /* ── Export helpers ── */

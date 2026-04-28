@@ -8,7 +8,7 @@ const STORAGE_KEY = 'customPrompts';
 
 export async function getCustomPrompts(): Promise<CustomPrompt[]> {
   return new Promise((resolve) => {
-    chrome.storage.local.get([STORAGE_KEY], (result) => {
+    chrome.storage.sync.get([STORAGE_KEY], (result) => {
       resolve(result[STORAGE_KEY] ?? []);
     });
   });
@@ -16,7 +16,7 @@ export async function getCustomPrompts(): Promise<CustomPrompt[]> {
 
 export async function saveCustomPrompts(prompts: CustomPrompt[]): Promise<void> {
   return new Promise((resolve) => {
-    chrome.storage.local.set({ [STORAGE_KEY]: prompts }, resolve);
+    chrome.storage.sync.set({ [STORAGE_KEY]: prompts }, resolve);
   });
 }
 

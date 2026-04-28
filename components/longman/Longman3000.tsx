@@ -95,7 +95,7 @@ const Longman3000: React.FC = () => {
 
     // 加载收藏夹
     useEffect(() => {
-        chrome.storage.local.get(['longmanStarred'], (result) => {
+        chrome.storage.sync.get(['longmanStarred'], (result) => {
             if (result.longmanStarred) {
                 setStarredWords(new Set(result.longmanStarred));
             }
@@ -105,7 +105,7 @@ const Longman3000: React.FC = () => {
     // 保存收藏夹
     const saveStarred = (newStarred: Set<string>) => {
         setStarredWords(newStarred);
-        chrome.storage.local.set({ longmanStarred: Array.from(newStarred) });
+        chrome.storage.sync.set({ longmanStarred: Array.from(newStarred) });
     };
 
     const toggleStar = (word: string, e: React.MouseEvent) => {

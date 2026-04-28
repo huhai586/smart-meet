@@ -45,7 +45,7 @@ const SidePanel = () => {
 
     // 加载可见性设置
     useEffect(() => {
-        chrome.storage.local.get(['sidepanelVisibility'], (result) => {
+        chrome.storage.sync.get(['sidepanelVisibility'], (result) => {
             if (result.sidepanelVisibility) {
                 setVisibility(result.sidepanelVisibility);
             }
@@ -53,7 +53,7 @@ const SidePanel = () => {
 
         // 监听可见性设置变化
         const handleStorageChange = (changes: any, areaName: string) => {
-            if (areaName === 'local' && changes.sidepanelVisibility) {
+            if (areaName === 'sync' && changes.sidepanelVisibility) {
                 setVisibility(changes.sidepanelVisibility.newValue);
             }
         };

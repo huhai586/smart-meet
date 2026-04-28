@@ -142,7 +142,7 @@ const SidepanelSettings: React.FC = () => {
   });
 
   useEffect(() => {
-    chrome.storage.local.get([SIDEPANEL_STORAGE_KEY, BUTTONS_STORAGE_KEY], (result) => {
+    chrome.storage.sync.get([SIDEPANEL_STORAGE_KEY, BUTTONS_STORAGE_KEY], (result) => {
       if (result[SIDEPANEL_STORAGE_KEY]) setVisibility(result[SIDEPANEL_STORAGE_KEY]);
       if (result[BUTTONS_STORAGE_KEY]) setButtonsVisibility(result[BUTTONS_STORAGE_KEY]);
     });
@@ -151,13 +151,13 @@ const SidepanelSettings: React.FC = () => {
   const updateVisibility = (key: keyof SidepanelVisibility, value: boolean) => {
     const next = { ...visibility, [key]: value };
     setVisibility(next);
-    chrome.storage.local.set({ [SIDEPANEL_STORAGE_KEY]: next });
+    chrome.storage.sync.set({ [SIDEPANEL_STORAGE_KEY]: next });
   };
 
   const updateButtonsVisibility = (key: keyof CaptionButtonsVisibility, value: boolean) => {
     const next = { ...buttonsVisibility, [key]: value };
     setButtonsVisibility(next);
-    chrome.storage.local.set({ [BUTTONS_STORAGE_KEY]: next });
+    chrome.storage.sync.set({ [BUTTONS_STORAGE_KEY]: next });
   };
 
   const tabItems: { key: keyof SidepanelVisibility; icon: React.ReactNode; color: string; label: string }[] = [

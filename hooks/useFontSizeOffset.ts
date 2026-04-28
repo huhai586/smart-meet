@@ -8,7 +8,7 @@ const useFontSizeOffset = (storageKey: string): number => {
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
-        chrome.storage.local.get([storageKey], (result) => {
+        chrome.storage.sync.get([storageKey], (result) => {
             setOffset(result[storageKey] ?? 0);
         });
 

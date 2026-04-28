@@ -1,6 +1,6 @@
 const getIsExtensionDisabled = () => {
     return new Promise((resolve, _reject) => {
-        chrome.storage.local.get(['isExtensionDisabled'], (result) => {
+        chrome.storage.sync.get(['isExtensionDisabled'], (result) => {
         resolve(!!result.isExtensionDisabled);
         });
     });
