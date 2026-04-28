@@ -40,6 +40,21 @@
     }
   }
 
+  &__range-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  &__range-preset {
+    .ant-select-selection-item {
+      font-size: 12px;
+      color: #007AFF;
+      font-weight: 500;
+    }
+  }
+
   // ── Range Capsule ─────────────────────────────────────────
   &__capsule {
     display: flex;

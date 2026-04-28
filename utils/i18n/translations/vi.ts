@@ -399,4 +399,8 @@ export default {
   "select_prompt": "Chọn prompt",
   "apply_prompts": "Áp dụng ({n} đã chọn)",
   "save": "Lưu",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "Cài đặt AI",
+  "tab_ai_translation_desc": "Nhà cung cấp AI, gợi ý tùy chỉnh và cài đặt dịch thuật",
 };

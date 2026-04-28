@@ -427,4 +427,8 @@ export default {
   "select_prompt": "انتخاب پرامپت",
   "apply_prompts": "اعمال ({n} انتخاب شده)",
   "save": "ذخیره",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "تنظیمات AI",
+  "tab_ai_translation_desc": "ارائه‌دهندگان AI، دستورالعمل‌های سفارشی و تنظیمات ترجمه",
 };

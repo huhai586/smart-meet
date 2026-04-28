@@ -92,17 +92,17 @@ const SettingRow = styled.div<{ $last?: boolean; $clickable?: boolean }>`
   }
 `;
 
-const IconSquircle = styled.div<{ $color: string }>`
+const IconCircle = styled.div<{ $color: string }>`
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: ${({ $color }) => $color};
+  background: ${({ $color }) => $color}1F;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #fff;
-  font-size: 15px;
+  color: ${({ $color }) => $color};
+  font-size: 16px;
 `;
 
 const RowContent = styled.div`
@@ -296,18 +296,18 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
         {PROVIDER_LIST.map((provider, idx) => {
           const isActive = translationProvider === provider.id;
           const isLast = idx === PROVIDER_LIST.length - 1;
+          const openSettings = provider.id === 'local' ? openLocalSettings : openDeepLSettings;
           return (
             <SettingRow
               key={provider.id}
               $last={isLast}
               $clickable
-              onClick={() => {
+              onClick={(e) => {
                 handleSelectProvider(provider.id);
-                if (provider.id === 'deepl' && provider.hasSettings && isActive) openDeepLSettings({ stopPropagation: () => {} } as any);
-                if (provider.id === 'local' && provider.hasSettings) openLocalSettings({ stopPropagation: () => {} } as any);
+                if (provider.hasSettings) openSettings(e);
               }}
             >
-              <IconSquircle $color={provider.iconColor}>{provider.icon}</IconSquircle>
+              <IconCircle $color={provider.iconColor}>{provider.icon}</IconCircle>
               <RowContent>
                 <RowTitle>{t(provider.nameKey)}</RowTitle>
               </RowContent>
@@ -316,7 +316,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
                 {provider.hasSettings && (
                   <RightOutlined
                     style={{ color: '#C7C7CC', fontSize: 13, marginLeft: isActive ? 6 : 0 }}
-                    onClick={provider.id === 'local' ? openLocalSettings : openDeepLSettings}
+                    onClick={openSettings}
                   />
                 )}
               </RowValue>

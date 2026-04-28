@@ -503,7 +503,7 @@ export default {
   "tab_general_desc": "语言、字体大小、帮助与数据管理",
   "tab_interface": "界面",
   "tab_interface_desc": "侧边栏标签页、字幕按钮、会议浮层与高亮词",
-  "tab_ai_translation": "AI 助手",
+  "tab_ai_translation": "AI 配置",
   "tab_ai_translation_desc": "AI 服务商、自定义提示词与翻译设置",
   "tab_history": "日历记录",
   "tab_history_desc": "历史会议、AI 对话与导出",

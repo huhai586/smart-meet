@@ -423,4 +423,8 @@ export default {
   "select_prompt": "프롬프트 선택",
   "apply_prompts": "적용 ({n}개 선택됨)",
   "save": "저장",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "AI 설정",
+  "tab_ai_translation_desc": "AI 서비스, 커스텀 프롬프트 및 번역 설정",
 };

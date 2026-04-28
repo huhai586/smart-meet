@@ -399,4 +399,8 @@ export default {
   "select_prompt": "Выбрать промпт",
   "apply_prompts": "Применить ({n} выбрано)",
   "save": "Сохранить",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "Настройки ИИ",
+  "tab_ai_translation_desc": "Поставщики ИИ, пользовательские промпты и настройки перевода",
 };

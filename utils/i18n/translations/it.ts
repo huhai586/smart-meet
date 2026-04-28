@@ -406,4 +406,8 @@ export default {
   "select_prompt": "Seleziona prompt",
   "apply_prompts": "Applica ({n} selezionati)",
   "save": "Salva",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "Impostazioni AI",
+  "tab_ai_translation_desc": "Fornitori AI, prompt personalizzati e impostazioni di traduzione",
 };

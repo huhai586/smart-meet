@@ -378,4 +378,8 @@ export default {
   "select_prompt": "เลือกพรอมต์",
   "apply_prompts": "นำไปใช้ ({n} รายการที่เลือก)",
   "save": "บันทึก",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "การตั้งค่า AI",
+  "tab_ai_translation_desc": "ผู้ให้บริการ AI พรอมต์ที่กำหนดเอง และการตั้งค่าการแปล",
 };

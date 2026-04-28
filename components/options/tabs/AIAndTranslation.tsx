@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
   RobotOutlined,
-  EditOutlined,
   DeleteOutlined,
   PlusOutlined,
   RightOutlined,
+  AppstoreOutlined,
+  TranslationOutlined,
 } from '@ant-design/icons';
 import { Modal, Input } from 'antd';
 import styled from 'styled-components';
@@ -27,7 +28,7 @@ const PageWrapper = styled.div`
 `;
 
 const PageHeader = styled.div`
-  padding: 0 20px 24px;
+  padding: 0 20px 20px;
 `;
 
 const PageTitle = styled.h1`
@@ -46,8 +47,61 @@ const PageSubtitle = styled.p`
   line-height: 1.4;
 `;
 
-const Section = styled.div`
+/* ── Segmented Control ── */
+const SegmentBar = styled.div`
+  display: flex;
+  padding: 0 20px 20px;
+`;
+
+const SegmentTrack = styled.div`
+  display: flex;
+  background: #E5E5EA;
+  border-radius: 10px;
+  padding: 2px;
+  gap: 0;
+  width: 100%;
+`;
+
+const SegBtn = styled.button<{ $active: boolean }>`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+  font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif;
+  background: ${({ $active }) => ($active ? '#FFFFFF' : 'transparent')};
+  color: ${({ $active }) => ($active ? '#1C1C1E' : '#3C3C43')};
+  box-shadow: ${({ $active }) => ($active ? '0 1px 3px rgba(0,0,0,0.12)' : 'none')};
+  white-space: nowrap;
+
+  &:hover {
+    color: #1C1C1E;
+  }
+`;
+
+/* ── Tab content wrapper ── */
+const TabPane = styled.div`
+  flex: 1;
+  min-height: 0;
+`;
+
+/* ── Prompts Tab ── */
+const PromptsPane = styled.div`
   padding: 0 20px;
+`;
+
+const PaneSectionHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
 `;
 
 const SectionLabel = styled.div`
@@ -56,7 +110,28 @@ const SectionLabel = styled.div`
   color: #8E8E93;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  padding: 0 4px 8px;
+  padding: 0 4px;
+`;
+
+const AddBtn = styled.button`
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: #007AFF;
+  color: #fff;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.12s;
+  line-height: 1;
+
+  &:hover {
+    background: #0066DD;
+  }
 `;
 
 const SettingGroup = styled.div`
@@ -140,15 +215,21 @@ const Chevron = styled(RightOutlined)`
   color: #C7C7CC;
 `;
 
-const Divider = styled.div`
-  height: 24px;
+const EmptyState = styled.div`
+  padding: 32px 16px;
+  text-align: center;
+  color: #8E8E93;
+  font-size: 14px;
 `;
 
 /* ── Component ── */
 
+type TabKey = 'models' | 'prompts' | 'translation';
+
 const AIAndTranslation: React.FC = () => {
   const { t } = useI18n();
 
+  const [activeTab, setActiveTab] = useState<TabKey>('models');
   const [customPrompts, setCustomPrompts] = useState<CustomPrompt[]>([]);
   const [promptModalOpen, setPromptModalOpen] = useState(false);
   const [editingPrompt, setEditingPrompt] = useState<CustomPrompt | null>(null);
@@ -214,69 +295,96 @@ const AIAndTranslation: React.FC = () => {
         <PageSubtitle>{t('tab_ai_translation_desc')}</PageSubtitle>
       </PageHeader>
 
-      {/* AI Providers – uses its own internal layout */}
-      <AISettings hideHeader />
+      {/* ── Segmented Control ── */}
+      <SegmentBar>
+        <SegmentTrack>
+          <SegBtn $active={activeTab === 'models'} onClick={() => setActiveTab('models')}>
+            <AppstoreOutlined />
+            模型服务
+          </SegBtn>
+          <SegBtn $active={activeTab === 'prompts'} onClick={() => setActiveTab('prompts')}>
+            <RobotOutlined />
+            提示词库
+          </SegBtn>
+          <SegBtn $active={activeTab === 'translation'} onClick={() => setActiveTab('translation')}>
+            <TranslationOutlined />
+            翻译偏好
+          </SegBtn>
+        </SegmentTrack>
+      </SegmentBar>
 
-      <Divider />
+      {/* ── Tab: AI Model Services ── */}
+      {activeTab === 'models' && (
+        <TabPane>
+          <AISettings hideHeader />
+        </TabPane>
+      )}
 
-      {/* Custom Prompts */}
-      <Section>
-        <SectionLabel>{t('custom_prompts')}</SectionLabel>
-        <SettingGroup>
-          <SettingRow $clickable onClick={openAddPrompt} $last={customPrompts.length === 0}>
-            <IconSquircle $color="#5E5CE6">
-              <RobotOutlined />
-            </IconSquircle>
-            <RowContent>
-              <RowTitle>{t('custom_prompts')}</RowTitle>
-            </RowContent>
-            <RowValue>
-              {customPrompts.length > 0 && <span>{customPrompts.length}</span>}
-              <PlusOutlined style={{ color: '#007AFF', fontSize: 14 }} />
-            </RowValue>
-          </SettingRow>
+      {/* ── Tab: Custom Prompts ── */}
+      {activeTab === 'prompts' && (
+        <TabPane>
+          <PromptsPane>
+            <PaneSectionHeader>
+              <SectionLabel>{t('custom_prompts')}</SectionLabel>
+              <AddBtn onClick={openAddPrompt} title={t('add_prompt') || 'Add prompt'}>
+                <PlusOutlined style={{ fontSize: 13 }} />
+              </AddBtn>
+            </PaneSectionHeader>
 
-          {customPrompts.map((prompt, idx) => (
-            <SettingRow
-              key={prompt.id}
-              $last={idx === customPrompts.length - 1}
-              $clickable
-              onClick={() => openEditPrompt(prompt)}
-            >
-              <div style={{ width: 32, flexShrink: 0 }} />
-              <RowContent>
-                <RowTitle style={{ fontSize: 14 }}>{prompt.title}</RowTitle>
-                <RowSubtitle>{prompt.content}</RowSubtitle>
-              </RowContent>
-              <RowValue>
-                <button
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    padding: '4px 6px',
-                    color: '#FF3B30',
-                    fontSize: 14,
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handlePromptDelete(prompt.id);
-                  }}
-                >
-                  <DeleteOutlined />
-                </button>
-                <Chevron />
-              </RowValue>
-            </SettingRow>
-          ))}
-        </SettingGroup>
-        <SectionFooter>{t('custom_prompts_desc')}</SectionFooter>
-      </Section>
+            {customPrompts.length === 0 ? (
+              <SettingGroup>
+                <EmptyState>{t('custom_prompts_empty') || 'No prompts yet. Click + to add one.'}</EmptyState>
+              </SettingGroup>
+            ) : (
+              <SettingGroup>
+                {customPrompts.map((prompt, idx) => (
+                  <SettingRow
+                    key={prompt.id}
+                    $last={idx === customPrompts.length - 1}
+                    $clickable
+                    onClick={() => openEditPrompt(prompt)}
+                  >
+                    <IconSquircle $color="#5E5CE6">
+                      <RobotOutlined />
+                    </IconSquircle>
+                    <RowContent>
+                      <RowTitle>{prompt.title}</RowTitle>
+                      <RowSubtitle>{prompt.content}</RowSubtitle>
+                    </RowContent>
+                    <RowValue>
+                      <button
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          cursor: 'pointer',
+                          padding: '4px 6px',
+                          color: '#FF3B30',
+                          fontSize: 14,
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePromptDelete(prompt.id);
+                        }}
+                      >
+                        <DeleteOutlined />
+                      </button>
+                      <Chevron />
+                    </RowValue>
+                  </SettingRow>
+                ))}
+              </SettingGroup>
+            )}
+            <SectionFooter>{t('custom_prompts_desc')}</SectionFooter>
+          </PromptsPane>
+        </TabPane>
+      )}
 
-      <Divider />
-
-      {/* Translation Settings */}
-      <TranslationSettings hideHeader />
+      {/* ── Tab: Translation Preferences ── */}
+      {activeTab === 'translation' && (
+        <TabPane>
+          <TranslationSettings hideHeader />
+        </TabPane>
+      )}
 
       {/* Add/Edit prompt modal */}
       <Modal

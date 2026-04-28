@@ -378,4 +378,8 @@ export default {
   "select_prompt": "प्रॉम्प्ट चुनें",
   "apply_prompts": "लागू करें ({n} चयनित)",
   "save": "सहेजें",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "AI सेटिंग्स",
+  "tab_ai_translation_desc": "AI सेवा प्रदाता, कस्टम प्रॉम्प्ट और अनुवाद सेटिंग्स",
 };

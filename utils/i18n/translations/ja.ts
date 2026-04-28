@@ -423,4 +423,8 @@ export default {
   "select_prompt": "プロンプトを選択",
   "apply_prompts": "適用（{n} 件選択中）",
   "save": "保存",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "AI設定",
+  "tab_ai_translation_desc": "AIサービス、カスタムプロンプト、翻訳設定",
 };

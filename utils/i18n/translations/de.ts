@@ -406,4 +406,8 @@ export default {
   "select_prompt": "Prompt auswählen",
   "apply_prompts": "Anwenden ({n} ausgewählt)",
   "save": "Speichern",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "KI-Einstellungen",
+  "tab_ai_translation_desc": "KI-Dienstanbieter, eigene Prompts und Übersetzungseinstellungen",
 };

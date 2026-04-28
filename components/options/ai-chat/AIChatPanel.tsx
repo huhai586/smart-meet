@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { CalendarOutlined, CloseOutlined, WarningOutlined } from '@ant-design/icons';
-import dayjs, { Dayjs } from 'dayjs';
+import { type Dayjs } from 'dayjs';
 import DateRangeSelector from './DateRangeSelector';
 import ChatMessages from './ChatMessages';
 import ChatInputBar from './ChatInputBar';
@@ -13,14 +13,6 @@ const AIChatPanel: React.FC = () => {
     configuredProviders, selectedProviderName, setSelectedProviderName,
     setDateRange, sendMessage, clearMessages,
   } = useAIChat();
-
-  // Default to last 7 days on first mount
-  useEffect(() => {
-    const end = dayjs();
-    const start = end.subtract(6, 'day');
-    setDateRange([start, end]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const isLoading = loadPhase !== 'idle';
 
@@ -86,7 +78,7 @@ const AIChatPanel: React.FC = () => {
             ? '请先选择日期范围...'
             : !hasProvider
             ? '请先配置 AI 服务...'
-            : '输入问题… (Enter 发送)'
+            : '输入问题… (⌘↵ / Ctrl↵)'
         }
         configuredProviders={configuredProviders}
         selectedProviderName={selectedProviderName}

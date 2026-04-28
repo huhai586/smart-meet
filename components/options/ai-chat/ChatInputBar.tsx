@@ -49,7 +49,7 @@ const ChatInputBar: React.FC<Props> = ({
   }, [value, disabled, onSend]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       handleSend();
     }
@@ -121,7 +121,7 @@ const ChatInputBar: React.FC<Props> = ({
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder || '输入问题… (Enter 发送，Shift+Enter 换行)'}
+          placeholder={placeholder || '输入问题… (⌘↵ / Ctrl↵ 发送)'}
           disabled={disabled}
           rows={1}
         />

@@ -504,7 +504,7 @@ export default {
   "tab_general_desc": "Language, font size, help and data management",
   "tab_interface": "Interface",
   "tab_interface_desc": "Sidepanel tabs, caption buttons, meeting overlay and highlight words",
-  "tab_ai_translation": "AI & Translation",
+  "tab_ai_translation": "AI Settings",
   "tab_ai_translation_desc": "AI service providers, custom prompts and translation settings",
   "tab_history": "Calendar",
   "tab_history_desc": "Meeting history, AI assistant and export",

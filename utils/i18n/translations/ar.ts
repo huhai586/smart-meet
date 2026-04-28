@@ -378,4 +378,8 @@ export default {
   "select_prompt": "اختر موجهاً",
   "apply_prompts": "تطبيق ({n} محدد)",
   "save": "حفظ",
+
+  // AI & Translation Tab
+  "tab_ai_translation": "إعدادات AI",
+  "tab_ai_translation_desc": "مزودو خدمات الذكاء الاصطناعي والمطالبات المخصصة وإعدادات الترجمة",
 };
