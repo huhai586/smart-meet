@@ -18,6 +18,7 @@ import Longman3000 from "./components/longman/Longman3000";
 import aiServiceManager from './utils/ai';
 import { getAllAIServiceConfigs } from './utils/getAI';
 import googleAITools from './utils/google-AI';
+import { getConfigValue, onConfigChanged } from './utils/appConfig';
 
 import './styles/sidepanel.scss';
 
@@ -45,23 +46,17 @@ const SidePanel = () => {
 
     // 加载可见性设置
     useEffect(() => {
-        chrome.storage.sync.get(['sidepanelVisibility'], (result) => {
-            if (result.sidepanelVisibility) {
-                setVisibility(result.sidepanelVisibility);
-            }
+        getConfigValue('sidepanelVisibility').then((v) => {
+            if (v) setVisibility(v);
         });
 
         // 监听可见性设置变化
-        const handleStorageChange = (changes: any, areaName: string) => {
-            if (areaName === 'sync' && changes.sidepanelVisibility) {
-                setVisibility(changes.sidepanelVisibility.newValue);
+        const unsubscribe = onConfigChanged((changes) => {
+            if (changes.sidepanelVisibility) {
+                setVisibility((changes.sidepanelVisibility as { value: typeof visibility }).value);
             }
-        };
-
-        chrome.storage.onChanged.addListener(handleStorageChange);
-        return () => {
-            chrome.storage.onChanged.removeListener(handleStorageChange);
-        };
+        });
+        return unsubscribe;
     }, []);
 
     // 当可见性变化时，确保当前标签页是可见的

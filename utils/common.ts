@@ -1,23 +1,15 @@
-export const getSpecificTags = () => {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(['specificHighlightWords'], function(result) {
-            resolve(result.specificHighlightWords || []);
-        });
-    });
-}
+import { getConfigValue } from '~/utils/appConfig';
 
-export const getDomainTags = () => {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(['highlightWordsByDescriptions'], function(result) {
-            resolve(result.highlightWordsByDescriptions || []);
-        });
-    });
-}
+export const getSpecificTags = async () => {
+  const v = await getConfigValue('specificHighlightWords');
+  return v ?? [];
+};
 
-export const getDomain = () => {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(['domain'], function(result) {
-            resolve(result.domain);
-        });
-    });
-}
+export const getDomainTags = async () => {
+  const v = await getConfigValue('highlightWordsByDescriptions');
+  return v ?? [];
+};
+
+export const getDomain = async () => {
+  return getConfigValue('domain');
+};

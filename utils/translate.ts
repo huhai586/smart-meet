@@ -1,14 +1,11 @@
+import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 
-export const getTranslatedWords: () => Promise<string[]> = () => {
-    return new Promise((resolve, _reject) => {
-        chrome.storage.sync.get('translatedWords', ({translatedWords}) => {
-            console.log({translatedWords})
-            resolve(translatedWords || []);
-        });
-    });
-}
+export const getTranslatedWords = async (): Promise<string[]> => {
+  const v = await getConfigValue('translatedWords');
+  return v ?? [];
+};
 
 export const setTranslatedWords = async (text: string) => {
-    const translatedWords = await getTranslatedWords() as string[];
-    chrome.storage.sync.set({'translatedWords': [...new Set([...translatedWords, text])]});
-}
+  const translatedWords = await getTranslatedWords();
+  await setConfigValue('translatedWords', [...new Set([...translatedWords, text])]);
+};

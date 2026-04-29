@@ -14,6 +14,7 @@ import {updateBadgeText} from "./background/set-badge-text";
 import openSidePanel from "~utils/open-side-panel";
 import useI18n from "./utils/i18n";
 import { useAutoTranslate } from "./hooks/useAutoTranslate";
+import { setConfigValue } from "./utils/appConfig";
 
 const ContentMonitor = () => {
   const [switchValue, setSwitchValue] = useState(true)
@@ -57,20 +58,15 @@ const ContentMonitor = () => {
 
   const toggleSwitch = (v) => {
         setSwitchValue(v)
-        chrome.storage.sync.set({ isExtensionDisabled: !v }, () => {
+        setConfigValue('isExtensionDisabled', !v).then(() => {
             console.log('isExtensionDisabled is set to ' + !v);
+            updateBadgeText(); // run AFTER write resolves so badge reads the new value
             chrome.tabs.query({},function(tabs) {
                 tabs.forEach((tab) => {
                     chrome.tabs.sendMessage(tab.id, { action: "toggleSwitch", value: v });
                 })
             });
         });
-        updateBadgeText();
-        // 移除会导致popup关闭的API key检查
-        // getAPIkey().catch(() => {
-        //     // no API key
-        //     chrome.runtime.openOptionsPage();
-        // })
   }
   return (
       <div className="content-monitor popup-container">

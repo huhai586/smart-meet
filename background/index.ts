@@ -4,6 +4,7 @@ import { initTabTracking } from "./tab-tracking";
 import { detectAndSetBrowserLanguage } from "./utils/language-utils";
 import { initLeaveCallSync } from "./sync-on-leave";
 import { initBrowserStartupSync } from "./browser-startup-sync";
+import { migrateToAppConfig, cleanupLegacyFlatKeys } from "../utils/appConfig";
 
 /**
  * 背景页入口文件
@@ -38,6 +39,11 @@ chrome.runtime.onInstalled.addListener(async (details) => {
 // 后台服务初始化函数
 function initBackgroundService() {
     console.log('初始化背景页服务...');
+
+    // 迁移旧存储键到统一 appConfig
+    migrateToAppConfig().catch((err) => console.error('appConfig migration error:', err));
+    // 清理遗留的旧扁平键（对已完成迁移的用户同样执行一次）
+    cleanupLegacyFlatKeys().catch((err) => console.error('appConfig cleanup error:', err));
 
     // 初始化徽章文本
     updateBadgeText();

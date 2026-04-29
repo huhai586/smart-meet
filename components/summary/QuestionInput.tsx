@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { SendOutlined, AppstoreOutlined, CheckOutlined } from '@ant-design/icons';
+import { SendOutlined, AppstoreOutlined } from '@ant-design/icons';
 import { useI18n } from '../../utils/i18n';
 import { Tooltip, Popover } from 'antd';
 import { type CustomPrompt, getCustomPrompts } from '../../utils/customPrompts';
+import { onConfigChanged } from '../../utils/appConfig';
 
 interface QuestionInputProps {
   onSubmit: (question: string) => void;
@@ -13,40 +14,25 @@ const QuestionInput: React.FC<QuestionInputProps> = ({ onSubmit, loading }) => {
   const { t } = useI18n();
   const [value, setValue] = useState('');
   const [prompts, setPrompts] = useState<CustomPrompt[]>([]);
-  const [selected, setSelected] = useState<Set<string>>(new Set());
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   useEffect(() => {
     getCustomPrompts().then(setPrompts);
-    // Refresh when storage changes (e.g. user edits in Options)
-    const handler = (changes: Record<string, chrome.storage.StorageChange>, area: string) => {
-      if (area === 'local' && changes.customPrompts) {
-        setPrompts(changes.customPrompts.newValue ?? []);
+    // Refresh when prompts are edited in Options (any device, via appConfig sync)
+    const unsubscribe = onConfigChanged((changes) => {
+      if (changes.customPrompts) {
+        setPrompts(changes.customPrompts.value ?? []);
       }
-    };
-    chrome.storage.onChanged.addListener(handler);
-    return () => chrome.storage.onChanged.removeListener(handler);
+    });
+    return unsubscribe;
   }, []);
 
-  const toggleSelect = (id: string) => {
-    setSelected(prev => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
-
-  const applyPrompts = () => {
-    const contents = prompts
-      .filter(p => selected.has(p.id))
-      .map(p => p.content)
-      .join('\n');
-    if (contents) {
-      setValue(prev => (prev ? `${prev}\n${contents}` : contents));
-    }
-    setSelected(new Set());
+  const selectPrompt = (p: CustomPrompt) => {
+    setValue(p.content);
     setPopoverOpen(false);
   };
+
+  const applyPrompts = selectPrompt; // keep reference for any future use
 
   const handleSubmit = () => {
     const trimmed = value.trim();
@@ -69,30 +55,18 @@ const QuestionInput: React.FC<QuestionInputProps> = ({ onSubmit, loading }) => {
           <div className="prompt-picker__empty-hint">{t('go_to_extension_settings')}</div>
         </div>
       ) : (
-        <>
-          <div className="prompt-picker__list">
-            {prompts.map(p => (
-              <div
-                key={p.id}
-                className={`prompt-picker__item ${selected.has(p.id) ? 'prompt-picker__item--selected' : ''}`}
-                onClick={() => toggleSelect(p.id)}
-              >
-                <div className="prompt-picker__item-title">{p.title}</div>
-                <div className="prompt-picker__item-preview">{p.content}</div>
-                {selected.has(p.id) && <CheckOutlined className="prompt-picker__item-check" />}
-              </div>
-            ))}
-          </div>
-          <div className="prompt-picker__footer">
-            <button
-              className="prompt-picker__apply"
-              disabled={selected.size === 0}
-              onClick={applyPrompts}
+        <div className="prompt-picker__list">
+          {prompts.map(p => (
+            <div
+              key={p.id}
+              className="prompt-picker__item"
+              onClick={() => selectPrompt(p)}
             >
-              {t('apply_prompts', { n: String(selected.size) })}
-            </button>
-          </div>
-        </>
+              <div className="prompt-picker__item-title">{p.title}</div>
+              <div className="prompt-picker__item-preview">{p.content}</div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

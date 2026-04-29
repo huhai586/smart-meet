@@ -1,5 +1,6 @@
 import {useEffect, useState, useMemo} from "react";
 import {getDomain} from "../utils/common";
+import { onConfigChanged } from "~/utils/appConfig";
 
 const useDomain = () => {
     const [domain, setDomain] = useState('');
@@ -10,20 +11,14 @@ const useDomain = () => {
             setDomain(res);
         });
 
-        // 监听storage变化
-        const handleStorageChanges = (changes) => {
+        // 监听 appConfig 变化
+        const unsubscribe = onConfigChanged((changes) => {
             if (changes.domain) {
-                setDomain(changes.domain.newValue);
+                setDomain(changes.domain.value);
             }
-        };
-
-        // 添加监听器
-        chrome.storage.onChanged.addListener(handleStorageChanges);
+        });
         
-        // 清理函数移除监听器
-        return () => {
-            chrome.storage.onChanged.removeListener(handleStorageChanges);
-        };
+        return unsubscribe;
     }, []);
 
     // 使用useMemo稳定字符串引用 (虽然基本类型不需要，但保持一致性)

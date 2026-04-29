@@ -10,6 +10,7 @@ import General from '~components/options/tabs/General';
 import InterfaceAppearance from '~components/options/tabs/InterfaceAppearance';
 import AIAndTranslation from '~components/options/tabs/AIAndTranslation';
 import HistoryRecords from '~components/options/tabs/HistoryRecords';
+import DeveloperPanel from '~components/options/tabs/DeveloperPanel';
 import Welcome from '~pages/welcome';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
@@ -27,6 +28,7 @@ const ROUTE_MAPPING: Record<string, string> = {
   'history': '4',
   'cloud-sync': '5',
   'welcome': 'welcome',
+  'developer': 'dev',
 };
 
 // 反向映射表 - 将标签页key映射到对应的路由路径
@@ -37,6 +39,7 @@ const KEY_TO_ROUTE: Record<string, string> = {
   '4': 'history',
   '5': 'cloud-sync',
   'welcome': 'welcome',
+  'dev': 'developer',
 };
 
 const Options = () => {
@@ -48,6 +51,24 @@ const Options = () => {
     });
     const { t: _t, langCode } = useI18n();
     const [_messageApi, _contextHolder] = message.useMessage();
+    const [devMode, setDevMode] = useState(() => {
+        // Use URL hash as an optimistic hint so the Developer tab renders immediately
+        // on page reload without waiting for the async storage read.
+        const hash = window.location.hash.substring(1);
+        return hash === 'developer';
+    });
+
+    // Confirm (and correct if needed) from local storage
+    useEffect(() => {
+        chrome.storage.local.get(['devModeEnabled'], (result) => {
+            setDevMode(!!result.devModeEnabled);
+        });
+    }, []);
+
+    const handleDevUnlock = () => {
+        setDevMode(true);
+        chrome.storage.local.set({ devModeEnabled: true });
+    };
 
     // Set dayjs locale when language changes
     useEffect(() => {
@@ -143,6 +164,8 @@ const Options = () => {
                 return <HistoryRecords />;
             case '5':
                 return <GoogleDriveIntegration />;
+            case 'dev':
+                return <DeveloperPanel />;
             case 'welcome':
                 return <Welcome />;
             default:
@@ -162,7 +185,12 @@ const Options = () => {
     return (
         <GoogleAuthProvider>
             <div className="options-container">
-                <Sidebar activeKey={activeKey} onChange={handleTabChange} />
+                <Sidebar
+                  activeKey={activeKey}
+                  onChange={handleTabChange}
+                  devMode={devMode}
+                  onDevUnlock={handleDevUnlock}
+                />
                 <div className="content-area">
                     {renderContent()}
                 </div>

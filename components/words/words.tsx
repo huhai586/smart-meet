@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import '../../styles/words.scss'
 import '../../styles/empty-states.scss';
 import { getTranslatedWords } from "~utils/translate";
+import { setConfigValue } from "~utils/appConfig";
 import {
     ExclamationCircleOutlined,
     BookOutlined,
@@ -109,7 +110,7 @@ const Words = (props: {currentTab: string}) => {
     };
 
     const handleReset = () => {
-        chrome.storage.local.remove('translatedWords', () => {
+        setConfigValue('translatedWords', []).then(() => {
             setData([]);
             setWordTranslations(new Map());
             messageManager.success(t('history_cleared'));

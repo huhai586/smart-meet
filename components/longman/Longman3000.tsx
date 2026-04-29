@@ -6,6 +6,7 @@ import { longman3000 } from './longman3000Data';
 import WordDetailModal from '../words/WordDetailModal';
 import { translateWord } from '~utils/unified-translation';
 import { useI18n } from '~utils/i18n';
+import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 import messageManager from '~utils/message-manager';
 import './Longman3000.scss';
 
@@ -95,17 +96,15 @@ const Longman3000: React.FC = () => {
 
     // 加载收藏夹
     useEffect(() => {
-        chrome.storage.sync.get(['longmanStarred'], (result) => {
-            if (result.longmanStarred) {
-                setStarredWords(new Set(result.longmanStarred));
-            }
+        getConfigValue('longmanStarred').then((v) => {
+            if (v) setStarredWords(new Set(v));
         });
     }, []);
 
     // 保存收藏夹
     const saveStarred = (newStarred: Set<string>) => {
         setStarredWords(newStarred);
-        chrome.storage.sync.set({ longmanStarred: Array.from(newStarred) });
+        setConfigValue('longmanStarred', Array.from(newStarred));
     };
 
     const toggleStar = (word: string, e: React.MouseEvent) => {

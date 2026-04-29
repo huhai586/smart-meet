@@ -1,9 +1,8 @@
-const getIsExtensionDisabled = () => {
-    return new Promise((resolve, _reject) => {
-        chrome.storage.sync.get(['isExtensionDisabled'], (result) => {
-        resolve(!!result.isExtensionDisabled);
-        });
-    });
-}
+import { getConfigValue } from '~/utils/appConfig';
 
-export default getIsExtensionDisabled; 
+const getIsExtensionDisabled = async (): Promise<boolean> => {
+  const v = await getConfigValue('isExtensionDisabled');
+  return !!v;
+};
+
+export default getIsExtensionDisabled;

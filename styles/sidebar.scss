@@ -181,6 +181,27 @@
       &:hover .icon {
         transform: scale(1.1);
       }
+
+      // Developer mode tab – amber accent
+      &[data-key='dev'] {
+        color: rgba(255, 200, 80, 0.9);
+        border: 1px dashed rgba(255, 200, 80, 0.35);
+
+        .icon { color: rgba(255, 200, 80, 0.9); }
+
+        &:hover {
+          background: rgba(255, 149, 0, 0.15);
+          color: #FFD060;
+          border-color: rgba(255, 200, 80, 0.6);
+        }
+
+        &.active {
+          background: linear-gradient(135deg, rgba(255, 180, 30, 0.18) 0%, rgba(255, 149, 0, 0.12) 100%);
+          color: #FF9500;
+          border: 1px solid rgba(255, 149, 0, 0.45);
+          box-shadow: 0 4px 16px rgba(255, 149, 0, 0.25);
+        }
+      }
     }
   }
 

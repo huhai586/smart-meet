@@ -5,6 +5,7 @@ import { t } from "~utils/i18n";
 import "./translate-tips.scss";
 import StickerNote from "~components/StickerNote";
 import { CAPTIONS_ON_BUTTON_LABELS, CAPTIONS_OFF_BUTTON_LABELS } from "~utils/google-meet-captions-dom";
+import { getConfigValue, onConfigChanged } from "~utils/appConfig";
 
 const MessageOutlinedIcon = () => (
     <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
@@ -104,16 +105,18 @@ const PlasmoInline = () => {
 
     useEffect(() => {
         // Load feature flags
-        chrome.storage.sync.get(['captionToggleEnabled', 'stickerEnabled'], (result) => {
-            setCaptionToggleEnabled(result.captionToggleEnabled || false);
-            setStickerEnabled(result.stickerEnabled || false);
+        Promise.all([
+            getConfigValue('captionToggleEnabled'),
+            getConfigValue('stickerEnabled'),
+        ]).then(([captionToggle, sticker]) => {
+            setCaptionToggleEnabled(captionToggle || false);
+            setStickerEnabled(sticker || false);
         });
 
-        const handleStorageChange = (changes: { [key: string]: chrome.storage.StorageChange }) => {
-            if (changes.captionToggleEnabled) setCaptionToggleEnabled(changes.captionToggleEnabled.newValue || false);
-            if (changes.stickerEnabled) setStickerEnabled(changes.stickerEnabled.newValue || false);
-        };
-        chrome.storage.onChanged.addListener(handleStorageChange);
+        const unsubscribe = onConfigChanged((changes) => {
+            if (changes.captionToggleEnabled) setCaptionToggleEnabled((changes.captionToggleEnabled as { value: boolean }).value || false);
+            if (changes.stickerEnabled) setStickerEnabled((changes.stickerEnabled as { value: boolean }).value || false);
+        });
 
         // Start/stop observer based on URL
         const syncObserver = () => {
@@ -140,7 +143,7 @@ const PlasmoInline = () => {
             window.removeEventListener('popstate', handleLocationChange);
             history.pushState = originalPushState;
             history.replaceState = originalReplaceState;
-            chrome.storage.onChanged.removeListener(handleStorageChange);
+            unsubscribe();
             stopMeetingObserver();
         };
     }, []);

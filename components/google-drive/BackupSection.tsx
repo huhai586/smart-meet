@@ -3,6 +3,7 @@ import { Drawer, Switch, Spin } from 'antd';
 import { SyncOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import useI18n from '~utils/i18n';
+import { getConfigValue, setConfigValue } from '~utils/appConfig';
 
 interface BackupSectionProps {
   visible: boolean;
@@ -103,21 +104,23 @@ const BackupSection: React.FC<BackupSectionProps> = ({ visible, onClose, onBacku
   const [loadingSettings, setLoadingSettings] = useState(true);
 
   useEffect(() => {
-    chrome.storage.sync.get(['autoSyncOnLeave', 'autoSyncOnStartup'], (result) => {
-      setAutoSyncEnabled(result.autoSyncOnLeave !== false);
-      setAutoSyncOnStartupEnabled(result.autoSyncOnStartup === true);
+    getConfigValue('autoSyncOnLeave').then((v) => {
+      setAutoSyncEnabled(v !== false);
+    });
+    getConfigValue('autoSyncOnStartup').then((v) => {
+      setAutoSyncOnStartupEnabled(v === true);
       setLoadingSettings(false);
     });
   }, []);
 
   const handleAutoSyncChange = (checked: boolean) => {
     setAutoSyncEnabled(checked);
-    chrome.storage.sync.set({ autoSyncOnLeave: checked });
+    setConfigValue('autoSyncOnLeave', checked);
   };
 
   const handleAutoSyncOnStartupChange = (checked: boolean) => {
     setAutoSyncOnStartupEnabled(checked);
-    chrome.storage.sync.set({ autoSyncOnStartup: checked });
+    setConfigValue('autoSyncOnStartup', checked);
   };
 
   return (

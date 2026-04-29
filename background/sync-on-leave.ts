@@ -6,6 +6,7 @@
 import { autoSyncService } from "./auto-sync-service";
 import dayjs from "dayjs";
 import { getSyncNotificationText } from "~utils/i18n-sync";
+import { getConfigValue } from "~utils/appConfig";
 
 /**
  * 显示通知（发送消息到 content script）
@@ -36,14 +37,11 @@ function showNotification(title: string, content: string, type: 'success' | 'err
  * 检查是否启用了自动同步
  */
 async function isAutoSyncEnabled(): Promise<boolean> {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(['autoSyncOnLeave'], (result) => {
-            // 默认开启
-            const enabled = result.autoSyncOnLeave !== false;
-            console.log('自动同步设置:', enabled);
-            resolve(enabled);
-        });
-    });
+    const v = await getConfigValue('autoSyncOnLeave');
+    // 默认开启
+    const enabled = v !== false;
+    console.log('自动同步设置:', enabled);
+    return enabled;
 }
 
 /**

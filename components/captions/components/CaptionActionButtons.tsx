@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import { Actions } from '~components/captions/types';
 import useI18n from '../../../utils/i18n';
+import { getConfigValue, onConfigChanged } from '~utils/appConfig';
 
 interface CaptionActionButtonsProps {
     onTranslate: () => void;
@@ -34,23 +35,16 @@ const CaptionActionButtons: React.FC<CaptionActionButtonsProps> = ({
 
     // 加载按钮可见性设置
     useEffect(() => {
-        chrome.storage.local.get(['captionButtonsVisibility'], (result) => {
-            if (result.captionButtonsVisibility) {
-                setButtonsVisibility(result.captionButtonsVisibility);
-            }
+        getConfigValue('captionButtonsVisibility').then((v) => {
+            if (v) setButtonsVisibility(v);
         });
 
-        // 监听可见性设置变化
-        const handleStorageChange = (changes: any, areaName: string) => {
-            if (areaName === 'local' && changes.captionButtonsVisibility) {
-                setButtonsVisibility(changes.captionButtonsVisibility.newValue);
+        const unsubscribe = onConfigChanged((changes) => {
+            if (changes.captionButtonsVisibility) {
+                setButtonsVisibility((changes.captionButtonsVisibility as { value: CaptionButtonsVisibility }).value);
             }
-        };
-
-        chrome.storage.onChanged.addListener(handleStorageChange);
-        return () => {
-            chrome.storage.onChanged.removeListener(handleStorageChange);
-        };
+        });
+        return unsubscribe;
     }, []);
 
     const getActionText = (action: Actions): string => {

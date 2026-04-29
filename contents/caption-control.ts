@@ -60,10 +60,10 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
 function watchForMeetingEntry(): void {
     if (!isGoogleMeeting()) return;
 
-    // If the button is already present the page loaded mid-meeting — enable now.
+    // If the button is already present the page loaded mid-meeting — enable after 1 s.
     if (getCaptionsToggleButton()) {
-        console.log('[caption-control] Captions button already visible on load, enabling.');
-        enableCaptions();
+        console.log('[caption-control] Captions button already visible on load, enabling in 1 s.');
+        setTimeout(enableCaptions, 1000);
         return;
     }
 
@@ -72,8 +72,8 @@ function watchForMeetingEntry(): void {
 
         // Button just appeared → we entered the meeting room
         observer.disconnect();
-        console.log('[caption-control] Meeting entry detected (captions button appeared), enabling captions.');
-        enableCaptions();
+        console.log('[caption-control] Meeting entry detected (captions button appeared), enabling captions in 1 s.');
+        setTimeout(enableCaptions, 1000);
     });
 
     observer.observe(document.body, { childList: true, subtree: true });

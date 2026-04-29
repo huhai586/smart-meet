@@ -1,23 +1,18 @@
+import { getConfigValue, setConfigValue } from '~/utils/appConfig';
+
 export interface CustomPrompt {
   id: string;
   title: string;
   content: string;
 }
 
-const STORAGE_KEY = 'customPrompts';
-
 export async function getCustomPrompts(): Promise<CustomPrompt[]> {
-  return new Promise((resolve) => {
-    chrome.storage.sync.get([STORAGE_KEY], (result) => {
-      resolve(result[STORAGE_KEY] ?? []);
-    });
-  });
+  const v = await getConfigValue('customPrompts');
+  return v ?? [];
 }
 
 export async function saveCustomPrompts(prompts: CustomPrompt[]): Promise<void> {
-  return new Promise((resolve) => {
-    chrome.storage.sync.set({ [STORAGE_KEY]: prompts }, resolve);
-  });
+  await setConfigValue('customPrompts', prompts);
 }
 
 export function generatePromptId(): string {

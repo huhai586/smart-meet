@@ -19,6 +19,7 @@ import { TweenOneGroup } from 'rc-tween-one';
 import { Modal } from 'antd';
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
+import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 import useCaptionToggle from '~/hooks/useCaptionToggle';
 import useStickerToggle from '~/hooks/useStickerToggle';
 import messageManager from '~/utils/message-manager';
@@ -194,9 +195,12 @@ const InterfaceAppearance: React.FC = () => {
   const inputRef = useRef<InputRef>(null);
 
   useEffect(() => {
-    chrome.storage.sync.get([SIDEPANEL_STORAGE_KEY, BUTTONS_STORAGE_KEY], (result) => {
-      if (result[SIDEPANEL_STORAGE_KEY]) setVisibility(result[SIDEPANEL_STORAGE_KEY]);
-      if (result[BUTTONS_STORAGE_KEY]) setButtonsVisibility(result[BUTTONS_STORAGE_KEY]);
+    Promise.all([
+      getConfigValue('sidepanelVisibility'),
+      getConfigValue('captionButtonsVisibility'),
+    ]).then(([sv, bv]) => {
+      if (sv) setVisibility(sv);
+      if (bv) setButtonsVisibility(bv);
     });
   }, []);
 
@@ -205,7 +209,7 @@ const InterfaceAppearance: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    chrome.storage.sync.set({ specificHighlightWords: specificTags });
+    setConfigValue('specificHighlightWords', specificTags);
   }, [specificTags]);
 
   useEffect(() => {
@@ -215,13 +219,13 @@ const InterfaceAppearance: React.FC = () => {
   const updateVisibility = (key: keyof SidepanelVisibility, value: boolean) => {
     const next = { ...visibility, [key]: value };
     setVisibility(next);
-    chrome.storage.sync.set({ [SIDEPANEL_STORAGE_KEY]: next });
+    setConfigValue('sidepanelVisibility', next);
   };
 
   const updateButtonsVisibility = (key: keyof CaptionButtonsVisibility, value: boolean) => {
     const next = { ...buttonsVisibility, [key]: value };
     setButtonsVisibility(next);
-    chrome.storage.sync.set({ [BUTTONS_STORAGE_KEY]: next });
+    setConfigValue('captionButtonsVisibility', next);
   };
 
   const handleCaptionToggleChange = (checked: boolean) => {

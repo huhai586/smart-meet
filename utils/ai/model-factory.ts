@@ -221,7 +221,7 @@ interface ModelCache {
 
 async function readModelCache(cacheKey: string): Promise<ModelCache | null> {
   return new Promise(resolve => {
-    chrome.storage.sync.get(['modelCache'], result => {
+    chrome.storage.local.get(['modelCache'], result => {
       const cache = result.modelCache || {};
       const entry: ModelCache | undefined = cache[cacheKey];
       if (entry && Date.now() - entry.fetchedAt < CACHE_TTL_MS) {
@@ -235,10 +235,10 @@ async function readModelCache(cacheKey: string): Promise<ModelCache | null> {
 
 async function writeModelCache(cacheKey: string, models: string[]): Promise<void> {
   return new Promise(resolve => {
-    chrome.storage.sync.get(['modelCache'], result => {
+    chrome.storage.local.get(['modelCache'], result => {
       const cache = result.modelCache || {};
       cache[cacheKey] = { models, fetchedAt: Date.now() } satisfies ModelCache;
-      chrome.storage.sync.set({ modelCache: cache }, resolve);
+      chrome.storage.local.set({ modelCache: cache }, resolve);
     });
   });
 }

@@ -75,6 +75,16 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [providerId]);
 
+  // aisConfig 异步加载完成后（如从 sync 存储同步到新设备），补填 apiKey
+  // 仅在 apiKey 当前为空时更新，避免覆盖用户正在输入的内容
+  useEffect(() => {
+    if (apiKey) return;
+    const existing = aisConfig.data.find(d => d.aiName === providerId);
+    if (existing?.apiKey) {
+      setApiKey(existing.apiKey);
+    }
+  }, [aisConfig, providerId]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // 手动刷新：强制绕过缓存重新请求
   const handleRefreshModels = useCallback(async () => {
     if (!provider || modelsFetching) return;

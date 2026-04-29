@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useI18n } from '../../utils/i18n';
+import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 
 /* ── Types ── */
 interface SidepanelVisibility {
@@ -25,9 +26,6 @@ interface CaptionButtonsVisibility {
   polish: boolean;
   analysis: boolean;
 }
-
-const SIDEPANEL_STORAGE_KEY = 'sidepanelVisibility';
-const BUTTONS_STORAGE_KEY = 'captionButtonsVisibility';
 
 /* ── Styled Components ── */
 
@@ -142,22 +140,25 @@ const SidepanelSettings: React.FC = () => {
   });
 
   useEffect(() => {
-    chrome.storage.sync.get([SIDEPANEL_STORAGE_KEY, BUTTONS_STORAGE_KEY], (result) => {
-      if (result[SIDEPANEL_STORAGE_KEY]) setVisibility(result[SIDEPANEL_STORAGE_KEY]);
-      if (result[BUTTONS_STORAGE_KEY]) setButtonsVisibility(result[BUTTONS_STORAGE_KEY]);
+    Promise.all([
+      getConfigValue('sidepanelVisibility'),
+      getConfigValue('captionButtonsVisibility'),
+    ]).then(([sv, bv]) => {
+      if (sv) setVisibility(sv);
+      if (bv) setButtonsVisibility(bv);
     });
   }, []);
 
   const updateVisibility = (key: keyof SidepanelVisibility, value: boolean) => {
     const next = { ...visibility, [key]: value };
     setVisibility(next);
-    chrome.storage.sync.set({ [SIDEPANEL_STORAGE_KEY]: next });
+    setConfigValue('sidepanelVisibility', next);
   };
 
   const updateButtonsVisibility = (key: keyof CaptionButtonsVisibility, value: boolean) => {
     const next = { ...buttonsVisibility, [key]: value };
     setButtonsVisibility(next);
-    chrome.storage.sync.set({ [BUTTONS_STORAGE_KEY]: next });
+    setConfigValue('captionButtonsVisibility', next);
   };
 
   const tabItems: { key: keyof SidepanelVisibility; icon: React.ReactNode; color: string; label: string }[] = [

@@ -3,6 +3,7 @@ import { GoogleDriveService } from "~utils/google-drive";
 import { StorageFactory } from "~background/data-persistence/storage-factory";
 import { messageCenter } from "./message-center";
 import type { Transcript } from "~hooks/useTranscripts";
+import { getConfigValue } from "~utils/appConfig";
 
 /**
  * 浏览器启动时自动同步服务
@@ -30,17 +31,14 @@ export class BrowserStartupSyncService {
         chrome.runtime.onStartup.addListener(async () => {
             console.log('浏览器启动，检查自动同步设置...');
 
-            // 检查用户是否启用了浏览器启动时自动同步
-            chrome.storage.sync.get(['autoSyncOnStartup'], async (result) => {
-                const isEnabled = result.autoSyncOnStartup === true;
+            const isEnabled = await getConfigValue('autoSyncOnStartup') === true;
 
-                if (isEnabled) {
-                    console.log('浏览器启动自动同步已启用，开始同步最近5天的数据...');
-                    await this.syncRecentData();
-                } else {
-                    console.log('浏览器启动自动同步未启用，跳过同步');
-                }
-            });
+            if (isEnabled) {
+                console.log('浏览器启动自动同步已启用，开始同步最近5天的数据...');
+                await this.syncRecentData();
+            } else {
+                console.log('浏览器启动自动同步未启用，跳过同步');
+            }
         });
 
         console.log('浏览器启动监听器已初始化');

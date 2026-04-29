@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
+import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 import UILanguageSelector from '~/components/options/UILanguageSelector';
 import { sendBackgroundMessage } from '~/background/message-center';
 
@@ -193,20 +194,23 @@ const General: React.FC = () => {
   const [clearSuccess, setClearSuccess] = useState(false);
 
   useEffect(() => {
-    chrome.storage.sync.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
-      setCaptionFontOffset(result.captionFontSizeOffset ?? 0);
-      setSummaryFontOffset(result.summaryFontSizeOffset ?? 0);
+    Promise.all([
+      getConfigValue('captionFontSizeOffset'),
+      getConfigValue('summaryFontSizeOffset'),
+    ]).then(([cfo, sfo]) => {
+      setCaptionFontOffset(cfo ?? 0);
+      setSummaryFontOffset(sfo ?? 0);
     });
   }, []);
 
   const handleCaptionFont = (next: number) => {
     setCaptionFontOffset(next);
-    chrome.storage.sync.set({ captionFontSizeOffset: next });
+    setConfigValue('captionFontSizeOffset', next);
   };
 
   const handleSummaryFont = (next: number) => {
     setSummaryFontOffset(next);
-    chrome.storage.sync.set({ summaryFontSizeOffset: next });
+    setConfigValue('summaryFontSizeOffset', next);
   };
 
   const handleClear = () => {

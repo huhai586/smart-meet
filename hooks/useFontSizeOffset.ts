@@ -1,24 +1,22 @@
 import { useEffect, useState } from 'react';
+import { getConfigValue, setConfigValue, onConfigChanged, type AppConfigKey } from '~/utils/appConfig';
 
 /**
- * Reads a numeric font-size offset (in px) from chrome.storage.local
- * and re-syncs whenever another page (e.g. options) writes a new value.
+ * Reads a numeric font-size offset from appConfig and re-syncs when
+ * another page (e.g. options) or another device writes a new value.
  */
-const useFontSizeOffset = (storageKey: string): number => {
+const useFontSizeOffset = (storageKey: 'captionFontSizeOffset' | 'summaryFontSizeOffset'): number => {
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
-        chrome.storage.sync.get([storageKey], (result) => {
-            setOffset(result[storageKey] ?? 0);
+        getConfigValue(storageKey).then((v) => setOffset(v ?? 0));
+
+        const unsubscribe = onConfigChanged((changes) => {
+            const field = changes[storageKey] as { value: number } | undefined;
+            if (field !== undefined) setOffset(field.value ?? 0);
         });
 
-        const listener = (changes: Record<string, chrome.storage.StorageChange>) => {
-            if (storageKey in changes) {
-                setOffset(changes[storageKey].newValue ?? 0);
-            }
-        };
-        chrome.storage.onChanged.addListener(listener);
-        return () => chrome.storage.onChanged.removeListener(listener);
+        return unsubscribe;
     }, [storageKey]);
 
     return offset;

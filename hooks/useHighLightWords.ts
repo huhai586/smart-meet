@@ -1,5 +1,6 @@
 import {useEffect, useState, useMemo} from "react";
 import {getDomainTags, getSpecificTags} from "../utils/common";
+import { onConfigChanged } from "~/utils/appConfig";
 
 const useHighLightWords = () => {
     const [domainKeyWords, setDomainKeyWords] = useState([]);
@@ -15,23 +16,17 @@ const useHighLightWords = () => {
             setDomainKeyWords((prev) => [...new Set(prev.concat(res))]);
         });
 
-        // 监听storage变化
-        const handleStorageChanges = (changes) => {
+        // 监听 appConfig 变化
+        const unsubscribe = onConfigChanged((changes) => {
             if (changes.specificHighlightWords) {
-                setSpecificWords(changes.specificHighlightWords.newValue);
+                setSpecificWords(changes.specificHighlightWords.value);
             }
             if (changes.highlightWordsByDescriptions) {
-                setDomainKeyWords((prev) => [...new Set(prev.concat(changes.highlightWordsByDescriptions.newValue))]);
+                setDomainKeyWords((prev) => [...new Set(prev.concat(changes.highlightWordsByDescriptions.value))]);
             }
-        };
-
-        // 添加监听器
-        chrome.storage.onChanged.addListener(handleStorageChanges);
+        });
         
-        // 清理函数移除监听器
-        return () => {
-            chrome.storage.onChanged.removeListener(handleStorageChanges);
-        };
+        return unsubscribe;
     }, []);
 
     // 使用useMemo稳定数组引用

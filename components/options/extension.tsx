@@ -29,6 +29,7 @@ import styled from 'styled-components';
 
 import { getSpecificTags } from '../../utils/common';
 import { useI18n } from '../../utils/i18n';
+import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 import getMeetingCaptions from '../../utils/getCaptions';
 import saveChatLogAsTxt from '../../utils/save';
 import { createJsonFile, downloadFile } from '../../utils/file-utils';
@@ -282,9 +283,12 @@ const Extension = (_props: ExtensionPropsInterface) => {
 
   /* ── Effects ── */
   useEffect(() => {
-    chrome.storage.sync.get(['captionFontSizeOffset', 'summaryFontSizeOffset'], (result) => {
-      setCaptionFontOffset(result.captionFontSizeOffset ?? 0);
-      setSummaryFontOffset(result.summaryFontSizeOffset ?? 0);
+    Promise.all([
+      getConfigValue('captionFontSizeOffset'),
+      getConfigValue('summaryFontSizeOffset'),
+    ]).then(([cfo, sfo]) => {
+      setCaptionFontOffset(cfo ?? 0);
+      setSummaryFontOffset(sfo ?? 0);
     });
   }, []);
 
@@ -293,7 +297,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
   }, []);
 
   useEffect(() => {
-    chrome.storage.sync.set({ specificHighlightWords: specificTags });
+    setConfigValue('specificHighlightWords', specificTags);
   }, [specificTags]);
 
   useEffect(() => {
@@ -318,12 +322,12 @@ const Extension = (_props: ExtensionPropsInterface) => {
   /* ── Font size handlers ── */
   const handleCaptionFont = (next: number) => {
     setCaptionFontOffset(next);
-    chrome.storage.sync.set({ captionFontSizeOffset: next });
+    setConfigValue('captionFontSizeOffset', next);
   };
 
   const handleSummaryFont = (next: number) => {
     setSummaryFontOffset(next);
-    chrome.storage.sync.set({ summaryFontSizeOffset: next });
+    setConfigValue('summaryFontSizeOffset', next);
   };
 
   /* ── Export helpers ── */

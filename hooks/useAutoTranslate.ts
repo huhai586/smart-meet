@@ -3,6 +3,7 @@ import { getCurrentTranslationProvider } from './useTranslationProvider';
 import { translateByGoogle, translateByMicrosoft, translateByLocal } from '../utils/translators';
 import { getTranslationFrequency, frequencyToMs } from './useTranslationFrequency';
 import useI18n from "../utils/i18n";
+import { getConfigValue, setConfigValue, onConfigChanged } from '../utils/appConfig';
 
 // 存储在Chrome存储中的键名
 const STORAGE_KEY = 'autoTranslateEnabled';
@@ -14,20 +15,19 @@ const STORAGE_KEY = 'autoTranslateEnabled';
 export const useAutoTranslate = (): [boolean, (enabled: boolean) => void] => {
   const [enabled, setEnabledState] = useState<boolean>(false);
 
-  // 初始化时从Chrome存储中加载设置
   useEffect(() => {
-    chrome.storage.sync.get([STORAGE_KEY], (result) => {
-      const autoTranslateEnabled = result[STORAGE_KEY] ?? false;
-      setEnabledState(autoTranslateEnabled);
+    getConfigValue('autoTranslateEnabled').then((v) => setEnabledState(v ?? false));
+
+    const unsubscribe = onConfigChanged((changes) => {
+      const field = changes['autoTranslateEnabled'] as { value: boolean } | undefined;
+      if (field !== undefined) setEnabledState(field.value);
     });
+    return unsubscribe;
   }, []);
 
-  // 设置状态并保存到Chrome存储
   const setEnabled = (newEnabled: boolean) => {
     setEnabledState(newEnabled);
-    chrome.storage.sync.set({ [STORAGE_KEY]: newEnabled }, () => {
-      console.log(`Auto translate ${newEnabled ? 'enabled' : 'disabled'}`);
-    });
+    setConfigValue('autoTranslateEnabled', newEnabled);
   };
 
   return [enabled, setEnabled];
@@ -38,11 +38,7 @@ export const useAutoTranslate = (): [boolean, (enabled: boolean) => void] => {
  * @returns Promise<boolean> - 当前状态
  */
 export const getAutoTranslateEnabled = async (): Promise<boolean> => {
-  return new Promise((resolve) => {
-    chrome.storage.sync.get([STORAGE_KEY], (result) => {
-      resolve(result[STORAGE_KEY] ?? false);
-    });
-  });
+  return getConfigValue('autoTranslateEnabled');
 };
 
 /**
@@ -75,23 +71,8 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
       lastTranslatedContentRef.current = textToTranslate;
       
       // 获取当前选择的翻译服务提供商 - 添加双重验证
-      let provider = await getCurrentTranslationProvider();
+      const provider = await getCurrentTranslationProvider();
       console.log(`[executeTranslation] Current translation provider: ${provider}`);
-      
-      // 双重验证：直接从存储中再次获取
-      const verificationResult = await new Promise<string>((resolve) => {
-        chrome.storage.sync.get(['translationProvider'], (result) => {
-          const storedProvider = result['translationProvider'] || 'microsoft';
-          console.log(`[executeTranslation] Direct storage verification: ${storedProvider}`);
-          resolve(storedProvider);
-        });
-      });
-      
-      // 如果两次获取的结果不一致，使用存储中的值
-      if (provider !== verificationResult) {
-        console.warn(`[executeTranslation] Provider mismatch! Function: ${provider}, Storage: ${verificationResult}. Using storage value.`);
-        provider = verificationResult as typeof provider;
-      }
       
       let translatedText: string;
       
@@ -204,11 +185,7 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
       try {
         const provider = await getCurrentTranslationProvider();
         console.log(`[useAutoTranslateContent] Test - Current provider: ${provider}`);
-        
-        // 验证存储中的实际值
-        chrome.storage.sync.get(['translationProvider'], (result) => {
-          console.log(`[useAutoTranslateContent] Test - Storage contains:`, result);
-        });
+
       } catch (error) {
         console.error('[useAutoTranslateContent] Test - Error getting provider:', error);
       }

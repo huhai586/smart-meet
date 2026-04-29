@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   SettingOutlined,
   LayoutOutlined,
   RobotOutlined,
   CalendarOutlined,
   CloudOutlined,
+  CodeOutlined,
 } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
@@ -12,6 +13,8 @@ import useI18n from '~utils/i18n';
 interface SidebarProps {
   activeKey: string;
   onChange: (key: string) => void;
+  devMode: boolean;
+  onDevUnlock: () => void;
 }
 
 interface MenuItem {
@@ -21,8 +24,27 @@ interface MenuItem {
   route: string;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUnlock }) => {
   const { t } = useI18n();
+  const [tapCount, setTapCount] = useState(0);
+  const [tapTimer, setTapTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleTitleClick = useCallback(() => {
+    if (devMode) return; // already unlocked
+    const next = tapCount + 1;
+    setTapCount(next);
+
+    // Reset tap counter after 2 s of inactivity
+    if (tapTimer) clearTimeout(tapTimer);
+    const t = setTimeout(() => setTapCount(0), 2000);
+    setTapTimer(t);
+
+    if (next >= 7) {
+      setTapCount(0);
+      if (tapTimer) clearTimeout(tapTimer);
+      onDevUnlock();
+    }
+  }, [tapCount, tapTimer, devMode, onDevUnlock]);
 
   const menuItems: MenuItem[] = [
     {
@@ -55,6 +77,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
       label: t('tab_cloud_sync'),
       route: 'cloud-sync',
     },
+    ...(devMode ? [{
+      key: 'dev',
+      icon: <CodeOutlined />,
+      label: 'Developer',
+      route: 'developer',
+    }] : []),
   ];
 
   // 处理菜单项点击
@@ -71,7 +99,27 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
           <div className="logo-icon">
             <SettingOutlined style={{ fontSize: '24px', color: '#fff' }} />
           </div>
-          <h1>Google Meet Caption Pro</h1>
+          <h1
+            onClick={handleTitleClick}
+            style={{ cursor: devMode ? 'default' : 'pointer', userSelect: 'none', position: 'relative' }}
+            title={devMode ? 'Developer mode active' : undefined}
+          >
+            Google Meet Caption Pro
+            {devMode && (
+              <span style={{
+                display: 'inline-block',
+                marginLeft: 8,
+                fontSize: 10,
+                fontWeight: 600,
+                background: 'rgba(255,149,0,0.85)',
+                color: '#fff',
+                borderRadius: 4,
+                padding: '1px 5px',
+                verticalAlign: 'middle',
+                letterSpacing: '0.4px',
+              }}>DEV</span>
+            )}
+          </h1>
         </div>
         <div className="sidebar-description">
           {t('configure_assistant')}
@@ -81,6 +129,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange }) => {
         {menuItems.map(item => (
           <a
             key={item.key}
+            data-key={item.key}
             className={`menu-item ${activeKey === item.key ? 'active' : ''}`}
             onClick={() => handleMenuItemClick(item.key, item.route)}
             href={`#${item.route}`}
