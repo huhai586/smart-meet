@@ -270,73 +270,325 @@ $font-stack: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont,
 // ============================================================
 .provider-config {
   flex: 1;
-  padding: 32px 40px;
-  overflow-y: auto;
-  background: $bg-primary;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: $bg-secondary;
   font-family: $font-stack;
 
-  // macOS thin scrollbar — only visible on hover
-  scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: transparent;
-    border-radius: 2px;
-  }
-  &:hover {
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-    &::-webkit-scrollbar-thumb {
-      background: rgba(0, 0, 0, 0.2);
-    }
-  }
-
+  // ── Sticky Header — Mica backdrop blur ───────────────────
   &__header {
     display: flex;
     align-items: center;
-    margin-bottom: 28px;
     gap: 14px;
+    padding: 18px 28px 16px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.08);
+    flex-shrink: 0;
   }
 
-  &__icon {
+  // Squircle icon base (Apple continuous-corner radius)
+  &__icon-squircle {
     width: 52px;
     height: 52px;
-    border-radius: $radius-md;
+    border-radius: 28%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
     background: $bg-secondary;
-    box-shadow: $shadow-card;
+    box-shadow: $shadow-icon;
     overflow: hidden;
+    flex-shrink: 0;
   }
 
   &__title-area {
     flex: 1;
+    min-width: 0;
   }
 
   &__title {
     font-size: 20px;
-    font-weight: 600;
+    font-weight: 700;
     color: $text-primary;
     margin: 0;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
     font-family: $font-stack;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__subtitle {
-    font-size: 13px;
-    color: $text-secondary;
-    margin-top: 2px;
+    font-size: 12px;
+    color: $text-tertiary;
+    margin-top: 3px;
+    font-family: $font-stack;
   }
 
-  // Empty state
+  &__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+
+    .ant-btn-primary {
+      border-radius: $radius-sm;
+      height: 34px;
+      font-weight: 500;
+      font-size: 13px;
+      padding: 0 16px;
+      background: $accent-color;
+      border-color: $accent-color;
+      box-shadow: none;
+      font-family: $font-stack;
+      letter-spacing: -0.01em;
+
+      &:hover {
+        background: $accent-hover;
+        border-color: $accent-hover;
+      }
+    }
+  }
+
+  &__more-btn {
+    color: $text-tertiary;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.06);
+      color: $text-primary;
+    }
+  }
+
+  // ── Scrollable body ──────────────────────────────────────
+  &__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 28px 32px;
+
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar { width: 4px; }
+    &::-webkit-scrollbar-track { background: transparent; }
+    &::-webkit-scrollbar-thumb { background: transparent; border-radius: 2px; }
+
+    &:hover {
+      scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+      &::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); }
+    }
+  }
+
+  // ── Inset Grouped Section ────────────────────────────────
+  &__group {
+    margin-bottom: 24px;
+  }
+
+  &__group-header {
+    font-size: 11px;
+    font-weight: 600;
+    color: $text-tertiary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0 4px;
+    margin-bottom: 6px;
+    font-family: $font-stack;
+  }
+
+  &__group-footer {
+    font-size: 12px;
+    color: $text-tertiary;
+    line-height: 1.5;
+    padding: 6px 4px 0;
+    margin: 0;
+    font-family: $font-stack;
+
+    a {
+      color: $accent-color;
+      text-decoration: none;
+      &:hover { text-decoration: underline; }
+    }
+  }
+
+  // ── List card (white, inset grouped) ────────────────────
+  &__list {
+    background: $bg-primary;
+    border-radius: $radius-md;
+    box-shadow: $shadow-card;
+    overflow: hidden;
+  }
+
+  // ── Single row — [ Label | Control ] ────────────────────
+  &__row {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+    gap: 12px;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--switch {
+      padding: 12px 16px;
+    }
+  }
+
+  &__row-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: $text-primary;
+    width: 88px;
+    min-width: 88px;
+    flex-shrink: 0;
+    font-family: $font-stack;
+    white-space: nowrap;
+
+    // Fill variant: used in switch row so label takes all space
+    &--fill {
+      flex: 1;
+      width: auto;
+      min-width: unset;
+    }
+  }
+
+  &__row-control {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 0;
+
+    // Model row — Select fills, refresh button beside it
+    &--model {
+      .ant-select { flex: 1; min-width: 0; }
+    }
+
+    // Input overrides — borderless, field-grey bg
+    .ant-input,
+    .ant-input-affix-wrapper {
+      border-radius: 8px !important;
+      border: none !important;
+      background: $bg-field !important;
+      box-shadow: none !important;
+      font-size: 14px;
+      transition: $transition;
+      font-family: $font-stack;
+      padding: 6px 10px;
+
+      &:hover { background: #e8e8ed !important; }
+
+      &.ant-input-affix-wrapper-focused,
+      &:focus-within {
+        background: rgba(0, 122, 255, 0.06) !important;
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.25) !important;
+      }
+
+      .ant-input {
+        background: transparent !important;
+        padding: 0 !important;
+      }
+    }
+
+    // Select overrides
+    .ant-select {
+      .ant-select-selector {
+        border-radius: 8px !important;
+        border: none !important;
+        background: $bg-field !important;
+        box-shadow: none !important;
+        height: 34px !important;
+        padding: 0 10px !important;
+        transition: $transition;
+        font-family: $font-stack;
+
+        .ant-select-selection-item {
+          line-height: 34px !important;
+          font-size: 14px;
+        }
+      }
+
+      &.ant-select-focused .ant-select-selector {
+        background: rgba(0, 122, 255, 0.06) !important;
+        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.25) !important;
+      }
+
+      &:hover .ant-select-selector { background: #e8e8ed !important; }
+    }
+  }
+
+  // Refresh button colour variants
+  &__refresh-btn--live {
+    color: $success-color !important;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  &__refresh-btn--cached {
+    color: $text-tertiary !important;
+    flex-shrink: 0;
+  }
+
+  // Green switch for active service
+  .ant-switch-checked {
+    background: $success-color !important;
+  }
+
+  // ── Test result row (last row inside __list) ─────────────
+  &__test-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    border-top: 0.5px solid rgba(0, 0, 0, 0.06);
+    font-family: $font-stack;
+
+    &--success {
+      color: $success-color;
+      background: rgba(52, 199, 89, 0.06);
+    }
+
+    &--error {
+      color: $danger-color;
+      background: rgba(255, 59, 48, 0.06);
+    }
+
+    &--loading {
+      color: $text-secondary;
+      background: $bg-secondary;
+    }
+  }
+
+  // ── Test Connection — blue text link at bottom ───────────
+  &__test-link {
+    padding-left: 2px;
+
+    .ant-btn-link {
+      font-size: 14px;
+      font-family: $font-stack;
+      color: $accent-color;
+      padding: 0;
+      height: auto;
+
+      &:hover { color: $accent-hover; }
+    }
+  }
+
+  // ── Empty state ──────────────────────────────────────────
   &__empty {
     display: flex;
     flex-direction: column;
@@ -362,260 +614,8 @@ $font-stack: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont,
       margin-top: 4px;
     }
   }
-
-  // Form Sections
-  &__section {
-    margin-bottom: 24px;
-
-    &-title {
-      font-size: 11px;
-      font-weight: 600;
-      color: $text-tertiary;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 8px;
-      padding-left: 4px;
-      font-family: $font-stack;
-    }
-  }
-
-  // Config Card — white card, ultra-thin border, grouped list style
-  &__card {
-    background: $bg-primary;
-    border-radius: $radius-md;
-    overflow: hidden;
-    box-shadow: $shadow-card;
-  }
-
-  // Form Fields — horizontal row layout (iOS Settings style)
-  &__field {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 12px 16px;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
-    gap: 12px;
-    min-height: 50px;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    &-label {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 14px;
-      font-weight: 500;
-      color: $text-primary;
-      min-width: 88px;
-      max-width: 88px;
-      flex-shrink: 0;
-      padding-top: 9px;
-      font-family: $font-stack;
-    }
-
-    &-control {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    &-hint {
-      font-size: 12px;
-      color: $text-tertiary;
-      line-height: 1.4;
-
-      a {
-        color: $accent-color;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    // Ant Design input overrides — borderless, #F2F2F7 background
-    .ant-input,
-    .ant-input-affix-wrapper {
-      border-radius: $radius-sm !important;
-      border: none !important;
-      background: $bg-field !important;
-      box-shadow: none !important;
-      transition: $transition;
-      font-family: $font-stack;
-
-      &:hover {
-        background: #ebebf0 !important;
-      }
-
-      &.ant-input-affix-wrapper-focused,
-      &:focus-within {
-        background: rgba(0, 122, 255, 0.06) !important;
-        outline: none !important;
-        box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.28) !important;
-      }
-    }
-
-    .ant-input {
-      padding: 9px 12px;
-      font-size: 14px;
-    }
-
-    .ant-input-affix-wrapper {
-      padding: 9px 12px;
-
-      .ant-input {
-        padding: 0 !important;
-        background: transparent !important;
-      }
-    }
-
-    .ant-select {
-      width: 100%;
-
-      .ant-select-selector {
-        border-radius: $radius-sm !important;
-        border: none !important;
-        background: $bg-field !important;
-        box-shadow: none !important;
-        padding: 0 12px !important;
-        height: 38px !important;
-        transition: $transition;
-        font-family: $font-stack;
-
-        .ant-select-selection-item {
-          line-height: 38px !important;
-        }
-      }
-
-      &.ant-select-focused .ant-select-selector {
-        background: rgba(0, 122, 255, 0.06) !important;
-        outline: 2px solid rgba(0, 122, 255, 0.28) !important;
-        outline-offset: 0 !important;
-      }
-
-      &:hover .ant-select-selector {
-        background: #ebebf0 !important;
-      }
-    }
-  }
-
-  // Active service toggle
-  &__active-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
-    background: $bg-primary;
-    border-radius: $radius-md;
-    margin-bottom: 24px;
-    box-shadow: $shadow-card;
-
-    &-label {
-      font-size: 14px;
-      font-weight: 500;
-      color: $text-primary;
-      font-family: $font-stack;
-    }
-
-    &-desc {
-      font-size: 12px;
-      color: $text-tertiary;
-      margin-top: 2px;
-    }
-
-    // Green toggle (Apple default active colour)
-    .ant-switch-checked {
-      background: $success-color !important;
-    }
-  }
-
-  // Connection test result — inside the card as a bottom row
-  &__test {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 11px 16px;
-    font-size: 13px;
-    font-weight: 500;
-    border-top: 0.5px solid rgba(0, 0, 0, 0.06);
-    font-family: $font-stack;
-
-    &--success {
-      background: rgba(52, 199, 89, 0.07);
-      color: $success-color;
-    }
-
-    &--error {
-      background: rgba(255, 59, 48, 0.07);
-      color: $danger-color;
-    }
-
-    &--loading {
-      background: $bg-secondary;
-      color: $text-secondary;
-    }
-  }
-
-  // Action Buttons
-  &__actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 0.5px solid rgba(0, 0, 0, 0.08);
-
-    .ant-btn {
-      border-radius: $radius-sm;
-      height: 40px;
-      font-weight: 500;
-      font-size: 14px;
-      padding: 0 22px;
-      transition: $transition;
-      font-family: $font-stack;
-    }
-
-    // Primary — Save Configuration
-    .ant-btn-primary {
-      background: $accent-color;
-      border-color: $accent-color;
-      box-shadow: none;
-      letter-spacing: -0.02em;
-
-      &:hover {
-        background: $accent-hover;
-        border-color: $accent-hover;
-        box-shadow: 0 4px 12px rgba(0, 122, 255, 0.28);
-      }
-    }
-
-    // Secondary — Test Connection (ghost, blue text)
-    .ant-btn-default {
-      border: none;
-      background: rgba(0, 0, 0, 0.05);
-      color: $accent-color;
-
-      &:hover {
-        background: rgba(0, 122, 255, 0.08);
-        color: $accent-hover;
-      }
-    }
-
-    // Danger — Remove
-    .ant-btn-dangerous {
-      border: none;
-      background: rgba(255, 59, 48, 0.07);
-      color: $danger-color;
-
-      &:hover {
-        background: rgba(255, 59, 48, 0.12);
-      }
-    }
-  }
 }
+
 
 // ============================================================
 // Custom Provider Dialog

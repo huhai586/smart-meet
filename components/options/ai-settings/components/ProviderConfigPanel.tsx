@@ -3,8 +3,9 @@
  * 显示选中 provider 的配置表单（API Key、Model、Base URL 等）
  */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Input, Select, Button, Switch, Tooltip, message } from 'antd';
-import { LinkOutlined, CheckCircleFilled, CloseCircleFilled, LoadingOutlined, ReloadOutlined } from '@ant-design/icons';
+import { Input, Select, Button, Switch, Tooltip, message, Dropdown } from 'antd';
+import { LinkOutlined, CheckCircleFilled, CloseCircleFilled, LoadingOutlined, ReloadOutlined, MoreOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
 import { providerRegistry, type ProviderDefinition } from '~/utils/ai/provider-registry';
 import ProviderIcon from '~/components/common/ProviderIcon';
 import { fetchAvailableModels, testConnection, type ModelConfig } from '~/utils/ai/model-factory';
@@ -152,11 +153,22 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
 
   const modelOptions = availableModels.map(m => ({ label: m, value: m }));
 
+  const moreMenuItems: MenuProps['items'] = isConfigured ? [
+    {
+      key: 'remove',
+      label: t('remove') || 'Remove',
+      danger: true,
+      onClick: () => onRemove(providerId),
+    },
+  ] : [];
+
   return (
     <div className="provider-config">
-      {/* Header */}
+      {/* Sticky Header — Mica backdrop blur */}
       <div className="provider-config__header">
-        <div className="provider-config__icon"><ProviderIcon providerId={provider.id} size={32} /></div>
+        <div className="provider-config__icon-squircle">
+          <ProviderIcon providerId={provider.id} size={28} />
+        </div>
         <div className="provider-config__title-area">
           <h2 className="provider-config__title">{provider.name}</h2>
           <div className="provider-config__subtitle">
@@ -164,132 +176,141 @@ const ProviderConfigPanel: React.FC<ProviderConfigPanelProps> = ({
             {provider.type === 'ollama' ? 'Local Model' : 'Cloud API'}
           </div>
         </div>
-      </div>
-
-      {/* Active Toggle */}
-      <div className="provider-config__active-toggle">
-        <div>
-          <div className="provider-config__active-toggle-label">
-            {t('set_as_default') || 'Set as default service'}
-          </div>
-          <div className="provider-config__active-toggle-desc">
-            {t('default_service_desc') || 'Use this provider for all AI features'}
-          </div>
-        </div>
-        <Switch
-          checked={isActive}
-          onChange={(checked) => {
-            if (checked) onActivate({ apiKey, modelName, aiName: providerId, baseUrl: baseUrl || undefined });
-            else onUnsetActive();
-          }}
-        />
-      </div>
-
-      {/* Configuration Card */}
-      <div className="provider-config__section">
-        <div className="provider-config__section-title">
-          {t('configuration') || 'Configuration'}
-        </div>
-        <div className="provider-config__card">
-          {/* API Key Field */}
-          {provider.requiresApiKey && (
-            <div className="provider-config__field">
-              <div className="provider-config__field-label">
-                API Key
-              </div>
-              <div className="provider-config__field-control">
-                <Input.Password
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder={t('enter_api_key') || 'Enter your API key'}
-                />
-                {provider.apiKeyUrl && (
-                  <div className="provider-config__field-hint">
-                    <a href={provider.apiKeyUrl} target="_blank" rel="noopener noreferrer">
-                      <LinkOutlined /> {t('get_api_key') || 'Get API key'} →
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Model Selector */}
-          <div className="provider-config__field">
-            <div className="provider-config__field-label">
-              {t('model') || 'Model'}
-              <Tooltip title={modelsFromCache ? 'Cached · click to refresh' : 'Live'}>
-                <Button
-                  type="text"
-                  size="small"
-                  icon={<ReloadOutlined spin={modelsFetching} />}
-                  onClick={handleRefreshModels}
-                  disabled={modelsFetching}
-                  style={{ marginLeft: 2, color: modelsFromCache ? '#8e8e93' : '#34c759' }}
-                />
-              </Tooltip>
-            </div>
-            <div className="provider-config__field-control">
-              <Select
-                value={modelName}
-                onChange={setModelName}
-                options={modelOptions}
-                showSearch
-                loading={modelsFetching}
-                placeholder={t('select_model') || 'Select a model'}
-                filterOption={(input, option) =>
-                  (option?.label as string)?.toLowerCase().includes(input.toLowerCase())
-                }
-              />
-              {modelsFromCache && (
-                <div className="provider-config__field-hint">
-                  {t('models_from_cache') || 'Model list from cache · updates every 24h'}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Base URL (optional) */}
-          <div className="provider-config__field">
-            <div className="provider-config__field-label">
-              {provider.type === 'ollama' ? 'Ollama URL' : (t('base_url') || 'Base URL')}
-            </div>
-            <div className="provider-config__field-control">
-              <Input
-                value={baseUrl}
-                onChange={(e) => setBaseUrl(e.target.value)}
-                placeholder={provider.defaultBaseURL || (t('optional') || 'Optional')}
-              />
-              <div className="provider-config__field-hint">
-                {t('base_url_hint') || 'Override the default API endpoint (e.g., for proxy)'}
-              </div>
-            </div>
-          </div>
-
-          {/* Connection Test */}
-          {testStatus !== 'idle' && (
-            <div className={`provider-config__test provider-config__test--${testStatus}`}>
-              {testStatus === 'loading' && <><LoadingOutlined /> {t('testing') || 'Testing connection...'}</>}
-              {testStatus === 'success' && <><CheckCircleFilled /> {t('connection_success') || 'Connection successful'}</>}
-              {testStatus === 'error' && <><CloseCircleFilled /> {testError}</>}
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="provider-config__actions">
-        <Button type="primary" onClick={handleSave}>
-          {t('save_configuration') || 'Save Configuration'}
-        </Button>
-        <Button onClick={handleTest}>
-          {t('test_connection') || 'Test Connection'}
-        </Button>
-        {isConfigured && (
-          <Button danger onClick={() => onRemove(providerId)}>
-            {t('remove') || 'Remove'}
+        <div className="provider-config__header-actions">
+          <Button type="primary" onClick={handleSave}>
+            {t('save_configuration') || 'Save'}
           </Button>
-        )}
+          {moreMenuItems.length > 0 && (
+            <Dropdown menu={{ items: moreMenuItems }} trigger={['click']} placement="bottomRight">
+              <Button type="text" icon={<MoreOutlined />} className="provider-config__more-btn" />
+            </Dropdown>
+          )}
+        </div>
+      </div>
+
+      {/* Scrollable body */}
+      <div className="provider-config__body">
+
+        {/* Group 1: Set as Default — standalone first group */}
+        <div className="provider-config__group">
+          <div className="provider-config__list">
+            <div className="provider-config__row provider-config__row--switch">
+              <span className="provider-config__row-label provider-config__row-label--fill">
+                {t('set_as_default') || 'Set as default'}
+              </span>
+              <Switch
+                checked={isActive}
+                onChange={(checked) => {
+                  if (checked) onActivate({ apiKey, modelName, aiName: providerId, baseUrl: baseUrl || undefined });
+                  else onUnsetActive();
+                }}
+              />
+            </div>
+          </div>
+          <p className="provider-config__group-footer">
+            {t('default_service_desc') || 'Use this provider for all AI features'}
+          </p>
+        </div>
+
+        {/* Group 2: Configuration */}
+        <div className="provider-config__group">
+          <div className="provider-config__group-header">
+            {t('configuration') || 'Configuration'}
+          </div>
+          <div className="provider-config__list">
+            {/* API Key */}
+            {provider.requiresApiKey && (
+              <div className="provider-config__row">
+                <span className="provider-config__row-label">API Key</span>
+                <div className="provider-config__row-control">
+                  <Input.Password
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    placeholder={t('enter_api_key') || 'Enter your API key'}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Model */}
+            <div className="provider-config__row">
+              <span className="provider-config__row-label">
+                {t('model') || 'Model'}
+              </span>
+              <div className="provider-config__row-control provider-config__row-control--model">
+                <Select
+                  value={modelName}
+                  onChange={setModelName}
+                  options={modelOptions}
+                  showSearch
+                  loading={modelsFetching}
+                  placeholder={t('select_model') || 'Select a model'}
+                  filterOption={(input, option) =>
+                    (option?.label as string)?.toLowerCase().includes(input.toLowerCase())
+                  }
+                />
+                <Tooltip title={modelsFromCache ? (t('models_from_cache') || 'Cached · click refresh') : 'Live'}>
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={<ReloadOutlined spin={modelsFetching} />}
+                    onClick={handleRefreshModels}
+                    disabled={modelsFetching}
+                    className={modelsFromCache ? 'provider-config__refresh-btn--cached' : 'provider-config__refresh-btn--live'}
+                  />
+                </Tooltip>
+              </div>
+            </div>
+
+            {/* Base URL */}
+            <div className="provider-config__row">
+              <span className="provider-config__row-label">
+                {provider.type === 'ollama' ? 'Ollama URL' : (t('base_url') || 'Base URL')}
+              </span>
+              <div className="provider-config__row-control">
+                <Input
+                  value={baseUrl}
+                  onChange={(e) => setBaseUrl(e.target.value)}
+                  placeholder={provider.defaultBaseURL || (t('optional') || 'Optional')}
+                />
+              </div>
+            </div>
+
+            {/* Connection test result — last row inside card */}
+            {testStatus !== 'idle' && (
+              <div className={`provider-config__test-row provider-config__test-row--${testStatus}`}>
+                {testStatus === 'loading' && <><LoadingOutlined /> {t('testing') || 'Testing...'}</>}
+                {testStatus === 'success' && <><CheckCircleFilled /> {t('connection_success') || 'Connection successful'}</>}
+                {testStatus === 'error' && <><CloseCircleFilled /> {testError}</>}
+              </div>
+            )}
+          </div>
+
+          {/* Footer hints */}
+          <p className="provider-config__group-footer">
+            {provider.requiresApiKey && provider.apiKeyUrl && (
+              <>
+                <a href={provider.apiKeyUrl} target="_blank" rel="noopener noreferrer">
+                  <LinkOutlined /> {t('get_api_key') || 'Get API key'} →
+                </a>
+                {' · '}
+              </>
+            )}
+            {t('base_url_hint') || 'Base URL overrides the default API endpoint'}
+          </p>
+        </div>
+
+        {/* Test Connection — blue text link */}
+        <div className="provider-config__test-link">
+          <Button
+            type="link"
+            onClick={handleTest}
+            loading={testStatus === 'loading'}
+          >
+            {t('test_connection') || 'Test Connection'}…
+          </Button>
+        </div>
+
       </div>
     </div>
   );
