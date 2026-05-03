@@ -310,6 +310,8 @@ export default {
   "translation_provider_set": "अनुवाद प्रदाता {provider} पर सेट किया गया",
   // AI Settings - Provider UI
   "configuration_removed": "कॉन्फ़िगरेशन हटाया गया",
+  "active_service_changed": "डिफ़ॉल्ट सेवा बदली गई",
+  "optional": "वैकल्पिक",
   "add_custom_provider": "कस्टम प्रदाता जोड़ें",
   "add": "जोड़ें",
   "provider_name": "प्रदाता नाम",

@@ -310,6 +310,8 @@ export default {
   "translation_provider_set": "تم تعيين مزود الترجمة إلى {provider}",
   // AI Settings - Provider UI
   "configuration_removed": "تمت إزالة التهيئة",
+  "active_service_changed": "تم تغيير الخدمة الافتراضية",
+  "optional": "اختياري",
   "add_custom_provider": "إضافة مزود مخصص",
   "add": "إضافة",
   "provider_name": "اسم المزود",

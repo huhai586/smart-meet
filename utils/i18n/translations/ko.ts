@@ -355,6 +355,8 @@ export default {
   "select_date": "날짜 선택",
   // AI Settings - Provider UI
   "configuration_removed": "구성이 삭제되었습니다",
+  "active_service_changed": "기본 서비스가 변경되었습니다",
+  "optional": "선택 사항",
   "add_custom_provider": "사용자 지정 공급자 추가",
   "add": "추가",
   "provider_name": "공급자 이름",

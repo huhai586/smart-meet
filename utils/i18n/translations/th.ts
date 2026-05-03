@@ -310,6 +310,8 @@ export default {
   "translation_provider_set": "ตั้งค่าผู้ให้บริการแปลเป็น {provider}",
   // AI Settings - Provider UI
   "configuration_removed": "ลบการกำหนดค่าแล้ว",
+  "active_service_changed": "เปลี่ยนบริการเริ่มต้นแล้ว",
+  "optional": "ไม่บังคับ",
   "add_custom_provider": "เพิ่มผู้ให้บริการแบบกำหนดเอง",
   "add": "เพิ่ม",
   "provider_name": "ชื่อผู้ให้บริการ",

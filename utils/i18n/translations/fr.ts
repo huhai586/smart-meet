@@ -355,6 +355,8 @@ export default {
   "select_date": "Sélectionner la date",
   // AI Settings - Provider UI
   "configuration_removed": "Configuration supprimée",
+  "active_service_changed": "Service par défaut modifié",
+  "optional": "Optionnel",
   "add_custom_provider": "Ajouter un fournisseur personnalisé",
   "add": "Ajouter",
   "provider_name": "Nom du fournisseur",

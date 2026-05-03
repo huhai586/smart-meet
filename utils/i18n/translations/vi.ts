@@ -331,6 +331,8 @@ export default {
   "translation_provider_set": "Nhà cung cấp dịch thuật được đặt thành {provider}",
   // AI Settings - Provider UI
   "configuration_removed": "Đã xóa cấu hình",
+  "active_service_changed": "Đã thay đổi dịch vụ mặc định",
+  "optional": "Tùy chọn",
   "add_custom_provider": "Thêm nhà cung cấp tùy chỉnh",
   "add": "Thêm",
   "provider_name": "Tên nhà cung cấp",

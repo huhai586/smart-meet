@@ -331,6 +331,8 @@ export default {
   "translation_provider_set": "Провайдер перевода установлен на {provider}",
   // AI Settings - Provider UI
   "configuration_removed": "Конфигурация удалена",
+  "active_service_changed": "Служба по умолчанию изменена",
+  "optional": "Необязательно",
   "add_custom_provider": "Добавить пользовательский провайдер",
   "add": "Добавить",
   "provider_name": "Название провайдера",

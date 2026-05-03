@@ -92,7 +92,7 @@ const AISettings: React.FC<AISettingsProps> = ({ hideHeader = false }) => {
 
     const handleRemove = (providerId: string) => {
         removeAIServiceConfig(providerId).then(() => {
-            messageManager.success(t('configuration_removed') || 'Configuration removed');
+            messageManager.success(t('configuration_removed'));
             setAisConfig(prev => ({
                 ...prev,
                 active: prev.active === providerId

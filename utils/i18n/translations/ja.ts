@@ -355,6 +355,8 @@ export default {
   "select_date": "日付を選択",
   // AI Settings - Provider UI
   "configuration_removed": "設定を削除しました",
+  "active_service_changed": "デフォルトサービスが変更されました",
+  "optional": "省略可能",
   "add_custom_provider": "カスタムプロバイダーを追加",
   "add": "追加",
   "provider_name": "プロバイダー名",
