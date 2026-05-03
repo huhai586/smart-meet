@@ -244,7 +244,7 @@ const Calendar: React.FC = () => {
               searchInputRef.current?.blur();
             }}
           >
-            取消
+            {t('cancel')}
           </button>
         )}
       </div>
@@ -252,7 +252,7 @@ const Calendar: React.FC = () => {
       {/* Active search tag */}
       {contentSearchActive && searchValue && (
         <div className="calendar-hig__search-tag">
-          <span>搜索：{searchValue}</span>
+          <span>{t('search_for', { term: searchValue })}</span>
           <button onClick={clearSearch}><CloseCircleFilled /></button>
         </div>
       )}

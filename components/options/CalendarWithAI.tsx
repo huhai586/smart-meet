@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useI18n } from '~/utils/i18n';
 import Calendar from './Calendar';
 import AIChatPanel from './ai-chat/AIChatPanel';
 import './ai-chat/ai-chat.scss';
@@ -6,6 +7,7 @@ import './ai-chat/ai-chat.scss';
 type Tab = 'history' | 'chat';
 
 const CalendarWithAI: React.FC = () => {
+  const { t } = useI18n();
   const [activeTab, setActiveTab] = useState<Tab>('history');
 
   return (
@@ -16,13 +18,13 @@ const CalendarWithAI: React.FC = () => {
           className={`segment-control__btn${activeTab === 'history' ? ' segment-control__btn--active' : ''}`}
           onClick={() => setActiveTab('history')}
         >
-          会议记录
+          {t('meeting_history_tab')}
         </button>
         <button
           className={`segment-control__btn${activeTab === 'chat' ? ' segment-control__btn--active' : ''}`}
           onClick={() => setActiveTab('chat')}
         >
-          AI 助手
+          {t('ai_assistant_tab')}
         </button>
       </div>
 

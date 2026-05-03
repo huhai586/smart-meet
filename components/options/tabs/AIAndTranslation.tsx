@@ -300,15 +300,15 @@ const AIAndTranslation: React.FC = () => {
         <SegmentTrack>
           <SegBtn $active={activeTab === 'models'} onClick={() => setActiveTab('models')}>
             <AppstoreOutlined />
-            模型服务
+            {t('tab_ai_models')}
           </SegBtn>
           <SegBtn $active={activeTab === 'prompts'} onClick={() => setActiveTab('prompts')}>
             <RobotOutlined />
-            提示词库
+            {t('tab_ai_prompts')}
           </SegBtn>
           <SegBtn $active={activeTab === 'translation'} onClick={() => setActiveTab('translation')}>
             <TranslationOutlined />
-            翻译偏好
+            {t('tab_translation_prefs')}
           </SegBtn>
         </SegmentTrack>
       </SegmentBar>

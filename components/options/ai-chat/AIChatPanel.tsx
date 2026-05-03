@@ -5,9 +5,11 @@ import DateRangeSelector from './DateRangeSelector';
 import ChatMessages from './ChatMessages';
 import ChatInputBar from './ChatInputBar';
 import { useAIChat } from './useAIChat';
+import useI18n from '~/utils/i18n';
 import './ai-chat.scss';
 
 const AIChatPanel: React.FC = () => {
+  const { t } = useI18n();
   const {
     messages, dateRange, recordCount, loadPhase, hasProvider,
     configuredProviders, selectedProviderName, setSelectedProviderName,
@@ -17,7 +19,11 @@ const AIChatPanel: React.FC = () => {
   const isLoading = loadPhase !== 'idle';
 
   const capsuleText = dateRange
-    ? `${dateRange[0].format('M月D日')} - ${dateRange[1].format('M月D日')}（共 ${recordCount} 条记录）`
+    ? t('capsule_text', {
+        start: dateRange[0].format(t('date_format_short')),
+        end: dateRange[1].format(t('date_format_short')),
+        count: String(recordCount),
+      })
     : '';
 
   return (
@@ -38,7 +44,7 @@ const AIChatPanel: React.FC = () => {
             <button
               className="ai-chat__capsule-clear"
               onClick={clearMessages}
-              title="清除对话"
+              title={t('clear_chat')}
             >
               <CloseOutlined />
             </button>
@@ -51,7 +57,7 @@ const AIChatPanel: React.FC = () => {
         <div className="ai-chat__no-provider">
           <WarningOutlined />
           <span>
-            尚未配置 AI 服务，请先{' '}
+            {t('no_ai_provider_before')}{' '}
             <a
               href="#"
               onClick={e => {
@@ -59,9 +65,9 @@ const AIChatPanel: React.FC = () => {
                 window.location.hash = 'ai-translation';
               }}
             >
-              前往 AI 设置
+              {t('no_ai_provider_link')}
             </a>{' '}
-            配置服务商。
+            {t('no_ai_provider_after')}
           </span>
         </div>
       )}
@@ -75,10 +81,10 @@ const AIChatPanel: React.FC = () => {
         disabled={isLoading || !dateRange || !hasProvider}
         placeholder={
           !dateRange
-            ? '请先选择日期范围...'
+            ? t('placeholder_no_date')
             : !hasProvider
-            ? '请先配置 AI 服务...'
-            : '输入问题… (⌘↵ / Ctrl↵)'
+            ? t('placeholder_no_provider')
+            : t('ai_input_placeholder')
         }
         configuredProviders={configuredProviders}
         selectedProviderName={selectedProviderName}

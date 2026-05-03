@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Spin } from 'antd';
 import { LoadingOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import MarkdownRenderer from '~components/summary/MarkdownRenderer';
+import { useI18n } from '~/utils/i18n';
 import type { ChatMsg, LoadPhase } from './useAIChat';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const ChatMessages: React.FC<Props> = ({ messages, loadPhase, recordCount }) => {
+  const { t } = useI18n();
   const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,9 +23,9 @@ const ChatMessages: React.FC<Props> = ({ messages, loadPhase, recordCount }) => 
     return (
       <div className="ai-chat__empty-state">
         <div className="ai-chat__empty-state-icon">💬</div>
-        <div className="ai-chat__empty-state-title">AI 会议助手</div>
+        <div className="ai-chat__empty-state-title">{t('ai_chat_title')}</div>
         <div className="ai-chat__empty-state-desc">
-          选择日期范围后，可以基于这段时间的会议记录进行对话
+          {t('ai_chat_empty_desc')}
         </div>
       </div>
     );
@@ -66,7 +68,7 @@ const ChatMessages: React.FC<Props> = ({ messages, loadPhase, recordCount }) => 
         <div className="ai-chat__context-card">
           <Spin indicator={<LoadingOutlined style={{ fontSize: 16 }} spin />} />
           <span className="ai-chat__context-card-text">
-            正在读取会议记录（{recordCount > 0 ? `已找到 ${recordCount} 条` : '加载中...'}）
+            {t('ai_reading_records')}（{recordCount > 0 ? t('ai_found_records', { count: recordCount }) : t('loading') + '...'}）
           </span>
         </div>
       )}

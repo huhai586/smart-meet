@@ -2,6 +2,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import ProviderIcon from '~components/common/ProviderIcon';
 import type { ConfiguredProvider } from './useAIChat';
+import useI18n from '~/utils/i18n';
 
 interface Props {
   onSend: (text: string) => void;
@@ -20,6 +21,7 @@ const ChatInputBar: React.FC<Props> = ({
   selectedProviderName,
   onSelectProvider,
 }) => {
+  const { t } = useI18n();
   const [value, setValue] = useState('');
   const [popoverOpen, setPopoverOpen] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -77,7 +79,7 @@ const ChatInputBar: React.FC<Props> = ({
           tabIndex={-1}
           onBlur={handlePopoverBlur}
         >
-          <div className="ai-chat__provider-popover__title">选择 AI 服务</div>
+          <div className="ai-chat__provider-popover__title">{t('select_ai_service')}</div>
           {configuredProviders.map(p => (
             <button
               key={p.aiName}
@@ -93,7 +95,7 @@ const ChatInputBar: React.FC<Props> = ({
               <span className="ai-chat__provider-popover__name">
                 {p.displayName}
                 {p.isDefault && (
-                  <span className="ai-chat__provider-popover__default">默认</span>
+                  <span className="ai-chat__provider-popover__default">{t('default_label')}</span>
                 )}
               </span>
               <span className="ai-chat__provider-popover__model">{p.modelName}</span>
@@ -107,7 +109,7 @@ const ChatInputBar: React.FC<Props> = ({
         ref={btnRef}
         className={`ai-chat__provider-btn${popoverOpen ? ' ai-chat__provider-btn--open' : ''}`}
         onClick={() => setPopoverOpen(v => !v)}
-        title={selectedProvider ? `当前：${selectedProvider.displayName}` : '选择 AI'}
+        title={selectedProvider ? `${t('current_provider').replace('{name}', selectedProvider.displayName)}` : t('select_ai')}
         tabIndex={0}
       >
         <span className="ai-chat__provider-btn__icon">
@@ -121,7 +123,7 @@ const ChatInputBar: React.FC<Props> = ({
           value={value}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
-          placeholder={placeholder || '输入问题… (⌘↵ / Ctrl↵ 发送)'}
+          placeholder={placeholder || t('ai_input_placeholder')}
           disabled={disabled}
           rows={1}
         />

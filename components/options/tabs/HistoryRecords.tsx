@@ -260,7 +260,7 @@ const HistoryRecords: React.FC = () => {
             {t('meeting_history_tab') || '会议记录'}
           </SegBtn>
           <SegBtn $active={activeTab === 'chat'} onClick={() => setActiveTab('chat')}>
-            {'AI 助手'}
+            {t('ai_assistant_tab')}
           </SegBtn>
         </SegmentWrap>
 

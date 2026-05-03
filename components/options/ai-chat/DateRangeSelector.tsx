@@ -1,18 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { DatePicker, Select } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
+import useI18n from '~/utils/i18n';
 
 const { RangePicker } = DatePicker;
-
-const PRESETS = [
-  { label: '最近3天', value: '3d' },
-  { label: '最近一周', value: '7d' },
-  { label: '最近2周', value: '14d' },
-  { label: '最近1个月', value: '1m' },
-  { label: '最近2个月', value: '2m' },
-  { label: '最近3个月', value: '3m' },
-  { label: '自定义区间', value: 'custom' },
-];
 
 function computeRange(preset: string): [Dayjs, Dayjs] {
   const today = dayjs();
@@ -34,8 +25,19 @@ interface Props {
 }
 
 const DateRangeSelector: React.FC<Props> = ({ onChange, loading }) => {
+  const { t } = useI18n();
   const [preset, setPreset] = useState('3d');
   const [range, setRange] = useState<[Dayjs, Dayjs]>(() => computeRange('3d'));
+
+  const presets = useMemo(() => [
+    { label: t('preset_3d'), value: '3d' },
+    { label: t('preset_7d'), value: '7d' },
+    { label: t('preset_14d'), value: '14d' },
+    { label: t('preset_1m'), value: '1m' },
+    { label: t('preset_2m'), value: '2m' },
+    { label: t('preset_3m'), value: '3m' },
+    { label: t('preset_custom'), value: 'custom' },
+  ], [t]);
 
   const onChangeRef = useRef(onChange);
   useEffect(() => { onChangeRef.current = onChange; });
@@ -62,12 +64,12 @@ const DateRangeSelector: React.FC<Props> = ({ onChange, loading }) => {
   return (
     <div className="ai-chat__range-section">
       <div className="ai-chat__range-header">
-        <span className="ai-chat__range-label">选择会议日期范围</span>
+        <span className="ai-chat__range-label">{t('select_date_range')}</span>
         <Select
           value={preset}
           onChange={handlePresetChange}
           disabled={loading}
-          options={PRESETS}
+          options={presets}
           size="small"
           variant="borderless"
           style={{ minWidth: 100 }}
@@ -81,7 +83,7 @@ const DateRangeSelector: React.FC<Props> = ({ onChange, loading }) => {
           onChange={handleRangeChange}
           disabled={loading}
           disabledDate={(d) => d.isAfter(dayjs())}
-          format="M月D日"
+          format={t('date_format_short')}
           allowClear={false}
           style={{ width: '100%' }}
         />
