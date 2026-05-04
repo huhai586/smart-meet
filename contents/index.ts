@@ -1,4 +1,4 @@
-import getCaptions from 'google-meeting-captions-resolver';
+import getCaptions, { stopCaptionsFetching } from 'google-meeting-captions-resolver';
 import type { PlasmoCSConfig } from "plasmo"
 import type { Captions } from "~node_modules/google-meeting-captions-resolver";
 import getIsExtensionDisabled from '../utils/get-is-extension-disabled';
@@ -45,6 +45,9 @@ const setupLeaveCallListener = () => {
             if (isLeaveCallButton) {
                 console.log('检测到退出通话按钮被点击');
 
+                // 停止字幕捕获
+                stopCaptionsFetching();
+
                 // 延迟一小段时间再同步，确保最后的记录已保存
                 setTimeout(() => {
                     chrome.runtime.sendMessage({
@@ -68,9 +71,9 @@ const start = () => {
     getIsExtensionDisabled().then((disabled: boolean) => {
         isExtensionEnabled = !disabled;
         if (!disabled) {
-            getCaptions(undefined, (v) => {
+            getCaptions((v) => {
                 console.log('captions', v);
-                addOrUpdateRecords(v)
+                addOrUpdateRecords(v);
             });
 
             // 设置退出通话监听器

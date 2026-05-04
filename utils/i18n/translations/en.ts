@@ -494,7 +494,6 @@ export default {
   "prompt_content_placeholder": "Enter the prompt text…",
   "select_prompt": "Select Prompt",
   "apply_prompts": "Apply ({n} selected)",
-  "save": "Save",
 
   // Words / Translation History
   "translation_history": "Translation History",

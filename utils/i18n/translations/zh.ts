@@ -548,4 +548,6 @@ export default {
   "default_label": "默认",
   "current_provider": "当前：{name}",
   "select_ai": "选择 AI",
+
+  "cancel": "取消",
 };

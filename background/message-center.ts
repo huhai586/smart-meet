@@ -64,7 +64,7 @@ class BackgroundMessageHandler {
             'openSidePanel',
             'languageChanged',
             'sync-to-google-drive',
-            'update_meeting_info'
+            'update_meeting_info',
         ];
 
         if (!handledActions.includes(message.action)) {
@@ -173,7 +173,7 @@ function isHandledAction(action: string | undefined): boolean {
         'openSidePanel',
         'languageChanged',
         'sync-to-google-drive',
-        'update_meeting_info'
+        'update_meeting_info',
     ];
     return !!action && handledActions.includes(action);
 }

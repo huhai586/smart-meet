@@ -4,6 +4,7 @@ import { initTabTracking } from "./tab-tracking";
 import { detectAndSetBrowserLanguage } from "./utils/language-utils";
 import { initLeaveCallSync } from "./sync-on-leave";
 import { initBrowserStartupSync } from "./browser-startup-sync";
+
 import { migrateToAppConfig, cleanupLegacyFlatKeys } from "../utils/appConfig";
 
 /**
