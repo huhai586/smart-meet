@@ -257,6 +257,79 @@ export function onConfigChanged(
 // ─── Migration ────────────────────────────────────────────────────────────────
 
 /**
+ * Migrate old `aiServices` / `activeAIService` flat sync keys (written by the
+ * legacy getAPIkey.ts) into the new `appConfig.AIs` field.
+ *
+ * Old format:
+ *   chrome.storage.sync.aiServices = { groq: { apiKey, modelName }, ... }
+ *   chrome.storage.sync.activeAIService = 'groq'
+ *
+ * New format (appConfig.AIs.value):
+ *   { active: 'groq', data: [{ aiName: 'groq', apiKey, modelName }] }
+ *
+ * This migration is self-contained (own flag) and always runs inside
+ * migrateToAppConfig(), so it fires even on devices that already ran v1.
+ */
+const LEGACY_AI_SERVICES_MIGRATION_FLAG = 'appConfigMigrationDone_v2_aiServices';
+
+async function migrateLegacyAIServicesFormat(): Promise<void> {
+  const flagResult = await new Promise<Record<string, unknown>>((resolve) =>
+    chrome.storage.sync.get([LEGACY_AI_SERVICES_MIGRATION_FLAG], resolve),
+  );
+  if (flagResult[LEGACY_AI_SERVICES_MIGRATION_FLAG]) return;
+
+  // Read old flat keys
+  const oldData = await new Promise<Record<string, unknown>>((resolve) =>
+    chrome.storage.sync.get(['aiServices', 'activeAIService'], resolve),
+  );
+
+  const markDone = () =>
+    new Promise<void>((resolve) =>
+      chrome.storage.sync.set({ [LEGACY_AI_SERVICES_MIGRATION_FLAG]: true }, resolve),
+    );
+
+  const oldAiServices = oldData['aiServices'] as
+    | Record<string, { apiKey?: string; modelName?: string }>
+    | undefined;
+
+  if (!oldAiServices || Object.keys(oldAiServices).length === 0) {
+    await markDone();
+    return;
+  }
+
+  // Skip if AIs is already populated in appConfig (don't overwrite user's current config)
+  const existingAIs = await getConfigValue('AIs');
+  if (existingAIs.data && existingAIs.data.length > 0) {
+    await markDone();
+    return;
+  }
+
+  // Convert { groq: { apiKey, modelName } } → AIServiceConfig[]
+  const data: AIServiceConfig[] = Object.entries(oldAiServices)
+    .filter(([, cfg]) => !!cfg?.apiKey)
+    .map(([aiName, cfg]) => ({
+      aiName,
+      apiKey: cfg.apiKey ?? '',
+      modelName: cfg.modelName ?? '',
+    }));
+
+  if (data.length === 0) {
+    await markDone();
+    return;
+  }
+
+  const oldActive = oldData['activeAIService'] as string | undefined;
+  const active =
+    oldActive && data.some(d => d.aiName === oldActive)
+      ? oldActive
+      : data[0].aiName;
+
+  await setConfigValue('AIs', { active, data });
+  await markDone();
+  console.log('[appConfig] Migrated legacy aiServices → appConfig.AIs', { active, count: data.length });
+}
+
+/**
  * OLD individual sync keys that have been consolidated into appConfig.
  * Map: appConfig field name → old chrome.storage.sync key name.
  */
@@ -303,6 +376,9 @@ const OLD_LOCAL_KEYS: Partial<Record<AppConfigKey, string>> = {
  *  - appConfig field is empty, only old local key exists → use local value
  */
 export async function migrateToAppConfig(): Promise<void> {
+  // Always attempt the aiServices-format migration first (self-contained, own flag)
+  await migrateLegacyAIServicesFormat();
+
   // Check migration flag
   const flagResult = await new Promise<Record<string, unknown>>((resolve) =>
     chrome.storage.sync.get([MIGRATION_FLAG], resolve),
@@ -395,9 +471,13 @@ const ALL_LEGACY_SYNC_KEYS = [
   'longmanStarred',
   'isExtensionDisabled',
   'translatedWords',
+  // old AI-service flat keys (written by legacy getAPIkey.ts)
+  'aiServices',
+  'activeAIService',
   // old migration flags that are no longer needed
   'localToSyncMigrationDone_v1',
   'appConfigMigrationDone_v1',
+  'appConfigMigrationDone_v2_aiServices',
   'appConfigCleanupDone_v1',
   'appConfigCleanupDone_v2',
   // model cache was incorrectly stored in sync — now lives in local
