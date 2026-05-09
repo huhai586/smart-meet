@@ -1,7 +1,7 @@
 {
   "name": "google-meet-caption-pro",
   "displayName": "Google Meet Caption Pro",
-  "version": "1.11.4",
+  "version": "1.11.5",
   "description": "Google Meet Caption Pro",
   "author": "Howard",
   "scripts": {
@@ -64,9 +64,8 @@
     "name": "__MSG_extension_name__",
     "description": "__MSG_extension_description__",
     "host_permissions": [
-      "https://meet.google.com/*",
-      "https://translate.google.com/",
-      "https://www.googleapis.com/*"
+      "https://*/*",
+      "http://localhost/*"
     ],
     "permissions": [
       "sidePanel",
