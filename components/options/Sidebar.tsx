@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import {
   SettingOutlined,
-  LayoutOutlined,
   RobotOutlined,
   CalendarOutlined,
   CloudOutlined,
   CodeOutlined,
+  FontSizeOutlined,
+  SyncOutlined,
 } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
@@ -24,20 +25,24 @@ interface MenuItem {
   route: string;
 }
 
+interface MenuCategory {
+  title: string;
+  items: MenuItem[];
+}
+
 const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUnlock }) => {
   const { t } = useI18n();
   const [tapCount, setTapCount] = useState(0);
   const [tapTimer, setTapTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
 
   const handleTitleClick = useCallback(() => {
-    if (devMode) return; // already unlocked
+    if (devMode) return;
     const next = tapCount + 1;
     setTapCount(next);
 
-    // Reset tap counter after 2 s of inactivity
     if (tapTimer) clearTimeout(tapTimer);
-    const t = setTimeout(() => setTapCount(0), 2000);
-    setTapTimer(t);
+    const timer = setTimeout(() => setTapCount(0), 2000);
+    setTapTimer(timer);
 
     if (next >= 7) {
       setTapCount(0);
@@ -46,101 +51,106 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
     }
   }, [tapCount, tapTimer, devMode, onDevUnlock]);
 
-  const menuItems: MenuItem[] = [
+  const menuCategories: MenuCategory[] = [
     {
-      key: '1',
-      icon: <SettingOutlined />,
-      label: t('tab_general'),
-      route: 'general',
+      title: t('sidebar_category_general'),
+      items: [
+        {
+          key: '1',
+          icon: <SettingOutlined />,
+          label: t('tab_general'),
+          route: 'general',
+        },
+        {
+          key: '3',
+          icon: <RobotOutlined />,
+          label: t('tab_ai_models_nav'),
+          route: 'ai-translation',
+        },
+        {
+          key: '2',
+          icon: <FontSizeOutlined />,
+          label: t('tab_captions_translation'),
+          route: 'interface',
+        },
+      ],
     },
     {
-      key: '2',
-      icon: <LayoutOutlined />,
-      label: t('tab_interface'),
-      route: 'interface',
-    },
-    {
-      key: '3',
-      icon: <RobotOutlined />,
-      label: t('tab_ai_translation'),
-      route: 'ai-translation',
-    },
-    {
-      key: '4',
-      icon: <CalendarOutlined />,
-      label: t('tab_history'),
-      route: 'history',
-    },
-    {
-      key: '5',
-      icon: <CloudOutlined />,
-      label: t('tab_cloud_sync'),
-      route: 'cloud-sync',
+      title: t('sidebar_category_integration'),
+      items: [
+        {
+          key: 'calendar',
+          icon: <CalendarOutlined />,
+          label: t('tab_calendar'),
+          route: 'calendar',
+        },
+        {
+          key: '4',
+          icon: <SyncOutlined />,
+          label: t('tab_data_sync'),
+          route: 'history',
+        },
+        {
+          key: '5',
+          icon: <CloudOutlined />,
+          label: t('tab_google_drive'),
+          route: 'cloud-sync',
+        },
+      ],
     },
     ...(devMode ? [{
-      key: 'dev',
-      icon: <CodeOutlined />,
-      label: 'Developer',
-      route: 'developer',
+      title: 'Dev',
+      items: [{
+        key: 'dev',
+        icon: <CodeOutlined />,
+        label: 'Developer',
+        route: 'developer',
+      }],
     }] : []),
   ];
 
-  // 处理菜单项点击
   const handleMenuItemClick = (key: string, route: string) => {
     onChange(key);
-    // 更新URL哈希（可以由父组件处理，但这里为了兼容性也添加）
     window.location.hash = route;
   };
 
+  const version = chrome.runtime.getManifest().version;
+
   return (
     <div className="sidebar">
-      <div className="sidebar-header">
-        <div className="app-logo">
-          <div className="logo-icon">
-            <SettingOutlined style={{ fontSize: '24px', color: '#fff' }} />
-          </div>
-          <h1
-            onClick={handleTitleClick}
-            style={{ cursor: devMode ? 'default' : 'pointer', userSelect: 'none', position: 'relative' }}
-            title={devMode ? 'Developer mode active' : undefined}
-          >
-            Google Meet Caption Pro
-            {devMode && (
-              <span style={{
-                display: 'inline-block',
-                marginLeft: 8,
-                fontSize: 10,
-                fontWeight: 600,
-                background: 'rgba(255,149,0,0.85)',
-                color: '#fff',
-                borderRadius: 4,
-                padding: '1px 5px',
-                verticalAlign: 'middle',
-                letterSpacing: '0.4px',
-              }}>DEV</span>
-            )}
-          </h1>
-        </div>
-        <div className="sidebar-description">
-          {t('configure_assistant')}
-        </div>
-      </div>
+      <div className="sidebar-dev-tap"
+        onClick={handleTitleClick}
+        title={devMode ? 'Developer mode active' : undefined}
+      />
+
       <div className="sidebar-menu">
-        {menuItems.map(item => (
-          <a
-            key={item.key}
-            data-key={item.key}
-            className={`menu-item ${activeKey === item.key ? 'active' : ''}`}
-            onClick={() => handleMenuItemClick(item.key, item.route)}
-            href={`#${item.route}`}
-          >
-            <span className="icon">{item.icon}</span>
-            <span className="label">{item.label}</span>
-          </a>
+        {menuCategories.map((category, idx) => (
+          <div key={idx} className="menu-category">
+            <div className="category-title">{category.title}</div>
+            {category.items.map(item => (
+              <a
+                key={item.key}
+                data-key={item.key}
+                className={`menu-item ${activeKey === item.key ? 'active' : ''}`}
+                onClick={() => handleMenuItemClick(item.key, item.route)}
+                href={`#${item.route}`}
+              >
+                <span className="icon">{item.icon}</span>
+                <span className="label">{item.label}</span>
+              </a>
+            ))}
+          </div>
         ))}
       </div>
+
       <div className="sidebar-footer">
-        <div className="version">Version {chrome.runtime.getManifest().version}</div>
+        <div className="version-info">
+          <span className="version-number">版本 {version}</span>
+          <span className="version-status">
+            <span className="status-dot" />
+            {t('version_latest')}
+          </span>
+        </div>
       </div>
     </div>
   );

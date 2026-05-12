@@ -100,6 +100,11 @@ export interface AppConfigData {
   // Cloud sync
   autoSyncOnStartup: Field<boolean>;
   autoSyncOnLeave:   Field<boolean>;
+
+  // Google Calendar sync
+  calendarAutoSync:      Field<boolean>;
+  calendarSyncFrequency: Field<string>;
+  calendarSyncRange:     Field<string>;
 }
 
 export type AppConfigKey = keyof Omit<AppConfigData, '_schemaVersion'>;
@@ -140,6 +145,9 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
   customPrompts:               [],
   autoSyncOnStartup:           false,
   autoSyncOnLeave:             true,
+  calendarAutoSync:            true,
+  calendarSyncFrequency:       '15min',
+  calendarSyncRange:           '30days',
 };
 
 // ─── Core helpers ─────────────────────────────────────────────────────────────

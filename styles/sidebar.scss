@@ -1,256 +1,158 @@
 .sidebar {
-  background: linear-gradient(135deg, #1a73e8 0%, #1557b0 50%, #2563eb 100%);
+  background: #ffffff;
   position: relative;
   height: auto;
-  width: 280px;
-  padding: 24px 0;
-  padding-bottom: 0;
-  box-shadow: 
-    4px 0 24px rgba(0, 0, 0, 0.15),
-    0 8px 32px rgba(26, 115, 232, 0.2);
-  transition: all 0.3s ease;
+  width: 260px;
+  min-width: 260px;
+  padding: 0;
+  border-right: 1px solid #e8ecf1;
+  border-radius: 0 0 0 16px;
   display: flex;
   flex-direction: column;
-  color: white;
+  color: #1a202c;
   overflow: hidden;
 
-  &::before {
-    content: '';
+  .sidebar-dev-tap {
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: conic-gradient(
-      from 0deg at 50% 50%,
-      rgba(255, 255, 255, 0) 0deg,
-      rgba(255, 255, 255, 0.03) 90deg,
-      rgba(255, 255, 255, 0) 180deg,
-      rgba(255, 255, 255, 0.03) 270deg,
-      rgba(255, 255, 255, 0) 360deg
-    );
-    animation: rotate 20s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  > * {
-    position: relative;
-    z-index: 2;
-  }
-
-  .sidebar-header {
-    padding: 0 24px 24px;
-    margin-bottom: 24px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    .app-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-
-      .logo-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 
-          0 8px 16px rgba(0, 0, 0, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-      }
-
-      h1 {
-        font-size: 20px;
-        font-weight: 700;
-        margin: 0;
-        color: white;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        letter-spacing: 0.5px;
-      }
-    }
-
-    .sidebar-description {
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.8);
-      margin-top: 8px;
-      font-weight: 400;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    }
+    width: 100%;
+    height: 4px;
+    cursor: default;
+    user-select: none;
   }
 
   .sidebar-menu {
-    padding: 0 16px;
+    padding: 12px 12px 0;
     flex: 1;
+    overflow-y: auto;
 
-    .menu-item {
-      display: flex;
-      align-items: center;
-      padding: 14px 18px;
+    .menu-category {
       margin-bottom: 8px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      color: rgba(255, 255, 255, 0.85);
-      font-weight: 500;
-      text-decoration: none;
-      position: relative;
-      overflow: hidden;
-      
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
-        opacity: 0;
-        transition: opacity 0.3s ease;
-        border-radius: 12px;
-      }
-      
-      &:hover {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
-        color: white;
-        text-decoration: none;
-        transform: translateX(4px);
-        box-shadow: 
-          0 4px 12px rgba(0, 0, 0, 0.15),
-          inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        
-        &::before {
-          opacity: 1;
-        }
+
+      .category-title {
+        font-size: 11px;
+        font-weight: 600;
+        color: #8b95a5;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 16px 12px 6px;
       }
 
-      &.active {
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
-        color: #1a73e8;
-        box-shadow: 
-          0 8px 24px rgba(0, 0, 0, 0.2),
-          inset 0 1px 0 rgba(255, 255, 255, 0.8);
-        transform: translateX(6px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        
-        &::before {
-          opacity: 0;
-        }
-      }
-
-      .icon {
-        margin-right: 14px;
-        font-size: 18px;
+      .menu-item {
         display: flex;
         align-items: center;
-        justify-content: center;
-        transition: transform 0.3s ease;
-      }
-
-      .label {
-        font-size: 15px;
+        padding: 10px 12px;
+        margin-bottom: 2px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: #4a5568;
         font-weight: 500;
-        letter-spacing: 0.3px;
-      }
-
-      &:hover .icon {
-        transform: scale(1.1);
-      }
-
-      // Developer mode tab – amber accent
-      &[data-key='dev'] {
-        color: rgba(255, 200, 80, 0.9);
-        border: 1px dashed rgba(255, 200, 80, 0.35);
-
-        .icon { color: rgba(255, 200, 80, 0.9); }
+        text-decoration: none;
+        position: relative;
 
         &:hover {
-          background: rgba(255, 149, 0, 0.15);
-          color: #FFD060;
-          border-color: rgba(255, 200, 80, 0.6);
+          background: #f5f7fa;
+          color: #1a202c;
+          text-decoration: none;
         }
 
         &.active {
-          background: linear-gradient(135deg, rgba(255, 180, 30, 0.18) 0%, rgba(255, 149, 0, 0.12) 100%);
-          color: #FF9500;
-          border: 1px solid rgba(255, 149, 0, 0.45);
-          box-shadow: 0 4px 16px rgba(255, 149, 0, 0.25);
+          background: #eef4ff;
+          color: #1a73e8;
+
+          .icon {
+            color: #1a73e8;
+          }
+        }
+
+        .icon {
+          margin-right: 12px;
+          font-size: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 20px;
+          color: #8b95a5;
+          transition: color 0.2s ease;
+        }
+
+        .label {
+          font-size: 14px;
+          font-weight: 500;
+          letter-spacing: -0.1px;
+        }
+
+        &.active .icon {
+          color: #1a73e8;
+        }
+
+        &:hover .icon {
+          color: #4a5568;
+        }
+
+        &.active:hover .icon {
+          color: #1a73e8;
+        }
+
+        // Developer mode tab
+        &[data-key='dev'] {
+          color: #c77a00;
+
+          .icon { color: #c77a00; }
+
+          &:hover {
+            background: #fff8eb;
+          }
+
+          &.active {
+            background: #fff3d6;
+            color: #b36b00;
+            
+            .icon { color: #b36b00; }
+          }
         }
       }
     }
   }
 
   .sidebar-footer {
-    padding: 20px 24px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
-    text-align: center;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-}
+    padding: 16px 20px;
+    border-top: 1px solid #e8ecf1;
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+    .version-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      .version-number {
+        font-size: 12px;
+        font-weight: 600;
+        color: #4a5568;
+      }
+
+      .version-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 11px;
+        color: #22c55e;
+
+        .status-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: #22c55e;
+        }
+      }
+    }
   }
 }
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 260px;
-    
-    .sidebar-header {
-      padding: 0 20px 20px;
-      
-      .app-logo h1 {
-        font-size: 18px;
-      }
-    }
-    
-    .sidebar-menu {
-      padding: 0 12px;
-      
-      .menu-item {
-        padding: 12px 16px;
-        
-        .icon {
-          margin-right: 12px;
-        }
-        
-        .label {
-          font-size: 14px;
-        }
-      }
-    }
+    width: 220px;
+    min-width: 220px;
   }
 } 

@@ -1,0 +1,516 @@
+.calendar-sync-page {
+  max-width: 860px;
+  margin: 0;
+  padding: 8px 0;
+
+  .page-header {
+    margin-bottom: 28px;
+
+    .page-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #1a202c;
+      margin: 0 0 8px;
+      letter-spacing: -0.3px;
+    }
+
+    .page-desc {
+      font-size: 14px;
+      color: #8b95a5;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+
+  // Shared card styles
+  .connection-card,
+  .settings-card,
+  .sync-content-card {
+    background: #fff;
+    border: 1px solid #e8ecf1;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 0 0 20px;
+    }
+  }
+
+  // Connection Status Card
+  .connection-card {
+    .connection-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: #f8fafc;
+      border-radius: 12px;
+      margin-bottom: 16px;
+
+      .status-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        .calendar-icon-wrapper {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: #fff;
+          border: 1px solid #e8ecf1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+
+          .google-calendar-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+          }
+
+          .fallback-icon {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a73e8;
+          }
+        }
+
+        .status-info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+
+          .status-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a202c;
+          }
+
+          .status-desc {
+            font-size: 13px;
+            color: #8b95a5;
+          }
+        }
+      }
+
+      .connect-button {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        background: #1a73e8;
+        color: #fff;
+
+        &:hover {
+          background: #1557b0;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+
+        &.loading {
+          opacity: 0.7;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+
+        &.connected {
+          background: #f5f7fa;
+          color: #64748b;
+          border: 1px solid #e2e8f0;
+
+          &:hover {
+            background: #fef2f2;
+            color: #ef4444;
+            border-color: #fecaca;
+            box-shadow: none;
+          }
+        }
+
+        .anticon {
+          font-size: 16px;
+        }
+      }
+    }
+
+    .privacy-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #f0fdf4;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #16a34a;
+
+      .privacy-icon {
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .learn-more {
+        margin-left: auto;
+        color: #1a73e8;
+        font-weight: 500;
+        white-space: nowrap;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  // Settings Card
+  .settings-card {
+    .setting-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #f1f5f9;
+
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      &:first-of-type {
+        padding-top: 0;
+      }
+
+      .setting-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        .setting-icon {
+          font-size: 18px;
+          color: #8b95a5;
+          width: 24px;
+          text-align: center;
+        }
+
+        .setting-info {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+
+          .setting-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a202c;
+          }
+
+          .setting-desc {
+            font-size: 12px;
+            color: #8b95a5;
+          }
+        }
+      }
+
+      .setting-select {
+        min-width: 140px;
+
+        .ant-select-selector {
+          border-radius: 8px !important;
+          border-color: #e2e8f0 !important;
+          height: 36px !important;
+
+          .ant-select-selection-item {
+            line-height: 34px !important;
+          }
+        }
+      }
+
+      .ant-switch {
+        &.ant-switch-checked {
+          background: #1a73e8;
+        }
+      }
+    }
+  }
+
+  // Sync Content Card
+  .sync-content-card {
+    .content-layout {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      .content-list {
+        flex: 1;
+
+        .content-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 8px 0;
+          font-size: 14px;
+          color: #1a202c;
+
+          .check-icon {
+            font-size: 18px;
+            color: #22c55e;
+          }
+        }
+      }
+
+      .content-illustration {
+        flex-shrink: 0;
+        margin-left: 40px;
+
+        .illustration-placeholder {
+          width: 140px;
+          height: 120px;
+          background: #f8fafc;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  // Tip Bar
+  .tip-bar {    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 10px;
+    margin-top: 4px;
+
+    .tip-content {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #1e40af;
+
+      .tip-icon {
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+    }
+
+    .tip-close {
+      font-size: 12px;
+      color: #93a3b8;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: #64748b;
+        background: rgba(0, 0, 0, 0.05);
+      }
+    }
+  }
+
+  // Manual Sync Card
+  .manual-sync-card {
+    background: #fff;
+    border: 1px solid #e8ecf1;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+
+    .manual-sync-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+
+      .manual-sync-title-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+
+        .last-sync-time {
+          font-size: 12px;
+          color: #8b95a5;
+        }
+      }
+
+      .manual-sync-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        background: #1a73e8;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover:not(:disabled) {
+          background: #1557b0;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+
+        &.syncing {
+          background: #4a90e2;
+        }
+
+        .anticon {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .sync-status-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 16px;
+
+      &.success {
+        background: #f0fdf4;
+        color: #16a34a;
+        border: 1px solid #bbf7d0;
+      }
+
+      &.error {
+        background: #fef2f2;
+        color: #dc2626;
+        border: 1px solid #fecaca;
+      }
+
+      &.syncing {
+        background: #eff6ff;
+        color: #1d4ed8;
+        border: 1px solid #bfdbfe;
+      }
+
+      .anticon {
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+    }
+
+    .event-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .event-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        transition: background 0.15s ease;
+
+        &:hover {
+          background: #f8fafc;
+        }
+
+        .event-time {
+          flex-shrink: 0;
+          width: 110px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #1a73e8;
+          padding-top: 2px;
+        }
+
+        .event-body {
+          flex: 1;
+          min-width: 0;
+
+          .event-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .event-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+
+            .event-meta-item {
+              display: flex;
+              align-items: center;
+              gap: 4px;
+              font-size: 12px;
+              color: #8b95a5;
+
+              .anticon {
+                font-size: 12px;
+              }
+
+              &.meet-link {
+                color: #1a73e8;
+                text-decoration: none;
+
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .event-more {
+        text-align: center;
+        font-size: 12px;
+        color: #8b95a5;
+        padding: 8px 0;
+      }
+    }
+
+    .sync-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 28px 0 12px;
+      color: #b0bac7;
+      font-size: 13px;
+
+      .sync-empty-icon {
+        font-size: 32px;
+        opacity: 0.4;
+      }
+    }
+  }
+}
