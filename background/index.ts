@@ -5,6 +5,7 @@ import { detectAndSetBrowserLanguage } from "./utils/language-utils";
 import { initLeaveCallSync } from "./sync-on-leave";
 import { initBrowserStartupSync } from "./browser-startup-sync";
 import { initCalendarAutoSync } from "./calendar-auto-sync";
+import { initMeetingReminders } from "./meeting-reminders";
 
 import { migrateToAppConfig, cleanupLegacyFlatKeys } from "../utils/appConfig";
 
@@ -64,6 +65,9 @@ function initBackgroundService() {
 
     // 初始化 Google Calendar 自动同步
     initCalendarAutoSync();
+
+    // 初始化会议提醒通知
+    initMeetingReminders();
 }
 
 // 执行初始化

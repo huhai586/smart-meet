@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Switch, Select, Typography, Spin, Tag } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Switch, Select, Typography, Spin, Button, message } from 'antd';
 import {
   GoogleOutlined,
   SyncOutlined,
@@ -15,10 +15,12 @@ import {
   LinkOutlined,
   TeamOutlined,
   EnvironmentOutlined,
+  BellOutlined,
 } from '@ant-design/icons';
 import useI18n from '~utils/i18n';
 import useGoogleCalendar from '~hooks/useGoogleCalendar';
 import type { CalendarEvent } from '~utils/google-calendar-service';
+import { getConfigValue, setConfigValue } from '~utils/appConfig';
 import '~styles/calendar-sync.scss';
 
 const { Text } = Typography;
@@ -42,6 +44,44 @@ const CalendarSync: React.FC = () => {
   } = useGoogleCalendar();
 
   const [showTip, setShowTip] = useState(true);
+  const [remindersEnabled, setRemindersEnabled] = useState(false);
+  const [reminderMinutes, setReminderMinutes] = useState(10);
+  const [testingNotif, setTestingNotif] = useState(false);
+
+  // Load reminder settings on mount
+  useEffect(() => {
+    Promise.all([
+      getConfigValue('meetingRemindersEnabled'),
+      getConfigValue('meetingReminderMinutes'),
+    ]).then(([enabled, minutes]) => {
+      setRemindersEnabled(enabled as boolean);
+      setReminderMinutes(minutes as number);
+    });
+  }, []);
+
+  const handleRemindersToggle = async (checked: boolean) => {
+    setRemindersEnabled(checked);
+    await setConfigValue('meetingRemindersEnabled', checked);
+    chrome.runtime.sendMessage({ type: 'MEETING_REMINDERS_RESCHEDULE' }).catch(() => {});
+  };
+
+  const handleReminderMinutesChange = async (val: number) => {
+    setReminderMinutes(val);
+    await setConfigValue('meetingReminderMinutes', val);
+    chrome.runtime.sendMessage({ type: 'MEETING_REMINDERS_RESCHEDULE' }).catch(() => {});
+  };
+
+  const handleTestNotification = async () => {
+    setTestingNotif(true);
+    try {
+      await chrome.runtime.sendMessage({ type: 'MEETING_REMINDER_TEST' });
+      message.success('测试通知已发送，请查看系统通知');
+    } catch {
+      message.error('发送失败，请确认已授予通知权限');
+    } finally {
+      setTestingNotif(false);
+    }
+  };
 
   const frequencyOptions = [
     { value: '15min', label: t('calendar_frequency_15min') },
@@ -201,6 +241,61 @@ const CalendarSync: React.FC = () => {
             className="setting-select"
             disabled={!settings.autoSync}
           />
+        </div>
+      </div>
+
+      {/* Meeting Reminder Settings Card */}
+      <div className="settings-card">
+        <h3 className="card-title"><BellOutlined style={{ marginRight: 8 }} />会议提醒</h3>
+
+        <div className="setting-item">
+          <div className="setting-left">
+            <BellOutlined className="setting-icon" />
+            <div className="setting-info">
+              <span className="setting-label">启用会议提醒</span>
+              <span className="setting-desc">在会议开始前发送系统通知</span>
+            </div>
+          </div>
+          <Switch checked={remindersEnabled} onChange={handleRemindersToggle} />
+        </div>
+
+        <div className="setting-item">
+          <div className="setting-left">
+            <ClockCircleOutlined className="setting-icon" />
+            <div className="setting-info">
+              <span className="setting-label">提前提醒时间</span>
+              <span className="setting-desc">在会议开始前多少分钟发送通知</span>
+            </div>
+          </div>
+          <Select
+            value={reminderMinutes}
+            onChange={handleReminderMinutesChange}
+            className="setting-select"
+            disabled={!remindersEnabled}
+            options={[
+              { value: 5,  label: '提前 5 分钟' },
+              { value: 10, label: '提前 10 分钟' },
+              { value: 15, label: '提前 15 分钟' },
+              { value: 30, label: '提前 30 分钟' },
+            ]}
+          />
+        </div>
+
+        <div className="setting-item">
+          <div className="setting-left">
+            <BellOutlined className="setting-icon" />
+            <div className="setting-info">
+              <span className="setting-label">测试通知</span>
+              <span className="setting-desc">立即发送一条测试提醒，验证通知是否正常工作</span>
+            </div>
+          </div>
+          <Button
+            icon={<BellOutlined />}
+            loading={testingNotif}
+            onClick={handleTestNotification}
+          >
+            发送测试通知
+          </Button>
         </div>
       </div>
 

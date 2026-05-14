@@ -102,9 +102,13 @@ export interface AppConfigData {
   autoSyncOnLeave:   Field<boolean>;
 
   // Google Calendar sync
-  calendarAutoSync:      Field<boolean>;
-  calendarSyncFrequency: Field<string>;
-  calendarSyncRange:     Field<string>;
+  calendarAutoSync:          Field<boolean>;
+  calendarSyncFrequency:     Field<string>;
+  calendarSyncRange:         Field<string>;
+
+  // Meeting reminders
+  meetingRemindersEnabled:   Field<boolean>;
+  meetingReminderMinutes:    Field<number>;
 }
 
 export type AppConfigKey = keyof Omit<AppConfigData, '_schemaVersion'>;
@@ -148,6 +152,8 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
   calendarAutoSync:            true,
   calendarSyncFrequency:       '15min',
   calendarSyncRange:           '30days',
+  meetingRemindersEnabled:     false,
+  meetingReminderMinutes:      10,
 };
 
 // ─── Core helpers ─────────────────────────────────────────────────────────────
