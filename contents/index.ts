@@ -2,6 +2,7 @@ import getCaptions, { stopCaptionsFetching } from 'google-meeting-captions-resol
 import type { PlasmoCSConfig } from "plasmo"
 import type { Captions } from "~node_modules/google-meeting-captions-resolver";
 import getIsExtensionDisabled from '../utils/get-is-extension-disabled';
+import { onConfigChanged } from '../utils/appConfig';
 
 let isExtensionEnabled = true;
 
@@ -88,6 +89,22 @@ chrome.runtime.onMessage.addListener((message, _sender, _sendResponse) => {
         start()
     }
 });
+
+// 实时响应 options 页面的开关变更
+onConfigChanged((changes) => {
+    if (!('isExtensionDisabled' in changes)) return;
+    const disabled = !!(changes.isExtensionDisabled as { value: boolean } | undefined)?.value;
+    if (disabled) {
+        isExtensionEnabled = false;
+        stopCaptionsFetching();
+        console.log('content.ts', 'extension disabled via options');
+    } else {
+        isExtensionEnabled = true;
+        start();
+        console.log('content.ts', 'extension enabled via options');
+    }
+});
+
 start();
 
 export const config: PlasmoCSConfig = {

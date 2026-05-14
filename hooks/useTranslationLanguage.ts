@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { defaultLanguage, getLanguageByCode } from '../utils/languages';
 import type { Language } from '../utils/languages';
-import { getConfigValue, setConfigValue } from '~/utils/appConfig';
+import { getConfigValue, setConfigValue, onConfigChanged } from '~/utils/appConfig';
 
 // 确保默认翻译语言为中文
 const defaultTranslationLanguage: Language = defaultLanguage;
@@ -21,6 +21,14 @@ export const useTranslationLanguage = (): [Language, (language: Language) => voi
         setConfigValue('translationLanguage', defaultTranslationLanguage.code);
       }
     });
+
+    const unsubscribe = onConfigChanged((changes) => {
+      if (changes.translationLanguage) {
+        const code = (changes.translationLanguage as { value: string }).value;
+        setLanguageState(getLanguageByCode(code));
+      }
+    });
+    return unsubscribe;
   }, []);
 
   const setLanguage = (newLanguage: Language) => {

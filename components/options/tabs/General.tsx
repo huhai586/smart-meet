@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Alert } from 'antd';
+import { Modal, Alert, Switch } from 'antd';
 import {
   GlobalOutlined,
   FontSizeOutlined,
@@ -8,6 +8,7 @@ import {
   MinusOutlined,
   PlusOutlined,
   RightOutlined,
+  PoweroffOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
@@ -189,6 +190,7 @@ const General: React.FC = () => {
 
   const [captionFontOffset, setCaptionFontOffset] = useState(0);
   const [summaryFontOffset, setSummaryFontOffset] = useState(0);
+  const [extensionEnabled, setExtensionEnabled] = useState(true);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [clearSuccess, setClearSuccess] = useState(false);
@@ -197,11 +199,18 @@ const General: React.FC = () => {
     Promise.all([
       getConfigValue('captionFontSizeOffset'),
       getConfigValue('summaryFontSizeOffset'),
-    ]).then(([cfo, sfo]) => {
+      getConfigValue('isExtensionDisabled'),
+    ]).then(([cfo, sfo, disabled]) => {
       setCaptionFontOffset(cfo ?? 0);
       setSummaryFontOffset(sfo ?? 0);
+      setExtensionEnabled(!disabled);
     });
   }, []);
+
+  const handleExtensionToggle = (enabled: boolean) => {
+    setExtensionEnabled(enabled);
+    setConfigValue('isExtensionDisabled', !enabled);
+  };
 
   const handleCaptionFont = (next: number) => {
     setCaptionFontOffset(next);
@@ -230,6 +239,26 @@ const General: React.FC = () => {
         <PageTitle>{t('tab_general')}</PageTitle>
         <PageSubtitle>{t('tab_general_desc')}</PageSubtitle>
       </PageHeader>
+
+      {/* Extension Toggle */}
+      <SectionLabel>Extension</SectionLabel>
+      <SettingGroup>
+        <SettingRow $last>
+          <IconSquircle $color={extensionEnabled ? '#34C759' : '#8E8E93'}>
+            <PoweroffOutlined />
+          </IconSquircle>
+          <RowContent>
+            <RowTitle>Enable Extension</RowTitle>
+            <RowSubtitle>
+              {extensionEnabled
+                ? 'Caption capture is active on Google Meet'
+                : 'Extension is paused — no captions will be captured'}
+            </RowSubtitle>
+          </RowContent>
+          <Switch checked={extensionEnabled} onChange={handleExtensionToggle} />
+        </SettingRow>
+      </SettingGroup>
+      <SectionFooter>Toggle this to pause or resume caption capture without uninstalling the extension.</SectionFooter>
 
       {/* Language */}
       <SectionLabel>{t('ui_language')}</SectionLabel>

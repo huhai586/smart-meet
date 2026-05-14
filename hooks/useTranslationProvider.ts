@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getConfigValue, setConfigValue } from '~/utils/appConfig';
+import { getConfigValue, setConfigValue, onConfigChanged } from '~/utils/appConfig';
 
 // 翻译服务提供商类型
 export type TranslationProvider = 'google' | 'microsoft' | 'ai' | 'deepl' | 'local';
@@ -28,6 +28,14 @@ export const useTranslationProvider = (): [TranslationProvider, (provider: Trans
       const p = v || defaultProvider;
       setProviderState(VALID_PROVIDERS.includes(p as TranslationProvider) ? (p as TranslationProvider) : defaultProvider);
     });
+
+    const unsubscribe = onConfigChanged((changes) => {
+      if (changes.translationProvider) {
+        const p = (changes.translationProvider as { value: string }).value as TranslationProvider;
+        setProviderState(VALID_PROVIDERS.includes(p) ? p : defaultProvider);
+      }
+    });
+    return unsubscribe;
   }, []);
 
   const setProvider = (newProvider: TranslationProvider) => {

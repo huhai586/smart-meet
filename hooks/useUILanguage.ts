@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { defaultLanguage, getLanguageByCode, supportedLanguages } from '../utils/languages';
 import type { Language } from '../utils/languages';
 import { setCachedLanguage, triggerLanguageChange } from '../utils/i18n';
-import { getConfigValue, setConfigValue } from '~/utils/appConfig';
+import { getConfigValue, setConfigValue, onConfigChanged } from '~/utils/appConfig';
 
 // 默认UI语言设置为英文
 const defaultUILanguage: Language = supportedLanguages.find(lang => lang.code === 'en') || defaultLanguage;
@@ -24,6 +24,17 @@ export const useUILanguage = (): [Language, (language: Language) => void] => {
         setCachedLanguage(defaultUILanguage);
       }
     });
+
+    const unsubscribe = onConfigChanged((changes) => {
+      if (changes.uiLanguage) {
+        const code = (changes.uiLanguage as { value: string }).value;
+        const lang = getLanguageByCode(code);
+        setLanguageState(lang);
+        setCachedLanguage(lang);
+        triggerLanguageChange(code);
+      }
+    });
+    return unsubscribe;
   }, []);
 
   const setLanguage = (newLanguage: Language) => {
