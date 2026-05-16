@@ -706,4 +706,8 @@ export default {
   "settings_sync_range": "Sync Range",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "Extension is disabled",
+  "sidepanel_disabled_desc": "Captions cannot be received because the extension is currently turned off.",
+  "sidepanel_disabled_enable": "Enable",
+  "sidepanel_disabled_ignore": "Ignore",
 };

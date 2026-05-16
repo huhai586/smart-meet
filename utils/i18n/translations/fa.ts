@@ -620,4 +620,8 @@ export default {
   "settings_local_days": "{n} روز",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "افزونه غیرفعال است",
+  "sidepanel_disabled_desc": "زیرنویس‌ها دریافت نمی‌شوند زیرا افزونه غیرفعال است.",
+  "sidepanel_disabled_enable": "فعال‌سازی",
+  "sidepanel_disabled_ignore": "نادیده گرفتن",
 };

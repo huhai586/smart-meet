@@ -618,4 +618,8 @@ export default {
   "settings_local_days": "{n} 日間",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "拡張機能が無効です",
+  "sidepanel_disabled_desc": "拡張機能がオフのため字幕を受信できません。",
+  "sidepanel_disabled_enable": "有効にする",
+  "sidepanel_disabled_ignore": "無視する",
 };

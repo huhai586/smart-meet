@@ -115,23 +115,23 @@ function showMeetingNotification(event: CalendarEvent, minutesBefore: number): v
     notifOptions.buttons = [{ title: '加入会议' }];
   }
 
-  chrome.notifications.create(`meetingNotif:${event.id}`, notifOptions, () => {
+  const notifId = `meetingNotif:${event.id}`;
+
+  // Persist the meet link so the top-level click handler can read it
+  // even after the service worker is suspended and reawakened.
+  if (meetLink) {
+    chrome.storage.local.get(['_meetingNotifLinks'], (res) => {
+      const links: Record<string, string> = res['_meetingNotifLinks'] ?? {};
+      links[notifId] = meetLink;
+      chrome.storage.local.set({ _meetingNotifLinks: links });
+    });
+  }
+
+  chrome.notifications.create(notifId, notifOptions, () => {
     if (chrome.runtime.lastError) {
       console.warn('[MeetingReminders] Notification error:', chrome.runtime.lastError.message);
     }
   });
-
-  // Handle button click – open meet link
-  if (meetLink) {
-    const onClick = (notifId: string, btnIdx: number) => {
-      if (notifId === `meetingNotif:${event.id}` && btnIdx === 0) {
-        chrome.tabs.create({ url: meetLink });
-        chrome.notifications.clear(notifId);
-        chrome.notifications.onButtonClicked.removeListener(onClick);
-      }
-    };
-    chrome.notifications.onButtonClicked.addListener(onClick);
-  }
 }
 
 /** Send a test notification immediately (called from options page). */
@@ -178,6 +178,34 @@ export function initMeetingReminders(): void {
     if (!event) return;
 
     showMeetingNotification(event, minutesBefore as number);
+  });
+
+  /**
+   * Persistent top-level button-click handler.
+   * Must be registered at top level (not inside a closure) so it survives
+   * MV3 service worker suspension/reactivation.
+   */
+  const openMeetLink = async (notifId: string) => {
+    const res = await chrome.storage.local.get('_meetingNotifLinks');
+    const links: Record<string, string> = res['_meetingNotifLinks'] ?? {};
+    const url = links[notifId];
+    if (url) {
+      chrome.tabs.create({ url });
+      chrome.notifications.clear(notifId);
+      // Clean up stored link
+      delete links[notifId];
+      chrome.storage.local.set({ _meetingNotifLinks: links });
+    }
+  };
+
+  // "Join" button click
+  chrome.notifications.onButtonClicked.addListener((notifId, btnIdx) => {
+    if (btnIdx === 0) openMeetLink(notifId);
+  });
+
+  // Clicking the notification body itself also joins
+  chrome.notifications.onClicked.addListener((notifId) => {
+    openMeetLink(notifId);
   });
 
   // Handle messages from options page

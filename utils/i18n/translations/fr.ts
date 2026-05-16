@@ -618,4 +618,8 @@ export default {
   "settings_local_days": "{n} jours",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "Extension désactivée",
+  "sidepanel_disabled_desc": "Les sous-titres ne peuvent pas être reçus car l'extension est désactivée.",
+  "sidepanel_disabled_enable": "Activer",
+  "sidepanel_disabled_ignore": "Ignorer",
 };

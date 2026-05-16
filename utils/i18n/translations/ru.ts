@@ -594,4 +594,8 @@ export default {
   "settings_local_days": "{n} дней",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "Расширение отключено",
+  "sidepanel_disabled_desc": "Субтитры не могут быть получены, так как расширение отключено.",
+  "sidepanel_disabled_enable": "Включить",
+  "sidepanel_disabled_ignore": "Игнорировать",
 };

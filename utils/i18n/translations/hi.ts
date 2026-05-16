@@ -573,4 +573,8 @@ export default {
   "settings_local_days": "{n} दिन",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "एक्सटेंशन अक्षम है",
+  "sidepanel_disabled_desc": "एक्सटेंशन बंद होने के कारण कैप्शन प्राप्त नहीं हो सकते।",
+  "sidepanel_disabled_enable": "चालू करें",
+  "sidepanel_disabled_ignore": "अनदेखा करें",
 };

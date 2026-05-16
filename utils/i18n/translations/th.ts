@@ -573,4 +573,8 @@ export default {
   "settings_local_days": "{n} วัน",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "ส่วนขยายถูกปิดใช้งาน",
+  "sidepanel_disabled_desc": "ไม่สามารถรับคำบรรยายได้เนื่องจากส่วนขยายถูกปิดอยู่",
+  "sidepanel_disabled_enable": "เปิดใช้งาน",
+  "sidepanel_disabled_ignore": "ไม่สนใจ",
 };

@@ -573,4 +573,8 @@ export default {
   "settings_local_days": "{n} أيام",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "الإضافة معطّلة",
+  "sidepanel_disabled_desc": "لا يمكن استقبال التسميات لأن الإضافة متوقفة حاليًا.",
+  "sidepanel_disabled_enable": "تفعيل",
+  "sidepanel_disabled_ignore": "تجاهل",
 };

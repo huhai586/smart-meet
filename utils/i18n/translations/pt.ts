@@ -601,4 +601,8 @@ export default {
   "settings_local_days": "{n} dias",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "Extensão desativada",
+  "sidepanel_disabled_desc": "As legendas não podem ser recebidas pois a extensão está desativada.",
+  "sidepanel_disabled_enable": "Ativar",
+  "sidepanel_disabled_ignore": "Ignorar",
 };

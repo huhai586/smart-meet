@@ -133,7 +133,11 @@ class BackgroundMessageHandler {
                     await this.storage.deleteRecords(deleteDate);
                     await this.syncTranscripts(); // no data → sidepanel reloads to empty
                     await this.updateDaysWithMessages();
-                    // Notify all contexts (popup AITab, Calendar, etc.)
+                    // Signal all extension contexts (including sidepanel) via storage.
+                    // chrome.runtime.sendMessage is fire-and-forget and can miss the sidepanel;
+                    // storage.onChanged is guaranteed to be delivered to every open context.
+                    chrome.storage.local.set({ _recordsDeletedAt: Date.now(), _recordsDeletedDate: message.date });
+                    // Also broadcast via runtime for contexts that prefer messages
                     chrome.runtime.sendMessage({ action: 'records-deleted', date: message.date });
                     sendResponse({ success: true });
                     break;

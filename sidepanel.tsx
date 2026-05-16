@@ -18,7 +18,7 @@ import Longman3000 from "./components/longman/Longman3000";
 import aiServiceManager from './utils/ai';
 import { getAllAIServiceConfigs } from './utils/getAI';
 import googleAITools from './utils/google-AI';
-import { getConfigValue, onConfigChanged } from './utils/appConfig';
+import { getConfigValue, setConfigValue, onConfigChanged } from './utils/appConfig';
 import dayjs from 'dayjs';
 
 import './styles/sidepanel.scss';
@@ -54,12 +54,34 @@ const SidePanel = () => {
     const [loading] = useLoading();
     const { t } = useI18n();
     const [_activeService, setActiveService] = useState<string>('');
+    const [extensionDisabled, setExtensionDisabled] = useState(false);
+    const [disabledBannerDismissed, setDisabledBannerDismissed] = useState(false);
     const [visibility, setVisibility] = useState({
         captions: true,
         summary: true,
         translation: true,
         longman: false
     });
+
+    // Load isExtensionDisabled and watch for changes
+    useEffect(() => {
+        getConfigValue('isExtensionDisabled').then((v) => {
+            setExtensionDisabled(!!v);
+        });
+        const unsubscribe = onConfigChanged((changes) => {
+            if ('isExtensionDisabled' in changes) {
+                setExtensionDisabled(!!(changes.isExtensionDisabled as { value: boolean }).value);
+                setDisabledBannerDismissed(false);
+            }
+        });
+        return unsubscribe;
+    }, []);
+
+    const handleEnableExtension = () => {
+        setConfigValue('isExtensionDisabled', false);
+        setExtensionDisabled(false);
+        setDisabledBannerDismissed(true);
+    };
 
     // 加载可见性设置
     useEffect(() => {
@@ -223,6 +245,25 @@ const SidePanel = () => {
             <PendingNavHandler setCurrent={setCurrent} />
             <div className={'side-panel'}>
                 <Loading spinning={loading} />
+                {extensionDisabled && !disabledBannerDismissed && (
+                    <div className="sp-disabled-banner">
+                        <div className="sp-disabled-banner__card">
+                            <div className="sp-disabled-banner__icon">⚠️</div>
+                            <div className="sp-disabled-banner__body">
+                                <p className="sp-disabled-banner__title">{t('sidepanel_disabled_title')}</p>
+                                <p className="sp-disabled-banner__desc">{t('sidepanel_disabled_desc')}</p>
+                                <div className="sp-disabled-banner__actions">
+                                    <button className="sp-disabled-banner__btn sp-disabled-banner__btn--primary" onClick={handleEnableExtension}>
+                                        {t('sidepanel_disabled_enable')}
+                                    </button>
+                                    <button className="sp-disabled-banner__btn sp-disabled-banner__btn--secondary" onClick={() => setDisabledBannerDismissed(true)}>
+                                        {t('sidepanel_disabled_ignore')}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
                 <Tabs
                     items={items}
                     onChange={onTabClick}

@@ -618,4 +618,8 @@ export default {
   "settings_local_days": "{n}일",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "확장 프로그램이 비활성화됨",
+  "sidepanel_disabled_desc": "확장 프로그램이 꺼져 있어 자막을 수신할 수 없습니다.",
+  "sidepanel_disabled_enable": "활성화",
+  "sidepanel_disabled_ignore": "무시",
 };

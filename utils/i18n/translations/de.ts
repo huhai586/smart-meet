@@ -601,4 +601,8 @@ export default {
   "settings_local_days": "{n} Tage",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "Erweiterung deaktiviert",
+  "sidepanel_disabled_desc": "Untertitel können nicht empfangen werden, da die Erweiterung deaktiviert ist.",
+  "sidepanel_disabled_enable": "Aktivieren",
+  "sidepanel_disabled_ignore": "Ignorieren",
 };

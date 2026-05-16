@@ -160,5 +160,87 @@ body {
   }
 }
 
+// ── Disabled-extension modal overlay ─────────────────────────────────────────
+.sp-disabled-banner {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(2px);
 
+  &__card {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 16px;
+    padding: 20px;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    animation: sp-modal-in 0.2s ease;
+  }
 
+  &__icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    line-height: 1.3;
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #92400e;
+    margin: 0 0 6px;
+  }
+
+  &__desc {
+    font-size: 13px;
+    color: #b45309;
+    margin: 0 0 14px;
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__btn {
+    flex: 1;
+    height: 34px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.18s ease;
+
+    &:hover { opacity: 0.85; }
+
+    &--primary {
+      background: #d97706;
+      color: #fff;
+    }
+
+    &--secondary {
+      background: #fef3c7;
+      color: #92400e;
+    }
+  }
+}
+
+@keyframes sp-modal-in {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}

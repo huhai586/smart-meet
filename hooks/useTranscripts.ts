@@ -20,6 +20,12 @@ const useTranscripts = (): [Transcript[], React.Dispatch<React.SetStateAction<Tr
         });
     }, [selectedDate]);
 
+    // 删除后强制覆盖，不做合并（合并逻辑会把已删除的旧数据当作 extra 保留）
+    const forceReload = useCallback(async () => {
+        const data = await getMeetingCaptions(selectedDate);
+        setCurrentDayTranscripts(data);
+    }, [selectedDate]);
+
     useEffect(() => {
         loadContent();
     }, [loadContent]);
@@ -27,8 +33,8 @@ const useTranscripts = (): [Transcript[], React.Dispatch<React.SetStateAction<Tr
     useEffect(() => {
         const handleUpdate = (message: { action: string; data?: Transcript; date?: string }) => {
             if (message.action === 'records-deleted') {
-                // A day was deleted — reload to reflect empty state if it's the selected date
-                loadContent();
+                // A day was deleted — force overwrite to empty, do NOT merge
+                forceReload();
                 return;
             }
 
@@ -63,10 +69,22 @@ const useTranscripts = (): [Transcript[], React.Dispatch<React.SetStateAction<Tr
             }
         };
         chrome.runtime.onMessage.addListener(handleUpdate);
+
+        // Reliable fallback: watch chrome.storage for delete signals.
+        // chrome.runtime.sendMessage from background can miss the sidepanel;
+        // storage.onChanged is guaranteed delivered to every open extension context.
+        const handleStorageChange = (changes: Record<string, chrome.storage.StorageChange>, area: string) => {
+            if (area === 'local' && '_recordsDeletedAt' in changes) {
+                forceReload();
+            }
+        };
+        chrome.storage.onChanged.addListener(handleStorageChange);
+
         return () => {
             chrome.runtime.onMessage.removeListener(handleUpdate);
+            chrome.storage.onChanged.removeListener(handleStorageChange);
         };
-    }, [loadContent]);
+    }, [loadContent, forceReload]);
 
     return [currentDayTranscripts, setCurrentDayTranscripts];
 };

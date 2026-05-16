@@ -601,4 +601,8 @@ export default {
   "settings_local_days": "{n} días",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "Extensión desactivada",
+  "sidepanel_disabled_desc": "No se pueden recibir subtítulos porque la extensión está desactivada.",
+  "sidepanel_disabled_enable": "Activar",
+  "sidepanel_disabled_ignore": "Ignorar",
 };

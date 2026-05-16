@@ -594,4 +594,8 @@ export default {
   "settings_local_days": "{n} ngày",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "Tiện ích đã tắt",
+  "sidepanel_disabled_desc": "Không thể nhận phụ đề vì tiện ích đang bị tắt.",
+  "sidepanel_disabled_enable": "Bật tiện ích",
+  "sidepanel_disabled_ignore": "Bỏ qua",
 };

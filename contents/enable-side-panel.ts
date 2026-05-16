@@ -1,5 +1,5 @@
 import openSidePanel from "~utils/open-side-panel";
-import getIsExtensionDisabled from "~utils/get-is-extension-disabled";
+import { getConfigValue, onConfigChanged } from '~utils/appConfig';
 import type {PlasmoCSConfig} from "~node_modules/plasmo";
 import { CAPTIONS_ON_BUTTON_LABELS, CAPTIONS_OFF_BUTTON_LABELS } from '~utils/google-meet-captions-dom';
 
@@ -12,6 +12,16 @@ const captionOffSelector = CAPTIONS_OFF_BUTTON_LABELS
     .map(label => `button[aria-label="${label}"]`)
     .join(', ');
 
+// Cache disabled state synchronously so the click handler doesn't need an async read.
+// This avoids breaking the browser's user-gesture token before openSidePanel() is called.
+let cachedIsDisabled = false;
+getConfigValue('isExtensionDisabled').then((v) => { cachedIsDisabled = !!v; });
+onConfigChanged((changes) => {
+    if ('isExtensionDisabled' in changes) {
+        cachedIsDisabled = !!(changes.isExtensionDisabled as { value: boolean }).value;
+    }
+});
+
 document.addEventListener('click', (ev) => {
     const clickedElement = ev.target as HTMLElement;
 
@@ -21,15 +31,12 @@ document.addEventListener('click', (ev) => {
         chrome.runtime.sendMessage({ action: 'captionsTurnedOn' }, () => {
             void chrome.runtime.lastError;
         });
-        getIsExtensionDisabled().then(async (disabled: boolean) => {
-            if (!disabled) {
-                try {
-                    await openSidePanel();
-                } catch (error) {
-                    console.error('Failed to open sidepanel from caption button:', error);
-                }
-            }
-        });
+        // Use cached value synchronously — keeps user gesture valid for openSidePanel()
+        if (!cachedIsDisabled) {
+            openSidePanel().catch((error) => {
+                console.error('Failed to open sidepanel from caption button:', error);
+            });
+        }
         return;
     }
 

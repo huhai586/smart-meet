@@ -704,4 +704,8 @@ export default {
   "settings_sync_range": "同步范围",
 
   "version_label": "v",
+  "sidepanel_disabled_title": "插件已关闭",
+  "sidepanel_disabled_desc": "当前插件处于关闭状态，无法接收字幕信息。需要现在打开吗？",
+  "sidepanel_disabled_enable": "立即开启",
+  "sidepanel_disabled_ignore": "忽略",
 };
