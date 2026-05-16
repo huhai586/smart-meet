@@ -25,7 +25,13 @@ const useTranscripts = (): [Transcript[], React.Dispatch<React.SetStateAction<Tr
     }, [loadContent]);
 
     useEffect(() => {
-        const handleUpdate = (message: { action: string; data?: Transcript }) => {
+        const handleUpdate = (message: { action: string; data?: Transcript; date?: string }) => {
+            if (message.action === 'records-deleted') {
+                // A day was deleted — reload to reflect empty state if it's the selected date
+                loadContent();
+                return;
+            }
+
             if (message.action !== 'transcripts-updated') return;
 
             if (message.data) {

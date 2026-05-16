@@ -139,11 +139,20 @@
         font-size: 11px;
         color: #22c55e;
 
+        &--update {
+          color: #FF9500;
+        }
+
         .status-dot {
           width: 6px;
           height: 6px;
           border-radius: 50%;
           background: #22c55e;
+          flex-shrink: 0;
+
+          &--update {
+            background: #FF9500;
+          }
         }
       }
     }

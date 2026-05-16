@@ -241,24 +241,24 @@ const General: React.FC = () => {
       </PageHeader>
 
       {/* Extension Toggle */}
-      <SectionLabel>Extension</SectionLabel>
+      <SectionLabel>{t('extension_section')}</SectionLabel>
       <SettingGroup>
         <SettingRow $last>
           <IconSquircle $color={extensionEnabled ? '#34C759' : '#8E8E93'}>
             <PoweroffOutlined />
           </IconSquircle>
           <RowContent>
-            <RowTitle>Enable Extension</RowTitle>
+            <RowTitle>{t('enable_extension')}</RowTitle>
             <RowSubtitle>
               {extensionEnabled
-                ? 'Caption capture is active on Google Meet'
-                : 'Extension is paused — no captions will be captured'}
+                ? t('extension_active_desc')
+                : t('extension_paused_desc')}
             </RowSubtitle>
           </RowContent>
           <Switch checked={extensionEnabled} onChange={handleExtensionToggle} />
         </SettingRow>
       </SettingGroup>
-      <SectionFooter>Toggle this to pause or resume caption capture without uninstalling the extension.</SectionFooter>
+      <SectionFooter>{t('extension_toggle_footer')}</SectionFooter>
 
       {/* Language */}
       <SectionLabel>{t('ui_language')}</SectionLabel>

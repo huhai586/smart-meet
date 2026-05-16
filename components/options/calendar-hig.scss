@@ -185,6 +185,45 @@
     flex-shrink: 0;
   }
 
+  // ── Delete button ─────────────────────────────────────────
+  &__delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    margin-left: 8px;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #C7C7CC;
+    font-size: 14px;
+    transition: color 0.15s ease, background 0.15s ease;
+    opacity: 0;
+
+    .calendar-hig__date-row:hover & {
+      opacity: 1;
+    }
+
+    &:hover {
+      color: #FF3B30;
+      background: rgba(255, 59, 48, 0.08);
+    }
+
+    &:active {
+      color: #D70015;
+      background: rgba(255, 59, 48, 0.15);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
   // ── Preview Records (content search) ────────────────────
   &__preview-list {
     background: #F9F9FB;

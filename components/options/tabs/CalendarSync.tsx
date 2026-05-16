@@ -75,9 +75,9 @@ const CalendarSync: React.FC = () => {
     setTestingNotif(true);
     try {
       await chrome.runtime.sendMessage({ type: 'MEETING_REMINDER_TEST' });
-      message.success('测试通知已发送，请查看系统通知');
+      message.success(t('calendar_test_notif_success'));
     } catch {
-      message.error('发送失败，请确认已授予通知权限');
+      message.error(t('calendar_test_notif_fail'));
     } finally {
       setTestingNotif(false);
     }
@@ -191,6 +191,27 @@ const CalendarSync: React.FC = () => {
         </div>
       </div>
 
+      {/* Sync Content Card */}
+      <div className="sync-content-card">
+        <h3 className="card-title">{t('calendar_sync_content')}</h3>
+
+        <div className="content-layout">
+          <div className="content-list">
+            {syncContentItems.map(item => (
+              <div key={item.key} className="content-item">
+                <CheckCircleFilled className="check-icon" />
+                <span>{item.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="content-illustration">
+            <div className="illustration-placeholder">
+              <CalendarOutlined style={{ fontSize: 48, color: '#1a73e8', opacity: 0.3 }} />
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Sync Settings Card */}
       <div className="settings-card">
         <h3 className="card-title">{t('calendar_sync_settings')}</h3>
@@ -246,14 +267,14 @@ const CalendarSync: React.FC = () => {
 
       {/* Meeting Reminder Settings Card */}
       <div className="settings-card">
-        <h3 className="card-title"><BellOutlined style={{ marginRight: 8 }} />会议提醒</h3>
+        <h3 className="card-title"><BellOutlined style={{ marginRight: 8 }} />{t('calendar_reminders')}</h3>
 
         <div className="setting-item">
           <div className="setting-left">
             <BellOutlined className="setting-icon" />
             <div className="setting-info">
-              <span className="setting-label">启用会议提醒</span>
-              <span className="setting-desc">在会议开始前发送系统通知</span>
+              <span className="setting-label">{t('calendar_reminders_enable')}</span>
+              <span className="setting-desc">{t('calendar_reminders_enable_desc')}</span>
             </div>
           </div>
           <Switch checked={remindersEnabled} onChange={handleRemindersToggle} />
@@ -263,8 +284,8 @@ const CalendarSync: React.FC = () => {
           <div className="setting-left">
             <ClockCircleOutlined className="setting-icon" />
             <div className="setting-info">
-              <span className="setting-label">提前提醒时间</span>
-              <span className="setting-desc">在会议开始前多少分钟发送通知</span>
+              <span className="setting-label">{t('calendar_reminders_advance')}</span>
+              <span className="setting-desc">{t('calendar_reminders_advance_desc')}</span>
             </div>
           </div>
           <Select
@@ -273,10 +294,11 @@ const CalendarSync: React.FC = () => {
             className="setting-select"
             disabled={!remindersEnabled}
             options={[
-              { value: 5,  label: '提前 5 分钟' },
-              { value: 10, label: '提前 10 分钟' },
-              { value: 15, label: '提前 15 分钟' },
-              { value: 30, label: '提前 30 分钟' },
+              { value: 0,  label: t('calendar_reminder_on_time') },
+              { value: 5,  label: t('calendar_reminder_5min') },
+              { value: 10, label: t('calendar_reminder_10min') },
+              { value: 15, label: t('calendar_reminder_15min') },
+              { value: 30, label: t('calendar_reminder_30min') },
             ]}
           />
         </div>
@@ -285,8 +307,8 @@ const CalendarSync: React.FC = () => {
           <div className="setting-left">
             <BellOutlined className="setting-icon" />
             <div className="setting-info">
-              <span className="setting-label">测试通知</span>
-              <span className="setting-desc">立即发送一条测试提醒，验证通知是否正常工作</span>
+              <span className="setting-label">{t('calendar_test_notif')}</span>
+              <span className="setting-desc">{t('calendar_test_notif_desc')}</span>
             </div>
           </div>
           <Button
@@ -294,29 +316,8 @@ const CalendarSync: React.FC = () => {
             loading={testingNotif}
             onClick={handleTestNotification}
           >
-            发送测试通知
+            {t('calendar_test_notif_btn')}
           </Button>
-        </div>
-      </div>
-
-      {/* Sync Content Card */}
-      <div className="sync-content-card">
-        <h3 className="card-title">{t('calendar_sync_content')}</h3>
-
-        <div className="content-layout">
-          <div className="content-list">
-            {syncContentItems.map(item => (
-              <div key={item.key} className="content-item">
-                <CheckCircleFilled className="check-icon" />
-                <span>{item.label}</span>
-              </div>
-            ))}
-          </div>
-          <div className="content-illustration">
-            <div className="illustration-placeholder">
-              <CalendarOutlined style={{ fontSize: 48, color: '#1a73e8', opacity: 0.3 }} />
-            </div>
-          </div>
         </div>
       </div>
 
@@ -324,10 +325,10 @@ const CalendarSync: React.FC = () => {
       <div className="manual-sync-card">
         <div className="manual-sync-header">
           <div className="manual-sync-title-row">
-            <h3 className="card-title" style={{ margin: 0 }}>同步状态</h3>
+            <h3 className="card-title" style={{ margin: 0 }}>{t('calendar_sync_status')}</h3>
             {lastSync && (
               <span className="last-sync-time">
-                上次同步：{new Date(lastSync).toLocaleString()}
+                {(t('calendar_last_sync') || 'Last sync: {time}').replace('{time}', new Date(lastSync).toLocaleString())}
               </span>
             )}
           </div>
@@ -339,7 +340,7 @@ const CalendarSync: React.FC = () => {
             {syncStatus === 'syncing'
               ? <Spin indicator={<LoadingOutlined spin />} size="small" />
               : <SyncOutlined />}
-            {syncStatus === 'syncing' ? '同步中…' : '立即同步'}
+            {syncStatus === 'syncing' ? t('calendar_syncing') : t('calendar_sync_now')}
           </button>
         </div>
 
@@ -347,19 +348,22 @@ const CalendarSync: React.FC = () => {
         {syncStatus === 'success' && (
           <div className="sync-status-banner success">
             <CheckCircleOutlined />
-            <span>同步成功，共获取 <strong>{events.length}</strong> 个日历事件</span>
+            <span dangerouslySetInnerHTML={{ __html:
+              (t('calendar_sync_success') || 'Sync successful, got <strong>{n}</strong> calendar events')
+                .replace('{n}', `<strong>${events.length}</strong>`)
+            }} />
           </div>
         )}
         {syncStatus === 'error' && (
           <div className="sync-status-banner error">
             <ExclamationCircleOutlined />
-            <span>{syncError ?? '同步失败，请重试'}</span>
+            <span>{syncError ?? t('calendar_sync_error_default')}</span>
           </div>
         )}
         {syncStatus === 'syncing' && (
           <div className="sync-status-banner syncing">
             <LoadingOutlined spin />
-            <span>正在从 Google Calendar 获取事件…</span>
+            <span>{t('calendar_syncing_msg')}</span>
           </div>
         )}
 
@@ -370,11 +374,11 @@ const CalendarSync: React.FC = () => {
               <div key={event.id} className="event-item">
                 <div className="event-time">{formatEventTime(event)}</div>
                 <div className="event-body">
-                  <div className="event-title">{event.summary ?? '(无标题)'}</div>
+                  <div className="event-title">{event.summary ?? t('calendar_event_no_title')}</div>
                   <div className="event-meta">
                     {event.attendees && event.attendees.length > 0 && (
                       <span className="event-meta-item">
-                        <TeamOutlined /> {event.attendees.length} 位参与者
+                        <TeamOutlined /> {(t('calendar_event_attendees') || '{n} attendees').replace('{n}', String(event.attendees.length))}
                       </span>
                     )}
                     {event.location && (
@@ -390,7 +394,7 @@ const CalendarSync: React.FC = () => {
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <LinkOutlined /> Meet 链接
+                        <LinkOutlined /> {t('calendar_meet_link')}
                       </a>
                     )}
                   </div>
@@ -398,7 +402,7 @@ const CalendarSync: React.FC = () => {
               </div>
             ))}
             {events.length > 10 && (
-              <div className="event-more">还有 {events.length - 10} 个事件（已在 console 输出完整列表）</div>
+              <div className="event-more">{(t('calendar_event_more') || '{n} more events').replace('{n}', String(events.length - 10))}</div>
             )}
           </div>
         )}
@@ -406,7 +410,7 @@ const CalendarSync: React.FC = () => {
         {syncStatus === 'idle' && events.length === 0 && (
           <div className="sync-empty">
             <CalendarOutlined className="sync-empty-icon" />
-            <span>点击「立即同步」获取即将到来的会议</span>
+            <span>{t('calendar_sync_empty')}</span>
           </div>
         )}
       </div>

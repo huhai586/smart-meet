@@ -20,6 +20,35 @@ import { Modal, Select } from 'antd';
 /* ── Types ── */
 type Tab = 'history' | 'chat';
 
+/* ── Page header (matches other options pages) ── */
+const OuterWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const PageHeaderBlock = styled.div`
+  padding: 0 4px 16px;
+  flex-shrink: 0;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
+`;
+
+const HistPageTitle = styled.h1`
+  font-size: 28px;
+  font-weight: 700;
+  color: #1C1C1E;
+  letter-spacing: -0.5px;
+  margin: 0 0 4px;
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+`;
+
+const HistPageSubtitle = styled.p`
+  font-size: 13px;
+  color: #8E8E93;
+  margin: 0;
+  line-height: 1.4;
+`;
+
 /* ── Styled Components ── */
 
 const PageWrapper = styled.div`
@@ -251,7 +280,12 @@ const HistoryRecords: React.FC = () => {
   const navTitle = activeTab === 'history' ? t('tab_history') : t('tab_ai_translation');
 
   return (
-    <PageWrapper>
+    <OuterWrapper>
+      <PageHeaderBlock>
+        <HistPageTitle>{t('tab_data_sync')}</HistPageTitle>
+        <HistPageSubtitle>{t('tab_history_desc')}</HistPageSubtitle>
+      </PageHeaderBlock>
+      <PageWrapper>
       {/* ── Top navigation bar ── */}
       <NavBar>
         {/* Segment control – centered */}
@@ -311,7 +345,8 @@ const HistoryRecords: React.FC = () => {
           ))}
         </Select>
       </Modal>
-    </PageWrapper>
+      </PageWrapper>
+    </OuterWrapper>
   );
 };
 

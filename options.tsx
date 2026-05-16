@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useRef} from "react";
 import './styles/options.scss';
 import './styles/sidebar.scss';
 import {message} from "antd";
@@ -14,6 +14,8 @@ import HistoryRecords from '~components/options/tabs/HistoryRecords';
 import CalendarSync from '~components/options/tabs/CalendarSync';
 import DeveloperPanel from '~components/options/tabs/DeveloperPanel';
 import Welcome from '~pages/welcome';
+import TranslationSettings from '~components/options/TranslationSettings';
+import OtherSettings from '~components/options/tabs/OtherSettings';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
 import aiServiceManager from './utils/ai';
@@ -30,6 +32,8 @@ const ROUTE_MAPPING: Record<string, string> = {
   'history': '4',
   'cloud-sync': '5',
   'calendar': 'calendar',
+  'translation': 'translation',
+  'other': 'other',
   'welcome': 'welcome',
   'developer': 'dev',
 };
@@ -42,6 +46,8 @@ const KEY_TO_ROUTE: Record<string, string> = {
   '4': 'history',
   '5': 'cloud-sync',
   'calendar': 'calendar',
+  'translation': 'translation',
+  'other': 'other',
   'welcome': 'welcome',
   'dev': 'developer',
 };
@@ -121,11 +127,17 @@ const Options = () => {
     }, []);
 
     // 处理标签切换
+    const contentAreaRef = useRef<HTMLDivElement>(null);
+
     const handleTabChange = (key: string) => {
       setActiveKey(key);
       // 更新URL哈希
       const route = KEY_TO_ROUTE[key] || 'ai-settings';
       window.location.hash = route;
+      // 滚动到顶部
+      if (contentAreaRef.current) {
+        contentAreaRef.current.scrollTop = 0;
+      }
     };
 
     // 监听URL哈希变化
@@ -135,6 +147,9 @@ const Options = () => {
         const newKey = ROUTE_MAPPING[hash] || '1';
         if (newKey !== activeKey) {
           setActiveKey(newKey);
+          if (contentAreaRef.current) {
+            contentAreaRef.current.scrollTop = 0;
+          }
         }
       };
 
@@ -170,6 +185,10 @@ const Options = () => {
                 return <GoogleDriveIntegration />;
             case 'calendar':
                 return <CalendarSync />;
+            case 'translation':
+                return <TranslationSettings />;
+            case 'other':
+                return <OtherSettings />;
             case 'dev':
                 return <DeveloperPanel />;
             case 'welcome':
@@ -200,7 +219,7 @@ const Options = () => {
                           devMode={devMode}
                           onDevUnlock={handleDevUnlock}
                         />
-                        <div className="content-area">
+                        <div className="content-area" ref={contentAreaRef}>
                             {renderContent()}
                         </div>
                     </div>

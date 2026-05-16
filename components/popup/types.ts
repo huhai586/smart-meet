@@ -15,4 +15,5 @@ export interface MeetingGroup {
   dateLabel: string
   duration: number
   session: string
+  dateTs: number
 }

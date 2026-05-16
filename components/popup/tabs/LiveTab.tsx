@@ -12,9 +12,11 @@ import liveEmptyBg from "~images/popup/live_empty_bg.png"
 import { getConfigValue } from "~/utils/appConfig"
 import { getLanguageByCode } from "~/utils/languages"
 import openSidePanel from "~utils/open-side-panel"
+import useI18n from "~/utils/i18n"
 import type { LiveState } from "../types"
 
 const LiveTab: React.FC = () => {
+  const { t } = useI18n()
   const [state, setState] = useState<LiveState>("loading")
   const [meetTitle, setMeetTitle] = useState<string>("Meeting")
   const [translationLang, setTranslationLang] = useState<string>("中文")
@@ -68,25 +70,18 @@ const LiveTab: React.FC = () => {
     return (
       <div className="ph-live-waiting">
         <img src={liveEmptyBg} className="ph-live-waiting__illus" alt="" />
-        <h3 className="ph-live-waiting__title">No live meeting detected</h3>
+        <h3 className="ph-live-waiting__title">{t('live_no_meeting_title')}</h3>
         <p className="ph-live-waiting__sub">
-          Join a Google Meet meeting to see live captions and translation status.
+          {t('live_no_meeting_sub')}
         </p>
         <div className="ph-live-waiting__how">
           <div className="ph-live-waiting__how-title">
-            <InfoCircleOutlined /> How it works
+            <InfoCircleOutlined /> {t('live_how_it_works')}
           </div>
           <p className="ph-live-waiting__how-body">
-            We'll automatically detect when you're in a Google Meet and start
-            capturing captions.
+            {t('live_how_body')}
           </p>
         </div>
-        <button
-          className="ph-live-waiting__learn"
-          onClick={() => chrome.runtime.openOptionsPage()}
-        >
-          Learn more <ExportOutlined />
-        </button>
       </div>
     )
   }
@@ -95,7 +90,7 @@ const LiveTab: React.FC = () => {
     <div className="ph-live">
       <div className="ph-live__badge">
         <span className="ph-live__badge-dot" />
-        Google Meet detected
+        {t('live_meet_detected')}
       </div>
 
       <div className="ph-live__card">
@@ -104,7 +99,7 @@ const LiveTab: React.FC = () => {
             <div className="ph-live__card-title">{meetTitle}</div>
             <div className="ph-live__card-meta">
               <TeamOutlined />
-              <span>{dayjs().format("h:mm A")} · Live now</span>
+              <span>{dayjs().format("h:mm A")} · {t('live_now')}</span>
             </div>
           </div>
           <div className="ph-live__wave">
@@ -115,22 +110,15 @@ const LiveTab: React.FC = () => {
         <div className="ph-live__status-card">
           <div className="ph-live__row">
             <div className="ph-live__row-left">
-              <MessageOutlined />
-              <span>Captions</span>
-            </div>
-            <span className="ph-badge ph-badge--green">Active</span>
-          </div>
-          <div className="ph-live__row">
-            <div className="ph-live__row-left">
               <TranslationOutlined />
-              <span>Translation</span>
+              <span>{t('live_translation_label')}</span>
             </div>
             {autoTranslate ? (
               <span className="ph-badge ph-badge--green">
-                Active (EN → {translationLang})
+                {t('live_translation_active', { lang: translationLang })}
               </span>
             ) : (
-              <span className="ph-badge ph-badge--gray">Off</span>
+              <span className="ph-badge ph-badge--gray">{t('live_off')}</span>
             )}
           </div>
         </div>
@@ -139,14 +127,17 @@ const LiveTab: React.FC = () => {
           className="ph-btn ph-btn--primary ph-btn--full ph-live__cta"
           onClick={handleOpenPanel}
         >
-          Open Live Panel <ExportOutlined />
+          {t('live_open_panel_btn')} <ExportOutlined />
         </button>
       </div>
 
       <p className="ph-live__hint">
-        Captions and translation are running automatically.{" "}
-        <span onClick={() => chrome.runtime.openOptionsPage()}>
-          Manage in Settings ›
+        <span onClick={() => {
+          const url = chrome.runtime.getURL("options.html") + "#translation"
+          chrome.tabs.create({ url })
+          window.close()
+        }}>
+          {t('live_hint')}
         </span>
       </p>
     </div>

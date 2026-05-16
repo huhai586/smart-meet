@@ -8,7 +8,7 @@ import './utils/dayjs-config'; // Import global dayjs configuration
 import useLoading from './hooks/useLoading';
 import Captions from "./components/captions/captions";
 import Words from "./components/words/words";
-import { DateProvider } from './contexts/DateContext';
+import { DateProvider, useDateContext } from './contexts/DateContext';
 import GlobalDatePicker from './components/common/GlobalDatePicker';
 import Loading from './components/common/Loading';
 import useI18n from './utils/i18n';
@@ -19,8 +19,25 @@ import aiServiceManager from './utils/ai';
 import { getAllAIServiceConfigs } from './utils/getAI';
 import googleAITools from './utils/google-AI';
 import { getConfigValue, onConfigChanged } from './utils/appConfig';
+import dayjs from 'dayjs';
 
 import './styles/sidepanel.scss';
+
+/** Reads sidepanelPendingNav from storage on mount and navigates accordingly. */
+const PendingNavHandler: React.FC<{ setCurrent: (tab: string) => void }> = ({ setCurrent }) => {
+    const { setSelectedDate } = useDateContext();
+    useEffect(() => {
+        chrome.storage.local.get(['sidepanelPendingNav'], (result) => {
+            const nav = result.sidepanelPendingNav;
+            if (!nav) return;
+            chrome.storage.local.remove('sidepanelPendingNav');
+            if (nav.tab) setCurrent(nav.tab);
+            if (nav.date) setSelectedDate(dayjs(Number(nav.date)));
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    return null;
+};
 
 interface CustomErrorEvent extends Event {
     detail: {
@@ -135,6 +152,10 @@ const SidePanel = () => {
                 console.log('SidePanel: Switching to captions tab');
                 setCurrent('captions');
             }
+            if (message.action === 'open-summary') {
+                console.log('SidePanel: Switching to summary tab');
+                setCurrent('summary');
+            }
         };
 
         chrome.runtime.onMessage.addListener(handleMessage);
@@ -199,6 +220,7 @@ const SidePanel = () => {
 
     return (
         <DateProvider>
+            <PendingNavHandler setCurrent={setCurrent} />
             <div className={'side-panel'}>
                 <Loading spinning={loading} />
                 <Tabs

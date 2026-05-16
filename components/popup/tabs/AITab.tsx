@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import dayjs from "dayjs"
 import {
   FileTextOutlined,
@@ -7,10 +7,14 @@ import {
   RightOutlined,
 } from "@ant-design/icons"
 import aiEmptyBg from "~images/popup/ai_empty_bg.png"
+import openSidePanel from "~utils/open-side-panel"
+import useI18n from "~/utils/i18n"
 import type { MeetingGroup } from "../types"
 
 const AITab: React.FC = () => {
+  const { t } = useI18n()
   const [meetings, setMeetings] = useState<MeetingGroup[]>([])
+  const loadRef = useRef<() => void>()
 
   useEffect(() => {
     const load = async () => {
@@ -51,32 +55,54 @@ const AITab: React.FC = () => {
               title: key.replace(/\s*[-–]\s*Google Meet\s*$/, "").trim(),
               dateLabel: label,
               duration: dur,
-              session: key,
-            })
+              session: key,              dateTs: dayjs().subtract(i, "day").startOf("day").valueOf(),            })
           })
         } catch {
           // skip day on error
         }
       }
-      if (all.length > 0) setMeetings(all.slice(0, 6))
+      setMeetings(all.length > 0 ? all.slice(0, 6) : [])
     }
+    loadRef.current = load
     load()
   }, [])
+
+  // Reload when any day's records are deleted
+  useEffect(() => {
+    const handler = (msg: { action: string }) => {
+      if (msg.action === 'records-deleted') loadRef.current?.()
+    }
+    chrome.runtime.onMessage.addListener(handler)
+    return () => chrome.runtime.onMessage.removeListener(handler)
+  }, [])
+
+  const openHistory = () => {
+    const url = chrome.runtime.getURL("options.html") + "#history"
+    chrome.tabs.create({ url })
+    window.close()
+  }
+
+  const handleAskAI = async (m: MeetingGroup) => {
+    chrome.storage.local.set({
+      sidepanelPendingNav: { tab: "summary", date: m.dateTs },
+    })
+    chrome.runtime.sendMessage({ action: "open-summary", date: m.dateTs })
+    try { await openSidePanel() } catch { /* ignore */ }
+    window.close()
+  }
 
   if (meetings.length === 0) {
     return (
       <div className="ph-ai-empty">
         <img src={aiEmptyBg} className="ph-ai-empty__illus" alt="" />
-        <h3 className="ph-ai-empty__title">No meeting content yet</h3>
-        <p className="ph-ai-empty__sub">
-          Your meeting summaries and AI insights will appear here after your meetings.
-        </p>
+        <h3 className="ph-ai-empty__title">{t('ai_no_content_title')}</h3>
+        <p className="ph-ai-empty__sub">{t('ai_no_content_sub')}</p>
         <div className="ph-ai-empty__features">
-          <div className="ph-ai-empty__features-label">What you'll get</div>
+          <div className="ph-ai-empty__features-label">{t('ai_whats_coming')}</div>
           {[
-            { icon: <FileTextOutlined />, text: "AI-generated summaries" },
-            { icon: <BulbOutlined />, text: "Key highlights & action items" },
-            { icon: <MessageOutlined />, text: "Ask anything about your meetings" },
+            { icon: <FileTextOutlined />, text: t('ai_feature_summaries') },
+            { icon: <BulbOutlined />, text: t('ai_feature_highlights') },
+            { icon: <MessageOutlined />, text: t('ai_feature_ask_meetings') },
           ].map((f, i) => (
             <div key={i} className="ph-ai-empty__feature-item">
               <span className="ph-ai-empty__feature-icon">{f.icon}</span>
@@ -90,7 +116,7 @@ const AITab: React.FC = () => {
 
   return (
     <div className="ph-ai">
-      <div className="ph-section-label">Recent meetings</div>
+      <div className="ph-section-label">{t('ai_recent_meetings')}</div>
       <div className="ph-ai__list">
         {meetings.map((m, i) => (
           <div key={i} className="ph-ai__item">
@@ -105,18 +131,18 @@ const AITab: React.FC = () => {
             </div>
             <button
               className="ph-btn-sm"
-              onClick={() => chrome.runtime.openOptionsPage()}
+              onClick={() => handleAskAI(m)}
             >
-              Ask AI
+              {t('ai_ask_ai_btn')}
             </button>
           </div>
         ))}
       </div>
       <button
         className="ph-all-meetings"
-        onClick={() => chrome.runtime.openOptionsPage()}
+        onClick={openHistory}
       >
-        View all meetings &amp; summaries <RightOutlined />
+        {t('ai_view_all_meetings')} <RightOutlined />
       </button>
     </div>
   )

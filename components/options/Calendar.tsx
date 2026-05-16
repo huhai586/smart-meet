@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Modal, Spin, Empty } from 'antd';
-import { SearchOutlined, CloseCircleFilled, LoadingOutlined } from '@ant-design/icons';
+import { Modal, Spin, Empty, Popconfirm } from 'antd';
+import { SearchOutlined, CloseCircleFilled, LoadingOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { StorageFactory } from '~background/data-persistence/storage-factory';
 import type { Transcript } from '~hooks/useTranscripts';
@@ -47,12 +47,37 @@ const Calendar: React.FC = () => {
   const [highlightedRecordIndex, setHighlightedRecordIndex] = useState<number | null>(null);
 
   const [allRecordsCache, setAllRecordsCache] = useState<Map<string, Transcript[]>>(new Map());
+  const [deletingDate, setDeletingDate] = useState<string | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const modalBodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => { setDayjsLocale(langCode); }, [langCode]);
   useEffect(() => { loadChatDays(); }, []);
+
+  // Listen for deletions triggered from outside (e.g. another tab)
+  useEffect(() => {
+    const handler = (msg: { action: string; date?: string }) => {
+      if (msg.action !== 'records-deleted' || !msg.date) return;
+      const deleted = msg.date;
+      setMonthsData(prev =>
+        prev
+          .map(m => ({
+            ...m,
+            days: m.days.filter(d => d.date !== deleted),
+            totalMessages: m.days.filter(d => d.date !== deleted).reduce((s, d) => s + d.messageCount, 0),
+          }))
+          .filter(m => m.days.length > 0)
+      );
+      setAllRecordsCache(prev => {
+        const next = new Map(prev);
+        next.delete(deleted);
+        return next;
+      });
+    };
+    chrome.runtime.onMessage.addListener(handler);
+    return () => chrome.runtime.onMessage.removeListener(handler);
+  }, []);
 
   const loadChatDays = async () => {
     try {
@@ -164,6 +189,36 @@ const Calendar: React.FC = () => {
       })
       .filter(Boolean) as MonthData[];
   }, [monthsData, contentSearchActive]);
+
+  const handleDeleteDate = async (date: string) => {
+    setDeletingDate(date);
+    try {
+      await new Promise<void>((resolve, reject) => {
+        chrome.runtime.sendMessage({ action: 'delete-records', date }, (res) => {
+          void chrome.runtime.lastError;
+          res?.success ? resolve() : reject();
+        });
+      });
+      setMonthsData(prev =>
+        prev
+          .map(m => ({
+            ...m,
+            days: m.days.filter(d => d.date !== date),
+            totalMessages: m.days.filter(d => d.date !== date).reduce((s, d) => s + d.messageCount, 0),
+          }))
+          .filter(m => m.days.length > 0)
+      );
+      setAllRecordsCache(prev => {
+        const next = new Map(prev);
+        next.delete(date);
+        return next;
+      });
+    } catch (e) {
+      console.error('Failed to delete records:', e);
+    } finally {
+      setDeletingDate(null);
+    }
+  };
 
   const openDateModal = async (date: string, recordIndex?: number) => {
     setSelectedDate(date);
@@ -299,6 +354,25 @@ const Calendar: React.FC = () => {
                     <span className="calendar-hig__date-badge">
                       {day.messageCount}&nbsp;{day.messageCount === 1 ? t('message') : t('messages')}
                     </span>
+                    <Popconfirm
+                      title={t('delete_day_records')}
+                      description={t('delete_day_records_confirm')}
+                      onConfirm={e => { e?.stopPropagation(); handleDeleteDate(day.date); }}
+                      onCancel={e => e?.stopPropagation()}
+                      okText={t('yes')}
+                      cancelText={t('cancel')}
+                      okButtonProps={{ danger: true }}
+                      placement="topRight"
+                    >
+                      <button
+                        className="calendar-hig__delete-btn"
+                        onClick={e => e.stopPropagation()}
+                        disabled={deletingDate === day.date}
+                        title={t('delete_day_records')}
+                      >
+                        <DeleteOutlined />
+                      </button>
+                    </Popconfirm>
                   </div>
 
                   {contentSearchActive && day.matchedRecords && day.matchedRecords.length > 0 && (

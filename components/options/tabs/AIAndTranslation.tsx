@@ -5,13 +5,11 @@ import {
   PlusOutlined,
   RightOutlined,
   AppstoreOutlined,
-  TranslationOutlined,
 } from '@ant-design/icons';
 import { Modal, Input } from 'antd';
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
 import AISettings from '~/components/options/ai-settings';
-import TranslationSettings from '~/components/options/TranslationSettings';
 import messageManager from '~/utils/message-manager';
 import {
   type CustomPrompt,
@@ -224,7 +222,7 @@ const EmptyState = styled.div`
 
 /* ── Component ── */
 
-type TabKey = 'models' | 'prompts' | 'translation';
+type TabKey = 'models' | 'prompts';
 
 const AIAndTranslation: React.FC = () => {
   const { t } = useI18n();
@@ -306,10 +304,6 @@ const AIAndTranslation: React.FC = () => {
             <RobotOutlined />
             {t('tab_ai_prompts')}
           </SegBtn>
-          <SegBtn $active={activeTab === 'translation'} onClick={() => setActiveTab('translation')}>
-            <TranslationOutlined />
-            {t('tab_translation_prefs')}
-          </SegBtn>
         </SegmentTrack>
       </SegmentBar>
 
@@ -376,13 +370,6 @@ const AIAndTranslation: React.FC = () => {
             )}
             <SectionFooter>{t('custom_prompts_desc')}</SectionFooter>
           </PromptsPane>
-        </TabPane>
-      )}
-
-      {/* ── Tab: Translation Preferences ── */}
-      {activeTab === 'translation' && (
-        <TabPane>
-          <TranslationSettings hideHeader />
         </TabPane>
       )}
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch } from 'antd';
 import {
   FileDoneOutlined,
@@ -10,20 +10,13 @@ import {
   BookOutlined,
   MessageOutlined,
   PushpinOutlined,
-  TagOutlined,
-  PlusOutlined,
-  RightOutlined,
 } from '@ant-design/icons';
-import { Input, Tag, type InputRef } from 'antd';
-import { TweenOneGroup } from 'rc-tween-one';
-import { Modal } from 'antd';
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
 import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 import useCaptionToggle from '~/hooks/useCaptionToggle';
 import useStickerToggle from '~/hooks/useStickerToggle';
 import messageManager from '~/utils/message-manager';
-import { getSpecificTags } from '~/utils/common';
 
 /* ── Styled Components ── */
 
@@ -135,19 +128,6 @@ const SectionFooter = styled.p`
   line-height: 1.5;
 `;
 
-const Chevron = styled(RightOutlined)`
-  font-size: 12px;
-  color: #C7C7CC;
-`;
-
-const TagCloud = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 4px 0 12px;
-  min-height: 40px;
-`;
-
 /* ── Types ── */
 interface SidepanelVisibility {
   captions: boolean;
@@ -187,34 +167,15 @@ const InterfaceAppearance: React.FC = () => {
   const [captionToggleEnabled, setCaptionToggleEnabled] = useCaptionToggle();
   const [stickerEnabled, setStickerEnabled] = useStickerToggle();
 
-  /* Highlight words */
-  const [specificTags, setTags] = useState<string[]>([]);
-  const [tagModalOpen, setTagModalOpen] = useState(false);
-  const [inputVisible, setInputVisible] = useState(false);
-  const [inputValue, setInputValue] = useState('');
-  const inputRef = useRef<InputRef>(null);
-
   useEffect(() => {
     Promise.all([
       getConfigValue('sidepanelVisibility'),
       getConfigValue('captionButtonsVisibility'),
-    ]).then(([sv, bv]) => {
+  ]).then(([sv, bv]) => {
       if (sv) setVisibility(sv);
       if (bv) setButtonsVisibility(bv);
     });
   }, []);
-
-  useEffect(() => {
-    getSpecificTags().then((res: string[]) => setTags(res));
-  }, []);
-
-  useEffect(() => {
-    setConfigValue('specificHighlightWords', specificTags);
-  }, [specificTags]);
-
-  useEffect(() => {
-    if (inputVisible) inputRef.current?.focus();
-  }, [inputVisible]);
 
   const updateVisibility = (key: keyof SidepanelVisibility, value: boolean) => {
     const next = { ...visibility, [key]: value };
@@ -238,16 +199,6 @@ const InterfaceAppearance: React.FC = () => {
   const handleStickerToggleChange = (checked: boolean) => {
     setStickerEnabled(checked);
     messageManager.success(checked ? t('sticker_enabled') : t('sticker_disabled'));
-  };
-
-  const handleTagClose = (tag: string) => setTags(specificTags.filter((t) => t !== tag));
-
-  const handleInputConfirm = () => {
-    if (inputValue && !specificTags.includes(inputValue)) {
-      setTags([...specificTags, inputValue]);
-    }
-    setInputVisible(false);
-    setInputValue('');
   };
 
   const tabItems: {
@@ -286,8 +237,8 @@ const InterfaceAppearance: React.FC = () => {
   return (
     <PageWrapper>
       <PageHeader>
-        <PageTitle>{t('tab_interface')}</PageTitle>
-        <PageSubtitle>{t('tab_interface_desc')}</PageSubtitle>
+        <PageTitle>{t('tab_visibility')}</PageTitle>
+        <PageSubtitle>{t('tab_visibility_desc')}</PageSubtitle>
       </PageHeader>
 
       {/* Sidepanel Tab Visibility */}
@@ -351,87 +302,6 @@ const InterfaceAppearance: React.FC = () => {
         </SettingRow>
       </SettingGroup>
       <SectionFooter>{t('meeting_interface_desc')}</SectionFooter>
-
-      {/* Caption Highlights */}
-      <SectionLabel>{t('highlight_words_section')}</SectionLabel>
-      <SettingGroup>
-        <SettingRow $last $clickable onClick={() => setTagModalOpen(true)}>
-          <IconSquircle $color="#FF9500">
-            <TagOutlined />
-          </IconSquircle>
-          <RowContent>
-            <RowTitle>{t('specific_highlight_words')}</RowTitle>
-          </RowContent>
-          <RowValue>
-            {specificTags.length > 0 && <span>{specificTags.length}</span>}
-            <Chevron />
-          </RowValue>
-        </SettingRow>
-      </SettingGroup>
-      <SectionFooter>{t('specific_highlight_desc')}</SectionFooter>
-
-      {/* Tag management modal */}
-      <Modal
-        title={t('specific_highlight_words')}
-        open={tagModalOpen}
-        onCancel={() => setTagModalOpen(false)}
-        footer={null}
-        centered
-        styles={{ content: { borderRadius: 14 } }}
-      >
-        <TagCloud>
-          <TweenOneGroup
-            appear={false}
-            enter={{ scale: 0.8, opacity: 0, type: 'from', duration: 100 }}
-            leave={{ opacity: 0, width: 0, scale: 0, duration: 200 }}
-            onEnd={(e) => {
-              if (e.type === 'appear' || e.type === 'enter') {
-                (e.target as HTMLElement).style.display = 'inline-block';
-              }
-            }}
-          >
-            {specificTags.map((tag) => (
-              <span key={tag} style={{ display: 'inline-block', margin: '0 4px 4px 0' }}>
-                <Tag
-                  closable
-                  onClose={() => handleTagClose(tag)}
-                  style={{ borderRadius: 20, fontSize: 13, padding: '2px 10px' }}
-                >
-                  {tag}
-                </Tag>
-              </span>
-            ))}
-          </TweenOneGroup>
-        </TagCloud>
-        {inputVisible ? (
-          <Input
-            ref={inputRef}
-            size="small"
-            style={{ width: 140, borderRadius: 8 }}
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onBlur={handleInputConfirm}
-            onPressEnter={handleInputConfirm}
-            placeholder={t('enter_word')}
-          />
-        ) : (
-          <Tag
-            onClick={() => setInputVisible(true)}
-            style={{
-              borderStyle: 'dashed',
-              cursor: 'pointer',
-              borderRadius: 20,
-              fontSize: 13,
-              padding: '2px 10px',
-              color: '#007AFF',
-              borderColor: '#007AFF',
-              background: 'rgba(0,122,255,0.05)',
-            }}
-          >
-            <PlusOutlined /> {t('add_word')}
-          </Tag>
-        )}
-      </Modal>
     </PageWrapper>
   );
 };

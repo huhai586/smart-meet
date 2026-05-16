@@ -13,6 +13,7 @@ export type MessageData =
     | { action: 'clear' }
     | { action: 'addOrUpdateRecords'; data: Transcript }
     | { action: 'get-transcripts'; date: Dayjs | number | string }
+    | { action: 'delete-records'; date: string }
     | { action: 'restoreRecords'; data: Transcript[]; date?: Dayjs | number | string }
     | { action: 'get-days-with-messages' }
     | { action: 'openSidePanel' }
@@ -60,6 +61,7 @@ class BackgroundMessageHandler {
             'addOrUpdateRecords',
             'restoreRecords',
             'get-transcripts',
+            'delete-records',
             'get-days-with-messages',
             'openSidePanel',
             'languageChanged',
@@ -126,6 +128,17 @@ class BackgroundMessageHandler {
                     sendResponse({ success: true });
                     break;
 
+                case 'delete-records': {
+                    const deleteDate = dayjs(message.date);
+                    await this.storage.deleteRecords(deleteDate);
+                    await this.syncTranscripts(); // no data → sidepanel reloads to empty
+                    await this.updateDaysWithMessages();
+                    // Notify all contexts (popup AITab, Calendar, etc.)
+                    chrome.runtime.sendMessage({ action: 'records-deleted', date: message.date });
+                    sendResponse({ success: true });
+                    break;
+                }
+
                 // ── 系统消息相关 ──────────────────────────────────────────
                 case 'openSidePanel':
                     this.handleOpenSidePanel(sender, sendResponse);
@@ -169,6 +182,7 @@ function isHandledAction(action: string | undefined): boolean {
         'addOrUpdateRecords',
         'restoreRecords',
         'get-transcripts',
+        'delete-records',
         'get-days-with-messages',
         'openSidePanel',
         'languageChanged',

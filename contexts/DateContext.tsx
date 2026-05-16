@@ -26,6 +26,11 @@ export const DateProvider = ({ children }) => {
                 console.log('DateContext setting new date:', newDate.format('YYYY-MM-DD'));
                 setSelectedDate(newDate);
             }
+            if (message.action === 'open-summary' && message.date) {
+                const newDate = dayjs(Number(message.date));
+                console.log('DateContext open-summary: setting date:', newDate.format('YYYY-MM-DD'));
+                setSelectedDate(newDate);
+            }
         };
 
         console.log('DateContext: Adding message listener');

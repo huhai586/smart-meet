@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   SettingOutlined,
   RobotOutlined,
@@ -7,6 +7,9 @@ import {
   CodeOutlined,
   FontSizeOutlined,
   SyncOutlined,
+  TranslationOutlined,
+  EllipsisOutlined,
+  SyncOutlined as ReloadIcon,
 } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
@@ -34,6 +37,19 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
   const { t } = useI18n();
   const [tapCount, setTapCount] = useState(0);
   const [tapTimer, setTapTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [updateStatus, setUpdateStatus] = useState<'checking' | 'latest' | 'available'>('latest');
+
+  useEffect(() => {
+    setUpdateStatus('checking');
+    chrome.runtime.requestUpdateCheck((status) => {
+      if (status === 'update_available') {
+        setUpdateStatus('available');
+      } else {
+        // 'no_update' or 'throttled' (dev mode) — both mean no update needed
+        setUpdateStatus('latest');
+      }
+    });
+  }, []);
 
   const handleTitleClick = useCallback(() => {
     if (devMode) return;
@@ -62,16 +78,28 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
           route: 'general',
         },
         {
+          key: '2',
+          icon: <FontSizeOutlined />,
+          label: t('tab_visibility'),
+          route: 'interface',
+        },
+        {
           key: '3',
           icon: <RobotOutlined />,
           label: t('tab_ai_models_nav'),
           route: 'ai-translation',
         },
         {
-          key: '2',
-          icon: <FontSizeOutlined />,
-          label: t('tab_captions_translation'),
-          route: 'interface',
+          key: 'translation',
+          icon: <TranslationOutlined />,
+          label: t('tab_translation'),
+          route: 'translation',
+        },
+        {
+          key: 'other',
+          icon: <EllipsisOutlined />,
+          label: t('tab_other'),
+          route: 'other',
         },
       ],
     },
@@ -85,16 +113,16 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
           route: 'calendar',
         },
         {
-          key: '4',
-          icon: <SyncOutlined />,
-          label: t('tab_data_sync'),
-          route: 'history',
-        },
-        {
           key: '5',
           icon: <CloudOutlined />,
           label: t('tab_google_drive'),
           route: 'cloud-sync',
+        },
+        {
+          key: '4',
+          icon: <SyncOutlined />,
+          label: t('tab_data_sync'),
+          route: 'history',
         },
       ],
     },
@@ -145,10 +173,31 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
 
       <div className="sidebar-footer">
         <div className="version-info">
-          <span className="version-number">版本 {version}</span>
-          <span className="version-status">
-            <span className="status-dot" />
-            {t('version_latest')}
+          <span className="version-number">{t('version_label') || 'v'}{version}</span>
+          <span className={`version-status${updateStatus === 'available' ? ' version-status--update' : ''}`}>
+            {updateStatus === 'checking' ? (
+              <>
+                <ReloadIcon spin style={{ fontSize: 10 }} />
+                {t('version_checking')}
+              </>
+            ) : updateStatus === 'available' ? (
+              <>
+                <span className="status-dot status-dot--update" />
+                <a
+                  href="https://chromewebstore.google.com/detail/google-meet-caption-pro/"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: '#FF9500', textDecoration: 'none' }}
+                >
+                  {t('version_update_available')}
+                </a>
+              </>
+            ) : (
+              <>
+                <span className="status-dot" />
+                {t('version_latest')}
+              </>
+            )}
           </span>
         </div>
       </div>
