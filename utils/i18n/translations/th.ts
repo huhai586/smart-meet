@@ -403,7 +403,7 @@ export default {
   "ai_found_records": "พบ {count} รายการ",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "เครื่องมือปรับปรุง Google Meet",
   "main_controls": "การควบคุมหลัก",
   "quick_actions": "การกระทำด่วน",
@@ -577,4 +577,11 @@ export default {
   "sidepanel_disabled_desc": "ไม่สามารถรับคำบรรยายได้เนื่องจากส่วนขยายถูกปิดอยู่",
   "sidepanel_disabled_enable": "เปิดใช้งาน",
   "sidepanel_disabled_ignore": "ไม่สนใจ",
+  "notif_reminder_title": "การแจ้งเตือนการประชุม",
+  "notif_starting_now": "การประชุมกำลังเริ่มต้น",
+  "notif_starts_in": "เริ่มใน {n} นาที",
+  "notif_start_time": "เวลาเริ่ม: {time}",
+  "notif_click_to_join": "คลิกเพื่อเข้าร่วมการประชุม",
+  "notif_join_btn": "เข้าร่วมการประชุม",
+  "notif_test_title": "📅 การแจ้งเตือนทดสอบ",
 };

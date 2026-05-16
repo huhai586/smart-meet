@@ -424,7 +424,7 @@ export default {
   "ai_found_records": "Tìm thấy {count}",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Công cụ nâng cao Google Meet",
   "main_controls": "Điều khiển chính",
   "quick_actions": "Hành động nhanh",
@@ -598,4 +598,11 @@ export default {
   "sidepanel_disabled_desc": "Không thể nhận phụ đề vì tiện ích đang bị tắt.",
   "sidepanel_disabled_enable": "Bật tiện ích",
   "sidepanel_disabled_ignore": "Bỏ qua",
+  "notif_reminder_title": "Nhắc nhở cuộc họp",
+  "notif_starting_now": "Cuộc họp đang bắt đầu",
+  "notif_starts_in": "Bắt đầu sau {n} phút",
+  "notif_start_time": "Giờ bắt đầu: {time}",
+  "notif_click_to_join": "Nhấp để tham gia cuộc họp",
+  "notif_join_btn": "Tham gia cuộc họp",
+  "notif_test_title": "📅 Nhắc nhở thử nghiệm",
 };

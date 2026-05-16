@@ -450,7 +450,7 @@ export default {
   "ai_found_records": "{count} مورد یافت شد",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "ابزار بهبود Google Meet",
   "main_controls": "کنترل های اصلی",
   "quick_actions": "اقدامات سریع",
@@ -624,4 +624,11 @@ export default {
   "sidepanel_disabled_desc": "زیرنویس‌ها دریافت نمی‌شوند زیرا افزونه غیرفعال است.",
   "sidepanel_disabled_enable": "فعال‌سازی",
   "sidepanel_disabled_ignore": "نادیده گرفتن",
+  "notif_reminder_title": "یادآوری جلسه",
+  "notif_starting_now": "جلسه در حال شروع است",
+  "notif_starts_in": "{n} دقیقه دیگر شروع می‌شود",
+  "notif_start_time": "زمان شروع: {time}",
+  "notif_click_to_join": "برای پیوستن به جلسه کلیک کنید",
+  "notif_join_btn": "پیوستن به جلسه",
+  "notif_test_title": "📅 یادآوری جلسه آزمایشی",
 };

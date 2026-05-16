@@ -286,7 +286,7 @@ export default {
   "guide_restart": "再開",
 
   // Welcome Page
-  "welcome_title": "🎉 Google Meet Caption Proへようこそ",
+  "welcome_title": "🎉 Smart Meetへようこそ",
   "welcome_subtitle": "スマート要約、リアルタイム翻訳などを備えたプロフェッショナルなGoogle Meetキャプションツール",
   "welcome_quick_start": "クイックスタート",
   "welcome_main_features": "主な機能",
@@ -448,7 +448,7 @@ export default {
   "ai_found_records": "{count} 件見つかりました",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Google Meet拡張ツール",
   "main_controls": "メインコントロール",
   "quick_actions": "クイックアクション",
@@ -622,4 +622,11 @@ export default {
   "sidepanel_disabled_desc": "拡張機能がオフのため字幕を受信できません。",
   "sidepanel_disabled_enable": "有効にする",
   "sidepanel_disabled_ignore": "無視する",
+  "notif_reminder_title": "会議リマインダー",
+  "notif_starting_now": "会議が始まります",
+  "notif_starts_in": "{n}分後に開始",
+  "notif_start_time": "開始時間：{time}",
+  "notif_click_to_join": "クリックして会議に参加",
+  "notif_join_btn": "会議に参加",
+  "notif_test_title": "📅 テスト会議リマインダー",
 };

@@ -1,8 +1,8 @@
 {
-  "name": "google-meet-caption-pro",
-  "displayName": "Google Meet Caption Pro",
+  "name": "smart-meet",
+  "displayName": "Smart Meet",
   "version": "1.12.0",
-  "description": "Google Meet Caption Pro",
+  "description": "Smart Meet",
   "author": "Howard",
   "scripts": {
     "dev": "plasmo dev",
@@ -57,6 +57,7 @@
     "typescript-eslint": "^8.37.0"
   },
   "local_client_id_home_mac": "38387869574-s9mq6lgo7427t0sfsvr4vhi3qle98js6.apps.googleusercontent.com",
+  "local_client_id_home_mac_test": "821598308749-s047ijoop2219dk5v878marqf4ffb16d.apps.googleusercontent.com",
   "local_client_id_57": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",
   "local_client_id_online": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
   "manifest": {
@@ -86,12 +87,12 @@
       }
     ],
     "oauth2": {
-      "client_id": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
+      "client_id": "821598308749-s047ijoop2219dk5v878marqf4ffb16d.apps.googleusercontent.com",
       "scopes": [
         "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/userinfo.profile",
         "https://www.googleapis.com/auth/userinfo.email",
-        "https://www.googleapis.com/auth/calendar.readonly"
+        "https://www.googleapis.com/auth/calendar.events.readonly"
       ]
     }
   }

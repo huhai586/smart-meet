@@ -21,7 +21,7 @@ const UpdatePage = () => {
         <div className="update-page">
             <Card>
                 <Typography>
-                    <Title level={2}>Welcome to Google Meet Caption Pro {updates[0].version}!</Title>
+                    <Title level={2}>Welcome to Smart Meet {updates[0].version}!</Title>
                     <Paragraph>
                         We&apos;ve made some exciting improvements to enhance your meeting experience:
                     </Paragraph>

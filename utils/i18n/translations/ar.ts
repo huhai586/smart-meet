@@ -403,7 +403,7 @@ export default {
   "ai_found_records": "تم العثور على {count}",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "أداة تحسين Google Meet",
   "main_controls": "التحكم الرئيسي",
   "quick_actions": "الإجراءات السريعة",
@@ -577,4 +577,11 @@ export default {
   "sidepanel_disabled_desc": "لا يمكن استقبال التسميات لأن الإضافة متوقفة حاليًا.",
   "sidepanel_disabled_enable": "تفعيل",
   "sidepanel_disabled_ignore": "تجاهل",
+  "notif_reminder_title": "تذكير بالاجتماع",
+  "notif_starting_now": "الاجتماع يبدأ الآن",
+  "notif_starts_in": "يبدأ خلال {n} دقيقة",
+  "notif_start_time": "وقت البدء: {time}",
+  "notif_click_to_join": "انقر للانضمام إلى الاجتماع",
+  "notif_join_btn": "انضم إلى الاجتماع",
+  "notif_test_title": "📅 تذكير اجتماع تجريبي",
 };

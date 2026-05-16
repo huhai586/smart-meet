@@ -24,11 +24,11 @@ const OptionsHeader: React.FC<OptionsHeaderProps> = ({ onNavigate }) => {
       <div className="header-left">
         <img
           src={googleMeetIcon}
-          alt="Google Meet Caption Pro"
+          alt="Smart Meet"
           className="header-icon"
         />
         <div className="header-text">
-          <h1 className="header-title">Google Meet Caption Pro</h1>
+          <h1 className="header-title">Smart Meet</h1>
           <p className="header-subtitle">{t('app_subtitle')}</p>
         </div>
       </div>

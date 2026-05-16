@@ -403,7 +403,7 @@ export default {
   "ai_found_records": "{count} मिले",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Google Meet एन्हांसमेंट टूल",
   "main_controls": "मुख्य नियंत्रण",
   "quick_actions": "त्वरित क्रियाएं",
@@ -577,4 +577,11 @@ export default {
   "sidepanel_disabled_desc": "एक्सटेंशन बंद होने के कारण कैप्शन प्राप्त नहीं हो सकते।",
   "sidepanel_disabled_enable": "चालू करें",
   "sidepanel_disabled_ignore": "अनदेखा करें",
+  "notif_reminder_title": "मीटिंग रिमाइंडर",
+  "notif_starting_now": "मीटिंग अभी शुरू हो रही है",
+  "notif_starts_in": "{n} मिनट में शुरू होगी",
+  "notif_start_time": "शुरुआत का समय: {time}",
+  "notif_click_to_join": "मीटिंग में शामिल होने के लिए क्लिक करें",
+  "notif_join_btn": "मीटिंग में शामिल हों",
+  "notif_test_title": "📅 टेस्ट मीटिंग रिमाइंडर",
 };

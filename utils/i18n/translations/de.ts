@@ -431,7 +431,7 @@ export default {
   "ai_found_records": "{count} gefunden",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Google Meet Erweiterungstool",
   "main_controls": "Hauptsteuerung",
   "quick_actions": "Schnellaktionen",
@@ -605,4 +605,11 @@ export default {
   "sidepanel_disabled_desc": "Untertitel können nicht empfangen werden, da die Erweiterung deaktiviert ist.",
   "sidepanel_disabled_enable": "Aktivieren",
   "sidepanel_disabled_ignore": "Ignorieren",
+  "notif_reminder_title": "Meeting-Erinnerung",
+  "notif_starting_now": "Das Meeting beginnt jetzt",
+  "notif_starts_in": "Beginnt in {n} Minuten",
+  "notif_start_time": "Startzeit: {time}",
+  "notif_click_to_join": "Klicken, um dem Meeting beizutreten",
+  "notif_join_btn": "Meeting beitreten",
+  "notif_test_title": "📅 Test-Meeting-Erinnerung",
 };

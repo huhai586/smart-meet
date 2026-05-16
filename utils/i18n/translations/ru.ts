@@ -424,7 +424,7 @@ export default {
   "ai_found_records": "Найдено: {count}",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Инструмент улучшения Google Meet",
   "main_controls": "Основные элементы управления",
   "quick_actions": "Быстрые действия",
@@ -598,4 +598,11 @@ export default {
   "sidepanel_disabled_desc": "Субтитры не могут быть получены, так как расширение отключено.",
   "sidepanel_disabled_enable": "Включить",
   "sidepanel_disabled_ignore": "Игнорировать",
+  "notif_reminder_title": "Напоминание о встрече",
+  "notif_starting_now": "Встреча начинается",
+  "notif_starts_in": "Начнётся через {n} минут",
+  "notif_start_time": "Время начала: {time}",
+  "notif_click_to_join": "Нажмите, чтобы присоединиться",
+  "notif_join_btn": "Присоединиться",
+  "notif_test_title": "📅 Тестовое напоминание",
 };

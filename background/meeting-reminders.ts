@@ -10,6 +10,7 @@
  */
 
 import { getConfigValue } from '~utils/appConfig';
+import { getTranslation } from '~utils/i18n';
 import type { CalendarEvent } from '~utils/google-calendar-service';
 
 const ALARM_PREFIX = 'meetingReminder:';
@@ -76,8 +77,11 @@ export async function scheduleReminderAlarms(): Promise<void> {
 }
 
 /** Show a system notification for the given event. */
-function showMeetingNotification(event: CalendarEvent, minutesBefore: number): void {
-  const title = event.summary ?? '会议提醒';
+async function showMeetingNotification(event: CalendarEvent, minutesBefore: number): Promise<void> {
+  const langCode = ((await getConfigValue('uiLanguage')) as string | null) ?? 'en';
+  const tr = (key: string, params?: Record<string, string>) => getTranslation(key, langCode, params);
+
+  const title = event.summary ?? tr('notif_reminder_title');
   const meetLink =
     event.hangoutLink ??
     event.conferenceData?.entryPoints?.find(e => e.entryPointType === 'video')?.uri ??
@@ -90,10 +94,10 @@ function showMeetingNotification(event: CalendarEvent, minutesBefore: number): v
 
   const message = [
     minutesBefore === 0
-      ? '会议即将开始'
-      : `${minutesBefore} 分钟后开始`,
-    startStr ? `开始时间：${startStr}` : null,
-    meetLink ? '点击此通知加入会议' : null,
+      ? tr('notif_starting_now')
+      : tr('notif_starts_in', { n: String(minutesBefore) }),
+    startStr ? tr('notif_start_time', { time: startStr }) : null,
+    meetLink ? tr('notif_click_to_join') : null,
   ]
     .filter(Boolean)
     .join('\n');
@@ -112,7 +116,7 @@ function showMeetingNotification(event: CalendarEvent, minutesBefore: number): v
   };
 
   if (meetLink) {
-    notifOptions.buttons = [{ title: '加入会议' }];
+    notifOptions.buttons = [{ title: tr('notif_join_btn') }];
   }
 
   const notifId = `meetingNotif:${event.id}`;
@@ -127,25 +131,36 @@ function showMeetingNotification(event: CalendarEvent, minutesBefore: number): v
     });
   }
 
-  chrome.notifications.create(notifId, notifOptions, () => {
-    if (chrome.runtime.lastError) {
-      console.warn('[MeetingReminders] Notification error:', chrome.runtime.lastError.message);
-    }
+  // Clear any existing notification with this id first.
+  // chrome.notifications.create silently no-ops if the id already exists,
+  // so without this a user who hasn't dismissed a previous notification would
+  // never see the next one.
+  chrome.notifications.clear(notifId, () => {
+    chrome.notifications.create(notifId, notifOptions, () => {
+      if (chrome.runtime.lastError) {
+        console.warn('[MeetingReminders] Notification error:', chrome.runtime.lastError.message);
+      }
+    });
   });
 }
 
 /** Send a test notification immediately (called from options page). */
 export async function sendTestNotification(): Promise<void> {
-  const minutesBefore = (await getConfigValue('meetingReminderMinutes')) as number;
+  const [minutesBefore, langCode] = await Promise.all([
+    getConfigValue('meetingReminderMinutes'),
+    getConfigValue('uiLanguage'),
+  ]);
+  const lang = (langCode as string | null) ?? 'en';
+  const testTitle = getTranslation('notif_test_title', lang);
 
   const fakeEvent: CalendarEvent = {
     id: 'test-event',
-    summary: '📅 测试会议提醒',
-    start: { dateTime: new Date(Date.now() + minutesBefore * 60 * 1000).toISOString() },
+    summary: testTitle,
+    start: { dateTime: new Date(Date.now() + (minutesBefore as number) * 60 * 1000).toISOString() },
     hangoutLink: 'https://meet.google.com/niz-frpv-jry?authuser=0',
   };
 
-  showMeetingNotification(fakeEvent, minutesBefore);
+  await showMeetingNotification(fakeEvent, minutesBefore as number);
 }
 
 /** Hook into chrome.alarms.onAlarm and chrome.storage.onChanged. */
@@ -177,7 +192,7 @@ export function initMeetingReminders(): void {
     const event = events.find(e => e.id === eventId);
     if (!event) return;
 
-    showMeetingNotification(event, minutesBefore as number);
+    await showMeetingNotification(event, minutesBefore as number);
   });
 
   /**

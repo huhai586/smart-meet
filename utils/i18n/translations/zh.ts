@@ -1,6 +1,6 @@
 export default {
   // Popup
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Google Meet 增强工具",
   "main_controls": "主要控制",
   "quick_actions": "快速操作",
@@ -359,7 +359,7 @@ export default {
   "guide_restart": "重新开始",
 
   // Welcome Page
-  "welcome_title": "🎉 欢迎使用 Google Meet Caption Pro",
+  "welcome_title": "🎉 欢迎使用 Smart Meet",
   "welcome_subtitle": "专业的Google Meet字幕工具，支持智能总结、实时翻译等功能",
   "welcome_quick_start": "快速开始",
   "welcome_main_features": "主要功能",
@@ -708,4 +708,11 @@ export default {
   "sidepanel_disabled_desc": "当前插件处于关闭状态，无法接收字幕信息。需要现在打开吗？",
   "sidepanel_disabled_enable": "立即开启",
   "sidepanel_disabled_ignore": "忽略",
+  "notif_reminder_title": "会议提醒",
+  "notif_starting_now": "会议即将开始",
+  "notif_starts_in": "{n} 分钟后开始",
+  "notif_start_time": "开始时间：{time}",
+  "notif_click_to_join": "点击此通知加入会议",
+  "notif_join_btn": "加入会议",
+  "notif_test_title": "📅 测试会议提醒",
 };

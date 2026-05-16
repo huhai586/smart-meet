@@ -286,7 +286,7 @@ export default {
   "guide_restart": "Redémarrer",
 
   // Welcome Page
-  "welcome_title": "🎉 Bienvenue dans Google Meet Caption Pro",
+  "welcome_title": "🎉 Bienvenue dans Smart Meet",
   "welcome_subtitle": "Outil professionnel de sous-titres Google Meet avec résumé intelligent, traduction en temps réel et plus",
   "welcome_quick_start": "Démarrage Rapide",
   "welcome_main_features": "Fonctionnalités Principales",
@@ -448,7 +448,7 @@ export default {
   "ai_found_records": "{count} trouvé(s)",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Outil d'amélioration Google Meet",
   "main_controls": "Contrôles principaux",
   "quick_actions": "Actions rapides",
@@ -622,4 +622,11 @@ export default {
   "sidepanel_disabled_desc": "Les sous-titres ne peuvent pas être reçus car l'extension est désactivée.",
   "sidepanel_disabled_enable": "Activer",
   "sidepanel_disabled_ignore": "Ignorer",
+  "notif_reminder_title": "Rappel de réunion",
+  "notif_starting_now": "La réunion commence maintenant",
+  "notif_starts_in": "Commence dans {n} minutes",
+  "notif_start_time": "Heure de début : {time}",
+  "notif_click_to_join": "Cliquez pour rejoindre la réunion",
+  "notif_join_btn": "Rejoindre la réunion",
+  "notif_test_title": "📅 Rappel de réunion test",
 };

@@ -286,7 +286,7 @@ export default {
   "guide_restart": "다시 시작",
 
   // Welcome Page
-  "welcome_title": "🎉 Google Meet Caption Pro에 오신 것을 환영합니다",
+  "welcome_title": "🎉 Smart Meet에 오신 것을 환영합니다",
   "welcome_subtitle": "스마트 요약, 실시간 번역 등을 지원하는 전문 Google Meet 캡션 도구",
   "welcome_quick_start": "빠른 시작",
   "welcome_main_features": "주요 기능",
@@ -448,7 +448,7 @@ export default {
   "ai_found_records": "{count}개 찾음",
 
   // Popup (additional)
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Google Meet 향상 도구",
   "main_controls": "주요 컨트롤",
   "quick_actions": "빠른 작업",
@@ -622,4 +622,11 @@ export default {
   "sidepanel_disabled_desc": "확장 프로그램이 꺼져 있어 자막을 수신할 수 없습니다.",
   "sidepanel_disabled_enable": "활성화",
   "sidepanel_disabled_ignore": "무시",
+  "notif_reminder_title": "회의 알림",
+  "notif_starting_now": "회의가 곧 시작됩니다",
+  "notif_starts_in": "{n}분 후 시작",
+  "notif_start_time": "시작 시간: {time}",
+  "notif_click_to_join": "클릭하여 회의에 참가",
+  "notif_join_btn": "회의 참가",
+  "notif_test_title": "📅 테스트 회의 알림",
 };

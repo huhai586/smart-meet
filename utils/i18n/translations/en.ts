@@ -1,6 +1,6 @@
 export default {
   // Popup
-  "extension_name": "Google Meet Caption Pro",
+  "extension_name": "Smart Meet",
   "popup_subtitle": "Google Meet Enhancement Tool",
   "main_controls": "Main Controls",
   "quick_actions": "Quick Actions",
@@ -358,7 +358,7 @@ export default {
   "guide_restart": "Restart",
 
   // Welcome Page
-  "welcome_title": "🎉 Welcome to Google Meet Caption Pro",
+  "welcome_title": "🎉 Welcome to Smart Meet",
   "welcome_subtitle": "Professional Google Meet caption tool with smart summary, real-time translation and more",
   "welcome_quick_start": "Quick Start",
   "welcome_main_features": "Main Features",
@@ -710,4 +710,11 @@ export default {
   "sidepanel_disabled_desc": "Captions cannot be received because the extension is currently turned off.",
   "sidepanel_disabled_enable": "Enable",
   "sidepanel_disabled_ignore": "Ignore",
+  "notif_reminder_title": "Meeting Reminder",
+  "notif_starting_now": "Meeting is starting now",
+  "notif_starts_in": "Starts in {n} minutes",
+  "notif_start_time": "Start time: {time}",
+  "notif_click_to_join": "Click to join the meeting",
+  "notif_join_btn": "Join Meeting",
+  "notif_test_title": "📅 Test Meeting Reminder",
 };
