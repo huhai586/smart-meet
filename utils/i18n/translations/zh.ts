@@ -589,6 +589,7 @@ export default {
   "calendar_sync_status": "同步状态",
   "calendar_last_sync": "上次同步：{time}",
   "calendar_sync_now": "立即同步",
+  "calendar_clear_events": "清除全部",
   "calendar_syncing": "同步中…",
   "calendar_sync_success": "同步成功，共获取 <strong>{n}</strong> 个日历事件",
   "calendar_sync_error_default": "同步失败，请重试",

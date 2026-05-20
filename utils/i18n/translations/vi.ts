@@ -581,6 +581,7 @@ export default {
   "calendar_sync_status": "Trạng thái đồng bộ",
   "calendar_last_sync": "Lần đồng bộ cuối: {time}",
   "calendar_sync_now": "Đồng bộ ngay",
+  "calendar_clear_events": "Xóa tất cả",
   "calendar_syncing": "Đang đồng bộ...",
   "calendar_sync_success": "Đồng bộ thành công, đã nhận <strong>{n}</strong> sự kiện lịch",
   "calendar_sync_error_default": "Đồng bộ thất bại, vui lòng thử lại",

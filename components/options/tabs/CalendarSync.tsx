@@ -16,6 +16,7 @@ import {
   TeamOutlined,
   EnvironmentOutlined,
   BellOutlined,
+  DeleteOutlined,
 } from '@ant-design/icons';
 import useI18n from '~utils/i18n';
 import useGoogleCalendar from '~hooks/useGoogleCalendar';
@@ -41,6 +42,7 @@ const CalendarSync: React.FC = () => {
     disconnect,
     updateSettings,
     manualSync,
+    clearEvents,
   } = useGoogleCalendar();
 
   const [showTip, setShowTip] = useState(true);
@@ -332,16 +334,28 @@ const CalendarSync: React.FC = () => {
               </span>
             )}
           </div>
-          <button
-            className={`manual-sync-btn ${syncStatus === 'syncing' ? 'syncing' : ''}`}
-            onClick={manualSync}
-            disabled={!isConnected || syncStatus === 'syncing'}
-          >
-            {syncStatus === 'syncing'
-              ? <Spin indicator={<LoadingOutlined spin />} size="small" />
-              : <SyncOutlined />}
-            {syncStatus === 'syncing' ? t('calendar_syncing') : t('calendar_sync_now')}
-          </button>
+          <div className="manual-sync-actions">
+            <button
+              className={`manual-sync-btn ${syncStatus === 'syncing' ? 'syncing' : ''}`}
+              onClick={manualSync}
+              disabled={!isConnected || syncStatus === 'syncing'}
+            >
+              {syncStatus === 'syncing'
+                ? <Spin indicator={<LoadingOutlined spin />} size="small" />
+                : <SyncOutlined />}
+              {syncStatus === 'syncing' ? t('calendar_syncing') : t('calendar_sync_now')}
+            </button>
+            {(events.length > 0 || lastSync) && (
+              <button
+                className="manual-sync-btn clear-btn"
+                onClick={clearEvents}
+                disabled={syncStatus === 'syncing'}
+              >
+                <DeleteOutlined />
+                {t('calendar_clear_events')}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Status Banner */}

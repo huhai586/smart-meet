@@ -605,6 +605,7 @@ export default {
   "calendar_sync_status": "Statut de synchronisation",
   "calendar_last_sync": "Dernière synchronisation : {time}",
   "calendar_sync_now": "Synchroniser maintenant",
+  "calendar_clear_events": "Tout effacer",
   "calendar_syncing": "Synchronisation en cours...",
   "calendar_sync_success": "Synchronisation réussie, <strong>{n}</strong> événements du calendrier récupérés",
   "calendar_sync_error_default": "Échec de la synchronisation, veuillez réessayer",

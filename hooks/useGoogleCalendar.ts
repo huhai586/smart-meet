@@ -26,6 +26,7 @@ export interface UseGoogleCalendarReturn {
   updateSettings: (patch: Partial<CalendarSettings>) => Promise<void>;
   syncNow: () => Promise<void>;
   manualSync: () => Promise<void>;
+  clearEvents: () => Promise<void>;
 }
 
 const service = GoogleCalendarService.getInstance();
@@ -148,6 +149,14 @@ export function useGoogleCalendar(): UseGoogleCalendarReturn {
     });
   }, []);
 
+  const clearEvents = useCallback(async () => {
+    await chrome.storage.local.remove(['calendarEvents', 'calendarLastSync', 'calendarSyncError']);
+    setEvents([]);
+    setLastSync(null);
+    setSyncError(null);
+    setSyncStatus('idle');
+  }, []);
+
   /** Manual sync: calls Calendar API directly so UI gets immediate feedback. */
   const manualSync = useCallback(async () => {
     setSyncStatus('syncing');
@@ -177,7 +186,7 @@ export function useGoogleCalendar(): UseGoogleCalendarReturn {
     }
   }, [settings.syncRange]);
 
-  return { isConnected, user, loading, connecting, settings, lastSync, syncError, syncStatus, events, connect, disconnect, updateSettings, syncNow, manualSync };
+  return { isConnected, user, loading, connecting, settings, lastSync, syncError, syncStatus, events, connect, disconnect, updateSettings, syncNow, manualSync, clearEvents };
 }
 
 export default useGoogleCalendar;

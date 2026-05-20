@@ -352,6 +352,12 @@
         }
       }
 
+      .manual-sync-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
       .manual-sync-btn {
         display: flex;
         align-items: center;
@@ -379,6 +385,20 @@
 
         &.syncing {
           background: #4a90e2;
+        }
+
+        &.clear-btn {
+          background: transparent;
+          color: #94a3b8;
+          border: 1px solid #e2e8f0;
+
+          &:hover:not(:disabled) {
+            background: #fff1f0;
+            color: #e53e3e;
+            border-color: #fca5a5;
+            box-shadow: none;
+            transform: none;
+          }
         }
 
         .anticon {

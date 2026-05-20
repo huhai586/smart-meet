@@ -605,6 +605,7 @@ export default {
   "calendar_sync_status": "동기화 상태",
   "calendar_last_sync": "마지막 동기화: {time}",
   "calendar_sync_now": "지금 동기화",
+  "calendar_clear_events": "모두 지우기",
   "calendar_syncing": "동기화 중...",
   "calendar_sync_success": "동기화 성공, <strong>{n}</strong>개의 캘린더 이벤트를 가져왔습니다",
   "calendar_sync_error_default": "동기화 실패, 다시 시도해 주세요",

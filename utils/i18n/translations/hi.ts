@@ -560,6 +560,7 @@ export default {
   "calendar_sync_status": "सिंक स्थिति",
   "calendar_last_sync": "अंतिम सिंक: {time}",
   "calendar_sync_now": "अभी सिंक करें",
+  "calendar_clear_events": "सब साफ़ करें",
   "calendar_syncing": "सिंक हो रहा है...",
   "calendar_sync_success": "सिंक सफल, <strong>{n}</strong> कैलेंडर इवेंट प्राप्त हुए",
   "calendar_sync_error_default": "सिंक विफल, कृपया पुनः प्रयास करें",

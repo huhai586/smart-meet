@@ -63,7 +63,7 @@ class GoogleCalendarService {
               apiKey: this.apiKey,
               clientId: this.clientId,
               discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-              scope: 'https://www.googleapis.com/auth/calendar.readonly'
+              scope: 'https://www.googleapis.com/auth/calendar.events.readonly'
             });
             resolve();
           } catch (error) {

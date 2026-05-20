@@ -560,6 +560,7 @@ export default {
   "calendar_sync_status": "حالة المزامنة",
   "calendar_last_sync": "آخر مزامنة: {time}",
   "calendar_sync_now": "مزامنة الآن",
+  "calendar_clear_events": "مسح الكل",
   "calendar_syncing": "جارٍ المزامنة...",
   "calendar_sync_success": "تمت المزامنة، تم جلب <strong>{n}</strong> حدث من التقويم",
   "calendar_sync_error_default": "فشلت المزامنة، يرجى المحاولة مرة أخرى",

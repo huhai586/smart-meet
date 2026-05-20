@@ -560,6 +560,7 @@ export default {
   "calendar_sync_status": "สถานะการซิงค์",
   "calendar_last_sync": "ซิงค์ล่าสุด: {time}",
   "calendar_sync_now": "ซิงค์ตอนนี้",
+  "calendar_clear_events": "ล้างทั้งหมด",
   "calendar_syncing": "กำลังซิงค์...",
   "calendar_sync_success": "ซิงค์สำเร็จ ได้รับ <strong>{n}</strong> กิจกรรมจากปฏิทิน",
   "calendar_sync_error_default": "การซิงค์ล้มเหลว โปรดลองอีกครั้ง",

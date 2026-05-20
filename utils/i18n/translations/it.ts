@@ -588,6 +588,7 @@ export default {
   "calendar_sync_status": "Stato sincronizzazione",
   "calendar_last_sync": "Ultima sincronizzazione: {time}",
   "calendar_sync_now": "Sincronizza ora",
+  "calendar_clear_events": "Cancella tutto",
   "calendar_syncing": "Sincronizzazione in corso...",
   "calendar_sync_success": "Sincronizzazione riuscita, <strong>{n}</strong> eventi del calendario recuperati",
   "calendar_sync_error_default": "Sincronizzazione non riuscita, riprova",

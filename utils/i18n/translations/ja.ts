@@ -605,6 +605,7 @@ export default {
   "calendar_sync_status": "同期ステータス",
   "calendar_last_sync": "最終同期: {time}",
   "calendar_sync_now": "今すぐ同期",
+  "calendar_clear_events": "すべてクリア",
   "calendar_syncing": "同期中...",
   "calendar_sync_success": "同期成功、<strong>{n}</strong> 件のカレンダーイベントを取得しました",
   "calendar_sync_error_default": "同期失敗。再試行してください",

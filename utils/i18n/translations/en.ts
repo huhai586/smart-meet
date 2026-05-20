@@ -591,6 +591,7 @@ export default {
   "calendar_sync_status": "Sync Status",
   "calendar_last_sync": "Last sync: {time}",
   "calendar_sync_now": "Sync Now",
+  "calendar_clear_events": "Clear All",
   "calendar_syncing": "Syncing...",
   "calendar_sync_success": "Sync successful, got <strong>{n}</strong> calendar events",
   "calendar_sync_error_default": "Sync failed, please try again",

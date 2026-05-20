@@ -607,6 +607,7 @@ export default {
   "calendar_sync_status": "وضعیت همگام‌سازی",
   "calendar_last_sync": "آخرین همگام‌سازی: {time}",
   "calendar_sync_now": "همگام‌سازی اکنون",
+  "calendar_clear_events": "پاک کردن همه",
   "calendar_syncing": "در حال همگام‌سازی...",
   "calendar_sync_success": "همگام‌سازی موفق، <strong>{n}</strong> رویداد تقویم دریافت شد",
   "calendar_sync_error_default": "همگام‌سازی ناموفق بود، لطفاً دوباره امتحان کنید",
