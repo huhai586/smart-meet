@@ -630,4 +630,6 @@ export default {
   "notif_click_to_join": "Cliquez pour rejoindre la réunion",
   "notif_join_btn": "Rejoindre la réunion",
   "notif_test_title": "📅 Rappel de réunion test",
+  "switch_to_dark_mode": "Mode sombre",
+  "switch_to_light_mode": "Mode clair",
 };

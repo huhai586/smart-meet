@@ -630,4 +630,6 @@ export default {
   "notif_click_to_join": "클릭하여 회의에 참가",
   "notif_join_btn": "회의 참가",
   "notif_test_title": "📅 테스트 회의 알림",
+  "switch_to_dark_mode": "다크 모드",
+  "switch_to_light_mode": "라이트 모드",
 };

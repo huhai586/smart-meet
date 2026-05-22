@@ -32,7 +32,7 @@ const PageHeader = styled.div`
 const PageTitle = styled.h1`
   font-size: 28px;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   letter-spacing: -0.5px;
   margin: 0 0 4px;
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
@@ -53,7 +53,7 @@ const SegmentBar = styled.div`
 
 const SegmentTrack = styled.div`
   display: flex;
-  background: #E5E5EA;
+  background: var(--opt-segment-bg);
   border-radius: 10px;
   padding: 2px;
   gap: 0;
@@ -74,13 +74,13 @@ const SegBtn = styled.button<{ $active: boolean }>`
   cursor: pointer;
   transition: background 0.15s, color 0.15s, box-shadow 0.15s;
   font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif;
-  background: ${({ $active }) => ($active ? '#FFFFFF' : 'transparent')};
-  color: ${({ $active }) => ($active ? '#1C1C1E' : '#3C3C43')};
+  background: ${({ $active }) => ($active ? 'var(--opt-segment-active)' : 'transparent')};
+  color: ${({ $active }) => ($active ? 'var(--opt-segment-text-on)' : 'var(--opt-segment-text-off)')};
   box-shadow: ${({ $active }) => ($active ? '0 1px 3px rgba(0,0,0,0.12)' : 'none')};
   white-space: nowrap;
 
   &:hover {
-    color: #1C1C1E;
+    color: var(--opt-text-primary);
   }
 `;
 
@@ -133,9 +133,9 @@ const AddBtn = styled.button`
 `;
 
 const SettingGroup = styled.div`
-  background: #fff;
+  background: var(--opt-bg-card);
   border-radius: 12px;
-  border: 0.5px solid rgba(60, 60, 67, 0.14);
+  border: 0.5px solid var(--opt-border-subtle);
   overflow: hidden;
   margin-bottom: 8px;
 `;
@@ -144,15 +144,15 @@ const SettingRow = styled.div<{ $last?: boolean; $clickable?: boolean }>`
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  background: #fff;
-  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid rgba(60, 60, 67, 0.12)')};
+  background: var(--opt-bg-card);
+  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid var(--opt-border-divider)')};
   gap: 12px;
   transition: background 0.12s ease;
   cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
 
   &:hover {
     background: ${({ $clickable }) =>
-      $clickable ? 'rgba(0, 0, 0, 0.03)' : 'rgba(0, 0, 0, 0.018)'};
+      $clickable ? 'var(--opt-hover-clickable)' : 'var(--opt-hover-default)'};
   }
 `;
 
@@ -177,7 +177,7 @@ const RowContent = styled.div`
 const RowTitle = styled.div`
   font-size: 15px;
   font-weight: 400;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   line-height: 1.3;
 `;
 
@@ -388,8 +388,8 @@ const AIAndTranslation: React.FC = () => {
       >
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 16 }}>
           <div>
-            <div style={{ marginBottom: 4, fontSize: 14, color: '#1C1C1E' }}>
-              {t('prompt_title') || 'Title'}
+            <div style={{ marginBottom: 4, fontSize: 14, color: 'var(--opt-text-primary)' }}>
+              {t('prompt_title') || 'Title'}}
             </div>
             <Input
               value={promptTitle}
@@ -398,8 +398,8 @@ const AIAndTranslation: React.FC = () => {
             />
           </div>
           <div>
-            <div style={{ marginBottom: 4, fontSize: 14, color: '#1C1C1E' }}>
-              {t('prompt_content') || 'Content'}
+            <div style={{ marginBottom: 4, fontSize: 14, color: 'var(--opt-text-primary)' }}>
+              {t('prompt_content') || 'Content'}}
             </div>
             <Input.TextArea
               value={promptContent}

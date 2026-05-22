@@ -585,4 +585,6 @@ export default {
   "notif_click_to_join": "คลิกเพื่อเข้าร่วมการประชุม",
   "notif_join_btn": "เข้าร่วมการประชุม",
   "notif_test_title": "📅 การแจ้งเตือนทดสอบ",
+  "switch_to_dark_mode": "โหมดมืด",
+  "switch_to_light_mode": "โหมดสว่าง",
 };

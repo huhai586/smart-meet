@@ -716,4 +716,6 @@ export default {
   "notif_click_to_join": "点击此通知加入会议",
   "notif_join_btn": "加入会议",
   "notif_test_title": "📅 测试会议提醒",
+  "switch_to_dark_mode": "深色模式",
+  "switch_to_light_mode": "浅色模式",
 };

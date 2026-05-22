@@ -313,4 +313,74 @@
       border-top: none;
     }
   }
-} 
+}
+
+// ─── Dark Mode ────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .extension-container {
+    .page-header {
+      border-bottom-color: #2d3340;
+
+      h3.ant-typography { color: #e2e8f0; }
+      .ant-typography { color: #94a3b8; }
+    }
+
+    .highlight-setting {
+      .highlight-section {
+        background: #1c2028;
+        border-color: #2d3340;
+        box-shadow: none;
+
+        &:hover {
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+          border-color: #3d4758;
+        }
+
+        .highlight-header { color: #e2e8f0; }
+        .highlight-description { color: #94a3b8; }
+
+        .highlight-content {
+          .ant-tag {
+            border-color: #2d3340;
+            background: #252b38;
+            color: #94a3b8;
+
+            &:hover {
+              border-color: #4a9eff;
+              color: #4a9eff;
+              background: #1e2d4a;
+            }
+          }
+
+          .add-more {
+            color: #4a9eff;
+            background: #1e2d4a;
+            border-color: #4a9eff;
+
+            &:hover {
+              background: #4a9eff;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .backup-restore-container {
+    background: #1c2028;
+    border-color: #2d3340;
+
+    .back-up-and-restore .highlight-section {
+      border-color: #2d3340;
+    }
+  }
+
+  .visibility-item {
+    background: #252b38;
+
+    &:hover { background: #2d3340; }
+
+    .visibility-label { color: #e2e8f0; }
+  }
+}

@@ -517,3 +517,149 @@
     }
   }
 }
+
+// ============================================================
+// Dark Mode Overrides
+// ============================================================
+:root.dark-mode {
+  .ai-chat {
+    background: var(--opt-bg-page);
+
+    &__range-section {
+      background: var(--opt-bg-card);
+      border-bottom-color: var(--opt-border-divider);
+    }
+
+    &__range-label { color: var(--opt-text-secondary); }
+
+    &__range-picker-wrap {
+      .ant-picker-range {
+        border-color: var(--opt-border-subtle);
+        background: var(--opt-bg-page);
+      }
+    }
+
+    &__capsule {
+      background: rgba(26, 115, 232, 0.15);
+
+      &-icon { color: #4da3ff; }
+      &-text { color: #4da3ff; }
+      &-clear {
+        color: var(--opt-text-secondary);
+        &:hover { color: var(--opt-text-primary); }
+      }
+    }
+
+    &__messages {
+      &::-webkit-scrollbar-thumb { background: #3d4758; }
+    }
+
+    &__empty-state {
+      color: var(--opt-text-secondary);
+      &-title { color: var(--opt-text-tertiary); }
+      &-desc { color: var(--opt-text-secondary); }
+    }
+
+    &__bubble {
+      &--ai {
+        background: #2d3340;
+        color: var(--opt-text-primary);
+
+        code { background: rgba(255, 255, 255, 0.1); }
+        pre { background: rgba(255, 255, 255, 0.06); }
+      }
+
+      &--error {
+        background: rgba(255, 59, 48, 0.15);
+        color: #ff6b6b;
+        border-color: rgba(255, 59, 48, 0.3);
+      }
+    }
+
+    &__context-card {
+      background: rgba(45, 51, 64, 0.9);
+      border-color: var(--opt-border-subtle);
+      color: var(--opt-text-tertiary);
+
+      &-text { color: var(--opt-text-tertiary); }
+    }
+
+    &__thinking {
+      background: #2d3340;
+      span { background: #606878; }
+    }
+
+    &__input-bar {
+      background: rgba(28, 32, 40, 0.92);
+      border-top-color: var(--opt-border-divider);
+    }
+
+    &__textarea-wrap {
+      background: var(--opt-bg-page);
+
+      &:focus-within {
+        border-color: #1a73e8;
+        background: var(--opt-bg-card);
+      }
+
+      textarea {
+        color: var(--opt-text-primary);
+        &::placeholder { color: var(--opt-text-secondary); }
+      }
+    }
+
+    &__send-btn {
+      &--inactive {
+        background: #2d3340;
+        color: #606878;
+      }
+    }
+
+    &__provider-btn {
+      border-color: var(--opt-border-subtle);
+      background: var(--opt-bg-card);
+
+      &:hover {
+        border-color: var(--opt-border-divider);
+        background: var(--opt-bg-page);
+      }
+
+      &--open {
+        border-color: #1a73e8;
+        background: rgba(26, 115, 232, 0.12);
+      }
+    }
+
+    &__provider-popover {
+      background: rgba(28, 32, 40, 0.97);
+      border-color: var(--opt-border-subtle);
+
+      &__title { color: var(--opt-text-secondary); }
+
+      &__item {
+        &:hover { background: var(--opt-hover-clickable); }
+        &--active { background: rgba(26, 115, 232, 0.12); }
+        &:not(:last-child) { border-bottom-color: var(--opt-border-faint); }
+      }
+
+      &__name { color: var(--opt-text-primary); }
+
+      &__default {
+        background: #2d3340;
+        color: var(--opt-text-tertiary);
+      }
+
+      &__model { color: var(--opt-text-secondary); }
+    }
+
+    &__no-provider {
+      background: rgba(255, 200, 0, 0.08);
+      border-color: rgba(255, 200, 0, 0.2);
+      color: #d4a017;
+    }
+  }
+
+  .calendar-with-ai {
+    background: var(--opt-bg-page);
+  }
+}

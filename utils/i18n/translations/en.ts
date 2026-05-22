@@ -718,4 +718,6 @@ export default {
   "notif_click_to_join": "Click to join the meeting",
   "notif_join_btn": "Join Meeting",
   "notif_test_title": "📅 Test Meeting Reminder",
+  "switch_to_dark_mode": "Dark mode",
+  "switch_to_light_mode": "Light mode",
 };

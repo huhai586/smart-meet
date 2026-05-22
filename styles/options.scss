@@ -114,3 +114,70 @@ body {
     }
   }
 }
+
+// ─── Dark Mode ────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .options-wrapper {
+    background: #111318;
+  }
+
+  .options-card {
+    background: #1c2028;
+    border-color: #2d3340;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .options-container {
+    .content-area {
+      background: #161a21;
+    }
+
+    .form-container {
+      .form-group label {
+        color: #e2e8f0;
+      }
+
+      input {
+        background: #252b38;
+        border-color: #2d3340;
+        color: #e2e8f0;
+
+        &:focus {
+          border-color: #4a9eff;
+          box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+        }
+
+        &:hover {
+          border-color: #4a9eff;
+        }
+      }
+    }
+  }
+
+  // Ant Design message toast
+  .ant-message-notice-wrapper {
+    .ant-message-notice-content {
+      background: #252b38;
+      border: 0.5px solid #2d3340;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      color: #e2e8f0;
+
+      .ant-message-custom-content {
+        color: #e2e8f0;
+
+        .anticon-info-circle,
+        .anticon-check-circle {
+          color: #4ade80;
+        }
+
+        .anticon-close-circle {
+          color: #f87171;
+        }
+
+        .anticon-exclamation-circle {
+          color: #fbbf24;
+        }
+      }
+    }
+  }
+}

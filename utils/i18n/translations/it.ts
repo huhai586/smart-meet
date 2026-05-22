@@ -613,4 +613,6 @@ export default {
   "notif_click_to_join": "Clicca per partecipare alla riunione",
   "notif_join_btn": "Partecipa alla riunione",
   "notif_test_title": "📅 Promemoria riunione di prova",
+  "switch_to_dark_mode": "Modalità scura",
+  "switch_to_light_mode": "Modalità chiara",
 };

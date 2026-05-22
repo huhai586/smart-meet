@@ -1,9 +1,11 @@
 import {useState, useEffect, useRef} from "react";
 import './styles/options.scss';
 import './styles/sidebar.scss';
-import {message} from "antd";
+import './styles/theme-vars.scss';
+import { message, ConfigProvider, theme } from "antd";
 import './utils/dayjs-config'; // Import global dayjs configuration
 import { setDayjsLocale } from './utils/dayjs-config';
+import { useDarkMode } from '~/hooks/useDarkMode';
 import GoogleDriveIntegration from '~components/options/GoogleDriveIntegration';
 import Sidebar from '~components/options/Sidebar';
 import OptionsHeader from '~components/options/OptionsHeader';
@@ -60,6 +62,7 @@ const Options = () => {
       return ROUTE_MAPPING[hash] || '1'; // 返回对应的key，如果没有则使用默认值'1'
     });
     const { t: _t, langCode } = useI18n();
+    const { isDark } = useDarkMode();
     const [_messageApi, _contextHolder] = message.useMessage();
     const [devMode, setDevMode] = useState(() => {
         // Use URL hash as an optimistic hint so the Developer tab renders immediately
@@ -201,13 +204,16 @@ const Options = () => {
     // 如果是welcome页面，直接返回Welcome组件，不显示侧边栏
     if (activeKey === 'welcome') {
         return (
-            <GoogleAuthProvider>
-                <Welcome />
-            </GoogleAuthProvider>
+            <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
+                <GoogleAuthProvider>
+                    <Welcome />
+                </GoogleAuthProvider>
+            </ConfigProvider>
         );
     }
 
     return (
+        <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
         <GoogleAuthProvider>
             <div className="options-wrapper">
                 <div className="options-card">
@@ -226,6 +232,7 @@ const Options = () => {
                 </div>
             </div>
         </GoogleAuthProvider>
+        </ConfigProvider>
     );
 };
 

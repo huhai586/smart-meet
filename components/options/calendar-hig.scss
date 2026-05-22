@@ -361,3 +361,76 @@
     flex-shrink: 0;
   }
 }
+
+// ─── Dark Mode ────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .calendar-hig {
+    background: #161a21;
+
+    &__search-wrap {
+      background: #252b38;
+
+      input {
+        color: #e2e8f0;
+
+        &::placeholder { color: #606878; }
+      }
+
+      .search-icon { color: #606878; }
+      .search-clear { color: #606878; }
+    }
+
+    &__month-header { color: #606878; }
+
+    &__month-list {
+      background: #1c2028;
+    }
+
+    &__date-row {
+      &:not(:last-child)::after { background: #2d3340; }
+
+      &:active { background: #252b38; }
+
+      @media (hover: hover) {
+        &:hover { background: #252b38; }
+      }
+    }
+
+    &__day-number { color: #e2e8f0; }
+
+    &__date-full { color: #e2e8f0; }
+
+    &__date-badge {
+      background: #2d3340;
+      color: #606878;
+    }
+
+    &__delete-btn {
+      color: #4a5568;
+    }
+
+    &__preview-list {
+      background: #252b38;
+      border-top-color: #2d3340;
+    }
+
+    &__preview-item {
+      &:not(:last-child) { border-bottom-color: #2d3340; }
+      &:hover { background: #2d3340; }
+    }
+
+    &__preview-speaker { color: #606878; }
+    &__preview-text { color: #94a3b8; }
+  }
+
+  .calendar-record-modal {
+    &__record {
+      border-bottom-color: #2d3340;
+
+      &--highlighted { background: #1e2d4a; }
+    }
+
+    &__record-content { color: #e2e8f0; }
+    &__record-time { color: #606878; }
+  }
+}

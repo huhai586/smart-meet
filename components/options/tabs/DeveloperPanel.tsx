@@ -25,7 +25,7 @@ const HeaderLeft = styled.div``;
 const PageTitle = styled.h1`
   font-size: 28px;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   letter-spacing: -0.5px;
   margin: 0 0 4px;
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
@@ -61,9 +61,9 @@ const SectionLabel = styled.div`
 `;
 
 const Card = styled.div`
-  background: #fff;
+  background: var(--opt-bg-card);
   border-radius: 12px;
-  border: 0.5px solid rgba(60, 60, 67, 0.14);
+  border: 0.5px solid var(--opt-border-subtle);
   overflow: hidden;
 `;
 
@@ -72,14 +72,14 @@ const CardHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 12px 16px;
-  border-bottom: 0.5px solid rgba(60, 60, 67, 0.1);
-  background: rgba(0, 0, 0, 0.016);
+  border-bottom: 0.5px solid var(--opt-border-faint);
+  background: var(--opt-dev-header-bg);
 `;
 
 const CardTitle = styled.span`
   font-size: 13px;
   font-weight: 500;
-  color: #3A3A3C;
+  color: var(--opt-dev-card-title);
   font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
 `;
 
@@ -92,7 +92,7 @@ const JsonViewport = styled.div`
   padding: 16px;
   overflow: auto;
   max-height: 600px;
-  background: #FAFAFA;
+  background: var(--opt-dev-json-bg);
 
   &::-webkit-scrollbar {
     width: 6px;
@@ -128,9 +128,9 @@ const ColToggle = styled.span`
   font-size: 9px;
   cursor: pointer;
   user-select: none;
-  color: #8E8E93;
+  color: var(--opt-text-secondary);
   text-align: center;
-  &:hover { color: #3A3A3C; }
+  &:hover { color: var(--opt-text-primary); }
 `;
 
 const ColGhost = styled.span`display: inline-block; width: 14px;`;
@@ -374,7 +374,7 @@ const SyncInfo = styled.div`
 const SyncLabel = styled.span`
   font-size: 13px;
   font-weight: 500;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
 `;
 
 const SyncMeta = styled.span<{ $color?: string }>`

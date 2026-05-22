@@ -534,3 +534,94 @@
     }
   }
 }
+
+// ─── Dark Mode ────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .calendar-sync-page {
+    .page-header {
+      .page-title { color: #e2e8f0; }
+      .page-desc { color: #606878; }
+    }
+
+    .connection-card,
+    .settings-card,
+    .sync-content-card,
+    .manual-sync-card {
+      background: #1c2028;
+      border-color: #2d3340;
+
+      .card-title { color: #e2e8f0; }
+    }
+
+    .connection-card {
+      .connection-status {
+        background: #252b38;
+
+        .calendar-icon-wrapper {
+          background: #1c2028;
+          border-color: #2d3340;
+        }
+
+        .status-info {
+          .status-label { color: #e2e8f0; }
+          .status-desc { color: #606878; }
+        }
+      }
+
+      .connect-button.connected {
+        background: #252b38;
+        color: #94a3b8;
+        border-color: #2d3340;
+      }
+    }
+
+    .settings-card {
+      .setting-item {
+        border-bottom-color: #2d3340;
+
+        .setting-icon { color: #606878; }
+        .setting-label { color: #e2e8f0; }
+        .setting-desc { color: #606878; }
+      }
+    }
+
+    .sync-content-card {
+      .content-item {
+        color: #e2e8f0;
+      }
+
+      .event-item {
+        &:hover { background: #252b38; }
+
+        .event-title { color: #e2e8f0; }
+        .event-meta-item { color: #606878; }
+      }
+
+      .illustration-placeholder { background: #252b38; }
+    }
+
+    .manual-sync-card {
+      .last-sync-time { color: #606878; }
+
+      .event-item {
+        &:hover { background: #252b38; }
+        border-bottom-color: #2d3340;
+
+        .event-title { color: #e2e8f0; }
+        .event-meta-item { color: #606878; }
+      }
+
+      .sync-status-banner {
+        &.success { background: rgba(34, 197, 94, 0.1); color: #4ade80; }
+        &.error { background: rgba(239, 68, 68, 0.1); color: #f87171; }
+        &.syncing { background: #1e2d4a; color: #93beff; }
+      }
+    }
+
+    .tip-bar {
+      background: #1e2d4a;
+      border-color: #2d4a7a;
+      .tip-content { color: #93beff; }
+    }
+  }
+}

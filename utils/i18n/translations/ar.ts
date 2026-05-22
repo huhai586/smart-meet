@@ -585,4 +585,6 @@ export default {
   "notif_click_to_join": "انقر للانضمام إلى الاجتماع",
   "notif_join_btn": "انضم إلى الاجتماع",
   "notif_test_title": "📅 تذكير اجتماع تجريبي",
+  "switch_to_dark_mode": "الوضع المظلم",
+  "switch_to_light_mode": "الوضع الفاتح",
 };

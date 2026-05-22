@@ -164,4 +164,66 @@
     width: 220px;
     min-width: 220px;
   }
+}
+
+// ─── Dark Mode ────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .sidebar {
+    background: #1c2028;
+    border-right-color: #2d3340;
+    color: #e2e8f0;
+
+    .sidebar-menu {
+      .menu-category {
+        .category-title {
+          color: #4a5568;
+        }
+
+        .menu-item {
+          color: #94a3b8;
+
+          &:hover {
+            background: #252b38;
+            color: #e2e8f0;
+
+            .icon { color: #94a3b8; }
+          }
+
+          &.active {
+            background: #1e2d4a;
+            color: #4a9eff;
+
+            .icon { color: #4a9eff; }
+          }
+
+          &.active:hover .icon { color: #4a9eff; }
+
+          .icon {
+            color: #4a5568;
+          }
+
+          &[data-key='dev'] {
+            color: #e09a3a;
+            .icon { color: #e09a3a; }
+
+            &:hover { background: #2a2410; }
+
+            &.active {
+              background: #2a2010;
+              color: #e09a3a;
+              .icon { color: #e09a3a; }
+            }
+          }
+        }
+      }
+    }
+
+    .sidebar-footer {
+      border-top-color: #2d3340;
+
+      .version-info {
+        .version-number { color: #94a3b8; }
+      }
+    }
+  }
 } 

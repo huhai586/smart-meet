@@ -585,4 +585,6 @@ export default {
   "notif_click_to_join": "मीटिंग में शामिल होने के लिए क्लिक करें",
   "notif_join_btn": "मीटिंग में शामिल हों",
   "notif_test_title": "📅 टेस्ट मीटिंग रिमाइंडर",
+  "switch_to_dark_mode": "डार्क मोड",
+  "switch_to_light_mode": "लाइट मोड",
 };

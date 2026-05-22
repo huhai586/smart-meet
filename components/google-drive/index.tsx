@@ -25,7 +25,7 @@ const LargeTitle = styled.h1`
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', 'Inter', sans-serif;
   font-size: 28px;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   letter-spacing: -0.5px;
   margin: 0;
   line-height: 1.2;
@@ -66,7 +66,7 @@ const AppleHeadline = styled.h2`
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', 'Inter', sans-serif;
   font-size: 22px;
   font-weight: 600;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   margin: 0 0 8px;
   letter-spacing: -0.3px;
   line-height: 1.3;
@@ -84,7 +84,7 @@ const AppleBody = styled.p`
 const AppleSeparator = styled.div`
   width: 100%;
   height: 0.5px;
-  background: rgba(60, 60, 67, 0.18);
+  background: var(--opt-border-subtle);
   margin: 0 0 0;
 `;
 

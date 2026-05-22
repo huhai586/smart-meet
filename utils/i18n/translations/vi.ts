@@ -606,4 +606,6 @@ export default {
   "notif_click_to_join": "Nhấp để tham gia cuộc họp",
   "notif_join_btn": "Tham gia cuộc họp",
   "notif_test_title": "📅 Nhắc nhở thử nghiệm",
+  "switch_to_dark_mode": "Chế độ tối",
+  "switch_to_light_mode": "Chế độ sáng",
 };

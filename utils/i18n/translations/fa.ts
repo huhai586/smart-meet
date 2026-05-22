@@ -632,4 +632,6 @@ export default {
   "notif_click_to_join": "برای پیوستن به جلسه کلیک کنید",
   "notif_join_btn": "پیوستن به جلسه",
   "notif_test_title": "📅 یادآوری جلسه آزمایشی",
+  "switch_to_dark_mode": "حالت تاریک",
+  "switch_to_light_mode": "حالت روشن",
 };

@@ -1,0 +1,45 @@
+// Design tokens for the options page styled-components.
+// Light defaults live on :root; dark overrides live on :root.dark-mode.
+// Styled-components reference these via var(--opt-*).
+
+:root {
+  --opt-bg-card:          #fff;
+  --opt-bg-page:          #F2F2F7;
+  --opt-text-primary:     #1C1C1E;
+  --opt-text-secondary:   #8E8E93;
+  --opt-text-tertiary:    #3C3C43;
+  --opt-border-subtle:    rgba(60, 60, 67, 0.14);
+  --opt-border-divider:   rgba(60, 60, 67, 0.12);
+  --opt-border-faint:     rgba(60, 60, 67, 0.10);
+  --opt-hover-clickable:  rgba(0, 0, 0, 0.03);
+  --opt-hover-default:    rgba(0, 0, 0, 0.018);
+  --opt-segment-bg:       #E5E5EA;
+  --opt-segment-active:   #FFFFFF;
+  --opt-segment-text-on:  #1C1C1E;
+  --opt-segment-text-off: #3C3C43;
+  --opt-navbar-bg:        rgba(255, 255, 255, 0.92);
+  --opt-dev-json-bg:      #FAFAFA;
+  --opt-dev-header-bg:    rgba(0, 0, 0, 0.016);
+  --opt-dev-card-title:   #3A3A3C;
+}
+
+:root.dark-mode {
+  --opt-bg-card:          #1c2028;
+  --opt-bg-page:          #161a21;
+  --opt-text-primary:     #e2e8f0;
+  --opt-text-secondary:   #606878;
+  --opt-text-tertiary:    #94a3b8;
+  --opt-border-subtle:    rgba(255, 255, 255, 0.08);
+  --opt-border-divider:   rgba(255, 255, 255, 0.06);
+  --opt-border-faint:     rgba(255, 255, 255, 0.05);
+  --opt-hover-clickable:  rgba(255, 255, 255, 0.06);
+  --opt-hover-default:    rgba(255, 255, 255, 0.03);
+  --opt-segment-bg:       #2d3340;
+  --opt-segment-active:   #3d4758;
+  --opt-segment-text-on:  #e2e8f0;
+  --opt-segment-text-off: #94a3b8;
+  --opt-navbar-bg:        rgba(28, 32, 40, 0.92);
+  --opt-dev-json-bg:      #161a21;
+  --opt-dev-header-bg:    rgba(255, 255, 255, 0.04);
+  --opt-dev-card-title:   #94a3b8;
+}

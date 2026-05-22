@@ -36,7 +36,7 @@ const PageHeaderBlock = styled.div`
 const HistPageTitle = styled.h1`
   font-size: 28px;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   letter-spacing: -0.5px;
   margin: 0 0 4px;
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
@@ -58,7 +58,7 @@ const PageWrapper = styled.div`
   max-height: 900px;
   min-height: 560px;
   font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-  background: #F2F2F7;
+  background: var(--opt-bg-page);
   border-radius: 16px;
   overflow: hidden;
   margin: -4px -4px 0;
@@ -70,10 +70,10 @@ const NavBar = styled.div`
   display: flex;
   align-items: center;
   padding: 10px 16px;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--opt-navbar-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 0.5px solid rgba(60, 60, 67, 0.12);
+  border-bottom: 0.5px solid var(--opt-border-divider);
   flex-shrink: 0;
   gap: 12px;
 `;
@@ -82,14 +82,14 @@ const NavTitle = styled.div`
   flex: 1;
   font-size: 15px;
   font-weight: 600;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   text-align: center;
 `;
 
 /* Segment control */
 const SegmentWrap = styled.div`
   display: flex;
-  background: #E5E5EA;
+  background: var(--opt-segment-bg);
   border-radius: 9px;
   padding: 2px;
   gap: 0;
@@ -104,12 +104,12 @@ const SegBtn = styled.button<{ $active: boolean }>`
   cursor: pointer;
   transition: background 0.15s, color 0.15s, box-shadow 0.15s;
   font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif;
-  background: ${({ $active }) => ($active ? '#FFFFFF' : 'transparent')};
-  color: ${({ $active }) => ($active ? '#1C1C1E' : '#3C3C43')};
+  background: ${({ $active }) => ($active ? 'var(--opt-segment-active)' : 'transparent')};
+  color: ${({ $active }) => ($active ? 'var(--opt-segment-text-on)' : 'var(--opt-segment-text-off)')};
   box-shadow: ${({ $active }) => ($active ? '0 1px 3px rgba(0,0,0,0.12)' : 'none')};
 
   &:hover:not([style*="background:#FFFFFF"]) {
-    color: #1C1C1E;
+    color: var(--opt-text-primary);
   }
 `;
 

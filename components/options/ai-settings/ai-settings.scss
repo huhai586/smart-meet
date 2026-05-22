@@ -676,3 +676,148 @@ $font-stack: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont,
     }
   }
 }
+
+// ============================================================
+// Dark Mode Overrides
+// ============================================================
+:root.dark-mode {
+  .ai-settings {
+    background: var(--opt-bg-page);
+  }
+
+  .provider-selector {
+    background: rgba(28, 32, 40, 0.85);
+    border-right-color: var(--opt-border-subtle);
+
+    &__search {
+      border-bottom-color: var(--opt-border-divider);
+
+      .ant-input-affix-wrapper {
+        background: var(--opt-bg-page) !important;
+        .ant-input { color: var(--opt-text-primary) !important; }
+      }
+    }
+
+    &__category-label { color: var(--opt-text-secondary); }
+
+    &__add-custom {
+      border-top-color: var(--opt-border-divider);
+      .ant-btn {
+        border-color: var(--opt-border-subtle);
+        color: var(--opt-text-secondary);
+      }
+    }
+  }
+
+  .provider-item {
+    &:hover { background: var(--opt-hover-default); }
+    &__name { color: var(--opt-text-primary); }
+    &__icon { background: var(--opt-bg-card); }
+  }
+
+  .provider-config {
+    background: var(--opt-bg-page);
+
+    &__header {
+      background: rgba(28, 32, 40, 0.92);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border-bottom-color: var(--opt-border-divider);
+    }
+
+    &__icon-squircle { background: var(--opt-bg-card); }
+    &__title { color: var(--opt-text-primary); }
+    &__subtitle { color: var(--opt-text-secondary); }
+
+    &__more-btn:hover {
+      background: var(--opt-hover-clickable);
+      color: var(--opt-text-primary);
+    }
+
+    &__group-header { color: var(--opt-text-secondary); }
+    &__group-footer { color: var(--opt-text-secondary); }
+
+    &__list {
+      background: var(--opt-bg-card);
+      box-shadow: none;
+      border: 0.5px solid var(--opt-border-subtle);
+    }
+
+    &__row {
+      border-bottom-color: var(--opt-border-faint);
+    }
+
+    &__row-label { color: var(--opt-text-primary); }
+
+    &__row-control {
+      .ant-input,
+      .ant-input-affix-wrapper {
+        background: var(--opt-bg-page) !important;
+        color: var(--opt-text-primary) !important;
+        &:hover { background: var(--opt-hover-clickable) !important; }
+        .ant-input { color: var(--opt-text-primary) !important; }
+      }
+
+      .ant-select {
+        .ant-select-selector {
+          background: var(--opt-bg-page) !important;
+          color: var(--opt-text-primary) !important;
+        }
+        &:hover .ant-select-selector {
+          background: var(--opt-hover-clickable) !important;
+        }
+      }
+    }
+
+    &__test-row {
+      border-top-color: var(--opt-border-faint);
+      &--loading {
+        background: var(--opt-bg-card);
+        color: var(--opt-text-secondary);
+      }
+    }
+  }
+
+  .custom-provider-dialog {
+    .ant-modal-content {
+      background: #1c2028;
+      color: var(--opt-text-primary);
+    }
+
+    .ant-modal-header {
+      background: #1c2028;
+      .ant-modal-title { color: var(--opt-text-primary); }
+    }
+
+    .ant-modal-close { color: var(--opt-text-secondary); }
+
+    &__field {
+      label { color: var(--opt-text-secondary); }
+
+      .ant-input {
+        background: var(--opt-bg-page) !important;
+        border: 1px solid var(--opt-border-subtle) !important;
+        color: var(--opt-text-primary) !important;
+        box-shadow: none !important;
+
+        &:focus {
+          background: var(--opt-bg-card) !important;
+          border-color: #1a73e8 !important;
+          box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.25) !important;
+        }
+
+        &::placeholder { color: var(--opt-text-secondary) !important; }
+      }
+
+      &-hint { color: var(--opt-text-secondary); }
+    }
+
+    .ant-modal-footer {
+      .ant-btn-default {
+        background: var(--opt-bg-page);
+        border-color: var(--opt-border-subtle);
+        color: var(--opt-text-primary);
+      }
+    }
+  }
+}

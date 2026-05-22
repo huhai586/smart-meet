@@ -31,7 +31,7 @@ const PageHeader = styled.div`
 const PageTitle = styled.h1`
   font-size: 28px;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   letter-spacing: -0.5px;
   margin: 0 0 4px;
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
@@ -54,9 +54,9 @@ const SectionLabel = styled.div<{ $danger?: boolean }>`
 `;
 
 const SettingGroup = styled.div`
-  background: #fff;
+  background: var(--opt-bg-card);
   border-radius: 12px;
-  border: 0.5px solid rgba(60, 60, 67, 0.14);
+  border: 0.5px solid var(--opt-border-subtle);
   overflow: hidden;
   margin-bottom: 8px;
 `;
@@ -65,15 +65,15 @@ const SettingRow = styled.div<{ $last?: boolean; $clickable?: boolean; $danger?:
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  background: #fff;
-  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid rgba(60, 60, 67, 0.12)')};
+  background: var(--opt-bg-card);
+  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid var(--opt-border-divider)')};
   gap: 12px;
   transition: background 0.12s ease;
   cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
 
   &:hover {
     background: ${({ $clickable }) =>
-      $clickable ? 'rgba(0, 0, 0, 0.03)' : 'rgba(0, 0, 0, 0.018)'};
+      $clickable ? 'var(--opt-hover-clickable)' : 'var(--opt-hover-default)'};
   }
 `;
 
@@ -98,7 +98,7 @@ const RowContent = styled.div`
 const RowTitle = styled.div<{ $danger?: boolean }>`
   font-size: 15px;
   font-weight: 400;
-  color: ${({ $danger }) => ($danger ? '#FF3B30' : '#1C1C1E')};
+  color: ${({ $danger }) => ($danger ? '#FF3B30' : 'var(--opt-text-primary)')};
   line-height: 1.3;
 `;
 
@@ -126,7 +126,7 @@ const Chevron = styled(RightOutlined)`
 const StepperWrap = styled.div`
   display: flex;
   align-items: center;
-  border: 0.5px solid rgba(60, 60, 67, 0.3);
+  border: 0.5px solid var(--opt-border-subtle);
   border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
@@ -154,11 +154,11 @@ const StepperValue = styled.div`
   padding: 0 10px;
   font-size: 14px;
   font-weight: 500;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   min-width: 46px;
   text-align: center;
-  border-left: 0.5px solid rgba(60, 60, 67, 0.2);
-  border-right: 0.5px solid rgba(60, 60, 67, 0.2);
+  border-left: 0.5px solid var(--opt-border-divider);
+  border-right: 0.5px solid var(--opt-border-divider);
   height: 28px;
   display: flex;
   align-items: center;

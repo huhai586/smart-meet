@@ -93,3 +93,45 @@
     }
   }
 }
+
+// ─── Dark Mode ────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .options-header {
+    background: #1c2028;
+    border-bottom-color: #2d3340;
+
+    .header-text {
+      .header-title {
+        color: #e2e8f0;
+      }
+
+      .header-subtitle {
+        color: #606878;
+      }
+    }
+
+    .header-right {
+      .header-action-btn {
+        color: #94a3b8;
+        border-color: #2d3340;
+
+        &:hover {
+          background: #252b38;
+          border-color: #3d4758;
+          color: #e2e8f0;
+        }
+      }
+
+      .header-icon-btn {
+        color: #94a3b8;
+        border-color: #2d3340;
+
+        &:hover {
+          background: #252b38;
+          border-color: #3d4758;
+          color: #e2e8f0;
+        }
+      }
+    }
+  }
+}

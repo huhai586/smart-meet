@@ -630,4 +630,6 @@ export default {
   "notif_click_to_join": "クリックして会議に参加",
   "notif_join_btn": "会議に参加",
   "notif_test_title": "📅 テスト会議リマインダー",
+  "switch_to_dark_mode": "ダークモード",
+  "switch_to_light_mode": "ライトモード",
 };

@@ -24,8 +24,8 @@ export const ServiceListItem = styled.div<{
   display: flex;
   align-items: center;
   transition: all 0.2s ease;
-  background: ${props => props.selected ? 'rgba(26, 115, 232, 0.1)' : 'white'};
-  border: 1px solid ${props => props.selected ? '#1a73e8' : '#f0f0f0'};
+  background: ${props => props.selected ? 'rgba(26, 115, 232, 0.1)' : 'var(--opt-bg-card)'};
+  border: 1px solid ${props => props.selected ? '#1a73e8' : 'var(--opt-border-subtle)'};
   position: relative;
   overflow: hidden;
   
@@ -38,9 +38,9 @@ export const ServiceListItem = styled.div<{
 export const ConfigArea = styled.div`
   padding: 24px;
   border-radius: 12px;
-  background: #fff;
+  background: var(--opt-bg-card);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  border: 1px solid #f0f0f0;
+  border: 1px solid var(--opt-border-subtle);
 `;
 
 export const StatusBadge = styled.div<{ isSuccess: boolean }>`

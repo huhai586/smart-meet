@@ -1,7 +1,8 @@
 import React from 'react';
-import { QuestionCircleOutlined, BulbOutlined } from '@ant-design/icons';
+import { QuestionCircleOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
 import useI18n from '~utils/i18n';
 import googleMeetIcon from '~images/google-meeting-icon.png';
+import { useDarkMode } from '~hooks/useDarkMode';
 import '~styles/options-header.scss';
 
 interface OptionsHeaderProps {
@@ -10,6 +11,7 @@ interface OptionsHeaderProps {
 
 const OptionsHeader: React.FC<OptionsHeaderProps> = ({ onNavigate }) => {
   const { t } = useI18n();
+  const { isDark, toggle } = useDarkMode();
 
   const handleHelpCenter = () => {
     if (onNavigate) {
@@ -37,8 +39,8 @@ const OptionsHeader: React.FC<OptionsHeaderProps> = ({ onNavigate }) => {
           <QuestionCircleOutlined />
           <span>{t('help_center')}</span>
         </button>
-        <button className="header-icon-btn">
-          <BulbOutlined />
+        <button className="header-icon-btn" onClick={toggle} aria-label={isDark ? t('switch_to_light_mode') : t('switch_to_dark_mode')}>
+          {isDark ? <BulbFilled /> : <BulbOutlined />}
         </button>
       </div>
     </div>

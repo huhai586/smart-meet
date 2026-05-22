@@ -613,4 +613,6 @@ export default {
   "notif_click_to_join": "Clique para entrar na reunião",
   "notif_join_btn": "Entrar na reunião",
   "notif_test_title": "📅 Lembrete de reunião de teste",
+  "switch_to_dark_mode": "Modo escuro",
+  "switch_to_light_mode": "Modo claro",
 };

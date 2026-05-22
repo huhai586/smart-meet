@@ -47,7 +47,7 @@ const PageHeader = styled.div`
 const PageTitle = styled.h1`
   font-size: 28px;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   letter-spacing: -0.5px;
   margin: 0 0 4px;
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
@@ -70,9 +70,9 @@ const SectionLabel = styled.div`
 `;
 
 const SettingGroup = styled.div`
-  background: #fff;
+  background: var(--opt-bg-card);
   border-radius: 12px;
-  border: 0.5px solid rgba(60, 60, 67, 0.14);
+  border: 0.5px solid var(--opt-border-subtle);
   overflow: hidden;
   margin-bottom: 8px;
 `;
@@ -81,14 +81,14 @@ const SettingRow = styled.div<{ $last?: boolean; $clickable?: boolean }>`
   display: flex;
   align-items: center;
   padding: 12px 16px;
-  background: #fff;
-  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid rgba(60, 60, 67, 0.12)')};
+  background: var(--opt-bg-card);
+  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid var(--opt-border-divider)')};
   gap: 12px;
   transition: background 0.12s ease;
   cursor: ${({ $clickable }) => ($clickable ? 'pointer' : 'default')};
 
   &:hover {
-    background: ${({ $clickable }) => ($clickable ? 'rgba(0, 0, 0, 0.03)' : 'rgba(0, 0, 0, 0.018)')};
+    background: ${({ $clickable }) => ($clickable ? 'var(--opt-hover-clickable)' : 'var(--opt-hover-default)')};
   }
 `;
 
@@ -113,7 +113,7 @@ const RowContent = styled.div`
 const RowTitle = styled.div`
   font-size: 15px;
   font-weight: 400;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   line-height: 1.3;
 `;
 
@@ -135,8 +135,8 @@ const RowValue = styled.div`
 
 const SliderRow = styled.div<{ $last?: boolean }>`
   padding: 14px 16px;
-  background: #fff;
-  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid rgba(60, 60, 67, 0.12)')};
+  background: var(--opt-bg-card);
+  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid var(--opt-border-divider)')};
 `;
 
 const SliderLabel = styled.div`

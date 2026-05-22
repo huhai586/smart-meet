@@ -613,4 +613,6 @@ export default {
   "notif_click_to_join": "Klicken, um dem Meeting beizutreten",
   "notif_join_btn": "Meeting beitreten",
   "notif_test_title": "📅 Test-Meeting-Erinnerung",
+  "switch_to_dark_mode": "Dunkler Modus",
+  "switch_to_light_mode": "Heller Modus",
 };

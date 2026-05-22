@@ -109,6 +109,9 @@ export interface AppConfigData {
   // Meeting reminders
   meetingRemindersEnabled:   Field<boolean>;
   meetingReminderMinutes:    Field<number>;
+
+  // Appearance
+  darkMode: Field<boolean>;
 }
 
 export type AppConfigKey = keyof Omit<AppConfigData, '_schemaVersion'>;
@@ -154,6 +157,7 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
   calendarSyncRange:           '30days',
   meetingRemindersEnabled:     false,
   meetingReminderMinutes:      10,
+  darkMode:                    false,
 };
 
 // ─── Core helpers ─────────────────────────────────────────────────────────────
