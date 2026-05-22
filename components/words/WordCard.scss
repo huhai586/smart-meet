@@ -122,3 +122,22 @@
     }
   }
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .word-card {
+    background: var(--opt-bg-card);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.25);
+
+    .word-card-front {
+      background: var(--opt-bg-card);
+      .word-text { color: var(--opt-text-primary); }
+    }
+
+    .word-card-back {
+      background: #22293a;
+      .translation { color: var(--opt-text-tertiary); }
+      .more-btn { color: var(--opt-text-secondary); &:hover { color: #5b9cf6; } }
+    }
+  }
+}

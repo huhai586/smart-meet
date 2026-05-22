@@ -42,6 +42,33 @@ Rules:
 3. Is the change scoped — no unrelated refactors in the same diff?
 4. Are storage reads/writes using the correct helper (appConfig vs. direct local storage)?
 5. After editing, run `get_errors` to confirm no new TypeScript errors were introduced.
+6. **Does the new UI support both light AND dark mode?** Every new component, screen, or modal must work in both modes. Use `var(--opt-*)` CSS variables for all backgrounds, text, and borders in styled-components. Add `:root.dark-mode` overrides in SCSS files. Never ship hardcoded `#fff`, `#1C1C1E`, `rgba(60,60,67,…)`, or `#F2F2F7` in new code without a corresponding dark mode value.
+
+## Dark Mode System
+
+The project uses a CSS-class-based dark mode (`document.documentElement.classList` toggle `.dark-mode`) driven by `useDarkMode()` hook reading `appConfig.darkMode`.
+
+**CSS custom properties** (`styles/theme-vars.scss`) — use these in every styled-component:
+
+| Token | Light | Dark |
+|---|---|---|
+| `--opt-bg-card` | `#fff` | `#1c2028` |
+| `--opt-bg-page` | `#F2F2F7` | `#161a21` |
+| `--opt-text-primary` | `#1C1C1E` | `#e2e8f0` |
+| `--opt-text-secondary` | `#8E8E93` | `#606878` |
+| `--opt-text-tertiary` | `#3C3C43` | `#94a3b8` |
+| `--opt-border-subtle` | `rgba(60,60,67,0.14)` | `rgba(255,255,255,0.08)` |
+| `--opt-border-divider` | `rgba(60,60,67,0.12)` | `rgba(255,255,255,0.06)` |
+| `--opt-border-faint` | `rgba(60,60,67,0.10)` | `rgba(255,255,255,0.05)` |
+| `--opt-hover-clickable` | `rgba(0,0,0,0.03)` | `rgba(255,255,255,0.06)` |
+| `--opt-hover-default` | `rgba(0,0,0,0.018)` | `rgba(255,255,255,0.03)` |
+| `--opt-segment-bg` | `#E5E5EA` | `#2d3340` |
+| `--opt-segment-active` | `#FFFFFF` | `#3d4758` |
+| `--opt-navbar-bg` | `rgba(255,255,255,0.92)` | `rgba(28,32,40,0.92)` |
+
+**SCSS dark mode**: append `:root.dark-mode { … }` at end of each SCSS file with per-class overrides.
+
+**Pages wired for dark mode**: options (`options.tsx`), popup (`popup.tsx`). Wire new pages by importing `useDarkMode` and wrapping with `<ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>`.
 
 
 

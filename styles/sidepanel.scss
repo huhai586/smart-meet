@@ -244,3 +244,42 @@ body {
   from { opacity: 0; transform: scale(0.94) translateY(8px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .side-panel {
+    background: var(--opt-bg-page);
+
+    .ant-tabs-content {
+      &::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+      &::-webkit-scrollbar-track {
+        background-color: var(--opt-bg-page);
+      }
+    }
+
+    .message-item {
+      background: var(--opt-bg-card);
+      color: var(--opt-text-primary);
+
+      &:hover {
+        background: #22293a;
+      }
+
+      .time { color: var(--opt-text-secondary); }
+      .content { color: var(--opt-text-primary); }
+    }
+  }
+
+  .sp-disabled-banner__card {
+    background: #2a2000;
+    border-color: #5a4000;
+  }
+  .sp-disabled-banner__title { color: #fbbf24; }
+  .sp-disabled-banner__desc  { color: #d97706; }
+  .sp-disabled-banner__btn--secondary {
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+  }
+}

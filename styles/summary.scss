@@ -571,3 +571,82 @@
     }
   }
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .summaryContainer {
+    background: var(--opt-bg-page);
+  }
+
+  .message-user__bubble {
+    background: rgba(26, 115, 232, 0.15);
+    border-color: rgba(26, 115, 232, 0.3);
+    color: #93bbfd;
+  }
+  .message-user__icon { color: #5b9cf6; }
+  .message-user__time { color: var(--opt-text-secondary); }
+
+  .message-ai-meta__name { color: var(--opt-text-secondary); }
+  .message-ai-meta__time { color: var(--opt-text-secondary); }
+
+  .message-ai {
+    background: var(--opt-bg-card);
+    border-color: var(--opt-border-subtle);
+
+    &--error {
+      background: rgba(255, 107, 107, 0.05);
+      border-color: rgba(255, 107, 107, 0.2);
+    }
+
+    &--loading { border-color: rgba(26, 115, 232, 0.3); }
+
+    &__content {
+      color: var(--opt-text-tertiary);
+      h1, h2, h3, h4, h5, h6 { color: var(--opt-text-primary); }
+      hr { border-top-color: var(--opt-border-faint); }
+      code, pre { background: rgba(255, 255, 255, 0.07); }
+      blockquote {
+        background: rgba(26, 115, 232, 0.08);
+        color: var(--opt-text-tertiary);
+      }
+      table th, table td { border-color: var(--opt-border-subtle); }
+      table th { background: rgba(255, 255, 255, 0.05); }
+    }
+  }
+
+  .summary-error-card {
+    &__title { color: var(--opt-text-primary); }
+    &__desc  { color: var(--opt-text-secondary); }
+    &__pre   { background: #22293a; color: var(--opt-text-secondary); }
+    &__details-btn,
+    &__action-link { color: var(--opt-text-secondary); &:hover { color: var(--opt-text-tertiary); } }
+  }
+
+  .chat-input-pill {
+    background: var(--opt-bg-card);
+    border-color: var(--opt-border-subtle);
+    &:focus-within { border-color: #1a73e8; }
+
+    &__input {
+      color: var(--opt-text-primary);
+      &::placeholder { color: var(--opt-text-secondary); }
+    }
+
+    &__prompt {
+      background: rgba(26, 115, 232, 0.15);
+      color: #5b9cf6;
+      &:hover:not(:disabled) { background: rgba(26, 115, 232, 0.25); }
+    }
+  }
+
+  .prompt-picker {
+    &__item {
+      &:hover { background: var(--opt-hover-clickable); }
+      &--selected { background: rgba(26, 115, 232, 0.12); }
+      &-title { color: var(--opt-text-primary); }
+      &-preview { color: var(--opt-text-secondary); }
+    }
+    &__footer { border-top-color: var(--opt-border-faint); }
+    &__apply:disabled { background: #2d3340; }
+  }
+}

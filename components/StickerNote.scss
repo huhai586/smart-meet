@@ -123,3 +123,24 @@
         }
     }
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .sticker-note {
+    background: linear-gradient(135deg, #6b5a1a 0%, #7c6020 100%);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+    .sticker-note-header {
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+
+      .sticker-note-title { color: #fde68a; }
+      .sticker-note-close { color: #d4a843; &:hover { color: #fde68a; } }
+    }
+
+    .sticker-note-content {
+      color: #fde68a;
+      &::placeholder { color: rgba(253, 230, 138, 0.45); }
+    }
+  }
+}

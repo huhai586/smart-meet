@@ -296,4 +296,49 @@
       }
     }
   }
+}
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .word-detail-modal {
+    .ant-modal-header { border-bottom-color: var(--opt-border-faint); }
+
+    .ant-modal-body {
+      &::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.15); }
+    }
+
+    .loading-container .ant-typography { color: var(--opt-text-secondary); }
+
+    .word-detail-content {
+      .word-title { color: var(--opt-text-primary); }
+      .modal-title { color: var(--opt-text-primary); }
+
+      .meaning-card {
+        border-color: var(--opt-border-subtle);
+        background: var(--opt-bg-card);
+
+        &:hover { border-color: #1a73e8; }
+
+        .definition .ant-typography { color: var(--opt-text-primary); }
+
+        .example {
+          background: rgba(26, 115, 232, 0.08);
+          border-left-color: #1a73e8;
+          .ant-typography { color: var(--opt-text-tertiary); }
+        }
+
+        .synonyms {
+          .ant-typography { color: var(--opt-text-secondary); }
+          .synonym-tag {
+            color: var(--opt-text-tertiary);
+            background: #2d3340;
+            border-color: var(--opt-border-subtle);
+            &:hover { background: #3d4758; border-color: #1a73e8; color: #5b9cf6; }
+          }
+        }
+      }
+
+      .ant-typography.ant-typography-h4 { color: var(--opt-text-primary); }
+    }
+  }
 } 

@@ -34,3 +34,11 @@
     margin-top: 0;
   }
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .ant-empty {
+    .ant-empty-image .anticon { color: rgba(255, 255, 255, 0.2); }
+    .ant-empty-description { color: var(--opt-text-secondary); }
+  }
+}

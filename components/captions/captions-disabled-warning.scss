@@ -103,3 +103,20 @@
     }
   }
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .cdw-card {
+    background: var(--opt-bg-card);
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.08),
+      0 8px 32px rgba(0, 0, 0, 0.45);
+  }
+  .cdw-title { color: var(--opt-text-primary); }
+  .cdw-body  { color: var(--opt-text-tertiary); }
+  .cdw-btn--ghost {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--opt-text-tertiary);
+    &:hover { background: rgba(255, 255, 255, 0.12); }
+  }
+}

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { message, Tabs } from "antd";
+import { ConfigProvider, message, Tabs, theme } from "antd";
 import {
     FileDoneOutlined,
     HistoryOutlined, SketchOutlined,
 } from '@ant-design/icons';
 import './utils/dayjs-config'; // Import global dayjs configuration
+import { useDarkMode } from './hooks/useDarkMode';
 import useLoading from './hooks/useLoading';
 import Captions from "./components/captions/captions";
 import Words from "./components/words/words";
@@ -22,6 +23,7 @@ import { getConfigValue, setConfigValue, onConfigChanged } from './utils/appConf
 import dayjs from 'dayjs';
 
 import './styles/sidepanel.scss';
+import './styles/theme-vars.scss';
 
 /** Reads sidepanelPendingNav from storage on mount and navigates accordingly. */
 const PendingNavHandler: React.FC<{ setCurrent: (tab: string) => void }> = ({ setCurrent }) => {
@@ -49,6 +51,7 @@ interface CustomErrorEvent extends Event {
 }
 
 const SidePanel = () => {
+    const { isDark } = useDarkMode();
     const [messageApi] = message.useMessage();
     const [current, setCurrent] = useState('captions');
     const [loading] = useLoading();
@@ -241,6 +244,7 @@ const SidePanel = () => {
 
 
     return (
+        <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
         <DateProvider>
             <PendingNavHandler setCurrent={setCurrent} />
             <div className={'side-panel'}>
@@ -272,6 +276,7 @@ const SidePanel = () => {
                 />
             </div>
         </DateProvider>
+        </ConfigProvider>
     );
 };
 

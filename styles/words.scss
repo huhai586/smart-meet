@@ -82,3 +82,40 @@
     }
   }
 }
+
+// ── Dark mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  .words-container {
+    background: var(--opt-bg-page);
+
+    .header-title { color: var(--opt-text-primary); }
+    .header-subtitle { color: var(--opt-text-secondary); }
+
+    .reset-icon-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--opt-text-secondary);
+      &:hover {
+        background: rgba(255, 59, 48, 0.15);
+        color: #ff6b6b;
+      }
+    }
+  }
+}
+
+// ── Modal.confirm dark override (imperatively rendered, outside ConfigProvider) ─
+:root.dark-mode {
+  .ant-modal-confirm {
+    .ant-modal-content {
+      background: var(--opt-bg-card);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+    .ant-modal-confirm-title { color: var(--opt-text-primary); }
+    .ant-modal-confirm-content { color: var(--opt-text-tertiary); }
+    .ant-modal-confirm-btns .ant-btn-default {
+      background: #2d3340;
+      border-color: var(--opt-border-subtle);
+      color: var(--opt-text-primary);
+      &:hover { background: #3d4758; border-color: rgba(255,255,255,0.2); }
+    }
+  }
+}
