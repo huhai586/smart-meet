@@ -43,7 +43,7 @@ const ToolbarRow = styled.div`
 const ToolbarTitle = styled.h2`
   font-size: 20px;
   font-weight: 700;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   letter-spacing: -0.4px;
   margin: 0;
   font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;

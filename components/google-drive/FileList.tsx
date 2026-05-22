@@ -32,7 +32,7 @@ const SearchBar = styled.div`
 `;
 
 const ListContainer = styled.div`
-  background: #F2F2F7;
+  background: var(--opt-bg-page);
   border-radius: 12px;
   overflow: hidden;
 `;
@@ -41,13 +41,13 @@ const ListItem = styled.div<{ $last?: boolean }>`
   display: flex;
   align-items: center;
   padding: 11px 16px;
-  background: #fff;
-  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid rgba(60, 60, 67, 0.12)')};
+  background: var(--opt-bg-card);
+  border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid var(--opt-border-divider)')};
   transition: background 0.12s ease;
   gap: 12px;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.025);
+    background: var(--opt-hover-default);
   }
 `;
 
@@ -72,7 +72,7 @@ const FileInfo = styled.div`
 const FileName = styled.div`
   font-size: 15px;
   font-weight: 600;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -95,7 +95,7 @@ const MoreButton = styled.button`
   border-radius: 14px;
   border: none;
   background: none;
-  color: #8E8E93;
+  color: var(--opt-text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -105,8 +105,8 @@ const MoreButton = styled.button`
   transition: background 0.12s ease, color 0.12s ease;
 
   &:hover {
-    background: rgba(60, 60, 67, 0.1);
-    color: #1C1C1E;
+    background: var(--opt-hover-clickable);
+    color: var(--opt-text-primary);
   }
 `;
 
@@ -114,7 +114,7 @@ const SpinWrapper = styled.div`
   display: flex;
   justify-content: center;
   padding: 32px 0;
-  background: #fff;
+  background: var(--opt-bg-card);
 `;
 
 /* ── Helpers ── */

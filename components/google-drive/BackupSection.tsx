@@ -14,7 +14,7 @@ interface BackupSectionProps {
 
 const DrawerBody = styled.div`
   padding: 0 0 24px;
-  background: #F2F2F7;
+  background: var(--opt-bg-page);
   font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
 `;
 
@@ -28,9 +28,9 @@ const SectionLabel = styled.div`
 `;
 
 const SettingGroup = styled.div`
-  background: #fff;
+  background: var(--opt-bg-card);
   border-radius: 12px;
-  border: 0.5px solid rgba(60, 60, 67, 0.14);
+  border: 0.5px solid var(--opt-border-subtle);
   overflow: hidden;
 `;
 
@@ -50,20 +50,20 @@ const SettingText = styled.div`
 const SettingTitle = styled.div`
   font-size: 15px;
   font-weight: 500;
-  color: #1C1C1E;
+  color: var(--opt-text-primary);
   line-height: 1.3;
 `;
 
 const SettingDesc = styled.div`
   font-size: 12px;
-  color: #8E8E93;
+  color: var(--opt-text-secondary);
   margin-top: 2px;
   line-height: 1.4;
 `;
 
 const SettingDivider = styled.div`
   height: 0.5px;
-  background: rgba(60, 60, 67, 0.12);
+  background: var(--opt-border-divider);
   margin: 0 16px;
 `;
 
@@ -131,10 +131,10 @@ const BackupSection: React.FC<BackupSectionProps> = ({ visible, onClose, onBacku
       height="auto"
       title={t('backup_title')}
       styles={{
-        body: { background: '#F2F2F7', padding: '0 20px' },
+        body: { background: 'var(--opt-bg-page)', padding: '0 20px' },
         header: {
-          background: '#F2F2F7',
-          borderBottom: '0.5px solid rgba(60, 60, 67, 0.18)',
+          background: 'var(--opt-bg-page)',
+          borderBottom: '0.5px solid var(--opt-border-divider)',
           fontFamily: "-apple-system, 'SF Pro Display', sans-serif",
           fontWeight: 600,
           fontSize: 17,

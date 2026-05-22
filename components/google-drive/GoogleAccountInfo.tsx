@@ -19,7 +19,7 @@ const AvatarTrigger = styled.button`
   font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
 
   &:hover {
-    background: rgba(60, 60, 67, 0.08);
+    background: var(--opt-hover-default);
   }
 `;
 
@@ -71,7 +71,7 @@ const GoogleAccountInfo: React.FC = () => {
             fontWeight: 600,
             fontSize: 14,
             lineHeight: '1.3',
-            color: '#1C1C1E',
+            color: 'var(--opt-text-primary)',
             fontFamily: "-apple-system, 'SF Pro Text', sans-serif",
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -82,7 +82,7 @@ const GoogleAccountInfo: React.FC = () => {
           <Text type="secondary" style={{ fontSize: 12 }}>{user.email}</Text>
         </div>
       </UserInfoRow>
-      <Divider style={{ margin: 0, borderColor: 'rgba(60, 60, 67, 0.12)' }} />
+      <Divider style={{ margin: 0, borderColor: 'var(--opt-border-divider)' }} />
       <div style={{ padding: '4px 0' }}>
         <SignOutBtn onClick={() => logout()}>
           <LogoutOutlined />
@@ -106,7 +106,7 @@ const GoogleAccountInfo: React.FC = () => {
         <span style={{
           fontSize: 13,
           fontWeight: 500,
-          color: '#1C1C1E',
+          color: 'var(--opt-text-primary)',
           maxWidth: 80,
           overflow: 'hidden',
           textOverflow: 'ellipsis',

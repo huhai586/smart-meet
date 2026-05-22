@@ -1137,3 +1137,240 @@ body {
     }
   }
 }
+
+// ── Dark Mode ─────────────────────────────────────────────────────────────────
+:root.dark-mode {
+  body { background: #161a21; }
+
+  .popup-root { background: #161a21; }
+
+  // Header
+  .ph-header {
+    border-bottom-color: rgba(255, 255, 255, 0.07);
+    &__title { color: #e2e8f0; }
+    &__menu {
+      color: #606878;
+      &:hover { background: rgba(26, 115, 232, 0.12); color: #4da3ff; }
+      &:active { background: rgba(26, 115, 232, 0.2); color: #4da3ff; }
+    }
+  }
+
+  // Tab bar
+  .ph-tabs {
+    border-bottom-color: rgba(255, 255, 255, 0.07);
+    &__tab {
+      color: #3d4758;
+      &:hover { color: #606878; }
+      &.active {
+        color: #4da3ff;
+        &::after { background: #4da3ff; }
+      }
+    }
+  }
+
+  // Body card
+  .popup-body {
+    background: #1c2028;
+    border-color: rgba(255, 255, 255, 0.07);
+  }
+
+  .ph-section-label { color: #606878; }
+  .ph-loading { color: #606878; }
+
+  // Buttons
+  .ph-btn {
+    &--ghost {
+      background: #252b38;
+      color: #94a3b8;
+      &:hover { background: #2d3340; }
+    }
+    &--outline {
+      color: #4da3ff;
+      border-color: #4da3ff;
+      &:hover { background: rgba(26, 115, 232, 0.12); }
+    }
+    &--secondary {
+      background: #252b38;
+      color: #94a3b8;
+      border-color: rgba(255, 255, 255, 0.08);
+      &:hover { background: #2d3340; }
+    }
+  }
+
+  .ph-btn-sm {
+    background: #252b38;
+    color: #94a3b8;
+    &:hover { background: #2d3340; }
+  }
+
+  // Badges
+  .ph-badge {
+    &--green { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+    &--blue  { background: rgba(26, 115, 232, 0.12); color: #4da3ff; }
+    &--gray  { background: #252b38; color: #8a94a6; }
+  }
+
+  // Empty state
+  .ph-empty {
+    color: #8a94a6;
+    &__icon { color: #3d4758; }
+    &__sub  { color: #606878; }
+  }
+
+  // ── Meetings Tab ──────────────────────────────────────────
+  .ph-meetings-connect {
+    &__title { color: #e2e8f0; }
+    &__sub   { color: #8a94a6; }
+    &__note  { color: #606878; span { color: #4da3ff; } }
+  }
+
+  .ph-meetings-date-row {
+    &__label { color: #e2e8f0; }
+    &__sync  { color: #4ade80; }
+  }
+
+  .ph-chip {
+    &--green  { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+    &--orange { background: rgba(234, 88, 12, 0.12); color: #fb923c; }
+    &--gray   { background: #252b38; color: #8a94a6; }
+  }
+
+  .ph-meeting-featured {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.2);
+    &__time      { color: #8a94a6; }
+    &__title     { color: #e2e8f0; }
+    &__attendees { color: #8a94a6; }
+  }
+
+  .ph-meeting-later {
+    border-color: rgba(255, 255, 255, 0.07);
+    &__item {
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+      &:hover { background: rgba(255, 255, 255, 0.03); }
+    }
+    &__icon    { background: #252b38; color: #8a94a6; }
+    &__title   { color: #e2e8f0; }
+    &__meta    { color: #606878; }
+    &__chevron { color: #3d4758; }
+  }
+
+  .ph-meetings-schedule {
+    background: #252b38;
+    border-color: rgba(255, 255, 255, 0.07);
+    color: #e2e8f0;
+    &:hover { background: #2d3340; }
+    .anticon { color: #606878; }
+  }
+
+  .ph-meeting-item {
+    &:hover    { background: rgba(255, 255, 255, 0.03); }
+    &__time    { color: #4da3ff; }
+    &__dur     { color: #606878; }
+    &__title   { color: #e2e8f0; }
+    &__meta    { color: #606878; }
+    &__chevron { color: #3d4758; }
+  }
+
+  // ── Live Tab ──────────────────────────────────────────────
+  .ph-live-waiting {
+    &__title    { color: #e2e8f0; }
+    &__sub      { color: #8a94a6; }
+    &__how      { background: rgba(26, 115, 232, 0.1); border-color: rgba(26, 115, 232, 0.2); }
+    &__how-title { color: #4da3ff; }
+    &__how-body  { color: #94a3b8; }
+    &__learn     { color: #4da3ff; }
+  }
+
+  .ph-live {
+    &__badge { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+
+    &__card {
+      background: #1c2028;
+      border-color: rgba(255, 255, 255, 0.07);
+      box-shadow: none;
+    }
+
+    &__card-title { color: #e2e8f0; }
+    &__card-meta  { color: #606878; }
+    &__wave       { background: rgba(34, 197, 94, 0.12); }
+
+    &__status-card {
+      background: rgba(34, 197, 94, 0.08);
+      border-color: rgba(34, 197, 94, 0.2);
+    }
+
+    &__row-left {
+      color: #94a3b8;
+      .anticon { color: #4ade80; }
+    }
+
+    &__hint { color: #606878; span { color: #606878; } }
+  }
+
+  // ── AI Tab ────────────────────────────────────────────────
+  .ph-ai-empty {
+    &__title { color: #e2e8f0; }
+    &__sub   { color: #8a94a6; }
+
+    &__features {
+      background: rgba(124, 58, 237, 0.1);
+      border-color: rgba(124, 58, 237, 0.2);
+    }
+    &__features-label { color: #e2e8f0; }
+    &__feature-item {
+      color: #94a3b8;
+      border-bottom-color: rgba(124, 58, 237, 0.15);
+    }
+    &__feature-icon { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+
+    &__privacy        { border-top-color: rgba(255, 255, 255, 0.07); }
+    &__privacy-icon   { color: #606878; }
+    &__privacy-title  { color: #94a3b8; }
+    &__privacy-sub    { color: #606878; }
+    &__privacy-chevron { color: #3d4758; }
+  }
+
+  .ph-ai {
+    &__item       { border-bottom-color: rgba(255, 255, 255, 0.06); }
+    &__item-icon  { background: rgba(26, 115, 232, 0.12); color: #4da3ff; }
+    &__item-title { color: #e2e8f0; }
+    &__item-meta  { color: #606878; }
+  }
+
+  .ph-all-meetings {
+    background: #252b38;
+    border-color: rgba(255, 255, 255, 0.07);
+    color: #8a94a6;
+    &:hover { background: #2d3340; }
+  }
+
+  // ── Settings Tab ──────────────────────────────────────────
+  .ph-settings {
+    &__list {
+      background: #1c2028;
+      border-color: rgba(255, 255, 255, 0.07);
+    }
+
+    &__row {
+      border-bottom-color: rgba(255, 255, 255, 0.05);
+      &:hover { background: rgba(255, 255, 255, 0.03); }
+    }
+
+    &__row-label  { color: #e2e8f0; }
+    &__row-value  { color: #606878; }
+
+    &__badge {
+      &--on  { background: rgba(34, 197, 94, 0.12); color: #4ade80; }
+      &--off { background: #252b38; color: #606878; }
+    }
+
+    &__chevron   { color: #3d4758; }
+
+    &__open-full {
+      background: #252b38;
+      color: #8a94a6;
+      &:hover { background: #2d3340; color: #e2e8f0; }
+    }
+  }
+}

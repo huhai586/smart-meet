@@ -46,7 +46,7 @@ export const ListItemCard = styled(List.Item)`
   padding: 16px !important;
   border-radius: 6px !important;
   margin-bottom: 8px !important;
-  background: #fff;
+  background: var(--opt-bg-card);
   transition: all 0.3s ease;
 
   &:hover {
