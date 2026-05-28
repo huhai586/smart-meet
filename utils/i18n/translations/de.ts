@@ -504,6 +504,7 @@ export default {
   "meetings_no_upcoming_sub": "Dein Kalender ist leer. Genieße deinen Tag!",
   "meetings_open_calendar_settings": "Kalendereinstellungen öffnen",
   "meetings_today_label": "Heute · {date}",
+  "meetings_tomorrow_label": "Morgen · {date}",
   "meetings_synced_now": "Gerade synchronisiert",
   "meetings_sync_ago": "Vor {time} synchronisiert",
   "meetings_sync_h": "Std",

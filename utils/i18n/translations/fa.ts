@@ -523,6 +523,7 @@ export default {
   "meetings_no_upcoming_sub": "تقویم شما خالی است. از روزتان لذت ببرید!",
   "meetings_open_calendar_settings": "باز کردن تنظیمات تقویم",
   "meetings_today_label": "امروز · {date}",
+  "meetings_tomorrow_label": "فردا · {date}",
   "meetings_synced_now": "همین الان همگام‌سازی شد",
   "meetings_sync_ago": "همگام‌سازی {time} پیش",
   "meetings_sync_h": "س",

@@ -673,6 +673,7 @@ export default {
   "meetings_no_upcoming_sub": "Your calendar is clear. Enjoy your day!",
   "meetings_open_calendar_settings": "Open Calendar Settings",
   "meetings_today_label": "Today - {date}",
+  "meetings_tomorrow_label": "Tomorrow - {date}",
   "meetings_synced_now": "Synced just now",
   "meetings_sync_ago": "Synced {time} ago",
   "meetings_sync_h": "h",

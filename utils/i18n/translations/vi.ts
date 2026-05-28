@@ -497,6 +497,7 @@ export default {
   "meetings_no_upcoming_sub": "Lịch của bạn trống. Hãy tận hưởng ngày của bạn!",
   "meetings_open_calendar_settings": "Mở cài đặt lịch",
   "meetings_today_label": "Hôm nay · {date}",
+  "meetings_tomorrow_label": "Ngày mai · {date}",
   "meetings_synced_now": "Vừa đồng bộ",
   "meetings_sync_ago": "Đã đồng bộ {time} trước",
   "meetings_sync_h": "g",

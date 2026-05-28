@@ -497,6 +497,7 @@ export default {
   "meetings_no_upcoming_sub": "Ваш календарь свободен. Наслаждайтесь днём!",
   "meetings_open_calendar_settings": "Открыть настройки календаря",
   "meetings_today_label": "Сегодня · {date}",
+  "meetings_tomorrow_label": "Завтра · {date}",
   "meetings_synced_now": "Только что синхронизировано",
   "meetings_sync_ago": "Синхронизировано {time} назад",
   "meetings_sync_h": "ч",

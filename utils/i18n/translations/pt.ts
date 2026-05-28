@@ -504,6 +504,7 @@ export default {
   "meetings_no_upcoming_sub": "Seu calendário está livre. Aproveite seu dia!",
   "meetings_open_calendar_settings": "Abrir configurações do calendário",
   "meetings_today_label": "Hoje · {date}",
+  "meetings_tomorrow_label": "Amanhã · {date}",
   "meetings_synced_now": "Sincronizado agora",
   "meetings_sync_ago": "Sincronizado há {time}",
   "meetings_sync_h": "h",

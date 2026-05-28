@@ -521,6 +521,7 @@ export default {
   "meetings_no_upcoming_sub": "Votre calendrier est libre. Profitez de votre journée !",
   "meetings_open_calendar_settings": "Ouvrir les paramètres du calendrier",
   "meetings_today_label": "Aujourd'hui · {date}",
+  "meetings_tomorrow_label": "Demain · {date}",
   "meetings_synced_now": "Synchronisé à l'instant",
   "meetings_sync_ago": "Synchronisé il y a {time}",
   "meetings_sync_h": "h",

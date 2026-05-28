@@ -476,6 +476,7 @@ export default {
   "meetings_no_upcoming_sub": "आपका कैलेंडर खाली है। अपने दिन का आनंद लें!",
   "meetings_open_calendar_settings": "कैलेंडर सेटिंग खोलें",
   "meetings_today_label": "आज · {date}",
+  "meetings_tomorrow_label": "कल · {date}",
   "meetings_synced_now": "अभी सिंक हुआ",
   "meetings_sync_ago": "{time} पहले सिंक हुआ",
   "meetings_sync_h": "घं",

@@ -22,7 +22,7 @@ const MeetingsTab: React.FC = () => {
     chrome.storage.local.get(["calendarConnected", "calendarEvents", "calendarLastSync"], (res) => {
       setConnected(!!res.calendarConnected)
       setEvents(
-        Array.isArray(res.calendarEvents) ? res.calendarEvents.slice(0, 6) : []
+        Array.isArray(res.calendarEvents) ? res.calendarEvents : []
       )
       setLastSyncAt(res.calendarLastSync ?? null)
     })
@@ -122,13 +122,21 @@ const MeetingsTab: React.FC = () => {
   const minsUntil = featured.start.diff(now, "minute")
   const isStartingSoon = minsUntil >= 0 && minsUntil <= 30
   const isOngoing = featured.start.isBefore(now) && featured.end.isAfter(now)
-  const laterEvents = upcoming.slice(1).filter(({ start }) => start.isSame(now, "day"))
+  // "Later" events: same calendar day as the featured meeting, excluding featured itself
+  const laterEvents = upcoming.slice(1).filter(({ start }) => start.isSame(featured.start, "day"))
+
+  // Date header label: "Today", "Tomorrow", or formatted date
+  const featuredDateLabel = (() => {
+    if (featured.start.isSame(now, "day")) return t('meetings_today_label', { date: now.format("MMM D, YYYY") })
+    if (featured.start.isSame(now.add(1, "day"), "day")) return t('meetings_tomorrow_label', { date: featured.start.format("MMM D, YYYY") })
+    return featured.start.format("MMM D, YYYY")
+  })()
 
   return (
     <div className="ph-meetings-list">
       <div className="ph-meetings-date-row">
         <span className="ph-meetings-date-row__label">
-          {t('meetings_today_label', { date: now.format("MMM D, YYYY") })}
+          {featuredDateLabel}
         </span>
         <span className="ph-meetings-date-row__sync">
           <CheckCircleOutlined /> {syncLabel}

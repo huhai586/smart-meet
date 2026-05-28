@@ -521,6 +521,7 @@ export default {
   "meetings_no_upcoming_sub": "캘린더가 비어 있습니다. 좋은 하루 되세요!",
   "meetings_open_calendar_settings": "캘린더 설정 열기",
   "meetings_today_label": "오늘 · {date}",
+  "meetings_tomorrow_label": "내일 · {date}",
   "meetings_synced_now": "방금 동기화됨",
   "meetings_sync_ago": "{time} 전 동기화",
   "meetings_sync_h": "시간",

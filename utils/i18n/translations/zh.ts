@@ -671,6 +671,7 @@ export default {
   "meetings_no_upcoming_sub": "日历空空如也，好好享受今天吧！",
   "meetings_open_calendar_settings": "打开日历设置",
   "meetings_today_label": "今天 - {date}",
+  "meetings_tomorrow_label": "明天 - {date}",
   "meetings_synced_now": "刚刚同步",
   "meetings_sync_ago": "{time}前同步",
   "meetings_sync_h": "时",

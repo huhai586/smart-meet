@@ -476,6 +476,7 @@ export default {
   "meetings_no_upcoming_sub": "تقويمك فارغ. استمتع بيومك!",
   "meetings_open_calendar_settings": "فتح إعدادات التقويم",
   "meetings_today_label": "اليوم · {date}",
+  "meetings_tomorrow_label": "غداً · {date}",
   "meetings_synced_now": "تمت المزامنة للتو",
   "meetings_sync_ago": "تمت المزامنة منذ {time}",
   "meetings_sync_h": "س",

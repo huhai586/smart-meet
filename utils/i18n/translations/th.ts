@@ -476,6 +476,7 @@ export default {
   "meetings_no_upcoming_sub": "ปฏิทินของคุณว่างเปล่า เพลิดเพลินกับวันของคุณ!",
   "meetings_open_calendar_settings": "เปิดการตั้งค่าปฏิทิน",
   "meetings_today_label": "วันนี้ · {date}",
+  "meetings_tomorrow_label": "พรุ่งนี้ · {date}",
   "meetings_synced_now": "ซิงค์เมื่อสักครู่",
   "meetings_sync_ago": "ซิงค์เมื่อ {time} ที่แล้ว",
   "meetings_sync_h": "ชม",

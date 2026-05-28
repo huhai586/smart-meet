@@ -521,6 +521,7 @@ export default {
   "meetings_no_upcoming_sub": "カレンダーは空です。良い一日を！",
   "meetings_open_calendar_settings": "カレンダー設定を開く",
   "meetings_today_label": "今日 · {date}",
+  "meetings_tomorrow_label": "明日 · {date}",
   "meetings_synced_now": "たった今同期しました",
   "meetings_sync_ago": "{time}前に同期",
   "meetings_sync_h": "時間",

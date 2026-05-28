@@ -1,7 +1,7 @@
 {
   "name": "smart-meet",
   "displayName": "Smart Meet",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "description": "Smart Meet",
   "author": "Howard",
   "scripts": {
@@ -57,7 +57,6 @@
     "typescript-eslint": "^8.37.0"
   },
   "local_client_id_home_mac": "909895091256-sl6ojkne7eob754pcrehdm821kndh2pp.apps.googleusercontent.com",
-  "local_client_id_home_mac_test": "821598308749-s047ijoop2219dk5v878marqf4ffb16d.apps.googleusercontent.com",
   "local_client_id_57": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",
   "local_client_id_online": "821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com",
   "manifest": {
