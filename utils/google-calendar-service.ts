@@ -112,10 +112,9 @@ export class GoogleCalendarService {
   async disconnect(): Promise<void> {
     const token = await this.getAuthToken(false);
     if (token) {
+      // 只清除本地缓存，不调用 Google revoke 端点
+      // revoke 会撤销整个 OAuth grant（client_id 级别），导致 Drive 也失效
       chrome.identity.removeCachedAuthToken({ token }, () => {});
-      try {
-        await fetch(`https://oauth2.googleapis.com/revoke?token=${token}`, { method: 'POST' });
-      } catch { /* best-effort revoke */ }
     }
     this.accessToken = null;
     await chrome.storage.local.remove([CONNECTED_KEY, USER_KEY]);

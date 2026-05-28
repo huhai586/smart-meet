@@ -3,6 +3,13 @@ import type { ReactNode } from 'react';
 import { GoogleDriveService } from '~utils/google-drive';
 import { message } from 'antd';
 
+// Drive-specific scopes — must match GoogleDriveService.getAuthToken() exactly
+const DRIVE_SCOPES = [
+  'https://www.googleapis.com/auth/drive.file',
+  'https://www.googleapis.com/auth/userinfo.profile',
+  'https://www.googleapis.com/auth/userinfo.email',
+];
+
 // 添加调试信息
 console.log('GoogleAuthContext loaded, chrome.identity available:', !!window.chrome?.identity);
 
@@ -105,9 +112,9 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
     }
     
     try {
-      // 获取当前token
+      // 获取当前token（使用 Drive scopes，避免和 Calendar token 互相干扰）
       const token = await new Promise<string | null>((resolve) => {
-        chrome.identity.getAuthToken({ interactive: false }, (token) => {
+        chrome.identity.getAuthToken({ interactive: false, scopes: DRIVE_SCOPES }, (token) => {
           if (chrome.runtime.lastError) {
             console.log('No active session:', chrome.runtime.lastError);
             resolve(null);
@@ -149,9 +156,9 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
     }
     
     try {
-      // 先清除可能存在的缓存token
+      // 先清除可能存在的 Drive 缓存token（只清 Drive scopes 的 token，不影响 Calendar）
       await new Promise<void>((resolve) => {
-        chrome.identity.getAuthToken({ interactive: false }, (token) => {
+        chrome.identity.getAuthToken({ interactive: false, scopes: DRIVE_SCOPES }, (token) => {
           if (token) {
             console.log('Removing existing cached token before login...');
             chrome.identity.removeCachedAuthToken({ token }, () => {
@@ -200,29 +207,20 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
     }
     
     try {
-      // 获取当前token
-      chrome.identity.getAuthToken({ interactive: false }, (token) => {
+      // 只获取 Drive token（不影响 Calendar token）
+      chrome.identity.getAuthToken({ interactive: false, scopes: DRIVE_SCOPES }, (token) => {
         if (token) {
           console.log('Removing cached auth token...');
-          // 撤销token
+          // 只清除本地缓存，不调用 Google revoke 端点
+          // revoke 会撤销整个 OAuth grant（client_id 级别），导致 Calendar 也失效
           chrome.identity.removeCachedAuthToken({ token }, () => {
-            console.log('Token removed, revoking access...');
-            // 撤销Google的授权
-            fetch(`https://accounts.google.com/o/oauth2/revoke?token=${token}`)
-              .then(() => {
-                setIsAuthenticated(false);
-                setUser(null);
-                console.log('Logged out successfully');
-              })
-              .catch(error => {
-                console.error('Error revoking token:', error);
-              })
-              .finally(() => {
-                setLoading(false);
-              });
+            console.log('Token removed from cache');
+            setIsAuthenticated(false);
+            setUser(null);
+            setLoading(false);
           });
         } else {
-          console.log('No token to revoke');
+          console.log('No token to remove');
           setLoading(false);
         }
       });
