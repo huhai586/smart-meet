@@ -17,7 +17,7 @@ import {
 
 export interface CaptionsWatchHandlers {
     /** Only fired for real transitions between 'on' and 'off', never for the initial read. */
-    onChange: (state: 'on' | 'off') => void;
+    onChange?: (state: 'on' | 'off') => void;
     /** Fired once, the first time the control shows up (i.e. the user is inside the meeting). */
     onFirstSeen?: (state: CaptionsState) => void;
 }
@@ -37,7 +37,7 @@ export function watchCaptionsState(handlers: CaptionsWatchHandlers): () => void 
 
         const previous = last;
         last = state;
-        if (previous !== 'unknown') handlers.onChange(state);
+        if (previous !== 'unknown') handlers.onChange?.(state);
     };
 
     const detach = () => {

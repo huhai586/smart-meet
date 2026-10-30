@@ -1,5 +1,10 @@
+// Pinned to the top-left of the viewport. It used to rely on being the first thing in the
+// document flow, which stopped working once Meet's root element started filling the viewport
+// in-flow (the container was pushed below the fold).
 .caption-toggle-container {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     z-index: 99999;
     margin: 1em;
 }

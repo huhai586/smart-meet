@@ -4,7 +4,7 @@ import { getCaptionsContainer } from "~node_modules/google-meeting-captions-reso
 import { t } from "~utils/i18n";
 import "./translate-tips.scss";
 import StickerNote from "~components/StickerNote";
-import { CAPTIONS_ON_BUTTON_LABELS, CAPTIONS_OFF_BUTTON_LABELS } from "~utils/google-meet-captions-dom";
+import { watchCaptionsState } from "~utils/captions-control";
 import { getConfigValue, onConfigChanged } from "~utils/appConfig";
 
 const MessageOutlinedIcon = () => (
@@ -51,54 +51,36 @@ const PlasmoInline = () => {
     const [stickerEnabled, setStickerEnabled] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [showSticker, setShowSticker] = useState(false);
-    const observerRef = useRef<MutationObserver | null>(null);
+    const watcherRef = useRef<(() => void) | null>(null);
 
     useEffect(() => {
         console.log('showSticker state changed:', showSticker);
     }, [showSticker]);
 
     // ── Detect actual meeting entry via DOM ──────────────────────────────
-    // The meeting control bar (with captions buttons) only appears once the
+    // The meeting control bar (with the captions control) only appears once the
     // user is inside the meeting room, not in the Lobby/waiting screen.
-    // We watch for ANY captions-related button to appear as the signal.
-    const captionButtonSelectors = [
-        ...CAPTIONS_ON_BUTTON_LABELS,
-        ...CAPTIONS_OFF_BUTTON_LABELS,
-    ].map(label => `button[aria-label="${label}"]`).join(', ');
-
-    const checkCaptionButtonPresent = () =>
-        !!document.querySelector(captionButtonSelectors);
-
+    // captions-control finds that control in both Meet UIs without localised labels,
+    // and reports the first time it shows up (including when it is already there).
     const startMeetingObserver = () => {
-        if (observerRef.current) return; // already watching
+        if (watcherRef.current) return; // already watching
 
-        // Already in meeting room when script loads
-        if (checkCaptionButtonPresent()) {
-            setInMeetingRoom(true);
-            return;
-        }
-
-        const observer = new MutationObserver(() => {
-            if (checkCaptionButtonPresent()) {
-                setInMeetingRoom(true);
-                observer.disconnect();
-                observerRef.current = null;
-            }
+        watcherRef.current = watchCaptionsState({
+            onFirstSeen: () => setInMeetingRoom(true),
         });
-        observer.observe(document.body, { childList: true, subtree: true });
-        observerRef.current = observer;
     };
 
     const stopMeetingObserver = () => {
-        observerRef.current?.disconnect();
-        observerRef.current = null;
+        watcherRef.current?.();
+        watcherRef.current = null;
     };
 
     // ── URL-based guard: only run observer on meeting URLs ───────────────
     const isMeetingUrl = () => {
         const pathname = window.location.pathname;
         if (pathname === '/' || pathname === '') return false;
-        const meetingCodePattern = /^\/[a-z0-9]+-[a-z0-9]+-[a-z0-9]+$/i;
+        // Meet serves meetings both as /abc-defg-hij and /meet/abc-defg-hij
+        const meetingCodePattern = /^\/(?:meet\/)?[a-z0-9]+-[a-z0-9]+-[a-z0-9]+$/i;
         if (meetingCodePattern.test(pathname)) return true;
         return /^\/lookup\//.test(pathname) || /^\/[a-z0-9]{10,}$/i.test(pathname);
     };
