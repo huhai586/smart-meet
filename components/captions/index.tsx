@@ -11,6 +11,7 @@ import CaptionContent from './CaptionContent';
 import { useSearch, useFilter } from './hooks';
 import { computeSpeakerColors } from './utils/speakerColor';
 import CaptionsDisabledWarning from './CaptionsDisabledWarning';
+import { CaptionsMessage, EnableResult } from '../../utils/captions-control/constants';
 
 /**
  * 字幕主组件
@@ -34,13 +35,17 @@ const Captions = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0]?.id;
       if (!tabId) return;
-      chrome.tabs.sendMessage(tabId, { action: 'enableGoogleMeetingCaptions' }, (response) => {
+      chrome.tabs.sendMessage(tabId, { action: CaptionsMessage.Enable }, (response) => {
         if (chrome.runtime.lastError) {
           // Content script may not be injected yet (e.g. non-Meet tab) — non-fatal
-          console.debug('[Captions] enableGoogleMeetingCaptions:', chrome.runtime.lastError.message);
+          console.debug('[Captions] enable captions:', chrome.runtime.lastError.message);
           return;
         }
-        console.log('[Captions] enableGoogleMeetingCaptions response:', response);
+        console.log('[Captions] enable captions response:', response);
+        // Auto-enable tried everything and failed: let the user turn captions on themselves
+        if (response?.reason === EnableResult.Failed) {
+          setShowCaptionsWarning(true);
+        }
       });
     });
   }, []);
@@ -48,9 +53,9 @@ const Captions = () => {
   // Listen for the content script notifying captions state changes
   useEffect(() => {
     const handleMessage = (message: { action: string }) => {
-      if (message.action === 'captionsTurnedOff') {
+      if (message.action === CaptionsMessage.TurnedOff) {
         setShowCaptionsWarning(true);
-      } else if (message.action === 'captionsTurnedOn') {
+      } else if (message.action === CaptionsMessage.TurnedOn) {
         setShowCaptionsWarning(false);
       }
     };
@@ -65,7 +70,7 @@ const Captions = () => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0]?.id;
       if (!tabId) return;
-      chrome.tabs.sendMessage(tabId, { action: 'enableGoogleMeetingCaptions' }, () => {
+      chrome.tabs.sendMessage(tabId, { action: CaptionsMessage.Enable }, () => {
         void chrome.runtime.lastError; // suppress "no receiver" error when non-Meet tab
       });
     });

@@ -1,33 +1,35 @@
 /**
  * caption-control — Content Script
  *
- * Provides two complementary caption-enable mechanisms:
+ * Owns Google Meet's captions state for the extension (see utils/captions-control):
  *
  * A) Message-driven (sidepanel → content script):
- *    Sidepanel sends { action: 'enableGoogleMeetingCaptions' } after mounting.
- *    Handles the common case: user joins a meeting while the sidepanel is already open.
+ *    Sidepanel sends { action: CaptionsMessage.Enable } after mounting.
+ *    Handles the case: user joins a meeting while the sidepanel is already open.
  *
- * B) DOM-driven (MutationObserver, runs automatically):
- *    Watches for the "Turn on captions" button to appear in the DOM.
- *    That button ONLY exists in an active meeting room — not in the lobby/waiting screen.
- *    So its first appearance is a reliable "user just entered the meeting" signal,
- *    regardless of URL (which stays the same across lobby → meeting transition).
+ * B) Entry-driven: the first time the captions control appears in the page it can only be
+ *    because the user is inside the meeting room (not the lobby), so captions are enabled once.
  *    Handles the case: user opens the extension, THEN joins the meeting.
- *    The observer disconnects after first trigger so it won't re-fire if the user
- *    manually turns captions off later.
+ *
+ * C) State broadcast: every on/off transition (user click, `c` shortcut, or us) is reported
+ *    to the sidepanel as CaptionsMessage.TurnedOn / TurnedOff.
  */
 import type { PlasmoCSConfig } from "~node_modules/plasmo";
+import { isGoogleMeeting } from '~utils/google-meet-captions-dom';
+import getIsExtensionDisabled from '~utils/get-is-extension-disabled';
+import openSidePanel from '~utils/open-side-panel';
 import {
-    isGoogleMeeting,
-    isCaptionsEnabled,
+    CaptionsMessage,
+    CaptionsTiming,
+    EnableResult,
     enableCaptions,
-    getCaptionsToggleButton,
-} from '~utils/google-meet-captions-dom';
+    watchCaptionsState,
+} from '~utils/captions-control';
 
 // ─── A) Message-driven ────────────────────────────────────────────────────────
 
 chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
-    if (message.action !== 'enableGoogleMeetingCaptions') return;
+    if (message.action !== CaptionsMessage.Enable) return;
 
     if (!isGoogleMeeting()) {
         console.log('[caption-control] Not a Google Meet page, skipping.');
@@ -35,52 +37,69 @@ chrome.runtime.onMessage.addListener((message, _sender, sendResponse) => {
         return true;
     }
 
-    if (isCaptionsEnabled()) {
-        console.log('[caption-control] Captions already enabled.');
-        sendResponse({ success: true, reason: 'already_enabled' });
-        return true;
-    }
-
-    const clicked = enableCaptions();
-    console.log('[caption-control] Tried to enable captions, clicked:', clicked);
-    sendResponse({ success: clicked, reason: clicked ? 'clicked' : 'button_not_found' });
-    return true;
+    enableCaptions().then((result) => {
+        console.log('[caption-control] Enable captions:', result);
+        sendResponse({
+            success: result === EnableResult.Enabled || result === EnableResult.AlreadyOn,
+            reason: result,
+        });
+    });
+    return true; // async response
 });
 
-// ─── B) DOM-driven — watch for meeting entry ──────────────────────────────────
+// ─── B) + C) Entry detection and state broadcast ──────────────────────────────
+
+const notifyCaptionsState = (action: string) => {
+    chrome.runtime.sendMessage({ action }, () => {
+        // Sidepanel may not be open — ignore "no receiver" errors
+        void chrome.runtime.lastError;
+    });
+};
 
 /**
- * Starts a MutationObserver that watches for the "Turn on captions" button
- * to appear for the first time.  Its appearance means:
- *   - We are inside an active meeting room (not lobby / waiting screen).
- *   - Captions are currently off.
- * Once triggered, the observer disconnects so it won't auto-click again
- * if the user deliberately turns captions off later in the same session.
+ * Open the sidepanel when captions are turned on by the user's own action or on meeting entry.
+ * chrome.sidePanel.open() needs a user gesture; the browser keeps one alive for ~5s after the
+ * user's last click / key press, and it carries through runtime messages to the background.
+ * Our own auto-enable (shortcut or synthetic click) is not a gesture, it only works because
+ * the user just clicked "Join now" or pressed `c`, so we check the window before trying.
  */
-function watchForMeetingEntry(): void {
-    if (!isGoogleMeeting()) return;
-
-    // If the button is already present the page loaded mid-meeting — enable after 1 s.
-    if (getCaptionsToggleButton()) {
-        console.log('[caption-control] Captions button already visible on load, enabling in 1 s.');
-        setTimeout(enableCaptions, 1000);
+const openSidePanelWhileUserActive = async () => {
+    if (!navigator.userActivation.isActive) {
+        console.log('[caption-control] No recent user activation, not opening the sidepanel.');
         return;
     }
+    if (await getIsExtensionDisabled()) return;
 
-    const observer = new MutationObserver(() => {
-        if (!getCaptionsToggleButton()) return;
-
-        // Button just appeared → we entered the meeting room
-        observer.disconnect();
-        console.log('[caption-control] Meeting entry detected (captions button appeared), enabling captions in 1 s.');
-        setTimeout(enableCaptions, 1000);
+    openSidePanel().catch((error) => {
+        console.error('[caption-control] Failed to open the sidepanel:', error);
     });
+};
 
-    observer.observe(document.body, { childList: true, subtree: true });
-    console.log('[caption-control] Watching for meeting entry...');
+if (isGoogleMeeting()) {
+    watchCaptionsState({
+        onChange: (state) => {
+            notifyCaptionsState(
+                state === 'on' ? CaptionsMessage.TurnedOn : CaptionsMessage.TurnedOff,
+            );
+            // Covers captions switched on with the `c` shortcut, which produces no click.
+            if (state === 'on') void openSidePanelWhileUserActive();
+        },
+        onFirstSeen: (state) => {
+            if (state !== 'off') return;
+            console.log('[caption-control] Meeting entry detected, enabling captions.');
+            // Open right away: the "Join now" click that got the user here is still fresh, the
+            // delay below plus the shortcut wait could push us past its ~5s window.
+            void openSidePanelWhileUserActive();
+            setTimeout(() => {
+                enableCaptions().then((result) => {
+                    if (result === EnableResult.Failed) {
+                        console.warn('[caption-control] Could not enable captions automatically.');
+                    }
+                });
+            }, CaptionsTiming.ENTRY_DELAY_MS);
+        },
+    });
 }
-
-watchForMeetingEntry();
 
 export const config: PlasmoCSConfig = {
     matches: ['https://meet.google.com/*'],

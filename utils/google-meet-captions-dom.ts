@@ -1,11 +1,10 @@
 /**
  * Google Meet captions DOM utilities
  *
- * Shared util for detecting and controlling the Google Meet captions button.
+ * Localised captions button aria-labels of the classic Meet UI.
  *
- * Logic:
- *   - If the "Turn on captions" button IS found in the DOM → captions are OFF.
- *   - If the button is NOT found → captions are already ON.
+ * Do NOT use these to detect or control captions state: controlling captions lives in
+ * utils/captions-control, which does not depend on localised text.
  */
 
 /** aria-label values for the "Turn on captions" button across all Google Meet locales */
@@ -48,40 +47,7 @@ export const CAPTIONS_OFF_BUTTON_LABELS: string[] = [
     'कैप्शन बंद करें',             // hi
 ];
 
-/**
- * Returns the "Turn on captions" button element if it exists, otherwise null.
- * If the button exists, captions are currently OFF.
- */
-export function getCaptionsToggleButton(): HTMLButtonElement | null {
-    for (const label of CAPTIONS_ON_BUTTON_LABELS) {
-        const btn = document.querySelector<HTMLButtonElement>(`button[aria-label="${label}"]`);
-        if (btn) return btn;
-    }
-    return null;
-}
-
 /** Returns true when the current page is a Google Meet meeting page. */
 export function isGoogleMeeting(): boolean {
     return window.location.hostname === 'meet.google.com';
-}
-
-/**
- * Returns true if Google Meet captions are already enabled.
- * (i.e. the "Turn on captions" button is NOT present in the DOM)
- */
-export function isCaptionsEnabled(): boolean {
-    return getCaptionsToggleButton() === null;
-}
-
-/**
- * Clicks the "Turn on captions" button if captions are currently off.
- * @returns true if the button was found and clicked; false if captions were already on.
- */
-export function enableCaptions(): boolean {
-    const btn = getCaptionsToggleButton();
-    if (btn) {
-        btn.click();
-        return true;
-    }
-    return false;
 }
