@@ -12,8 +12,6 @@
  *   migrateToAppConfig()         – one-time migration from old flat keys
  */
 
-import type { Language } from './languages';
-
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface CustomPrompt {
@@ -494,8 +492,6 @@ const ALL_LEGACY_SYNC_KEYS = [
   'activeAIService',
   // old migration flags that are no longer needed
   'localToSyncMigrationDone_v1',
-  'appConfigMigrationDone_v1',
-  'appConfigMigrationDone_v2_aiServices',
   'appConfigCleanupDone_v1',
   'appConfigCleanupDone_v2',
   // model cache was incorrectly stored in sync — now lives in local

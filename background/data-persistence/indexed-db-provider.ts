@@ -12,10 +12,9 @@ export class IndexedDBProvider implements StorageProvider {
         this.dbName = dbName;
         this.storeName = storeName;
     }
+
     async restoreRecords(records: Transcript[], date?: Dayjs): Promise<void> {
         try {
-            const store = await this.getStore('readwrite');
-
             if (date) {
                 // 如果指定了日期，只恢复该日期的记录
                 const dateKey = date.format('YYYY-MM-DD');
@@ -27,31 +26,18 @@ export class IndexedDBProvider implements StorageProvider {
                 // 先删除该日期的现有记录
                 await this.deleteRecords(date);
 
-                // 添加新记录
-                return new Promise((resolve, reject) => {
-                    const transaction = store.transaction;
-
-                    transaction.oncomplete = () => resolve();
-                    transaction.onerror = () => reject(new StorageError('Failed to restore records'));
-
-                    dateRecords.forEach(record => {
-                        store.put(record);
-                    });
-                });
+                // deleteRecords 已经完成其事务；使用新的批量写入事务，避免在
+                // await 之后继续使用已失效的 IndexedDB transaction。
+                if (dateRecords.length > 0) {
+                    await this.addOrUpdateRecords(dateRecords);
+                }
+                return;
             } else {
                 // 如果没有指定日期，恢复所有记录
                 await this.deleteRecords(); // 清空所有记录
-
-                return new Promise((resolve, reject) => {
-                    const transaction = store.transaction;
-
-                    transaction.oncomplete = () => resolve();
-                    transaction.onerror = () => reject(new StorageError('Failed to restore records'));
-
-                    records.forEach(record => {
-                        store.put(record);
-                    });
-                });
+                if (records.length > 0) {
+                    await this.addOrUpdateRecords(records);
+                }
             }
         } catch (error) {
             throw new StorageError('Failed to restore records', error as Error);
@@ -221,4 +207,4 @@ export class IndexedDBProvider implements StorageProvider {
         // IndexedDBProvider 不跟踪当前日期，返回今天
         return dayjs();
     }
-} 
+}

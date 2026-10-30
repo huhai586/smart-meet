@@ -5,6 +5,7 @@ import { handleSyncRequest } from './sync-manager';
 import { broadcastLanguageChange } from './utils/language-utils';
 
 import type { Transcript } from "../hooks/useTranscripts";
+import type { StorageProvider } from './data-persistence/types';
 
 /**
  * 消息类型 - 使用 discriminated union 确保各 action 的参数类型安全
@@ -28,8 +29,23 @@ export function sendBackgroundMessage(message: MessageData): void {
     chrome.runtime.sendMessage(message);
 }
 
-class BackgroundMessageHandler {
-    private storage = StorageFactory.getInstance().getProvider();
+const HANDLED_ACTIONS = new Set<MessageData['action']>([
+    'clear',
+    'addOrUpdateRecords',
+    'restoreRecords',
+    'get-transcripts',
+    'delete-records',
+    'get-days-with-messages',
+    'openSidePanel',
+    'languageChanged',
+    'sync-to-google-drive',
+    'update_meeting_info',
+]);
+
+export class BackgroundMessageHandler {
+    constructor(
+        private storage: StorageProvider = StorageFactory.getInstance().getProvider(),
+    ) {}
 
     private async syncTranscripts(record?: Transcript): Promise<void> {
         chrome.runtime.sendMessage({ action: 'transcripts-updated', data: record });
@@ -42,8 +58,9 @@ class BackgroundMessageHandler {
 
     private handleOpenSidePanel(sender: chrome.runtime.MessageSender, sendResponse: (data?: unknown) => void): void {
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-            if (tabs && tabs.length > 0) {
-                chrome.sidePanel.open({ tabId: tabs[0].id } as any)
+            const tabId = tabs[0]?.id;
+            if (tabId !== undefined) {
+                chrome.sidePanel.open({ tabId })
                     .then(() => sendResponse({ success: true }))
                     .catch((error) => sendResponse({ success: false, error: error?.message }));
             } else {
@@ -55,21 +72,7 @@ class BackgroundMessageHandler {
     async handleMessage(message: MessageData, sender: chrome.runtime.MessageSender, sendResponse: (data?: unknown) => void): Promise<boolean> {
         console.log('background.js', 'handleMessage', message);
 
-        // 定义此处理器负责的 action 列表
-        const handledActions = [
-            'clear',
-            'addOrUpdateRecords',
-            'restoreRecords',
-            'get-transcripts',
-            'delete-records',
-            'get-days-with-messages',
-            'openSidePanel',
-            'languageChanged',
-            'sync-to-google-drive',
-            'update_meeting_info',
-        ];
-
-        if (!handledActions.includes(message.action)) {
+        if (!HANDLED_ACTIONS.has(message.action)) {
             return false; // 不处理此消息，让其他监听器处理
         }
 
@@ -181,19 +184,7 @@ export const messageCenter = new BackgroundMessageHandler();
  * 检查消息是否属于后台处理中心负责
  */
 function isHandledAction(action: string | undefined): boolean {
-    const handledActions = [
-        'clear',
-        'addOrUpdateRecords',
-        'restoreRecords',
-        'get-transcripts',
-        'delete-records',
-        'get-days-with-messages',
-        'openSidePanel',
-        'languageChanged',
-        'sync-to-google-drive',
-        'update_meeting_info',
-    ];
-    return !!action && handledActions.includes(action);
+    return !!action && HANDLED_ACTIONS.has(action as MessageData['action']);
 }
 
 /**

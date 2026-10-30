@@ -355,7 +355,7 @@ const LOCAL_PROVIDERS: ProviderDefinition[] = [
 // Registry Class
 // ============================================================
 
-class ProviderRegistry {
+export class ProviderRegistry {
   private providers: Map<string, ProviderDefinition> = new Map();
   private customProviders: ProviderDefinition[] = [];
 
@@ -395,8 +395,7 @@ class ProviderRegistry {
 
   /** 添加自定义 provider */
   addCustomProvider(provider: ProviderDefinition): void {
-    provider.category = 'custom';
-    this.customProviders.push(provider);
+    this.customProviders.push({ ...provider, category: 'custom' });
   }
 
   /** 移除自定义 provider */

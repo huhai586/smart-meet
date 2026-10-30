@@ -9,6 +9,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Anthropic from '@anthropic-ai/sdk';
 import { providerRegistry } from './provider-registry';
+import { filterChatModelIds } from './model-utils';
 
 export interface ModelConfig {
   apiKey?: string;
@@ -179,35 +180,6 @@ export async function testConnection(
 // 聊天模型过滤（过滤掉 embedding / TTS / 图像 / 语音 等非对话模型）
 // ============================================================
 
-const NON_CHAT_PATTERNS = [
-  /embedding/i,           // text-embedding-*, *-embed-*
-  /^tts-/i,               // tts-1, tts-1-hd
-  /^whisper/i,            // whisper-1
-  /^dall-e/i,             // dall-e-2, dall-e-3
-  /moderation/i,          // omni-moderation-*, text-moderation-*
-  /^text-davinci/i,       // text-davinci-002/003（旧 completion 模型）
-  /^text-curie/i,
-  /^text-babbage/i,
-  /^text-ada/i,
-  /^davinci(?!-002-finetuned)/i, // 旧 base 模型（但保留 fine-tune）
-  /^babbage/i,
-  /^curie/i,
-  /^ada(?!-)/i,           // ada 本身，但保留 ada-002（embedding 已被上面过滤）
-  /^code-davinci/i,       // code-davinci-001/002
-  /^code-cushman/i,
-  /^if-/i,                // if-davinci-* 指令微调旧模型
-  /realtime/i,            // gpt-4o-realtime-preview（语音实时模型）
-  /audio/i,               // gpt-4o-audio-preview
-  /^computer-use/i,
-];
-
-/**
- * 判断模型 ID 是否为对话（chat completion）模型
- */
-function isChatModel(id: string): boolean {
-  return !NON_CHAT_PATTERNS.some(pattern => pattern.test(id));
-}
-
 // ============================================================
 // 模型列表缓存（TTL 24h，存 chrome.storage.local）
 // ============================================================
@@ -340,7 +312,7 @@ export async function fetchAvailableModels(
       } else {
         const data = await resp.json();
         const rawList: { id: string }[] = Array.isArray(data) ? data : (data.data ?? []);
-        const models = rawList.map(m => m.id).filter(isChatModel).sort();
+        const models = filterChatModelIds(rawList.map((model) => model.id));
         if (models.length > 0) {
           await writeModelCache(cacheKey, models);
           return { models };

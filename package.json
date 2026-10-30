@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "plasmo dev",
     "build": "plasmo build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "postbuild": "mkdir -p build/chrome-mv3-prod/_locales && cp -r _locales/* build/chrome-mv3-prod/_locales/",
     "postdev": "mkdir -p build/chrome-mv3-dev/_locales && cp -r _locales/* build/chrome-mv3-dev/_locales/",
     "package": "plasmo package",
@@ -42,6 +45,7 @@
     "@types/react-dom": "18.2.18",
     "@typescript-eslint/eslint-plugin": "^8.37.0",
     "@typescript-eslint/parser": "^8.37.0",
+    "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^9.31.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -49,12 +53,14 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-unused-imports": "^4.1.4",
+    "fake-indexeddb": "^6.2.5",
     "globals": "^16.3.0",
     "prettier": "3.2.4",
     "sass": "1.69.5",
     "ts-unused-exports": "^11.0.1",
     "typescript": "5.3.3",
-    "typescript-eslint": "^8.37.0"
+    "typescript-eslint": "^8.37.0",
+    "vitest": "^4.1.11"
   },
   "local_client_id_home_mac": "909895091256-sl6ojkne7eob754pcrehdm821kndh2pp.apps.googleusercontent.com",
   "local_client_id_57": "821598308749-kvt98eqdhq296p3q8upsmn1s0c3acq99.apps.googleusercontent.com",

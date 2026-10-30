@@ -45,7 +45,7 @@ export class MemoryStorageProvider implements StorageProvider {
                 // 遍历所有缓存的日期，找出所有变更的记录
                 const allChangedRecords: Transcript[] = [];
 
-                for (const [dateKey, records] of this.memoryCache.entries()) {
+                for (const [, records] of this.memoryCache.entries()) {
                     const changedInThisDate = records.filter(record =>
                         this.changedRecords.has(record.session)
                     );
@@ -99,12 +99,10 @@ export class MemoryStorageProvider implements StorageProvider {
             this.changedRecords.clear();
             await this.indexedDBProvider.deleteRecords();
         } else {
-            // 如果是当前日期，清除缓存
-            if (this.currentDate.isSame(date, 'day')) {
-                const dateKey = date.format('YYYY-MM-DD');
-                this.memoryCache.delete(dateKey);
-                this.changedRecords.clear();
-            }
+            const dateKey = date.format('YYYY-MM-DD');
+            const cachedRecords = this.memoryCache.get(dateKey) || [];
+            this.memoryCache.delete(dateKey);
+            cachedRecords.forEach((record) => this.changedRecords.delete(record.session));
             await this.indexedDBProvider.deleteRecords(date);
         }
     }

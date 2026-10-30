@@ -3,3 +3,4 @@ testdata.json
 .idea/
 /build/
 /.plasmo/
+/coverage/
