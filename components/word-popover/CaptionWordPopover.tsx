@@ -4,8 +4,12 @@ import { getTranslatedWords, setTranslatedWords } from "~utils/translate";
 import type { WordLookup } from "~hooks/useCaptionWordLookup";
 
 const AUTO_DISMISS_MS = 2000;
-/** Distance between the popover and the word it belongs to. */
-const WORD_GAP_PX = 50;
+/** The arrow's tip floats this far from the word; the arrow itself is ARROW_HEIGHT_PX tall. */
+const TIP_GAP_PX = 3;
+const ARROW_HEIGHT_PX = 7;
+const WORD_GAP_PX = TIP_GAP_PX + ARROW_HEIGHT_PX;
+/** Keeps the arrow on the card when the card was nudged away from the word by a screen edge. */
+const MAX_ARROW_SHIFT_PX = 120;
 const SIDE_MARGIN_PX = 12;
 const HALF_WIDTH_PX = 150;
 const FLIP_BELOW_PX = 110;
@@ -62,12 +66,13 @@ const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismi
     const { rect } = lookup;
     const centerX = (rect.left + rect.right) / 2;
     const left = Math.min(Math.max(centerX, HALF_WIDTH_PX + SIDE_MARGIN_PX), window.innerWidth - HALF_WIDTH_PX - SIDE_MARGIN_PX);
-    const below = rect.top < FLIP_BELOW_PX + WORD_GAP_PX;
+    const below = rect.top < FLIP_BELOW_PX;
+    const arrowShift = Math.max(-MAX_ARROW_SHIFT_PX, Math.min(MAX_ARROW_SHIFT_PX, centerX - left));
 
     return (
         <div
             className={`cw-popover${below ? ' below' : ''}`}
-            style={{ left, top: below ? rect.bottom + WORD_GAP_PX : rect.top - WORD_GAP_PX }}
+            style={{ left, top: below ? rect.bottom + WORD_GAP_PX : rect.top - WORD_GAP_PX, '--cw-arrow-shift': `${arrowShift}px` } as React.CSSProperties}
             role="status"
             onMouseEnter={() => { hovered.current = true; }}
             onMouseLeave={() => { hovered.current = false; }}

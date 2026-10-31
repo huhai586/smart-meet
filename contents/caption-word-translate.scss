@@ -26,6 +26,33 @@
     &.below {
         transform: translate(-50%, 0);
     }
+
+    // Arrow pointing at the middle of the word.
+    &::after {
+        content: '';
+        position: absolute;
+        left: calc(50% + var(--cw-arrow-shift, 0px));
+        bottom: -7px;
+        width: 14px;
+        height: 7px;
+        transform: translateX(-50%);
+        background: inherit;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    &.below::after {
+        bottom: auto;
+        top: -7px;
+        clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+
+    // The save button only shows while the card is hovered (or keyboard-focused).
+    &:hover .cw-save,
+    &:focus-within .cw-save {
+        width: 32px;
+        margin-left: 0;
+        opacity: 1;
+    }
 }
 
 .cw-text {
@@ -73,8 +100,11 @@
 
 .cw-save {
     flex-shrink: 0;
-    width: 32px;
+    width: 0;
     height: 32px;
+    margin-left: -10px; // cancels the card's gap while collapsed
+    opacity: 0;
+    overflow: hidden;
     padding: 0;
     border: none;
     border-radius: 50%;
@@ -84,7 +114,7 @@
     cursor: pointer;
     color: rgba(255, 255, 255, 0.75);
     background: rgba(255, 255, 255, 0.08);
-    transition: background 0.18s ease, color 0.18s ease;
+    transition: width 0.18s ease, margin 0.18s ease, opacity 0.18s ease, background 0.18s ease, color 0.18s ease;
 
     &:hover:not(:disabled) {
         background: rgba(255, 255, 255, 0.16);
