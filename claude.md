@@ -70,8 +70,56 @@ The project uses a CSS-class-based dark mode (`document.documentElement.classLis
 
 **Pages wired for dark mode**: options (`options.tsx`), popup (`popup.tsx`). Wire new pages by importing `useDarkMode` and wrapping with `<ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>`.
 
+## Dev Tooling for Coding Agents
 
+Configured in the repo (`.mcp.json`, `.agents/skills/`, `skills-lock.json`). A new MCP server needs a Claude Code restart or `/mcp` reconnect to show up.
 
+### Test browser (CDP)
+
+- Always test in the one fixed Chrome profile `~/smart-meet-cdp/profile` (stays logged in, keeps the downloaded on-device translation models). Never create throwaway profiles.
+- Start / reload it with `~/smart-meet-cdp/launch.sh`: Chrome on `--remote-debugging-port=9222`, then loads `build/chrome-mv3-dev` as an unpacked extension.
+- `build/chrome-mv3-dev` is produced by `yarn dev` (`plasmo dev`); `yarn build` only writes `chrome-mv3-prod`. Rebuild before testing, then `reload_extension`. If `plasmo dev`'s own auto-reload drops the unpacked extension, rerun `launch.sh`. Content scripts only pick up new code after the Meet tab is reloaded.
+- If the Chrome Web Store build of Smart Meet is also enabled in that profile, content scripts run twice. Disable the store copy.
+
+### `chrome-devtools` MCP
+
+`chrome-devtools-mcp` with `--categoryExtensions --browserUrl http://127.0.0.1:9222`, so it attaches to the test browser above (start that first, or it has nothing to connect to). Tools (load their schemas with ToolSearch first):
+
+- Extensions: `list_extensions`, `install_extension`, `uninstall_extension`, `reload_extension` (use this after a rebuild instead of `chrome.runtime.reload()`), `trigger_extension_action`.
+- Pages: `list_pages` (also lists extension service workers), `new_page`, `navigate_page`, `select_page`, `take_snapshot`, `take_screenshot`, `evaluate_script`, `wait_for`, `emulate`, `resize_page`.
+- Input: `click`, `hover`, `fill`, `fill_form`, `type_text`, `press_key`, `drag`, `upload_file`.
+- Debugging: `list_console_messages`, `get_console_message`, `list_network_requests`, `get_network_request`, `get_css_styles`.
+- Performance: `performance_start_trace` / `performance_stop_trace` / `performance_analyze_insight`, `lighthouse_audit`, `take_heapsnapshot`.
+
+`evaluate_script` can also run inside an extension service worker (`serviceWorkerId`). Content scripts run in an isolated world, so page-world `evaluate_script` cannot see their variables or stub their globals.
+
+Testing Meet UI without a real meeting: Meet's SPA wipes injected DOM, so block Meet's own scripts, open `https://meet.google.com/meet/abc-defg-hij`, then inject fake captions with `createElement` / `textContent` (Trusted Types forbids `innerHTML`). The captions container is found by `div[aria-label="<localized Captions label>"]`, so set `<html lang>` to match.
+
+### Skills (`.agents/skills`, symlinked from `.claude/skills`)
+
+- `chrome-extensions`: Manifest V3 best practices and current extension API behavior. Use it for any change to `manifest`, content scripts, the service worker, the side panel, permissions or messaging. Its Web Store references (permission justifications, review checklist, privacy policy, listing template, `chromewebstore-template.md`) apply when preparing a release.
+- `modern-web-guidance`: search tool for current web platform patterns. Run it before writing HTML/CSS/client JS or anything that uses a newer web API:
+
+```bash
+npx modern-web-guidance@latest search "<topic>"     # find use cases
+npx modern-web-guidance@latest retrieve <id>        # read one
+```
+
+### Chrome built-in AI APIs (as of Chrome 156)
+
+Check availability in the test browser before relying on one; `downloadable` means the model is not on the machine yet.
+
+| API | Use in this project | Status in the test browser |
+|---|---|---|
+| `Translator` | local translation provider (`utils/translators/local-translator.ts`) | available |
+| `LanguageDetector` | picks the source language for local translation | available |
+| `LanguageModel` (Prompt API) | not used yet; candidate for a local AI summary / polish fallback | downloadable |
+| `Summarizer` | not used yet | downloadable |
+| `Writer` / `Rewriter` / `Proofreader` | not present in Chrome 156 | no API |
+
+Rules learned the hard way: model download (`create()` on a `downloadable` model) needs a user gesture, so confirm in the UI before downloading and offer cancel via `AbortSignal`; always check `availability()` before `create()`; a language pair can be unavailable even when the API exists (including source equal to target).
+
+Gotcha: `npx` fails with `EACCES` if `~/.npm` contains root-owned files; fix with `sudo chown -R 501:20 ~/.npm`.
 
 # CLAUDE.md
 
