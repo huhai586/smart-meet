@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { t } from "~utils/i18n";
-import { getTranslatedWords, setTranslatedWords } from "~utils/translate";
+import { getTranslatedWords, removeTranslatedWord, setTranslatedWords } from "~utils/translate";
 import type { WordLookup } from "~hooks/useCaptionWordLookup";
 
 const AUTO_DISMISS_MS = 2000;
@@ -58,9 +58,10 @@ const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismi
         return () => window.removeEventListener('keydown', onKeyDown, true);
     }, [onDismiss]);
 
-    const save = () => {
-        setSaved(true);
-        void setTranslatedWords(lookup.word);
+    const toggleSaved = () => {
+        const next = !saved;
+        setSaved(next);
+        void (next ? setTranslatedWords(lookup.word) : removeTranslatedWord(lookup.word));
     };
 
     const { rect } = lookup;
@@ -89,10 +90,9 @@ const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismi
                 <button
                     type="button"
                     className={`cw-save${saved ? ' saved' : ''}`}
-                    onClick={save}
-                    disabled={saved}
-                    aria-label={saved ? t('word_popover_saved') : t('word_popover_save')}
-                    title={saved ? t('word_popover_saved') : t('word_popover_save')}
+                    onClick={toggleSaved}
+                    aria-label={saved ? t('word_popover_unsave') : t('word_popover_save')}
+                    title={saved ? t('word_popover_unsave') : t('word_popover_save')}
                 >
                     <BookmarkIcon filled={saved} />
                 </button>

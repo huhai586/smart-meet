@@ -597,5 +597,6 @@ export default {
   "caption_word_translate_disabled": "ปิดการแปลด้วยการคลิกแล้ว",
   "word_popover_save": "บันทึกคำ",
   "word_popover_saved": "บันทึกแล้ว",
+  "word_popover_unsave": "ลบออกจากที่บันทึกไว้",
   "word_popover_failed": "แปลไม่สำเร็จ",
 };

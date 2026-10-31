@@ -618,5 +618,6 @@ export default {
   "caption_word_translate_disabled": "Đã tắt dịch khi nhấp",
   "word_popover_save": "Lưu từ",
   "word_popover_saved": "Đã lưu",
+  "word_popover_unsave": "Bỏ lưu",
   "word_popover_failed": "Dịch thất bại",
 };

@@ -9,3 +9,8 @@ export const setTranslatedWords = async (text: string) => {
   const translatedWords = await getTranslatedWords();
   await setConfigValue('translatedWords', [...new Set([...translatedWords, text])]);
 };
+
+export const removeTranslatedWord = async (text: string) => {
+  const translatedWords = await getTranslatedWords();
+  await setConfigValue('translatedWords', translatedWords.filter((word) => word !== text));
+};

@@ -644,5 +644,6 @@ export default {
   "caption_word_translate_disabled": "ترجمه با کلیک غیرفعال شد",
   "word_popover_save": "ذخیره کلمه",
   "word_popover_saved": "ذخیره شد",
+  "word_popover_unsave": "حذف از ذخیره‌شده‌ها",
   "word_popover_failed": "ترجمه ناموفق بود",
 };

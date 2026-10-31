@@ -618,5 +618,6 @@ export default {
   "caption_word_translate_disabled": "Перевод по клику выключен",
   "word_popover_save": "Сохранить слово",
   "word_popover_saved": "Сохранено",
+  "word_popover_unsave": "Убрать из сохранённых",
   "word_popover_failed": "Не удалось перевести",
 };

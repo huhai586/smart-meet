@@ -597,5 +597,6 @@ export default {
   "caption_word_translate_disabled": "क्लिक अनुवाद बंद",
   "word_popover_save": "शब्द सहेजें",
   "word_popover_saved": "सहेजा गया",
+  "word_popover_unsave": "सहेजे गए से हटाएँ",
   "word_popover_failed": "अनुवाद विफल रहा",
 };

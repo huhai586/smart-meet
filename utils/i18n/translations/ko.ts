@@ -642,5 +642,6 @@ export default {
   "caption_word_translate_disabled": "클릭 번역이 꺼졌습니다",
   "word_popover_save": "단어 저장",
   "word_popover_saved": "저장됨",
+  "word_popover_unsave": "저장 취소",
   "word_popover_failed": "번역 실패",
 };

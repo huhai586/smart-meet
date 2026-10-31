@@ -642,5 +642,6 @@ export default {
   "caption_word_translate_disabled": "Traduction au clic désactivée",
   "word_popover_save": "Enregistrer le mot",
   "word_popover_saved": "Enregistré",
+  "word_popover_unsave": "Retirer des favoris",
   "word_popover_failed": "Échec de la traduction",
 };

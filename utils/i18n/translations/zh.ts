@@ -728,5 +728,6 @@ export default {
   "caption_word_translate_disabled": "点击翻译已关闭",
   "word_popover_save": "收藏单词",
   "word_popover_saved": "已收藏",
+  "word_popover_unsave": "取消收藏",
   "word_popover_failed": "翻译失败",
 };

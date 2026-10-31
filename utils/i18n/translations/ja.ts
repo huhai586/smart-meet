@@ -642,5 +642,6 @@ export default {
   "caption_word_translate_disabled": "クリック翻訳を無効にしました",
   "word_popover_save": "単語を保存",
   "word_popover_saved": "保存しました",
+  "word_popover_unsave": "保存を解除",
   "word_popover_failed": "翻訳に失敗しました",
 };

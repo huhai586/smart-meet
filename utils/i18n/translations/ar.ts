@@ -597,5 +597,6 @@ export default {
   "caption_word_translate_disabled": "تم إيقاف الترجمة بالنقر",
   "word_popover_save": "حفظ الكلمة",
   "word_popover_saved": "تم الحفظ",
+  "word_popover_unsave": "إزالة من المحفوظات",
   "word_popover_failed": "فشلت الترجمة",
 };

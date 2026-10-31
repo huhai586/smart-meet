@@ -625,5 +625,6 @@ export default {
   "caption_word_translate_disabled": "Tradução por clique desativada",
   "word_popover_save": "Salvar palavra",
   "word_popover_saved": "Salva",
+  "word_popover_unsave": "Remover dos salvos",
   "word_popover_failed": "Falha na tradução",
 };

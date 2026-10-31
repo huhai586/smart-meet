@@ -730,5 +730,6 @@ export default {
   "caption_word_translate_disabled": "Click-to-translate disabled",
   "word_popover_save": "Save word",
   "word_popover_saved": "Saved",
+  "word_popover_unsave": "Remove from saved",
   "word_popover_failed": "Translation failed",
 };

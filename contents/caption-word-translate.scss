@@ -12,9 +12,9 @@
     position: fixed;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     max-width: 300px;
-    padding: 10px 12px 10px 14px;
+    padding: 6px 8px 6px 12px;
     border-radius: 14px;
     transform: translate(-50%, -100%);
     background: rgba(32, 33, 36, 0.96);
@@ -49,7 +49,7 @@
     // The save button only shows while the card is hovered (or keyboard-focused).
     &:hover .cw-save,
     &:focus-within .cw-save {
-        width: 32px;
+        width: 28px;
         margin-left: 0;
         opacity: 1;
     }
@@ -58,20 +58,21 @@
 .cw-text {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 0;
     min-width: 0;
 }
 
 .cw-word {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 500;
+    line-height: 1.3;
     color: rgba(255, 255, 255, 0.55);
 }
 
 .cw-translation {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
-    line-height: 1.35;
+    line-height: 1.3;
     overflow-wrap: anywhere;
 
     &.error {
@@ -83,7 +84,7 @@
 .cw-dots {
     display: inline-flex;
     gap: 4px;
-    height: 20px;
+    height: 18px;
     align-items: center;
 
     i {
@@ -101,8 +102,8 @@
 .cw-save {
     flex-shrink: 0;
     width: 0;
-    height: 32px;
-    margin-left: -10px; // cancels the card's gap while collapsed
+    height: 28px;
+    margin-left: -8px; // cancels the card's gap while collapsed
     opacity: 0;
     overflow: hidden;
     padding: 0;
@@ -116,13 +117,12 @@
     background: rgba(255, 255, 255, 0.08);
     transition: width 0.18s ease, margin 0.18s ease, opacity 0.18s ease, background 0.18s ease, color 0.18s ease;
 
-    &:hover:not(:disabled) {
+    &:hover {
         background: rgba(255, 255, 255, 0.16);
     }
 
     &.saved {
         color: #8ab4f8;
-        cursor: default;
     }
 
     &:focus-visible {

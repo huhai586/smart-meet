@@ -625,5 +625,6 @@ export default {
   "caption_word_translate_disabled": "Klick-Übersetzung deaktiviert",
   "word_popover_save": "Wort speichern",
   "word_popover_saved": "Gespeichert",
+  "word_popover_unsave": "Aus Gespeicherten entfernen",
   "word_popover_failed": "Übersetzung fehlgeschlagen",
 };
