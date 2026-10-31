@@ -611,4 +611,5 @@ export default {
   "switch_to_light_mode": "Chế độ sáng",
   "captions_jump_to_latest": "Đến mới nhất",
   "meet_dock_menu_label": "Công cụ Smart Meet",
+  "provider_local_download_hint": "Chưa tải mô hình. Nhấn để tải xuống.",
 };

@@ -7,8 +7,10 @@ import { useAutoTranslate } from '~hooks/useAutoTranslate';
 import {
   useTranslationProvider,
   useDeepLConfig,
+  useLocalTranslatorConfig,
   type TranslationProvider,
 } from '~hooks/useTranslationProvider';
+import { useLocalModelNeedsDownload } from '~hooks/useLocalModelNeedsDownload';
 import { useTranslationFrequency } from '~hooks/useTranslationFrequency';
 import { supportedLanguages, getLanguageDisplay } from '~utils/languages';
 import useTranslationLanguage from '~hooks/useTranslationLanguage';
@@ -173,6 +175,12 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
   const [translationProvider, setTranslationProvider] = useTranslationProvider();
   const [translationFrequency, setTranslationFrequency] = useTranslationFrequency();
   const [deepLConfig, setDeepLConfig] = useDeepLConfig();
+  const [localConfig] = useLocalTranslatorConfig();
+  const localNeedsDownload = useLocalModelNeedsDownload(
+    translationProvider === 'local',
+    localConfig.sourceLanguage || 'en',
+    language.code,
+  );
 
   const [deepLModalOpen, setDeepLModalOpen] = useState(false);
   const [deepLForm] = Form.useForm<{ auth_key: string }>();
@@ -310,6 +318,9 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
               <IconCircle $color={provider.iconColor}>{provider.icon}</IconCircle>
               <RowContent>
                 <RowTitle>{t(provider.nameKey)}</RowTitle>
+                {provider.id === 'local' && isActive && localNeedsDownload && (
+                  <RowSubtitle>{t('provider_local_download_hint')}</RowSubtitle>
+                )}
               </RowContent>
               <RowValue>
                 {isActive && <CheckOutlined style={{ color: '#007AFF', fontSize: 15, fontWeight: 700 }} />}

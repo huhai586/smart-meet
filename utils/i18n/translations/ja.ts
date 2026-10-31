@@ -635,4 +635,5 @@ export default {
   "switch_to_light_mode": "ライトモード",
   "captions_jump_to_latest": "最新へ移動",
   "meet_dock_menu_label": "Smart Meet ツール",
+  "provider_local_download_hint": "モデルがまだダウンロードされていません。タップしてダウンロード。",
 };

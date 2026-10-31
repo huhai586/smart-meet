@@ -721,4 +721,5 @@ export default {
   "switch_to_light_mode": "浅色模式",
   "captions_jump_to_latest": "回到最新",
   "meet_dock_menu_label": "Smart Meet 工具",
+  "provider_local_download_hint": "模型尚未下载，点击下载",
 };

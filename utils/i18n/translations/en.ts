@@ -723,4 +723,5 @@ export default {
   "switch_to_light_mode": "Light mode",
   "captions_jump_to_latest": "Jump to latest",
   "meet_dock_menu_label": "Smart Meet tools",
+  "provider_local_download_hint": "Model not downloaded yet. Tap to download.",
 };

@@ -618,4 +618,5 @@ export default {
   "switch_to_light_mode": "Heller Modus",
   "captions_jump_to_latest": "Zum Neuesten springen",
   "meet_dock_menu_label": "Smart-Meet-Tools",
+  "provider_local_download_hint": "Modell noch nicht heruntergeladen. Zum Herunterladen tippen.",
 };

@@ -590,4 +590,5 @@ export default {
   "switch_to_light_mode": "โหมดสว่าง",
   "captions_jump_to_latest": "ไปที่ล่าสุด",
   "meet_dock_menu_label": "เครื่องมือ Smart Meet",
+  "provider_local_download_hint": "ยังไม่ได้ดาวน์โหลดโมเดล แตะเพื่อดาวน์โหลด",
 };

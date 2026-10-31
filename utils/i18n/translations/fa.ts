@@ -637,4 +637,5 @@ export default {
   "switch_to_light_mode": "حالت روشن",
   "captions_jump_to_latest": "رفتن به آخرین",
   "meet_dock_menu_label": "ابزارهای Smart Meet",
+  "provider_local_download_hint": "مدل هنوز دانلود نشده است. برای دانلود ضربه بزنید.",
 };

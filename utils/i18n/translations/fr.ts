@@ -635,4 +635,5 @@ export default {
   "switch_to_light_mode": "Mode clair",
   "captions_jump_to_latest": "Aller au plus récent",
   "meet_dock_menu_label": "Outils Smart Meet",
+  "provider_local_download_hint": "Modèle non téléchargé. Touchez pour le télécharger.",
 };

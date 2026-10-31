@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getConfigValue, setConfigValue, onConfigChanged } from '~/utils/appConfig';
+import { isLocalTranslatorSupported } from '~/utils/translators/local-translator';
 
 // 翻译服务提供商类型
 export type TranslationProvider = 'google' | 'microsoft' | 'ai' | 'deepl' | 'local';
@@ -12,10 +13,17 @@ export interface LocalTranslatorConfig {
   sourceLanguage: string;
 }
 
-// 默认翻译服务提供商
-const defaultProvider: TranslationProvider = 'microsoft';
+// 默认翻译服务提供商（须与 appConfig 的 translationProvider 默认值一致）
+const defaultProvider: TranslationProvider = 'local';
+// 浏览器没有内置 Translator API 时，本地翻译无法使用（下载模型也没用），退回到这个服务
+const unsupportedLocalFallback: TranslationProvider = 'microsoft';
 
 const VALID_PROVIDERS: TranslationProvider[] = ['google', 'microsoft', 'ai', 'deepl', 'local'];
+
+const resolveProvider = (value: string | undefined): TranslationProvider => {
+  const provider = VALID_PROVIDERS.includes(value as TranslationProvider) ? (value as TranslationProvider) : defaultProvider;
+  return provider === 'local' && !isLocalTranslatorSupported() ? unsupportedLocalFallback : provider;
+};
 
 /**
  * 管理翻译服务提供商的Hook
@@ -25,14 +33,12 @@ export const useTranslationProvider = (): [TranslationProvider, (provider: Trans
 
   useEffect(() => {
     getConfigValue('translationProvider').then((v) => {
-      const p = v || defaultProvider;
-      setProviderState(VALID_PROVIDERS.includes(p as TranslationProvider) ? (p as TranslationProvider) : defaultProvider);
+      setProviderState(resolveProvider(v));
     });
 
     const unsubscribe = onConfigChanged((changes) => {
       if (changes.translationProvider) {
-        const p = (changes.translationProvider as { value: string }).value as TranslationProvider;
-        setProviderState(VALID_PROVIDERS.includes(p) ? p : defaultProvider);
+        setProviderState(resolveProvider((changes.translationProvider as { value: string }).value));
       }
     });
     return unsubscribe;
@@ -54,9 +60,7 @@ export const useTranslationProvider = (): [TranslationProvider, (provider: Trans
  * 获取当前翻译服务提供商
  */
 export const getCurrentTranslationProvider = async (): Promise<TranslationProvider> => {
-  const p = await getConfigValue('translationProvider');
-  const resolved = p || defaultProvider;
-  return VALID_PROVIDERS.includes(resolved as TranslationProvider) ? (resolved as TranslationProvider) : defaultProvider;
+  return resolveProvider(await getConfigValue('translationProvider'));
 };
 
 /**

@@ -128,7 +128,7 @@ const CLEANUP_FLAG    = 'appConfigCleanupDone_v3'; // v3: also purges modelCache
 /** Default values – used when a field doesn't exist yet. */
 const DEFAULTS: Record<AppConfigKey, unknown> = {
   autoTranslateEnabled:        false,
-  translationProvider:         'microsoft',
+  translationProvider:         'local',
   translationLanguage:         'zh',
   translationFrequency:        2.5,
   deeplConfig:                 { auth_key: '' },

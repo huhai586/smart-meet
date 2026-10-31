@@ -590,4 +590,5 @@ export default {
   "switch_to_light_mode": "लाइट मोड",
   "captions_jump_to_latest": "नवीनतम पर जाएँ",
   "meet_dock_menu_label": "Smart Meet टूल",
+  "provider_local_download_hint": "मॉडल अभी डाउनलोड नहीं हुआ है। डाउनलोड करने के लिए टैप करें।",
 };

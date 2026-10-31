@@ -611,4 +611,5 @@ export default {
   "switch_to_light_mode": "Светлый режим",
   "captions_jump_to_latest": "К последним",
   "meet_dock_menu_label": "Инструменты Smart Meet",
+  "provider_local_download_hint": "Модель ещё не загружена. Нажмите, чтобы загрузить.",
 };
