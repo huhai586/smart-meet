@@ -61,6 +61,36 @@ class MessageManager {
   }
 
   /**
+   * 显示带操作链接的警告消息（点击链接后消息关闭）
+   */
+  public warningWithAction(content: string, actionLabel: string, onAction: () => void, duration: number = 8): void {
+    this.destroyCurrentMessage();
+    this.activeActionContent = content;
+    this.messageApi.warning({
+      content: React.createElement(
+        'span',
+        null,
+        content,
+        ' ',
+        React.createElement(
+          'a',
+          {
+            onClick: () => {
+              this.messageApi.destroy();
+              onAction();
+            },
+          },
+          actionLabel,
+        ),
+      ),
+      duration,
+      onClose: () => {
+        if (this.activeActionContent === content) this.activeActionContent = null;
+      },
+    });
+  }
+
+  /**
    * 显示信息消息
    */
   public info(content: string, duration: number = 5): void {
