@@ -57,12 +57,20 @@ export class BackgroundMessageHandler {
     }
 
     private handleOpenSidePanel(sender: chrome.runtime.MessageSender, sendResponse: (data?: unknown) => void): void {
+        const open = (tabId: number) => chrome.sidePanel.open({ tabId })
+            .then(() => sendResponse({ success: true }))
+            .catch((error) => sendResponse({ success: false, error: error?.message }));
+
+        // The requesting tab is the right one, and skipping the tabs.query hop keeps us inside the
+        // user-gesture window that sidePanel.open() requires.
+        if (sender.tab?.id !== undefined) {
+            open(sender.tab.id);
+            return;
+        }
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
             const tabId = tabs[0]?.id;
             if (tabId !== undefined) {
-                chrome.sidePanel.open({ tabId })
-                    .then(() => sendResponse({ success: true }))
-                    .catch((error) => sendResponse({ success: false, error: error?.message }));
+                open(tabId);
             } else {
                 sendResponse({ success: false, error: '未找到活动标签页' });
             }

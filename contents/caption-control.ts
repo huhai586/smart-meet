@@ -61,18 +61,51 @@ const notifyCaptionsState = (action: string) => {
  * chrome.sidePanel.open() needs a user gesture; the browser keeps one alive for ~5s after the
  * user's last click / key press, and it carries through runtime messages to the background.
  * Our own auto-enable (shortcut or synthetic click) is not a gesture, it only works because
- * the user just clicked "Join now" or pressed `c`, so we check the window before trying.
+ * the user just clicked "Join now" or pressed `c`. When that window is already over, the open is
+ * deferred to the user's next gesture (see openSidePanelOnNextGesture).
  */
 const openSidePanelWhileUserActive = async () => {
-    if (!navigator.userActivation.isActive) {
-        console.log('[caption-control] No recent user activation, not opening the sidepanel.');
+    // Read before awaiting anything, the activation window is short.
+    const hasActivation = navigator.userActivation.isActive;
+    if (await getIsExtensionDisabled()) return;
+
+    if (!hasActivation) {
+        console.log('[caption-control] No recent user activation, opening the sidepanel on the next click or key press.');
+        openSidePanelOnNextGesture();
         return;
     }
-    if (await getIsExtensionDisabled()) return;
 
     openSidePanel().catch((error) => {
         console.error('[caption-control] Failed to open the sidepanel:', error);
     });
+};
+
+const PENDING_OPEN_WINDOW_MS = 60 * 1000;
+let pendingOpenArmed = false;
+
+/**
+ * Meet's controls can show up more than ~5s after the "Join now" click, so there is no gesture left
+ * to open the panel with. Keep the request for a minute and use the user's first click / key press
+ * in the meeting instead.
+ */
+const openSidePanelOnNextGesture = () => {
+    if (pendingOpenArmed) return;
+    pendingOpenArmed = true;
+
+    const events = ['pointerdown', 'keydown'] as const;
+    const disarm = () => {
+        clearTimeout(expiry);
+        events.forEach((name) => window.removeEventListener(name, onGesture, true));
+        pendingOpenArmed = false;
+    };
+    const onGesture = () => {
+        disarm();
+        openSidePanel().catch((error) => {
+            console.error('[caption-control] Failed to open the sidepanel:', error);
+        });
+    };
+    const expiry = setTimeout(disarm, PENDING_OPEN_WINDOW_MS);
+    events.forEach((name) => window.addEventListener(name, onGesture, true));
 };
 
 if (isGoogleMeeting()) {
