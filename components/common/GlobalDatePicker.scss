@@ -40,22 +40,23 @@
         gap: 6px;
         padding: 4px 8px;
         height: auto;
-        border-radius: 6px;
+        border-radius: 20px;
         transition: all 0.2s ease;
-        color: #1a73e8;
+        color: var(--sp-accent, #1a73e8);
+        background-color: var(--sp-accent-soft, rgba(26, 115, 232, 0.09));
         font-weight: 500;
         border: none;
+        box-shadow: none;
         cursor: pointer;
-        
+
         &:hover {
-            background-color: rgba(26, 115, 232, 0.08);
-            color: #1557b0;
+            background-color: var(--sp-accent-soft, rgba(26, 115, 232, 0.09));
+            color: var(--sp-accent, #1a73e8);
+            filter: brightness(0.96);
         }
-        
-        &:focus {
-            background-color: rgba(26, 115, 232, 0.12);
-            color: #1557b0;
-            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+
+        &:focus-visible {
+            box-shadow: 0 0 0 2px var(--sp-accent-soft, rgba(26, 115, 232, 0.2));
         }
         
         .anticon {

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ConfigProvider, message, Tabs, theme } from "antd";
 import {
-    FileDoneOutlined,
-    HistoryOutlined, SketchOutlined,
+    BookOutlined,
 } from '@ant-design/icons';
 import './utils/dayjs-config'; // Import global dayjs configuration
 import { useDarkMode } from './hooks/useDarkMode';
@@ -11,6 +10,7 @@ import Captions from "./components/captions/captions";
 import Words from "./components/words/words";
 import { DateProvider, useDateContext } from './contexts/DateContext';
 import GlobalDatePicker from './components/common/GlobalDatePicker';
+import { CaptionsTabIcon, SparklesTabIcon, TranslationTabIcon } from './components/common/TabIcons';
 import Loading from './components/common/Loading';
 import useI18n from './utils/i18n';
 import initAIService from './utils/initAIService';
@@ -49,6 +49,8 @@ interface CustomErrorEvent extends Event {
         };
     };
 }
+
+const SIDEPANEL_ACCENT = { light: '#1a73e8', dark: '#5b9cf5' };
 
 const SidePanel = () => {
     const { isDark } = useDarkMode();
@@ -212,28 +214,28 @@ const SidePanel = () => {
         {
             label: t('captions'),
             key: 'captions',
-            icon: <FileDoneOutlined />,
+            icon: <CaptionsTabIcon />,
             children: (<Captions />),
             visible: visibility.captions
         },
         {
             label: t('sidepanel_summary'),
             key: 'summary',
-            icon: <SketchOutlined />,
+            icon: <SparklesTabIcon />,
             children: <Summary />,
             visible: visibility.summary
         },
         {
             label: t('translation_records'),
             key: 'words',
-            icon: <HistoryOutlined />,
+            icon: <TranslationTabIcon />,
             children: <Words currentTab={current} />,
             visible: visibility.translation
         },
         {
             label: t('longman_3000'),
             key: 'longman',
-            icon: <SketchOutlined />,
+            icon: <BookOutlined />,
             children: <Longman3000 />,
             visible: visibility.longman
         },
@@ -244,7 +246,23 @@ const SidePanel = () => {
 
 
     return (
-        <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
+        <ConfigProvider theme={{
+            algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+            token: { colorPrimary: isDark ? SIDEPANEL_ACCENT.dark : SIDEPANEL_ACCENT.light },
+            components: {
+                // Flat, like the rest of the Apple-style UI: no resting shadows on buttons.
+                Button: { defaultShadow: 'none', primaryShadow: 'none', dangerShadow: 'none' },
+                Tabs: {
+                    horizontalItemGutter: 20,
+                    horizontalItemPadding: '14px 0',
+                    horizontalMargin: 0,
+                    titleFontSize: 13.5,
+                    itemColor: 'var(--opt-text-secondary)',
+                    itemHoverColor: 'var(--opt-text-tertiary)',
+                    inkBarColor: isDark ? SIDEPANEL_ACCENT.dark : SIDEPANEL_ACCENT.light,
+                },
+            },
+        }}>
         <DateProvider>
             <PendingNavHandler setCurrent={setCurrent} />
             <div className={'side-panel'}>
