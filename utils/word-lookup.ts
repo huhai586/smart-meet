@@ -4,28 +4,22 @@ export const CAPTION_WORD_POPOVER_ID = 'caption-word-popover-root';
 const segmenter = new Intl.Segmenter(undefined, { granularity: 'word' });
 
 /**
- * The word at a caret offset in `text`, '' when the caret is not on a word. Uses Intl.Segmenter,
- * so punctuation is dropped, "don't" stays one word, and languages without spaces still work.
+ * The word under a viewport point inside `root`, '' if the point is not on a word. Hit-tests the
+ * rendered boxes of the root's text instead of asking the browser what is at the point: Meet lays
+ * the speaker's name row over the caption text, so the caret API answers with the name ("你").
  */
-export const wordAtOffset = (text: string, offset: number): string => {
-    // A caret placed on the far half of a word's last letter sits at the start of whatever follows,
-    // so look at the character before the caret as well.
-    for (const position of [offset, offset - 1]) {
-        if (position < 0 || position >= text.length) continue;
-        for (const part of segmenter.segment(text)) {
-            if (position >= part.index && position < part.index + part.segment.length) {
-                if (part.isWordLike) return part.segment;
-                break;
+export const wordAtPoint = (root: Element, x: number, y: number): string => {
+    const range = document.createRange();
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        for (const part of segmenter.segment(node.textContent ?? '')) {
+            if (!part.isWordLike) continue;
+            range.setStart(node, part.index);
+            range.setEnd(node, part.index + part.segment.length);
+            for (const rect of range.getClientRects()) {
+                if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) return part.segment;
             }
         }
     }
     return '';
-};
-
-/** The word under a viewport point, '' if the point is not on text. */
-export const wordAtPoint = (x: number, y: number): string => {
-    const caret = document.caretRangeFromPoint?.(x, y);
-    const node = caret?.startContainer;
-    if (!caret || !node || node.nodeType !== Node.TEXT_NODE) return '';
-    return wordAtOffset(node.textContent ?? '', caret.startOffset);
 };

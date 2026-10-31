@@ -49,8 +49,11 @@ export const useCaptionWordLookup = (enabled: boolean) => {
             const isPlainClick = event.button === 0 && !event.metaKey && !event.ctrlKey && !event.altKey && !event.shiftKey;
             if (!isPlainClick || window.getSelection()?.toString()) return;
 
-            const word = wordAtPoint(event.clientX, event.clientY);
-            if (!word) return;
+            const word = wordAtPoint(captions, event.clientX, event.clientY);
+            if (!word) {
+                dismiss();
+                return;
+            }
 
             const request = ++latest.current;
             const { clientX: x, clientY: y } = event;
