@@ -588,4 +588,5 @@ export default {
   "notif_test_title": "📅 टेस्ट मीटिंग रिमाइंडर",
   "switch_to_dark_mode": "डार्क मोड",
   "switch_to_light_mode": "लाइट मोड",
+  "captions_jump_to_latest": "नवीनतम पर जाएँ",
 };

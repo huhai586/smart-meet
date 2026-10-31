@@ -635,4 +635,5 @@ export default {
   "notif_test_title": "📅 یادآوری جلسه آزمایشی",
   "switch_to_dark_mode": "حالت تاریک",
   "switch_to_light_mode": "حالت روشن",
+  "captions_jump_to_latest": "رفتن به آخرین",
 };

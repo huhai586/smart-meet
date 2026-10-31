@@ -609,4 +609,5 @@ export default {
   "notif_test_title": "📅 Тестовое напоминание",
   "switch_to_dark_mode": "Тёмный режим",
   "switch_to_light_mode": "Светлый режим",
+  "captions_jump_to_latest": "К последним",
 };

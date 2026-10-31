@@ -633,4 +633,5 @@ export default {
   "notif_test_title": "📅 테스트 회의 알림",
   "switch_to_dark_mode": "다크 모드",
   "switch_to_light_mode": "라이트 모드",
+  "captions_jump_to_latest": "최신으로 이동",
 };

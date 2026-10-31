@@ -7,11 +7,33 @@
   overflow: hidden;
   background: #FFFFFF;
   
-  .custom-float-buttons {
-    opacity: 0.4;
-    transition: opacity 0.25s;
-    &:hover {
+  // Shown only while auto scroll is paused and the user is away from the latest caption.
+  .jump-to-latest {
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    z-index: 10;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border: 0.5px solid var(--opt-border-subtle);
+    border-radius: 20px;
+    background: var(--opt-bg-card);
+    color: #1a73e8;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, 8px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &.visible {
       opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, 0);
     }
   }
 

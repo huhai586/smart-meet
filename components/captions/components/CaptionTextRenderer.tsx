@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 interface WordSegment {
     type: 'word' | 'space';
@@ -52,6 +52,9 @@ const shouldHighlight = (word: string, keywords: string[]): boolean => {
 };
 
 const noop = () => {};
+
+/** How long the pointer must stay away before a caption goes back to plain text. */
+const REVERT_DELAY_MS = 1500;
 
 // Memoized word component
 const ClickableWord = memo(({
@@ -119,11 +122,27 @@ export const CaptionTextRenderer = memo(({
     const segments = parseTextToSegments(content);
     const allKeywords = [...domainKeyWords, ...specificWords];
 
+    const revertTimer = useRef<ReturnType<typeof setTimeout>>();
+    useEffect(() => () => clearTimeout(revertTimer.current), []);
+
     const activate = useCallback(() => {
+        clearTimeout(revertTimer.current);
         // The search UI splits this element's text nodes in place; re-rendering it into spans now
         // would make React remove nodes that are no longer there. Clicks still work (see Caption).
         if (textRef.current?.querySelector('.search-highlight')) return;
         setIsInteractive(true);
+    }, []);
+
+    const scheduleRevert = useCallback(() => {
+        clearTimeout(revertTimer.current);
+        revertTimer.current = setTimeout(() => {
+            const element = textRef.current;
+            if (!element || element.querySelector('.search-highlight')) return;
+            // Swapping the nodes would drop a selection the user is still working with.
+            const selection = window.getSelection();
+            if (selection && !selection.isCollapsed && (element.contains(selection.anchorNode) || element.contains(selection.focusNode))) return;
+            setIsInteractive(false);
+        }, REVERT_DELAY_MS);
     }, []);
 
     const renderWord = (segment: WordSegment, index: number, isHighlighted: boolean) => (
@@ -171,7 +190,8 @@ export const CaptionTextRenderer = memo(({
             ref={textRef}
             className={`caption-text ${isRTL ? 'rtl' : ''}`}
             style={{ position: 'relative' }}
-            onMouseEnter={isInteractive ? undefined : activate}
+            onMouseEnter={activate}
+            onMouseLeave={isInteractive ? scheduleRevert : undefined}
         >
             {renderContent()}
         </div>

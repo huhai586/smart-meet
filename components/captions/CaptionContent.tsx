@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from "react"
-import { Empty, FloatButton } from 'antd';
-import { SyncOutlined, MessageOutlined } from '@ant-design/icons';
+import { Empty } from 'antd';
+import { ArrowDownOutlined, MessageOutlined } from '@ant-design/icons';
 import CaptionList from './captionList';
 import type { Dayjs } from 'dayjs';
 import type { Transcript } from '../../hooks/useTranscripts';
@@ -27,7 +27,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
 }) => {
   const { t } = useI18n();
   const lastItemInContainer = useRef<HTMLDivElement>(null);
-  const { disableAutoScroll, autoScroll, toggleAutoScroll } = useAutoScroll(containerRef.current, lastItemInContainer.current, filteredData);
+  const { disableAutoScroll, resumeAutoScroll, showJumpToLatest } = useAutoScroll(containerRef.current, lastItemInContainer.current, filteredData);
 
   useCaptionIntrinsicHeight(containerRef, filteredData.length);
 
@@ -60,22 +60,16 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
       </div>
 
       {!isNoData && (
-        <FloatButton.Group shape="square" style={{ insetInlineEnd: 24 }} className={'custom-float-buttons'}>
-          <FloatButton 
-            icon={<SyncOutlined />}
-            type={autoScroll ? "primary" : "default"}
-            onClick={toggleAutoScroll}
-            tooltip={autoScroll ? "Disable auto scroll" : "Enable auto scroll"}
-          />
-          <FloatButton.BackTop
-            visibilityHeight={0}
-            target={() => containerRef.current}
-            onClick={() => {
-              if (autoScroll) {
-                toggleAutoScroll();
-            }}}
-          />
-        </FloatButton.Group>
+        <button
+          type="button"
+          className={`jump-to-latest${showJumpToLatest ? ' visible' : ''}`}
+          onClick={resumeAutoScroll}
+          tabIndex={showJumpToLatest ? 0 : -1}
+          aria-hidden={!showJumpToLatest}
+        >
+          <ArrowDownOutlined />
+          {t('captions_jump_to_latest')}
+        </button>
       )}
     </>
   );

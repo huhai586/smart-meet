@@ -633,4 +633,5 @@ export default {
   "notif_test_title": "📅 テスト会議リマインダー",
   "switch_to_dark_mode": "ダークモード",
   "switch_to_light_mode": "ライトモード",
+  "captions_jump_to_latest": "最新へ移動",
 };

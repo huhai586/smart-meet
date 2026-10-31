@@ -633,4 +633,5 @@ export default {
   "notif_test_title": "📅 Rappel de réunion test",
   "switch_to_dark_mode": "Mode sombre",
   "switch_to_light_mode": "Mode clair",
+  "captions_jump_to_latest": "Aller au plus récent",
 };

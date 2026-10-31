@@ -719,4 +719,5 @@ export default {
   "notif_test_title": "📅 测试会议提醒",
   "switch_to_dark_mode": "深色模式",
   "switch_to_light_mode": "浅色模式",
+  "captions_jump_to_latest": "回到最新",
 };

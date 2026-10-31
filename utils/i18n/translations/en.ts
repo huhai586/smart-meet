@@ -721,4 +721,5 @@ export default {
   "notif_test_title": "📅 Test Meeting Reminder",
   "switch_to_dark_mode": "Dark mode",
   "switch_to_light_mode": "Light mode",
+  "captions_jump_to_latest": "Jump to latest",
 };

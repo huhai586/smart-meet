@@ -8,6 +8,9 @@ import { getConfigValue, setConfigValue, onConfigChanged } from '../utils/appCon
 // 存储在Chrome存储中的键名
 const STORAGE_KEY = 'autoTranslateEnabled';
 
+// 只自动翻译最近这段时间内产生的内容（打开侧边栏时不会批量翻译历史字幕）
+const AUTO_TRANSLATE_WINDOW_MS = 20 * 1000;
+
 /**
  * 管理自动翻译开关的Hook
  * @returns [enabled, setEnabled] - 当前状态和设置状态的函数
@@ -57,11 +60,9 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
   const lastTranslatedContentRef = useRef<string>('');
   const pendingTextRef = useRef<string>('');
 
-  // 检查内容是否在2分钟内产生
+  // 检查内容是否在自动翻译的时间窗口内产生
   const isContentRecent = useCallback((contentTimestamp: number): boolean => {
-    const now = Date.now();
-    const twoMinutesAgo = now - (2 * 60 * 1000); // 2分钟 = 2 * 60 * 1000毫秒
-    return contentTimestamp > twoMinutesAgo;
+    return contentTimestamp > Date.now() - AUTO_TRANSLATE_WINDOW_MS;
   }, []);
 
   // 执行翻译的核心函数
@@ -154,7 +155,7 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
         return;
       }
       
-      // 检查是否启用自动翻译、有内容、且内容是最近2分钟内产生的
+      // 检查是否启用自动翻译、有内容、且内容是最近20秒内产生的
       if (autoTranslateEnabled && content && isContentRecent(timestamp)) {
         console.log('Content is recent, performing auto translation');
         performAutoTranslation(content);
@@ -163,7 +164,7 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
         if (!autoTranslateEnabled) {
           console.log('Auto translate disabled, clearing content');
         } else if (!isContentRecent(timestamp)) {
-          console.log('Content is too old (>2 minutes), skipping translation');
+          console.log('Content is too old (>20 seconds), skipping translation');
         }
         setAutoTranslatedContent('');
         lastTranslatedContentRef.current = '';

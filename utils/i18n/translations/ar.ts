@@ -588,4 +588,5 @@ export default {
   "notif_test_title": "📅 تذكير اجتماع تجريبي",
   "switch_to_dark_mode": "الوضع المظلم",
   "switch_to_light_mode": "الوضع الفاتح",
+  "captions_jump_to_latest": "الانتقال إلى الأحدث",
 };

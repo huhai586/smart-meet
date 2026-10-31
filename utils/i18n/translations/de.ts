@@ -616,4 +616,5 @@ export default {
   "notif_test_title": "📅 Test-Meeting-Erinnerung",
   "switch_to_dark_mode": "Dunkler Modus",
   "switch_to_light_mode": "Heller Modus",
+  "captions_jump_to_latest": "Zum Neuesten springen",
 };

@@ -616,4 +616,5 @@ export default {
   "notif_test_title": "📅 Lembrete de reunião de teste",
   "switch_to_dark_mode": "Modo escuro",
   "switch_to_light_mode": "Modo claro",
+  "captions_jump_to_latest": "Ir para o mais recente",
 };

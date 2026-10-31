@@ -616,4 +616,5 @@ export default {
   "notif_test_title": "📅 Promemoria riunione di prova",
   "switch_to_dark_mode": "Modalità scura",
   "switch_to_light_mode": "Modalità chiara",
+  "captions_jump_to_latest": "Vai all'ultimo",
 };
