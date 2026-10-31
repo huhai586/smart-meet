@@ -2,13 +2,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { getCaptionsContainer } from '~node_modules/google-meeting-captions-resolver';
 import { getCurrentTranslationProvider } from '~hooks/useTranslationProvider';
 import { translateWord } from '~utils/unified-translation';
-import { CAPTION_WORD_POPOVER_ID, wordAtPoint } from '~utils/word-lookup';
+import { CAPTION_WORD_POPOVER_ID, wordAtPoint, type WordHit } from '~utils/word-lookup';
 
 export interface WordLookup {
     word: string;
-    /** Viewport point the user clicked. */
-    x: number;
-    y: number;
+    /** Viewport box of the clicked word; the popover is placed relative to it. */
+    rect: WordHit['rect'];
     status: 'loading' | 'done' | 'error';
     translation: string;
 }
@@ -49,30 +48,30 @@ export const useCaptionWordLookup = (enabled: boolean) => {
             const isPlainClick = event.button === 0 && !event.metaKey && !event.ctrlKey && !event.altKey && !event.shiftKey;
             if (!isPlainClick || window.getSelection()?.toString()) return;
 
-            const word = wordAtPoint(captions, event.clientX, event.clientY);
-            if (!word) {
+            const hit = wordAtPoint(captions, event.clientX, event.clientY);
+            if (!hit) {
                 dismiss();
                 return;
             }
 
+            const { word, rect } = hit;
             const request = ++latest.current;
-            const { clientX: x, clientY: y } = event;
             const key = `${await getCurrentTranslationProvider()}:${word.toLowerCase()}`;
             if (request !== latest.current) return;
 
             const cached = cache.current.get(key);
             if (cached !== undefined) {
-                setLookup({ word, x, y, status: 'done', translation: cached });
+                setLookup({ word, rect, status: 'done', translation: cached });
                 return;
             }
 
-            setLookup({ word, x, y, status: 'loading', translation: '' });
+            setLookup({ word, rect, status: 'loading', translation: '' });
             try {
                 const translation = await translateWord(word, { silent: true });
                 cache.current.set(key, translation);
-                if (request === latest.current) setLookup({ word, x, y, status: 'done', translation });
+                if (request === latest.current) setLookup({ word, rect, status: 'done', translation });
             } catch {
-                if (request === latest.current) setLookup({ word, x, y, status: 'error', translation: '' });
+                if (request === latest.current) setLookup({ word, rect, status: 'error', translation: '' });
             }
         };
 

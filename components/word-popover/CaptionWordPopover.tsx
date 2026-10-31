@@ -3,7 +3,9 @@ import { t } from "~utils/i18n";
 import { getTranslatedWords, setTranslatedWords } from "~utils/translate";
 import type { WordLookup } from "~hooks/useCaptionWordLookup";
 
-const AUTO_DISMISS_MS = 4000;
+const AUTO_DISMISS_MS = 2000;
+/** Distance between the popover and the word it belongs to. */
+const WORD_GAP_PX = 50;
 const SIDE_MARGIN_PX = 12;
 const HALF_WIDTH_PX = 150;
 const FLIP_BELOW_PX = 110;
@@ -57,13 +59,15 @@ const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismi
         void setTranslatedWords(lookup.word);
     };
 
-    const left = Math.min(Math.max(lookup.x, HALF_WIDTH_PX + SIDE_MARGIN_PX), window.innerWidth - HALF_WIDTH_PX - SIDE_MARGIN_PX);
-    const below = lookup.y < FLIP_BELOW_PX;
+    const { rect } = lookup;
+    const centerX = (rect.left + rect.right) / 2;
+    const left = Math.min(Math.max(centerX, HALF_WIDTH_PX + SIDE_MARGIN_PX), window.innerWidth - HALF_WIDTH_PX - SIDE_MARGIN_PX);
+    const below = rect.top < FLIP_BELOW_PX + WORD_GAP_PX;
 
     return (
         <div
             className={`cw-popover${below ? ' below' : ''}`}
-            style={{ left, top: below ? lookup.y + 20 : lookup.y - 14 }}
+            style={{ left, top: below ? rect.bottom + WORD_GAP_PX : rect.top - WORD_GAP_PX }}
             role="status"
             onMouseEnter={() => { hovered.current = true; }}
             onMouseLeave={() => { hovered.current = false; }}
