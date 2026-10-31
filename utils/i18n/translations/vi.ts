@@ -610,4 +610,5 @@ export default {
   "switch_to_dark_mode": "Chế độ tối",
   "switch_to_light_mode": "Chế độ sáng",
   "captions_jump_to_latest": "Đến mới nhất",
+  "meet_dock_menu_label": "Công cụ Smart Meet",
 };

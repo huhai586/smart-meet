@@ -634,4 +634,5 @@ export default {
   "switch_to_dark_mode": "Mode sombre",
   "switch_to_light_mode": "Mode clair",
   "captions_jump_to_latest": "Aller au plus récent",
+  "meet_dock_menu_label": "Outils Smart Meet",
 };

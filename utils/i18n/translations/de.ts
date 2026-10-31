@@ -617,4 +617,5 @@ export default {
   "switch_to_dark_mode": "Dunkler Modus",
   "switch_to_light_mode": "Heller Modus",
   "captions_jump_to_latest": "Zum Neuesten springen",
+  "meet_dock_menu_label": "Smart-Meet-Tools",
 };

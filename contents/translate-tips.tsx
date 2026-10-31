@@ -4,40 +4,15 @@ import { getCaptionsContainer } from "~node_modules/google-meeting-captions-reso
 import { t } from "~utils/i18n";
 import "./translate-tips.scss";
 import StickerNote from "~components/StickerNote";
+import MeetDockMenu from "~components/meet-dock/MeetDockMenu";
+import { useMeetDockAnchor } from "~hooks/useMeetDockAnchor";
+import { MEET_TOOLS_CONTAINER_ID } from "~utils/meet-dock/constants";
 import { watchCaptionsState } from "~utils/captions-control";
 import { getConfigValue, onConfigChanged } from "~utils/appConfig";
 
-const MessageOutlinedIcon = () => (
-    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
-        {/* Subtitles OFF — faded CC box + diagonal slash */}
-        <path opacity="0.45" d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 14h2v2H6zm4 0h8v2h-8zm-4-4h4v2H6zm6 0h6v2h-6z"/>
-        <path d="M1.62 3.38 20.62 22.38 22.38 20.62 3.38 1.62Z"/>
-    </svg>
-);
-
-const MessageFilledIcon = () => (
-    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
-        {/* Subtitles ON — CC box with text lines */}
-        <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 14h2v2H6zm4 0h8v2h-8zm-4-4h4v2H6zm6 0h6v2h-6z"/>
-    </svg>
-);
-
-const MoreOutlinedIcon = () => (
-    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
-        <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
-    </svg>
-);
-
-const PushpinOutlinedIcon = () => (
-    <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" className="cs-icon">
-        {/* Sticky note with folded bottom-right corner */}
-        <path d="M17 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h9l6-6V4c0-1.1-.9-2-2-2zm0 13h-4v4H5V4h12v11z"/>
-    </svg>
-);
-
 export const getRootContainer = () => {
     const tempDiv = document.createElement('div')
-    tempDiv.id = 'caption-toggle-container';
+    tempDiv.id = MEET_TOOLS_CONTAINER_ID;
     tempDiv.className = 'caption-toggle-container';
     document.body.appendChild(tempDiv)
     console.log('Caption toggle container created')
@@ -49,9 +24,9 @@ const PlasmoInline = () => {
     const [inMeetingRoom, setInMeetingRoom] = useState(false);
     const [captionToggleEnabled, setCaptionToggleEnabled] = useState(false);
     const [stickerEnabled, setStickerEnabled] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(false);
     const [showSticker, setShowSticker] = useState(false);
     const watcherRef = useRef<(() => void) | null>(null);
+    const anchor = useMeetDockAnchor(inMeetingRoom && (captionToggleEnabled || stickerEnabled));
 
     useEffect(() => {
         console.log('showSticker state changed:', showSticker);
@@ -165,41 +140,14 @@ const PlasmoInline = () => {
 
     return (
         <>
-            <div 
-                className="caption-button-group-container"
-                onMouseEnter={() => setIsExpanded(true)}
-                onMouseLeave={() => setIsExpanded(false)}
-            >
-                <div className={`caption-button-group ${isExpanded ? 'expanded' : 'collapsed'}`}>
-                    {isExpanded && (
-                        <>
-                            {stickerEnabled && (
-                                <button
-                                    className="cs-btn caption-sticker-button"
-                                    onClick={() => setShowSticker(!showSticker)}
-                                    title={t('add_note') || 'Add Note'}
-                                >
-                                    <PushpinOutlinedIcon />
-                                </button>
-                            )}
-                            {captionToggleEnabled && (
-                                <button
-                                    className={`cs-btn caption-action-button ${isHidden ? 'hidden' : 'visible'}`}
-                                    onClick={toggleCaptionsVisibility}
-                                    title={isHidden ? t('show_captions') : t('hide_captions')}
-                                >
-                                    {isHidden ? <MessageOutlinedIcon /> : <MessageFilledIcon />}
-                                </button>
-                            )}
-                        </>
-                    )}
-                    {!isExpanded && (
-                        <button className="cs-btn caption-menu-button">
-                            <MoreOutlinedIcon />
-                        </button>
-                    )}
-                </div>
-            </div>
+            <MeetDockMenu
+                anchor={anchor}
+                noteEnabled={stickerEnabled}
+                captionToggleEnabled={captionToggleEnabled}
+                captionsHidden={isHidden}
+                onNote={() => setShowSticker(!showSticker)}
+                onToggleCaptions={toggleCaptionsVisibility}
+            />
             {showSticker && <StickerNote onClose={() => setShowSticker(false)} />}
         </>
     )

@@ -1,126 +1,125 @@
-// Pinned to the top-left of the viewport. It used to rely on being the first thing in the
-// document flow, which stopped working once Meet's root element started filling the viewport
-// in-flow (the container was pushed below the fold).
+// Our button lives in its own fixed container, outside Meet's DOM. When Meet's bottom control bar
+// can be located it is placed right next to it (inline left/top/size from useMeetDockAnchor);
+// otherwise it sits in a fixed corner above the bar so it never disappears.
 .caption-toggle-container {
     position: fixed;
     top: 0;
     left: 0;
+    width: 0;
+    height: 0;
     z-index: 99999;
-    margin: 1em;
 }
 
-.caption-button-group-container {
-    position: relative;
-    display: inline-block;
-}
+.meet-dock-menu {
+    position: fixed;
+    transition: opacity 0.2s ease, transform 0.2s ease;
 
-// ── Frosted-glass pill ──────────────────────────────────────────
-.caption-button-group {
-    display: inline-flex;
-    align-items: center;
-    height: 36px;
-    border-radius: 18px;
-    overflow: hidden;
-    background: rgba(30, 30, 32, 0.72);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    box-shadow:
-        0 0 0 0.5px rgba(255, 255, 255, 0.12),
-        0 4px 16px rgba(0, 0, 0, 0.28);
-    transition:
-        width 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
-        background 0.2s ease;
+    &.fallback {
+        right: 24px;
+        bottom: 104px;
+        width: 48px;
+        height: 48px;
+    }
 
-    // Divider between buttons
-    .cs-btn + .cs-btn::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 6px;
-        bottom: 6px;
-        width: 0.5px;
-        background: rgba(255, 255, 255, 0.14);
+    // Meet slides its bar out of view when idle; hide with it.
+    &.dock-hidden {
+        opacity: 0;
+        transform: translateY(8px);
         pointer-events: none;
     }
-
-    &.collapsed {
-        width: 36px;
-    }
-
-    &.expanded {
-        width: auto;
-    }
 }
 
-// ── Base button ─────────────────────────────────────────────────
-.cs-btn {
-    position: relative;
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
+// ── Round trigger, same size and tone as Meet's own control buttons ──
+.md-trigger {
+    width: 100%;
+    height: 100%;
     padding: 0;
     border: none;
+    border-radius: 50%;
     cursor: pointer;
-    color: rgba(255, 255, 255, 0.85);
-    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: rgba(255, 255, 255, 0.88);
+    background: rgba(60, 64, 67, 0.82);
     transition: background 0.18s ease, transform 0.15s ease;
     -webkit-tap-highlight-color: transparent;
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.1);
+    &:hover,
+    .open > & {
+        background: rgba(95, 99, 104, 0.9);
     }
 
     &:active {
-        transform: scale(0.88);
-        background: rgba(255, 255, 255, 0.18);
+        transform: scale(0.94);
     }
 
-    .cs-icon {
-        width: 15px;
-        height: 15px;
-        font-size: 15px;
+    &:focus-visible {
+        outline: 2px solid #8ab4f8;
+        outline-offset: 2px;
     }
-}
 
-// ── Sticker button — amber accent ───────────────────────────────
-.caption-sticker-button {
-    color: #ffd60a;
-
-    &:hover {
-        background: rgba(255, 214, 10, 0.14);
-        color: #ffd60a;
+    .md-icon {
+        width: 22px;
+        height: 22px;
+        font-size: 22px;
     }
 }
 
-// ── Caption toggle button ────────────────────────────────────────
-.caption-action-button {
-    &.visible {
-        color: #30d158;   // system green — captions on
+// ── Dropdown above the trigger ──────────────────────────────────
+.md-panel {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    right: 0;
+    min-width: 176px;
+    padding: 6px;
+    border-radius: 14px;
+    background: rgba(32, 33, 36, 0.96);
+    box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.1), 0 6px 20px rgba(0, 0, 0, 0.35);
+    animation: md-panel-in 0.16s ease;
 
-        &:hover {
-            background: rgba(48, 209, 88, 0.14);
-        }
-    }
-
-    &.hidden {
-        color: rgba(255, 255, 255, 0.38);  // dimmed — captions off
-
-        &:hover {
-            background: rgba(255, 255, 255, 0.08);
-            color: rgba(255, 255, 255, 0.6);
-        }
+    // Keeps the hover alive across the 8px gap between trigger and panel.
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        height: 8px;
     }
 }
 
-// ── Menu / more button ───────────────────────────────────────────
-.caption-menu-button {
-    color: rgba(255, 255, 255, 0.55);
+.md-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.9);
+    font: 500 13px/1.2 'Google Sans', Roboto, -apple-system, sans-serif;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.18s ease;
 
-    &:hover {
-        color: rgba(255, 255, 255, 0.85);
+    &:hover,
+    &:focus-visible {
         background: rgba(255, 255, 255, 0.1);
+        outline: none;
     }
+
+    .md-icon {
+        width: 18px;
+        height: 18px;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+}
+
+@keyframes md-panel-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
 }

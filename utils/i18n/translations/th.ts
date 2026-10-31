@@ -589,4 +589,5 @@ export default {
   "switch_to_dark_mode": "โหมดมืด",
   "switch_to_light_mode": "โหมดสว่าง",
   "captions_jump_to_latest": "ไปที่ล่าสุด",
+  "meet_dock_menu_label": "เครื่องมือ Smart Meet",
 };
