@@ -160,17 +160,74 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
 
 // ─── Core helpers ─────────────────────────────────────────────────────────────
 
+// The whole config lives in one storage key and is read by many callers (every caption row
+// has several hooks that read it), so keep one in-memory copy per JS context. It is kept
+// fresh by a single chrome.storage.onChanged listener that also feeds onConfigChanged.
+let cache: Partial<AppConfigData> | undefined;
+let cacheLoading: Promise<Partial<AppConfigData>> | undefined;
+/** Bumped by every change event, so a read that was in flight when one arrived doesn't overwrite it. */
+let cacheVersion = 0;
+const configListeners = new Set<(changes: Partial<AppConfigData>) => void>();
+let storageListenerAttached = false;
+
+function handleStorageChange(
+  changes: Record<string, chrome.storage.StorageChange>,
+  areaName: string,
+) {
+  if (areaName !== 'sync' || !changes[STORAGE_KEY]) return;
+
+  const oldVal = (changes[STORAGE_KEY].oldValue ?? {}) as Partial<AppConfigData>;
+  const newVal = (changes[STORAGE_KEY].newValue ?? {}) as Partial<AppConfigData>;
+  cache = newVal;
+  cacheVersion++;
+  if (configListeners.size === 0) return;
+
+  // Merge: take the field-level winner between old and new
+  const merged = mergeAppConfigs(oldVal, newVal);
+
+  // Extract only the keys that actually changed
+  const diff: Partial<AppConfigData> = {};
+  for (const k of Object.keys(merged) as Array<keyof AppConfigData>) {
+    if (k === '_schemaVersion') continue;
+    const mergedField = merged[k] as Field<unknown> | undefined;
+    const oldField = oldVal[k] as Field<unknown> | undefined;
+    if (!oldField || mergedField?.updatedAt !== oldField.updatedAt) {
+      (diff as Record<string, unknown>)[k] = mergedField;
+    }
+  }
+
+  if (Object.keys(diff).length > 0) configListeners.forEach((listener) => listener(diff));
+}
+
+function ensureStorageListener() {
+  if (storageListenerAttached) return;
+  storageListenerAttached = true;
+  chrome.storage.onChanged.addListener(handleStorageChange);
+}
+
 function readRaw(): Promise<Partial<AppConfigData>> {
-  return new Promise((resolve) => {
+  ensureStorageListener();
+  if (cache) return Promise.resolve(cache);
+  if (cacheLoading) return cacheLoading;
+
+  const versionAtStart = cacheVersion;
+  const loading: Promise<Partial<AppConfigData>> = new Promise((resolve) => {
     chrome.storage.sync.get([STORAGE_KEY], (result) => {
-      resolve((result[STORAGE_KEY] as Partial<AppConfigData>) ?? {});
+      const stored = (result[STORAGE_KEY] as Partial<AppConfigData>) ?? {};
+      if (cacheVersion === versionAtStart) cache = stored;
+      resolve(cache ?? stored);
     });
+  }).finally(() => {
+    if (cacheLoading === loading) cacheLoading = undefined;
   });
+  cacheLoading = loading;
+  return loading;
 }
 
 function writeRaw(data: Partial<AppConfigData>): Promise<void> {
   return new Promise((resolve) => {
     chrome.storage.sync.set({ [STORAGE_KEY]: data }, () => {
+      cache = data;
       // Stamp a local-only sync timestamp so any page can show "last synced"
       chrome.storage.local.set({ lastSyncAt: Date.now() });
       resolve();
@@ -211,7 +268,9 @@ export async function getConfigValue<K extends AppConfigKey>(
 ): Promise<ConfigValue<K>> {
   const config = await readRaw();
   const field = config[key] as Field<ConfigValue<K>> | undefined;
-  return field !== undefined ? field.value : (DEFAULTS[key] as ConfigValue<K>);
+  const value = field !== undefined ? field.value : (DEFAULTS[key] as ConfigValue<K>);
+  // Callers get their own copy: the cache is shared, and storage used to hand out a fresh one per read.
+  return typeof value === 'object' && value !== null ? structuredClone(value) : value;
 }
 
 /**
@@ -240,34 +299,11 @@ export async function setConfigValue<K extends AppConfigKey>(
 export function onConfigChanged(
   listener: (changes: Partial<AppConfigData>) => void,
 ): () => void {
-  const handler = (
-    changes: Record<string, chrome.storage.StorageChange>,
-    areaName: string,
-  ) => {
-    if (areaName !== 'sync' || !changes[STORAGE_KEY]) return;
-
-    const oldVal = (changes[STORAGE_KEY].oldValue ?? {}) as Partial<AppConfigData>;
-    const newVal = (changes[STORAGE_KEY].newValue ?? {}) as Partial<AppConfigData>;
-
-    // Merge: take the field-level winner between old and new
-    const merged = mergeAppConfigs(oldVal, newVal);
-
-    // Extract only the keys that actually changed
-    const diff: Partial<AppConfigData> = {};
-    for (const k of Object.keys(merged) as Array<keyof AppConfigData>) {
-      if (k === '_schemaVersion') continue;
-      const mergedField = merged[k] as Field<unknown> | undefined;
-      const oldField = oldVal[k] as Field<unknown> | undefined;
-      if (!oldField || mergedField?.updatedAt !== oldField.updatedAt) {
-        (diff as Record<string, unknown>)[k] = mergedField;
-      }
-    }
-
-    if (Object.keys(diff).length > 0) listener(diff);
+  ensureStorageListener();
+  configListeners.add(listener);
+  return () => {
+    configListeners.delete(listener);
   };
-
-  chrome.storage.onChanged.addListener(handler);
-  return () => chrome.storage.onChanged.removeListener(handler);
 }
 
 // ─── Migration ────────────────────────────────────────────────────────────────

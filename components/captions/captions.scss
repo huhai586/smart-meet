@@ -210,6 +210,11 @@
     }
 
     .caption-container {
+      // Off-screen captions skip layout/paint. Their height can't be known up front (translations
+      // and AI answers expand them), so the browser remembers each one's real height once seen
+      // (`auto`) and uses the measured average (useCaptionIntrinsicHeight) until then.
+      content-visibility: auto;
+      contain-intrinsic-size: auto var(--caption-intrinsic-height, 120px);
       display: flex;
       gap: 10px;
       background: transparent;

@@ -6,6 +6,7 @@ import type { Dayjs } from 'dayjs';
 import type { Transcript } from '../../hooks/useTranscripts';
 import useAutoScroll from "~hooks/useScroll"
 import { useI18n } from '../../utils/i18n';
+import { useCaptionIntrinsicHeight } from './hooks/useCaptionIntrinsicHeight';
 import '../../styles/empty-states.scss';
 
 interface CaptionContentProps {
@@ -27,6 +28,8 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
   const { t } = useI18n();
   const lastItemInContainer = useRef<HTMLDivElement>(null);
   const { disableAutoScroll, autoScroll, toggleAutoScroll } = useAutoScroll(containerRef.current, lastItemInContainer.current, filteredData);
+
+  useCaptionIntrinsicHeight(containerRef, filteredData.length);
 
   const isNoData = filteredData.length === 0;
 

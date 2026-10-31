@@ -15,6 +15,21 @@ import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
  * @param scrollAreaElement
  * @param lastItemElement
  */
+/**
+ * Smooth scrolling is right for following a live caption, but across a long list it crawls and
+ * is restarted every time off-screen captions render and shift the list's height (content-visibility),
+ * so opening a long meeting could take many seconds to reach the bottom. Jump when far away.
+ */
+const scrollToBottom = (lastItem: HTMLDivElement) => {
+    const container = lastItem.parentElement;
+    const distance = container ? container.scrollHeight - container.scrollTop - container.clientHeight : 0;
+    if (container && distance > container.clientHeight * 2) {
+        lastItem.scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'nearest' });
+    } else {
+        scrollElementIntoView(lastItem);
+    }
+};
+
 function useAutoScroll(
     scrollAreaElement: HTMLDivElement,
     lastItemElement: HTMLDivElement,
@@ -56,11 +71,16 @@ function useAutoScroll(
         }
 
         const loopCheck = () => {
+            // scrollIntoView forces a layout even when nothing moved. Only call it when the
+            // list's height changed (new caption, translation/AI answer expanded); reading
+            // scrollHeight is free while the layout is clean, which is the idle case.
+            let lastScrollHeight = -1;
+
             const animate = () => {
-                if (autoScroll && lastItemElement) {
-                    scrollElementIntoView(lastItemElement);
-                } else {
-                    console.log('ignore scrolling');
+                const scrollHeight = lastItemElement?.parentElement?.scrollHeight ?? -1;
+                if (autoScroll && lastItemElement && scrollHeight !== lastScrollHeight) {
+                    lastScrollHeight = scrollHeight;
+                    scrollToBottom(lastItemElement);
                 }
                 
                 // 继续下一帧

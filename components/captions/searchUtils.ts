@@ -117,6 +117,10 @@ export const clearHighlights = (container: HTMLElement | null): void => {
 export const scrollToMatch = (element: HTMLElement): void => {
   if (!element) return;
 
+  // Off-screen captions are placeholders (content-visibility) with an estimated height, so a
+  // single smooth scroll can land short. Jump to the caption first so it renders at its real
+  // size, then glide to the exact match. 'instant' because the list's CSS is scroll-behavior: smooth.
+  element.closest('.caption-container')?.scrollIntoView({ behavior: 'instant', block: 'center' });
   element.scrollIntoView({
     behavior: 'smooth',
     block: 'center'

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 
 interface WordSegment {
     type: 'word' | 'space';
@@ -50,6 +50,8 @@ const shouldHighlight = (word: string, keywords: string[]): boolean => {
         cleanWord.includes(keyword.toLowerCase())
     );
 };
+
+const noop = () => {};
 
 // Memoized word component
 const ClickableWord = memo(({
@@ -109,35 +111,67 @@ export const CaptionTextRenderer = memo(({
     isRTL,
     onTranslateSentence
 }: CaptionTextRendererProps) => {
+    // Every word as its own <span> (plus a React component each) is about half of the sidepanel's
+    // DOM. Captions start as plain text and only get per-word spans once the pointer enters them,
+    // which is before a word can be hovered or clicked.
+    const [isInteractive, setIsInteractive] = useState(false);
+    const textRef = useRef<HTMLDivElement>(null);
     const segments = parseTextToSegments(content);
     const allKeywords = [...domainKeyWords, ...specificWords];
 
+    const activate = useCallback(() => {
+        // The search UI splits this element's text nodes in place; re-rendering it into spans now
+        // would make React remove nodes that are no longer there. Clicks still work (see Caption).
+        if (textRef.current?.querySelector('.search-highlight')) return;
+        setIsInteractive(true);
+    }, []);
+
+    const renderWord = (segment: WordSegment, index: number, isHighlighted: boolean) => (
+        <ClickableWord
+            key={`word-${index}-${segment.content}`}
+            word={segment.content}
+            wordIndex={segment.wordIndex}
+            isHighlighted={isHighlighted}
+            isSentenceHighlighted={false}
+            onHoverStart={noop}
+            onHoverEnd={noop}
+        />
+    );
+
     // Render segments
     const renderContent = () => {
-        return segments.map((segment, index) => {
-            if (segment.type === 'space') {
-                return <React.Fragment key={`space-${index}`}>{segment.content}</React.Fragment>;
+        if (isInteractive) {
+            return segments.map((segment, index) => {
+                if (segment.type === 'space') {
+                    return <React.Fragment key={`space-${index}`}>{segment.content}</React.Fragment>;
+                }
+                return renderWord(segment, index, shouldHighlight(segment.content, allKeywords));
+            });
+        }
+
+        // Plain mode: only keyword hits keep their own element (they are styled), everything
+        // between them is one text node.
+        const nodes: React.ReactNode[] = [];
+        let run = '';
+        segments.forEach((segment, index) => {
+            if (segment.type === 'word' && shouldHighlight(segment.content, allKeywords)) {
+                if (run) nodes.push(run);
+                run = '';
+                nodes.push(renderWord(segment, index, true));
             } else {
-                const isHighlighted = shouldHighlight(segment.content, allKeywords);
-                return (
-                    <ClickableWord
-                        key={`word-${index}-${segment.content}`}
-                        word={segment.content}
-                        wordIndex={segment.wordIndex}
-                        isHighlighted={isHighlighted}
-                        isSentenceHighlighted={false}
-                        onHoverStart={() => {}}
-                        onHoverEnd={() => {}}
-                    />
-                );
+                run += segment.content;
             }
         });
+        if (run) nodes.push(run);
+        return nodes;
     };
 
     return (
         <div
+            ref={textRef}
             className={`caption-text ${isRTL ? 'rtl' : ''}`}
             style={{ position: 'relative' }}
+            onMouseEnter={isInteractive ? undefined : activate}
         >
             {renderContent()}
         </div>

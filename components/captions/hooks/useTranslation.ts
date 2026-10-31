@@ -37,7 +37,8 @@ export const useTranslation = () => {
     // Handle word click translation
     const handleWordClick = useCallback(async (
         event: React.MouseEvent,
-        fallbackContent: string
+        fallbackContent: string,
+        wordOverride?: string
     ) => {
         event.preventDefault();
         event.stopPropagation();
@@ -52,10 +53,12 @@ export const useTranslation = () => {
         
         // Check if clicked element is a word span or highlighted b tag
         let _clickableElement = target;
-        let word = '';
+        let word = wordOverride ?? '';
         
         // If clicked on highlighted b tag, find parent clickable-word span
-        if (target.classList.contains('highlight')) {
+        if (wordOverride !== undefined) {
+            // The caller already resolved the word (plain-text caption), nothing to look up.
+        } else if (target.classList.contains('highlight')) {
             let parent = target.parentElement;
             while (parent && !parent.classList.contains('clickable-word')) {
                 parent = parent.parentElement;

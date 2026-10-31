@@ -7,6 +7,7 @@ import { CaptionHeader, AutoTranslationSection, CaptionTimestamp, AIAnswerSectio
 import { CaptionTextRenderer } from "./components/CaptionTextRenderer";
 import { Actions } from "~components/captions/types";
 import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
+import { getWordAtPoint } from "~components/captions/utils/wordAtPoint";
 
 const getSpeakerInitial = (name: string) => (name || '?').charAt(0).toUpperCase();
 
@@ -79,7 +80,10 @@ const Caption = memo((props: CaptionProps) => {
         // Only process if clicked on or inside a clickable-word element
         const clickableWord = target.closest('.clickable-word');
         if (!clickableWord) {
-            return; // Ignore clicks outside clickable-word elements
+            // A caption that is still plain text has no word elements: resolve the word from the point.
+            const word = target.closest('.caption-text') ? getWordAtPoint(event.clientX, event.clientY) : '';
+            if (word) handleWordClick(event, data.talkContent, word);
+            return;
         }
         
         handleWordClick(event, data.talkContent);

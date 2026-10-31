@@ -1,12 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import {
-  cleanupLegacyFlatKeys,
-  getConfigValue,
-  mergeAppConfigs,
-  migrateToAppConfig,
-  onConfigChanged,
-  setConfigValue,
-} from './appConfig';
+import type * as AppConfigModule from './appConfig';
 
 type StorageData = Record<string, unknown>;
 
@@ -54,11 +47,21 @@ function createChromeStorage() {
 }
 
 let storage: ReturnType<typeof createChromeStorage>;
+let cleanupLegacyFlatKeys: typeof AppConfigModule.cleanupLegacyFlatKeys;
+let getConfigValue: typeof AppConfigModule.getConfigValue;
+let mergeAppConfigs: typeof AppConfigModule.mergeAppConfigs;
+let migrateToAppConfig: typeof AppConfigModule.migrateToAppConfig;
+let onConfigChanged: typeof AppConfigModule.onConfigChanged;
+let setConfigValue: typeof AppConfigModule.setConfigValue;
 
-beforeEach(() => {
+beforeEach(async () => {
   storage = createChromeStorage();
   vi.stubGlobal('chrome', storage.chrome);
   vi.spyOn(Date, 'now').mockReturnValue(1_700_000_000_000);
+  // appConfig keeps an in-memory cache at module level: start every test from a fresh module.
+  vi.resetModules();
+  ({ cleanupLegacyFlatKeys, getConfigValue, mergeAppConfigs, migrateToAppConfig, onConfigChanged, setConfigValue } =
+    await import('./appConfig'));
 });
 
 describe('mergeAppConfigs', () => {
@@ -103,7 +106,77 @@ describe('appConfig reads and writes', () => {
   });
 });
 
+describe('appConfig cache', () => {
+  const getCalls = () =>
+    storage.chrome.storage.sync.get.mock.calls.filter(([keys]) => keys.includes('appConfig')).length;
+
+  it('reads storage once no matter how many fields are read', async () => {
+    storage.sync.appConfig = { darkMode: { value: true, updatedAt: 1 } };
+
+    await Promise.all([getConfigValue('darkMode'), getConfigValue('translationLanguage'), getConfigValue('darkMode')]);
+    await getConfigValue('uiLanguage');
+
+    expect(getCalls()).toBe(1);
+  });
+
+  it('serves its own write without going back to storage', async () => {
+    await setConfigValue('translationLanguage', 'ja');
+    const callsAfterWrite = getCalls();
+
+    await expect(getConfigValue('translationLanguage')).resolves.toBe('ja');
+    expect(getCalls()).toBe(callsAfterWrite);
+  });
+
+  it('picks up changes made elsewhere through the storage change event', async () => {
+    storage.sync.appConfig = { darkMode: { value: false, updatedAt: 1 } };
+    await expect(getConfigValue('darkMode')).resolves.toBe(false);
+
+    storage.emitChange({
+      appConfig: { oldValue: storage.sync.appConfig, newValue: { darkMode: { value: true, updatedAt: 2 } } },
+    });
+
+    await expect(getConfigValue('darkMode')).resolves.toBe(true);
+    expect(getCalls()).toBe(1);
+  });
+
+  it('falls back to defaults once the stored config is removed', async () => {
+    storage.sync.appConfig = { darkMode: { value: true, updatedAt: 1 } };
+    await getConfigValue('darkMode');
+
+    storage.emitChange({ appConfig: { oldValue: storage.sync.appConfig } });
+
+    await expect(getConfigValue('darkMode')).resolves.toBe(false);
+  });
+
+  it('does not let a read that was already in flight overwrite a newer change', async () => {
+    storage.sync.appConfig = { darkMode: { value: false, updatedAt: 1 } };
+    const pending = getConfigValue('darkMode');
+
+    storage.emitChange({
+      appConfig: { oldValue: storage.sync.appConfig, newValue: { darkMode: { value: true, updatedAt: 2 } } },
+    });
+    await pending;
+
+    await expect(getConfigValue('darkMode')).resolves.toBe(true);
+  });
+
+  it('hands out copies, so mutating a result cannot corrupt the cache', async () => {
+    storage.sync.appConfig = { translatedWords: { value: ['a'], updatedAt: 1 } };
+
+    (await getConfigValue('translatedWords')).push('b');
+
+    await expect(getConfigValue('translatedWords')).resolves.toEqual(['a']);
+  });
+});
+
 describe('onConfigChanged', () => {
+  it('shares one storage listener between all subscribers', () => {
+    const unsubscribers = Array.from({ length: 50 }, () => onConfigChanged(vi.fn()));
+
+    expect(storage.chrome.storage.onChanged.addListener).toHaveBeenCalledTimes(1);
+    unsubscribers.forEach((unsubscribe) => unsubscribe());
+  });
+
   it('emits only fields changed in the sync appConfig payload', () => {
     const listener = vi.fn();
     const unsubscribe = onConfigChanged(listener);
