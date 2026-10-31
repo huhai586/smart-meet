@@ -7,7 +7,7 @@ import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
  *
  * 1. **高度变化触发滚动**: 当captions list的高度发生变化时，自动滚动到底部
  * 2. **用户操作停止滚动**: 当用户点击翻译、polish或analysis按钮时，立即停止自动滚动
- * 3. **滚动行为停止滚动**: 用户向上滚动（滚轮或拖动滚动条）时，立即停止自动滚动
+ * 3. **滚动行为停止滚动**: 用户向上滚动（滚轮、拖动滚动条、键盘）时，立即停止自动滚动；悬停等布局变化引起的 scrollTop 变化不算
  * 4. **点击恢复**: 只有点击"回到最新"才恢复自动滚动（不根据滚动位置自动恢复，避免和用户拖动互相打架）
  * 5. **历史消息不滚动**: 最新一条消息超过2分钟时不自动滚动
  *
@@ -17,6 +17,9 @@ import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
 const FAR_DISTANCE_PX = 100;
 /** An upward scroll smaller than this is layout noise (rounding), not the user. */
 const SCROLLED_UP_THRESHOLD_PX = 1;
+/** An upward scroll within this long of a wheel / key press is the user's. */
+const USER_INPUT_WINDOW_MS = 500;
+const SCROLL_UP_KEYS = new Set(['ArrowUp', 'PageUp', 'Home']);
 
 const distanceFromBottom = (container: HTMLElement) =>
     container.scrollHeight - container.scrollTop - container.clientHeight;
@@ -54,29 +57,52 @@ function useAutoScroll(
       setAutoScroll(false)
     }, []);
 
-    // Scrolling up pauses auto scroll. The list's own auto scrolling only ever moves down, so an
-    // upward scroll is always the user, whatever the input (wheel, scrollbar drag, keyboard).
+    // Scrolling up pauses auto scroll. The list's own auto scrolling only ever moves down, but layout
+    // changes (translations expanding, placeholders resizing) can nudge scrollTop up as well, so an
+    // upward scroll only counts when the user is driving it: a button held down (scrollbar drag,
+    // selection drag), or a wheel / keyboard input just before it.
     // Resuming is explicit (resumeAutoScroll): deciding it from the scroll position fights the user's drag.
     useEffect(() => {
         const container = scrollAreaElement;
         if (!container) return;
 
         let lastScrollTop = container.scrollTop;
+        let lastUserInputAt = 0;
+        let isPointerDown = false;
+        const markInput = () => { lastUserInputAt = performance.now(); };
+
         const onScroll = () => {
             const delta = container.scrollTop - lastScrollTop;
             lastScrollTop = container.scrollTop;
             setIsFarFromBottom(distanceFromBottom(container) > FAR_DISTANCE_PX);
-            if (delta < -SCROLLED_UP_THRESHOLD_PX) setAutoScroll(false);
+            if (delta < -SCROLLED_UP_THRESHOLD_PX && (isPointerDown || performance.now() - lastUserInputAt < USER_INPUT_WINDOW_MS)) {
+                setAutoScroll(false);
+            }
         };
         const onWheel = (event: WheelEvent) => {
+            markInput();
             if (event.deltaY < 0) setAutoScroll(false);
         };
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (SCROLL_UP_KEYS.has(event.key)) markInput();
+        };
+        const onPointerDown = () => { isPointerDown = true; };
+        const onPointerUp = () => { isPointerDown = false; };
 
         container.addEventListener('scroll', onScroll, { passive: true });
         container.addEventListener('wheel', onWheel, { passive: true });
+        container.addEventListener('pointerdown', onPointerDown);
+        // The release can happen anywhere (the pointer leaves the list while dragging).
+        window.addEventListener('pointerup', onPointerUp, true);
+        window.addEventListener('pointercancel', onPointerUp, true);
+        window.addEventListener('keydown', onKeyDown, true);
         return () => {
             container.removeEventListener('scroll', onScroll);
             container.removeEventListener('wheel', onWheel);
+            container.removeEventListener('pointerdown', onPointerDown);
+            window.removeEventListener('pointerup', onPointerUp, true);
+            window.removeEventListener('pointercancel', onPointerUp, true);
+            window.removeEventListener('keydown', onKeyDown, true);
         };
     }, [scrollAreaElement, setAutoScroll]);
 
