@@ -22,6 +22,7 @@ import {
 type InitStatus =
   | 'checking'
   | 'not-supported'
+  | 'confirm-download'
   | 'downloading'
   | 'ready';
 
@@ -246,6 +247,20 @@ const TranslateBtn = styled.button<{ $loading?: boolean }>`
   }
 `;
 
+const SecondaryBtn = styled(TranslateBtn)`
+  background: #F2F2F7;
+  color: #3C3C43;
+
+  &:hover:not(:disabled) {
+    background: #E5E5EA;
+  }
+`;
+
+const BtnRow = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
 // ─── Language source options for Chrome Translator API ─────────────────────
 
 const CHROME_TRANSLATOR_LANGS = [
@@ -314,7 +329,7 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
   const [outputText, setOutputText] = useState('');
   const [isTranslating, setIsTranslating] = useState(false);
 
-  const abortRef = useRef(false);
+  const downloadAbortRef = useRef<AbortController | null>(null);
 
   // ── Initialization ──────────────────────────────────────────────────────
 
@@ -343,35 +358,50 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
         return;
       }
 
-      // 'downloadable' — need to download the model
-      setStatus('downloading');
-      abortRef.current = false;
-
-      await (Translator as any).create({
-        sourceLanguage,
-        targetLanguage: targetCode,
-        monitor(m: EventTarget) {
-          m.addEventListener('downloadprogress', (e: any) => {
-            if (abortRef.current) return;
-            const pct = Math.round((e.loaded ?? 0) * 100);
-            setDownloadPercent(pct);
-          });
-        },
-      });
-
-      setStatus('ready');
+      // 'downloadable' / 'downloading' — the user has to confirm before a model is fetched
+      setStatus('confirm-download');
     } catch (err) {
       console.error('[LocalTranslatorModal] Init error:', err);
       setStatus('not-supported');
     }
   }, [config.sourceLanguage, targetLanguage.code]);
 
+  const startDownload = async () => {
+    const controller = new AbortController();
+    downloadAbortRef.current = controller;
+    setDownloadPercent(0);
+    setStatus('downloading');
+    try {
+      await (Translator as any).create({
+        sourceLanguage: config.sourceLanguage || 'en',
+        targetLanguage: targetLanguage.code,
+        signal: controller.signal,
+        monitor(m: EventTarget) {
+          m.addEventListener('downloadprogress', (e: any) => {
+            if (controller.signal.aborted) return;
+            setDownloadPercent(Math.round((e.loaded ?? 0) * 100));
+          });
+        },
+      });
+      if (!controller.signal.aborted) setStatus('ready');
+    } catch (err) {
+      if (controller.signal.aborted) return;
+      console.error('[LocalTranslatorModal] Download error:', err);
+      setStatus('not-supported');
+    }
+  };
+
+  const cancelDownload = () => {
+    downloadAbortRef.current?.abort();
+    setStatus('confirm-download');
+  };
+
   // Re-init whenever the modal opens (or source language changes after ready state)
   useEffect(() => {
     if (!open) return;
     initTranslator();
     return () => {
-      abortRef.current = true;
+      downloadAbortRef.current?.abort();
     };
   }, [open, initTranslator]);
 
@@ -413,6 +443,27 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
 
   // ── Render ───────────────────────────────────────────────────────────────
 
+  const renderSourcePicker = () => (
+    <LangRow>
+      <LangLabel>{t('local_translator_source_lang')}:</LangLabel>
+      <Select
+        value={config.sourceLanguage || 'en'}
+        onChange={handleSourceLangChange}
+        style={{ width: 140 }}
+        size="small"
+        popupMatchSelectWidth={false}
+      >
+        {CHROME_TRANSLATOR_LANGS.map((lang) => (
+          <Select.Option key={lang.code} value={lang.code}>
+            {lang.name}
+          </Select.Option>
+        ))}
+      </Select>
+      <SwapOutlined style={{ color: '#C7C7CC', fontSize: 12 }} />
+      <LangLabel>{targetLanguage.name}</LangLabel>
+    </LangRow>
+  );
+
   const renderInit = () => {
     if (status === 'checking') {
       return (
@@ -436,26 +487,26 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
               : t('local_translator_not_supported_hint')}
           </HintPill>
           {/* The pair is what failed, so let the user fix it here instead of leaving them stuck. */}
-          {isLocalTranslatorSupported() && (
-            <LangRow>
-              <LangLabel>{t('local_translator_source_lang')}:</LangLabel>
-              <Select
-                value={config.sourceLanguage || 'en'}
-                onChange={handleSourceLangChange}
-                style={{ width: 140 }}
-                size="small"
-                popupMatchSelectWidth={false}
-              >
-                {CHROME_TRANSLATOR_LANGS.map((lang) => (
-                  <Select.Option key={lang.code} value={lang.code}>
-                    {lang.name}
-                  </Select.Option>
-                ))}
-              </Select>
-              <SwapOutlined style={{ color: '#C7C7CC', fontSize: 12 }} />
-              <LangLabel>{targetLanguage.name}</LangLabel>
-            </LangRow>
-          )}
+          {isLocalTranslatorSupported() && renderSourcePicker()}
+        </InitCenter>
+      );
+    }
+
+    if (status === 'confirm-download') {
+      const sourceName =
+        CHROME_TRANSLATOR_LANGS.find((l) => l.code === (config.sourceLanguage || 'en'))?.name ?? config.sourceLanguage;
+      return (
+        <InitCenter>
+          <InitIcon>📥</InitIcon>
+          <InitTitle>{t('local_translator_download_confirm_title')}</InitTitle>
+          <InitSubtitle>
+            {t('local_translator_download_confirm_desc', { source: sourceName, target: targetLanguage.name })}
+          </InitSubtitle>
+          {renderSourcePicker()}
+          <BtnRow>
+            <SecondaryBtn onClick={onClose}>{t('cancel')}</SecondaryBtn>
+            <TranslateBtn onClick={startDownload}>{t('local_translator_download_btn')}</TranslateBtn>
+          </BtnRow>
         </InitCenter>
       );
     }
@@ -478,6 +529,7 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
               style={{ borderRadius: 99 }}
             />
           </ProgressWrap>
+          <SecondaryBtn onClick={cancelDownload}>{t('cancel')}</SecondaryBtn>
         </InitCenter>
       );
     }
