@@ -722,6 +722,7 @@ export default {
   "captions_jump_to_latest": "回到最新",
   "meet_dock_menu_label": "Smart Meet 工具",
   "provider_local_download_hint": "模型尚未下载，点击下载",
+  "local_model_missing_message": "还没有安装本地翻译模型，请前往设置页下载后再使用翻译。",
   "caption_word_translate": "点击字幕翻译单词",
   "caption_word_translate_desc": "点击 Google Meet 原生字幕中的单词，查看翻译",
   "caption_word_translate_enabled": "点击翻译已开启",

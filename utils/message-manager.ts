@@ -10,6 +10,8 @@ class MessageManager {
   private static instance: MessageManager;
   private messageApi: typeof message = message;
   private currentMessageKey: string | null = null;
+  /** Text of the action message on screen; the same text as a plain error is dropped so the link stays. */
+  private activeActionContent: string | null = null;
 
   private constructor() {
     // 使用全局message实例
@@ -39,6 +41,7 @@ class MessageManager {
    * 显示错误消息
    */
   public error(content: string, duration: number = 5): void {
+    if (content === this.activeActionContent) return;
     this.destroyCurrentMessage();
     this.messageApi.error({
       content,

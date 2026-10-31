@@ -636,6 +636,7 @@ export default {
   "captions_jump_to_latest": "최신으로 이동",
   "meet_dock_menu_label": "Smart Meet 도구",
   "provider_local_download_hint": "모델이 아직 다운로드되지 않았습니다. 탭하여 다운로드하세요.",
+  "local_model_missing_message": "로컬 번역 모델이 아직 설치되지 않았습니다. 설정에서 다운로드한 후 사용하세요.",
   "caption_word_translate": "클릭하여 자막 번역",
   "caption_word_translate_desc": "Google Meet 자막의 단어를 클릭하면 번역을 볼 수 있습니다",
   "caption_word_translate_enabled": "클릭 번역이 켜졌습니다",

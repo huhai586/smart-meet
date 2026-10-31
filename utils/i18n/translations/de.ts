@@ -619,6 +619,7 @@ export default {
   "captions_jump_to_latest": "Zum Neuesten springen",
   "meet_dock_menu_label": "Smart-Meet-Tools",
   "provider_local_download_hint": "Modell noch nicht heruntergeladen. Zum Herunterladen tippen.",
+  "local_model_missing_message": "Das lokale Übersetzungsmodell ist noch nicht installiert. Laden Sie es in den Einstellungen herunter, um zu übersetzen.",
   "caption_word_translate": "Klicken zum Übersetzen",
   "caption_word_translate_desc": "Klicke in den Google-Meet-Untertiteln auf ein Wort, um die Übersetzung zu sehen",
   "caption_word_translate_enabled": "Klick-Übersetzung aktiviert",

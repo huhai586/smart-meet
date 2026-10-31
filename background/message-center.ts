@@ -18,6 +18,7 @@ export type MessageData =
     | { action: 'restoreRecords'; data: Transcript[]; date?: Dayjs | number | string }
     | { action: 'get-days-with-messages' }
     | { action: 'openSidePanel' }
+    | { action: 'openOptionsPage'; route: string }
     | { action: 'languageChanged'; languageCode: string }
     | { action: 'sync-to-google-drive';[key: string]: unknown }
     | { action: 'update_meeting_info'; data: unknown };
@@ -37,6 +38,7 @@ const HANDLED_ACTIONS = new Set<MessageData['action']>([
     'delete-records',
     'get-days-with-messages',
     'openSidePanel',
+    'openOptionsPage',
     'languageChanged',
     'sync-to-google-drive',
     'update_meeting_info',
@@ -157,6 +159,11 @@ export class BackgroundMessageHandler {
                 // ── 系统消息相关 ──────────────────────────────────────────
                 case 'openSidePanel':
                     this.handleOpenSidePanel(sender, sendResponse);
+                    break;
+
+                case 'openOptionsPage':
+                    chrome.tabs.create({ url: `${chrome.runtime.getURL('options.html')}#${message.route}` });
+                    sendResponse({ success: true });
                     break;
 
                 case 'languageChanged':

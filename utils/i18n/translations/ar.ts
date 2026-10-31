@@ -591,6 +591,7 @@ export default {
   "captions_jump_to_latest": "الانتقال إلى الأحدث",
   "meet_dock_menu_label": "أدوات Smart Meet",
   "provider_local_download_hint": "لم يتم تنزيل النموذج بعد. اضغط للتنزيل.",
+  "local_model_missing_message": "لم يتم تثبيت نموذج الترجمة المحلي بعد. نزّله من الإعدادات لتتمكن من الترجمة.",
   "caption_word_translate": "انقر لترجمة الترجمة النصية",
   "caption_word_translate_desc": "انقر على كلمة في ترجمات Google Meet لعرض ترجمتها",
   "caption_word_translate_enabled": "تم تفعيل الترجمة بالنقر",

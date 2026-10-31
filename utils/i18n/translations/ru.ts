@@ -612,6 +612,7 @@ export default {
   "captions_jump_to_latest": "К последним",
   "meet_dock_menu_label": "Инструменты Smart Meet",
   "provider_local_download_hint": "Модель ещё не загружена. Нажмите, чтобы загрузить.",
+  "local_model_missing_message": "Локальная модель перевода ещё не установлена. Скачайте её в настройках, чтобы переводить.",
   "caption_word_translate": "Перевод по клику в субтитрах",
   "caption_word_translate_desc": "Нажмите на слово в субтитрах Google Meet, чтобы увидеть перевод",
   "caption_word_translate_enabled": "Перевод по клику включён",

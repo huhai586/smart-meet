@@ -591,6 +591,7 @@ export default {
   "captions_jump_to_latest": "नवीनतम पर जाएँ",
   "meet_dock_menu_label": "Smart Meet टूल",
   "provider_local_download_hint": "मॉडल अभी डाउनलोड नहीं हुआ है। डाउनलोड करने के लिए टैप करें।",
+  "local_model_missing_message": "ऑन-डिवाइस अनुवाद मॉडल अभी इंस्टॉल नहीं है। अनुवाद के लिए इसे सेटिंग्स में डाउनलोड करें।",
   "caption_word_translate": "कैप्शन पर क्लिक करके अनुवाद",
   "caption_word_translate_desc": "Google Meet कैप्शन में किसी शब्द पर क्लिक करके उसका अनुवाद देखें",
   "caption_word_translate_enabled": "क्लिक अनुवाद चालू",

@@ -591,6 +591,7 @@ export default {
   "captions_jump_to_latest": "ไปที่ล่าสุด",
   "meet_dock_menu_label": "เครื่องมือ Smart Meet",
   "provider_local_download_hint": "ยังไม่ได้ดาวน์โหลดโมเดล แตะเพื่อดาวน์โหลด",
+  "local_model_missing_message": "ยังไม่ได้ติดตั้งโมเดลแปลภาษาบนอุปกรณ์ โปรดดาวน์โหลดในการตั้งค่าเพื่อใช้งานการแปล",
   "caption_word_translate": "คลิกเพื่อแปลคำบรรยาย",
   "caption_word_translate_desc": "คลิกคำในคำบรรยายของ Google Meet เพื่อดูคำแปล",
   "caption_word_translate_enabled": "เปิดการแปลด้วยการคลิกแล้ว",

@@ -612,6 +612,7 @@ export default {
   "captions_jump_to_latest": "Đến mới nhất",
   "meet_dock_menu_label": "Công cụ Smart Meet",
   "provider_local_download_hint": "Chưa tải mô hình. Nhấn để tải xuống.",
+  "local_model_missing_message": "Chưa cài đặt mô hình dịch cục bộ. Hãy tải xuống trong Cài đặt để dịch.",
   "caption_word_translate": "Nhấp để dịch phụ đề",
   "caption_word_translate_desc": "Nhấp vào một từ trong phụ đề Google Meet để xem bản dịch",
   "caption_word_translate_enabled": "Đã bật dịch khi nhấp",

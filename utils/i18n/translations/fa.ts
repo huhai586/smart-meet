@@ -638,6 +638,7 @@ export default {
   "captions_jump_to_latest": "رفتن به آخرین",
   "meet_dock_menu_label": "ابزارهای Smart Meet",
   "provider_local_download_hint": "مدل هنوز دانلود نشده است. برای دانلود ضربه بزنید.",
+  "local_model_missing_message": "مدل ترجمهٔ محلی هنوز نصب نشده است. برای ترجمه آن را از تنظیمات دانلود کنید.",
   "caption_word_translate": "ترجمه با کلیک روی زیرنویس",
   "caption_word_translate_desc": "روی یک کلمه در زیرنویس‌های Google Meet کلیک کنید تا ترجمه آن را ببینید",
   "caption_word_translate_enabled": "ترجمه با کلیک فعال شد",

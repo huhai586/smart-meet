@@ -724,6 +724,7 @@ export default {
   "captions_jump_to_latest": "Jump to latest",
   "meet_dock_menu_label": "Smart Meet tools",
   "provider_local_download_hint": "Model not downloaded yet. Tap to download.",
+  "local_model_missing_message": "The on-device translation model isn't installed yet. Download it in Settings to translate.",
   "caption_word_translate": "Click to translate captions",
   "caption_word_translate_desc": "Click a word in Google Meet captions to see its translation",
   "caption_word_translate_enabled": "Click-to-translate enabled",

@@ -3,6 +3,7 @@ import { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeep
 import { getCurrentUILanguage } from '../hooks/useUILanguage';
 import { getTranslation } from './i18n';
 import messageManager from './message-manager';
+import { LocalModelNotInstalledError } from './local-model-prompt';
 
 export interface TranslateOptions {
   silent?: boolean;
@@ -56,6 +57,8 @@ export const translateText = async (text: string, options: TranslateOptions = {}
     return translatedText;
     
   } catch (error) {
+    // Already announced with a link to settings; a generic "unavailable" toast would only replace it.
+    if (error instanceof LocalModelNotInstalledError) throw error;
     console.error('[translateText] Translation error:', error);
     
     // 获取当前UI语言以显示本地化错误消息

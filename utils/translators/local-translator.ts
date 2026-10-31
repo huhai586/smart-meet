@@ -1,5 +1,6 @@
 import { getCurrentLanguage } from '../../hooks/useTranslationLanguage';
 import { getLocalTranslatorConfig } from '../../hooks/useTranslationProvider';
+import { isLocalModelMissing, promptLocalModelDownload } from '../local-model-prompt';
 
 // Minimal ambient type declarations for Chrome's built-in Translator API
 // (avoids requiring @types/dom-chromium-ai)
@@ -105,6 +106,12 @@ export const translateByLocal = async (text: string): Promise<string> => {
 
     const sourceLanguage = config.sourceLanguage || 'en';
     const targetCode = targetLanguage.code;
+
+    // Creating a translator for a missing model needs a user gesture and would only fail, so ask the
+    // user to download it in settings instead.
+    if (isLocalModelMissing(await checkTranslatorAvailability(sourceLanguage, targetCode))) {
+      throw await promptLocalModelDownload();
+    }
 
     const translator = await getOrCreateTranslator(sourceLanguage, targetCode);
     const result = await translator.translate(text);
