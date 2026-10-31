@@ -591,4 +591,11 @@ export default {
   "captions_jump_to_latest": "الانتقال إلى الأحدث",
   "meet_dock_menu_label": "أدوات Smart Meet",
   "provider_local_download_hint": "لم يتم تنزيل النموذج بعد. اضغط للتنزيل.",
+  "caption_word_translate": "انقر لترجمة الترجمة النصية",
+  "caption_word_translate_desc": "انقر على كلمة في ترجمات Google Meet لعرض ترجمتها",
+  "caption_word_translate_enabled": "تم تفعيل الترجمة بالنقر",
+  "caption_word_translate_disabled": "تم إيقاف الترجمة بالنقر",
+  "word_popover_save": "حفظ الكلمة",
+  "word_popover_saved": "تم الحفظ",
+  "word_popover_failed": "فشلت الترجمة",
 };

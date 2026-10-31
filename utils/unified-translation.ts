@@ -4,13 +4,18 @@ import { getCurrentUILanguage } from '../hooks/useUILanguage';
 import { getTranslation } from './i18n';
 import messageManager from './message-manager';
 
+export interface TranslateOptions {
+  silent?: boolean;
+}
+
 /**
  * 统一的自动翻译接口
  * 内部处理使用Google、微软或AI服务的选择逻辑
  * @param text - 需要翻译的文本
+ * @param options.silent - 失败时不弹出全局错误提示（调用方自己展示错误）
  * @returns Promise<string> - 翻译结果
  */
-export const translateText = async (text: string): Promise<string> => {
+export const translateText = async (text: string, options: TranslateOptions = {}): Promise<string> => {
   if (!text || !text.trim()) {
     throw new Error('Text to translate cannot be empty');
   }
@@ -83,7 +88,7 @@ export const translateText = async (text: string): Promise<string> => {
     }
     
     // 显示错误消息给用户
-    messageManager.error(errorMessage);
+    if (!options.silent) messageManager.error(errorMessage);
     
     // 抛出错误以便调用者处理
     throw new Error(errorMessage);
@@ -121,7 +126,7 @@ export const translateTexts = async (texts: string[]): Promise<string[]> => {
  * @param word - 需要翻译的单词
  * @returns Promise<string> - 翻译结果
  */
-export const translateWord = async (word: string): Promise<string> => {
+export const translateWord = async (word: string, options: TranslateOptions = {}): Promise<string> => {
   if (!word || !word.trim()) {
     throw new Error('Word to translate cannot be empty');
   }
@@ -130,7 +135,7 @@ export const translateWord = async (word: string): Promise<string> => {
   const cleanWord = word.replace(/[.,!?;:]$/, '').trim();
   
   try {
-    const translatedText = await translateText(cleanWord);
+    const translatedText = await translateText(cleanWord, options);
     return translatedText;
   } catch (error) {
     console.error(`[translateWord] Failed to translate word: ${cleanWord}`, error);

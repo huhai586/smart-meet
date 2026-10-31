@@ -591,4 +591,11 @@ export default {
   "captions_jump_to_latest": "ไปที่ล่าสุด",
   "meet_dock_menu_label": "เครื่องมือ Smart Meet",
   "provider_local_download_hint": "ยังไม่ได้ดาวน์โหลดโมเดล แตะเพื่อดาวน์โหลด",
+  "caption_word_translate": "คลิกเพื่อแปลคำบรรยาย",
+  "caption_word_translate_desc": "คลิกคำในคำบรรยายของ Google Meet เพื่อดูคำแปล",
+  "caption_word_translate_enabled": "เปิดการแปลด้วยการคลิกแล้ว",
+  "caption_word_translate_disabled": "ปิดการแปลด้วยการคลิกแล้ว",
+  "word_popover_save": "บันทึกคำ",
+  "word_popover_saved": "บันทึกแล้ว",
+  "word_popover_failed": "แปลไม่สำเร็จ",
 };

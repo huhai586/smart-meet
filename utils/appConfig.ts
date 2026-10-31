@@ -83,6 +83,7 @@ export interface AppConfigData {
   // Meeting overlay
   captionToggleEnabled:     Field<boolean>;
   stickerEnabled:           Field<boolean>;
+  captionWordTranslateEnabled: Field<boolean>;
   isExtensionDisabled:      Field<boolean>;
 
   // Words & highlights
@@ -141,6 +142,7 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
   summaryFontSizeOffset:       0,
   captionToggleEnabled:        false,
   stickerEnabled:              false,
+  captionWordTranslateEnabled: true,
   isExtensionDisabled:         false,
   specificHighlightWords:      [],
   highlightWordsByDescriptions: [],

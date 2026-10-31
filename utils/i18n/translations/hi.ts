@@ -591,4 +591,11 @@ export default {
   "captions_jump_to_latest": "नवीनतम पर जाएँ",
   "meet_dock_menu_label": "Smart Meet टूल",
   "provider_local_download_hint": "मॉडल अभी डाउनलोड नहीं हुआ है। डाउनलोड करने के लिए टैप करें।",
+  "caption_word_translate": "कैप्शन पर क्लिक करके अनुवाद",
+  "caption_word_translate_desc": "Google Meet कैप्शन में किसी शब्द पर क्लिक करके उसका अनुवाद देखें",
+  "caption_word_translate_enabled": "क्लिक अनुवाद चालू",
+  "caption_word_translate_disabled": "क्लिक अनुवाद बंद",
+  "word_popover_save": "शब्द सहेजें",
+  "word_popover_saved": "सहेजा गया",
+  "word_popover_failed": "अनुवाद विफल रहा",
 };

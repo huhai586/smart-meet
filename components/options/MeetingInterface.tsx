@@ -1,10 +1,11 @@
 import React from 'react';
 import { Switch } from 'antd';
-import { MessageOutlined, PushpinOutlined } from '@ant-design/icons';
+import { MessageOutlined, PushpinOutlined, TranslationOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import useI18n from '~utils/i18n';
 import useCaptionToggle from '~hooks/useCaptionToggle';
 import useStickerToggle from '~hooks/useStickerToggle';
+import useCaptionWordTranslateToggle from '~hooks/useCaptionWordTranslateToggle';
 import messageManager from '~utils/message-manager';
 
 /* ── Styled Components ── */
@@ -105,6 +106,7 @@ const MeetingInterface: React.FC = () => {
   const { t } = useI18n();
   const [captionToggleEnabled, setCaptionToggleEnabled] = useCaptionToggle();
   const [stickerEnabled, setStickerEnabled] = useStickerToggle();
+  const [wordTranslateEnabled, setWordTranslateEnabled] = useCaptionWordTranslateToggle();
 
   const handleCaptionToggleChange = (checked: boolean) => {
     setCaptionToggleEnabled(checked);
@@ -117,6 +119,13 @@ const MeetingInterface: React.FC = () => {
     setStickerEnabled(checked);
     messageManager.success(
       checked ? t('sticker_enabled') : t('sticker_disabled')
+    );
+  };
+
+  const handleWordTranslateChange = (checked: boolean) => {
+    setWordTranslateEnabled(checked);
+    messageManager.success(
+      checked ? t('caption_word_translate_enabled') : t('caption_word_translate_disabled')
     );
   };
 
@@ -136,6 +145,14 @@ const MeetingInterface: React.FC = () => {
       desc: t('sticker_note_desc'),
       checked: stickerEnabled,
       onChange: handleStickerToggleChange,
+    },
+    {
+      icon: <TranslationOutlined />,
+      color: '#34C759',
+      label: t('caption_word_translate'),
+      desc: t('caption_word_translate_desc'),
+      checked: wordTranslateEnabled,
+      onChange: handleWordTranslateChange,
     },
   ];
 

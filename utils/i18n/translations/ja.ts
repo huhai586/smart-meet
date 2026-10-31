@@ -636,4 +636,11 @@ export default {
   "captions_jump_to_latest": "最新へ移動",
   "meet_dock_menu_label": "Smart Meet ツール",
   "provider_local_download_hint": "モデルがまだダウンロードされていません。タップしてダウンロード。",
+  "caption_word_translate": "クリックで字幕を翻訳",
+  "caption_word_translate_desc": "Google Meet の字幕の単語をクリックすると翻訳を表示します",
+  "caption_word_translate_enabled": "クリック翻訳を有効にしました",
+  "caption_word_translate_disabled": "クリック翻訳を無効にしました",
+  "word_popover_save": "単語を保存",
+  "word_popover_saved": "保存しました",
+  "word_popover_failed": "翻訳に失敗しました",
 };

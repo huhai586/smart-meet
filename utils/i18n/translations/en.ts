@@ -724,4 +724,11 @@ export default {
   "captions_jump_to_latest": "Jump to latest",
   "meet_dock_menu_label": "Smart Meet tools",
   "provider_local_download_hint": "Model not downloaded yet. Tap to download.",
+  "caption_word_translate": "Click to translate captions",
+  "caption_word_translate_desc": "Click a word in Google Meet captions to see its translation",
+  "caption_word_translate_enabled": "Click-to-translate enabled",
+  "caption_word_translate_disabled": "Click-to-translate disabled",
+  "word_popover_save": "Save word",
+  "word_popover_saved": "Saved",
+  "word_popover_failed": "Translation failed",
 };

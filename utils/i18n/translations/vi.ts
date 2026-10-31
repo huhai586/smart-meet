@@ -612,4 +612,11 @@ export default {
   "captions_jump_to_latest": "Đến mới nhất",
   "meet_dock_menu_label": "Công cụ Smart Meet",
   "provider_local_download_hint": "Chưa tải mô hình. Nhấn để tải xuống.",
+  "caption_word_translate": "Nhấp để dịch phụ đề",
+  "caption_word_translate_desc": "Nhấp vào một từ trong phụ đề Google Meet để xem bản dịch",
+  "caption_word_translate_enabled": "Đã bật dịch khi nhấp",
+  "caption_word_translate_disabled": "Đã tắt dịch khi nhấp",
+  "word_popover_save": "Lưu từ",
+  "word_popover_saved": "Đã lưu",
+  "word_popover_failed": "Dịch thất bại",
 };

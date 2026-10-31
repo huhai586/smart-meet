@@ -636,4 +636,11 @@ export default {
   "captions_jump_to_latest": "Aller au plus récent",
   "meet_dock_menu_label": "Outils Smart Meet",
   "provider_local_download_hint": "Modèle non téléchargé. Touchez pour le télécharger.",
+  "caption_word_translate": "Cliquer pour traduire",
+  "caption_word_translate_desc": "Cliquez sur un mot des sous-titres Google Meet pour voir sa traduction",
+  "caption_word_translate_enabled": "Traduction au clic activée",
+  "caption_word_translate_disabled": "Traduction au clic désactivée",
+  "word_popover_save": "Enregistrer le mot",
+  "word_popover_saved": "Enregistré",
+  "word_popover_failed": "Échec de la traduction",
 };
