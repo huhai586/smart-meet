@@ -291,6 +291,7 @@ export default {
   "local_translator_checking": "उपलब्धता जाँच रहा है...",
   "local_translator_not_supported": "इस डिवाइस पर समर्थित नहीं",
   "local_translator_not_supported_hint": "GPU वाले डेस्कटॉप पर Chrome 138+ आवश्यक है",
+  "local_translator_same_language_hint": "स्रोत और लक्ष्य भाषा एक ही हैं। कोई अलग स्रोत भाषा चुनें।",
   "local_translator_downloading": "अनुवाद मॉडल डाउनलोड हो रहा है...",
   "local_translator_download_progress": "{percent}% डाउनलोड हुआ",
   "local_translator_ready": "मॉडल तैयार है",

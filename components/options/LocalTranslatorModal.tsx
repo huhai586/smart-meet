@@ -9,6 +9,7 @@ import {
 import styled, { keyframes } from 'styled-components';
 import useI18n from '~utils/i18n';
 import { useLocalTranslatorConfig } from '~hooks/useTranslationProvider';
+import { isSameLanguage } from '~utils/language-code';
 import useTranslationLanguage from '~hooks/useTranslationLanguage';
 import {
   isLocalTranslatorSupported,
@@ -429,7 +430,32 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
         <InitCenter>
           <NotSupportedIcon>⚠️</NotSupportedIcon>
           <InitTitle>{t('local_translator_not_supported')}</InitTitle>
-          <HintPill>{t('local_translator_not_supported_hint')}</HintPill>
+          <HintPill>
+            {isSameLanguage(config.sourceLanguage || 'en', targetLanguage.code)
+              ? t('local_translator_same_language_hint')
+              : t('local_translator_not_supported_hint')}
+          </HintPill>
+          {/* The pair is what failed, so let the user fix it here instead of leaving them stuck. */}
+          {isLocalTranslatorSupported() && (
+            <LangRow>
+              <LangLabel>{t('local_translator_source_lang')}:</LangLabel>
+              <Select
+                value={config.sourceLanguage || 'en'}
+                onChange={handleSourceLangChange}
+                style={{ width: 140 }}
+                size="small"
+                popupMatchSelectWidth={false}
+              >
+                {CHROME_TRANSLATOR_LANGS.map((lang) => (
+                  <Select.Option key={lang.code} value={lang.code}>
+                    {lang.name}
+                  </Select.Option>
+                ))}
+              </Select>
+              <SwapOutlined style={{ color: '#C7C7CC', fontSize: 12 }} />
+              <LangLabel>{targetLanguage.name}</LangLabel>
+            </LangRow>
+          )}
         </InitCenter>
       );
     }

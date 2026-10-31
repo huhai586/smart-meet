@@ -224,6 +224,7 @@ export default {
   "local_translator_checking": "利用可能かを確認中...",
   "local_translator_not_supported": "このデバイスでは未対応",
   "local_translator_not_supported_hint": "GPUを搭載したデスクトップのChrome 138+が必要",
+  "local_translator_same_language_hint": "原文の言語と翻訳先の言語が同じです。別の原文言語を選んでください。",
   "local_translator_downloading": "翻訳モデルをダウンロード中...",
   "local_translator_download_progress": "{percent}%ダウンロード済み",
   "local_translator_ready": "モデル準備完了",

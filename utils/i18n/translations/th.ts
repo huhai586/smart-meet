@@ -291,6 +291,7 @@ export default {
   "local_translator_checking": "กำลังตรวจสอบความพร้อมใช้งาน...",
   "local_translator_not_supported": "ไม่รองรับบนอุปกรณ์นี้",
   "local_translator_not_supported_hint": "ต้องใช้ Chrome 138+ บนเดสก์ท็อปที่มี GPU",
+  "local_translator_same_language_hint": "ภาษาต้นทางและภาษาปลายทางเหมือนกัน โปรดเลือกภาษาต้นทางอื่น",
   "local_translator_downloading": "กำลังดาวน์โหลดโมเดลการแปล...",
   "local_translator_download_progress": "ดาวน์โหลดแล้ว {percent}%",
   "local_translator_ready": "โมเดลพร้อมใช้งาน",

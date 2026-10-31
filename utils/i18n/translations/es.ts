@@ -240,6 +240,7 @@ export default {
   "local_translator_checking": "Verificando disponibilidad...",
   "local_translator_not_supported": "No compatible con este dispositivo",
   "local_translator_not_supported_hint": "Requiere Chrome 138+ en escritorio con GPU",
+  "local_translator_same_language_hint": "El idioma de origen y el de destino son el mismo. Elige otro idioma de origen.",
   "local_translator_downloading": "Descargando modelo de traducción...",
   "local_translator_download_progress": "Descargado {percent}%",
   "local_translator_ready": "Modelo listo",

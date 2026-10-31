@@ -1,5 +1,6 @@
 import { getCurrentLanguage } from '../../hooks/useTranslationLanguage';
 import { getLocalTranslatorConfig } from '../../hooks/useTranslationProvider';
+import { isSameLanguage } from '../language-code';
 import { isLocalModelMissing, promptLocalModelDownload } from '../local-model-prompt';
 
 // Minimal ambient type declarations for Chrome's built-in Translator API
@@ -28,6 +29,17 @@ declare global {
   }
 
   const Translator: TranslatorConstructor;
+
+  interface ChromeLanguageDetector {
+    detect(text: string): Promise<{ detectedLanguage: string; confidence: number }[]>;
+  }
+
+  interface LanguageDetectorConstructor {
+    availability(): Promise<string>;
+    create(): Promise<ChromeLanguageDetector>;
+  }
+
+  const LanguageDetector: LanguageDetectorConstructor | undefined;
 }
 
 // Cache translator instances per language pair to avoid unnecessary re-creation
@@ -86,6 +98,31 @@ export const checkTranslatorAvailability = async (
   return (Translator as TranslatorConstructor).availability({ sourceLanguage, targetLanguage });
 };
 
+/** Below this, the detector is guessing (short captions) and the configured source language is safer. */
+const MIN_DETECTION_CONFIDENCE = 0.6;
+
+let languageDetector: ChromeLanguageDetector | null = null;
+
+/**
+ * The language `text` is written in, via Chrome's built-in detector. People rarely speak in their UI
+ * language, so a fixed source language fails whenever the meeting language differs. Falls back to
+ * `fallback` when the detector is missing, not downloaded, or not confident.
+ */
+export const detectSourceLanguage = async (text: string, fallback: string): Promise<string> => {
+  try {
+    if (!languageDetector) {
+      const Detector = (globalThis as any).LanguageDetector as LanguageDetectorConstructor | undefined;
+      if (!Detector || (await Detector.availability()) !== 'available') return fallback;
+      languageDetector = await Detector.create();
+    }
+    const [best] = await languageDetector.detect(text);
+    const isConfident = best && best.detectedLanguage !== 'und' && best.confidence >= MIN_DETECTION_CONFIDENCE;
+    return isConfident ? best.detectedLanguage : fallback;
+  } catch {
+    return fallback;
+  }
+};
+
 /**
  * Local (Chrome built-in AI) translation service.
  * Matches the signature expected by useAutoTranslate.
@@ -104,8 +141,10 @@ export const translateByLocal = async (text: string): Promise<string> => {
       getLocalTranslatorConfig(),
     ]);
 
-    const sourceLanguage = config.sourceLanguage || 'en';
     const targetCode = targetLanguage.code;
+    const sourceLanguage = await detectSourceLanguage(text, config.sourceLanguage || 'en');
+    // Already in the target language: nothing to translate (and Chrome has no same-language model).
+    if (isSameLanguage(sourceLanguage, targetCode)) return text;
 
     // Creating a translator for a missing model needs a user gesture and would only fail, so ask the
     // user to download it in settings instead.

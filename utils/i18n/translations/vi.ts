@@ -312,6 +312,7 @@ export default {
   "local_translator_checking": "Đang kiểm tra tính khả dụng...",
   "local_translator_not_supported": "Không được hỗ trợ trên thiết bị này",
   "local_translator_not_supported_hint": "Yêu cầu Chrome 138+ trên máy tính để bàn với GPU",
+  "local_translator_same_language_hint": "Ngôn ngữ nguồn và ngôn ngữ đích giống nhau. Hãy chọn ngôn ngữ nguồn khác.",
   "local_translator_downloading": "Đang tải xuống mô hình dịch...",
   "local_translator_download_progress": "Đã tải {percent}%",
   "local_translator_ready": "Mô hình sẵn sàng",

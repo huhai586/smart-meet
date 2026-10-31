@@ -291,6 +291,7 @@ export default {
   "local_translator_checking": "جارٍ التحقق من التوفر...",
   "local_translator_not_supported": "غير مدعوم على هذا الجهاز",
   "local_translator_not_supported_hint": "يتطلب Chrome 138+ على سطح المكتب مع GPU",
+  "local_translator_same_language_hint": "لغة المصدر ولغة الهدف متطابقتان. اختر لغة مصدر مختلفة.",
   "local_translator_downloading": "جارٍ تنزيل نموذج الترجمة...",
   "local_translator_download_progress": "تم التنزيل {percent}%",
   "local_translator_ready": "النموذج جاهز",

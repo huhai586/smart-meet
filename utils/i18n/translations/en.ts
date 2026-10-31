@@ -291,6 +291,7 @@ export default {
   "local_translator_checking": "Checking availability...",
   "local_translator_not_supported": "Not supported on this device",
   "local_translator_not_supported_hint": "Requires Chrome 138+ on desktop with GPU",
+  "local_translator_same_language_hint": "Source and target language are the same. Pick a different source language.",
   "local_translator_downloading": "Downloading translation model...",
   "local_translator_download_progress": "Downloaded {percent}%",
   "local_translator_ready": "Model ready",

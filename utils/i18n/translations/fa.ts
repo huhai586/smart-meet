@@ -340,6 +340,7 @@ export default {
   "local_translator_checking": "در حال بررسی دسترسی...",
   "local_translator_not_supported": "در این دستگاه پشتیبانی نمی‌شود",
   "local_translator_not_supported_hint": "نیاز به Chrome 138+ در دسکتاپ با GPU",
+  "local_translator_same_language_hint": "زبان مبدأ و مقصد یکسان است. زبان مبدأ دیگری انتخاب کنید.",
   "local_translator_downloading": "در حال دانلود مدل ترجمه...",
   "local_translator_download_progress": "{percent}% دانلود شد",
   "local_translator_ready": "مدل آماده است",

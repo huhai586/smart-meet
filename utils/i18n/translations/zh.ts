@@ -292,6 +292,7 @@ export default {
   "local_translator_checking": "正在检测可用性...",
   "local_translator_not_supported": "此设备不支持",
   "local_translator_not_supported_hint": "需要桌面版 Chrome 138+ 且配备 GPU",
+  "local_translator_same_language_hint": "源语言和目标语言相同，请选择不同的源语言。",
   "local_translator_downloading": "正在下载翻译模型...",
   "local_translator_download_progress": "已下载 {percent}%",
   "local_translator_ready": "模型已就绪",

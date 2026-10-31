@@ -183,6 +183,7 @@ export default {
   "local_translator_checking": "Vérification de la disponibilité...",
   "local_translator_not_supported": "Non pris en charge sur cet appareil",
   "local_translator_not_supported_hint": "Nécessite Chrome 138+ sur bureau avec GPU",
+  "local_translator_same_language_hint": "La langue source et la langue cible sont identiques. Choisissez une autre langue source.",
   "local_translator_downloading": "Téléchargement du modèle de traduction...",
   "local_translator_download_progress": "{percent}% téléchargé",
   "local_translator_ready": "Modèle prêt",

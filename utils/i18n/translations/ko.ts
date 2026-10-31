@@ -224,6 +224,7 @@ export default {
   "local_translator_checking": "가용성 확인 중...",
   "local_translator_not_supported": "이 기기에서는 지원되지 않습니다",
   "local_translator_not_supported_hint": "GPU가 있는 데스크톱의 Chrome 138+ 필요",
+  "local_translator_same_language_hint": "원본 언어와 번역 언어가 같습니다. 다른 원본 언어를 선택하세요.",
   "local_translator_downloading": "번역 모델 다운로드 중...",
   "local_translator_download_progress": "{percent}% 다운로드됨",
   "local_translator_ready": "모델 준비 완료",

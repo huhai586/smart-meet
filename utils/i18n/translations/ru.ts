@@ -312,6 +312,7 @@ export default {
   "local_translator_checking": "Проверка доступности...",
   "local_translator_not_supported": "Не поддерживается на этом устройстве",
   "local_translator_not_supported_hint": "Требуется Chrome 138+ на рабочем столе с GPU",
+  "local_translator_same_language_hint": "Исходный и целевой языки совпадают. Выберите другой исходный язык.",
   "local_translator_downloading": "Загрузка модели перевода...",
   "local_translator_download_progress": "Загружено {percent}%",
   "local_translator_ready": "Модель готова",
