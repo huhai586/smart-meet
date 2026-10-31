@@ -127,7 +127,8 @@ export const detectSourceLanguage = async (text: string, fallback: string): Prom
  * Local (Chrome built-in AI) translation service.
  * Matches the signature expected by useAutoTranslate.
  */
-export const translateByLocal = async (text: string): Promise<string> => {
+/** `context`: the text to detect the language from when `text` is just a word cut out of it. */
+export const translateByLocal = async (text: string, context: string = text): Promise<string> => {
   if (!isLocalTranslatorSupported()) {
     throw new Error('Chrome AI Translator is not supported in this browser');
   }
@@ -142,7 +143,7 @@ export const translateByLocal = async (text: string): Promise<string> => {
     ]);
 
     const targetCode = targetLanguage.code;
-    const sourceLanguage = await detectSourceLanguage(text, config.sourceLanguage || 'en');
+    const sourceLanguage = await detectSourceLanguage(context, config.sourceLanguage || 'en');
     // Already in the target language: nothing to translate (and Chrome has no same-language model).
     if (isSameLanguage(sourceLanguage, targetCode)) return text;
 

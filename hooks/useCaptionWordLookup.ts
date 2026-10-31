@@ -54,7 +54,7 @@ export const useCaptionWordLookup = (enabled: boolean) => {
                 return;
             }
 
-            const { word, rect } = hit;
+            const { word, rect, context } = hit;
             const request = ++latest.current;
             const key = `${await getCurrentTranslationProvider()}:${word.toLowerCase()}`;
             if (request !== latest.current) return;
@@ -67,7 +67,7 @@ export const useCaptionWordLookup = (enabled: boolean) => {
 
             setLookup({ word, rect, status: 'loading', translation: '' });
             try {
-                const translation = await translateWord(word, { silent: true });
+                const translation = await translateWord(word, { silent: true, context });
                 cache.current.set(key, translation);
                 if (request === latest.current) setLookup({ word, rect, status: 'done', translation });
             } catch {

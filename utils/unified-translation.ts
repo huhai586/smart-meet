@@ -7,6 +7,8 @@ import { LocalModelNotInstalledError } from './local-model-prompt';
 
 export interface TranslateOptions {
   silent?: boolean;
+  /** Text the translated text came from; lets language detection see more than a single word. */
+  context?: string;
 }
 
 /**
@@ -14,6 +16,7 @@ export interface TranslateOptions {
  * 内部处理使用Google、微软或AI服务的选择逻辑
  * @param text - 需要翻译的文本
  * @param options.silent - 失败时不弹出全局错误提示（调用方自己展示错误）
+ * @param options.context - 原文所在的完整文本，用于本地翻译识别源语言
  * @returns Promise<string> - 翻译结果
  */
 export const translateText = async (text: string, options: TranslateOptions = {}): Promise<string> => {
@@ -44,7 +47,7 @@ export const translateText = async (text: string, options: TranslateOptions = {}
         break;
       case 'local':
         console.log('[translateText] Using local AI translation');
-        translatedText = await translateByLocal(text);
+        translatedText = await translateByLocal(text, options.context);
         break;
       case 'ai':
       default:

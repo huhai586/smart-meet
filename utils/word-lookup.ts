@@ -5,6 +5,8 @@ const segmenter = new Intl.Segmenter(undefined, { granularity: 'word' });
 
 export interface WordHit {
     word: string;
+    /** The text around the word (its caption line): a single word is too little to tell the language from. */
+    context: string;
     /** The word's rendered box (viewport coordinates, first line if it wraps). */
     rect: { left: number; right: number; top: number; bottom: number };
 }
@@ -25,7 +27,7 @@ export const wordAtPoint = (root: Element, x: number, y: number): WordHit | null
             for (const rect of range.getClientRects()) {
                 if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
                     const { left, right, top, bottom } = rect;
-                    return { word: part.segment, rect: { left, right, top, bottom } };
+                    return { word: part.segment, context: node.textContent ?? part.segment, rect: { left, right, top, bottom } };
                 }
             }
         }
