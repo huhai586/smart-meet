@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { t } from "~utils/i18n";
+import { useI18n } from "~utils/i18n";
 import type { DockAnchor } from "~hooks/useMeetDockAnchor";
 
 const HOVER_CLOSE_DELAY_MS = 160;
@@ -43,6 +43,8 @@ const MeetDockMenu: React.FC<MeetDockMenuProps> = ({
     onNote,
     onToggleCaptions,
 }) => {
+    // The hook, not the bare t(): it is what loads the user's UI language in this content script.
+    const { t } = useI18n();
     const [open, setOpen] = useState(false);
     const closeTimer = useRef<ReturnType<typeof setTimeout>>();
 

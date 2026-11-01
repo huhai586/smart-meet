@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { t } from "~utils/i18n";
+import { useI18n } from "~utils/i18n";
 import { getTranslatedWords, removeTranslatedWord, setTranslatedWords } from "~utils/translate";
 import type { WordLookup } from "~hooks/useCaptionWordLookup";
 
@@ -27,6 +27,8 @@ interface CaptionWordPopoverProps {
 
 /** Small card next to the clicked word: the word, its translation, and a button to save it. */
 const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismiss }) => {
+    // The hook, not the bare t(): it is what loads the user's UI language in this content script.
+    const { t } = useI18n();
     const [saved, setSaved] = useState(false);
     const hovered = useRef(false);
 
