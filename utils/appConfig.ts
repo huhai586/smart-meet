@@ -93,6 +93,10 @@ export interface AppConfigData {
   translatedWords:             Field<string[]>;
   longmanStarred:              Field<string[]>;
 
+  // Review prompt
+  successfulSummaryCount:      Field<number>;
+  ratingPromptResolved:        Field<boolean>;
+
   // Custom prompts
   customPrompts: Field<CustomPrompt[]>;
 
@@ -143,6 +147,8 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
   captionToggleEnabled:        false,
   stickerEnabled:              false,
   captionWordTranslateEnabled: true,
+  successfulSummaryCount:      0,
+  ratingPromptResolved:        false,
   isExtensionDisabled:         false,
   specificHighlightWords:      [],
   highlightWordsByDescriptions: [],

@@ -8,7 +8,8 @@ import { Actions } from '~components/captions/types';
 import { useDateContext } from '../../contexts/DateContext';
 import type { CardItemType } from './SummaryCard';
 
-export const useSummary = () => {
+/** `onSuccess` runs each time an answer comes back without an error. */
+export const useSummary = (onSuccess?: () => void) => {
   const { t } = useI18n();
   const [requesting, setRequesting] = useState(false);
   const [cardData, setCardData] = useState<CardItemType[]>([]);
@@ -61,6 +62,7 @@ export const useSummary = () => {
           newCardData[index].answer = res;
           newCardData[index].fetchComplete = true;
           newCardData[index].error = undefined;
+          onSuccess?.();
         })
         .catch((err) => {
           console.warn('err', err);

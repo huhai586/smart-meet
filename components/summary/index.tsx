@@ -5,8 +5,10 @@ import { useI18n } from '../../utils/i18n';
 import { useDateContext } from '../../contexts/DateContext';
 import SummaryCard from './SummaryCard';
 import QuestionInput from './QuestionInput';
+import RatingPromptCard from './RatingPromptCard';
 import { useSummary } from './useSummary';
 import useFontSizeOffset from '../../hooks/useFontSizeOffset';
+import { useRatingPrompt } from '../../hooks/useRatingPrompt';
 import '../../styles/summary.scss';
 import '../../styles/empty-states.scss';
 
@@ -17,7 +19,8 @@ interface SummaryProps {
 const Summary: React.FC<SummaryProps> = (_props) => {
   const { t } = useI18n();
   const { selectedDate } = useDateContext();
-  const { cardData, requesting, handleQuestion, handleRetry } = useSummary();
+  const rating = useRatingPrompt();
+  const { cardData, requesting, handleQuestion, handleRetry } = useSummary(rating.recordSuccess);
   const summaryFontOffset = useFontSizeOffset('summaryFontSizeOffset');
   const container = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
@@ -30,7 +33,7 @@ const Summary: React.FC<SummaryProps> = (_props) => {
   // 每次 cardData 变化（新问题 or AI 回复完成）时滚动到底部
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [cardData]);
+  }, [cardData, rating.visible]);
 
   // 格式化日期为 月/日
   const formattedDate = selectedDate ? selectedDate.format('M/D') : '';
@@ -48,6 +51,8 @@ const Summary: React.FC<SummaryProps> = (_props) => {
             onRetry={() => handleRetry(index)}
           />
         ))}
+
+        {rating.visible && <RatingPromptCard onRate={rating.rate} onDismiss={rating.dismiss} />}
 
         <div ref={bottomRef} />
 

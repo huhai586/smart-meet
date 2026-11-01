@@ -1,0 +1,129 @@
+.rating-card {
+  position: relative;
+  margin: 8px 0 4px;
+  padding: 22px 20px 18px;
+  border-radius: 16px;
+  text-align: center;
+  // The summary container is bold; keep the card's body text regular.
+  font-weight: 400;
+  background:
+    linear-gradient(145deg, rgba(26, 115, 232, 0.08), rgba(251, 188, 5, 0.1)),
+    var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  animation: rating-card-in 0.22s ease both;
+
+  &__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    font-size: 11px;
+    color: var(--opt-text-secondary);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+
+    &:hover {
+      color: var(--opt-text-primary);
+      background: var(--opt-hover-clickable);
+    }
+  }
+
+  &__stars {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  &__star {
+    font-size: 24px;
+    color: #fbbc04;
+    filter: drop-shadow(0 2px 4px rgba(251, 188, 5, 0.35));
+    animation: rating-star-pop 0.22s ease both;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--opt-text-primary);
+  }
+
+  &__desc {
+    margin: 6px 0 0;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--opt-text-tertiary);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  &__btn {
+    height: 34px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 17px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--opt-text-primary);
+    background: var(--opt-segment-bg);
+    cursor: pointer;
+    transition: background 0.18s ease, transform 0.18s ease;
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &--primary {
+      color: #fff;
+      background: #1a73e8;
+
+      &:hover {
+        background: #1765cc;
+      }
+    }
+  }
+}
+
+@keyframes rating-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rating-star-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rating-card,
+  .rating-card__star {
+    animation: none;
+  }
+}
