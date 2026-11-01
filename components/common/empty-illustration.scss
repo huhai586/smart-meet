@@ -1,0 +1,274 @@
+// Looping illustrations for the empty states of the side panel. Each one draws what the place is waiting for.
+// Colours come from the --opt-* tokens, so they follow light and dark mode.
+
+.ei {
+  --ei-line: rgba(142, 142, 147, 0.28);
+  --ei-shine: rgba(255, 255, 255, 0.7);
+  --ei-accent: #1a73e8;
+  --ei-accent-soft: rgba(26, 115, 232, 0.16);
+  --ei-amber: #fbbc04;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+// The sizes below include their padding, whichever page the illustration lands on
+.ei,
+.ei * {
+  box-sizing: border-box;
+}
+
+:root.dark-mode .ei {
+  --ei-shine: rgba(255, 255, 255, 0.16);
+  --ei-accent: #4da3ff;
+  --ei-accent-soft: rgba(77, 163, 255, 0.2);
+}
+
+// The image slot of antd's Empty has a fixed height meant for a small picture
+.ant-empty-image:has(> .ei) {
+  height: auto;
+  margin-bottom: 8px;
+}
+
+// The one surface all three are drawn on
+.ei__card,
+.ei__doc,
+.ei__book {
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+// ── Captions: someone is about to speak, the words will be typed here ─────────
+.ei__card {
+  display: flex;
+  gap: 9px;
+  width: 108px;
+  padding: 14px 12px;
+  border-radius: 14px;
+}
+
+.ei__avatar {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--ei-accent-soft);
+  animation: ei-ring 3.6s ease-out infinite;
+}
+
+.ei__lines {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 3px;
+  min-width: 0;
+}
+
+.ei__line {
+  position: relative;
+  display: block;
+  height: 7px;
+  width: var(--w);
+  animation: ei-type 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.35s);
+
+  i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background: var(--ei-line);
+  }
+}
+
+.ei__caret {
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  width: 2px;
+  height: 11px;
+  border-radius: 1px;
+  background: var(--ei-accent);
+  animation: ei-blink 1s steps(2, start) infinite;
+}
+
+@keyframes ei-type {
+  0% { width: 0; opacity: 1; }
+  30%, 82% { width: var(--w); opacity: 1; }
+  100% { width: var(--w); opacity: 0; }
+}
+
+@keyframes ei-blink {
+  to { opacity: 0; }
+}
+
+@keyframes ei-ring {
+  0% { box-shadow: 0 0 0 0 var(--ei-accent-soft); }
+  60%, 100% { box-shadow: 0 0 0 9px transparent; }
+}
+
+// ── Summary: a page about to be written, with a spark of AI ──────────────────
+.ei__doc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 70px;
+  height: 84px;
+  padding: 14px 11px;
+  border-radius: 12px;
+}
+
+.ei__title {
+  display: block;
+  width: 55%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--ei-accent-soft);
+}
+
+.ei__text {
+  display: block;
+  width: var(--w);
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--ei-line) 30%, var(--ei-shine) 50%, var(--ei-line) 70%);
+  background-size: 250% 100%;
+  animation: ei-shimmer 2.2s linear infinite;
+  animation-delay: calc(var(--i) * 0.18s);
+}
+
+.ei__spark {
+  position: absolute;
+  background: var(--ei-amber);
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: ei-twinkle 2.4s ease-in-out infinite;
+
+  &--a {
+    top: 4px;
+    right: 14px;
+    width: 18px;
+    height: 18px;
+  }
+
+  &--b {
+    bottom: 14px;
+    left: 12px;
+    width: 11px;
+    height: 11px;
+    animation-delay: 1.1s;
+  }
+}
+
+@keyframes ei-shimmer {
+  from { background-position: 125% 0; }
+  to { background-position: -125% 0; }
+}
+
+@keyframes ei-twinkle {
+  0%, 100% { transform: scale(0.35) rotate(0deg); opacity: 0.25; }
+  50% { transform: scale(1) rotate(45deg); opacity: 1; }
+}
+
+// ── Words: a looked-up word drops into the notebook, and the sentence is kept with it ──
+.ei__book {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 78px;
+  height: 84px;
+  padding: 16px 12px;
+  border-radius: 12px;
+  animation: ei-settle 3.6s ease-in-out infinite;
+}
+
+.ei__rule {
+  display: block;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--ei-line);
+
+  &--sentence {
+    width: 80%;
+    background: var(--ei-accent-soft);
+    transform-origin: left;
+    animation: ei-sentence 3.6s ease-in-out infinite;
+  }
+}
+
+.ei__slot {
+  display: block;
+  width: 38px;
+  height: 14px;
+  border: 1.5px dashed var(--ei-amber);
+  border-radius: 6px;
+  opacity: 0;
+  animation: ei-slot 3.6s ease-in-out infinite;
+}
+
+.ei__ribbon {
+  position: absolute;
+  top: -1px;
+  right: 11px;
+  width: 9px;
+  height: 17px;
+  background: var(--ei-accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 78%, 0 100%);
+}
+
+// Where the slot is: 8px of centring, 16px of padding, one rule and one gap; 12px in from the book's edge
+.ei__chip {
+  position: absolute;
+  top: 38px;
+  left: calc(50% - 27px);
+  width: 38px;
+  height: 14px;
+  border-radius: 7px;
+  background: rgba(251, 188, 4, 0.4);
+  box-shadow: 0 0 0 1px rgba(251, 188, 4, 0.7) inset;
+  animation: ei-drop 3.6s cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
+}
+
+@keyframes ei-drop {
+  0% { transform: translateY(-36px) scale(0.9); opacity: 0; }
+  16% { opacity: 1; }
+  34% { transform: translateY(0) scale(1.08); }
+  42% { transform: translateY(0) scale(0.97); }
+  50%, 88% { transform: translateY(0) scale(1); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0; }
+}
+
+@keyframes ei-slot {
+  0%, 28% { opacity: 1; }
+  34%, 94% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes ei-sentence {
+  0%, 46% { transform: scaleX(0); opacity: 1; }
+  62%, 88% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+@keyframes ei-settle {
+  0%, 30%, 48%, 100% { transform: scale(1); }
+  38% { transform: scaleY(0.97); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ei,
+  .ei * {
+    animation: none !important;
+  }
+
+  .ei__caret {
+    opacity: 1;
+  }
+}

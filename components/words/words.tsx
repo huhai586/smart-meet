@@ -5,7 +5,6 @@ import '../../styles/words.scss'
 import './vocab-list.scss'
 import {
     ExclamationCircleOutlined,
-    BookOutlined,
     ExportOutlined,
     MoreOutlined
 } from '@ant-design/icons';
@@ -17,6 +16,7 @@ import { toAnkiText, toCsv } from "~utils/vocab-export";
 import { createTextFile, downloadFile } from "~utils/file-utils";
 import { OptionsRoute, openOptions } from "~utils/options-routes";
 import useVocab from "~hooks/useVocab";
+import EmptyIllustration, { EmptyKind } from '~components/common/EmptyIllustration';
 import VocabItem from './VocabItem';
 import WordDetailModal from './WordDetailModal';
 
@@ -92,7 +92,7 @@ const Words = (_props: {currentTab: string}) => {
                 </>
             ) : (
                 <div className="vocab-empty">
-                    <BookOutlined />
+                    <EmptyIllustration kind={EmptyKind.WORDS} />
                     <span>{t('vocab_empty')}</span>
                 </div>
             )}

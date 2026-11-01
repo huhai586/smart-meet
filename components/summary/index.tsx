@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { Empty } from 'antd';
-import { BulbOutlined } from '@ant-design/icons';
+import EmptyIllustration, { EmptyKind } from '~components/common/EmptyIllustration';
 import { useI18n } from '../../utils/i18n';
 import { useDateContext } from '../../contexts/DateContext';
 import SummaryCard from './SummaryCard';
@@ -58,7 +58,7 @@ const Summary: React.FC<SummaryProps> = (_props) => {
 
         {!cardData.length && (
           <Empty
-            image={<BulbOutlined style={{ fontSize: 60 }} />}
+            image={<EmptyIllustration kind={EmptyKind.SUMMARY} />}
             description={
               <div>
                 {formattedDate && <div style={{ fontSize: '13px', color: '#bfbfbf', marginBottom: '4px' }}>{formattedDate}</div>}

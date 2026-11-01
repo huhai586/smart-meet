@@ -1,6 +1,7 @@
 import React, { useMemo, useRef } from "react"
 import { Empty } from 'antd';
-import { ArrowDownOutlined, MessageOutlined } from '@ant-design/icons';
+import { ArrowDownOutlined } from '@ant-design/icons';
+import EmptyIllustration, { EmptyKind } from '~components/common/EmptyIllustration';
 import CaptionList from './captionList';
 import type { Dayjs } from 'dayjs';
 import type { Transcript } from '../../hooks/useTranscripts';
@@ -39,7 +40,7 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
       <CaptionList listData={filteredData} disableAutoScroll={disableAutoScroll} speakerColorMap={speakerColorMap} />
     ) : (
       <Empty 
-        image={<MessageOutlined style={{ fontSize: 60 }} />}
+        image={<EmptyIllustration kind={EmptyKind.CAPTIONS} />}
         description={
           selectedDate
             ? t('no_messages_on_date', { date: selectedDate.format('YYYY-MM-DD') })
