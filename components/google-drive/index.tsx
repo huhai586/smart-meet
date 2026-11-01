@@ -135,7 +135,7 @@ const GoogleDriveIntegration: React.FC = () => {
     }
 
     // Not signed in: the same gate as the Calendar page
-    return <GoogleSignInGate />;
+    return <GoogleSignInGate route={OptionsRoute.CLOUD_SYNC} />;
   };
 
   return (

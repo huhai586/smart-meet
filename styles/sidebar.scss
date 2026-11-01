@@ -42,7 +42,7 @@
       .menu-item {
         display: flex;
         align-items: center;
-        padding: 10px 12px;
+        padding: 7px 12px;
         margin-bottom: 2px;
         border-radius: 10px;
         cursor: pointer;
@@ -61,21 +61,31 @@
         &.active {
           background: #eef4ff;
           color: #1a73e8;
-
-          .icon {
-            color: #1a73e8;
-          }
         }
 
+        // A coloured rounded square with a white glyph, as in the iOS and macOS settings
         .icon {
           margin-right: 12px;
-          font-size: 16px;
+          font-size: 14px;
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 20px;
-          color: #8b95a5;
-          transition: color 0.2s ease;
+          flex: none;
+          width: 26px;
+          height: 26px;
+          border-radius: 7px;
+          color: #fff;
+
+          // A product's own icon: shown as it is, with no tile behind it
+          &--brand {
+            background: transparent;
+
+            img {
+              width: 22px;
+              height: 22px;
+              object-fit: contain;
+            }
+          }
         }
 
         .label {
@@ -84,23 +94,9 @@
           letter-spacing: -0.1px;
         }
 
-        &.active .icon {
-          color: #1a73e8;
-        }
-
-        &:hover .icon {
-          color: #4a5568;
-        }
-
-        &.active:hover .icon {
-          color: #1a73e8;
-        }
-
         // Developer mode tab
         &[data-key='dev'] {
           color: #c77a00;
-
-          .icon { color: #c77a00; }
 
           &:hover {
             background: #fff8eb;
@@ -109,8 +105,6 @@
           &.active {
             background: #fff3d6;
             color: #b36b00;
-            
-            .icon { color: #b36b00; }
           }
         }
       }
@@ -185,33 +179,21 @@
           &:hover {
             background: #252b38;
             color: #e2e8f0;
-
-            .icon { color: #94a3b8; }
           }
 
           &.active {
             background: #1e2d4a;
             color: #4a9eff;
-
-            .icon { color: #4a9eff; }
-          }
-
-          &.active:hover .icon { color: #4a9eff; }
-
-          .icon {
-            color: #4a5568;
           }
 
           &[data-key='dev'] {
             color: #e09a3a;
-            .icon { color: #e09a3a; }
 
             &:hover { background: #2a2410; }
 
             &.active {
               background: #2a2010;
               color: #e09a3a;
-              .icon { color: #e09a3a; }
             }
           }
         }

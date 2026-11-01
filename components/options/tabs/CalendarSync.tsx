@@ -161,7 +161,7 @@ const CalendarSync: React.FC = () => {
   if (!isConnected) {
     return (
       <PageShell route={OptionsRoute.CALENDAR} subtitle={t('calendar_page_desc')} width={PageWidth.WIDE}>
-        <GoogleSignInGate />
+        <GoogleSignInGate route={OptionsRoute.CALENDAR} />
       </PageShell>
     );
   }

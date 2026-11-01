@@ -69,7 +69,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, devMode, onDevUnlock }) =>
                 className={`menu-item ${activeKey === page.route ? 'active' : ''}`}
                 href={`#${page.route}`}
               >
-                <span className="icon">{page.icon}</span>
+                {page.brandIcon ? (
+                  <span className="icon icon--brand"><img src={page.brandIcon} alt="" /></span>
+                ) : (
+                  <span className="icon" style={{ background: page.color }}>{page.icon}</span>
+                )}
                 <span className="label">{page.labelKey ? t(page.labelKey) : page.label}</span>
               </a>
             ))}

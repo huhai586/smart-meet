@@ -4,6 +4,8 @@ import { CheckCircleFilled, GoogleOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import useI18n from '~utils/i18n';
 import { useGoogleAuth } from '~contexts/GoogleAuthContext';
+import type { OptionsRoute } from '~utils/options-routes';
+import { findPage } from './pages';
 
 const Gate = styled.div`
   width: 100%;
@@ -32,6 +34,14 @@ const GateIcon = styled.div`
   box-shadow: 0 4px 16px rgba(66, 133, 244, 0.28);
   color: #fff;
   font-size: 32px;
+`;
+
+// The product's own icon, as it is
+const GateBrandIcon = styled.img`
+  width: 72px;
+  height: 72px;
+  margin-bottom: 24px;
+  object-fit: contain;
 `;
 
 const GateTitle = styled.h2`
@@ -116,8 +126,10 @@ const Hint = styled.p`
 `;
 
 /** What the Calendar and Drive pages show until the user signs in: both use the same Google account. */
-const GoogleSignInGate: React.FC = () => {
+/** `route` is the page it stands in, whose product icon it shows. */
+const GoogleSignInGate: React.FC<{ route: OptionsRoute }> = ({ route }) => {
   const { t } = useI18n();
+  const brandIcon = findPage(route).brandIcon;
   const { login } = useGoogleAuth();
   const [busy, setBusy] = useState(false);
 
@@ -134,9 +146,13 @@ const GoogleSignInGate: React.FC = () => {
 
   return (
     <Gate>
-      <GateIcon>
-        <GoogleOutlined />
-      </GateIcon>
+      {brandIcon ? (
+        <GateBrandIcon src={brandIcon} alt="" />
+      ) : (
+        <GateIcon>
+          <GoogleOutlined />
+        </GateIcon>
+      )}
       <GateTitle>{t('google_gate_title')}</GateTitle>
       <GateDesc>{t('google_gate_desc')}</GateDesc>
       <Benefits>
