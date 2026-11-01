@@ -1,38 +1,44 @@
 import React from "react"
+import { LayoutOutlined, SettingOutlined } from "@ant-design/icons"
 import googleMeetIcon from "~images/google-meet-logo-main-icon.png"
 import openSidePanel from "~utils/open-side-panel"
+import useI18n from "~/utils/i18n"
+import { OptionsRoute, openOptions } from "~/utils/options-routes"
 
-const SidePanelIcon: React.FC = () => (
-  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="3" y="3" width="14" height="14" rx="3" stroke="currentColor" strokeWidth="1.8" />
-    <rect x="11.2" y="4.8" width="4" height="10.4" rx="1.2" fill="currentColor" />
-  </svg>
-)
-
+/** The two places people go from the popup are always one click away, with words on them. */
 const PopupHeader: React.FC = () => {
-  const handleOpenSidePanel = () => {
-    openSidePanel()
+  const { t } = useI18n()
+
+  const handleOpenSidePanel = async () => {
+    try {
+      await openSidePanel()
+    } finally {
+      window.close()
+    }
+  }
+
+  const handleOpenSettings = () => {
+    openOptions(OptionsRoute.GENERAL)
     window.close()
   }
 
   return (
-    <div className="ph-header">
-      <div className="ph-header__left">
-        <img src={googleMeetIcon} className="ph-header__logo" alt="Google Meet" />
-        <div className="ph-header__title">Smart Meet</div>
-      </div>
-      <button
-        className="ph-header__menu"
-        onClick={handleOpenSidePanel}
-        aria-label="Open Side Panel"
-        title="Open Side Panel"
-      >
-        <SidePanelIcon />
+    <header className="pm-header">
+      <img src={googleMeetIcon} className="pm-header__logo" alt="" />
+      <div className="pm-header__title">Smart Meet</div>
+      <button className="pm-btn pm-btn--accent pm-btn--sm" onClick={handleOpenSidePanel}>
+        <LayoutOutlined /> {t("popup_sidepanel")}
       </button>
-    </div>
+      <button
+        className="pm-btn pm-btn--sm pm-btn--icon"
+        onClick={handleOpenSettings}
+        title={t("popup_settings")}
+        aria-label={t("popup_settings")}
+      >
+        <SettingOutlined />
+      </button>
+    </header>
   )
 }
-
-export default PopupHeader
 
 export default PopupHeader

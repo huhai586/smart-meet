@@ -1,43 +1,36 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { ConfigProvider, theme } from "antd"
+import { RightOutlined } from "@ant-design/icons"
+import "./styles/theme-vars.scss"
 import "./styles/popup.scss"
 import PopupHeader from "~/components/popup/PopupHeader"
-import TabBar from "~/components/popup/TabBar"
-import MeetingsTab from "~/components/popup/tabs/MeetingsTab"
-import LiveTab from "~/components/popup/tabs/LiveTab"
-import AITab from "~/components/popup/tabs/AITab"
-import SettingsTab from "~/components/popup/tabs/SettingsTab"
-import type { Tab } from "~/components/popup/types"
+import MeetingCard from "~/components/popup/MeetingCard"
+import QuickSettings from "~/components/popup/QuickSettings"
+import useI18n from "~/utils/i18n"
+import { OptionsRoute, openOptions } from "~/utils/options-routes"
 import { useDarkMode } from "~/hooks/useDarkMode"
 
-const MEET_PATTERN = /^https:\/\/meet\.google\.com\//
+const openAndClose = (route: Parameters<typeof openOptions>[0]) => {
+  openOptions(route)
+  window.close()
+}
 
 const Popup: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab | null>(null)
   const { isDark } = useDarkMode()
-
-  useEffect(() => {
-    chrome.tabs.query({ url: "https://meet.google.com/*" }, (meetTabs) => {
-      const hasActiveMeet = meetTabs.some(
-        (t) => t.url && MEET_PATTERN.test(t.url)
-      )
-      setActiveTab(hasActiveMeet ? "live" : "meetings")
-    })
-  }, [])
-
-  if (activeTab === null) return null
+  const { t } = useI18n()
 
   return (
     <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
       <div className="popup-root">
         <PopupHeader />
-        <TabBar active={activeTab} onChange={setActiveTab} />
-        <div className="popup-body">
-          {activeTab === "meetings" && <MeetingsTab />}
-          {activeTab === "live" && <LiveTab />}
-          {activeTab === "ai" && <AITab />}
-          {activeTab === "settings" && <SettingsTab />}
-        </div>
+        <MeetingCard />
+        <QuickSettings />
+        <footer className="pm-footer">
+          <button onClick={() => openAndClose(OptionsRoute.HISTORY)}>{t("tab_data_sync")}</button>
+          <button onClick={() => openAndClose(OptionsRoute.GENERAL)}>
+            {t("popup_all_settings")} <RightOutlined />
+          </button>
+        </footer>
       </div>
     </ConfigProvider>
   )
