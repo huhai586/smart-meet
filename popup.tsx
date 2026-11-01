@@ -4,6 +4,7 @@ import { RightOutlined } from "@ant-design/icons"
 import "./styles/theme-vars.scss"
 import "./styles/popup.scss"
 import PopupHeader from "~/components/popup/PopupHeader"
+import AccountRow from "~/components/popup/AccountRow"
 import MeetingCard from "~/components/popup/MeetingCard"
 import QuickSettings from "~/components/popup/QuickSettings"
 import useI18n from "~/utils/i18n"
@@ -23,6 +24,7 @@ const Popup: React.FC = () => {
     <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
       <div className="popup-root">
         <PopupHeader />
+        <AccountRow />
         <MeetingCard />
         <QuickSettings />
         <footer className="pm-footer">

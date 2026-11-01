@@ -169,6 +169,37 @@ button {
   }
 }
 
+// ── Account ───────────────────────────────────────────────────────────────────
+.pm-account {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: -4px 16px 12px;
+  padding: 0 4px;
+  font-size: 12px;
+  color: var(--opt-text-secondary);
+
+  &__dot {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--opt-text-secondary);
+    opacity: 0.5;
+  }
+
+  &--in &__dot {
+    background: var(--pm-live);
+    opacity: 1;
+  }
+
+  &__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 // ── Sections ──────────────────────────────────────────────────────────────────
 .pm-section {
   padding: 0 16px 14px;

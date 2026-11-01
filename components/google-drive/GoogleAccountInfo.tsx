@@ -91,7 +91,7 @@ const GoogleAccountInfo: React.FC = () => {
       <div style={{ padding: '4px 0' }}>
         <SignOutBtn onClick={() => logout()}>
           <LogoutOutlined />
-          Sign out
+          {t('google_account_sign_out')}
         </SignOutBtn>
       </div>
     </PopoverBody>

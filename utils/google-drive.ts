@@ -1,4 +1,5 @@
 import { message } from 'antd';
+import { GOOGLE_SCOPES } from './google-account';
 import type {
     IGoogleDriveService,
     IGoogleDriveFolder,
@@ -60,12 +61,8 @@ export class GoogleDriveService implements IGoogleDriveService {
         console.log('GoogleDriveService.getAuthToken called, interactive:', interactive);
 
         return new Promise((resolve, reject) => {
-            // 指定所需的权限范围，移除不必要的drive.readonly
-            const scopes = [
-                'https://www.googleapis.com/auth/drive.file',
-                'https://www.googleapis.com/auth/userinfo.profile',
-                'https://www.googleapis.com/auth/userinfo.email'
-            ];
+            // The same scopes as the Calendar sign-in, so both share one token
+            const scopes = GOOGLE_SCOPES;
 
             console.log('Requesting auth token with scopes:', scopes.join(', '));
 

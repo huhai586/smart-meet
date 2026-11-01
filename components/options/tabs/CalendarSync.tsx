@@ -191,6 +191,13 @@ const CalendarSync: React.FC = () => {
             {t('calendar_learn_more')}
           </a>
         </div>
+
+        {isConnected && (
+          <div className="privacy-note">
+            <InfoCircleOutlined className="privacy-icon" />
+            <span>{t('google_account_shared_note')}</span>
+          </div>
+        )}
       </div>
 
       {/* Sync Content Card */}

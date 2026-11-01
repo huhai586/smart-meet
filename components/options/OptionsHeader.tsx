@@ -4,6 +4,7 @@ import useI18n from '~utils/i18n';
 import googleMeetIcon from '~images/google-meeting-icon.png';
 import { useDarkMode } from '~hooks/useDarkMode';
 import { FeedbackSource, getFeedbackUrl } from '~utils/feedback';
+import GoogleAccountChip from './GoogleAccountChip';
 import '~styles/options-header.scss';
 
 interface OptionsHeaderProps {
@@ -40,6 +41,7 @@ const OptionsHeader: React.FC<OptionsHeaderProps> = ({ onNavigate }) => {
         </div>
       </div>
       <div className="header-right">
+        <GoogleAccountChip />
         <button className="header-action-btn" onClick={handleHelpCenter}>
           <QuestionCircleOutlined />
           <span>{t('help_center')}</span>

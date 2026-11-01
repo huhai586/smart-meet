@@ -1,14 +1,16 @@
 /**
  * Google Calendar Service
- * Uses chrome.identity (same pattern as GoogleDriveService) to authenticate
- * and fetch calendar events via the Calendar REST API v3.
+ * Fetches calendar events via the Calendar REST API v3, with the token of the extension's one Google sign-in
+ * (see utils/google-account).
  */
-
-const CALENDAR_SCOPES = [
-  'https://www.googleapis.com/auth/calendar.events.readonly',
-  'https://www.googleapis.com/auth/userinfo.profile',
-  'https://www.googleapis.com/auth/userinfo.email',
-];
+import {
+  GoogleStorageKey,
+  clearGoogleSession,
+  getGoogleToken,
+  signInGoogle,
+  signOutGoogle,
+  type GoogleUser,
+} from '~utils/google-account';
 
 export interface CalendarEvent {
   id: string;
@@ -24,14 +26,10 @@ export interface CalendarEvent {
   };
 }
 
-export interface CalendarUser {
-  email: string;
-  name: string;
-  picture: string;
-}
+export type CalendarUser = GoogleUser;
 
-const CONNECTED_KEY = 'calendarConnected';
-const USER_KEY = 'calendarUser';
+const CONNECTED_KEY = GoogleStorageKey.CALENDAR_CONNECTED;
+const USER_KEY = GoogleStorageKey.CALENDAR_USER;
 
 export class GoogleCalendarService {
   private static instance: GoogleCalendarService;
@@ -47,36 +45,14 @@ export class GoogleCalendarService {
   }
 
   private getAuthToken(interactive: boolean): Promise<string | null> {
-    return new Promise((resolve) => {
-      chrome.identity.getAuthToken({ interactive, scopes: CALENDAR_SCOPES }, (token) => {
-        if (chrome.runtime.lastError) {
-          console.warn('[CalendarService] getAuthToken error:', chrome.runtime.lastError.message);
-          resolve(null);
-        } else {
-          resolve(token ?? null);
-        }
-      });
-    });
-  }
-
-  private async fetchUserInfo(token: string): Promise<CalendarUser | null> {
-    try {
-      const res = await fetch('https://www.googleapis.com/oauth2/v1/userinfo?alt=json', {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (!res.ok) return null;
-      const data = await res.json();
-      return { email: data.email, name: data.name, picture: data.picture };
-    } catch {
-      return null;
-    }
+    return getGoogleToken(interactive);
   }
 
   /** Try to restore a cached token without prompting the user. */
   async checkConnection(): Promise<boolean> {
     const token = await this.getAuthToken(false);
     if (!token) {
-      await chrome.storage.local.remove([CONNECTED_KEY, USER_KEY]);
+      await clearGoogleSession();
       this.accessToken = null;
       return false;
     }
@@ -84,40 +60,18 @@ export class GoogleCalendarService {
     return true;
   }
 
-  /** Interactively authenticate and persist the connected state. */
+  /** Signs in to Google, which connects Calendar and Drive together. */
   async connect(): Promise<{ success: boolean; user: CalendarUser | null }> {
-    // Clear any stale cached token first
-    const stale = await this.getAuthToken(false);
-    if (stale) {
-      await new Promise<void>((r) =>
-        chrome.identity.removeCachedAuthToken({ token: stale }, r)
-      );
-    }
-
-    const token = await this.getAuthToken(true);
-    if (!token) return { success: false, user: null };
-
-    this.accessToken = token;
-    const user = await this.fetchUserInfo(token);
-
-    await chrome.storage.local.set({
-      [CONNECTED_KEY]: true,
-      [USER_KEY]: user,
-    });
-
+    const user = await signInGoogle();
+    if (!user) return { success: false, user: null };
+    this.accessToken = await this.getAuthToken(false);
     return { success: true, user };
   }
 
-  /** Revoke and clear the calendar token. */
+  /** Signs out of Google on this device; Drive is signed out with it. */
   async disconnect(): Promise<void> {
-    const token = await this.getAuthToken(false);
-    if (token) {
-      // 只清除本地缓存，不调用 Google revoke 端点
-      // revoke 会撤销整个 OAuth grant（client_id 级别），导致 Drive 也失效
-      chrome.identity.removeCachedAuthToken({ token }, () => {});
-    }
+    await signOutGoogle();
     this.accessToken = null;
-    await chrome.storage.local.remove([CONNECTED_KEY, USER_KEY]);
   }
 
   /** Load persisted connection state (used on mount without a network call). */
@@ -164,7 +118,7 @@ export class GoogleCalendarService {
       // Token expired – remove and signal caller
       chrome.identity.removeCachedAuthToken({ token: this.accessToken }, () => {});
       this.accessToken = null;
-      await chrome.storage.local.remove([CONNECTED_KEY, USER_KEY]);
+      await clearGoogleSession();
       throw new Error('TOKEN_EXPIRED');
     }
 

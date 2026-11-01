@@ -163,7 +163,7 @@ const MeetingCard: React.FC = () => {
         {notConnected && (
           <div className="pm-card__actions pm-card__actions--center">
             <button className="pm-btn pm-btn--primary pm-btn--sm" onClick={() => openAndClose(OptionsRoute.CALENDAR)}>
-              {t("meetings_open_calendar_settings")}
+              {t("popup_sign_in")}
             </button>
           </div>
         )}

@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { message } from 'antd';
 import GoogleCalendarService, { type CalendarUser, type CalendarEvent } from '~utils/google-calendar-service';
 import { getConfigValue, setConfigValue } from '~utils/appConfig';
+import { GoogleStorageKey } from '~utils/google-account';
+import useI18n from '~utils/i18n';
 
 export interface CalendarSettings {
   autoSync: boolean;
@@ -37,6 +39,7 @@ function sendBgMessage(type: string): void {
 }
 
 export function useGoogleCalendar(): UseGoogleCalendarReturn {
+  const { t } = useI18n();
   const [isConnected, setIsConnected] = useState(false);
   const [user, setUser] = useState<CalendarUser | null>(null);
   const [loading, setLoading] = useState(true);
@@ -93,6 +96,18 @@ export function useGoogleCalendar(): UseGoogleCalendarReturn {
     init();
   }, []);
 
+  // Signing in or out anywhere (the options header, the Drive page) is reflected here
+  useEffect(() => {
+    const onChanged = (changes: Record<string, { newValue?: unknown }>, area: string) => {
+      if (area !== 'local') return;
+      if (GoogleStorageKey.CALENDAR_CONNECTED in changes) setIsConnected(!!changes[GoogleStorageKey.CALENDAR_CONNECTED].newValue);
+      if (GoogleStorageKey.CALENDAR_USER in changes) setUser((changes[GoogleStorageKey.CALENDAR_USER].newValue as CalendarUser | undefined) ?? null);
+    };
+    chrome.storage.onChanged.addListener(onChanged);
+    return () => chrome.storage.onChanged.removeListener(onChanged);
+  }, []);
+
+  // Signing in also schedules the sync alarm and runs a first sync (see utils/google-account)
   const connect = useCallback(async () => {
     setConnecting(true);
     try {
@@ -100,25 +115,20 @@ export function useGoogleCalendar(): UseGoogleCalendarReturn {
       if (success) {
         setIsConnected(true);
         setUser(calUser);
-        // Schedule the alarm now that we're connected
-        sendBgMessage('CALENDAR_ALARM_RESCHEDULE');
-        // Do an immediate sync
-        sendBgMessage('CALENDAR_SYNC_NOW');
       } else {
-        message.error('连接 Google Calendar 失败，请重试');
+        message.error(t('google_sign_in_failed'));
       }
-    } catch (err: any) {
-      message.error('连接失败：' + (err?.message ?? '未知错误'));
+    } catch {
+      message.error(t('google_sign_in_failed'));
     } finally {
       setConnecting(false);
     }
-  }, []);
+  }, [t]);
 
   const disconnect = useCallback(async () => {
     await service.disconnect();
     setIsConnected(false);
     setUser(null);
-    sendBgMessage('CALENDAR_ALARM_CLEAR');
   }, []);
 
   const updateSettings = useCallback(async (patch: Partial<CalendarSettings>) => {
