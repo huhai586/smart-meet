@@ -9,6 +9,7 @@ import { VOCAB_DRIVE_FILE_NAME } from '~utils/vocab-sync';
  */
 export const useBackupFolder = () => {
   const [backupFiles, setBackupFiles] = useState<DriveFile[]>([]);
+  const [vocabFile, setVocabFile] = useState<DriveFile | undefined>();
   const [backupFolder, setBackupFolder] = useState<DriveFolder | null>(null);
   const [loading, setLoading] = useState(false);
   const driveService = GoogleDriveService.getInstance();
@@ -33,13 +34,17 @@ export const useBackupFolder = () => {
       if (folder) {
         console.log('Backup folder loaded, loading files...');
         // The vocabulary backup lives in the same folder but is not a day of meeting records
-        const files = (await driveService.listBackupFiles()).filter((file) => file.name !== VOCAB_DRIVE_FILE_NAME);
+        const all = await driveService.listBackupFiles();
+        const files = all.filter((file) => file.name !== VOCAB_DRIVE_FILE_NAME);
         setBackupFiles(files);
+        const vocab = all.find((file) => file.name === VOCAB_DRIVE_FILE_NAME);
+        setVocabFile(vocab && { ...vocab, size: vocab.size ? Number(vocab.size) : undefined });
         console.log(`Loaded ${files.length} backup files`);
       }
     } catch (error) {
       console.error('Error loading backup folder:', error);
       setBackupFiles([]);
+      setVocabFile(undefined);
       setBackupFolder(null);
     } finally {
       setLoading(false);
@@ -56,6 +61,7 @@ export const useBackupFolder = () => {
       console.log('Not authenticated or auth loading, skipping initial backup folder load');
       // 如果未认证，清空数据
       setBackupFiles([]);
+      setVocabFile(undefined);
       setBackupFolder(null);
     }
   }, [loadBackupFolder, isAuthenticated, authLoading]);
@@ -69,6 +75,7 @@ export const useBackupFolder = () => {
 
   return {
     backupFiles,
+    vocabFile,
     backupFolder,
     loading,
     loadBackupFolder,

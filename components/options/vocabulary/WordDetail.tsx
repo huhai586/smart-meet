@@ -9,8 +9,9 @@ import HighlightedSentence from './HighlightedSentence';
 
 interface WordDetailProps {
   entry: VocabEntry;
-  onOpenDictionary: (word: string) => void;
-  onRemove: (word: string) => void;
+  /** Without these the word is shown read-only, as in the Drive backup. */
+  onOpenDictionary?: (word: string) => void;
+  onRemove?: (word: string) => void;
 }
 
 /** One word and every sentence it came up in, newest first. */
@@ -30,22 +31,24 @@ const WordDetail: React.FC<WordDetailProps> = ({ entry, onOpenDictionary, onRemo
             <span key={form} className="vocab-detail__form">{form}</span>
           ))}
         </div>
-        <div className="vocab-detail__actions">
-          <button type="button" onClick={() => onOpenDictionary(entry.word)} title={t('vocab_open_dictionary')} aria-label={t('vocab_open_dictionary')}>
-            <BookOutlined />
-          </button>
-          <Popconfirm
-            title={t('vocab_remove_confirm')}
-            okText={t('remove')}
-            cancelText={t('cancel')}
-            okButtonProps={{ danger: true }}
-            onConfirm={() => onRemove(entry.word)}
-          >
-            <button type="button" title={t('remove')} aria-label={t('remove')}>
-              <DeleteOutlined />
+        {onOpenDictionary && onRemove && (
+          <div className="vocab-detail__actions">
+            <button type="button" onClick={() => onOpenDictionary(entry.word)} title={t('vocab_open_dictionary')} aria-label={t('vocab_open_dictionary')}>
+              <BookOutlined />
             </button>
-          </Popconfirm>
-        </div>
+            <Popconfirm
+              title={t('vocab_remove_confirm')}
+              okText={t('remove')}
+              cancelText={t('cancel')}
+              okButtonProps={{ danger: true }}
+              onConfirm={() => onRemove(entry.word)}
+            >
+              <button type="button" title={t('remove')} aria-label={t('remove')}>
+                <DeleteOutlined />
+              </button>
+            </Popconfirm>
+          </div>
+        )}
       </header>
 
       {entry.translation && <div className="vocab-detail__translation">{entry.translation}</div>}

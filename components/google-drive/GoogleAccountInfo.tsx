@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Popover, Divider, Typography } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import { useGoogleAuth } from '../../contexts/GoogleAuthContext';
+import { useI18n } from '~utils/i18n';
 import styled from 'styled-components';
 
 const { Text } = Typography;
@@ -57,6 +58,7 @@ const SignOutBtn = styled.button`
 
 const GoogleAccountInfo: React.FC = () => {
   const { isAuthenticated, user, logout } = useGoogleAuth();
+  const { t } = useI18n();
 
   if (!isAuthenticated || !user) return null;
 
@@ -83,6 +85,9 @@ const GoogleAccountInfo: React.FC = () => {
         </div>
       </UserInfoRow>
       <Divider style={{ margin: 0, borderColor: 'var(--opt-border-divider)' }} />
+      <Text type="secondary" style={{ display: 'block', padding: '10px 16px 0', maxWidth: 240, fontSize: 12, lineHeight: 1.5 }}>
+        {t('google_account_chrome_hint')}
+      </Text>
       <div style={{ padding: '4px 0' }}>
         <SignOutBtn onClick={() => logout()}>
           <LogoutOutlined />

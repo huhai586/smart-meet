@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Dropdown, Spin, Upload } from 'antd';
 import {
-  SettingOutlined,
+  CloudSyncOutlined,
   SyncOutlined,
   UploadOutlined,
   EllipsisOutlined,
@@ -24,7 +24,8 @@ interface RestoreSectionProps {
   onDownload: (fileId: string, fileName: string) => void;
   onRefresh: () => void;
   onUpload: (file: File) => Promise<boolean>;
-  onOpenSettings: () => void;
+  onBackup: () => void;
+  backingUp: boolean;
 }
 
 /* ── Styled Components ── */
@@ -53,6 +54,32 @@ const ToolbarActions = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+`;
+
+const BackupBtn = styled.button`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  color: #007AFF;
+  cursor: pointer;
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: rgba(0, 122, 255, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 `;
 
 const IconBtn = styled.button<{ $spinning?: boolean }>`
@@ -95,7 +122,8 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
   onDownload,
   onRefresh,
   onUpload,
-  onOpenSettings,
+  onBackup,
+  backingUp,
 }) => {
   const { t } = useI18n();
 
@@ -114,6 +142,12 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
       <ToolbarRow>
         <ToolbarTitle>{t('restore_files')}</ToolbarTitle>
         <ToolbarActions>
+          {/* Back up now */}
+          <BackupBtn type="button" onClick={onBackup} disabled={backingUp}>
+            <CloudSyncOutlined spin={backingUp} />
+            {backingUp ? t('drive_backup_running') : t('backup_to_drive')}
+          </BackupBtn>
+
           {/* Refresh */}
           <IconBtn onClick={onRefresh} disabled={loading} title={t('refresh')}>
             <SyncOutlined spin={loading} />
@@ -129,11 +163,6 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
               <UploadOutlined />
             </IconBtn>
           </Upload>
-
-          {/* Sync Settings */}
-          <IconBtn onClick={onOpenSettings} title={t('backup_title')}>
-            <SettingOutlined />
-          </IconBtn>
 
           {/* More (Restore All) */}
           <Dropdown menu={{ items: moreMenuItems }} trigger={['click']} placement="bottomRight">

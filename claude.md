@@ -81,6 +81,14 @@ Configured in the repo (`.mcp.json`, `.agents/skills/`, `skills-lock.json`). A n
 - `build/chrome-mv3-dev` is produced by `yarn dev` (`plasmo dev`); `yarn build` only writes `chrome-mv3-prod`. Rebuild before testing, then `reload_extension`. If `plasmo dev`'s own auto-reload drops the unpacked extension, rerun `launch.sh`. Content scripts only pick up new code after the Meet tab is reloaded.
 - If the Chrome Web Store build of Smart Meet is also enabled in that profile, content scripts run twice. Disable the store copy.
 
+### Google OAuth in the test browser (Drive / Calendar)
+
+`package.json` keeps several OAuth client ids as `local_client_id_*`; `manifest.oauth2.client_id` is the one that ships (the `_online` one). The id `local_client_id_cdp` is bound to the extension id of the unpacked copy in the CDP profile and has the Google APIs (Drive, Calendar) enabled in Google Cloud.
+
+- To debug anything that talks to Google, **temporarily** set `manifest.oauth2.client_id` to the value of `local_client_id_cdp`, rebuild (`yarn dev`), then `reload_extension`.
+- **Never commit that swap.** Put `manifest.oauth2.client_id` back to the `local_client_id_online` value before committing, and check `git diff package.json` shows no change to it.
+- **Never uninstall the extension in the CDP profile** (no `uninstall_extension`, no removing it from `chrome://extensions`). The client id is bound to its extension id; a reinstall can change the id and the granted permissions stop working. Use `reload_extension` or `launch.sh` instead.
+
 ### `chrome-devtools` MCP
 
 `chrome-devtools-mcp` with `--categoryExtensions --browserUrl http://127.0.0.1:9222`, so it attaches to the test browser above (start that first, or it has nothing to connect to). Tools (load their schemas with ToolSearch first):

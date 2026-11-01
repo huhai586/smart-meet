@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { useI18n } from '~utils/i18n';
 import useVocabDriveSync from '~hooks/useVocabDriveSync';
 import messageManager from '~utils/message-manager';
+import './vocabulary.scss';
 
 /** Opt-in backup of the vocabulary to the Google Drive folder the meeting records already use. */
 const DriveSyncCard: React.FC = () => {

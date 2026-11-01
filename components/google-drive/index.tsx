@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Spin } from 'antd';
+import { Segmented, Spin } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 import BackupSection from './BackupSection';
 import RestoreSection from './RestoreSection';
+import VocabularyBackup from './VocabularyBackup';
 import ConflictModal from './ConflictModal';
 import useBackupFolder from './hooks/useBackupFolder';
 import useConflictResolution from './hooks/useConflictResolution';
@@ -81,6 +82,15 @@ const AppleBody = styled.p`
   max-width: 280px;
 `;
 
+const AppleHint = styled.p`
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
+  font-size: 12.5px;
+  color: #8E8E93;
+  margin: 16px 0 0;
+  line-height: 1.5;
+  max-width: 280px;
+`;
+
 const AppleSeparator = styled.div`
   width: 100%;
   height: 0.5px;
@@ -142,6 +152,10 @@ const AppleLoadingIcon = styled.div`
 /**
  * Google Drive集成主组件
  */
+/** What the Drive page keeps: the meeting records of each day, and the vocabulary. */
+const DriveTab = { RECORDS: 'records', VOCABULARY: 'vocabulary' } as const;
+type DriveTab = (typeof DriveTab)[keyof typeof DriveTab];
+
 const GoogleDriveIntegration: React.FC = () => {
   const { t } = useI18n();
   // 获取Google认证状态
@@ -150,11 +164,12 @@ const GoogleDriveIntegration: React.FC = () => {
   // 添加登录状态管理
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [loginSuccess, setLoginSuccess] = useState(false);
-  const [settingsVisible, setSettingsVisible] = useState(false);
+  const [tab, setTab] = useState<DriveTab>(DriveTab.RECORDS);
 
   // 使用hooks
   const {
     backupFiles,
+    vocabFile,
     backupFolder: _backupFolder,
     loading: folderLoading,
     loadBackupFolder,
@@ -264,27 +279,38 @@ const GoogleDriveIntegration: React.FC = () => {
     if (isAuthenticated && (loginSuccess || user)) {
       return (
         <>
-          <RestoreSection
-            files={backupFiles}
-            loading={folderLoading}
-            restoring={restoring}
-            loadingFileId={loadingFileId}
-            deletingFileId={deletingFileId}
-            onRestoreAll={onRestoreAll}
-            onRestore={handleRestore}
-            onDelete={onDeleteFile}
-            onDownload={handleDownload}
-            onRefresh={loadBackupFolder}
-            onUpload={handleUpload}
-            onOpenSettings={() => setSettingsVisible(true)}
+          <Segmented
+            value={tab}
+            onChange={(value) => setTab(value as DriveTab)}
+            options={[
+              { label: t('drive_tab_records'), value: DriveTab.RECORDS },
+              { label: t('drive_tab_vocabulary'), value: DriveTab.VOCABULARY },
+            ]}
+            style={{ marginBottom: 16 }}
           />
 
-          <BackupSection
-            visible={settingsVisible}
-            onClose={() => setSettingsVisible(false)}
-            onBackup={handleSync}
-            loading={syncing}
-          />
+          {tab === DriveTab.RECORDS ? (
+            <>
+              <BackupSection />
+              <RestoreSection
+                files={backupFiles}
+                loading={folderLoading}
+                restoring={restoring}
+                loadingFileId={loadingFileId}
+                deletingFileId={deletingFileId}
+                onRestoreAll={onRestoreAll}
+                onRestore={handleRestore}
+                onDelete={onDeleteFile}
+                onDownload={handleDownload}
+                onRefresh={loadBackupFolder}
+                onUpload={handleUpload}
+                onBackup={handleSync}
+                backingUp={syncing}
+              />
+            </>
+          ) : (
+            <VocabularyBackup file={vocabFile} onRefresh={loadBackupFolder} />
+          )}
 
           <ConflictModal
             visible={conflictModalVisible}
@@ -320,6 +346,7 @@ const GoogleDriveIntegration: React.FC = () => {
               </>
             )}
           </AppleLoginButton>
+          <AppleHint>{t('google_account_chrome_hint')}</AppleHint>
         </LoginSection>
       </>
     );

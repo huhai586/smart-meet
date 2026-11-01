@@ -45,6 +45,7 @@ const ListItem = styled.div<{ $last?: boolean }>`
   border-bottom: ${({ $last }) => ($last ? 'none' : '0.5px solid var(--opt-border-divider)')};
   transition: background 0.12s ease;
   gap: 12px;
+  cursor: pointer;
 
   &:hover {
     background: var(--opt-hover-default);
@@ -162,15 +163,17 @@ const FileList: React.FC<FileListProps> = ({
     });
   };
 
+  const viewFile = (file: DriveFile) => {
+    setSelectedFile(file);
+    setChatRecordsModalVisible(true);
+  };
+
   const makeMenuItems = (file: DriveFile) => [
     {
       key: 'view',
       icon: <EyeOutlined />,
       label: t('view_chat_records'),
-      onClick: () => {
-        setSelectedFile(file);
-        setChatRecordsModalVisible(true);
-      },
+      onClick: () => viewFile(file),
     },
     {
       key: 'restore',
@@ -241,7 +244,7 @@ const FileList: React.FC<FileListProps> = ({
           {filteredFiles.map((file, idx) => {
             const isBusy = loadingFileId === file.id || deletingFileId === file.id;
             return (
-              <ListItem key={file.id} $last={idx === filteredFiles.length - 1}>
+              <ListItem key={file.id} $last={idx === filteredFiles.length - 1} onClick={() => viewFile(file)}>
                 <FileIcon>
                   {isBusy ? <Spin size="small" style={{ filter: 'brightness(0) invert(1)' }} /> : <FileTextOutlined />}
                 </FileIcon>
@@ -252,15 +255,18 @@ const FileList: React.FC<FileListProps> = ({
                     {file.size ? ` · ${formatFileSize(file.size)}` : ''}
                   </FileMeta>
                 </FileInfo>
-                <Dropdown
-                  menu={{ items: makeMenuItems(file) }}
-                  trigger={['click']}
-                  placement="bottomRight"
-                >
-                  <MoreButton onClick={e => e.stopPropagation()}>
-                    <EllipsisOutlined />
-                  </MoreButton>
-                </Dropdown>
+                {/* The menu opens in a portal, whose clicks would still reach the row */}
+                <span onClick={e => e.stopPropagation()}>
+                  <Dropdown
+                    menu={{ items: makeMenuItems(file) }}
+                    trigger={['click']}
+                    placement="bottomRight"
+                  >
+                    <MoreButton>
+                      <EllipsisOutlined />
+                    </MoreButton>
+                  </Dropdown>
+                </span>
               </ListItem>
             );
           })}
