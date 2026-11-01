@@ -10,6 +10,7 @@ import {
   BookOutlined,
   MessageOutlined,
   PushpinOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
@@ -17,6 +18,7 @@ import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 import useCaptionToggle from '~/hooks/useCaptionToggle';
 import useStickerToggle from '~/hooks/useStickerToggle';
 import messageManager from '~/utils/message-manager';
+import { HoverDemo, HOVER_DEMO_KIND } from '../HoverDemo';
 
 /* ── Styled Components ── */
 
@@ -285,7 +287,12 @@ const InterfaceAppearance: React.FC = () => {
             <MessageOutlined />
           </IconSquircle>
           <RowContent>
-            <RowTitle>{t('caption_toggle_button')}</RowTitle>
+            <RowTitle>
+              {t('caption_toggle_button')}{' '}
+              <HoverDemo kind={HOVER_DEMO_KIND.CAPTION_TOGGLE}>
+                <QuestionCircleOutlined className="hover-demo__help" />
+              </HoverDemo>
+            </RowTitle>
             <RowSubtitle>{t('caption_toggle_button_desc')}</RowSubtitle>
           </RowContent>
           <Switch checked={captionToggleEnabled} onChange={handleCaptionToggleChange} />
@@ -295,7 +302,12 @@ const InterfaceAppearance: React.FC = () => {
             <PushpinOutlined />
           </IconSquircle>
           <RowContent>
-            <RowTitle>{t('sticker_note')}</RowTitle>
+            <RowTitle>
+              {t('sticker_note')}{' '}
+              <HoverDemo kind={HOVER_DEMO_KIND.STICKER}>
+                <QuestionCircleOutlined className="hover-demo__help" />
+              </HoverDemo>
+            </RowTitle>
             <RowSubtitle>{t('sticker_note_desc')}</RowSubtitle>
           </RowContent>
           <Switch checked={stickerEnabled} onChange={handleStickerToggleChange} />

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Switch, Slider, Modal, Form, Input, Select } from 'antd';
-import { CheckOutlined, RightOutlined, GlobalOutlined, ApiOutlined, RobotOutlined, TranslationOutlined, ThunderboltOutlined } from '@ant-design/icons';
+import { CheckOutlined, RightOutlined, GlobalOutlined, ApiOutlined, RobotOutlined, TranslationOutlined, ThunderboltOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import useI18n from '~utils/i18n';
 import { useAutoTranslate } from '~hooks/useAutoTranslate';
+import useCaptionWordTranslateToggle from '~hooks/useCaptionWordTranslateToggle';
 import {
   useTranslationProvider,
   useDeepLConfig,
@@ -16,6 +17,7 @@ import { supportedLanguages, getLanguageDisplay } from '~utils/languages';
 import useTranslationLanguage from '~hooks/useTranslationLanguage';
 import messageManager from '~utils/message-manager';
 import LocalTranslatorModal from './LocalTranslatorModal';
+import { HoverDemo, HOVER_DEMO_KIND } from './HoverDemo';
 
 /* ── Provider definitions ── */
 interface ProviderItem {
@@ -172,6 +174,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
   const { t } = useI18n();
   const [language, setLanguage] = useTranslationLanguage();
   const [autoTranslateEnabled, setAutoTranslateEnabled] = useAutoTranslate();
+  const [wordTranslateEnabled, setWordTranslateEnabled] = useCaptionWordTranslateToggle();
   const [translationProvider, setTranslationProvider] = useTranslationProvider();
   const [translationFrequency, setTranslationFrequency] = useTranslationFrequency();
   const [deepLConfig, setDeepLConfig] = useDeepLConfig();
@@ -189,6 +192,11 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
   const handleAutoTranslateChange = (checked: boolean) => {
     setAutoTranslateEnabled(checked);
     messageManager.success(checked ? t('auto_translate_enabled') : t('auto_translate_disabled'));
+  };
+
+  const handleWordTranslateChange = (checked: boolean) => {
+    setWordTranslateEnabled(checked);
+    messageManager.success(checked ? t('caption_word_translate_enabled') : t('caption_word_translate_disabled'));
   };
 
   const handleSelectProvider = (id: TranslationProvider) => {
@@ -263,10 +271,29 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
           </Select>
         </SettingRow>
 
+        {/* Click a word in Meet's native captions to translate it */}
+        <SettingRow $last={false}>
+          <RowContent>
+            <RowTitle>
+                {t('caption_word_translate')}{' '}
+                <HoverDemo kind={HOVER_DEMO_KIND.WORD_CLICK}>
+                  <QuestionCircleOutlined className="hover-demo__help" />
+                </HoverDemo>
+              </RowTitle>
+            <RowSubtitle>{t('caption_word_translate_desc')}</RowSubtitle>
+          </RowContent>
+          <Switch checked={wordTranslateEnabled} onChange={handleWordTranslateChange} />
+        </SettingRow>
+
         {/* Auto Translate */}
         <SettingRow $last={!autoTranslateEnabled}>
           <RowContent>
-            <RowTitle>{t('auto_translate')}</RowTitle>
+            <RowTitle>
+                {t('auto_translate')}{' '}
+                <HoverDemo kind={HOVER_DEMO_KIND.AUTO_TRANSLATE}>
+                  <QuestionCircleOutlined className="hover-demo__help" />
+                </HoverDemo>
+              </RowTitle>
             <RowSubtitle>{t('auto_translate_desc')}</RowSubtitle>
           </RowContent>
           <Switch checked={autoTranslateEnabled} onChange={handleAutoTranslateChange} />

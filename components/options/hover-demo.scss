@@ -1,0 +1,392 @@
+// Hover preview illustrations for settings rows.
+// Pure CSS, looping, no text. Colors: --opt-* tokens plus accent blue / green / amber.
+// Base styles show the final state, so reduced-motion users see a static picture.
+
+$hd-blue: #1a73e8;
+$hd-green: #16a34a;
+$hd-amber: #fbbc04;
+$hd-cycle: 4s;
+
+@keyframes hd-pop {
+  0%, 8% { opacity: 0; transform: scale(0.4); }
+  18%, 84% { opacity: 1; transform: scale(1); }
+  94%, 100% { opacity: 0; transform: scale(0.4); }
+}
+
+@keyframes hd-pointer {
+  0%, 20% { opacity: 0; transform: translate(26px, 26px); }
+  30%, 60% { opacity: 1; transform: translate(0, 0); }
+  70%, 100% { opacity: 0; transform: translate(0, 0); }
+}
+
+@keyframes hd-ripple {
+  0%, 28% { opacity: 0; transform: scale(0.3); }
+  32% { opacity: 0.7; transform: scale(0.6); }
+  48%, 100% { opacity: 0; transform: scale(2); }
+}
+
+@keyframes hd-fade-up {
+  0%, 46% { opacity: 0; transform: translateY(6px); }
+  58%, 88% { opacity: 1; transform: translateY(0); }
+  96%, 100% { opacity: 0; transform: translateY(0); }
+}
+
+@keyframes hd-card {
+  0%, 40% { opacity: 0; transform: translateY(6px) scale(0.92); }
+  50%, 86% { opacity: 1; transform: translateY(0) scale(1); }
+  96%, 100% { opacity: 0; transform: translateY(0) scale(0.92); }
+}
+
+@keyframes hd-hit {
+  0%, 100% { transform: scale(1); }
+  30% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+}
+
+@keyframes hd-note {
+  0%, 10% { opacity: 0; transform: scale(0.3) rotate(-12deg); }
+  22% { opacity: 1; transform: scale(1.06) rotate(-6deg); }
+  32% { transform: scale(1) rotate(5deg); }
+  42% { transform: rotate(-4deg); }
+  52% { transform: rotate(3deg); }
+  62%, 86% { opacity: 1; transform: scale(1) rotate(0deg); }
+  96%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+}
+
+@keyframes hd-slide-in {
+  0%, 30% { opacity: 0; transform: translateX(-10px); }
+  45%, 84% { opacity: 1; transform: translateX(0); }
+  96%, 100% { opacity: 0; transform: translateX(0); }
+}
+
+/* ── Trigger wrapper and help icon in the settings row ── */
+
+.hover-demo__target {
+  display: inline-block;
+  max-width: 100%;
+}
+
+.hover-demo__help {
+  font-size: 15px;
+  color: var(--opt-text-secondary);
+  cursor: help;
+  margin-left: 6px;
+  vertical-align: -2px;
+}
+
+/* ── Popover shell ── */
+
+.hover-demo-popover {
+  .ant-popover-inner {
+    padding: 8px;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.hover-demo {
+  position: relative;
+  width: 220px;
+  height: 130px;
+  border-radius: 12px;
+  background: var(--opt-bg-page);
+  overflow: hidden;
+
+  &,
+  & * {
+    box-sizing: border-box;
+  }
+}
+
+/* ── Mini Meet window ── */
+
+.hover-demo__window {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 196px;
+  height: 106px;
+  border-radius: 10px;
+  background: var(--opt-bg-card);
+  border: 1px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.hover-demo__tile {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 8px;
+  height: 58px;
+  border-radius: 7px;
+  background: var(--opt-segment-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hover-demo__avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--opt-text-secondary);
+  opacity: 0.4;
+}
+
+.hover-demo__bar {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--opt-segment-bg);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+}
+
+.hover-demo__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--opt-text-secondary);
+  opacity: 0.5;
+}
+
+.hover-demo__bar-line {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--opt-text-secondary);
+  opacity: 0.55;
+}
+
+.hover-demo__pointer {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+
+  path {
+    fill: var(--opt-text-primary);
+    stroke: var(--opt-bg-card);
+  }
+}
+
+.hover-demo__ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid $hd-blue;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── 1. caption-toggle: round extra button, click, caption strip ── */
+
+.hover-demo--caption-toggle {
+  .hover-demo__extra {
+    width: 16px;
+    height: 16px;
+    margin-left: auto;
+    border-radius: 50%;
+    background: $hd-blue;
+    animation: hd-pop $hd-cycle ease-in-out infinite;
+  }
+
+  .hover-demo__caption {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 36px;
+    height: 16px;
+    border-radius: 6px;
+    background: var(--opt-bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    animation: hd-fade-up $hd-cycle ease-in-out infinite;
+  }
+
+  .hover-demo__pointer {
+    left: 173px;
+    top: 86px;
+    animation: hd-pointer $hd-cycle ease-in-out infinite;
+  }
+
+  .hover-demo__ripple {
+    left: 166px;
+    top: 79px;
+    width: 16px;
+    height: 16px;
+    animation: hd-ripple $hd-cycle ease-out infinite;
+  }
+}
+
+/* ── 2. sticker: yellow note pops in, wiggles ── */
+
+.hover-demo--sticker {
+  .hover-demo__note {
+    position: absolute;
+    right: 16px;
+    top: 14px;
+    width: 46px;
+    height: 42px;
+    border-radius: 8px;
+    background: $hd-amber;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 9px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transform-origin: 50% 50%;
+    animation: hd-note $hd-cycle ease-in-out infinite;
+  }
+
+  .hover-demo__note-line {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--opt-bg-card);
+    opacity: 0.85;
+  }
+}
+
+/* ── 3. word-click: amber word, ripple, small card above ── */
+
+.hover-demo--word-click {
+  .hover-demo__words {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    height: 18px;
+    border-radius: 6px;
+    background: var(--opt-bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .hover-demo__word {
+    width: 24px;
+    height: 7px;
+    border-radius: 4px;
+    background: var(--opt-text-secondary);
+    opacity: 0.45;
+  }
+
+  .hover-demo__word--hit {
+    background: $hd-amber;
+    opacity: 1;
+    animation: hd-hit $hd-cycle ease-in-out infinite;
+  }
+
+  .hover-demo__card {
+    position: absolute;
+    left: 46px;
+    top: 30px;
+    width: 104px;
+    height: 38px;
+    border-radius: 10px;
+    background: var(--opt-bg-card);
+    border: 0.5px solid var(--opt-border-subtle);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    animation: hd-card $hd-cycle ease-in-out infinite;
+  }
+
+  .hover-demo__card-line {
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  .hover-demo__card-line--gray {
+    background: var(--opt-text-secondary);
+    opacity: 0.5;
+  }
+
+  .hover-demo__card-line--accent {
+    background: $hd-blue;
+  }
+
+  .hover-demo__pointer {
+    left: 97px;
+    top: 82px;
+    animation: hd-pointer $hd-cycle ease-in-out infinite;
+  }
+
+  .hover-demo__ripple {
+    left: 90px;
+    top: 75px;
+    width: 16px;
+    height: 16px;
+    animation: hd-ripple $hd-cycle ease-out infinite;
+  }
+}
+
+/* ── 4. auto-translate: gray caption, blue translation line slides in ── */
+
+.hover-demo--auto-translate {
+  .hover-demo__subs {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: var(--opt-bg-card);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 8px;
+  }
+
+  .hover-demo__sub-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hover-demo__lang-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: $hd-green;
+    flex-shrink: 0;
+  }
+
+  .hover-demo__translation-bar {
+    width: 64px;
+    height: 5px;
+    border-radius: 3px;
+    background: $hd-blue;
+    animation: hd-slide-in $hd-cycle ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-demo,
+  .hover-demo * {
+    animation: none !important;
+  }
+}
+
+:root.dark-mode {
+  .hover-demo-popover .ant-popover-inner {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .hover-demo__window,
+  .hover-demo--sticker .hover-demo__note,
+  .hover-demo--word-click .hover-demo__card {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+}
