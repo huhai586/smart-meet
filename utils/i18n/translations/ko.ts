@@ -641,6 +641,7 @@ export default {
   "notif_join_btn": "회의 참가",
   "notif_test_title": "📅 테스트 회의 알림",
   "switch_to_dark_mode": "다크 모드",
+  "feedback_button": "의견 보내기",
   "switch_to_light_mode": "라이트 모드",
   "captions_jump_to_latest": "최신으로 이동",
   "meet_dock_menu_label": "Smart Meet 도구",

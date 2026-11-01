@@ -617,6 +617,7 @@ export default {
   "notif_join_btn": "Присоединиться",
   "notif_test_title": "📅 Тестовое напоминание",
   "switch_to_dark_mode": "Тёмный режим",
+  "feedback_button": "Обратная связь",
   "switch_to_light_mode": "Светлый режим",
   "captions_jump_to_latest": "К последним",
   "meet_dock_menu_label": "Инструменты Smart Meet",

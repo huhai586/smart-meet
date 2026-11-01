@@ -596,6 +596,7 @@ export default {
   "notif_join_btn": "انضم إلى الاجتماع",
   "notif_test_title": "📅 تذكير اجتماع تجريبي",
   "switch_to_dark_mode": "الوضع المظلم",
+  "feedback_button": "الملاحظات",
   "switch_to_light_mode": "الوضع الفاتح",
   "captions_jump_to_latest": "الانتقال إلى الأحدث",
   "meet_dock_menu_label": "أدوات Smart Meet",

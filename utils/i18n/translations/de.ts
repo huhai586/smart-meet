@@ -624,6 +624,7 @@ export default {
   "notif_join_btn": "Meeting beitreten",
   "notif_test_title": "📅 Test-Meeting-Erinnerung",
   "switch_to_dark_mode": "Dunkler Modus",
+  "feedback_button": "Feedback",
   "switch_to_light_mode": "Heller Modus",
   "captions_jump_to_latest": "Zum Neuesten springen",
   "meet_dock_menu_label": "Smart-Meet-Tools",

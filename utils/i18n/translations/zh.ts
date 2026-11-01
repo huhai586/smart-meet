@@ -727,6 +727,7 @@ export default {
   "notif_join_btn": "加入会议",
   "notif_test_title": "📅 测试会议提醒",
   "switch_to_dark_mode": "深色模式",
+  "feedback_button": "反馈与建议",
   "switch_to_light_mode": "浅色模式",
   "captions_jump_to_latest": "回到最新",
   "meet_dock_menu_label": "Smart Meet 工具",

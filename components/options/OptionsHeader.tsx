@@ -1,8 +1,9 @@
 import React from 'react';
-import { QuestionCircleOutlined, BulbOutlined, BulbFilled } from '@ant-design/icons';
+import { QuestionCircleOutlined, BulbOutlined, BulbFilled, MessageOutlined } from '@ant-design/icons';
 import useI18n from '~utils/i18n';
 import googleMeetIcon from '~images/google-meeting-icon.png';
 import { useDarkMode } from '~hooks/useDarkMode';
+import { FeedbackSource, getFeedbackUrl } from '~utils/feedback';
 import '~styles/options-header.scss';
 
 interface OptionsHeaderProps {
@@ -19,6 +20,10 @@ const OptionsHeader: React.FC<OptionsHeaderProps> = ({ onNavigate }) => {
     } else {
       window.location.hash = 'welcome';
     }
+  };
+
+  const handleFeedback = async () => {
+    chrome.tabs.create({ url: await getFeedbackUrl(FeedbackSource.OPTIONS) });
   };
 
   return (
@@ -38,6 +43,10 @@ const OptionsHeader: React.FC<OptionsHeaderProps> = ({ onNavigate }) => {
         <button className="header-action-btn" onClick={handleHelpCenter}>
           <QuestionCircleOutlined />
           <span>{t('help_center')}</span>
+        </button>
+        <button className="header-action-btn" onClick={handleFeedback}>
+          <MessageOutlined />
+          <span>{t('feedback_button')}</span>
         </button>
         <button className="header-icon-btn" onClick={toggle} aria-label={isDark ? t('switch_to_light_mode') : t('switch_to_dark_mode')}>
           {isDark ? <BulbFilled /> : <BulbOutlined />}

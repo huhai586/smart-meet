@@ -617,6 +617,7 @@ export default {
   "notif_join_btn": "Tham gia cuộc họp",
   "notif_test_title": "📅 Nhắc nhở thử nghiệm",
   "switch_to_dark_mode": "Chế độ tối",
+  "feedback_button": "Góp ý",
   "switch_to_light_mode": "Chế độ sáng",
   "captions_jump_to_latest": "Đến mới nhất",
   "meet_dock_menu_label": "Công cụ Smart Meet",

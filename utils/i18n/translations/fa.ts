@@ -643,6 +643,7 @@ export default {
   "notif_join_btn": "پیوستن به جلسه",
   "notif_test_title": "📅 یادآوری جلسه آزمایشی",
   "switch_to_dark_mode": "حالت تاریک",
+  "feedback_button": "بازخورد",
   "switch_to_light_mode": "حالت روشن",
   "captions_jump_to_latest": "رفتن به آخرین",
   "meet_dock_menu_label": "ابزارهای Smart Meet",

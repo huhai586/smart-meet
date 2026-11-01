@@ -624,6 +624,7 @@ export default {
   "notif_join_btn": "Unirse a la reunión",
   "notif_test_title": "📅 Recordatorio de reunión de prueba",
   "switch_to_dark_mode": "Modo oscuro",
+  "feedback_button": "Comentarios",
   "switch_to_light_mode": "Modo claro",
   "captions_jump_to_latest": "Ir a lo más reciente",
   "meet_dock_menu_label": "Herramientas de Smart Meet",

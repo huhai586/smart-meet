@@ -641,6 +641,7 @@ export default {
   "notif_join_btn": "会議に参加",
   "notif_test_title": "📅 テスト会議リマインダー",
   "switch_to_dark_mode": "ダークモード",
+  "feedback_button": "ご意見・ご要望",
   "switch_to_light_mode": "ライトモード",
   "captions_jump_to_latest": "最新へ移動",
   "meet_dock_menu_label": "Smart Meet ツール",

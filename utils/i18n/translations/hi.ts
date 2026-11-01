@@ -596,6 +596,7 @@ export default {
   "notif_join_btn": "मीटिंग में शामिल हों",
   "notif_test_title": "📅 टेस्ट मीटिंग रिमाइंडर",
   "switch_to_dark_mode": "डार्क मोड",
+  "feedback_button": "फ़ीडबैक",
   "switch_to_light_mode": "लाइट मोड",
   "captions_jump_to_latest": "नवीनतम पर जाएँ",
   "meet_dock_menu_label": "Smart Meet टूल",

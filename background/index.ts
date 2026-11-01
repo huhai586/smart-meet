@@ -8,6 +8,7 @@ import { initCalendarAutoSync } from "./calendar-auto-sync";
 import { initMeetingReminders } from "./meeting-reminders";
 
 import { migrateToAppConfig, cleanupLegacyFlatKeys } from "../utils/appConfig";
+import { FeedbackSource, getFeedbackUrl } from "../utils/feedback";
 
 /**
  * 背景页入口文件
@@ -47,6 +48,11 @@ function initBackgroundService() {
     migrateToAppConfig().catch((err) => console.error('appConfig migration error:', err));
     // 清理遗留的旧扁平键（对已完成迁移的用户同样执行一次）
     cleanupLegacyFlatKeys().catch((err) => console.error('appConfig cleanup error:', err));
+
+    // 卸载时打开反馈页，把一部分不满收进自己的渠道
+    getFeedbackUrl(FeedbackSource.UNINSTALL)
+        .then((url) => chrome.runtime.setUninstallURL(url))
+        .catch((err) => console.error('setUninstallURL error:', err));
 
     // 初始化徽章文本
     updateBadgeText();

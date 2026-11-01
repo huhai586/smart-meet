@@ -596,6 +596,7 @@ export default {
   "notif_join_btn": "เข้าร่วมการประชุม",
   "notif_test_title": "📅 การแจ้งเตือนทดสอบ",
   "switch_to_dark_mode": "โหมดมืด",
+  "feedback_button": "ส่งความคิดเห็น",
   "switch_to_light_mode": "โหมดสว่าง",
   "captions_jump_to_latest": "ไปที่ล่าสุด",
   "meet_dock_menu_label": "เครื่องมือ Smart Meet",

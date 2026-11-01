@@ -624,6 +624,7 @@ export default {
   "notif_join_btn": "Partecipa alla riunione",
   "notif_test_title": "📅 Promemoria riunione di prova",
   "switch_to_dark_mode": "Modalità scura",
+  "feedback_button": "Feedback",
   "switch_to_light_mode": "Modalità chiara",
   "captions_jump_to_latest": "Vai all'ultimo",
   "meet_dock_menu_label": "Strumenti Smart Meet",

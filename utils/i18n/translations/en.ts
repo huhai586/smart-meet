@@ -729,6 +729,7 @@ export default {
   "notif_join_btn": "Join Meeting",
   "notif_test_title": "📅 Test Meeting Reminder",
   "switch_to_dark_mode": "Dark mode",
+  "feedback_button": "Feedback",
   "switch_to_light_mode": "Light mode",
   "captions_jump_to_latest": "Jump to latest",
   "meet_dock_menu_label": "Smart Meet tools",
