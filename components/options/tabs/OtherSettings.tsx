@@ -7,34 +7,10 @@ import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
 import { setConfigValue } from '~/utils/appConfig';
 import { getSpecificTags } from '~/utils/common';
+import PageShell from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 
 /* ── Styled Components ── */
-const PageWrapper = styled.div`
-  padding: 0 20px;
-  max-width: 800px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-`;
-
-const PageHeader = styled.div`
-  padding: 0 0 24px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0 0 4px;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-`;
-
-const PageSubtitle = styled.p`
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 0;
-  line-height: 1.4;
-`;
-
 const SectionLabel = styled.div`
   font-size: 12px;
   font-weight: 500;
@@ -160,11 +136,7 @@ const OtherSettings: React.FC = () => {
   };
 
   return (
-    <PageWrapper>
-      <PageHeader>
-        <PageTitle>{t('tab_other')}</PageTitle>
-        <PageSubtitle>{t('tab_other_desc')}</PageSubtitle>
-      </PageHeader>
+    <PageShell route={OptionsRoute.OTHER} subtitle={t('tab_other_desc')}>
 
       {/* Caption Highlights */}
       <SectionLabel>{t('highlight_words_section')}</SectionLabel>
@@ -246,7 +218,7 @@ const OtherSettings: React.FC = () => {
           </Tag>
         )}
       </Modal>
-    </PageWrapper>
+    </PageShell>
   );
 };
 

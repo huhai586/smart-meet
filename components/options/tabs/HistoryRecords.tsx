@@ -16,53 +16,27 @@ import getMeetingCaptions from '~/utils/getCaptions';
 import saveChatLogAsTxt from '~/utils/save';
 import { createJsonFile, downloadFile } from '~/utils/file-utils';
 import { Modal, Select } from 'antd';
+import PageShell, { PageWidth } from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 
 /* ── Types ── */
 type Tab = 'history' | 'chat';
 
 /* ── Page header (matches other options pages) ── */
-const OuterWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-`;
-
-const PageHeaderBlock = styled.div`
-  padding: 0 4px 16px;
-  flex-shrink: 0;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-`;
-
-const HistPageTitle = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0 0 4px;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-`;
-
-const HistPageSubtitle = styled.p`
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 0;
-  line-height: 1.4;
-`;
-
 /* ── Styled Components ── */
 
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 230px);
   max-height: 900px;
-  min-height: 560px;
+  min-height: 480px;
   font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-  background: var(--opt-bg-page);
-  border-radius: 16px;
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  border-radius: 14px;
   overflow: hidden;
-  margin: -4px -4px 0;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 `;
 
 /* Top navigation bar */
@@ -280,11 +254,7 @@ const HistoryRecords: React.FC = () => {
   const navTitle = activeTab === 'history' ? t('tab_history') : t('tab_ai_translation');
 
   return (
-    <OuterWrapper>
-      <PageHeaderBlock>
-        <HistPageTitle>{t('tab_data_sync')}</HistPageTitle>
-        <HistPageSubtitle>{t('tab_history_desc')}</HistPageSubtitle>
-      </PageHeaderBlock>
+    <PageShell route={OptionsRoute.HISTORY} subtitle={t('tab_history_desc')} width={PageWidth.WIDE}>
       <PageWrapper>
       {/* ── Top navigation bar ── */}
       <NavBar>
@@ -346,7 +316,7 @@ const HistoryRecords: React.FC = () => {
         </Select>
       </Modal>
       </PageWrapper>
-    </OuterWrapper>
+    </PageShell>
   );
 };
 

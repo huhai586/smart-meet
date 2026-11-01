@@ -6,7 +6,6 @@ export default {
   "hide_captions": "مخفی کردن زیرنویس‌ها",
   "clear_captions": "پاک کردن زیرنویس‌ها",
   "clear_captions_desc": "همه زیرنویس‌ها حذف خواهند شد",
-  "translation_language": "زبان ترجمه",
   "select_language": "انتخاب زبان برای ترجمه",
   "settings": "تنظیمات",
   "settings_desc": "پیکربندی هوش مصنوعی، همگام‌سازی داده‌ها و موارد دیگر",
@@ -66,7 +65,6 @@ export default {
   "proxy_url_hint": "اگر سرویس‌های Google در منطقه شما در دسترس نیستند، می‌توانید یک آدرس پروکسی برای دسترسی به Gemini API پیکربندی کنید",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "پشتیبان گیری و بازیابی داده های زیرنویس خود در Google Drive",
   "google_account_chrome_hint": "از حساب Google که در Chrome وارد شده استفاده می‌شود. برای استفاده از حساب دیگر، ابتدا آن را در Chrome عوض کنید.",
   "drive_tab_records": "سوابق جلسه‌ها",
@@ -522,6 +520,7 @@ export default {
   "tab_ai_models_nav": "مدل‌های AI",
   "tab_visibility": "نمایان‌پذیری",
   "tab_translation": "ترجمه",
+  "tab_translation_desc": "زبان مقصد، ارائه‌دهنده ترجمه و ترجمه با کلیک",
   "tab_translation_nav": "ترجمه",
   "tab_other": "سایر",
   "tab_calendar": "Google Calendar",
@@ -590,7 +589,6 @@ export default {
   "settings_sync_range": "محدوده همگام‌سازی",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "تقویم Google خود را همگام‌سازی کنید تا برنامه جلسات را دریافت کرده و یادآوری‌ها را دریافت کنید",
   "calendar_auto_sync": "همگام‌سازی خودکار",
   "calendar_sync_frequency": "دفعات همگام‌سازی",
@@ -671,7 +669,6 @@ export default {
   "vocab_menu": "بیشتر",
   "vocab_clear": "پاک کردن همهٔ واژه‌ها",
   "tab_vocabulary": "واژگان",
-  "vocab_page_title": "واژگان من",
   "vocab_page_subtitle": "واژه‌هایی که در جلسه‌ها جستجو کرده‌اید، کدام‌ها مدام تکرار می‌شوند و در چه جمله‌هایی آمده بودند.",
   "vocab_page_empty": "هنوز چیزی اینجا نیست. روی یک واژه در زیرنویس Meet کلیک کنید تا همراه با جمله‌اش اینجا نمایش داده شود.",
   "vocab_stat_words": "واژه‌ها",
@@ -707,7 +704,6 @@ export default {
   "vocab_sync_failed": "همگام‌سازی واژگان انجام نشد. بعداً دوباره تلاش کنید.",
   "vocab_sync_need_login": "ابتدا وارد حساب Google خود شوید.",
   "tab_import_export": "درون‌ریزی / برون‌بری",
-  "transfer_title": "درون‌ریزی / برون‌بری",
   "transfer_subtitle": "سوابق جلسه‌هایتان را به‌صورت فایل ذخیره کنید یا فایلی را که کسی با شما به اشتراک گذاشته وارد کنید. حساب Google لازم نیست.",
   "transfer_export_title": "برون‌بری",
   "transfer_export_desc": "روزهایی را که می‌خواهید ذخیره شود انتخاب کنید. فایل JSON دوباره قابل درون‌ریزی است؛ فایل TXT برای خواندن است.",

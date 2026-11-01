@@ -9,34 +9,10 @@ import useConflictResolution from './hooks/useConflictResolution';
 import useBackupSync from './hooks/useBackupSync';
 import useFileOperations from './hooks/useFileOperations';
 import GoogleSignInGate from '~components/options/GoogleSignInGate';
+import PageShell from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 import { useGoogleAuth } from '~contexts/GoogleAuthContext';
-import styled from 'styled-components';
 import useI18n from "~utils/i18n"
-
-/* ── Apple-style page header ── */
-const DrivePageHeader = styled.div`
-  display: flex;
-  align-items: flex-start;
-  padding: 0 0 20px;
-`;
-
-const LargeTitle = styled.h1`
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', 'Inter', sans-serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0;
-  line-height: 1.2;
-`;
-
-const SubTitle = styled.p`
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 4px 0 0;
-  line-height: 1.4;
-`;
 
 /**
  * Google Drive集成主组件
@@ -163,16 +139,9 @@ const GoogleDriveIntegration: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '0 20px' }}>
-      <DrivePageHeader>
-        <div>
-          <LargeTitle>{t('google_drive_integration')}</LargeTitle>
-          <SubTitle>{t('google_drive_integration_desc')}</SubTitle>
-        </div>
-      </DrivePageHeader>
-
+    <PageShell route={OptionsRoute.CLOUD_SYNC} subtitle={t('google_drive_integration_desc')}>
       {renderContent()}
-    </div>
+    </PageShell>
   );
 };
 

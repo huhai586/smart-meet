@@ -27,7 +27,6 @@ export default {
   "hide_captions": "Hide Captions",
   "clear_captions": "Clear captions",
   "clear_captions_desc": "all captions will be removed",
-  "translation_language": "Translation language",
   "select_language": "select language for translation",
   "settings": "Settings",
   "settings_desc": "configure AI, sync data and more",
@@ -87,7 +86,6 @@ export default {
   "proxy_url_hint": "If Google services are unavailable in your region, you can configure a proxy URL to access the Gemini API",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Backup and restore your caption data to Google Drive",
   "google_account_chrome_hint": "Uses the Google account signed in to Chrome. To use another account, switch it in Chrome first.",
   "drive_tab_records": "Meeting records",
@@ -554,6 +552,7 @@ export default {
   "tab_visibility": "Visibility",
   "tab_visibility_desc": "Configure which features are visible in the side panel",
   "tab_translation": "Translation",
+  "tab_translation_desc": "Target language, the translation provider and click-to-translate",
   "tab_translation_nav": "Translation",
   "tab_other": "Other",
   "tab_other_desc": "Additional settings and customizations",
@@ -571,7 +570,6 @@ export default {
   "version_update_available": "Update available ↗",
 
   // Calendar Sync Page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Sync your Google Calendar to get meeting schedules and receive reminders",
   "calendar_auto_sync": "Auto Sync",
   "calendar_sync_frequency": "Sync Frequency",
@@ -757,7 +755,6 @@ export default {
   "vocab_menu": "More",
   "vocab_clear": "Clear all words",
   "tab_vocabulary": "Vocabulary",
-  "vocab_page_title": "My vocabulary",
   "vocab_page_subtitle": "Words you looked up in meetings, which ones keep coming back, and the sentences they came from.",
   "vocab_page_empty": "Nothing here yet. Click a word in Meet's captions and it shows up here, with the sentence it came from.",
   "vocab_stat_words": "Words",
@@ -793,7 +790,6 @@ export default {
   "vocab_sync_failed": "Couldn't sync your vocabulary. Try again later.",
   "vocab_sync_need_login": "Sign in to your Google account first.",
   "tab_import_export": "Import / Export",
-  "transfer_title": "Import / Export",
   "transfer_subtitle": "Save your meeting records as a file, or bring in a file someone shared with you. No Google account needed.",
   "transfer_export_title": "Export",
   "transfer_export_desc": "Choose the days to save. A JSON file can be imported again; a TXT file is for reading.",

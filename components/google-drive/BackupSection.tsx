@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Switch } from 'antd';
+import { DesktopOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import useI18n from '~utils/i18n';
 import { getConfigValue, setConfigValue } from '~utils/appConfig';
@@ -16,28 +17,38 @@ const SettingGroup = styled.div`
 const SettingRow = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
+  gap: 12px;
+  padding: 12px 16px;
+`;
+
+// The same coloured rounded icon the other settings pages put in front of a row
+const IconSquircle = styled.div<{ $color: string }>`
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: ${({ $color }) => $color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 15px;
 `;
 
 const SettingText = styled.div`
   flex: 1;
   min-width: 0;
-  margin-right: 12px;
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 2px 10px;
 `;
 
 const SettingTitle = styled.div`
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--opt-text-primary);
   line-height: 1.3;
 `;
 
 const SettingDesc = styled.div`
+  margin-top: 2px;
   font-size: 12px;
   color: var(--opt-text-secondary);
   line-height: 1.4;
@@ -46,7 +57,7 @@ const SettingDesc = styled.div`
 const SettingDivider = styled.div`
   height: 0.5px;
   background: var(--opt-border-divider);
-  margin: 0 16px;
+  margin: 0 16px 0 60px;
 `;
 
 /** Meeting records go to Drive when a call ends and when the browser starts; both can be turned off here. */
@@ -79,6 +90,7 @@ const BackupSection: React.FC = () => {
   return (
     <SettingGroup>
       <SettingRow>
+        <IconSquircle $color="#34C759"><VideoCameraOutlined /></IconSquircle>
         <SettingText>
           <SettingTitle>{t('auto_sync_on_meeting_end')}</SettingTitle>
           <SettingDesc>{t('auto_sync_on_meeting_end_desc')}</SettingDesc>
@@ -87,6 +99,7 @@ const BackupSection: React.FC = () => {
       </SettingRow>
       <SettingDivider />
       <SettingRow>
+        <IconSquircle $color="#FF9500"><DesktopOutlined /></IconSquircle>
         <SettingText>
           <SettingTitle>{t('auto_sync_on_startup')}</SettingTitle>
           <SettingDesc>{t('auto_sync_on_startup_desc')}</SettingDesc>

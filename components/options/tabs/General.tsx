@@ -16,34 +16,9 @@ import { getConfigValue, setConfigValue } from '~/utils/appConfig';
 import { OptionsRoute, openOptions } from '~/utils/options-routes';
 import UILanguageSelector from '~/components/options/UILanguageSelector';
 import { sendBackgroundMessage } from '~/background/message-center';
+import PageShell from '~components/options/PageShell';
 
 /* ── Styled Components ── */
-
-const PageWrapper = styled.div`
-  padding: 0 20px;
-  max-width: 800px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-`;
-
-const PageHeader = styled.div`
-  padding: 0 0 24px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0 0 4px;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-`;
-
-const PageSubtitle = styled.p`
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 0;
-  line-height: 1.4;
-`;
 
 const SectionLabel = styled.div<{ $danger?: boolean }>`
   font-size: 12px;
@@ -235,11 +210,7 @@ const General: React.FC = () => {
   };
 
   return (
-    <PageWrapper>
-      <PageHeader>
-        <PageTitle>{t('tab_general')}</PageTitle>
-        <PageSubtitle>{t('tab_general_desc')}</PageSubtitle>
-      </PageHeader>
+    <PageShell route={OptionsRoute.GENERAL} subtitle={t('tab_general_desc')}>
 
       {/* Extension Toggle */}
       <SectionLabel>{t('extension_section')}</SectionLabel>
@@ -348,7 +319,7 @@ const General: React.FC = () => {
           <Alert message={t('data_cleared_success')} type="success" showIcon />
         )}
       </Modal>
-    </PageWrapper>
+    </PageShell>
   );
 };
 

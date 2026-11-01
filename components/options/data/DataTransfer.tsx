@@ -10,6 +10,8 @@ import { getMultiDateTranscripts } from '~utils/getMultiDateTranscripts';
 import { buildChatFile, parseChatFile, summarizeImport, toChatText, type ImportSummary } from '~utils/chat-transfer';
 import type { Transcript } from '~hooks/useTranscripts';
 import type { ImportMode } from '~background/message-center';
+import PageShell from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 import './data-transfer.scss';
 
 type ExportFormat = 'json' | 'txt';
@@ -94,16 +96,11 @@ const DataTransfer: React.FC = () => {
   };
 
   return (
-    <div className="transfer-page">
-      <header className="transfer-page__header">
-        <h1>{t('transfer_title')}</h1>
-        <p>{t('transfer_subtitle')}</p>
-      </header>
+    <PageShell route={OptionsRoute.DATA_TRANSFER} subtitle={t('transfer_subtitle')}>
 
-      <section className="transfer-card">
-        <h2>{t('transfer_export_title')}</h2>
-        <p className="transfer-card__desc">{t('transfer_export_desc')}</p>
-        <div className="transfer-card__controls">
+      <section className="transfer-section">
+        <h2 className="transfer-section__label">{t('transfer_export_title')}</h2>
+        <div className="transfer-card transfer-card__controls">
           <DatePicker.RangePicker
             value={range}
             presets={presets}
@@ -123,12 +120,12 @@ const DataTransfer: React.FC = () => {
             {t('transfer_export_button')}
           </Button>
         </div>
+        <p className="transfer-section__note">{t('transfer_export_desc')}</p>
       </section>
 
-      <section className="transfer-card">
-        <h2>{t('transfer_import_title')}</h2>
-        <p className="transfer-card__desc">{t('transfer_import_desc')}</p>
-
+      <section className="transfer-section">
+        <h2 className="transfer-section__label">{t('transfer_import_title')}</h2>
+        <div className="transfer-card">
         {!pending ? (
           <Upload.Dragger
             accept=".json"
@@ -182,8 +179,10 @@ const DataTransfer: React.FC = () => {
             </div>
           </div>
         )}
+        </div>
+        <p className="transfer-section__note">{t('transfer_import_desc')}</p>
       </section>
-    </div>
+    </PageShell>
   );
 };
 

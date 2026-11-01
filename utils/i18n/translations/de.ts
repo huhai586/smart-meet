@@ -6,7 +6,6 @@ export default {
   "hide_captions": "Untertitel ausblenden",
   "clear_captions": "Untertitel löschen",
   "clear_captions_desc": "alle Untertitel werden entfernt",
-  "translation_language": "Übersetzungssprache",
   "select_language": "Sprache für Übersetzung auswählen",
   "settings": "Einstellungen",
   "settings_desc": "KI konfigurieren, Daten synchronisieren usw.",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Haben Sie keinen Gemini API-Schlüssel?",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Sichern und Wiederherstellen Ihrer Untertiteldaten in Google Drive",
   "google_account_chrome_hint": "Verwendet das in Chrome angemeldete Google-Konto. Um ein anderes Konto zu nutzen, wechseln Sie es zuerst in Chrome.",
   "drive_tab_records": "Besprechungsprotokolle",
@@ -503,6 +501,7 @@ export default {
   "tab_ai_models_nav": "KI-Modelle",
   "tab_visibility": "Sichtbarkeit",
   "tab_translation": "Übersetzung",
+  "tab_translation_desc": "Zielsprache, Übersetzungsdienst und Klick-Übersetzung",
   "tab_translation_nav": "Übersetzung",
   "tab_other": "Sonstiges",
   "tab_calendar": "Google Calendar",
@@ -571,7 +570,6 @@ export default {
   "settings_sync_range": "Synchronisierungsbereich",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Google Calendar synchronisieren, um Besprechungspläne zu erhalten und Erinnerungen zu empfangen",
   "calendar_auto_sync": "Automatische Synchronisierung",
   "calendar_sync_frequency": "Synchronisierungshäufigkeit",
@@ -652,7 +650,6 @@ export default {
   "vocab_menu": "Mehr",
   "vocab_clear": "Alle Wörter löschen",
   "tab_vocabulary": "Vokabeln",
-  "vocab_page_title": "Meine Vokabeln",
   "vocab_page_subtitle": "Wörter, die Sie in Besprechungen nachgeschlagen haben, welche immer wiederkehren und in welchen Sätzen sie vorkamen.",
   "vocab_page_empty": "Noch nichts hier. Klicken Sie in Meet auf ein Wort in den Untertiteln, dann erscheint es hier mit dem Satz, in dem es vorkam.",
   "vocab_stat_words": "Wörter",
@@ -688,7 +685,6 @@ export default {
   "vocab_sync_failed": "Die Vokabeln konnten nicht synchronisiert werden. Versuchen Sie es später erneut.",
   "vocab_sync_need_login": "Bitte zuerst bei deinem Google-Konto anmelden.",
   "tab_import_export": "Import / Export",
-  "transfer_title": "Import / Export",
   "transfer_subtitle": "Speichern Sie Ihre Besprechungsprotokolle als Datei oder laden Sie eine Datei, die jemand mit Ihnen geteilt hat. Kein Google-Konto nötig.",
   "transfer_export_title": "Exportieren",
   "transfer_export_desc": "Wählen Sie die Tage zum Speichern. Eine JSON-Datei kann wieder importiert werden, eine TXT-Datei ist zum Lesen.",

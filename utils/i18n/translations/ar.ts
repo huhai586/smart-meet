@@ -6,7 +6,6 @@ export default {
   "hide_captions": "إخفاء التعليقات",
   "clear_captions": "مسح التعليقات",
   "clear_captions_desc": "سيتم إزالة جميع التعليقات",
-  "translation_language": "لغة الترجمة",
   "select_language": "اختر لغة للترجمة",
   "settings": "الإعدادات",
   "settings_desc": "تكوين الذكاء الاصطناعي، مزامنة البيانات وغيرها",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "ليس لديك مفتاح واجهة برمجة تطبيقات Gemini؟",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "نسخ بيانات التسميات التوضيحية احتياطيًا واستعادتها إلى Google Drive",
   "google_account_chrome_hint": "يستخدم حساب Google المسجّل الدخول في Chrome. لاستخدام حساب آخر، بدّله في Chrome أولًا.",
   "drive_tab_records": "سجلات الاجتماعات",
@@ -475,6 +473,7 @@ export default {
   "tab_ai_models_nav": "نماذج AI",
   "tab_visibility": "الرؤية",
   "tab_translation": "الترجمة",
+  "tab_translation_desc": "اللغة الهدف ومزوّد الترجمة والترجمة بالنقر",
   "tab_translation_nav": "الترجمة",
   "tab_other": "أخرى",
   "tab_calendar": "Google Calendar",
@@ -543,7 +542,6 @@ export default {
   "settings_sync_range": "نطاق المزامنة",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "مزامنة تقويم Google الخاص بك للحصول على مواعيد الاجتماعات وتلقي التذكيرات",
   "calendar_auto_sync": "المزامنة التلقائية",
   "calendar_sync_frequency": "تكرار المزامنة",
@@ -624,7 +622,6 @@ export default {
   "vocab_menu": "المزيد",
   "vocab_clear": "مسح كل الكلمات",
   "tab_vocabulary": "المفردات",
-  "vocab_page_title": "مفرداتي",
   "vocab_page_subtitle": "الكلمات التي بحثت عنها في الاجتماعات، وأيها يتكرر، والجمل التي وردت فيها.",
   "vocab_page_empty": "لا شيء هنا بعد. انقر على كلمة في ترجمة Meet النصية لتظهر هنا مع الجملة التي وردت فيها.",
   "vocab_stat_words": "الكلمات",
@@ -660,7 +657,6 @@ export default {
   "vocab_sync_failed": "تعذّرت مزامنة مفرداتك. حاول مرة أخرى لاحقًا.",
   "vocab_sync_need_login": "سجّل الدخول إلى حساب Google أولًا.",
   "tab_import_export": "استيراد / تصدير",
-  "transfer_title": "استيراد / تصدير",
   "transfer_subtitle": "احفظ سجلات اجتماعاتك في ملف، أو استورد ملفًا شاركه أحدهم معك. لا حاجة إلى حساب Google.",
   "transfer_export_title": "تصدير",
   "transfer_export_desc": "اختر الأيام المراد حفظها. يمكن استيراد ملف JSON مرة أخرى، أما ملف TXT فللقراءة.",

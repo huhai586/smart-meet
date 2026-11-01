@@ -38,42 +38,45 @@ const ToolbarRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 0 16px;
+  min-height: 30px;
+  padding: 0 4px;
+  margin-bottom: 8px;
 `;
 
+// The small grey section label the other settings pages use
 const ToolbarTitle = styled.h2`
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.4px;
   margin: 0;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--opt-text-secondary);
 `;
 
 const ToolbarActions = styled.div`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 `;
 
 const BackupBtn = styled.button`
   display: flex;
   align-items: center;
   gap: 6px;
-  height: 32px;
-  padding: 0 10px;
+  height: 28px;
+  padding: 0 12px;
   border: none;
-  border-radius: 8px;
-  background: none;
-  font-size: 13px;
-  font-weight: 500;
+  border-radius: 14px;
+  background: rgba(0, 122, 255, 0.1);
+  font-size: 12.5px;
+  font-weight: 600;
   font-family: inherit;
   color: #007AFF;
   cursor: pointer;
   transition: background 0.12s ease;
 
   &:hover {
-    background: rgba(0, 122, 255, 0.1);
+    background: rgba(0, 122, 255, 0.18);
   }
 
   &:disabled {
@@ -83,9 +86,9 @@ const BackupBtn = styled.button`
 `;
 
 const IconBtn = styled.button<{ $spinning?: boolean }>`
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
   border: none;
   background: none;
   color: #007AFF;

@@ -6,7 +6,6 @@ export default {
   "hide_captions": "Masquer les sous-titres",
   "clear_captions": "Effacer les sous-titres",
   "clear_captions_desc": "tous les sous-titres seront supprimés",
-  "translation_language": "Langue de traduction",
   "select_language": "sélectionner la langue pour la traduction",
   "settings": "Paramètres",
   "settings_desc": "configurer l'IA, synchroniser les données, etc.",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Vous n'avez pas de clé API Gemini ?",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Sauvegardez et restaurez les données de vos sous-titres sur Google Drive",
   "google_account_chrome_hint": "Utilise le compte Google connecté à Chrome. Pour en utiliser un autre, changez-le d'abord dans Chrome.",
   "drive_tab_records": "Comptes rendus de réunion",
@@ -520,6 +518,7 @@ export default {
   "tab_ai_models_nav": "Modèles IA",
   "tab_visibility": "Visibilité",
   "tab_translation": "Traduction",
+  "tab_translation_desc": "Langue cible, service de traduction et traduction au clic",
   "tab_translation_nav": "Traduction",
   "tab_other": "Autres",
   "tab_calendar": "Google Calendar",
@@ -588,7 +587,6 @@ export default {
   "settings_sync_range": "Plage de synchronisation",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Synchronisez votre Google Agenda pour obtenir les plannings de réunions et recevoir des rappels",
   "calendar_auto_sync": "Synchronisation automatique",
   "calendar_sync_frequency": "Fréquence de synchronisation",
@@ -669,7 +667,6 @@ export default {
   "vocab_menu": "Plus",
   "vocab_clear": "Effacer tous les mots",
   "tab_vocabulary": "Vocabulaire",
-  "vocab_page_title": "Mon vocabulaire",
   "vocab_page_subtitle": "Les mots que vous avez cherchés en réunion, ceux qui reviennent sans cesse et les phrases où ils sont apparus.",
   "vocab_page_empty": "Rien ici pour l'instant. Cliquez sur un mot des sous-titres de Meet : il apparaîtra ici avec la phrase d'où il vient.",
   "vocab_stat_words": "Mots",
@@ -705,7 +702,6 @@ export default {
   "vocab_sync_failed": "Impossible de synchroniser votre vocabulaire. Réessayez plus tard.",
   "vocab_sync_need_login": "Connectez-vous d'abord à votre compte Google.",
   "tab_import_export": "Importer / Exporter",
-  "transfer_title": "Importer / Exporter",
   "transfer_subtitle": "Enregistrez vos comptes rendus de réunion dans un fichier, ou importez un fichier que quelqu'un a partagé avec vous. Aucun compte Google nécessaire.",
   "transfer_export_title": "Exporter",
   "transfer_export_desc": "Choisissez les jours à enregistrer. Un fichier JSON peut être réimporté ; un fichier TXT sert à la lecture.",

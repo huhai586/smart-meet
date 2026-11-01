@@ -2,30 +2,6 @@
 // selected word came up in. Colours come from the --opt-* tokens, so it follows light and dark mode.
 
 .vocab-page {
-  max-width: 1180px;
-  padding: 0 20px 32px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-
-  &__header {
-    padding: 0 0 20px;
-
-    h1 {
-      margin: 0 0 4px;
-      font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: var(--opt-text-primary);
-    }
-
-    p {
-      margin: 0;
-      font-size: 13px;
-      line-height: 1.4;
-      color: var(--opt-text-secondary);
-    }
-  }
-
   &__empty {
     display: flex;
     flex-direction: column;

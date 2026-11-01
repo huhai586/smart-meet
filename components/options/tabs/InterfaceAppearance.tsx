@@ -19,34 +19,10 @@ import useCaptionToggle from '~/hooks/useCaptionToggle';
 import useStickerToggle from '~/hooks/useStickerToggle';
 import messageManager from '~/utils/message-manager';
 import { HoverDemo, HOVER_DEMO_KIND } from '../HoverDemo';
+import PageShell from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 
 /* ── Styled Components ── */
-
-const PageWrapper = styled.div`
-  padding: 0 20px;
-  max-width: 800px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-`;
-
-const PageHeader = styled.div`
-  padding: 0 0 24px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0 0 4px;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-`;
-
-const PageSubtitle = styled.p`
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 0;
-  line-height: 1.4;
-`;
 
 const SectionLabel = styled.div`
   font-size: 12px;
@@ -237,11 +213,7 @@ const InterfaceAppearance: React.FC = () => {
   ];
 
   return (
-    <PageWrapper>
-      <PageHeader>
-        <PageTitle>{t('tab_visibility')}</PageTitle>
-        <PageSubtitle>{t('tab_visibility_desc')}</PageSubtitle>
-      </PageHeader>
+    <PageShell route={OptionsRoute.INTERFACE} subtitle={t('tab_visibility_desc')}>
 
       {/* Sidepanel Tab Visibility */}
       <SectionLabel>{t('sidepanel_visibility_settings')}</SectionLabel>
@@ -314,7 +286,7 @@ const InterfaceAppearance: React.FC = () => {
         </SettingRow>
       </SettingGroup>
       <SectionFooter>{t('meeting_interface_desc')}</SectionFooter>
-    </PageWrapper>
+    </PageShell>
   );
 };
 

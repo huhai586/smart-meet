@@ -2,6 +2,8 @@
 
 .calendar-hig {
   background: #F2F2F7;
+  // Fills the panel it sits in, so the grey list never ends halfway down a white card
+  flex: 1;
   padding: 20px 20px 40px;
   box-sizing: border-box;
 

@@ -11,6 +11,8 @@ import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
 import AISettings from '~/components/options/ai-settings';
 import messageManager from '~/utils/message-manager';
+import PageShell, { PageWidth } from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 import {
   type CustomPrompt,
   getCustomPrompts,
@@ -20,35 +22,10 @@ import {
 
 /* ── Styled Components ── */
 
-const PageWrapper = styled.div`
-  max-width: 800px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-`;
-
-const PageHeader = styled.div`
-  padding: 0 20px 20px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0 0 4px;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-`;
-
-const PageSubtitle = styled.p`
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 0;
-  line-height: 1.4;
-`;
-
 /* ── Segmented Control ── */
 const SegmentBar = styled.div`
   display: flex;
-  padding: 0 20px 20px;
+  padding: 0 0 16px;
 `;
 
 const SegmentTrack = styled.div`
@@ -57,16 +34,15 @@ const SegmentTrack = styled.div`
   border-radius: 10px;
   padding: 2px;
   gap: 0;
-  width: 100%;
 `;
 
 const SegBtn = styled.button<{ $active: boolean }>`
-  flex: 1;
+  flex: none;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 7px 12px;
+  padding: 6px 20px;
   border: none;
   border-radius: 8px;
   font-size: 13px;
@@ -90,10 +66,19 @@ const TabPane = styled.div`
   min-height: 0;
 `;
 
-/* ── Prompts Tab ── */
-const PromptsPane = styled.div`
-  padding: 0 20px;
+// The model list and its settings: one rounded card, not two loose panels
+const ModelsCard = styled(TabPane)`
+  height: calc(100vh - 300px);
+  min-height: 480px;
+  max-height: 760px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 `;
+
+/* ── Prompts Tab ── */
+const PromptsPane = styled.div``;
 
 const PaneSectionHeader = styled.div`
   display: flex;
@@ -287,11 +272,7 @@ const AIAndTranslation: React.FC = () => {
   };
 
   return (
-    <PageWrapper>
-      <PageHeader>
-        <PageTitle>{t('tab_ai_translation')}</PageTitle>
-        <PageSubtitle>{t('tab_ai_translation_desc')}</PageSubtitle>
-      </PageHeader>
+    <PageShell route={OptionsRoute.AI_TRANSLATION} subtitle={t('tab_ai_translation_desc')} width={PageWidth.WIDE}>
 
       {/* ── Segmented Control ── */}
       <SegmentBar>
@@ -309,9 +290,9 @@ const AIAndTranslation: React.FC = () => {
 
       {/* ── Tab: AI Model Services ── */}
       {activeTab === 'models' && (
-        <TabPane>
+        <ModelsCard>
           <AISettings hideHeader />
-        </TabPane>
+        </ModelsCard>
       )}
 
       {/* ── Tab: Custom Prompts ── */}
@@ -389,7 +370,7 @@ const AIAndTranslation: React.FC = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 16 }}>
           <div>
             <div style={{ marginBottom: 4, fontSize: 14, color: 'var(--opt-text-primary)' }}>
-              {t('prompt_title') || 'Title'}}
+              {t('prompt_title') || 'Title'}
             </div>
             <Input
               value={promptTitle}
@@ -399,7 +380,7 @@ const AIAndTranslation: React.FC = () => {
           </div>
           <div>
             <div style={{ marginBottom: 4, fontSize: 14, color: 'var(--opt-text-primary)' }}>
-              {t('prompt_content') || 'Content'}}
+              {t('prompt_content') || 'Content'}
             </div>
             <Input.TextArea
               value={promptContent}
@@ -411,7 +392,7 @@ const AIAndTranslation: React.FC = () => {
           </div>
         </div>
       </Modal>
-    </PageWrapper>
+    </PageShell>
   );
 };
 

@@ -6,7 +6,6 @@ export default {
   "hide_captions": "Скрыть субтитры",
   "clear_captions": "Очистить субтитры",
   "clear_captions_desc": "все субтитры будут удалены",
-  "translation_language": "Язык перевода",
   "select_language": "выбрать язык для перевода",
   "settings": "Настройки",
   "settings_desc": "настройка ИИ, синхронизация данных и т.д.",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "У вас нет ключа API Gemini?",
 
   // Google Drive Integration
-  "google_drive_integration": "Интеграция с Google Drive",
   "google_drive_integration_desc": "Резервное копирование и восстановление данных субтитров на Google Диске",
   "google_account_chrome_hint": "Используется аккаунт Google, в который выполнен вход в Chrome. Чтобы использовать другой аккаунт, сначала переключите его в Chrome.",
   "drive_tab_records": "Записи встреч",
@@ -496,6 +494,7 @@ export default {
   "tab_ai_models_nav": "Модели ИИ",
   "tab_visibility": "Видимость",
   "tab_translation": "Перевод",
+  "tab_translation_desc": "Язык перевода, сервис перевода и перевод по клику",
   "tab_translation_nav": "Перевод",
   "tab_other": "Прочее",
   "tab_calendar": "Google Calendar",
@@ -564,7 +563,6 @@ export default {
   "settings_sync_range": "Диапазон синхронизации",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Синхронизируйте Google Календарь, чтобы получать расписания встреч и напоминания",
   "calendar_auto_sync": "Автосинхронизация",
   "calendar_sync_frequency": "Частота синхронизации",
@@ -645,7 +643,6 @@ export default {
   "vocab_menu": "Ещё",
   "vocab_clear": "Удалить все слова",
   "tab_vocabulary": "Словарь",
-  "vocab_page_title": "Мой словарь",
   "vocab_page_subtitle": "Слова, которые вы искали на встречах, какие из них возвращаются снова и снова и в каких предложениях они встречались.",
   "vocab_page_empty": "Пока ничего нет. Нажмите на слово в субтитрах Meet, и оно появится здесь вместе с предложением, в котором встретилось.",
   "vocab_stat_words": "Слова",
@@ -681,7 +678,6 @@ export default {
   "vocab_sync_failed": "Не удалось синхронизировать словарь. Повторите попытку позже.",
   "vocab_sync_need_login": "Сначала войдите в аккаунт Google.",
   "tab_import_export": "Импорт / Экспорт",
-  "transfer_title": "Импорт / Экспорт",
   "transfer_subtitle": "Сохраните записи встреч в файл или импортируйте файл, которым с вами поделились. Аккаунт Google не нужен.",
   "transfer_export_title": "Экспорт",
   "transfer_export_desc": "Выберите дни для сохранения. JSON-файл можно импортировать снова, TXT — для чтения.",

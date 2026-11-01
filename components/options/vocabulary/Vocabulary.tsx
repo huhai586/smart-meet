@@ -23,6 +23,8 @@ import WordRankList from './WordRankList';
 import WordDetail from './WordDetail';
 import MeetingTimeline from './MeetingTimeline';
 import DriveSyncCard from './DriveSyncCard';
+import PageShell, { PageWidth } from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 import './vocabulary.scss';
 
 type View = 'words' | 'meetings';
@@ -80,11 +82,7 @@ const Vocabulary: React.FC = () => {
   ];
 
   return (
-    <div className="vocab-page">
-      <header className="vocab-page__header">
-        <h1>{t('vocab_page_title')}</h1>
-        <p>{t('vocab_page_subtitle')}</p>
-      </header>
+    <PageShell route={OptionsRoute.VOCABULARY} subtitle={t('vocab_page_subtitle')} width={PageWidth.WIDE}>
 
       {entries.length === 0 ? (
         <div className="vocab-page__empty">
@@ -179,7 +177,7 @@ const Vocabulary: React.FC = () => {
       <DriveSyncCard />
 
       <WordDetailModal visible={!!dictionaryWord} word={dictionaryWord} onClose={() => setDictionaryWord('')} />
-    </div>
+    </PageShell>
   );
 };
 

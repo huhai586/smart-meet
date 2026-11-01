@@ -20,6 +20,8 @@ import useGoogleCalendar from '~hooks/useGoogleCalendar';
 import type { CalendarEvent } from '~utils/google-calendar-service';
 import { getConfigValue, setConfigValue } from '~utils/appConfig';
 import GoogleSignInGate from '~components/options/GoogleSignInGate';
+import PageShell, { PageWidth } from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 import '~styles/calendar-sync.scss';
 
 /** How many meetings the page lists; the rest are summarised as "N more". */
@@ -146,28 +148,21 @@ const CalendarSync: React.FC = () => {
     ],
   };
 
-  const header = (
-    <div className="cs-header">
-      <h1 className="cs-title">{t('calendar_page_title')}</h1>
-      <p className="cs-desc">{t('calendar_page_desc')}</p>
-    </div>
-  );
-
   if (loading) {
     return (
-      <div className="calendar-sync-page">
-        {header}
-        <div className="cs-loading"><Spin indicator={<LoadingOutlined spin />} /></div>
-      </div>
+      <PageShell route={OptionsRoute.CALENDAR} subtitle={t('calendar_page_desc')} width={PageWidth.WIDE}>
+        <div className="calendar-sync-page">
+          <div className="cs-loading"><Spin indicator={<LoadingOutlined spin />} /></div>
+        </div>
+      </PageShell>
     );
   }
 
   if (!isConnected) {
     return (
-      <div className="calendar-sync-page">
-        {header}
+      <PageShell route={OptionsRoute.CALENDAR} subtitle={t('calendar_page_desc')} width={PageWidth.WIDE}>
         <GoogleSignInGate />
-      </div>
+      </PageShell>
     );
   }
 
@@ -213,122 +208,122 @@ const CalendarSync: React.FC = () => {
   ];
 
   return (
-    <div className="calendar-sync-page">
-      {header}
-
-      <div className="cs-layout">
-        <section className="cs-meetings">
-          <div className="cs-section-head">
-            <h2>{t('calendar_upcoming_meetings')}</h2>
-            <div className="cs-section-actions">
-              {lastSync && (
-                <span className="cs-muted">
-                  {t('calendar_last_sync').replace('{time}', new Date(lastSync).toLocaleString(undefined, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }))}
-                </span>
-              )}
-              <button className="cs-pill" onClick={manualSync} disabled={syncing}>
-                {syncing ? <LoadingOutlined spin /> : <SyncOutlined />}
-                {syncing ? t('calendar_syncing') : t('calendar_sync_now')}
-              </button>
-            </div>
-          </div>
-
-          {syncStatus === 'error' && (
-            <div className="cs-error">
-              <ExclamationCircleOutlined />
-              <span>{syncError ?? t('calendar_sync_error_default')}</span>
-            </div>
-          )}
-
-          <div className="cs-card cs-events">
-            {days.length === 0 ? (
-              <div className="cs-empty">
-                <CalendarOutlined />
-                <span>{t('calendar_sync_empty')}</span>
+    <PageShell route={OptionsRoute.CALENDAR} subtitle={t('calendar_page_desc')} width={PageWidth.WIDE}>
+      <div className="calendar-sync-page">
+        <div className="cs-layout">
+          <section className="cs-meetings">
+            <div className="cs-section-head">
+              <h2>{t('calendar_upcoming_meetings')}</h2>
+              <div className="cs-section-actions">
+                {lastSync && (
+                  <span className="cs-muted">
+                    {t('calendar_last_sync').replace('{time}', new Date(lastSync).toLocaleString(undefined, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }))}
+                  </span>
+                )}
+                <button className="cs-pill" onClick={manualSync} disabled={syncing}>
+                  {syncing ? <LoadingOutlined spin /> : <SyncOutlined />}
+                  {syncing ? t('calendar_syncing') : t('calendar_sync_now')}
+                </button>
               </div>
-            ) : (
-              <>
-                {days.map(({ key, day, events: dayEvents, showMonth }) => {
-                  const label = dayLabel(day);
-                  return (
-                    <div key={key} className="cs-day-group">
-                      <div className={`cs-day${label.isToday ? ' is-today' : ''}`}>
-                        <span className="cs-day__label">{label.label}</span>
-                        <span className="cs-day__date">{label.date}</span>
-                        {showMonth && <span className="cs-day__month">{label.month}</span>}
-                      </div>
-                      <div className="cs-day-events">
-                        {dayEvents.map((event) => {
-                          const link = meetLink(event);
-                          const attendees = event.attendees?.length ?? 0;
-                          const time = timeParts(event);
-                          const live = isLive(event);
-                          return (
-                            <div key={event.id} className={`cs-event${live ? ' is-live' : ''}`}>
-                              <div className="cs-event__time">
-                                <b>{time.start}</b>
-                                {time.end && <span>{time.end}</span>}
-                              </div>
-                              <span className="cs-event__bar" />
-                              <div className="cs-event__main">
-                                {live && <span className="cs-badge">{t('meetings_in_progress')}</span>}
-                                <span className="cs-event__title">{event.summary ?? t('calendar_event_no_title')}</span>
-                                {attendees > 0 && <span className="cs-event__meta"><TeamOutlined /> {attendees}</span>}
-                                {event.location && (
-                                  <span className="cs-event__meta cs-event__location"><EnvironmentOutlined /> {event.location}</span>
+            </div>
+
+            {syncStatus === 'error' && (
+              <div className="cs-error">
+                <ExclamationCircleOutlined />
+                <span>{syncError ?? t('calendar_sync_error_default')}</span>
+              </div>
+            )}
+
+            <div className="cs-card cs-events">
+              {days.length === 0 ? (
+                <div className="cs-empty">
+                  <CalendarOutlined />
+                  <span>{t('calendar_sync_empty')}</span>
+                </div>
+              ) : (
+                <>
+                  {days.map(({ key, day, events: dayEvents, showMonth }) => {
+                    const label = dayLabel(day);
+                    return (
+                      <div key={key} className="cs-day-group">
+                        <div className={`cs-day${label.isToday ? ' is-today' : ''}`}>
+                          <span className="cs-day__label">{label.label}</span>
+                          <span className="cs-day__date">{label.date}</span>
+                          {showMonth && <span className="cs-day__month">{label.month}</span>}
+                        </div>
+                        <div className="cs-day-events">
+                          {dayEvents.map((event) => {
+                            const link = meetLink(event);
+                            const attendees = event.attendees?.length ?? 0;
+                            const time = timeParts(event);
+                            const live = isLive(event);
+                            return (
+                              <div key={event.id} className={`cs-event${live ? ' is-live' : ''}`}>
+                                <div className="cs-event__time">
+                                  <b>{time.start}</b>
+                                  {time.end && <span>{time.end}</span>}
+                                </div>
+                                <span className="cs-event__bar" />
+                                <div className="cs-event__main">
+                                  {live && <span className="cs-badge">{t('meetings_in_progress')}</span>}
+                                  <span className="cs-event__title">{event.summary ?? t('calendar_event_no_title')}</span>
+                                  {attendees > 0 && <span className="cs-event__meta"><TeamOutlined /> {attendees}</span>}
+                                  {event.location && (
+                                    <span className="cs-event__meta cs-event__location"><EnvironmentOutlined /> {event.location}</span>
+                                  )}
+                                </div>
+                                {link && (
+                                  <a className="cs-pill cs-pill--accent" href={link} target="_blank" rel="noreferrer">
+                                    <VideoCameraOutlined />
+                                    {t('meetings_join_btn')}
+                                  </a>
                                 )}
                               </div>
-                              {link && (
-                                <a className="cs-pill cs-pill--accent" href={link} target="_blank" rel="noreferrer">
-                                  <VideoCameraOutlined />
-                                  {t('meetings_join_btn')}
-                                </a>
-                              )}
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-                {events.length > MAX_LISTED_EVENTS && (
-                  <div className="cs-more">{t('calendar_event_more').replace('{n}', String(events.length - MAX_LISTED_EVENTS))}</div>
-                )}
-              </>
-            )}
-          </div>
-        </section>
-
-        <section className="cs-side">
-          <div className="cs-section-head">
-            <h2>{t('calendar_settings_group')}</h2>
-          </div>
-          <div className="cs-card cs-settings">
-            {settingRows.map((row) => (
-              <div key={row.key} className="cs-row">
-                <span className="cs-icon" style={{ background: row.color }}>{row.icon}</span>
-                <span className="cs-row__label">{row.label}</span>
-                {row.control}
-              </div>
-            ))}
-          </div>
-          <p className="cs-footnote">
-            <SafetyCertificateOutlined />
-            <span>
-              {t('calendar_data_footnote')}
-              {(events.length > 0 || lastSync) && (
-                <>
-                  {' · '}
-                  <button className="cs-link" onClick={clearEvents} disabled={syncing}>
-                    {t('calendar_clear_events')}
-                  </button>
+                    );
+                  })}
+                  {events.length > MAX_LISTED_EVENTS && (
+                    <div className="cs-more">{t('calendar_event_more').replace('{n}', String(events.length - MAX_LISTED_EVENTS))}</div>
+                  )}
                 </>
               )}
-            </span>
-          </p>
-        </section>
+            </div>
+          </section>
+
+          <section className="cs-side">
+            <div className="cs-section-head">
+              <h2>{t('calendar_settings_group')}</h2>
+            </div>
+            <div className="cs-card cs-settings">
+              {settingRows.map((row) => (
+                <div key={row.key} className="cs-row">
+                  <span className="cs-icon" style={{ background: row.color }}>{row.icon}</span>
+                  <span className="cs-row__label">{row.label}</span>
+                  {row.control}
+                </div>
+              ))}
+            </div>
+            <p className="cs-footnote">
+              <SafetyCertificateOutlined />
+              <span>
+                {t('calendar_data_footnote')}
+                {(events.length > 0 || lastSync) && (
+                  <>
+                    {' · '}
+                    <button className="cs-link" onClick={clearEvents} disabled={syncing}>
+                      {t('calendar_clear_events')}
+                    </button>
+                  </>
+                )}
+              </span>
+            </p>
+          </section>
       </div>
-    </div>
+      </div>
+    </PageShell>
   );
 };
 

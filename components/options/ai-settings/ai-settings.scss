@@ -42,7 +42,8 @@ $font-stack: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont,
   &__content {
     display: flex;
     flex-direction: row;
-    height: calc(100% - 60px);
+    flex: 1;
+    min-height: 0;
     overflow: hidden;
   }
 }
@@ -154,7 +155,7 @@ $font-stack: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont,
   display: flex;
   align-items: center;
   padding: 7px 10px;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
   transition: $transition;
   margin-bottom: 1px;
@@ -164,33 +165,26 @@ $font-stack: -apple-system, 'SF Pro Display', 'SF Pro Text', BlinkMacSystemFont,
     background: $bg-hover;
   }
 
+  // A tinted row, as the sidebar does, rather than a solid blue slab
   &--selected {
-    background: $accent-color !important;
+    background: rgba(0, 122, 255, 0.12) !important;
 
     .provider-item__name {
-      color: #ffffff;
-    }
-
-    .provider-item__desc {
-      color: rgba(255, 255, 255, 0.72);
+      color: $accent-color;
+      font-weight: 600;
     }
 
     .provider-item__status {
-      color: rgba(255, 255, 255, 0.85);
+      color: $accent-color;
     }
 
     .provider-item__active-badge {
-      background: rgba(255, 255, 255, 0.22);
-      color: #ffffff;
-    }
-
-    .provider-item__icon {
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: $shadow-icon;
+      background: rgba(0, 122, 255, 0.16);
+      color: $accent-color;
     }
 
     &:hover {
-      background: $accent-hover !important;
+      background: rgba(0, 122, 255, 0.16) !important;
     }
   }
 

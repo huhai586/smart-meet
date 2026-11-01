@@ -6,7 +6,6 @@ export default {
   "hide_captions": "자막 숨기기",
   "clear_captions": "자막 지우기",
   "clear_captions_desc": "모든 자막이 삭제됩니다",
-  "translation_language": "번역 언어",
   "select_language": "번역할 언어 선택",
   "settings": "설정",
   "settings_desc": "AI 구성, 데이터 동기화 등",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Gemini API 키가 없으신가요?",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "캡션 데이터를 Google 드라이브에 백업 및 복원합니다.",
   "google_account_chrome_hint": "Chrome에 로그인된 Google 계정을 사용합니다. 다른 계정을 사용하려면 먼저 Chrome에서 계정을 전환하세요.",
   "drive_tab_records": "회의 기록",
@@ -520,6 +518,7 @@ export default {
   "tab_ai_models_nav": "AI 모델",
   "tab_visibility": "표시 설정",
   "tab_translation": "번역",
+  "tab_translation_desc": "대상 언어, 번역 서비스, 클릭 번역",
   "tab_translation_nav": "번역",
   "tab_other": "기타",
   "tab_calendar": "Google Calendar",
@@ -588,7 +587,6 @@ export default {
   "settings_sync_range": "동기화 범위",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Google 캘린더를 동기화하여 회의 일정을 확인하고 알림을 받으세요",
   "calendar_auto_sync": "자동 동기화",
   "calendar_sync_frequency": "동기화 빈도",
@@ -669,7 +667,6 @@ export default {
   "vocab_menu": "더 보기",
   "vocab_clear": "모든 단어 지우기",
   "tab_vocabulary": "단어장",
-  "vocab_page_title": "내 단어장",
   "vocab_page_subtitle": "회의에서 찾아본 단어, 자주 다시 나오는 단어, 그리고 그 단어가 나온 문장을 볼 수 있습니다.",
   "vocab_page_empty": "아직 아무것도 없습니다. Meet 자막의 단어를 클릭하면 그 문장과 함께 여기에 표시됩니다.",
   "vocab_stat_words": "단어",
@@ -705,7 +702,6 @@ export default {
   "vocab_sync_failed": "단어장을 동기화하지 못했습니다. 나중에 다시 시도하세요.",
   "vocab_sync_need_login": "먼저 Google 계정에 로그인하세요.",
   "tab_import_export": "가져오기 / 내보내기",
-  "transfer_title": "가져오기 / 내보내기",
   "transfer_subtitle": "회의 기록을 파일로 저장하거나 누군가 공유한 파일을 가져옵니다. Google 계정이 필요 없습니다.",
   "transfer_export_title": "내보내기",
   "transfer_export_desc": "저장할 날짜를 선택하세요. JSON 파일은 다시 가져올 수 있고, TXT 파일은 읽기용입니다.",

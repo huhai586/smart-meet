@@ -8,29 +8,6 @@
   --cs-live: #16a34a;
   --cs-live-bg: rgba(22, 163, 74, 0.12);
 
-  max-width: 1240px;
-  padding: 0 20px 32px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-
-  .cs-header {
-    padding: 0 0 22px;
-  }
-
-  .cs-title {
-    margin: 0 0 4px;
-    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: var(--opt-text-primary);
-  }
-
-  .cs-desc {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.4;
-    color: var(--opt-text-secondary);
-  }
 
   .cs-loading {
     display: flex;

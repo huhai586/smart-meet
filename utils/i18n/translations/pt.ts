@@ -6,7 +6,6 @@ export default {
   "hide_captions": "Ocultar legendas",
   "clear_captions": "Limpar legendas",
   "clear_captions_desc": "todas as legendas serão removidas",
-  "translation_language": "Idioma de tradução",
   "select_language": "selecionar idioma para tradução",
   "settings": "Configurações",
   "settings_desc": "configurar IA, sincronizar dados, etc.",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Não tem uma chave de API Gemini?",
 
   // Google Drive Integration
-  "google_drive_integration": "Integração com Google Drive",
   "google_drive_integration_desc": "Faça backup e restaure os dados de suas legendas no Google Drive",
   "google_account_chrome_hint": "Usa a conta do Google conectada ao Chrome. Para usar outra conta, troque-a primeiro no Chrome.",
   "drive_tab_records": "Registros de reuniões",
@@ -503,6 +501,7 @@ export default {
   "tab_ai_models_nav": "Modelos de IA",
   "tab_visibility": "Visibilidade",
   "tab_translation": "Tradução",
+  "tab_translation_desc": "Idioma de destino, serviço de tradução e tradução ao clicar",
   "tab_translation_nav": "Tradução",
   "tab_other": "Outros",
   "tab_calendar": "Google Calendar",
@@ -571,7 +570,6 @@ export default {
   "settings_sync_range": "Intervalo de sincronização",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Sincronize o Google Calendar para obter horários de reuniões e receber lembretes",
   "calendar_auto_sync": "Sincronização automática",
   "calendar_sync_frequency": "Frequência de sincronização",
@@ -652,7 +650,6 @@ export default {
   "vocab_menu": "Mais",
   "vocab_clear": "Apagar todas as palavras",
   "tab_vocabulary": "Vocabulário",
-  "vocab_page_title": "Meu vocabulário",
   "vocab_page_subtitle": "As palavras que você pesquisou em reuniões, quais voltam sempre e as frases em que apareceram.",
   "vocab_page_empty": "Ainda não há nada aqui. Clique em uma palavra da legenda do Meet e ela aparecerá aqui, com a frase de onde veio.",
   "vocab_stat_words": "Palavras",
@@ -688,7 +685,6 @@ export default {
   "vocab_sync_failed": "Não foi possível sincronizar seu vocabulário. Tente novamente mais tarde.",
   "vocab_sync_need_login": "Inicie sessão primeiro na sua conta Google.",
   "tab_import_export": "Importar / Exportar",
-  "transfer_title": "Importar / Exportar",
   "transfer_subtitle": "Salve seus registros de reuniões em um arquivo ou importe um arquivo que alguém compartilhou com você. Não é preciso conta Google.",
   "transfer_export_title": "Exportar",
   "transfer_export_desc": "Escolha os dias a salvar. Um arquivo JSON pode ser importado de novo; um TXT serve para leitura.",

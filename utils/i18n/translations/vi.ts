@@ -6,7 +6,6 @@ export default {
   "hide_captions": "Ẩn phụ đề",
   "clear_captions": "Xóa phụ đề",
   "clear_captions_desc": "Tất cả phụ đề sẽ bị xóa",
-  "translation_language": "Ngôn ngữ dịch",
   "select_language": "Chọn ngôn ngữ để dịch",
   "settings": "Cài đặt",
   "settings_desc": "Cấu hình AI, đồng bộ hóa dữ liệu và nhiều hơn nữa",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Không có khóa Gemini API?",
 
   // Google Drive Integration
-  "google_drive_integration": "Tích hợp Google Drive",
   "google_drive_integration_desc": "Sao lưu và khôi phục dữ liệu phụ đề của bạn vào Google Drive",
   "google_account_chrome_hint": "Dùng tài khoản Google đang đăng nhập trong Chrome. Để dùng tài khoản khác, hãy chuyển tài khoản trong Chrome trước.",
   "drive_tab_records": "Biên bản cuộc họp",
@@ -496,6 +494,7 @@ export default {
   "tab_ai_models_nav": "Mô hình AI",
   "tab_visibility": "Khả năng hiển thị",
   "tab_translation": "Dịch thuật",
+  "tab_translation_desc": "Ngôn ngữ đích, dịch vụ dịch và dịch bằng cách nhấp",
   "tab_translation_nav": "Dịch thuật",
   "tab_other": "Khác",
   "tab_calendar": "Google Calendar",
@@ -564,7 +563,6 @@ export default {
   "settings_sync_range": "Phạm vi đồng bộ",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Đồng bộ Google Calendar để nhận lịch họp và thông báo nhắc nhở",
   "calendar_auto_sync": "Tự động đồng bộ",
   "calendar_sync_frequency": "Tần suất đồng bộ",
@@ -645,7 +643,6 @@ export default {
   "vocab_menu": "Thêm",
   "vocab_clear": "Xóa tất cả từ",
   "tab_vocabulary": "Từ vựng",
-  "vocab_page_title": "Từ vựng của tôi",
   "vocab_page_subtitle": "Những từ bạn đã tra trong cuộc họp, từ nào cứ quay lại, và những câu chứa chúng.",
   "vocab_page_empty": "Chưa có gì ở đây. Nhấp vào một từ trong phụ đề Meet, từ đó sẽ hiện ở đây cùng câu chứa nó.",
   "vocab_stat_words": "Từ",
@@ -681,7 +678,6 @@ export default {
   "vocab_sync_failed": "Không thể đồng bộ từ vựng. Hãy thử lại sau.",
   "vocab_sync_need_login": "Hãy đăng nhập tài khoản Google trước.",
   "tab_import_export": "Nhập / Xuất",
-  "transfer_title": "Nhập / Xuất",
   "transfer_subtitle": "Lưu biên bản cuộc họp thành tệp, hoặc nhập tệp ai đó đã chia sẻ. Không cần tài khoản Google.",
   "transfer_export_title": "Xuất",
   "transfer_export_desc": "Chọn những ngày cần lưu. Tệp JSON có thể nhập lại; tệp TXT dùng để đọc.",

@@ -27,7 +27,6 @@ export default {
   "hide_captions": "隐藏字幕",
   "clear_captions": "清除字幕",
   "clear_captions_desc": "所有字幕将被删除",
-  "translation_language": "翻译语言",
   "select_language": "选择翻译语言",
   "settings": "设置",
   "settings_desc": "配置AI、同步数据等",
@@ -87,7 +86,6 @@ export default {
   "proxy_url_hint": "如果Google服务在您的地区不可用，可以配置代理URL来访问Gemini API",
 
   // Google Drive Integration
-  "google_drive_integration": "Google云端硬盘",
   "google_drive_integration_desc": "将您的字幕数据备份和恢复到Google云端硬盘",
   "google_account_chrome_hint": "使用的是 Chrome 当前登录的 Google 账号。要换账号，请先在 Chrome 里切换。",
   "drive_tab_records": "会议记录",
@@ -552,6 +550,7 @@ export default {
   "tab_visibility": "功能可见性",
   "tab_visibility_desc": "配置侧边栏中各功能的显示状态",
   "tab_translation": "翻译",
+  "tab_translation_desc": "目标语言、翻译服务商和点击翻译",
   "tab_translation_nav": "翻译",
   "tab_other": "其它",
   "tab_other_desc": "其他设置与自定义选项",
@@ -569,7 +568,6 @@ export default {
   "version_update_available": "发现新版本 ↗",
 
   // Calendar Sync Page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "同步你的 Google Calendar，获取会议安排并接收提醒",
   "calendar_auto_sync": "自动同步",
   "calendar_sync_frequency": "同步频率",
@@ -755,7 +753,6 @@ export default {
   "vocab_menu": "更多",
   "vocab_clear": "清空全部生词",
   "tab_vocabulary": "词汇",
-  "vocab_page_title": "我的词汇",
   "vocab_page_subtitle": "你在会议里查过的词，哪些反复出现，以及它们出现的那些句子。",
   "vocab_page_empty": "这里还没有内容。点击 Meet 字幕里的任意单词，它就会连同那句话出现在这里。",
   "vocab_stat_words": "词汇量",
@@ -791,7 +788,6 @@ export default {
   "vocab_sync_failed": "词汇同步失败，请稍后再试。",
   "vocab_sync_need_login": "请先登录 Google 账号。",
   "tab_import_export": "导入 / 导出",
-  "transfer_title": "导入 / 导出",
   "transfer_subtitle": "把会议记录存成文件，或导入别人分享给你的文件。不需要 Google 账号。",
   "transfer_export_title": "导出",
   "transfer_export_desc": "选择要保存的日期。JSON 文件可以再次导入，TXT 文件用来阅读。",

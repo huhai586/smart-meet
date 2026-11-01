@@ -6,7 +6,6 @@ export default {
   "hide_captions": "Nascondi sottotitoli",
   "clear_captions": "Cancella sottotitoli",
   "clear_captions_desc": "tutti i sottotitoli saranno rimossi",
-  "translation_language": "Lingua di traduzione",
   "select_language": "seleziona la lingua per la traduzione",
   "settings": "Impostazioni",
   "settings_desc": "configura IA, sincronizza dati e altro",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Non hai una chiave API Gemini?",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Esegui il backup e ripristina i dati dei tuoi sottotitoli su Google Drive",
   "google_account_chrome_hint": "Usa l'account Google con cui hai effettuato l'accesso a Chrome. Per usare un altro account, cambialo prima in Chrome.",
   "drive_tab_records": "Verbali delle riunioni",
@@ -503,6 +501,7 @@ export default {
   "tab_ai_models_nav": "Modelli IA",
   "tab_visibility": "Visibilità",
   "tab_translation": "Traduzione",
+  "tab_translation_desc": "Lingua di destinazione, servizio di traduzione e traduzione con un clic",
   "tab_translation_nav": "Traduzione",
   "tab_other": "Altro",
   "tab_calendar": "Google Calendar",
@@ -571,7 +570,6 @@ export default {
   "settings_sync_range": "Intervallo di sincronizzazione",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Sincronizza Google Calendar per ottenere i programmi delle riunioni e ricevere promemoria",
   "calendar_auto_sync": "Sincronizzazione automatica",
   "calendar_sync_frequency": "Frequenza di sincronizzazione",
@@ -652,7 +650,6 @@ export default {
   "vocab_menu": "Altro",
   "vocab_clear": "Cancella tutte le parole",
   "tab_vocabulary": "Vocabolario",
-  "vocab_page_title": "Il mio vocabolario",
   "vocab_page_subtitle": "Le parole che hai cercato nelle riunioni, quali tornano di continuo e le frasi in cui sono comparse.",
   "vocab_page_empty": "Ancora niente qui. Fai clic su una parola dei sottotitoli di Meet e comparirà qui, con la frase da cui viene.",
   "vocab_stat_words": "Parole",
@@ -688,7 +685,6 @@ export default {
   "vocab_sync_failed": "Impossibile sincronizzare il vocabolario. Riprova più tardi.",
   "vocab_sync_need_login": "Accedi prima al tuo account Google.",
   "tab_import_export": "Importa / Esporta",
-  "transfer_title": "Importa / Esporta",
   "transfer_subtitle": "Salva i verbali delle riunioni in un file oppure importa un file che qualcuno ha condiviso con te. Non serve un account Google.",
   "transfer_export_title": "Esporta",
   "transfer_export_desc": "Scegli i giorni da salvare. Un file JSON può essere reimportato; un file TXT serve per leggere.",

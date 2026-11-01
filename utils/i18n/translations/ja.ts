@@ -6,7 +6,6 @@ export default {
   "hide_captions": "字幕を非表示",
   "clear_captions": "字幕をクリア",
   "clear_captions_desc": "すべての字幕が削除されます",
-  "translation_language": "翻訳言語",
   "select_language": "翻訳する言語を選択",
   "settings": "設定",
   "settings_desc": "AI設定、データ同期など",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Gemini APIキーをお持ちでないですか？",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "キャプションデータをGoogleドライブにバックアップおよび復元します",
   "google_account_chrome_hint": "Chrome にログインしている Google アカウントを使用します。別のアカウントを使うには、先に Chrome で切り替えてください。",
   "drive_tab_records": "会議記録",
@@ -520,6 +518,7 @@ export default {
   "tab_ai_models_nav": "AIモデル",
   "tab_visibility": "表示設定",
   "tab_translation": "翻訳",
+  "tab_translation_desc": "翻訳先の言語、翻訳サービス、クリック翻訳",
   "tab_translation_nav": "翻訳",
   "tab_other": "その他",
   "tab_calendar": "Google Calendar",
@@ -588,7 +587,6 @@ export default {
   "settings_sync_range": "同期範囲",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Google カレンダーを同期して、会議スケジュールを取得しリマインダーを受信する",
   "calendar_auto_sync": "自動同期",
   "calendar_sync_frequency": "同期頻度",
@@ -669,7 +667,6 @@ export default {
   "vocab_menu": "その他",
   "vocab_clear": "すべての単語を削除",
   "tab_vocabulary": "単語帳",
-  "vocab_page_title": "マイ単語帳",
   "vocab_page_subtitle": "会議で調べた単語、何度も出てくる単語、そして出てきた文を見られます。",
   "vocab_page_empty": "まだ何もありません。Meet の字幕の単語をクリックすると、その文と一緒にここに表示されます。",
   "vocab_stat_words": "単語",
@@ -705,7 +702,6 @@ export default {
   "vocab_sync_failed": "単語帳を同期できませんでした。しばらくしてからもう一度お試しください。",
   "vocab_sync_need_login": "先に Google アカウントにログインしてください。",
   "tab_import_export": "インポート / エクスポート",
-  "transfer_title": "インポート / エクスポート",
   "transfer_subtitle": "会議の記録をファイルとして保存したり、誰かが共有してくれたファイルを取り込んだりできます。Google アカウントは不要です。",
   "transfer_export_title": "エクスポート",
   "transfer_export_desc": "保存する日を選びます。JSON ファイルは再びインポートでき、TXT ファイルは読む用です。",

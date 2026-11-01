@@ -6,7 +6,6 @@ export default {
   "hide_captions": "कैप्शन छुपाएं",
   "clear_captions": "कैप्शन साफ़ करें",
   "clear_captions_desc": "सभी कैप्शन हटा दिए जाएंगे",
-  "translation_language": "अनुवाद भाषा",
   "select_language": "अनुवाद के लिए भाषा चुनें",
   "settings": "सेटिंग्स",
   "settings_desc": "AI कॉन्फ़िगर करें, डेटा सिंक करें और अधिक",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "Gemini API कुंजी नहीं है?",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Google ड्राइव पर अपने कैप्शन डेटा का बैकअप और पुनर्स्थापना करें",
   "google_account_chrome_hint": "यह Chrome में साइन इन किए गए Google खाते का उपयोग करता है। दूसरा खाता इस्तेमाल करने के लिए पहले Chrome में उसे बदलें।",
   "drive_tab_records": "मीटिंग रिकॉर्ड",
@@ -475,6 +473,7 @@ export default {
   "tab_ai_models_nav": "AI मॉडल",
   "tab_visibility": "दृश्यता",
   "tab_translation": "अनुवाद",
+  "tab_translation_desc": "लक्ष्य भाषा, अनुवाद सेवा और क्लिक करके अनुवाद",
   "tab_translation_nav": "अनुवाद",
   "tab_other": "अन्य",
   "tab_calendar": "Google Calendar",
@@ -543,7 +542,6 @@ export default {
   "settings_sync_range": "सिंक सीमा",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "मीटिंग शेड्यूल प्राप्त करने और रिमाइंडर पाने के लिए अपना Google Calendar सिंक करें",
   "calendar_auto_sync": "स्वचालित सिंक",
   "calendar_sync_frequency": "सिंक आवृत्ति",
@@ -624,7 +622,6 @@ export default {
   "vocab_menu": "और",
   "vocab_clear": "सभी शब्द हटाएँ",
   "tab_vocabulary": "शब्दावली",
-  "vocab_page_title": "मेरी शब्दावली",
   "vocab_page_subtitle": "मीटिंग में आपके खोजे गए शब्द, कौन से बार-बार आते हैं, और वे किन वाक्यों में आए।",
   "vocab_page_empty": "यहाँ अभी कुछ नहीं है। Meet के कैप्शन में किसी शब्द पर क्लिक करें, वह उस वाक्य के साथ यहाँ दिखेगा जिसमें वह आया।",
   "vocab_stat_words": "शब्द",
@@ -660,7 +657,6 @@ export default {
   "vocab_sync_failed": "आपकी शब्दावली सिंक नहीं हो सकी। बाद में फिर कोशिश करें।",
   "vocab_sync_need_login": "पहले अपने Google खाते में साइन इन करें।",
   "tab_import_export": "इंपोर्ट / एक्सपोर्ट",
-  "transfer_title": "इंपोर्ट / एक्सपोर्ट",
   "transfer_subtitle": "अपनी मीटिंग रिकॉर्ड को फ़ाइल के रूप में सहेजें, या किसी की साझा की हुई फ़ाइल इंपोर्ट करें। Google खाते की ज़रूरत नहीं।",
   "transfer_export_title": "एक्सपोर्ट",
   "transfer_export_desc": "सहेजने के लिए दिन चुनें। JSON फ़ाइल दोबारा इंपोर्ट की जा सकती है; TXT फ़ाइल पढ़ने के लिए है।",

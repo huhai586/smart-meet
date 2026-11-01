@@ -6,7 +6,6 @@ export default {
   "hide_captions": "ซ่อนคำบรรยาย",
   "clear_captions": "ล้างคำบรรยาย",
   "clear_captions_desc": "คำบรรยายทั้งหมดจะถูกลบออก",
-  "translation_language": "ภาษาแปล",
   "select_language": "เลือกภาษาสำหรับการแปล",
   "settings": "การตั้งค่า",
   "settings_desc": "กำหนดค่า AI, ซิงค์ข้อมูล และอื่นๆ",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "ไม่มีคีย์ Gemini API?",
 
   // Google Drive Integration
-  "google_drive_integration": "การเชื่อมต่อกับ Google Drive",
   "google_drive_integration_desc": "สำรองและกู้คืนข้อมูลคำบรรยายของคุณไปยัง Google Drive",
   "google_account_chrome_hint": "ใช้บัญชี Google ที่ลงชื่อเข้าใช้ใน Chrome หากต้องการใช้บัญชีอื่น โปรดสลับบัญชีใน Chrome ก่อน",
   "drive_tab_records": "บันทึกการประชุม",
@@ -475,6 +473,7 @@ export default {
   "tab_ai_models_nav": "โมเดล AI",
   "tab_visibility": "การมองเห็น",
   "tab_translation": "การแปล",
+  "tab_translation_desc": "ภาษาปลายทาง ผู้ให้บริการแปล และแปลด้วยการคลิก",
   "tab_translation_nav": "การแปล",
   "tab_other": "อื่นๆ",
   "tab_calendar": "Google Calendar",
@@ -543,7 +542,6 @@ export default {
   "settings_sync_range": "ช่วงการซิงค์",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "ซิงค์ Google Calendar เพื่อรับตารางการประชุมและรับการแจ้งเตือน",
   "calendar_auto_sync": "ซิงค์อัตโนมัติ",
   "calendar_sync_frequency": "ความถี่การซิงค์",
@@ -624,7 +622,6 @@ export default {
   "vocab_menu": "เพิ่มเติม",
   "vocab_clear": "ล้างคำศัพท์ทั้งหมด",
   "tab_vocabulary": "คำศัพท์",
-  "vocab_page_title": "คำศัพท์ของฉัน",
   "vocab_page_subtitle": "คำที่คุณค้นหาในการประชุม คำไหนที่กลับมาบ่อย และประโยคที่คำเหล่านั้นปรากฏ",
   "vocab_page_empty": "ยังไม่มีอะไรที่นี่ คลิกคำใดก็ได้ในคำบรรยาย Meet แล้วคำนั้นจะมาปรากฏที่นี่พร้อมประโยคที่เจอ",
   "vocab_stat_words": "คำศัพท์",
@@ -660,7 +657,6 @@ export default {
   "vocab_sync_failed": "ซิงค์คำศัพท์ไม่สำเร็จ โปรดลองอีกครั้งภายหลัง",
   "vocab_sync_need_login": "โปรดลงชื่อเข้าใช้บัญชี Google ก่อน",
   "tab_import_export": "นำเข้า / ส่งออก",
-  "transfer_title": "นำเข้า / ส่งออก",
   "transfer_subtitle": "บันทึกบันทึกการประชุมของคุณเป็นไฟล์ หรือนำเข้าไฟล์ที่มีคนแชร์ให้ ไม่ต้องใช้บัญชี Google",
   "transfer_export_title": "ส่งออก",
   "transfer_export_desc": "เลือกวันที่ต้องการบันทึก ไฟล์ JSON นำเข้าซ้ำได้ ส่วนไฟล์ TXT ใช้สำหรับอ่าน",

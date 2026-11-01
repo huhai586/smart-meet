@@ -18,6 +18,8 @@ import useTranslationLanguage from '~hooks/useTranslationLanguage';
 import messageManager from '~utils/message-manager';
 import LocalTranslatorModal from './LocalTranslatorModal';
 import { HoverDemo, HOVER_DEMO_KIND } from './HoverDemo';
+import PageShell from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 
 /* ── Provider definitions ── */
 interface ProviderItem {
@@ -37,32 +39,6 @@ const PROVIDER_LIST: ProviderItem[] = [
 ];
 
 /* ── Styled Components ── */
-
-const PageWrapper = styled.div`
-  padding: 0 20px;
-  max-width: 800px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-`;
-
-const PageHeader = styled.div`
-  padding: 0 0 24px;
-`;
-
-const PageTitle = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0 0 4px;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-`;
-
-const PageSubtitle = styled.p`
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 0;
-  line-height: 1.4;
-`;
 
 const SectionLabel = styled.div`
   font-size: 12px;
@@ -100,13 +76,13 @@ const IconCircle = styled.div<{ $color: string }>`
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: ${({ $color }) => $color}1F;
+  background: ${({ $color }) => $color};
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: ${({ $color }) => $color};
-  font-size: 16px;
+  color: #fff;
+  font-size: 15px;
 `;
 
 const RowContent = styled.div`
@@ -166,11 +142,7 @@ const SectionFooter = styled.p`
 
 /* ── Component ── */
 
-interface TranslationSettingsProps {
-  hideHeader?: boolean;
-}
-
-const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = false }) => {
+const TranslationSettings: React.FC = () => {
   const { t } = useI18n();
   const [language, setLanguage] = useTranslationLanguage();
   const [autoTranslateEnabled, setAutoTranslateEnabled] = useAutoTranslate();
@@ -232,12 +204,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
   const currentLangDisplay = getLanguageDisplay(language);
 
   return (
-    <PageWrapper>
-      {!hideHeader && (
-        <PageHeader>
-          <PageTitle>{t('translation_language')}</PageTitle>
-        </PageHeader>
-      )}
+    <PageShell route={OptionsRoute.TRANSLATION} subtitle={t('tab_translation_desc')}>
 
       {/* Section 1: General Settings */}
       <SectionLabel>{t('translation_target_language')}</SectionLabel>
@@ -402,7 +369,7 @@ const TranslationSettings: React.FC<TranslationSettingsProps> = ({ hideHeader = 
           </Form.Item>
         </Form>
       </Modal>
-    </PageWrapper>
+    </PageShell>
   );
 };
 

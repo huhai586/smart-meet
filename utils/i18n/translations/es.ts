@@ -6,7 +6,6 @@ export default {
   "hide_captions": "Ocultar subtítulos",
   "clear_captions": "Borrar subtítulos",
   "clear_captions_desc": "todos los subtítulos serán eliminados",
-  "translation_language": "Idioma de traducción",
   "select_language": "seleccionar idioma para traducción",
   "settings": "Configuración",
   "settings_desc": "configurar IA, sincronizar datos, etc.",
@@ -41,7 +40,6 @@ export default {
   "no_api_key": "¿No tiene una clave API de Gemini?",
 
   // Google Drive Integration
-  "google_drive_integration": "Google Drive",
   "google_drive_integration_desc": "Haga una copia de seguridad y restaure los datos de sus subtítulos en Google Drive",
   "google_account_chrome_hint": "Usa la cuenta de Google con la que has iniciado sesión en Chrome. Para usar otra cuenta, cámbiala primero en Chrome.",
   "drive_tab_records": "Registros de reuniones",
@@ -503,6 +501,7 @@ export default {
   "tab_ai_models_nav": "Modelos de IA",
   "tab_visibility": "Visibilidad",
   "tab_translation": "Traducción",
+  "tab_translation_desc": "Idioma de destino, proveedor de traducción y traducción al hacer clic",
   "tab_translation_nav": "Traducción",
   "tab_other": "Otros",
   "tab_calendar": "Google Calendar",
@@ -571,7 +570,6 @@ export default {
   "settings_sync_range": "Rango de sincronización",
 
   // Google Calendar page
-  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Sincroniza tu Google Calendar para obtener horarios de reuniones y recibir recordatorios",
   "calendar_auto_sync": "Sincronización automática",
   "calendar_sync_frequency": "Frecuencia de sincronización",
@@ -652,7 +650,6 @@ export default {
   "vocab_menu": "Más",
   "vocab_clear": "Borrar todas las palabras",
   "tab_vocabulary": "Vocabulario",
-  "vocab_page_title": "Mi vocabulario",
   "vocab_page_subtitle": "Las palabras que buscaste en reuniones, cuáles vuelven una y otra vez y las frases en las que aparecieron.",
   "vocab_page_empty": "Aún no hay nada. Haz clic en una palabra de los subtítulos de Meet y aparecerá aquí, con la frase en la que salió.",
   "vocab_stat_words": "Palabras",
@@ -688,7 +685,6 @@ export default {
   "vocab_sync_failed": "No se pudo sincronizar tu vocabulario. Inténtalo más tarde.",
   "vocab_sync_need_login": "Inicia sesión primero en tu cuenta de Google.",
   "tab_import_export": "Importar / Exportar",
-  "transfer_title": "Importar / Exportar",
   "transfer_subtitle": "Guarda tus registros de reuniones como archivo o importa uno que alguien compartió contigo. No hace falta una cuenta de Google.",
   "transfer_export_title": "Exportar",
   "transfer_export_desc": "Elige los días que quieres guardar. Un archivo JSON se puede volver a importar; uno TXT es para leer.",
