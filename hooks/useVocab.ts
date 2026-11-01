@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react';
-import { getVocab, onVocabChanged } from '~/utils/vocab';
-import { vocabLookupSet, type VocabEntry } from '~/utils/vocab-core';
+import { getVocabRecords, onVocabChanged } from '~/utils/vocab';
+import { groupLookups, vocabLookupSet, type LookupRecord, type VocabEntry } from '~/utils/vocab-core';
 
 // One shared copy: every caption line reads the saved words, so each must not load and listen on its own.
 let entries: VocabEntry[] = [];
@@ -8,16 +8,16 @@ let lookupSet = new Set<string>();
 let started = false;
 const listeners = new Set<() => void>();
 
-const update = (next: VocabEntry[]) => {
-  entries = next;
-  lookupSet = vocabLookupSet(next);
+const update = (records: LookupRecord[]) => {
+  entries = groupLookups(records);
+  lookupSet = vocabLookupSet(entries);
   listeners.forEach((listener) => listener());
 };
 
 const subscribe = (listener: () => void) => {
   if (!started) {
     started = true;
-    getVocab().then(update);
+    getVocabRecords().then(update);
     onVocabChanged(update);
   }
   listeners.add(listener);

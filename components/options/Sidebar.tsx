@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import {
   SettingOutlined,
   RobotOutlined,
+  BookOutlined,
   CalendarOutlined,
   CloudOutlined,
   CodeOutlined,
@@ -13,6 +14,7 @@ import {
 } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
+import { OptionsRoute } from '~utils/options-routes';
 
 interface SidebarProps {
   activeKey: string;
@@ -94,6 +96,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
           icon: <TranslationOutlined />,
           label: t('tab_translation'),
           route: 'translation',
+        },
+        {
+          key: 'vocabulary',
+          icon: <BookOutlined />,
+          label: t('tab_vocabulary'),
+          route: OptionsRoute.VOCABULARY,
         },
         {
           key: 'other',

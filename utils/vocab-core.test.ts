@@ -1,15 +1,29 @@
 import { describe, expect, it } from 'vitest';
 import {
+    appendLookup,
+    groupLookups,
     matchesVocab,
     normalizeWord,
-    removeEntry,
+    recordsFromLegacyEntries,
+    recordsFromLegacyWords,
+    removeWordRecords,
     sortForDisplay,
     splitAroundWord,
-    upsertLookup,
     vocabLookupSet,
     wordCandidates,
+    type LookupRecord,
     type VocabEntry,
 } from './vocab-core';
+
+const record = (overrides: Partial<LookupRecord> = {}): LookupRecord => ({
+    id: 'r1',
+    word: 'budget',
+    translation: '预算',
+    sentence: 'We need to fix the budget.',
+    meetingName: 'Planning',
+    at: 100,
+    ...overrides,
+});
 
 describe('normalizeWord', () => {
     it('lowercases and strips surrounding punctuation', () => {
@@ -68,56 +82,113 @@ describe('wordCandidates / matchesVocab', () => {
     });
 });
 
-describe('upsertLookup', () => {
-    const entry = (overrides: Partial<VocabEntry> = {}): VocabEntry => ({
-        key: 'budget',
-        word: 'budget',
-        translation: '预算',
-        sentence: 'We need to fix the budget.',
-        meetingName: 'Planning',
-        firstSeenAt: 1,
-        lastSeenAt: 1,
-        count: 1,
-        ...overrides,
+describe('appendLookup', () => {
+    it('adds one lookup with the word trimmed of punctuation', () => {
+        const result = appendLookup([], { word: 'Budget,', translation: '预算', sentence: 'S', meetingName: 'M' }, 5, 'id-1');
+        expect(result).toEqual([{ id: 'id-1', word: 'Budget', translation: '预算', sentence: 'S', meetingName: 'M', at: 5 }]);
     });
 
-    it('adds a new entry with count 1', () => {
-        const result = upsertLookup([], { word: 'Budget,', translation: '预算', sentence: 'S', meetingName: 'M' }, 5);
-        expect(result).toEqual([
-            { key: 'budget', word: 'Budget', translation: '预算', sentence: 'S', meetingName: 'M', firstSeenAt: 5, lastSeenAt: 5, count: 1 },
-        ]);
-    });
-
-    it('counts a repeat lookup and keeps the first translation, sentence and meeting', () => {
-        const result = upsertLookup([entry()], { word: 'BUDGET', translation: '预算费', sentence: 'Later sentence', meetingName: 'Other' }, 9);
-        expect(result).toHaveLength(1);
-        expect(result[0]).toMatchObject({ count: 2, lastSeenAt: 9, firstSeenAt: 1, sentence: 'We need to fix the budget.', meetingName: 'Planning', translation: '预算' });
-        expect(result[0].forms).toBeUndefined();
-    });
-
-    it('fills in a translation the entry never had', () => {
-        const result = upsertLookup([entry({ translation: '' })], { word: 'budget', translation: '预算' }, 9);
-        expect(result[0].translation).toBe('预算');
-    });
-
-    it('fills in a sentence that a migrated entry never had', () => {
-        const result = upsertLookup([entry({ sentence: '', meetingName: '' })], { word: 'budget', sentence: 'New one', meetingName: 'M' }, 9);
-        expect(result[0]).toMatchObject({ sentence: 'New one', meetingName: 'M' });
+    it('does not touch the log it is given', () => {
+        const log = [record()];
+        appendLookup(log, { word: 'x' }, 9, 'id-2');
+        expect(log).toHaveLength(1);
     });
 
     it('ignores input that has no word in it', () => {
-        expect(upsertLookup([entry()], { word: '...' }, 9)).toEqual([entry()]);
+        const log = [record()];
+        expect(appendLookup(log, { word: '...' }, 9, 'id-2')).toBe(log);
     });
 });
 
-describe('removeEntry / sortForDisplay', () => {
+describe('groupLookups', () => {
+    it('makes one entry per word, with every lookup as an occurrence', () => {
+        const entries = groupLookups([
+            record({ id: 'a', at: 1, sentence: 'First sentence.' }),
+            record({ id: 'b', at: 2, sentence: 'Second sentence.', meetingName: 'Other' }),
+        ]);
+        expect(entries).toHaveLength(1);
+        expect(entries[0]).toMatchObject({ key: 'budget', word: 'budget', count: 2, firstSeenAt: 1, lastSeenAt: 2, sentence: 'First sentence.', meetingName: 'Planning', forms: [] });
+        expect(entries[0].occurrences.map((o) => o.sentence)).toEqual(['First sentence.', 'Second sentence.']);
+    });
+
+    it('keeps the first translation and fills one that was missing', () => {
+        const kept = groupLookups([record({ id: 'a', at: 1 }), record({ id: 'b', at: 2, translation: '预算费' })]);
+        expect(kept[0].translation).toBe('预算');
+
+        const filled = groupLookups([record({ id: 'a', at: 1, translation: '' }), record({ id: 'b', at: 2, translation: '预算' })]);
+        expect(filled[0].translation).toBe('预算');
+    });
+
+    it('counts another form of a word towards the same entry and lists the form once', () => {
+        const entries = groupLookups([
+            record({ id: 'a', at: 1, word: 'ship', translation: '发布' }),
+            record({ id: 'b', at: 2, word: 'shipped', translation: '已发布' }),
+            record({ id: 'c', at: 3, word: 'Shipping' }),
+            record({ id: 'd', at: 4, word: 'shipped' }),
+        ]);
+        expect(entries).toHaveLength(1);
+        expect(entries[0]).toMatchObject({ key: 'ship', word: 'ship', translation: '发布', count: 4, forms: ['shipped', 'Shipping'] });
+    });
+
+    it('folds the base form into an entry that started as an inflection', () => {
+        const entries = groupLookups([record({ id: 'a', at: 1, word: 'negotiating' }), record({ id: 'b', at: 2, word: 'negotiate' })]);
+        expect(entries).toHaveLength(1);
+        expect(entries[0]).toMatchObject({ key: 'negotiating', word: 'negotiate', count: 2, forms: ['negotiating'] });
+    });
+
+    it('keeps unrelated words apart', () => {
+        const entries = groupLookups([record({ id: 'a', word: 'ship' }), record({ id: 'b', word: 'shop' })]);
+        expect(entries.map((e) => e.key)).toEqual(['ship', 'shop']);
+    });
+
+    it('gives the same words whatever order the lines arrive in', () => {
+        const lines = [record({ id: 'a', at: 1, word: 'ship' }), record({ id: 'b', at: 2, word: 'shipped' }), record({ id: 'c', at: 3, word: 'budget' })];
+        expect(groupLookups([...lines].reverse())).toEqual(groupLookups(lines));
+    });
+
+    it('skips lines that have no word', () => {
+        expect(groupLookups([record({ word: '...' })])).toEqual([]);
+    });
+});
+
+describe('removeWordRecords', () => {
+    const log = [record({ id: 'a', word: 'ship' }), record({ id: 'b', word: 'shipped' }), record({ id: 'c', word: 'budget' })];
+
+    it('removes every lookup of the word, through any of its forms', () => {
+        expect(removeWordRecords(log, 'shipped').map((r) => r.id)).toEqual(['c']);
+        expect(removeWordRecords(log, 'ship').map((r) => r.id)).toEqual(['c']);
+    });
+
+    it('leaves the log alone for a word that is not in it', () => {
+        expect(removeWordRecords(log, 'table')).toBe(log);
+    });
+});
+
+describe('legacy data', () => {
+    const legacy = { key: 'budget', word: 'budget', translation: '预算', sentence: 'We need to fix the budget.', meetingName: 'Planning', firstSeenAt: 10, lastSeenAt: 90, count: 3 };
+
+    it('turns an old entry into as many lookups as it counted', () => {
+        const records = recordsFromLegacyEntries([legacy]);
+        expect(records).toHaveLength(3);
+        expect(records[0]).toMatchObject({ translation: '预算', sentence: 'We need to fix the budget.', at: 10 });
+        expect(records[1]).toMatchObject({ translation: '', sentence: '', meetingName: 'Planning', at: 90 });
+        expect(groupLookups(records)[0]).toMatchObject({ count: 3, firstSeenAt: 10, lastSeenAt: 90 });
+    });
+
+    it('converts the same way twice, so a repeat does not add anything', () => {
+        expect(recordsFromLegacyEntries([legacy])).toEqual(recordsFromLegacyEntries([legacy]));
+    });
+
+    it('turns a plain word list into one lookup per word', () => {
+        const records = recordsFromLegacyWords(['Budget,', 'budget', '...'], 50);
+        expect(groupLookups(records).map((e) => [e.key, e.count])).toEqual([['budget', 2]]);
+    });
+});
+
+describe('sortForDisplay', () => {
     const a = { key: 'a', count: 1, lastSeenAt: 10 } as VocabEntry;
     const b = { key: 'b', count: 3, lastSeenAt: 5 } as VocabEntry;
     const c = { key: 'c', count: 3, lastSeenAt: 8 } as VocabEntry;
-
-    it('removes by any spelling of the word', () => {
-        expect(removeEntry([a, b], 'B!')).toEqual([a]);
-    });
 
     it('puts the most looked-up words first, then the most recent', () => {
         expect(sortForDisplay([a, b, c]).map((e) => e.key)).toEqual(['c', 'b', 'a']);
@@ -137,52 +208,5 @@ describe('splitAroundWord', () => {
     it('handles words with regex characters and a missing sentence', () => {
         expect(splitAroundWord('what is c++ here', 'c++')).toEqual({ before: 'what is ', match: 'c++', after: ' here' });
         expect(splitAroundWord('', 'budget')).toBeNull();
-    });
-});
-
-describe('merging forms of the same word', () => {
-    const ship = (overrides: Partial<VocabEntry> = {}): VocabEntry => ({
-        key: 'ship',
-        word: 'ship',
-        translation: '发布',
-        sentence: 'We plan to ship the beta.',
-        meetingName: 'Sync',
-        firstSeenAt: 1,
-        lastSeenAt: 1,
-        count: 5,
-        ...overrides,
-    });
-
-    it('counts an inflected form on the saved word instead of adding a second entry', () => {
-        const result = upsertLookup([ship()], { word: 'shipped', translation: '已发布' }, 9);
-        expect(result).toHaveLength(1);
-        expect(result[0]).toMatchObject({ key: 'ship', word: 'ship', translation: '发布', count: 6, lastSeenAt: 9, forms: ['shipped'] });
-    });
-
-    it('folds the base form into an entry that was saved as an inflection', () => {
-        const saved = ship({ key: 'negotiating', word: 'negotiating', count: 1 });
-        const result = upsertLookup([saved], { word: 'negotiate' }, 9);
-        expect(result).toHaveLength(1);
-        expect(result[0]).toMatchObject({ key: 'negotiating', count: 2, forms: ['negotiate'] });
-    });
-
-    it('lists each other form once', () => {
-        let entries = upsertLookup([ship()], { word: 'shipped' }, 2);
-        entries = upsertLookup(entries, { word: 'Shipping,' }, 3);
-        entries = upsertLookup(entries, { word: 'shipped' }, 4);
-        expect(entries).toHaveLength(1);
-        expect(entries[0].forms).toEqual(['shipped', 'Shipping']);
-        expect(entries[0].count).toBe(8);
-    });
-
-    it('keeps unrelated words as separate entries', () => {
-        const result = upsertLookup([ship()], { word: 'shop' }, 9);
-        expect(result.map((entry) => entry.key)).toEqual(['ship', 'shop']);
-    });
-
-    it('removes the entry through any of its forms', () => {
-        expect(removeEntry([ship()], 'shipped')).toEqual([]);
-        expect(removeEntry([ship()], 'ship')).toEqual([]);
-        expect(removeEntry([ship()], 'shop')).toHaveLength(1);
     });
 });

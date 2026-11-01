@@ -1,0 +1,469 @@
+// The vocabulary page of the options: a ranked word list on the left, and on the right every sentence the
+// selected word came up in. Colours come from the --opt-* tokens, so it follows light and dark mode.
+
+.vocab-page {
+  max-width: 1180px;
+  padding: 0 20px 32px;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
+
+  &__header {
+    padding: 0 0 20px;
+
+    h1 {
+      margin: 0 0 4px;
+      font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--opt-text-primary);
+    }
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--opt-text-secondary);
+    }
+  }
+
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 72px 24px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--opt-text-secondary);
+
+    .anticon {
+      font-size: 44px;
+    }
+
+    p {
+      max-width: 420px;
+      margin: 0;
+    }
+  }
+}
+
+.vocab-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 14px 16px;
+    border-radius: 14px;
+    background: var(--opt-bg-card);
+    border: 0.5px solid var(--opt-border-subtle);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  &__value {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--opt-text-primary);
+  }
+
+  &__label {
+    font-size: 12px;
+    color: var(--opt-text-secondary);
+  }
+}
+
+.vocab-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+
+  &__search {
+    flex: 1 1 220px;
+    max-width: 320px;
+  }
+
+  &__export {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    margin-left: auto;
+    padding: 0 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--opt-text-primary);
+    background: var(--opt-segment-bg);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+.vocab-split {
+  display: grid;
+  grid-template-columns: minmax(300px, 400px) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+// ── Ranked words ───────────────────────────────────────────────────────────
+.vocab-rank {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: calc(100vh - 340px);
+  min-height: 320px;
+  margin: 0;
+  padding: 8px;
+  overflow-y: auto;
+  list-style: none;
+  border-radius: 14px;
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    border: none;
+    border-radius: 10px;
+    text-align: left;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.18s ease;
+
+    &:hover {
+      background: var(--opt-hover-clickable);
+    }
+
+    &.is-selected {
+      background: rgba(26, 115, 232, 0.12);
+    }
+  }
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 8px;
+  }
+
+  &__word {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--opt-text-primary);
+  }
+
+  &__forms {
+    font-size: 12px;
+    color: var(--opt-text-secondary);
+  }
+
+  &__translation {
+    flex-basis: 100%;
+    font-size: 12.5px;
+    color: #1a73e8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__meta {
+    flex-basis: 100%;
+    font-size: 11.5px;
+    color: var(--opt-text-secondary);
+  }
+
+  &__score {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+    width: 64px;
+  }
+
+  &__count {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--opt-text-primary);
+  }
+
+  &__bar {
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: var(--opt-segment-bg);
+  }
+
+  &__fill {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
+    background: #8fb4f2;
+    transform-origin: left;
+    transition: transform 0.2s ease;
+
+    &.is-frequent {
+      background: #fbbc04;
+    }
+  }
+}
+
+// ── One word ───────────────────────────────────────────────────────────────
+.vocab-detail {
+  padding: 22px 24px;
+  border-radius: 14px;
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  &__title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+    min-width: 0;
+
+    h2 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--opt-text-primary);
+    }
+  }
+
+  &__form {
+    padding: 1px 10px;
+    border-radius: 10px;
+    font-size: 12px;
+    color: var(--opt-text-secondary);
+    background: var(--opt-segment-bg);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+
+    button {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      color: var(--opt-text-secondary);
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease;
+
+      &:hover {
+        color: var(--opt-text-primary);
+        background: var(--opt-hover-clickable);
+      }
+    }
+  }
+
+  &__translation {
+    margin-top: 6px;
+    font-size: 17px;
+    font-weight: 500;
+    color: #1a73e8;
+  }
+
+  &__meta {
+    margin-top: 6px;
+    font-size: 12.5px;
+    color: var(--opt-text-secondary);
+  }
+
+  &__missing {
+    margin: 14px 0 0;
+    font-size: 12.5px;
+    color: var(--opt-text-secondary);
+  }
+
+  &__section {
+    margin: 22px 0 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--opt-text-secondary);
+  }
+}
+
+.vocab-scenes {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 18px;
+  list-style: none;
+  border-left: 2px solid var(--opt-border-divider);
+
+  &__item {
+    position: relative;
+    padding: 0 0 18px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: -24px;
+      top: 7px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fbbc04;
+      box-shadow: 0 0 0 3px var(--opt-bg-card);
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  &__sentence {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--opt-text-primary);
+
+    mark {
+      padding: 0 3px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: inherit;
+      background: rgba(251, 188, 4, 0.3);
+    }
+  }
+
+  &__meta {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--opt-text-secondary);
+  }
+}
+
+// ── By meeting ─────────────────────────────────────────────────────────────
+.vocab-meetings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vocab-meeting {
+  padding: 16px 20px;
+  border-radius: 14px;
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+
+    h3 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--opt-text-primary);
+    }
+
+    span {
+      font-size: 12px;
+      color: var(--opt-text-secondary);
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 8px 0;
+    border-top: 0.5px solid var(--opt-border-faint);
+  }
+
+  &__word {
+    flex: 0 0 140px;
+    padding: 0;
+    border: none;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a73e8;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__sentence {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--opt-text-tertiary);
+
+    mark {
+      padding: 0 3px;
+      border-radius: 4px;
+      font-weight: 600;
+      color: var(--opt-text-primary);
+      background: rgba(251, 188, 4, 0.3);
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .vocab-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vocab-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .vocab-rank {
+    max-height: 360px;
+  }
+}

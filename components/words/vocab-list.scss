@@ -17,6 +17,24 @@
     color: var(--opt-text-secondary);
   }
 
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    padding: 0 6px;
+    border: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: #1a73e8;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   &__more {
     width: 28px;
     height: 28px;

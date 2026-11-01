@@ -11,6 +11,8 @@ const entry = (overrides: Partial<VocabEntry> = {}): VocabEntry => ({
     firstSeenAt: Date.UTC(2026, 10, 1),
     lastSeenAt: Date.UTC(2026, 10, 1),
     count: 3,
+    forms: [],
+    occurrences: [],
     ...overrides,
 });
 

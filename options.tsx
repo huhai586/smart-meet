@@ -18,6 +18,8 @@ import DeveloperPanel from '~components/options/tabs/DeveloperPanel';
 import Welcome from '~pages/welcome';
 import TranslationSettings from '~components/options/TranslationSettings';
 import OtherSettings from '~components/options/tabs/OtherSettings';
+import Vocabulary from '~components/options/vocabulary/Vocabulary';
+import { OptionsRoute } from '~utils/options-routes';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
 import aiServiceManager from './utils/ai';
@@ -35,6 +37,7 @@ const ROUTE_MAPPING: Record<string, string> = {
   'cloud-sync': '5',
   'calendar': 'calendar',
   'translation': 'translation',
+  [OptionsRoute.VOCABULARY]: 'vocabulary',
   'other': 'other',
   'welcome': 'welcome',
   'developer': 'dev',
@@ -49,6 +52,7 @@ const KEY_TO_ROUTE: Record<string, string> = {
   '5': 'cloud-sync',
   'calendar': 'calendar',
   'translation': 'translation',
+  'vocabulary': OptionsRoute.VOCABULARY,
   'other': 'other',
   'welcome': 'welcome',
   'dev': 'developer',
@@ -190,6 +194,8 @@ const Options = () => {
                 return <CalendarSync />;
             case 'translation':
                 return <TranslationSettings />;
+            case 'vocabulary':
+                return <Vocabulary />;
             case 'other':
                 return <OtherSettings />;
             case 'dev':

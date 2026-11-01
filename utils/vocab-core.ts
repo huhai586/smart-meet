@@ -1,18 +1,37 @@
-/** One word the user looked up while learning, with the sentence it was heard in. */
-export interface VocabEntry {
-  /** normalizeWord(word); the identity of the entry. */
-  key: string;
+/**
+ * One lookup: the word as it was spelled, the sentence it was heard in, and when. What the user saved is
+ * this append-only log; the words, their counts and their forms are worked out from it (groupLookups).
+ * Merging two logs, for another device, is then just the union of their ids.
+ */
+export interface LookupRecord {
+  id: string;
   word: string;
   translation: string;
-  /** The caption line the word was first looked up in. */
   sentence: string;
+  meetingName: string;
+  at: number;
+}
+
+/** A word and every time it was looked up, worked out from the lookup log. */
+export interface VocabEntry {
+  /** normalizeWord of the first spelling; the identity of the entry. */
+  key: string;
+  /** The shortest spelling it was looked up with, which is usually the base form. */
+  word: string;
+  /** The first translation that came back. */
+  translation: string;
+  /** The first sentence that was kept. */
+  sentence: string;
+  /** The first meeting name that was kept. */
   meetingName: string;
   firstSeenAt: number;
   lastSeenAt: number;
   /** How many times the user looked it up; a word that keeps coming back is the one that needs work. */
   count: number;
-  /** Other forms of the word that were looked up and folded into this entry ("shipped" under "ship"). */
-  forms?: string[];
+  /** Other spellings that were looked up and counted towards this entry ("shipped" under "ship"). */
+  forms: string[];
+  /** Every lookup, oldest first. */
+  occurrences: LookupRecord[];
 }
 
 export interface LookupInput {
@@ -79,54 +98,114 @@ export const vocabLookupSet = (entries: Pick<VocabEntry, 'word'>[]): Set<string>
 export const matchesVocab = (word: string, lookupSet: Set<string>): boolean =>
   wordCandidates(word).some((candidate) => lookupSet.has(candidate));
 
+const trimEdges = (word: string) => word.replace(EDGE_NON_WORD, '');
+
+/** The log with one more lookup in it; unchanged when there is no word in the input. */
+export const appendLookup = (records: LookupRecord[], input: LookupInput, now: number, id: string): LookupRecord[] => {
+  if (!normalizeWord(input.word)) return records;
+  return [
+    ...records,
+    {
+      id,
+      word: trimEdges(input.word),
+      translation: input.translation ?? '',
+      sentence: input.sentence ?? '',
+      meetingName: input.meetingName ?? '',
+      at: now,
+    },
+  ];
+};
+
 /**
- * Adds a lookup: a new entry, or one more count on the entry the word belongs to (see findEntry), where a
- * differently spelled form is recorded under `forms` and the first translation is kept.
+ * Turns the lookup log into words. Lookups are taken oldest first, so the same log always gives the same
+ * words, whichever device wrote which lines; a lookup of another form of a word (see findEntry) counts
+ * towards the entry that is already there, and the first translation, sentence and meeting stay.
  */
-export const upsertLookup = (entries: VocabEntry[], input: LookupInput, now: number): VocabEntry[] => {
-  const key = normalizeWord(input.word);
-  if (!key) return entries;
+export const groupLookups = (records: LookupRecord[]): VocabEntry[] => {
+  const ordered = [...records].sort((a, b) => a.at - b.at || a.id.localeCompare(b.id));
+  const entries: VocabEntry[] = [];
 
-  const existing = findEntry(entries, input.word);
-  if (!existing) {
-    return [
-      ...entries,
-      {
+  for (const record of ordered) {
+    const key = normalizeWord(record.word);
+    if (!key) continue;
+
+    const existing = findEntry(entries, record.word);
+    if (!existing) {
+      entries.push({
         key,
-        word: input.word.replace(EDGE_NON_WORD, ''),
-        translation: input.translation ?? '',
-        sentence: input.sentence ?? '',
-        meetingName: input.meetingName ?? '',
-        firstSeenAt: now,
-        lastSeenAt: now,
+        word: record.word,
+        translation: record.translation,
+        sentence: record.sentence,
+        meetingName: record.meetingName,
+        firstSeenAt: record.at,
+        lastSeenAt: record.at,
         count: 1,
-      },
-    ];
+        forms: [],
+        occurrences: [record],
+      });
+      continue;
+    }
+
+    existing.occurrences.push(record);
+    existing.count += 1;
+    existing.lastSeenAt = record.at;
+    existing.translation ||= record.translation;
+    existing.sentence ||= record.sentence;
+    existing.meetingName ||= record.meetingName;
+    if (key !== existing.key && !existing.forms.some((form) => normalizeWord(form) === key)) existing.forms.push(record.word);
   }
+  // Show the shortest spelling ("negotiate" rather than "negotiating") as the word; the key stays the first one.
+  for (const entry of entries) {
+    const spellings = [entry.word, ...entry.forms];
+    const shortest = spellings.reduce((best, spelling) => (normalizeWord(spelling).length < normalizeWord(best).length ? spelling : best));
+    entry.word = shortest;
+    entry.forms = spellings.filter((spelling) => spelling !== shortest);
+  }
+  return entries;
+};
 
-  const spelled = input.word.replace(EDGE_NON_WORD, '');
-  const forms = key === existing.key ? existing.forms : [...new Set([...(existing.forms ?? []), spelled])];
+/** The log without every lookup of the word, whichever of its forms is given. */
+export const removeWordRecords = (records: LookupRecord[], word: string): LookupRecord[] => {
+  const target = findEntry(groupLookups(records), word);
+  if (!target) return records;
+  const gone = new Set(target.occurrences.map((record) => record.id));
+  return records.filter((record) => !gone.has(record.id));
+};
 
-  return entries.map((entry) =>
-    entry === existing
-      ? {
-          ...entry,
-          translation: entry.translation || input.translation || '',
-          sentence: entry.sentence || input.sentence || '',
-          meetingName: entry.meetingName || input.meetingName || '',
-          lastSeenAt: now,
-          count: entry.count + 1,
-          ...(forms ? { forms } : {}),
-        }
-      : entry,
+/** The shape vocabulary was stored in before the lookup log: one entry per word, with a count. */
+export interface LegacyVocabEntry {
+  key: string;
+  word: string;
+  translation: string;
+  sentence: string;
+  meetingName: string;
+  firstSeenAt: number;
+  lastSeenAt: number;
+  count: number;
+}
+
+/**
+ * Old entries become that many lookups: the first carries the sentence and translation that were kept, the
+ * rest are plain counts. Ids depend only on the entry, so converting twice gives the same records.
+ */
+export const recordsFromLegacyEntries = (entries: LegacyVocabEntry[]): LookupRecord[] =>
+  entries.flatMap((entry) =>
+    Array.from({ length: Math.max(1, entry.count) }, (_, index): LookupRecord => ({
+      id: `legacy-${entry.key}-${index}`,
+      word: entry.word,
+      translation: index === 0 ? entry.translation : '',
+      sentence: index === 0 ? entry.sentence : '',
+      meetingName: entry.meetingName,
+      at: index === 0 ? entry.firstSeenAt : entry.lastSeenAt,
+    })),
   );
-};
 
-/** Removes the entry the word belongs to, whichever of its forms is given. */
-export const removeEntry = (entries: VocabEntry[], word: string): VocabEntry[] => {
-  const target = findEntry(entries, word);
-  return target ? entries.filter((entry) => entry !== target) : entries;
-};
+/** Words saved when vocabulary was a plain list of strings: one lookup each, with nothing else known. */
+export const recordsFromLegacyWords = (words: string[], now: number): LookupRecord[] =>
+  words.flatMap((word) => {
+    const key = normalizeWord(word);
+    return key ? [{ id: `legacy-word-${key}`, word: trimEdges(word), translation: '', sentence: '', meetingName: '', at: now }] : [];
+  });
 
 /** Most looked-up first, then most recent: the words that keep tripping the user come first. */
 export const sortForDisplay = (entries: VocabEntry[]): VocabEntry[] =>
