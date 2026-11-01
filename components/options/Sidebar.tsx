@@ -3,6 +3,7 @@ import {
   SettingOutlined,
   RobotOutlined,
   BookOutlined,
+  SwapOutlined,
   CalendarOutlined,
   CloudOutlined,
   CodeOutlined,
@@ -102,6 +103,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
           icon: <BookOutlined />,
           label: t('tab_vocabulary'),
           route: OptionsRoute.VOCABULARY,
+        },
+        {
+          key: 'data-transfer',
+          icon: <SwapOutlined />,
+          label: t('tab_import_export'),
+          route: OptionsRoute.DATA_TRANSFER,
         },
         {
           key: 'other',

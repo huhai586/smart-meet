@@ -10,12 +10,16 @@ import type { StorageProvider } from './data-persistence/types';
 /**
  * 消息类型 - 使用 discriminated union 确保各 action 的参数类型安全
  */
+/** What to do with a day the file and this device both have. */
+export type ImportMode = 'merge' | 'replace';
+
 export type MessageData =
     | { action: 'clear' }
     | { action: 'addOrUpdateRecords'; data: Transcript }
     | { action: 'get-transcripts'; date: Dayjs | number | string }
     | { action: 'delete-records'; date: string }
     | { action: 'restoreRecords'; data: Transcript[]; date?: Dayjs | number | string }
+    | { action: 'import-records'; data: Transcript[]; mode: ImportMode }
     | { action: 'get-days-with-messages' }
     | { action: 'openSidePanel' }
     | { action: 'openOptionsPage'; route: string }
@@ -34,6 +38,7 @@ const HANDLED_ACTIONS = new Set<MessageData['action']>([
     'clear',
     'addOrUpdateRecords',
     'restoreRecords',
+    'import-records',
     'get-transcripts',
     'delete-records',
     'get-days-with-messages',
@@ -51,6 +56,24 @@ export class BackgroundMessageHandler {
 
     private async syncTranscripts(record?: Transcript): Promise<void> {
         chrome.runtime.sendMessage({ action: 'transcripts-updated', data: record });
+    }
+
+    /**
+     * Merge keeps what is here and writes the imported lines by session (the same line is simply updated).
+     * Replace swaps each imported day for the file's version of it. Days the file does not mention are left alone,
+     * which restoreRecords without a date would not do.
+     */
+    private async importRecords(records: Transcript[], mode: ImportMode): Promise<void> {
+        if (mode === 'replace') {
+            const byDay = new Map<string, Transcript[]>();
+            for (const record of records) {
+                const day = dayjs(record.timestamp).format('YYYY-MM-DD');
+                byDay.set(day, [...(byDay.get(day) ?? []), record]);
+            }
+            for (const [day, dayRecords] of byDay) await this.storage.restoreRecords(dayRecords, dayjs(day));
+            return;
+        }
+        for (const record of records) await this.storage.addOrUpdateRecord(record);
     }
 
     private async updateDaysWithMessages(): Promise<void> {
@@ -126,6 +149,14 @@ export class BackgroundMessageHandler {
                             await this.syncTranscripts();
                         }
                     }
+                    sendResponse({ success: true });
+                    break;
+                }
+
+                case 'import-records': {
+                    await this.importRecords(message.data, message.mode);
+                    await this.updateDaysWithMessages();
+                    await this.syncTranscripts();
                     sendResponse({ success: true });
                     break;
                 }

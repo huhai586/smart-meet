@@ -1,0 +1,134 @@
+// Import / export of meeting records as files. Colours come from the --opt-* tokens, so it follows light and dark mode.
+
+.transfer-page {
+  max-width: 760px;
+  padding: 0 20px 32px;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
+
+  &__header {
+    padding: 0 0 20px;
+
+    h1 {
+      margin: 0 0 4px;
+      font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--opt-text-primary);
+    }
+
+    p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--opt-text-secondary);
+    }
+  }
+}
+
+.transfer-card {
+  margin-bottom: 16px;
+  padding: 20px 22px;
+  border-radius: 14px;
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--opt-text-primary);
+  }
+
+  &__desc {
+    margin: 4px 0 16px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--opt-text-secondary);
+  }
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+}
+
+.transfer-preview {
+  &__file {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--opt-text-primary);
+    word-break: break-all;
+  }
+
+  &__summary {
+    margin: 6px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--opt-text-primary);
+  }
+
+  &__note {
+    margin: 4px 0 0;
+    font-size: 12.5px;
+    color: var(--opt-text-secondary);
+  }
+
+  &__days {
+    max-height: 200px;
+    margin: 14px 0 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+    border-radius: 10px;
+    border: 0.5px solid var(--opt-border-divider);
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: var(--opt-text-tertiary);
+
+      & + li {
+        border-top: 0.5px solid var(--opt-border-faint);
+      }
+    }
+  }
+
+  &__mode {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+
+    .ant-radio-wrapper {
+      align-items: flex-start;
+      color: var(--opt-text-primary);
+
+      strong {
+        display: block;
+        font-weight: 600;
+      }
+
+      span:not(.ant-radio):not(.ant-radio-inner) {
+        display: block;
+      }
+
+      strong + span {
+        font-size: 12.5px;
+        color: var(--opt-text-secondary);
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 18px;
+  }
+}

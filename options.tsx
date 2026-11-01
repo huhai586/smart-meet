@@ -19,6 +19,7 @@ import Welcome from '~pages/welcome';
 import TranslationSettings from '~components/options/TranslationSettings';
 import OtherSettings from '~components/options/tabs/OtherSettings';
 import Vocabulary from '~components/options/vocabulary/Vocabulary';
+import DataTransfer from '~components/options/data/DataTransfer';
 import { OptionsRoute } from '~utils/options-routes';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
@@ -38,6 +39,7 @@ const ROUTE_MAPPING: Record<string, string> = {
   'calendar': 'calendar',
   'translation': 'translation',
   [OptionsRoute.VOCABULARY]: 'vocabulary',
+  [OptionsRoute.DATA_TRANSFER]: 'data-transfer',
   'other': 'other',
   'welcome': 'welcome',
   'developer': 'dev',
@@ -53,6 +55,7 @@ const KEY_TO_ROUTE: Record<string, string> = {
   'calendar': 'calendar',
   'translation': 'translation',
   'vocabulary': OptionsRoute.VOCABULARY,
+  'data-transfer': OptionsRoute.DATA_TRANSFER,
   'other': 'other',
   'welcome': 'welcome',
   'dev': 'developer',
@@ -196,6 +199,8 @@ const Options = () => {
                 return <TranslationSettings />;
             case 'vocabulary':
                 return <Vocabulary />;
+            case 'data-transfer':
+                return <DataTransfer />;
             case 'other':
                 return <OtherSettings />;
             case 'dev':
