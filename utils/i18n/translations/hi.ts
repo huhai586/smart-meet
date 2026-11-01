@@ -543,7 +543,7 @@ export default {
   "settings_sync_range": "सिंक सीमा",
 
   // Google Calendar page
-  "calendar_page_title": "कैलेंडर",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "मीटिंग शेड्यूल प्राप्त करने और रिमाइंडर पाने के लिए अपना Google Calendar सिंक करें",
   "calendar_auto_sync": "स्वचालित सिंक",
   "calendar_sync_frequency": "सिंक आवृत्ति",

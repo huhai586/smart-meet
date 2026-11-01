@@ -571,7 +571,7 @@ export default {
   "settings_sync_range": "Synchronisierungsbereich",
 
   // Google Calendar page
-  "calendar_page_title": "Kalender",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Google Calendar synchronisieren, um Besprechungspläne zu erhalten und Erinnerungen zu empfangen",
   "calendar_auto_sync": "Automatische Synchronisierung",
   "calendar_sync_frequency": "Synchronisierungshäufigkeit",

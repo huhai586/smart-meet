@@ -543,7 +543,7 @@ export default {
   "settings_sync_range": "نطاق المزامنة",
 
   // Google Calendar page
-  "calendar_page_title": "التقويم",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "مزامنة تقويم Google الخاص بك للحصول على مواعيد الاجتماعات وتلقي التذكيرات",
   "calendar_auto_sync": "المزامنة التلقائية",
   "calendar_sync_frequency": "تكرار المزامنة",

@@ -543,7 +543,7 @@ export default {
   "settings_sync_range": "ช่วงการซิงค์",
 
   // Google Calendar page
-  "calendar_page_title": "ปฏิทิน",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "ซิงค์ Google Calendar เพื่อรับตารางการประชุมและรับการแจ้งเตือน",
   "calendar_auto_sync": "ซิงค์อัตโนมัติ",
   "calendar_sync_frequency": "ความถี่การซิงค์",

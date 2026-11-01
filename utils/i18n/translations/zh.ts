@@ -569,7 +569,7 @@ export default {
   "version_update_available": "发现新版本 ↗",
 
   // Calendar Sync Page
-  "calendar_page_title": "Calendar",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "同步你的 Google Calendar，获取会议安排并接收提醒",
   "calendar_auto_sync": "自动同步",
   "calendar_sync_frequency": "同步频率",

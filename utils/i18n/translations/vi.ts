@@ -564,7 +564,7 @@ export default {
   "settings_sync_range": "Phạm vi đồng bộ",
 
   // Google Calendar page
-  "calendar_page_title": "Lịch",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Đồng bộ Google Calendar để nhận lịch họp và thông báo nhắc nhở",
   "calendar_auto_sync": "Tự động đồng bộ",
   "calendar_sync_frequency": "Tần suất đồng bộ",

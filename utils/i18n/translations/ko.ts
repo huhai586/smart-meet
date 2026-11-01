@@ -588,7 +588,7 @@ export default {
   "settings_sync_range": "동기화 범위",
 
   // Google Calendar page
-  "calendar_page_title": "캘린더",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Google 캘린더를 동기화하여 회의 일정을 확인하고 알림을 받으세요",
   "calendar_auto_sync": "자동 동기화",
   "calendar_sync_frequency": "동기화 빈도",

@@ -571,7 +571,7 @@ export default {
   "version_update_available": "Update available ↗",
 
   // Calendar Sync Page
-  "calendar_page_title": "Calendar",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Sync your Google Calendar to get meeting schedules and receive reminders",
   "calendar_auto_sync": "Auto Sync",
   "calendar_sync_frequency": "Sync Frequency",

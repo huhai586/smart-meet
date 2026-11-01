@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Switch, Select, Spin, Button, message } from 'antd';
+import { Switch, Select, Spin, message } from 'antd';
 import {
   SyncOutlined,
   LoadingOutlined,
@@ -9,6 +9,10 @@ import {
   EnvironmentOutlined,
   VideoCameraOutlined,
   BellOutlined,
+  ClockCircleOutlined,
+  FieldTimeOutlined,
+  NotificationOutlined,
+  SafetyCertificateOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import useI18n from '~utils/i18n';
@@ -81,25 +85,39 @@ const CalendarSync: React.FC = () => {
     }
   };
 
-  const dayLabel = (day: dayjs.Dayjs): string => {
+  const dayLabel = (day: dayjs.Dayjs): { label: string; date: number; month: string; isToday: boolean } => {
     const now = dayjs();
-    if (day.isSame(now, 'day')) return t('calendar_day_today');
-    if (day.isSame(now.add(1, 'day'), 'day')) return t('calendar_day_tomorrow');
-    return day.toDate().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    const date = day.toDate();
+    const isToday = day.isSame(now, 'day');
+    const label = isToday
+      ? t('calendar_day_today')
+      : day.isSame(now.add(1, 'day'), 'day')
+        ? t('calendar_day_tomorrow')
+        : date.toLocaleDateString(undefined, { weekday: 'short' });
+    return { label, date: day.date(), month: date.toLocaleDateString(undefined, { month: 'short' }), isToday };
   };
 
-  const timeLabel = (event: CalendarEvent): string =>
-    event.start?.dateTime ? `${eventStart(event).format('HH:mm')}–${eventEnd(event).format('HH:mm')}` : t('calendar_all_day');
+  /** The start time with the end under it; all-day events have only a label. */
+  const timeParts = (event: CalendarEvent): { start: string; end?: string } =>
+    event.start?.dateTime
+      ? { start: eventStart(event).format('HH:mm'), end: eventEnd(event).format('HH:mm') }
+      : { start: t('calendar_all_day') };
+
+  const isLive = (event: CalendarEvent) => !!event.start?.dateTime && eventStart(event).isBefore(dayjs()) && eventEnd(event).isAfter(dayjs());
 
   // Listed meetings, grouped by the day they start
   const days = useMemo(() => {
-    const groups: { key: string; day: dayjs.Dayjs; events: CalendarEvent[] }[] = [];
+    const groups: { key: string; day: dayjs.Dayjs; events: CalendarEvent[]; showMonth: boolean }[] = [];
     events.slice(0, MAX_LISTED_EVENTS).forEach((event) => {
       const day = eventStart(event).startOf('day');
       const key = day.format('YYYY-MM-DD');
       const group = groups.find((g) => g.key === key);
       if (group) group.events.push(event);
-      else groups.push({ key, day, events: [event] });
+      else groups.push({ key, day, events: [event], showMonth: false });
+    });
+    // The month is only spelled out where it begins, so single-meeting days stay short
+    groups.forEach((group, i) => {
+      group.showMonth = i === 0 || group.day.month() !== groups[i - 1].day.month();
     });
     return groups;
   }, [events]);
@@ -153,145 +171,163 @@ const CalendarSync: React.FC = () => {
     );
   }
 
+  const settingRows: { key: string; color: string; icon: React.ReactNode; label: string; control: React.ReactNode }[] = [
+    {
+      key: 'auto-sync', color: '#007AFF', icon: <SyncOutlined />, label: t('calendar_auto_sync'),
+      control: <Switch checked={settings.autoSync} onChange={(v) => updateSettings({ autoSync: v })} />,
+    },
+    {
+      key: 'frequency', color: '#FF9500', icon: <ClockCircleOutlined />, label: t('calendar_sync_frequency'),
+      control: (
+        <Select value={settings.syncFrequency} onChange={(v) => updateSettings({ syncFrequency: v })} options={options.frequency}
+          disabled={!settings.autoSync} variant="borderless" popupMatchSelectWidth={false} />
+      ),
+    },
+    {
+      key: 'range', color: '#34C759', icon: <CalendarOutlined />, label: t('calendar_sync_range'),
+      control: (
+        <Select value={settings.syncRange} onChange={(v) => updateSettings({ syncRange: v })} options={options.range}
+          disabled={!settings.autoSync} variant="borderless" popupMatchSelectWidth={false} />
+      ),
+    },
+    {
+      key: 'reminders', color: '#FF3B30', icon: <BellOutlined />, label: t('calendar_reminders_enable'),
+      control: <Switch checked={remindersEnabled} onChange={handleRemindersToggle} />,
+    },
+    {
+      key: 'advance', color: '#AF52DE', icon: <FieldTimeOutlined />, label: t('calendar_reminders_advance'),
+      control: (
+        <Select value={reminderMinutes} onChange={handleReminderMinutesChange} options={options.reminder}
+          disabled={!remindersEnabled} variant="borderless" popupMatchSelectWidth={false} />
+      ),
+    },
+    {
+      key: 'test', color: '#8E8E93', icon: <NotificationOutlined />, label: t('calendar_test_notif'),
+      control: (
+        <button className="cs-pill" onClick={handleTestNotification} disabled={testingNotif}>
+          {testingNotif ? <LoadingOutlined spin /> : <BellOutlined />}
+          {t('calendar_test_notif_btn')}
+        </button>
+      ),
+    },
+  ];
+
   return (
     <div className="calendar-sync-page">
       {header}
 
-      <section>
-        <div className="cs-section-head">
-          <h2>{t('calendar_upcoming_meetings')}</h2>
-          <div className="cs-section-actions">
-            {lastSync && (
-              <span className="cs-muted">
-                {t('calendar_last_sync').replace('{time}', new Date(lastSync).toLocaleString())}
-              </span>
-            )}
-            <Button size="small" icon={syncing ? <LoadingOutlined spin /> : <SyncOutlined />} onClick={manualSync} disabled={syncing}>
-              {syncing ? t('calendar_syncing') : t('calendar_sync_now')}
-            </Button>
-          </div>
-        </div>
-
-        {syncStatus === 'error' && (
-          <div className="cs-error">
-            <ExclamationCircleOutlined />
-            <span>{syncError ?? t('calendar_sync_error_default')}</span>
-          </div>
-        )}
-
-        <div className="cs-card cs-events">
-          {days.length === 0 ? (
-            <div className="cs-empty">
-              <CalendarOutlined />
-              <span>{t('calendar_sync_empty')}</span>
+      <div className="cs-layout">
+        <section className="cs-meetings">
+          <div className="cs-section-head">
+            <h2>{t('calendar_upcoming_meetings')}</h2>
+            <div className="cs-section-actions">
+              {lastSync && (
+                <span className="cs-muted">
+                  {t('calendar_last_sync').replace('{time}', new Date(lastSync).toLocaleString(undefined, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }))}
+                </span>
+              )}
+              <button className="cs-pill" onClick={manualSync} disabled={syncing}>
+                {syncing ? <LoadingOutlined spin /> : <SyncOutlined />}
+                {syncing ? t('calendar_syncing') : t('calendar_sync_now')}
+              </button>
             </div>
-          ) : (
-            <>
-              {days.map(({ key, day, events: dayEvents }) => (
-                <div key={key}>
-                  <div className="cs-day">{dayLabel(day)}</div>
-                  {dayEvents.map((event) => {
-                    const link = meetLink(event);
-                    const attendees = event.attendees?.length ?? 0;
-                    return (
-                      <div key={event.id} className="cs-event">
-                        <span className="cs-event__time">{timeLabel(event)}</span>
-                        <div className="cs-event__body">
-                          <div className="cs-event__title">{event.summary ?? t('calendar_event_no_title')}</div>
-                          {(attendees > 0 || event.location) && (
-                            <div className="cs-event__meta">
-                              {attendees > 0 && (
-                                <span><TeamOutlined /> {attendees}</span>
-                              )}
-                              {event.location && (
-                                <span className="cs-event__location"><EnvironmentOutlined /> {event.location}</span>
+          </div>
+
+          {syncStatus === 'error' && (
+            <div className="cs-error">
+              <ExclamationCircleOutlined />
+              <span>{syncError ?? t('calendar_sync_error_default')}</span>
+            </div>
+          )}
+
+          <div className="cs-card cs-events">
+            {days.length === 0 ? (
+              <div className="cs-empty">
+                <CalendarOutlined />
+                <span>{t('calendar_sync_empty')}</span>
+              </div>
+            ) : (
+              <>
+                {days.map(({ key, day, events: dayEvents, showMonth }) => {
+                  const label = dayLabel(day);
+                  return (
+                    <div key={key} className="cs-day-group">
+                      <div className={`cs-day${label.isToday ? ' is-today' : ''}`}>
+                        <span className="cs-day__label">{label.label}</span>
+                        <span className="cs-day__date">{label.date}</span>
+                        {showMonth && <span className="cs-day__month">{label.month}</span>}
+                      </div>
+                      <div className="cs-day-events">
+                        {dayEvents.map((event) => {
+                          const link = meetLink(event);
+                          const attendees = event.attendees?.length ?? 0;
+                          const time = timeParts(event);
+                          const live = isLive(event);
+                          return (
+                            <div key={event.id} className={`cs-event${live ? ' is-live' : ''}`}>
+                              <div className="cs-event__time">
+                                <b>{time.start}</b>
+                                {time.end && <span>{time.end}</span>}
+                              </div>
+                              <span className="cs-event__bar" />
+                              <div className="cs-event__main">
+                                {live && <span className="cs-badge">{t('meetings_in_progress')}</span>}
+                                <span className="cs-event__title">{event.summary ?? t('calendar_event_no_title')}</span>
+                                {attendees > 0 && <span className="cs-event__meta"><TeamOutlined /> {attendees}</span>}
+                                {event.location && (
+                                  <span className="cs-event__meta cs-event__location"><EnvironmentOutlined /> {event.location}</span>
+                                )}
+                              </div>
+                              {link && (
+                                <a className="cs-pill cs-pill--accent" href={link} target="_blank" rel="noreferrer">
+                                  <VideoCameraOutlined />
+                                  {t('meetings_join_btn')}
+                                </a>
                               )}
                             </div>
-                          )}
-                        </div>
-                        {link && (
-                          <Button size="small" icon={<VideoCameraOutlined />} href={link} target="_blank" rel="noreferrer">
-                            {t('meetings_join_btn')}
-                          </Button>
-                        )}
+                          );
+                        })}
                       </div>
-                    );
-                  })}
-                </div>
-              ))}
-              {events.length > MAX_LISTED_EVENTS && (
-                <div className="cs-more">{t('calendar_event_more').replace('{n}', String(events.length - MAX_LISTED_EVENTS))}</div>
-              )}
-            </>
-          )}
-        </div>
-      </section>
+                    </div>
+                  );
+                })}
+                {events.length > MAX_LISTED_EVENTS && (
+                  <div className="cs-more">{t('calendar_event_more').replace('{n}', String(events.length - MAX_LISTED_EVENTS))}</div>
+                )}
+              </>
+            )}
+          </div>
+        </section>
 
-      <section>
-        <div className="cs-section-head">
-          <h2>{t('calendar_settings_group')}</h2>
-        </div>
-        <div className="cs-card cs-settings">
-          <div className="cs-row">
-            <span className="cs-row__label">{t('calendar_auto_sync')}</span>
-            <Switch checked={settings.autoSync} onChange={(v) => updateSettings({ autoSync: v })} />
+        <section className="cs-side">
+          <div className="cs-section-head">
+            <h2>{t('calendar_settings_group')}</h2>
           </div>
-          <div className="cs-row">
-            <span className="cs-row__label">{t('calendar_sync_frequency')}</span>
-            <Select
-              value={settings.syncFrequency}
-              onChange={(v) => updateSettings({ syncFrequency: v })}
-              options={options.frequency}
-              disabled={!settings.autoSync}
-              variant="borderless"
-              popupMatchSelectWidth={false}
-            />
+          <div className="cs-card cs-settings">
+            {settingRows.map((row) => (
+              <div key={row.key} className="cs-row">
+                <span className="cs-icon" style={{ background: row.color }}>{row.icon}</span>
+                <span className="cs-row__label">{row.label}</span>
+                {row.control}
+              </div>
+            ))}
           </div>
-          <div className="cs-row">
-            <span className="cs-row__label">{t('calendar_sync_range')}</span>
-            <Select
-              value={settings.syncRange}
-              onChange={(v) => updateSettings({ syncRange: v })}
-              options={options.range}
-              disabled={!settings.autoSync}
-              variant="borderless"
-              popupMatchSelectWidth={false}
-            />
-          </div>
-          <div className="cs-row">
-            <span className="cs-row__label">{t('calendar_reminders_enable')}</span>
-            <Switch checked={remindersEnabled} onChange={handleRemindersToggle} />
-          </div>
-          <div className="cs-row">
-            <span className="cs-row__label">{t('calendar_reminders_advance')}</span>
-            <Select
-              value={reminderMinutes}
-              onChange={handleReminderMinutesChange}
-              options={options.reminder}
-              disabled={!remindersEnabled}
-              variant="borderless"
-              popupMatchSelectWidth={false}
-            />
-          </div>
-          <div className="cs-row">
-            <span className="cs-row__label">{t('calendar_test_notif')}</span>
-            <Button size="small" icon={<BellOutlined />} loading={testingNotif} onClick={handleTestNotification}>
-              {t('calendar_test_notif_btn')}
-            </Button>
-          </div>
-        </div>
-        <p className="cs-footnote">
-          {t('calendar_data_footnote')}
-          {(events.length > 0 || lastSync) && (
-            <>
-              {' · '}
-              <button className="cs-link" onClick={clearEvents} disabled={syncing}>
-                {t('calendar_clear_events')}
-              </button>
-            </>
-          )}
-        </p>
-      </section>
+          <p className="cs-footnote">
+            <SafetyCertificateOutlined />
+            <span>
+              {t('calendar_data_footnote')}
+              {(events.length > 0 || lastSync) && (
+                <>
+                  {' · '}
+                  <button className="cs-link" onClick={clearEvents} disabled={syncing}>
+                    {t('calendar_clear_events')}
+                  </button>
+                </>
+              )}
+            </span>
+          </p>
+        </section>
+      </div>
     </div>
   );
 };

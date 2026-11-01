@@ -571,7 +571,7 @@ export default {
   "settings_sync_range": "Rango de sincronización",
 
   // Google Calendar page
-  "calendar_page_title": "Calendario",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Sincroniza tu Google Calendar para obtener horarios de reuniones y recibir recordatorios",
   "calendar_auto_sync": "Sincronización automática",
   "calendar_sync_frequency": "Frecuencia de sincronización",

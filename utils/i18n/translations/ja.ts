@@ -588,7 +588,7 @@ export default {
   "settings_sync_range": "同期範囲",
 
   // Google Calendar page
-  "calendar_page_title": "カレンダー",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Google カレンダーを同期して、会議スケジュールを取得しリマインダーを受信する",
   "calendar_auto_sync": "自動同期",
   "calendar_sync_frequency": "同期頻度",

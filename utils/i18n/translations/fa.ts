@@ -590,7 +590,7 @@ export default {
   "settings_sync_range": "محدوده همگام‌سازی",
 
   // Google Calendar page
-  "calendar_page_title": "تقویم",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "تقویم Google خود را همگام‌سازی کنید تا برنامه جلسات را دریافت کرده و یادآوری‌ها را دریافت کنید",
   "calendar_auto_sync": "همگام‌سازی خودکار",
   "calendar_sync_frequency": "دفعات همگام‌سازی",

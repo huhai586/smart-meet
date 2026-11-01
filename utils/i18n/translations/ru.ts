@@ -564,7 +564,7 @@ export default {
   "settings_sync_range": "Диапазон синхронизации",
 
   // Google Calendar page
-  "calendar_page_title": "Календарь",
+  "calendar_page_title": "Google Calendar",
   "calendar_page_desc": "Синхронизируйте Google Календарь, чтобы получать расписания встреч и напоминания",
   "calendar_auto_sync": "Автосинхронизация",
   "calendar_sync_frequency": "Частота синхронизации",
