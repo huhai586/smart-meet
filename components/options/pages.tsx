@@ -1,4 +1,4 @@
-import React, { lazy, type ComponentType, type LazyExoticComponent, type ReactNode } from 'react';
+import React, { type ComponentType, type ReactNode } from 'react';
 import {
   SettingOutlined,
   RobotOutlined,
@@ -15,6 +15,17 @@ import {
 import { OptionsRoute } from '~utils/options-routes';
 import googleDriveIcon from '~images/google/google-drive.svg';
 import googleCalendarIcon from '~images/google/google-calendar.svg';
+import General from '~components/options/tabs/General';
+import InterfaceAppearance from '~components/options/tabs/InterfaceAppearance';
+import AIAndTranslation from '~components/options/tabs/AIAndTranslation';
+import TranslationSettings from '~components/options/TranslationSettings';
+import OtherSettings from '~components/options/tabs/OtherSettings';
+import Vocabulary from '~components/options/vocabulary/Vocabulary';
+import HistoryRecords from '~components/options/tabs/HistoryRecords';
+import DataTransfer from '~components/options/data/DataTransfer';
+import GoogleDriveIntegration from '~components/options/GoogleDriveIntegration';
+import CalendarSync from '~components/options/tabs/CalendarSync';
+import DeveloperPanel from '~components/options/tabs/DeveloperPanel';
 
 /** The sidebar groups, in order. */
 export const OptionsGroup = {
@@ -37,22 +48,22 @@ export interface OptionsPage {
   labelKey?: string;
   label?: string;
   group: OptionsGroup;
-  component: LazyExoticComponent<ComponentType>;
+  component: ComponentType;
 }
 
 /** Every page of the options, in the order of the sidebar. Adding a page means adding one line here. */
 export const OPTIONS_PAGES: OptionsPage[] = [
-  { route: OptionsRoute.GENERAL, icon: <SettingOutlined />, color: '#8E8E93', labelKey: 'tab_general', group: OptionsGroup.SETTINGS, component: lazy(() => import('~components/options/tabs/General')) },
-  { route: OptionsRoute.INTERFACE, icon: <FontSizeOutlined />, color: '#5E5CE6', labelKey: 'tab_visibility', group: OptionsGroup.SETTINGS, component: lazy(() => import('~components/options/tabs/InterfaceAppearance')) },
-  { route: OptionsRoute.AI_TRANSLATION, icon: <RobotOutlined />, color: '#AF52DE', labelKey: 'tab_ai_models_nav', group: OptionsGroup.SETTINGS, component: lazy(() => import('~components/options/tabs/AIAndTranslation')) },
-  { route: OptionsRoute.TRANSLATION, icon: <TranslationOutlined />, color: '#32ADE6', labelKey: 'tab_translation', group: OptionsGroup.SETTINGS, component: lazy(() => import('~components/options/TranslationSettings')) },
-  { route: OptionsRoute.OTHER, icon: <EllipsisOutlined />, color: '#636366', labelKey: 'tab_other', group: OptionsGroup.SETTINGS, component: lazy(() => import('~components/options/tabs/OtherSettings')) },
-  { route: OptionsRoute.VOCABULARY, icon: <BookOutlined />, color: '#FF9500', labelKey: 'tab_vocabulary', group: OptionsGroup.CONTENT, component: lazy(() => import('~components/options/vocabulary/Vocabulary')) },
-  { route: OptionsRoute.HISTORY, icon: <SyncOutlined />, color: '#34C759', labelKey: 'tab_data_sync', group: OptionsGroup.CONTENT, component: lazy(() => import('~components/options/tabs/HistoryRecords')) },
-  { route: OptionsRoute.DATA_TRANSFER, icon: <SwapOutlined />, color: '#30B0C7', labelKey: 'tab_import_export', group: OptionsGroup.CONTENT, component: lazy(() => import('~components/options/data/DataTransfer')) },
-  { route: OptionsRoute.CLOUD_SYNC, icon: <CloudOutlined />, color: '#4285F4', brandIcon: googleDriveIcon, labelKey: 'tab_google_drive', group: OptionsGroup.INTEGRATIONS, component: lazy(() => import('~components/options/GoogleDriveIntegration')) },
-  { route: OptionsRoute.CALENDAR, icon: <CalendarOutlined />, color: '#FF3B30', brandIcon: googleCalendarIcon, labelKey: 'tab_calendar', group: OptionsGroup.INTEGRATIONS, component: lazy(() => import('~components/options/tabs/CalendarSync')) },
-  { route: OptionsRoute.DEVELOPER, icon: <CodeOutlined />, color: '#3A3A3C', label: 'Developer', group: OptionsGroup.DEVELOPER, component: lazy(() => import('~components/options/tabs/DeveloperPanel')) },
+  { route: OptionsRoute.GENERAL, icon: <SettingOutlined />, color: '#8E8E93', labelKey: 'tab_general', group: OptionsGroup.SETTINGS, component: General },
+  { route: OptionsRoute.INTERFACE, icon: <FontSizeOutlined />, color: '#5E5CE6', labelKey: 'tab_visibility', group: OptionsGroup.SETTINGS, component: InterfaceAppearance },
+  { route: OptionsRoute.AI_TRANSLATION, icon: <RobotOutlined />, color: '#AF52DE', labelKey: 'tab_ai_models_nav', group: OptionsGroup.SETTINGS, component: AIAndTranslation },
+  { route: OptionsRoute.TRANSLATION, icon: <TranslationOutlined />, color: '#32ADE6', labelKey: 'tab_translation', group: OptionsGroup.SETTINGS, component: TranslationSettings },
+  { route: OptionsRoute.OTHER, icon: <EllipsisOutlined />, color: '#636366', labelKey: 'tab_other', group: OptionsGroup.SETTINGS, component: OtherSettings },
+  { route: OptionsRoute.VOCABULARY, icon: <BookOutlined />, color: '#FF9500', labelKey: 'tab_vocabulary', group: OptionsGroup.CONTENT, component: Vocabulary },
+  { route: OptionsRoute.HISTORY, icon: <SyncOutlined />, color: '#34C759', labelKey: 'tab_data_sync', group: OptionsGroup.CONTENT, component: HistoryRecords },
+  { route: OptionsRoute.DATA_TRANSFER, icon: <SwapOutlined />, color: '#30B0C7', labelKey: 'tab_import_export', group: OptionsGroup.CONTENT, component: DataTransfer },
+  { route: OptionsRoute.CLOUD_SYNC, icon: <CloudOutlined />, color: '#4285F4', brandIcon: googleDriveIcon, labelKey: 'tab_google_drive', group: OptionsGroup.INTEGRATIONS, component: GoogleDriveIntegration },
+  { route: OptionsRoute.CALENDAR, icon: <CalendarOutlined />, color: '#FF3B30', brandIcon: googleCalendarIcon, labelKey: 'tab_calendar', group: OptionsGroup.INTEGRATIONS, component: CalendarSync },
+  { route: OptionsRoute.DEVELOPER, icon: <CodeOutlined />, color: '#3A3A3C', label: 'Developer', group: OptionsGroup.DEVELOPER, component: DeveloperPanel },
 ];
 
 /** Sidebar group titles: a translation key, or plain text for the developer group. */
