@@ -1,9 +1,9 @@
 import { getCurrentUILanguage } from '../hooks/useUILanguage';
 import { getTranslation } from './i18n';
 import messageManager from './message-manager';
+import { OptionsRoute } from './options-routes';
 
 /** Options page route that holds the translation provider settings (and the model download). */
-const TRANSLATION_SETTINGS_ROUTE = 'translation';
 
 /** Chrome reports these while the on-device model for a language pair is not on the machine yet. */
 const MODEL_MISSING_STATES = new Set(['downloadable', 'downloading']);
@@ -31,7 +31,7 @@ export const promptLocalModelDownload = async (): Promise<LocalModelNotInstalled
   if (!prompted) {
     prompted = true;
     messageManager.warningWithAction(message, getTranslation('go_to_options', code), () => {
-      chrome.runtime.sendMessage({ action: 'openOptionsPage', route: TRANSLATION_SETTINGS_ROUTE });
+      chrome.runtime.sendMessage({ action: 'openOptionsPage', route: OptionsRoute.TRANSLATION });
     });
   }
   return new LocalModelNotInstalledError(message);

@@ -34,6 +34,7 @@ import getMeetingCaptions from '../../utils/getCaptions';
 import saveChatLogAsTxt from '../../utils/save';
 import { createJsonFile, downloadFile } from '../../utils/file-utils';
 import messageManager from '../../utils/message-manager';
+import { OptionsRoute, openOptions } from '../../utils/options-routes';
 import {
   type CustomPrompt,
   getCustomPrompts,
@@ -610,7 +611,7 @@ const Extension = (_props: ExtensionPropsInterface) => {
         <SettingRow
           $last
           $clickable
-          onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('options.html#welcome') })}
+          onClick={() => openOptions(OptionsRoute.WELCOME)}
         >
           <IconSquircle $color="#007AFF">
             <QuestionCircleOutlined />

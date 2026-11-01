@@ -9,6 +9,7 @@ import {
 import aiEmptyBg from "~images/popup/ai_empty_bg.png"
 import openSidePanel from "~utils/open-side-panel"
 import useI18n from "~/utils/i18n"
+import { OptionsRoute, openOptions } from "~/utils/options-routes"
 import type { MeetingGroup } from "../types"
 
 const AITab: React.FC = () => {
@@ -77,8 +78,7 @@ const AITab: React.FC = () => {
   }, [])
 
   const openHistory = () => {
-    const url = chrome.runtime.getURL("options.html") + "#history"
-    chrome.tabs.create({ url })
+    openOptions(OptionsRoute.HISTORY)
     window.close()
   }
 

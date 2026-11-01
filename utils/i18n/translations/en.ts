@@ -84,6 +84,8 @@ export default {
   "drive_vocab_deleted": "Vocabulary backup deleted from Drive",
   "drive_backup_running": "Backing up...",
   "drive_vocab_load_failed": "Couldn't load the vocabulary backup.",
+  "sidepanel_open_settings": "Settings",
+  "sidebar_category_content": "Content",
   "backup_section": "Backup to Local",
   "backup_desc": "Backup your current day meeting data to local storage",
   "backup_button": "Backup Now",

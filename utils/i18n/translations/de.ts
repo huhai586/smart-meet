@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Vokabel-Backup von Drive gelöscht",
   "drive_backup_running": "Sichere...",
   "drive_vocab_load_failed": "Das Vokabel-Backup konnte nicht geladen werden.",
+  "sidepanel_open_settings": "Einstellungen",
+  "sidebar_category_content": "Inhalte",
   "backup_section": "Sicherung",
   "backup_desc": "Sichern Sie Ihre Meeting-Daten auf Google Drive",
   "backup_button": "Jetzt sichern",

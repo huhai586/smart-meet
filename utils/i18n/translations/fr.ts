@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Sauvegarde du vocabulaire supprimée de Drive",
   "drive_backup_running": "Sauvegarde en cours...",
   "drive_vocab_load_failed": "Impossible de charger la sauvegarde du vocabulaire.",
+  "sidepanel_open_settings": "Réglages",
+  "sidebar_category_content": "Contenu",
   "backup_section": "Sauvegarde",
   "backup_desc": "Sauvegarder vos données de réunion sur Google Drive",
   "backup_button": "Sauvegarder maintenant",

@@ -10,6 +10,7 @@ import {
 import googleMeetIcon from "~images/google-meet-logo-main-icon.png"
 import meetingEmptyBg from "~images/popup/meeting_empty_bg.png"
 import useI18n from "~/utils/i18n"
+import { OptionsRoute, openOptions } from "~/utils/options-routes"
 import type { CalendarEvent } from "../types"
 
 const MeetingsTab: React.FC = () => {
@@ -48,8 +49,7 @@ const MeetingsTab: React.FC = () => {
   })()
 
   const openCalendarOptions = () => {
-    const url = chrome.runtime.getURL("options.html") + "#calendar"
-    chrome.tabs.create({ url })
+    openOptions(OptionsRoute.CALENDAR)
     window.close()
   }
 

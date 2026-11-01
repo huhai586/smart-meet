@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Drive에서 단어장 백업을 삭제했습니다",
   "drive_backup_running": "백업 중...",
   "drive_vocab_load_failed": "단어장 백업을 불러오지 못했습니다.",
+  "sidepanel_open_settings": "설정",
+  "sidebar_category_content": "콘텐츠",
   "backup_section": "백업",
   "backup_desc": "회의 데이터를 Google 드라이브에 백업",
   "backup_button": "지금 백업",

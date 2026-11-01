@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "تم حذف النسخة الاحتياطية للمفردات من Drive",
   "drive_backup_running": "جارٍ النسخ الاحتياطي...",
   "drive_vocab_load_failed": "تعذّر تحميل النسخة الاحتياطية للمفردات.",
+  "sidepanel_open_settings": "الإعدادات",
+  "sidebar_category_content": "المحتوى",
   "backup_section": "النسخ الاحتياطي",
   "backup_desc": "قم بعمل نسخة احتياطية من بيانات الاجتماع إلى جوجل درايف",
   "backup_button": "نسخ احتياطي الآن",

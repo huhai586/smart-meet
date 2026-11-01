@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Backup del vocabolario eliminato da Drive",
   "drive_backup_running": "Backup in corso...",
   "drive_vocab_load_failed": "Impossibile caricare il backup del vocabolario.",
+  "sidepanel_open_settings": "Impostazioni",
+  "sidebar_category_content": "Contenuti",
   "backup_section": "Backup",
   "backup_desc": "Esegui il backup dei dati della riunione su Google Drive",
   "backup_button": "Esegui backup ora",

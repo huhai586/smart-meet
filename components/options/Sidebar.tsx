@@ -1,42 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import {
-  SettingOutlined,
-  RobotOutlined,
-  BookOutlined,
-  SwapOutlined,
-  CalendarOutlined,
-  CloudOutlined,
-  CodeOutlined,
-  FontSizeOutlined,
-  SyncOutlined,
-  TranslationOutlined,
-  EllipsisOutlined,
-  SyncOutlined as ReloadIcon,
-} from '@ant-design/icons';
+import { SyncOutlined as ReloadIcon } from '@ant-design/icons';
 import '~styles/sidebar.scss';
 import useI18n from '~utils/i18n';
-import { OptionsRoute } from '~utils/options-routes';
+import { GROUP_TITLES, OPTIONS_PAGES, OptionsGroup } from './pages';
 
 interface SidebarProps {
+  /** The route of the page that is open. */
   activeKey: string;
-  onChange: (key: string) => void;
   devMode: boolean;
   onDevUnlock: () => void;
 }
 
-interface MenuItem {
-  key: string;
-  icon: React.ReactNode;
-  label: string;
-  route: string;
-}
-
-interface MenuCategory {
-  title: string;
-  items: MenuItem[];
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUnlock }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeKey, devMode, onDevUnlock }) => {
   const { t } = useI18n();
   const [tapCount, setTapCount] = useState(0);
   const [tapTimer, setTapTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
@@ -70,92 +45,9 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
     }
   }, [tapCount, tapTimer, devMode, onDevUnlock]);
 
-  const menuCategories: MenuCategory[] = [
-    {
-      title: t('sidebar_category_general'),
-      items: [
-        {
-          key: '1',
-          icon: <SettingOutlined />,
-          label: t('tab_general'),
-          route: 'general',
-        },
-        {
-          key: '2',
-          icon: <FontSizeOutlined />,
-          label: t('tab_visibility'),
-          route: 'interface',
-        },
-        {
-          key: '3',
-          icon: <RobotOutlined />,
-          label: t('tab_ai_models_nav'),
-          route: 'ai-translation',
-        },
-        {
-          key: 'translation',
-          icon: <TranslationOutlined />,
-          label: t('tab_translation'),
-          route: 'translation',
-        },
-        {
-          key: 'vocabulary',
-          icon: <BookOutlined />,
-          label: t('tab_vocabulary'),
-          route: OptionsRoute.VOCABULARY,
-        },
-        {
-          key: 'data-transfer',
-          icon: <SwapOutlined />,
-          label: t('tab_import_export'),
-          route: OptionsRoute.DATA_TRANSFER,
-        },
-        {
-          key: 'other',
-          icon: <EllipsisOutlined />,
-          label: t('tab_other'),
-          route: 'other',
-        },
-      ],
-    },
-    {
-      title: t('sidebar_category_integration'),
-      items: [
-        {
-          key: 'calendar',
-          icon: <CalendarOutlined />,
-          label: t('tab_calendar'),
-          route: 'calendar',
-        },
-        {
-          key: '5',
-          icon: <CloudOutlined />,
-          label: t('tab_google_drive'),
-          route: 'cloud-sync',
-        },
-        {
-          key: '4',
-          icon: <SyncOutlined />,
-          label: t('tab_data_sync'),
-          route: 'history',
-        },
-      ],
-    },
-    ...(devMode ? [{
-      title: 'Dev',
-      items: [{
-        key: 'dev',
-        icon: <CodeOutlined />,
-        label: 'Developer',
-        route: 'developer',
-      }],
-    }] : []),
-  ];
-
-  const handleMenuItemClick = (key: string, route: string) => {
-    onChange(key);
-    window.location.hash = route;
-  };
+  const groups = Object.values(OptionsGroup)
+    .filter((group) => group !== OptionsGroup.DEVELOPER || devMode)
+    .map((group) => ({ group, pages: OPTIONS_PAGES.filter((page) => page.group === group) }));
 
   const version = chrome.runtime.getManifest().version;
 
@@ -167,19 +59,18 @@ const Sidebar: React.FC<SidebarProps> = ({ activeKey, onChange, devMode, onDevUn
       />
 
       <div className="sidebar-menu">
-        {menuCategories.map((category, idx) => (
-          <div key={idx} className="menu-category">
-            <div className="category-title">{category.title}</div>
-            {category.items.map(item => (
+        {groups.map(({ group, pages }) => (
+          <div key={group} className="menu-category">
+            <div className="category-title">{GROUP_TITLES[group].key ? t(GROUP_TITLES[group].key) : GROUP_TITLES[group].text}</div>
+            {pages.map((page) => (
               <a
-                key={item.key}
-                data-key={item.key}
-                className={`menu-item ${activeKey === item.key ? 'active' : ''}`}
-                onClick={() => handleMenuItemClick(item.key, item.route)}
-                href={`#${item.route}`}
+                key={page.route}
+                data-key={page.route}
+                className={`menu-item ${activeKey === page.route ? 'active' : ''}`}
+                href={`#${page.route}`}
               >
-                <span className="icon">{item.icon}</span>
-                <span className="label">{item.label}</span>
+                <span className="icon">{page.icon}</span>
+                <span className="label">{page.labelKey ? t(page.labelKey) : page.label}</span>
               </a>
             ))}
           </div>

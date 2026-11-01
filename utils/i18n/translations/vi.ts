@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Đã xóa bản sao lưu từ vựng khỏi Drive",
   "drive_backup_running": "Đang sao lưu...",
   "drive_vocab_load_failed": "Không tải được bản sao lưu từ vựng.",
+  "sidepanel_open_settings": "Cài đặt",
+  "sidebar_category_content": "Nội dung",
   "backup_section": "Sao lưu",
   "backup_desc": "Sao lưu dữ liệu cuộc họp lên Google Drive",
   "backup_button": "Sao lưu ngay",

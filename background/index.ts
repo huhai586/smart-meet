@@ -10,6 +10,7 @@ import { initMeetingReminders } from "./meeting-reminders";
 
 import { migrateToAppConfig, cleanupLegacyFlatKeys } from "../utils/appConfig";
 import { FeedbackSource, getFeedbackUrl } from "../utils/feedback";
+import { OptionsRoute, openOptions } from "../utils/options-routes";
 
 /**
  * 背景页入口文件
@@ -31,9 +32,7 @@ chrome.runtime.onInstalled.addListener(async (details) => {
 
         // 首次安装时打开欢迎页面
         // 由于Plasmo的限制，我们使用options页面并导航到欢迎部分
-        chrome.tabs.create({
-            url: chrome.runtime.getURL('options.html#welcome')
-        });
+        openOptions(OptionsRoute.WELCOME);
         console.log('首次安装，打开欢迎页面');
     } else if (details.reason === 'update') {
         // 更新时的处理逻辑（可选）

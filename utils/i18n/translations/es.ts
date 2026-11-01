@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Copia del vocabulario eliminada de Drive",
   "drive_backup_running": "Haciendo copia...",
   "drive_vocab_load_failed": "No se pudo cargar la copia del vocabulario.",
+  "sidepanel_open_settings": "Ajustes",
+  "sidebar_category_content": "Contenido",
   "backup_section": "Copia de seguridad",
   "backup_desc": "Haga una copia de seguridad de sus datos de reuniones en Google Drive",
   "backup_button": "Hacer copia ahora",

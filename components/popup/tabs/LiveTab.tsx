@@ -13,6 +13,7 @@ import { getConfigValue } from "~/utils/appConfig"
 import { getLanguageByCode } from "~/utils/languages"
 import openSidePanel from "~utils/open-side-panel"
 import useI18n from "~/utils/i18n"
+import { OptionsRoute, openOptions } from "~/utils/options-routes"
 import type { LiveState } from "../types"
 
 const LiveTab: React.FC = () => {
@@ -133,8 +134,7 @@ const LiveTab: React.FC = () => {
 
       <p className="ph-live__hint">
         <span onClick={() => {
-          const url = chrome.runtime.getURL("options.html") + "#translation"
-          chrome.tabs.create({ url })
+          openOptions(OptionsRoute.TRANSLATION)
           window.close()
         }}>
           {t('live_hint')}

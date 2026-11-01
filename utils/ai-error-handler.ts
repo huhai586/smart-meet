@@ -1,6 +1,7 @@
 import { Modal } from 'antd';
 import { getTranslation } from './i18n';
 import { getCurrentUILanguage } from '../hooks/useUILanguage';
+import { OptionsRoute } from './options-routes';
 
 /**
  * AI错误处理器
@@ -82,7 +83,7 @@ class AIErrorHandler {
             cancelText,
             onOk: () => {
                 // 打开Options页面
-                chrome.runtime.openOptionsPage();
+                chrome.runtime.sendMessage({ action: 'openOptionsPage', route: OptionsRoute.AI_TRANSLATION });
                 this.isModalShowing = false;
             },
             onCancel: () => {

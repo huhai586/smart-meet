@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Drive から単語帳のバックアップを削除しました",
   "drive_backup_running": "バックアップ中…",
   "drive_vocab_load_failed": "単語帳のバックアップを読み込めませんでした。",
+  "sidepanel_open_settings": "設定",
+  "sidebar_category_content": "コンテンツ",
   "backup_section": "バックアップ",
   "backup_desc": "ミーティングデータをGoogle Driveにバックアップする",
   "backup_button": "今すぐバックアップ",

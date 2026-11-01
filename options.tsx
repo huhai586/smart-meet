@@ -1,4 +1,4 @@
-import {useState, useEffect, useRef} from "react";
+import {Suspense, useState, useEffect, useRef} from "react";
 import './styles/options.scss';
 import './styles/sidebar.scss';
 import './styles/theme-vars.scss';
@@ -6,20 +6,10 @@ import { message, ConfigProvider, theme } from "antd";
 import './utils/dayjs-config'; // Import global dayjs configuration
 import { setDayjsLocale } from './utils/dayjs-config';
 import { useDarkMode } from '~/hooks/useDarkMode';
-import GoogleDriveIntegration from '~components/options/GoogleDriveIntegration';
 import Sidebar from '~components/options/Sidebar';
 import OptionsHeader from '~components/options/OptionsHeader';
-import General from '~components/options/tabs/General';
-import InterfaceAppearance from '~components/options/tabs/InterfaceAppearance';
-import AIAndTranslation from '~components/options/tabs/AIAndTranslation';
-import HistoryRecords from '~components/options/tabs/HistoryRecords';
-import CalendarSync from '~components/options/tabs/CalendarSync';
-import DeveloperPanel from '~components/options/tabs/DeveloperPanel';
+import { OPTIONS_PAGES, findPage, isPageRoute } from '~components/options/pages';
 import Welcome from '~pages/welcome';
-import TranslationSettings from '~components/options/TranslationSettings';
-import OtherSettings from '~components/options/tabs/OtherSettings';
-import Vocabulary from '~components/options/vocabulary/Vocabulary';
-import DataTransfer from '~components/options/data/DataTransfer';
 import { OptionsRoute } from '~utils/options-routes';
 import useI18n from './utils/i18n';
 import { GoogleAuthProvider } from './contexts/GoogleAuthContext';
@@ -29,45 +19,15 @@ import { getAllAIServiceConfigs } from './utils/getAI';
 // 添加调试信息
 console.log('Options page loaded, GoogleAuthProvider imported:', !!GoogleAuthProvider);
 
-// 路由映射表 - 将路由路径映射到对应的标签页key
-const ROUTE_MAPPING: Record<string, string> = {
-  'general': '1',
-  'interface': '2',
-  'ai-translation': '3',
-  'history': '4',
-  'cloud-sync': '5',
-  'calendar': 'calendar',
-  'translation': 'translation',
-  [OptionsRoute.VOCABULARY]: 'vocabulary',
-  [OptionsRoute.DATA_TRANSFER]: 'data-transfer',
-  'other': 'other',
-  'welcome': 'welcome',
-  'developer': 'dev',
-};
-
-// 反向映射表 - 将标签页key映射到对应的路由路径
-const KEY_TO_ROUTE: Record<string, string> = {
-  '1': 'general',
-  '2': 'interface',
-  '3': 'ai-translation',
-  '4': 'history',
-  '5': 'cloud-sync',
-  'calendar': 'calendar',
-  'translation': 'translation',
-  'vocabulary': OptionsRoute.VOCABULARY,
-  'data-transfer': OptionsRoute.DATA_TRANSFER,
-  'other': 'other',
-  'welcome': 'welcome',
-  'dev': 'developer',
+/** The route in the URL hash; a hash that is not a page (and not the welcome page) opens the first page. */
+const routeFromHash = (): string => {
+  const hash = window.location.hash.substring(1);
+  return hash === OptionsRoute.WELCOME || isPageRoute(hash) ? hash : OPTIONS_PAGES[0].route;
 };
 
 const Options = () => {
-    // 默认使用URL哈希中的标签页key，如果没有则使用'1'
-    const [activeKey, setActiveKey] = useState(() => {
-      // 从URL哈希中获取路由路径
-      const hash = window.location.hash.substring(1); // 移除#号
-      return ROUTE_MAPPING[hash] || '1'; // 返回对应的key，如果没有则使用默认值'1'
-    });
+    // The page is the hash; the sidebar links only change the hash
+    const [activeRoute, setActiveRoute] = useState(routeFromHash);
     const { t: _t, langCode } = useI18n();
     const { isDark } = useDarkMode();
     const [_messageApi, _contextHolder] = message.useMessage();
@@ -75,7 +35,7 @@ const Options = () => {
         // Use URL hash as an optimistic hint so the Developer tab renders immediately
         // on page reload without waiting for the async storage read.
         const hash = window.location.hash.substring(1);
-        return hash === 'developer';
+        return hash === OptionsRoute.DEVELOPER;
     });
 
     // Confirm (and correct if needed) from local storage
@@ -136,30 +96,14 @@ const Options = () => {
         };
     }, []);
 
-    // 处理标签切换
     const contentAreaRef = useRef<HTMLDivElement>(null);
 
-    const handleTabChange = (key: string) => {
-      setActiveKey(key);
-      // 更新URL哈希
-      const route = KEY_TO_ROUTE[key] || 'ai-settings';
-      window.location.hash = route;
-      // 滚动到顶部
-      if (contentAreaRef.current) {
-        contentAreaRef.current.scrollTop = 0;
-      }
-    };
-
-    // 监听URL哈希变化
+    // Follow the hash, whoever changes it: the sidebar, another extension page moving this tab, the back button
     useEffect(() => {
       const handleHashChange = () => {
-        const hash = window.location.hash.substring(1);
-        const newKey = ROUTE_MAPPING[hash] || '1';
-        if (newKey !== activeKey) {
-          setActiveKey(newKey);
-          if (contentAreaRef.current) {
-            contentAreaRef.current.scrollTop = 0;
-          }
+        setActiveRoute(routeFromHash());
+        if (contentAreaRef.current) {
+          contentAreaRef.current.scrollTop = 0;
         }
       };
 
@@ -167,12 +111,12 @@ const Options = () => {
       return () => {
         window.removeEventListener('hashchange', handleHashChange);
       };
-    }, [activeKey]);
+    }, []);
 
     // 初始加载时设置URL哈希（如果没有的话）
     useEffect(() => {
       if (!window.location.hash) {
-        window.location.hash = 'general';
+        window.location.hash = OptionsRoute.GENERAL;
       }
     }, []);
 
@@ -182,38 +126,16 @@ const Options = () => {
     }, []);
 
     const renderContent = () => {
-        switch (activeKey) {
-            case '1':
-                return <General />;
-            case '2':
-                return <InterfaceAppearance />;
-            case '3':
-                return <AIAndTranslation />;
-            case '4':
-                return <HistoryRecords />;
-            case '5':
-                return <GoogleDriveIntegration />;
-            case 'calendar':
-                return <CalendarSync />;
-            case 'translation':
-                return <TranslationSettings />;
-            case 'vocabulary':
-                return <Vocabulary />;
-            case 'data-transfer':
-                return <DataTransfer />;
-            case 'other':
-                return <OtherSettings />;
-            case 'dev':
-                return <DeveloperPanel />;
-            case 'welcome':
-                return <Welcome />;
-            default:
-                return <General />;
-        }
+        const Page = findPage(activeRoute).component;
+        return (
+            <Suspense fallback={null}>
+                <Page />
+            </Suspense>
+        );
     };
 
     // 如果是welcome页面，直接返回Welcome组件，不显示侧边栏
-    if (activeKey === 'welcome') {
+    if (activeRoute === OptionsRoute.WELCOME) {
         return (
             <ConfigProvider theme={{ algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm }}>
                 <GoogleAuthProvider>
@@ -228,11 +150,10 @@ const Options = () => {
         <GoogleAuthProvider>
             <div className="options-wrapper">
                 <div className="options-card">
-                    <OptionsHeader onNavigate={handleTabChange} />
+                    <OptionsHeader />
                     <div className="options-container">
                         <Sidebar
-                          activeKey={activeKey}
-                          onChange={handleTabChange}
+                          activeKey={activeRoute}
                           devMode={devMode}
                           onDevUnlock={handleDevUnlock}
                         />

@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Drive से शब्दावली बैकअप हटा दिया गया",
   "drive_backup_running": "बैकअप हो रहा है...",
   "drive_vocab_load_failed": "शब्दावली बैकअप लोड नहीं हो सका।",
+  "sidepanel_open_settings": "सेटिंग्स",
+  "sidebar_category_content": "सामग्री",
   "backup_section": "बैकअप",
   "backup_desc": "मीटिंग डेटा को Google ड्राइव पर बैकअप करें",
   "backup_button": "अभी बैकअप करें",

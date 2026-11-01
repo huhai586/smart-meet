@@ -13,6 +13,7 @@ import {
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
 import { getConfigValue, setConfigValue } from '~/utils/appConfig';
+import { OptionsRoute, openOptions } from '~/utils/options-routes';
 import UILanguageSelector from '~/components/options/UILanguageSelector';
 import { sendBackgroundMessage } from '~/background/message-center';
 
@@ -305,7 +306,7 @@ const General: React.FC = () => {
         <SettingRow
           $last
           $clickable
-          onClick={() => chrome.tabs.create({ url: chrome.runtime.getURL('options.html#welcome') })}
+          onClick={() => openOptions(OptionsRoute.WELCOME)}
         >
           <IconSquircle $color="#007AFF">
             <QuestionCircleOutlined />

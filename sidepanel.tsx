@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ConfigProvider, message, Tabs, theme } from "antd";
 import {
     BookOutlined,
+    SettingOutlined,
 } from '@ant-design/icons';
 import './utils/dayjs-config'; // Import global dayjs configuration
 import { useDarkMode } from './hooks/useDarkMode';
@@ -21,6 +22,7 @@ import { getAllAIServiceConfigs } from './utils/getAI';
 import googleAITools from './utils/google-AI';
 import { getConfigValue, setConfigValue, onConfigChanged } from './utils/appConfig';
 import dayjs from 'dayjs';
+import { OptionsRoute, openOptions } from './utils/options-routes';
 
 import './styles/sidepanel.scss';
 import './styles/theme-vars.scss';
@@ -51,6 +53,14 @@ interface CustomErrorEvent extends Event {
 }
 
 const SIDEPANEL_ACCENT = { light: '#1a73e8', dark: '#5b9cf5' };
+
+/** Where the settings button leads from each tab: the page that holds what that tab is about. */
+const SETTINGS_ROUTE_FOR_TAB: Record<string, OptionsRoute> = {
+    captions: OptionsRoute.TRANSLATION,
+    summary: OptionsRoute.AI_TRANSLATION,
+    words: OptionsRoute.VOCABULARY,
+    longman: OptionsRoute.INTERFACE,
+};
 
 const SidePanel = () => {
     const { isDark } = useDarkMode();
@@ -290,7 +300,20 @@ const SidePanel = () => {
                     items={items}
                     onChange={onTabClick}
                     activeKey={current}
-                    tabBarExtraContent={<GlobalDatePicker />}
+                    tabBarExtraContent={
+                        <div className="sp-bar-extra">
+                            <GlobalDatePicker />
+                            <button
+                                type="button"
+                                className="sp-settings-btn"
+                                onClick={() => openOptions(SETTINGS_ROUTE_FOR_TAB[current] ?? OptionsRoute.GENERAL)}
+                                title={t('sidepanel_open_settings')}
+                                aria-label={t('sidepanel_open_settings')}
+                            >
+                                <SettingOutlined />
+                            </button>
+                        </div>
+                    }
                 />
             </div>
         </DateProvider>

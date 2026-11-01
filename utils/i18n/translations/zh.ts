@@ -84,6 +84,8 @@ export default {
   "drive_vocab_deleted": "已从 Drive 删除词汇备份",
   "drive_backup_running": "备份中…",
   "drive_vocab_load_failed": "无法加载词汇备份。",
+  "sidepanel_open_settings": "设置",
+  "sidebar_category_content": "内容",
   "backup_section": "备份到本地",
   "backup_desc": "将您当天的会议数据备份到本地存储",
   "backup_button": "立即备份",

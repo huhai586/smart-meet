@@ -3,6 +3,7 @@ import dayjs, { Dayjs } from "dayjs";
 import { StorageFactory } from "~background/data-persistence/storage-factory";
 import { handleSyncRequest } from './sync-manager';
 import { broadcastLanguageChange } from './utils/language-utils';
+import { openOptions } from '../utils/options-routes';
 
 import type { Transcript } from "../hooks/useTranscripts";
 import type { StorageProvider } from './data-persistence/types';
@@ -193,7 +194,7 @@ export class BackgroundMessageHandler {
                     break;
 
                 case 'openOptionsPage':
-                    chrome.tabs.create({ url: `${chrome.runtime.getURL('options.html')}#${message.route}` });
+                    openOptions(message.route);
                     sendResponse({ success: true });
                     break;
 

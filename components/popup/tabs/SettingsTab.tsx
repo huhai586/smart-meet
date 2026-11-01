@@ -9,14 +9,14 @@ import {
   ExportOutlined,
 } from "@ant-design/icons"
 import useI18n from "~/utils/i18n"
+import { OptionsRoute, openOptions } from "~/utils/options-routes"
 import { getConfigValue } from "~/utils/appConfig"
 import { getAllAIServiceConfigs } from "~/utils/getAI"
 import GoogleCalendarService from "~/utils/google-calendar-service"
 import { StorageFactory } from "~/background/data-persistence/storage-factory"
 
 const openOptionsAt = (route: string) => {
-  const url = chrome.runtime.getURL("options.html") + "#" + route
-  chrome.tabs.create({ url })
+  openOptions(route)
   window.close()
 }
 
@@ -117,7 +117,7 @@ const SettingsTab: React.FC = () => {
       value: state.aiModel
         ? `${state.aiProvider} · ${state.aiModel}`
         : state.aiProvider || "—",
-      route: "ai-translation",
+      route: OptionsRoute.AI_TRANSLATION,
       badge: null,
     },
     {
@@ -125,7 +125,7 @@ const SettingsTab: React.FC = () => {
       iconBg: "#34C759",
       label: t("tab_translation"),
       value: state.translationProvider || "—",
-      route: "translation",
+      route: OptionsRoute.TRANSLATION,
       badge: null,
     },
     {
@@ -133,7 +133,7 @@ const SettingsTab: React.FC = () => {
       iconBg: "#FF3B30",
       label: t("tab_calendar"),
       value: "",
-      route: "calendar",
+      route: OptionsRoute.CALENDAR,
       badge: state.calendarConnected,
     },
     {
@@ -141,7 +141,7 @@ const SettingsTab: React.FC = () => {
       iconBg: "#4285F4",
       label: t("tab_google_drive"),
       value: "",
-      route: "cloud-sync",
+      route: OptionsRoute.CLOUD_SYNC,
       badge: state.driveConnected,
     },
     {
@@ -151,7 +151,7 @@ const SettingsTab: React.FC = () => {
       value: state.localDataDays > 0
         ? (t("settings_local_days")?.replace("{n}", String(state.localDataDays)) || `${state.localDataDays} days`)
         : "—",
-      route: "history",
+      route: OptionsRoute.HISTORY,
       badge: null,
     },
   ]
@@ -192,7 +192,7 @@ const SettingsTab: React.FC = () => {
 
       <button
         className="ph-settings__open-full"
-        onClick={() => openOptionsAt("general")}
+        onClick={() => openOptionsAt(OptionsRoute.GENERAL)}
       >
         <span>{t("settings_open_full") || "Open Full Settings"}</span>
         <ExportOutlined />

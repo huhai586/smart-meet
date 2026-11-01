@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "ลบการสำรองคำศัพท์จาก Drive แล้ว",
   "drive_backup_running": "กำลังสำรองข้อมูล...",
   "drive_vocab_load_failed": "โหลดการสำรองคำศัพท์ไม่สำเร็จ",
+  "sidepanel_open_settings": "การตั้งค่า",
+  "sidebar_category_content": "เนื้อหา",
   "backup_section": "สำรองข้อมูล",
   "backup_desc": "สำรองข้อมูลการประชุมไปยัง Google Drive",
   "backup_button": "สำรองข้อมูลตอนนี้",

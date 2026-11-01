@@ -15,7 +15,7 @@ import { clearVocab, removeVocabWord } from "~utils/vocab";
 import { sortForDisplay } from "~utils/vocab-core";
 import { toAnkiText, toCsv } from "~utils/vocab-export";
 import { createTextFile, downloadFile } from "~utils/file-utils";
-import { OptionsRoute, optionsUrl } from "~utils/options-routes";
+import { OptionsRoute, openOptions } from "~utils/options-routes";
 import useVocab from "~hooks/useVocab";
 import VocabItem from './VocabItem';
 import WordDetailModal from './WordDetailModal';
@@ -69,7 +69,7 @@ const Words = (_props: {currentTab: string}) => {
                         <button
                             type="button"
                             className="vocab-bar__link"
-                            onClick={() => chrome.tabs.create({ url: optionsUrl(OptionsRoute.VOCABULARY) })}
+                            onClick={() => openOptions(OptionsRoute.VOCABULARY)}
                         >
                             {t('vocab_open_page')} <ExportOutlined />
                         </button>

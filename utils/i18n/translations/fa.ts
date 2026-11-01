@@ -79,6 +79,8 @@ export default {
   "drive_vocab_deleted": "پشتیبان واژگان از Drive حذف شد",
   "drive_backup_running": "در حال پشتیبان‌گیری...",
   "drive_vocab_load_failed": "بارگذاری پشتیبان واژگان انجام نشد.",
+  "sidepanel_open_settings": "تنظیمات",
+  "sidebar_category_content": "محتوا",
   "backup_section": "پشتیبان‌گیری محلی",
   "backup_desc": "پشتیبان‌گیری از داده‌های جلسه روز جاری در فضای ذخیره‌سازی محلی",
   "backup_button": "پشتیبان‌گیری اکنون",

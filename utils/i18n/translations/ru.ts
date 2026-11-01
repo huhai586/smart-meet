@@ -54,6 +54,8 @@ export default {
   "drive_vocab_deleted": "Резервная копия словаря удалена с Drive",
   "drive_backup_running": "Резервное копирование...",
   "drive_vocab_load_failed": "Не удалось загрузить резервную копию словаря.",
+  "sidepanel_open_settings": "Настройки",
+  "sidebar_category_content": "Содержимое",
   "backup_section": "Резервное копирование",
   "backup_desc": "Создать резервную копию данных встречи в Google Drive",
   "backup_button": "Создать резервную копию сейчас",
