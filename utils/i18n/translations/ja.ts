@@ -40,7 +40,7 @@ export default {
   "no_api_key": "Gemini APIキーをお持ちでないですか？",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "キャプションデータをGoogleドライブにバックアップおよび復元します",
+  "google_drive_integration_desc": "会議記録と単語をバックアップして復元します",
   "google_account_chrome_hint": "Chrome にログインしている Google アカウントを使用します。別のアカウントを使うには、先に Chrome で切り替えてください。",
   "drive_tab_records": "会議記録",
   "drive_tab_vocabulary": "単語帳",

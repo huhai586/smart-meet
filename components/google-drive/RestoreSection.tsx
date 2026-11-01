@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { Dropdown, Spin, Upload } from 'antd';
 import {
-  CloudSyncOutlined,
   SyncOutlined,
   UploadOutlined,
   EllipsisOutlined,
@@ -24,8 +23,6 @@ interface RestoreSectionProps {
   onDownload: (fileId: string, fileName: string) => void;
   onRefresh: () => void;
   onUpload: (file: File) => Promise<boolean>;
-  onBackup: () => void;
-  backingUp: boolean;
 }
 
 /* ── Styled Components ── */
@@ -57,32 +54,6 @@ const ToolbarActions = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
-`;
-
-const BackupBtn = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  height: 28px;
-  padding: 0 12px;
-  border: none;
-  border-radius: 14px;
-  background: rgba(0, 122, 255, 0.1);
-  font-size: 12.5px;
-  font-weight: 600;
-  font-family: inherit;
-  color: #007AFF;
-  cursor: pointer;
-  transition: background 0.12s ease;
-
-  &:hover {
-    background: rgba(0, 122, 255, 0.18);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
 `;
 
 const IconBtn = styled.button<{ $spinning?: boolean }>`
@@ -125,8 +96,6 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
   onDownload,
   onRefresh,
   onUpload,
-  onBackup,
-  backingUp,
 }) => {
   const { t } = useI18n();
 
@@ -145,12 +114,6 @@ const RestoreSection: React.FC<RestoreSectionProps> = ({
       <ToolbarRow>
         <ToolbarTitle>{t('restore_files')}</ToolbarTitle>
         <ToolbarActions>
-          {/* Back up now */}
-          <BackupBtn type="button" onClick={onBackup} disabled={backingUp}>
-            <CloudSyncOutlined spin={backingUp} />
-            {backingUp ? t('drive_backup_running') : t('backup_to_drive')}
-          </BackupBtn>
-
           {/* Refresh */}
           <IconBtn onClick={onRefresh} disabled={loading} title={t('refresh')}>
             <SyncOutlined spin={loading} />

@@ -40,7 +40,7 @@ export default {
   "no_api_key": "Haben Sie keinen Gemini API-Schlüssel?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "Sichern und Wiederherstellen Ihrer Untertiteldaten in Google Drive",
+  "google_drive_integration_desc": "Meeting-Protokolle und Vokabeln sichern und wiederherstellen",
   "google_account_chrome_hint": "Verwendet das in Chrome angemeldete Google-Konto. Um ein anderes Konto zu nutzen, wechseln Sie es zuerst in Chrome.",
   "drive_tab_records": "Besprechungsprotokolle",
   "drive_tab_vocabulary": "Vokabeln",

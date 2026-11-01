@@ -1,0 +1,37 @@
+// The Drive page's one action, in the toolbar: a tinted pill that fills in on hover.
+.drive-backup {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #1a73e8;
+  background: rgba(26, 115, 232, 0.1);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    color: #fff;
+    background: #1a73e8;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+}
+
+:root.dark-mode .drive-backup {
+  color: #4da3ff;
+  background: rgba(77, 163, 255, 0.16);
+
+  &:hover:not(:disabled) {
+    color: #fff;
+    background: #2f7fd6;
+  }
+}

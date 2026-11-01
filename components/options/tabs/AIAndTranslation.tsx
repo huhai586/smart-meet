@@ -68,7 +68,7 @@ const TabPane = styled.div`
 
 // The model list and its settings: one rounded card, not two loose panels
 const ModelsCard = styled(TabPane)`
-  height: calc(100vh - 300px);
+  height: calc(100vh - 320px);
   min-height: 480px;
   max-height: 760px;
   border-radius: 14px;

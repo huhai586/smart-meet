@@ -86,7 +86,7 @@ export default {
   "proxy_url_hint": "If Google services are unavailable in your region, you can configure a proxy URL to access the Gemini API",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "Backup and restore your caption data to Google Drive",
+  "google_drive_integration_desc": "Back up and restore your meeting records and vocabulary",
   "google_account_chrome_hint": "Uses the Google account signed in to Chrome. To use another account, switch it in Chrome first.",
   "drive_tab_records": "Meeting records",
   "drive_tab_vocabulary": "Vocabulary",

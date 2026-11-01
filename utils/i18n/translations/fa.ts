@@ -65,7 +65,7 @@ export default {
   "proxy_url_hint": "اگر سرویس‌های Google در منطقه شما در دسترس نیستند، می‌توانید یک آدرس پروکسی برای دسترسی به Gemini API پیکربندی کنید",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "پشتیبان گیری و بازیابی داده های زیرنویس خود در Google Drive",
+  "google_drive_integration_desc": "از سوابق جلسه و واژگان خود پشتیبان بگیرید و آن‌ها را بازیابی کنید",
   "google_account_chrome_hint": "از حساب Google که در Chrome وارد شده استفاده می‌شود. برای استفاده از حساب دیگر، ابتدا آن را در Chrome عوض کنید.",
   "drive_tab_records": "سوابق جلسه‌ها",
   "drive_tab_vocabulary": "واژگان",

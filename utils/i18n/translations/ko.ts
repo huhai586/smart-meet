@@ -40,7 +40,7 @@ export default {
   "no_api_key": "Gemini API 키가 없으신가요?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "캡션 데이터를 Google 드라이브에 백업 및 복원합니다.",
+  "google_drive_integration_desc": "회의 기록과 단어를 백업하고 복원합니다",
   "google_account_chrome_hint": "Chrome에 로그인된 Google 계정을 사용합니다. 다른 계정을 사용하려면 먼저 Chrome에서 계정을 전환하세요.",
   "drive_tab_records": "회의 기록",
   "drive_tab_vocabulary": "단어장",

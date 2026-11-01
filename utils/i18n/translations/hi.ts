@@ -40,7 +40,7 @@ export default {
   "no_api_key": "Gemini API कुंजी नहीं है?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "Google ड्राइव पर अपने कैप्शन डेटा का बैकअप और पुनर्स्थापना करें",
+  "google_drive_integration_desc": "अपने मीटिंग रिकॉर्ड और शब्दावली का बैकअप लें और उन्हें पुनर्स्थापित करें",
   "google_account_chrome_hint": "यह Chrome में साइन इन किए गए Google खाते का उपयोग करता है। दूसरा खाता इस्तेमाल करने के लिए पहले Chrome में उसे बदलें।",
   "drive_tab_records": "मीटिंग रिकॉर्ड",
   "drive_tab_vocabulary": "शब्दावली",

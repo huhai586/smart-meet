@@ -86,7 +86,7 @@ export default {
   "proxy_url_hint": "如果Google服务在您的地区不可用，可以配置代理URL来访问Gemini API",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "将您的字幕数据备份和恢复到Google云端硬盘",
+  "google_drive_integration_desc": "备份和恢复你的会议记录与词汇",
   "google_account_chrome_hint": "使用的是 Chrome 当前登录的 Google 账号。要换账号，请先在 Chrome 里切换。",
   "drive_tab_records": "会议记录",
   "drive_tab_vocabulary": "词汇",

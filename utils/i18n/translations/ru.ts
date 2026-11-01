@@ -40,7 +40,7 @@ export default {
   "no_api_key": "У вас нет ключа API Gemini?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "Резервное копирование и восстановление данных субтитров на Google Диске",
+  "google_drive_integration_desc": "Резервное копирование и восстановление записей встреч и словаря",
   "google_account_chrome_hint": "Используется аккаунт Google, в который выполнен вход в Chrome. Чтобы использовать другой аккаунт, сначала переключите его в Chrome.",
   "drive_tab_records": "Записи встреч",
   "drive_tab_vocabulary": "Словарь",

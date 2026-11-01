@@ -40,7 +40,7 @@ export default {
   "no_api_key": "ليس لديك مفتاح واجهة برمجة تطبيقات Gemini؟",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "نسخ بيانات التسميات التوضيحية احتياطيًا واستعادتها إلى Google Drive",
+  "google_drive_integration_desc": "انسخ احتياطيًا واستعد سجلات اجتماعاتك ومفرداتك",
   "google_account_chrome_hint": "يستخدم حساب Google المسجّل الدخول في Chrome. لاستخدام حساب آخر، بدّله في Chrome أولًا.",
   "drive_tab_records": "سجلات الاجتماعات",
   "drive_tab_vocabulary": "المفردات",

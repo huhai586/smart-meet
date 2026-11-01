@@ -31,7 +31,8 @@ body {
   .content-area {
     flex: 1;
     overflow-y: auto;
-    padding: 32px 40px;
+    // The pages bring their own padding, so their toolbar can run edge to edge
+    padding: 0;
     background: #f7f8fa;  }
 
   .form-container {

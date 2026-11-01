@@ -40,7 +40,7 @@ export default {
   "no_api_key": "¿No tiene una clave API de Gemini?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "Haga una copia de seguridad y restaure los datos de sus subtítulos en Google Drive",
+  "google_drive_integration_desc": "Haz copias de seguridad y restaura tus registros de reuniones y vocabulario",
   "google_account_chrome_hint": "Usa la cuenta de Google con la que has iniciado sesión en Chrome. Para usar otra cuenta, cámbiala primero en Chrome.",
   "drive_tab_records": "Registros de reuniones",
   "drive_tab_vocabulary": "Vocabulario",

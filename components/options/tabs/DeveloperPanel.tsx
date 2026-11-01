@@ -3,53 +3,10 @@ import { Button, Tooltip, Popconfirm } from 'antd';
 import { ReloadOutlined, CopyOutlined, CheckOutlined, ClearOutlined, EditOutlined, CloseOutlined, SyncOutlined } from '@ant-design/icons';
 import styled, { keyframes } from 'styled-components';
 import { cleanupLegacyFlatKeys } from '~/utils/appConfig';
+import PageShell from '~components/options/PageShell';
+import { OptionsRoute } from '~utils/options-routes';
 
 // ─── Styled components ────────────────────────────────────────────────────────
-
-const Wrapper = styled.div`
-  padding: 0 24px 32px;
-  max-width: 900px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-`;
-
-const PageHeader = styled.div`
-  padding: 0 0 20px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-`;
-
-const HeaderLeft = styled.div``;
-
-const PageTitle = styled.h1`
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--opt-text-primary);
-  letter-spacing: -0.5px;
-  margin: 0 0 4px;
-  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #FF9500;
-    box-shadow: 0 0 0 3px rgba(255, 149, 0, 0.25);
-  }
-`;
-
-const PageSubtitle = styled.p`
-  font-size: 13px;
-  color: #8E8E93;
-  margin: 0;
-  line-height: 1.4;
-`;
 
 const SectionLabel = styled.div`
   font-size: 11px;
@@ -549,20 +506,11 @@ const DeveloperPanel: React.FC = () => {
       : null;
 
   return (
-    <Wrapper>
-      <PageHeader>
-        <HeaderLeft>
-          <PageTitle>
-            Developer
-          </PageTitle>
-          <PageSubtitle>
-            Read-only view of chrome.storage.sync — API keys are redacted.
-          </PageSubtitle>
-        </HeaderLeft>
-        {schemaVersion !== null && (
-          <Badge>schema v{String(schemaVersion)}</Badge>
-        )}
-      </PageHeader>
+    <PageShell
+      route={OptionsRoute.DEVELOPER}
+      subtitle="Read-only view of chrome.storage.sync — API keys are redacted."
+      actions={schemaVersion !== null && <Badge>schema v{String(schemaVersion)}</Badge>}
+    >
 
       {/* Stats + cleanup action */}
       {rawConfig && (
@@ -712,7 +660,7 @@ const DeveloperPanel: React.FC = () => {
           </JsonViewport>
         )}
       </Card>
-    </Wrapper>
+    </PageShell>
   );
 };
 

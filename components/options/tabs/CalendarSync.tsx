@@ -166,6 +166,20 @@ const CalendarSync: React.FC = () => {
     );
   }
 
+  const syncActions = (
+    <>
+      {lastSync && (
+        <span className="cs-muted">
+          {t('calendar_last_sync').replace('{time}', new Date(lastSync).toLocaleString(undefined, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }))}
+        </span>
+      )}
+      <button className="cs-pill" onClick={manualSync} disabled={syncing}>
+        {syncing ? <LoadingOutlined spin /> : <SyncOutlined />}
+        {syncing ? t('calendar_syncing') : t('calendar_sync_now')}
+      </button>
+    </>
+  );
+
   const settingRows: { key: string; color: string; icon: React.ReactNode; label: string; control: React.ReactNode }[] = [
     {
       key: 'auto-sync', color: '#007AFF', icon: <SyncOutlined />, label: t('calendar_auto_sync'),
@@ -208,23 +222,12 @@ const CalendarSync: React.FC = () => {
   ];
 
   return (
-    <PageShell route={OptionsRoute.CALENDAR} subtitle={t('calendar_page_desc')} width={PageWidth.WIDE}>
+    <PageShell route={OptionsRoute.CALENDAR} subtitle={t('calendar_page_desc')} width={PageWidth.WIDE} actions={syncActions}>
       <div className="calendar-sync-page">
         <div className="cs-layout">
           <section className="cs-meetings">
             <div className="cs-section-head">
               <h2>{t('calendar_upcoming_meetings')}</h2>
-              <div className="cs-section-actions">
-                {lastSync && (
-                  <span className="cs-muted">
-                    {t('calendar_last_sync').replace('{time}', new Date(lastSync).toLocaleString(undefined, { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }))}
-                  </span>
-                )}
-                <button className="cs-pill" onClick={manualSync} disabled={syncing}>
-                  {syncing ? <LoadingOutlined spin /> : <SyncOutlined />}
-                  {syncing ? t('calendar_syncing') : t('calendar_sync_now')}
-                </button>
-              </div>
             </div>
 
             {syncStatus === 'error' && (

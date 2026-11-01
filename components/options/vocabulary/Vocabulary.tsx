@@ -82,7 +82,20 @@ const Vocabulary: React.FC = () => {
   ];
 
   return (
-    <PageShell route={OptionsRoute.VOCABULARY} subtitle={t('vocab_page_subtitle')} width={PageWidth.WIDE}>
+    <PageShell
+      route={OptionsRoute.VOCABULARY}
+      subtitle={t('vocab_page_subtitle')}
+      width={PageWidth.WIDE}
+      actions={
+        entries.length > 0 && (
+          <Dropdown menu={{ items: exportItems }} trigger={['click']} placement="bottomRight">
+            <button type="button" className="vocab-toolbar__export">
+              <DownloadOutlined /> {t('vocab_export')}
+            </button>
+          </Dropdown>
+        )
+      }
+    >
 
       {entries.length === 0 ? (
         <div className="vocab-page__empty">
@@ -152,11 +165,6 @@ const Vocabulary: React.FC = () => {
                 ]}
               />
             )}
-            <Dropdown menu={{ items: exportItems }} trigger={['click']} placement="bottomRight">
-              <button type="button" className="vocab-toolbar__export">
-                <DownloadOutlined /> {t('vocab_export')}
-              </button>
-            </Dropdown>
           </div>
 
           {visible.length === 0 ? (

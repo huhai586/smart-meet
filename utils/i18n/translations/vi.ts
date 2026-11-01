@@ -40,7 +40,7 @@ export default {
   "no_api_key": "Không có khóa Gemini API?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "Sao lưu và khôi phục dữ liệu phụ đề của bạn vào Google Drive",
+  "google_drive_integration_desc": "Sao lưu và khôi phục hồ sơ cuộc họp và từ vựng của bạn",
   "google_account_chrome_hint": "Dùng tài khoản Google đang đăng nhập trong Chrome. Để dùng tài khoản khác, hãy chuyển tài khoản trong Chrome trước.",
   "drive_tab_records": "Biên bản cuộc họp",
   "drive_tab_vocabulary": "Từ vựng",

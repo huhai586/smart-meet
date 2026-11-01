@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Segmented } from 'antd';
+import { CloudSyncOutlined } from '@ant-design/icons';
 import BackupSection from './BackupSection';
 import RestoreSection from './RestoreSection';
 import VocabularyBackup from './VocabularyBackup';
@@ -13,6 +14,7 @@ import PageShell from '~components/options/PageShell';
 import { OptionsRoute } from '~utils/options-routes';
 import { useGoogleAuth } from '~contexts/GoogleAuthContext';
 import useI18n from "~utils/i18n"
+import './drive-toolbar.scss'
 
 /**
  * Google Drive集成主组件
@@ -117,8 +119,6 @@ const GoogleDriveIntegration: React.FC = () => {
                 onDownload={handleDownload}
                 onRefresh={loadBackupFolder}
                 onUpload={handleUpload}
-                onBackup={handleSync}
-                backingUp={syncing}
               />
             </>
           ) : (
@@ -139,7 +139,18 @@ const GoogleDriveIntegration: React.FC = () => {
   };
 
   return (
-    <PageShell route={OptionsRoute.CLOUD_SYNC} subtitle={t('google_drive_integration_desc')}>
+    <PageShell
+      route={OptionsRoute.CLOUD_SYNC}
+      subtitle={t('google_drive_integration_desc')}
+      actions={
+        isAuthenticated && tab === DriveTab.RECORDS && (
+          <button type="button" className="drive-backup" onClick={handleSync} disabled={syncing}>
+            <CloudSyncOutlined spin={syncing} />
+            {syncing ? t('drive_backup_running') : t('backup_to_drive')}
+          </button>
+        )
+      }
+    >
       {renderContent()}
     </PageShell>
   );

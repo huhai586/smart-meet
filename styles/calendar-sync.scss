@@ -1,12 +1,83 @@
 // The Google Calendar settings page: the synced meetings beside the sync and reminder settings.
 // Colours come from the --opt-* tokens, so it follows light and dark mode.
 
-.calendar-sync-page {
+// The tokens and the pill are shared with the toolbar, which sits outside the page
+:root {
   --cs-accent: #1a73e8;
   --cs-accent-bg: rgba(26, 115, 232, 0.1);
   --cs-accent-bg-hover: #1a73e8;
   --cs-live: #16a34a;
   --cs-live-bg: rgba(22, 163, 74, 0.12);
+}
+
+:root.dark-mode {
+  --cs-accent: #4da3ff;
+  --cs-accent-bg: rgba(77, 163, 255, 0.16);
+  --cs-accent-bg-hover: #2f7fd6;
+  --cs-live: #4ade80;
+  --cs-live-bg: rgba(74, 222, 128, 0.14);
+}
+
+.cs-muted {
+  font-size: 12px;
+  color: var(--opt-text-secondary);
+}
+
+// ── Pills: the one button shape on this page ────────────────────────────────
+.cs-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex: none;
+  height: 28px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+  color: var(--opt-text-primary);
+  background: var(--opt-segment-bg);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+  .anticon {
+    font-size: 13px;
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+    box-shadow: none;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: default;
+  }
+
+  // Join: tinted blue that fills in on hover
+  &--accent {
+    color: var(--cs-accent);
+    background: var(--cs-accent-bg);
+
+    &:hover:not(:disabled) {
+      color: #fff;
+      background: var(--cs-accent-bg-hover);
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
+    }
+  }
+}
+
+
+.calendar-sync-page {
 
 
   .cs-loading {
@@ -55,69 +126,11 @@
     gap: 12px;
   }
 
-  .cs-muted {
-    font-size: 12px;
-    color: var(--opt-text-secondary);
-  }
-
   .cs-card {
     border-radius: 14px;
     background: var(--opt-bg-card);
     border: 0.5px solid var(--opt-border-subtle);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  }
-
-  // ── Pills: the one button shape on this page ────────────────────────────────
-  .cs-pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    flex: none;
-    height: 28px;
-    padding: 0 12px;
-    border: none;
-    border-radius: 14px;
-    font-family: inherit;
-    font-size: 12.5px;
-    font-weight: 600;
-    white-space: nowrap;
-    text-decoration: none;
-    color: var(--opt-text-primary);
-    background: var(--opt-segment-bg);
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-
-    .anticon {
-      font-size: 13px;
-    }
-
-    &:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    &:active:not(:disabled) {
-      transform: scale(0.97);
-      box-shadow: none;
-    }
-
-    &:disabled {
-      opacity: 0.55;
-      cursor: default;
-    }
-
-    // Join: tinted blue that fills in on hover
-    &--accent {
-      color: var(--cs-accent);
-      background: var(--cs-accent-bg);
-
-      &:hover:not(:disabled) {
-        color: #fff;
-        background: var(--cs-accent-bg-hover);
-        box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3);
-      }
-    }
   }
 
   .cs-error {
@@ -386,16 +399,9 @@
   }
 }
 
-:root.dark-mode .calendar-sync-page {
-  --cs-accent: #4da3ff;
-  --cs-accent-bg: rgba(77, 163, 255, 0.16);
-  --cs-accent-bg-hover: #2f7fd6;
-  --cs-live: #4ade80;
-  --cs-live-bg: rgba(74, 222, 128, 0.14);
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .calendar-sync-page .cs-pill {
+  .cs-pill {
     transition: none;
 
     &:hover:not(:disabled) {

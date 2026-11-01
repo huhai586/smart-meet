@@ -40,7 +40,7 @@ export default {
   "no_api_key": "Não tem uma chave de API Gemini?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "Faça backup e restaure os dados de suas legendas no Google Drive",
+  "google_drive_integration_desc": "Faça backup e restaure os seus registos de reuniões e o vocabulário",
   "google_account_chrome_hint": "Usa a conta do Google conectada ao Chrome. Para usar outra conta, troque-a primeiro no Chrome.",
   "drive_tab_records": "Registros de reuniões",
   "drive_tab_vocabulary": "Vocabulário",

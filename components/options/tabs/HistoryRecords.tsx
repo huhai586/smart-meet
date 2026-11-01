@@ -28,7 +28,6 @@ type Tab = 'history' | 'chat';
 const Toolbar = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
   margin-bottom: 16px;
 `;
@@ -77,7 +76,7 @@ const ExportButton = styled.button`
 
 /* The AI assistant fills a card of its own, scrolling inside */
 const AssistantCard = styled.div`
-  height: calc(100vh - 290px);
+  height: calc(100vh - 310px);
   min-height: 460px;
   max-height: 820px;
   display: flex;
@@ -210,7 +209,18 @@ const HistoryRecords: React.FC = () => {
   ];
 
   return (
-    <PageShell route={OptionsRoute.HISTORY} subtitle={t('tab_history_desc')} width={PageWidth.WIDE}>
+    <PageShell
+      route={OptionsRoute.HISTORY}
+      subtitle={t('tab_history_desc')}
+      width={PageWidth.WIDE}
+      actions={
+        <Dropdown menu={{ items: exportMenuItems }} trigger={['click']} placement="bottomRight">
+          <ExportButton title={t('export_captions_text')}>
+            <ExportOutlined /> {t('export')}
+          </ExportButton>
+        </Dropdown>
+      }
+    >
       <Toolbar>
         <Segments>
           <Segment $active={activeTab === 'history'} onClick={() => setActiveTab('history')}>
@@ -221,11 +231,6 @@ const HistoryRecords: React.FC = () => {
           </Segment>
         </Segments>
 
-        <Dropdown menu={{ items: exportMenuItems }} trigger={['click']} placement="bottomRight">
-          <ExportButton title={t('export_captions_text')}>
-            <ExportOutlined /> {t('export')}
-          </ExportButton>
-        </Dropdown>
       </Toolbar>
 
       {activeTab === 'history' ? (

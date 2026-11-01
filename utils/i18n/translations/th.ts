@@ -40,7 +40,7 @@ export default {
   "no_api_key": "ไม่มีคีย์ Gemini API?",
 
   // Google Drive Integration
-  "google_drive_integration_desc": "สำรองและกู้คืนข้อมูลคำบรรยายของคุณไปยัง Google Drive",
+  "google_drive_integration_desc": "สำรองและกู้คืนบันทึกการประชุมและคำศัพท์ของคุณ",
   "google_account_chrome_hint": "ใช้บัญชี Google ที่ลงชื่อเข้าใช้ใน Chrome หากต้องการใช้บัญชีอื่น โปรดสลับบัญชีใน Chrome ก่อน",
   "drive_tab_records": "บันทึกการประชุม",
   "drive_tab_vocabulary": "คำศัพท์",
