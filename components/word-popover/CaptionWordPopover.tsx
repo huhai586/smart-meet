@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "~utils/i18n";
-import { getTranslatedWords, removeTranslatedWord, setTranslatedWords } from "~utils/translate";
+import { recordLookup, removeVocabWord } from "~utils/vocab";
 import type { WordLookup } from "~hooks/useCaptionWordLookup";
 
 const AUTO_DISMISS_MS = 2000;
@@ -29,18 +29,12 @@ interface CaptionWordPopoverProps {
 const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismiss }) => {
     // The hook, not the bare t(): it is what loads the user's UI language in this content script.
     const { t } = useI18n();
-    const [saved, setSaved] = useState(false);
+    // Looking a word up saves it (see useCaptionWordLookup); the button is the way to take it back.
+    const [saved, setSaved] = useState(true);
     const hovered = useRef(false);
 
     useEffect(() => {
-        let cancelled = false;
-        setSaved(false);
-        getTranslatedWords().then((words) => {
-            if (!cancelled) setSaved(words.includes(lookup.word));
-        });
-        return () => {
-            cancelled = true;
-        };
+        setSaved(true);
     }, [lookup.word]);
 
     // Leave on its own, but never while the pointer is on it (or while still loading).
@@ -63,7 +57,9 @@ const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismi
     const toggleSaved = () => {
         const next = !saved;
         setSaved(next);
-        void (next ? setTranslatedWords(lookup.word) : removeTranslatedWord(lookup.word));
+        void (next
+            ? recordLookup({ word: lookup.word, translation: lookup.translation, sentence: lookup.sentence, meetingName: document.title })
+            : removeVocabWord(lookup.word));
     };
 
     const { rect } = lookup;
@@ -81,7 +77,10 @@ const CaptionWordPopover: React.FC<CaptionWordPopoverProps> = ({ lookup, onDismi
             onMouseLeave={() => { hovered.current = false; }}
         >
             <div className="cw-text">
-                <span className="cw-word">{lookup.word}</span>
+                <span className="cw-word">
+                    {lookup.word}
+                    {lookup.count > 1 && <span className="cw-count">{t('word_popover_lookup_count', { n: String(lookup.count) })}</span>}
+                </span>
                 <span className={`cw-translation${lookup.status === 'error' ? ' error' : ''}`}>
                     {lookup.status === 'loading' && <span className="cw-dots" aria-hidden="true"><i /><i /><i /></span>}
                     {lookup.status === 'done' && lookup.translation}

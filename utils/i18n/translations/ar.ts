@@ -610,4 +610,12 @@ export default {
   "word_popover_saved": "تم الحفظ",
   "word_popover_unsave": "إزالة من المحفوظات",
   "word_popover_failed": "فشلت الترجمة",
+  "word_popover_lookup_count": "بحثت عنها {n} مرات",
+  "vocab_export_anki": "تصدير إلى Anki",
+  "vocab_export_csv": "تصدير CSV",
+  "vocab_empty": "تُحفظ هنا الكلمات التي تبحث عنها في الاجتماع مع الجملة التي سمعتها فيها. انقر على أي كلمة في الترجمة النصية للبدء.",
+  "vocab_count": "{n} كلمة",
+  "vocab_menu": "المزيد",
+  "vocab_clear": "مسح كل الكلمات",
+  "vocab_open_dictionary": "القاموس",
 };

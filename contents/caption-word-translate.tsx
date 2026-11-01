@@ -2,13 +2,15 @@
  * caption-word-translate — Content Script
  *
  * Click a word in Google Meet's native captions and a small card next to it shows the translation
- * (see hooks/useCaptionWordLookup). Turned on/off by the `captionWordTranslateEnabled` setting.
+ * (see hooks/useCaptionWordLookup), and words looked up before are marked when they come up again
+ * (see hooks/useSavedWordHighlight). Turned on/off by the `captionWordTranslateEnabled` setting.
  */
 import type { PlasmoCSConfig } from "plasmo";
 import "./caption-word-translate.scss";
 import CaptionWordPopover from "~components/word-popover/CaptionWordPopover";
 import useCaptionWordTranslateToggle from "~hooks/useCaptionWordTranslateToggle";
 import { useCaptionWordLookup } from "~hooks/useCaptionWordLookup";
+import { useSavedWordHighlight } from "~hooks/useSavedWordHighlight";
 import { CAPTION_WORD_POPOVER_ID } from "~utils/word-lookup";
 
 export const getRootContainer = () => {
@@ -21,6 +23,7 @@ export const getRootContainer = () => {
 const CaptionWordTranslate = () => {
     const [enabled] = useCaptionWordTranslateToggle();
     const { lookup, dismiss } = useCaptionWordLookup(enabled);
+    useSavedWordHighlight(enabled);
 
     return lookup ? <CaptionWordPopover lookup={lookup} onDismiss={dismiss} /> : null;
 };

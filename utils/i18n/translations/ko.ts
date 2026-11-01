@@ -655,4 +655,12 @@ export default {
   "word_popover_saved": "저장됨",
   "word_popover_unsave": "저장 취소",
   "word_popover_failed": "번역 실패",
+  "word_popover_lookup_count": "{n}번 찾아봄",
+  "vocab_export_anki": "Anki로 내보내기",
+  "vocab_export_csv": "CSV 내보내기",
+  "vocab_empty": "회의에서 찾아본 단어가 들었던 문장과 함께 여기에 저장됩니다. 자막의 아무 단어나 클릭해 시작하세요.",
+  "vocab_count": "{n}개 단어",
+  "vocab_menu": "더 보기",
+  "vocab_clear": "모든 단어 지우기",
+  "vocab_open_dictionary": "사전",
 };

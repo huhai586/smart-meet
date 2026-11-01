@@ -638,4 +638,12 @@ export default {
   "word_popover_saved": "Gespeichert",
   "word_popover_unsave": "Aus Gespeicherten entfernen",
   "word_popover_failed": "Übersetzung fehlgeschlagen",
+  "word_popover_lookup_count": "{n}× nachgeschlagen",
+  "vocab_export_anki": "Nach Anki exportieren",
+  "vocab_export_csv": "CSV exportieren",
+  "vocab_empty": "Wörter, die Sie in einer Besprechung nachschlagen, werden hier mit dem Satz gespeichert, in dem Sie sie gehört haben. Klicken Sie auf ein Wort in den Untertiteln, um zu beginnen.",
+  "vocab_count": "{n} Wörter",
+  "vocab_menu": "Mehr",
+  "vocab_clear": "Alle Wörter löschen",
+  "vocab_open_dictionary": "Wörterbuch",
 };

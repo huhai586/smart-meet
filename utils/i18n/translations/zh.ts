@@ -741,4 +741,12 @@ export default {
   "word_popover_saved": "已收藏",
   "word_popover_unsave": "取消收藏",
   "word_popover_failed": "翻译失败",
+  "word_popover_lookup_count": "已查 {n} 次",
+  "vocab_export_anki": "导出到 Anki",
+  "vocab_export_csv": "导出 CSV",
+  "vocab_empty": "你在会议里查过的词会保存在这里，并带上当时那句话。点击字幕里的任意单词就能开始。",
+  "vocab_count": "{n} 个词",
+  "vocab_menu": "更多",
+  "vocab_clear": "清空全部生词",
+  "vocab_open_dictionary": "词典",
 };

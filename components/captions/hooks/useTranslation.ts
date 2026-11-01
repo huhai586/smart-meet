@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { getCurrentTranslationProvider } from '../../../hooks/useTranslationProvider';
 import { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeepL, translateByLocal } from '../../../utils/translators';
-import { setTranslatedWords } from '../../../utils/translate';
+import { recordLookup } from '../../../utils/vocab';
 import messageManager from '../../../utils/message-manager';
 
 export const useTranslation = () => {
@@ -38,7 +38,8 @@ export const useTranslation = () => {
     const handleWordClick = useCallback(async (
         event: React.MouseEvent,
         fallbackContent: string,
-        wordOverride?: string
+        wordOverride?: string,
+        meetingName?: string
     ) => {
         event.preventDefault();
         event.stopPropagation();
@@ -86,12 +87,16 @@ export const useTranslation = () => {
         if (word && word.trim()) {
             try {
                 console.log(`Clicked word: ${word}`);
-                // Save the word to translation history first
-                setTranslatedWords(word.replace(".", ''));
-                
-                const translatedText = await translateText(word);
-                // Show only translation result, not original word
-                success(translatedText);
+                // Looking a word up saves it with the caption line it was heard in
+                let translatedText = '';
+                try {
+                    translatedText = await translateText(word);
+                    // Show only translation result, not original word
+                    success(translatedText);
+                } finally {
+                    // The lookup counts even when no translation came back
+                    void recordLookup({ word, translation: translatedText, sentence: fallbackContent, meetingName });
+                }
                 
             } catch (err) {
                 console.error('Unexpected error in handleWordClick:', err);

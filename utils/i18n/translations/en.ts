@@ -743,4 +743,12 @@ export default {
   "word_popover_saved": "Saved",
   "word_popover_unsave": "Remove from saved",
   "word_popover_failed": "Translation failed",
+  "word_popover_lookup_count": "Looked up {n}×",
+  "vocab_export_anki": "Export to Anki",
+  "vocab_export_csv": "Export CSV",
+  "vocab_empty": "Words you look up in a meeting are saved here, with the sentence you heard them in. Click any word in the captions to start.",
+  "vocab_count": "{n} words",
+  "vocab_menu": "More",
+  "vocab_clear": "Clear all words",
+  "vocab_open_dictionary": "Dictionary",
 };

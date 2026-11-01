@@ -5,6 +5,7 @@ import { useAutoTranslateContent } from "../../hooks/useAutoTranslate";
 import { useTranslation, useAIInteraction, useLanguageDetection } from "./hooks";
 import { CaptionHeader, AutoTranslationSection, CaptionTimestamp, AIAnswerSection } from "./components";
 import { CaptionTextRenderer } from "./components/CaptionTextRenderer";
+import { useVocabLookupSet } from "../../hooks/useVocab";
 import { Actions } from "~components/captions/types";
 import { scrollElementIntoView } from "~components/captions/utils/scrollUtils"
 import { getWordAtPoint } from "~components/captions/utils/wordAtPoint";
@@ -25,6 +26,7 @@ const Caption = memo((props: CaptionProps) => {
     
     // Custom hooks
     const [domainKeyWords, specificWords] = useHighLightWords();
+    const savedWords = useVocabLookupSet();
     const { autoTranslatedContent, cleanup } = useAutoTranslateContent(data.talkContent, data.timestamp);
     
     // Translation functionality
@@ -82,11 +84,11 @@ const Caption = memo((props: CaptionProps) => {
         if (!clickableWord) {
             // A caption that is still plain text has no word elements: resolve the word from the point.
             const word = target.closest('.caption-text') ? getWordAtPoint(event.clientX, event.clientY) : '';
-            if (word) handleWordClick(event, data.talkContent, word);
+            if (word) handleWordClick(event, data.talkContent, word, data.meetingName);
             return;
         }
         
-        handleWordClick(event, data.talkContent);
+        handleWordClick(event, data.talkContent, undefined, data.meetingName);
     };
 
     // Handle sentence translation from hover - use same message style as word click
@@ -155,6 +157,7 @@ const Caption = memo((props: CaptionProps) => {
                                 content={data.talkContent}
                                 domainKeyWords={domainKeyWords}
                                 specificWords={specificWords}
+                                savedWords={savedWords}
                                 isRTL={isRTL}
                                 onTranslateSentence={handleSentenceTranslation}
                             />

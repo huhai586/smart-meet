@@ -610,4 +610,12 @@ export default {
   "word_popover_saved": "सहेजा गया",
   "word_popover_unsave": "सहेजे गए से हटाएँ",
   "word_popover_failed": "अनुवाद विफल रहा",
+  "word_popover_lookup_count": "{n} बार खोजा",
+  "vocab_export_anki": "Anki में एक्सपोर्ट करें",
+  "vocab_export_csv": "CSV एक्सपोर्ट करें",
+  "vocab_empty": "मीटिंग में आपके खोजे गए शब्द उस वाक्य के साथ यहाँ सहेजे जाते हैं जिसमें आपने उन्हें सुना। शुरू करने के लिए कैप्शन में किसी भी शब्द पर क्लिक करें।",
+  "vocab_count": "{n} शब्द",
+  "vocab_menu": "और",
+  "vocab_clear": "सभी शब्द हटाएँ",
+  "vocab_open_dictionary": "शब्दकोश",
 };

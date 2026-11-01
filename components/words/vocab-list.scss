@@ -1,0 +1,67 @@
+.words-container.vocab-container {
+  padding-top: 6px;
+}
+
+// One quiet line: the count on the left, a "more" button on the right.
+.vocab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 28px;
+  margin: 0 0 6px;
+  padding: 0 4px;
+
+  &__count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--opt-text-secondary);
+  }
+
+  &__more {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    color: var(--opt-text-secondary);
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.18s ease, color 0.18s ease;
+
+    &:hover {
+      color: var(--opt-text-primary);
+      background: var(--opt-hover-clickable);
+    }
+  }
+}
+
+.vocab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 4px 16px;
+  overflow-y: auto;
+}
+
+.vocab-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 24px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--opt-text-secondary);
+
+  .anticon {
+    font-size: 48px;
+    color: var(--opt-text-secondary);
+  }
+}

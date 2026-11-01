@@ -638,4 +638,12 @@ export default {
   "word_popover_saved": "Salvata",
   "word_popover_unsave": "Rimuovi dai salvati",
   "word_popover_failed": "Traduzione non riuscita",
+  "word_popover_lookup_count": "Cercata {n} volte",
+  "vocab_export_anki": "Esporta in Anki",
+  "vocab_export_csv": "Esporta CSV",
+  "vocab_empty": "Le parole che cerchi durante una riunione vengono salvate qui, con la frase in cui le hai sentite. Fai clic su una parola dei sottotitoli per iniziare.",
+  "vocab_count": "{n} parole",
+  "vocab_menu": "Altro",
+  "vocab_clear": "Cancella tutte le parole",
+  "vocab_open_dictionary": "Dizionario",
 };

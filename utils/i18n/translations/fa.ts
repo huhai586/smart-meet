@@ -657,4 +657,12 @@ export default {
   "word_popover_saved": "ذخیره شد",
   "word_popover_unsave": "حذف از ذخیره‌شده‌ها",
   "word_popover_failed": "ترجمه ناموفق بود",
+  "word_popover_lookup_count": "{n} بار جستجو شده",
+  "vocab_export_anki": "صادرات به Anki",
+  "vocab_export_csv": "صادرات CSV",
+  "vocab_empty": "واژه‌هایی که در جلسه جستجو می‌کنید همراه با جمله‌ای که شنیده‌اید اینجا ذخیره می‌شوند. برای شروع روی هر واژه در زیرنویس کلیک کنید.",
+  "vocab_count": "{n} واژه",
+  "vocab_menu": "بیشتر",
+  "vocab_clear": "پاک کردن همهٔ واژه‌ها",
+  "vocab_open_dictionary": "فرهنگ لغت",
 };

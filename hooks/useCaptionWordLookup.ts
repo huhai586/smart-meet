@@ -3,6 +3,7 @@ import { getCaptionsContainer } from '~node_modules/google-meeting-captions-reso
 import { getCurrentTranslationProvider } from '~hooks/useTranslationProvider';
 import { translateWord } from '~utils/unified-translation';
 import { CAPTION_WORD_POPOVER_ID, wordAtPoint, type WordHit } from '~utils/word-lookup';
+import { recordLookup } from '~utils/vocab';
 
 export interface WordLookup {
     word: string;
@@ -10,10 +11,15 @@ export interface WordLookup {
     rect: WordHit['rect'];
     status: 'loading' | 'done' | 'error';
     translation: string;
+    /** How many times the word has now been looked up (1 the first time). */
+    count: number;
+    /** The caption line the word was in. */
+    sentence: string;
 }
 
 /**
- * Click a word in Meet's native captions to translate it.
+ * Click a word in Meet's native captions to translate it. Looking a word up also saves it, with the
+ * caption line it was heard in: not knowing a word well enough to look it up is what makes it worth keeping.
  *
  * Meet re-renders caption text constantly, so nothing here keeps an element: the word is read from
  * the click point and the result is anchored to that point. Only plain left clicks count; a click
@@ -59,19 +65,26 @@ export const useCaptionWordLookup = (enabled: boolean) => {
             const key = `${await getCurrentTranslationProvider()}:${word.toLowerCase()}`;
             if (request !== latest.current) return;
 
+            const save = (translation: string) =>
+                recordLookup({ word, translation, sentence: context, meetingName: document.title });
+
             const cached = cache.current.get(key);
             if (cached !== undefined) {
-                setLookup({ word, rect, status: 'done', translation: cached });
+                const entry = await save(cached);
+                if (request === latest.current) setLookup({ word, rect, status: 'done', translation: cached, count: entry?.count ?? 1, sentence: context });
                 return;
             }
 
-            setLookup({ word, rect, status: 'loading', translation: '' });
+            setLookup({ word, rect, status: 'loading', translation: '', count: 1, sentence: context });
             try {
                 const translation = await translateWord(word, { silent: true, context });
                 cache.current.set(key, translation);
-                if (request === latest.current) setLookup({ word, rect, status: 'done', translation });
+                const entry = await save(translation);
+                if (request === latest.current) setLookup({ word, rect, status: 'done', translation, count: entry?.count ?? 1, sentence: context });
             } catch {
-                if (request === latest.current) setLookup({ word, rect, status: 'error', translation: '' });
+                // The lookup still counts: the user did not know the word, whether or not a translation came back.
+                await save('');
+                if (request === latest.current) setLookup({ word, rect, status: 'error', translation: '', count: 1, sentence: context });
             }
         };
 

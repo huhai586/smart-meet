@@ -655,4 +655,12 @@ export default {
   "word_popover_saved": "Enregistré",
   "word_popover_unsave": "Retirer des favoris",
   "word_popover_failed": "Échec de la traduction",
+  "word_popover_lookup_count": "Cherché {n} fois",
+  "vocab_export_anki": "Exporter vers Anki",
+  "vocab_export_csv": "Exporter en CSV",
+  "vocab_empty": "Les mots que vous cherchez pendant une réunion sont enregistrés ici, avec la phrase où vous les avez entendus. Cliquez sur un mot des sous-titres pour commencer.",
+  "vocab_count": "{n} mots",
+  "vocab_menu": "Plus",
+  "vocab_clear": "Effacer tous les mots",
+  "vocab_open_dictionary": "Dictionnaire",
 };

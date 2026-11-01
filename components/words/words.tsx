@@ -1,99 +1,41 @@
-import { Typography, Button, Empty, Modal } from "antd";
-import React, { useEffect, useState } from "react";
+import { Dropdown, Modal, type MenuProps } from "antd";
+import React, { useMemo, useState } from "react";
+import dayjs from "dayjs";
 import '../../styles/words.scss'
-import '../../styles/empty-states.scss';
-import { getTranslatedWords } from "~utils/translate";
-import { setConfigValue } from "~utils/appConfig";
+import './vocab-list.scss'
 import {
     ExclamationCircleOutlined,
     BookOutlined,
-    ReloadOutlined
+    MoreOutlined
 } from '@ant-design/icons';
-import { translateWord } from "~utils/unified-translation";
 import { useI18n } from "~utils/i18n";
 import messageManager from '../../utils/message-manager';
-import WordCard from './WordCard';
+import { clearVocab, removeVocabWord } from "~utils/vocab";
+import { sortForDisplay } from "~utils/vocab-core";
+import { toAnkiText, toCsv } from "~utils/vocab-export";
+import { createTextFile, downloadFile } from "~utils/file-utils";
+import useVocab from "~hooks/useVocab";
+import VocabItem from './VocabItem';
 import WordDetailModal from './WordDetailModal';
 
-const { Title, Text } = Typography;
 const { confirm } = Modal;
 
-interface WordTranslation {
-  word: string;
-  translation?: string;
-  loading?: boolean;
-}
-
-const Words = (props: {currentTab: string}) => {
+/** The words the user looked up in meetings, with the sentences they came from, ready to take to Anki. */
+const Words = (_props: {currentTab: string}) => {
     const { t } = useI18n();
-    const [data, setData] = useState<string[]>([]);
-    const [wordTranslations, setWordTranslations] = useState<Map<string, WordTranslation>>(new Map());
-    const [detailModalVisible, setDetailModalVisible] = useState(false);
-    const [selectedWord, setSelectedWord] = useState<string>('');
+    const entries = useVocab();
+    const sortedEntries = useMemo(() => sortForDisplay(entries), [entries]);
+    const [detailWord, setDetailWord] = useState('');
 
-    useEffect(() => {
-        console.log('Words component: Tab changed to', props.currentTab);
-        getTranslatedWords().then((res) => {
-            console.log('Words component: Got', res.length, 'words');
-            setData(res);
-            // 初始化翻译状态
-            const translationMap = new Map<string, WordTranslation>();
-            res.forEach(word => {
-                translationMap.set(word, { word, translation: undefined, loading: false });
-            });
-            setWordTranslations(translationMap);
-        });
-    }, [props.currentTab]);
-
-    const _success = (res: string) => {
-        messageManager.success(res, 5);
+    const exportAnki = () => {
+        downloadFile(createTextFile(toAnkiText(sortedEntries), `smart-meet-anki-${dayjs().format('YYYYMMDD')}.txt`));
+        messageManager.success(t('export_success'));
     };
 
-    const error = (res: string) => {
-        messageManager.error(res, 5);
+    const exportCsv = () => {
+        downloadFile(createTextFile(toCsv(sortedEntries), `smart-meet-words-${dayjs().format('YYYYMMDD')}.csv`, 'text/csv;charset=utf-8'));
+        messageManager.success(t('export_success'));
     };
-
-    const handleTranslate = async (word: string) => {
-        // 更新加载状态
-        setWordTranslations(prev => {
-            const newMap = new Map(prev);
-            newMap.set(word, { word, translation: prev.get(word)?.translation, loading: true });
-            return newMap;
-        });
-
-        try {
-            const translatedText = await translateWord(word);
-            // 更新翻译状态
-            setWordTranslations(prev => {
-                const newMap = new Map(prev);
-                newMap.set(word, { word, translation: translatedText, loading: false });
-                return newMap;
-            });
-        } catch (err) {
-            console.error('Translation error:', err);
-            const errorMessage = typeof err === 'string' ? err : 
-                               err?.message || 'Translation failed';
-            error(errorMessage);
-            // 更新翻译状态为错误
-            setWordTranslations(prev => {
-                const newMap = new Map(prev);
-                newMap.set(word, { word, translation: 'Translation failed', loading: false });
-                return newMap;
-            });
-        }
-    };
-
-    const handleShowDetail = (word: string) => {
-        setSelectedWord(word);
-        setDetailModalVisible(true);
-    };
-
-    const handleCloseDetail = () => {
-        setDetailModalVisible(false);
-        setSelectedWord('');
-    };
-
-
 
     const showConfirm = () => {
         confirm({
@@ -104,69 +46,52 @@ const Words = (props: {currentTab: string}) => {
             okType: 'danger',
             cancelText: t('no_keep_it'),
             onOk() {
-                handleReset();
+                clearVocab().then(() => messageManager.success(t('history_cleared')));
             },
         });
     };
 
-    const handleReset = () => {
-        setConfigValue('translatedWords', []).then(() => {
-            setData([]);
-            setWordTranslations(new Map());
-            messageManager.success(t('history_cleared'));
-        });
-    };
+    const menuItems: MenuProps['items'] = [
+        { key: 'anki', label: t('vocab_export_anki'), onClick: exportAnki },
+        { key: 'csv', label: t('vocab_export_csv'), onClick: exportCsv },
+        { type: 'divider' },
+        { key: 'clear', label: t('vocab_clear'), danger: true, onClick: showConfirm },
+    ];
 
     return (
-        <div className={'words-container'}>
-            <div className="words-header">
-                <div className="header-left">
-                    <span className="header-title">{t('translation_history')}</span>
-                    <span className="header-subtitle">{t('click_to_translate')}</span>
-                </div>
-                {data.length > 0 && (
-                    <button
-                        className="reset-icon-btn"
-                        onClick={showConfirm}
-                        title={t('reset')}
-                    >
-                        <ReloadOutlined />
-                    </button>
-                )}
-            </div>
-
-            {data.length > 0 ? (
-                <div className="words-grid">
-                    {data.map((word, _index) => {
-                        const wordData = wordTranslations.get(word);
-                        return (
-                            <WordCard
-                                key={word}
-                                word={word}
-                                translation={wordData?.translation}
-                                onTranslate={handleTranslate}
-                                onShowDetail={handleShowDetail}
+        <div className={'words-container vocab-container'}>
+            {entries.length > 0 ? (
+                <>
+                    <div className="vocab-bar">
+                        <span className="vocab-bar__count">{t('vocab_count', { n: String(entries.length) })}</span>
+                        <Dropdown menu={{ items: menuItems }} trigger={['click']} placement="bottomRight">
+                            <button type="button" className="vocab-bar__more" aria-label={t('vocab_menu')} title={t('vocab_menu')}>
+                                <MoreOutlined />
+                            </button>
+                        </Dropdown>
+                    </div>
+                    <div className="vocab-list">
+                        {sortedEntries.map((entry) => (
+                            <VocabItem
+                                key={entry.key}
+                                entry={entry}
+                                onOpenDictionary={setDetailWord}
+                                onRemove={removeVocabWord}
                             />
-                        );
-                    })}
-                </div>
+                        ))}
+                    </div>
+                </>
             ) : (
-                <div className="empty-container">
-                    <Empty
-                        image={<BookOutlined style={{ fontSize: 60 }} />}
-                        description={
-                            <Text type="secondary">
-                                {t('no_history')}
-                            </Text>
-                        }
-                    />
+                <div className="vocab-empty">
+                    <BookOutlined />
+                    <span>{t('vocab_empty')}</span>
                 </div>
             )}
 
             <WordDetailModal
-                visible={detailModalVisible}
-                word={selectedWord}
-                onClose={handleCloseDetail}
+                visible={!!detailWord}
+                word={detailWord}
+                onClose={() => setDetailWord('')}
             />
         </div>
     )

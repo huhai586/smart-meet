@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { matchesVocab } from '../../../utils/vocab-core';
 
 interface WordSegment {
     type: 'word' | 'space';
@@ -11,6 +12,8 @@ interface CaptionTextRendererProps {
     content: string;
     domainKeyWords: string[];
     specificWords: string[];
+    /** Lookup set of the words the user has looked up before (see vocabLookupSet). */
+    savedWords: Set<string>;
     isRTL: boolean;
     onTranslateSentence?: (sentence: string) => Promise<void>;
 }
@@ -60,6 +63,7 @@ const REVERT_DELAY_MS = 1500;
 const ClickableWord = memo(({
     word,
     isHighlighted,
+    isSaved,
     wordIndex,
     isSentenceHighlighted,
     onHoverStart,
@@ -67,12 +71,13 @@ const ClickableWord = memo(({
 }: {
     word: string;
     isHighlighted: boolean;
+    isSaved: boolean;
     wordIndex: number;
     isSentenceHighlighted: boolean;
     onHoverStart: (wordIndex: number) => void;
     onHoverEnd: () => void;
 }) => {
-    const className = `clickable-word${isSentenceHighlighted ? ' sentence-highlighted' : ''}`;
+    const className = `clickable-word${isSentenceHighlighted ? ' sentence-highlighted' : ''}${isSaved ? ' saved-word' : ''}`;
 
     if (isHighlighted) {
         return (
@@ -102,6 +107,7 @@ const ClickableWord = memo(({
 }, (prev, next) => {
     return prev.word === next.word &&
            prev.isHighlighted === next.isHighlighted &&
+           prev.isSaved === next.isSaved &&
            prev.isSentenceHighlighted === next.isSentenceHighlighted;
 });
 
@@ -111,6 +117,7 @@ export const CaptionTextRenderer = memo(({
     content,
     domainKeyWords,
     specificWords,
+    savedWords,
     isRTL,
     onTranslateSentence
 }: CaptionTextRendererProps) => {
@@ -151,6 +158,7 @@ export const CaptionTextRenderer = memo(({
             word={segment.content}
             wordIndex={segment.wordIndex}
             isHighlighted={isHighlighted}
+            isSaved={matchesVocab(segment.content, savedWords)}
             isSentenceHighlighted={false}
             onHoverStart={noop}
             onHoverEnd={noop}
@@ -168,15 +176,15 @@ export const CaptionTextRenderer = memo(({
             });
         }
 
-        // Plain mode: only keyword hits keep their own element (they are styled), everything
-        // between them is one text node.
+        // Plain mode: only keyword and saved-word hits keep their own element (they are styled),
+        // everything between them is one text node.
         const nodes: React.ReactNode[] = [];
         let run = '';
         segments.forEach((segment, index) => {
-            if (segment.type === 'word' && shouldHighlight(segment.content, allKeywords)) {
+            if (segment.type === 'word' && (shouldHighlight(segment.content, allKeywords) || matchesVocab(segment.content, savedWords))) {
                 if (run) nodes.push(run);
                 run = '';
-                nodes.push(renderWord(segment, index, true));
+                nodes.push(renderWord(segment, index, shouldHighlight(segment.content, allKeywords)));
             } else {
                 run += segment.content;
             }
@@ -200,6 +208,7 @@ export const CaptionTextRenderer = memo(({
     return (
         prev.content === next.content &&
         prev.isRTL === next.isRTL &&
+        prev.savedWords === next.savedWords &&
         prev.domainKeyWords.length === next.domainKeyWords.length &&
         prev.specificWords.length === next.specificWords.length &&
         prev.domainKeyWords.every((kw, i) => kw === next.domainKeyWords[i]) &&

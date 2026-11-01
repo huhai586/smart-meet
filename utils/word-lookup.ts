@@ -34,3 +34,23 @@ export const wordAtPoint = (root: Element, x: number, y: number): WordHit | null
     }
     return null;
 };
+
+/** Meet's own controls inside the captions area (the jump-to-bottom button, its icon text) are not captions. */
+const NOT_CAPTION_TEXT = 'button, [role="button"], [aria-hidden="true"]';
+
+/** A Range around every word under `root` that `isWanted` accepts. Reads the DOM, never changes it. */
+export const wordRangesIn = (root: Element, isWanted: (word: string) => boolean): Range[] => {
+    const ranges: Range[] = [];
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        if (node.parentElement?.closest(NOT_CAPTION_TEXT)) continue;
+        for (const part of segmenter.segment(node.textContent ?? '')) {
+            if (!part.isWordLike || !isWanted(part.segment)) continue;
+            const range = document.createRange();
+            range.setStart(node, part.index);
+            range.setEnd(node, part.index + part.segment.length);
+            ranges.push(range);
+        }
+    }
+    return ranges;
+};

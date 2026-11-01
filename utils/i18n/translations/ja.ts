@@ -655,4 +655,12 @@ export default {
   "word_popover_saved": "保存しました",
   "word_popover_unsave": "保存を解除",
   "word_popover_failed": "翻訳に失敗しました",
+  "word_popover_lookup_count": "{n} 回調べた",
+  "vocab_export_anki": "Anki にエクスポート",
+  "vocab_export_csv": "CSV をエクスポート",
+  "vocab_empty": "会議で調べた単語が、聞いた文と一緒にここに保存されます。字幕の単語をクリックして始めましょう。",
+  "vocab_count": "{n} 語",
+  "vocab_menu": "その他",
+  "vocab_clear": "すべての単語を削除",
+  "vocab_open_dictionary": "辞書",
 };

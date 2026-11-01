@@ -610,4 +610,12 @@ export default {
   "word_popover_saved": "บันทึกแล้ว",
   "word_popover_unsave": "ลบออกจากที่บันทึกไว้",
   "word_popover_failed": "แปลไม่สำเร็จ",
+  "word_popover_lookup_count": "ค้นหาแล้ว {n} ครั้ง",
+  "vocab_export_anki": "ส่งออกไปยัง Anki",
+  "vocab_export_csv": "ส่งออก CSV",
+  "vocab_empty": "คำที่คุณค้นหาในการประชุมจะถูกบันทึกไว้ที่นี่ พร้อมประโยคที่คุณได้ยิน คลิกคำใดก็ได้ในคำบรรยายเพื่อเริ่มต้น",
+  "vocab_count": "{n} คำ",
+  "vocab_menu": "เพิ่มเติม",
+  "vocab_clear": "ล้างคำศัพท์ทั้งหมด",
+  "vocab_open_dictionary": "พจนานุกรม",
 };

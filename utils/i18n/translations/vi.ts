@@ -631,4 +631,12 @@ export default {
   "word_popover_saved": "Đã lưu",
   "word_popover_unsave": "Bỏ lưu",
   "word_popover_failed": "Dịch thất bại",
+  "word_popover_lookup_count": "Đã tra {n} lần",
+  "vocab_export_anki": "Xuất sang Anki",
+  "vocab_export_csv": "Xuất CSV",
+  "vocab_empty": "Những từ bạn tra trong cuộc họp được lưu ở đây cùng câu bạn đã nghe. Nhấp vào bất kỳ từ nào trong phụ đề để bắt đầu.",
+  "vocab_count": "{n} từ",
+  "vocab_menu": "Thêm",
+  "vocab_clear": "Xóa tất cả từ",
+  "vocab_open_dictionary": "Từ điển",
 };
