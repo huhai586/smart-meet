@@ -1,631 +1,216 @@
+// The Calendar settings page: the synced meetings first, then the sync and reminder settings.
+// Colours come from the --opt-* tokens, so it follows light and dark mode.
+
 .calendar-sync-page {
   max-width: 860px;
-  margin: 0;
-  padding: 8px 0;
+  padding: 0 20px 32px;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
 
-  .page-header {
-    margin-bottom: 28px;
-
-    .page-title {
-      font-size: 26px;
-      font-weight: 700;
-      color: #1a202c;
-      margin: 0 0 8px;
-      letter-spacing: -0.3px;
-    }
-
-    .page-desc {
-      font-size: 14px;
-      color: #8b95a5;
-      margin: 0;
-      line-height: 1.5;
-    }
+  .cs-header {
+    padding: 0 0 20px;
   }
 
-  // Shared card styles
-  .connection-card,
-  .settings-card,
-  .sync-content-card {
-    background: #fff;
-    border: 1px solid #e8ecf1;
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 20px;
-
-    .card-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: #1a202c;
-      margin: 0 0 20px;
-    }
+  .cs-title {
+    margin: 0 0 4px;
+    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--opt-text-primary);
   }
 
-  // Connection Status Card
-  .connection-card {
-    .connection-status {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      background: #f8fafc;
-      border-radius: 12px;
-      margin-bottom: 16px;
-
-      .status-left {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-
-        .calendar-icon-wrapper {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-          background: #fff;
-          border: 1px solid #e8ecf1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          overflow: hidden;
-
-          .google-calendar-icon {
-            width: 32px;
-            height: 32px;
-            object-fit: contain;
-          }
-
-          .fallback-icon {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1a73e8;
-          }
-        }
-
-        .status-info {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-
-          .status-label {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1a202c;
-          }
-
-          .status-desc {
-            font-size: 13px;
-            color: #8b95a5;
-          }
-        }
-      }
-
-      .connect-button {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        white-space: nowrap;
-        background: #1a73e8;
-        color: #fff;
-
-        &:hover {
-          background: #1557b0;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
-        }
-
-        &:active {
-          transform: translateY(0);
-        }
-
-        &.loading {
-          opacity: 0.7;
-          cursor: not-allowed;
-          pointer-events: none;
-        }
-
-        &.connected {
-          background: #f5f7fa;
-          color: #64748b;
-          border: 1px solid #e2e8f0;
-
-          &:hover {
-            background: #fef2f2;
-            color: #ef4444;
-            border-color: #fecaca;
-            box-shadow: none;
-          }
-        }
-
-        .anticon {
-          font-size: 16px;
-        }
-      }
-    }
-
-    .privacy-note {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 16px;
-      background: #f0fdf4;
-      border-radius: 8px;
-      font-size: 13px;
-      color: #16a34a;
-
-      .privacy-icon {
-        font-size: 14px;
-        flex-shrink: 0;
-      }
-
-      .learn-more {
-        margin-left: auto;
-        color: #1a73e8;
-        font-weight: 500;
-        white-space: nowrap;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
+  .cs-desc {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--opt-text-secondary);
   }
 
-  // Settings Card
-  .settings-card {
-    .setting-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0;
-      border-bottom: 1px solid #f1f5f9;
-
-      &:last-child {
-        border-bottom: none;
-        padding-bottom: 0;
-      }
-
-      &:first-of-type {
-        padding-top: 0;
-      }
-
-      .setting-left {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-
-        .setting-icon {
-          font-size: 18px;
-          color: #8b95a5;
-          width: 24px;
-          text-align: center;
-        }
-
-        .setting-info {
-          display: flex;
-          flex-direction: column;
-          gap: 2px;
-
-          .setting-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a202c;
-          }
-
-          .setting-desc {
-            font-size: 12px;
-            color: #8b95a5;
-          }
-        }
-      }
-
-      .setting-select {
-        min-width: 140px;
-
-        .ant-select-selector {
-          border-radius: 8px !important;
-          border-color: #e2e8f0 !important;
-          height: 36px !important;
-
-          .ant-select-selection-item {
-            line-height: 34px !important;
-          }
-        }
-      }
-
-      .ant-switch {
-        &.ant-switch-checked {
-          background: #1a73e8;
-        }
-      }
-    }
+  .cs-loading {
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
+    color: var(--opt-text-secondary);
   }
 
-  // Sync Content Card
-  .sync-content-card {
-    .content-layout {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-
-      .content-list {
-        flex: 1;
-
-        .content-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 8px 0;
-          font-size: 14px;
-          color: #1a202c;
-
-          .check-icon {
-            font-size: 18px;
-            color: #22c55e;
-          }
-        }
-      }
-
-      .content-illustration {
-        flex-shrink: 0;
-        margin-left: 40px;
-
-        .illustration-placeholder {
-          width: 140px;
-          height: 120px;
-          background: #f8fafc;
-          border-radius: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-      }
-    }
-  }
-
-  // Tip Bar
-  .tip-bar {    display: flex;
+  .cs-section-head {
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    gap: 12px;
+    margin: 4px 0 10px;
+
+    h2 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--opt-text-primary);
+    }
+  }
+
+  section + section {
+    margin-top: 24px;
+  }
+
+  .cs-section-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .cs-muted {
+    font-size: 12px;
+    color: var(--opt-text-secondary);
+  }
+
+  .cs-card {
+    border-radius: 14px;
+    background: var(--opt-bg-card);
+    border: 0.5px solid var(--opt-border-subtle);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .cs-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 10px 14px;
     border-radius: 10px;
-    margin-top: 4px;
+    font-size: 13px;
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.08);
+  }
 
-    .tip-content {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      color: #1e40af;
+  // ── Meetings ────────────────────────────────────────────────────────────────
+  .cs-events {
+    padding: 4px 16px 8px;
+  }
 
-      .tip-icon {
-        font-size: 14px;
-        flex-shrink: 0;
-      }
+  .cs-day {
+    padding: 12px 0 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--opt-text-secondary);
+  }
+
+  .cs-event {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0;
+    border-top: 0.5px solid var(--opt-border-divider);
+
+    &__time {
+      flex: 0 0 96px;
+      font-size: 12.5px;
+      color: var(--opt-text-secondary);
     }
 
-    .tip-close {
+    &__body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--opt-text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 2px;
       font-size: 12px;
-      color: #93a3b8;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 4px;
-      transition: all 0.2s ease;
+      color: var(--opt-text-secondary);
+    }
 
-      &:hover {
-        color: #64748b;
-        background: rgba(0, 0, 0, 0.05);
-      }
+    &__location {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
-  // Manual Sync Card
-  .manual-sync-card {
-    background: #fff;
-    border: 1px solid #e8ecf1;
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 20px;
+  .cs-day + .cs-event {
+    border-top: none;
+  }
 
-    .manual-sync-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
+  .cs-more {
+    padding: 10px 0 4px;
+    font-size: 12.5px;
+    color: var(--opt-text-secondary);
+  }
 
-      .manual-sync-title-row {
-        display: flex;
-        align-items: center;
-        gap: 16px;
+  .cs-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 36px 16px;
+    font-size: 13px;
+    color: var(--opt-text-secondary);
 
-        .last-sync-time {
-          font-size: 12px;
-          color: #8b95a5;
-        }
-      }
+    .anticon {
+      font-size: 32px;
+      opacity: 0.5;
+    }
+  }
 
-      .manual-sync-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
+  // ── Settings ────────────────────────────────────────────────────────────────
+  .cs-settings {
+    padding: 2px 16px;
+  }
 
-      .manual-sync-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 18px;
-        background: #1a73e8;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        font-size: 13px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease;
+  .cs-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 48px;
+    border-top: 0.5px solid var(--opt-border-divider);
 
-        &:hover:not(:disabled) {
-          background: #1557b0;
-          transform: translateY(-1px);
-          box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
-        }
-
-        &:disabled {
-          opacity: 0.5;
-          cursor: not-allowed;
-        }
-
-        &.syncing {
-          background: #4a90e2;
-        }
-
-        &.clear-btn {
-          background: transparent;
-          color: #94a3b8;
-          border: 1px solid #e2e8f0;
-
-          &:hover:not(:disabled) {
-            background: #fff1f0;
-            color: #e53e3e;
-            border-color: #fca5a5;
-            box-shadow: none;
-            transform: none;
-          }
-        }
-
-        .anticon {
-          font-size: 14px;
-        }
-      }
+    &:first-child {
+      border-top: none;
     }
 
-    .sync-status-banner {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      font-size: 13px;
-      margin-bottom: 16px;
+    &__label {
+      flex: 1;
+      font-size: 14px;
+      color: var(--opt-text-primary);
+    }
+  }
 
-      &.success {
-        background: #f0fdf4;
-        color: #16a34a;
-        border: 1px solid #bbf7d0;
-      }
+  .cs-footnote {
+    margin: 8px 4px 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--opt-text-secondary);
+  }
 
-      &.error {
-        background: #fef2f2;
-        color: #dc2626;
-        border: 1px solid #fecaca;
-      }
+  .cs-link {
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: #1a73e8;
+    background: transparent;
+    cursor: pointer;
 
-      &.syncing {
-        background: #eff6ff;
-        color: #1d4ed8;
-        border: 1px solid #bfdbfe;
-      }
-
-      .anticon {
-        font-size: 16px;
-        flex-shrink: 0;
-      }
+    &:hover:not(:disabled) {
+      text-decoration: underline;
     }
 
-    .event-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-
-      .event-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 14px;
-        padding: 12px 14px;
-        border-radius: 10px;
-        transition: background 0.15s ease;
-
-        &:hover {
-          background: #f8fafc;
-        }
-
-        .event-time {
-          flex-shrink: 0;
-          width: 110px;
-          font-size: 12px;
-          font-weight: 600;
-          color: #1a73e8;
-          padding-top: 2px;
-        }
-
-        .event-body {
-          flex: 1;
-          min-width: 0;
-
-          .event-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1a202c;
-            margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-
-          .event-meta {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-
-            .event-meta-item {
-              display: flex;
-              align-items: center;
-              gap: 4px;
-              font-size: 12px;
-              color: #8b95a5;
-
-              .anticon {
-                font-size: 12px;
-              }
-
-              &.meet-link {
-                color: #1a73e8;
-                text-decoration: none;
-
-                &:hover {
-                  text-decoration: underline;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      .event-more {
-        text-align: center;
-        font-size: 12px;
-        color: #8b95a5;
-        padding: 8px 0;
-      }
-    }
-
-    .sync-empty {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      padding: 28px 0 12px;
-      color: #b0bac7;
-      font-size: 13px;
-
-      .sync-empty-icon {
-        font-size: 32px;
-        opacity: 0.4;
-      }
+    &:disabled {
+      color: var(--opt-text-secondary);
+      cursor: default;
     }
   }
 }
 
-// ─── Dark Mode ────────────────────────────────────────────────────────────────
-:root.dark-mode {
-  .calendar-sync-page {
-    .page-header {
-      .page-title { color: #e2e8f0; }
-      .page-desc { color: #606878; }
-    }
-
-    .connection-card,
-    .settings-card,
-    .sync-content-card,
-    .manual-sync-card {
-      background: #1c2028;
-      border-color: #2d3340;
-
-      .card-title { color: #e2e8f0; }
-    }
-
-    .connection-card {
-      .connection-status {
-        background: #252b38;
-
-        .calendar-icon-wrapper {
-          background: #1c2028;
-          border-color: #2d3340;
-        }
-
-        .status-info {
-          .status-label { color: #e2e8f0; }
-          .status-desc { color: #606878; }
-        }
-      }
-
-      .connect-button.connected {
-        background: #252b38;
-        color: #94a3b8;
-        border-color: #2d3340;
-      }
-    }
-
-    .settings-card {
-      .setting-item {
-        border-bottom-color: #2d3340;
-
-        .setting-icon { color: #606878; }
-        .setting-label { color: #e2e8f0; }
-        .setting-desc { color: #606878; }
-      }
-    }
-
-    .sync-content-card {
-      .content-item {
-        color: #e2e8f0;
-      }
-
-      .event-item {
-        &:hover { background: #252b38; }
-
-        .event-title { color: #e2e8f0; }
-        .event-meta-item { color: #606878; }
-      }
-
-      .illustration-placeholder { background: #252b38; }
-    }
-
-    .manual-sync-card {
-      .last-sync-time { color: #606878; }
-
-      .event-item {
-        &:hover { background: #252b38; }
-        border-bottom-color: #2d3340;
-
-        .event-title { color: #e2e8f0; }
-        .event-meta-item { color: #606878; }
-      }
-
-      .sync-status-banner {
-        &.success { background: rgba(34, 197, 94, 0.1); color: #4ade80; }
-        &.error { background: rgba(239, 68, 68, 0.1); color: #f87171; }
-        &.syncing { background: #1e2d4a; color: #93beff; }
-      }
-    }
-
-    .tip-bar {
-      background: #1e2d4a;
-      border-color: #2d4a7a;
-      .tip-content { color: #93beff; }
-    }
-  }
-}
-
-.calendar-sync-page .privacy-note + .privacy-note {
-  margin-top: 8px;
+:root.dark-mode .calendar-sync-page .cs-link {
+  color: #4da3ff;
 }

@@ -74,6 +74,26 @@ const LiveCard: React.FC<{ live: LiveMeeting }> = ({ live }) => {
 const MeetingCard: React.FC = () => {
   const { t } = useI18n()
   const { status, live, next, leftToday } = usePopupMeeting()
+  const [signingIn, setSigningIn] = useState(false)
+  const [signInError, setSignInError] = useState<string | null>(null)
+  const [signInErrorDetail, setSignInErrorDetail] = useState("")
+
+  // Done in the background: Google's window closes the popup, and the sign-in has to outlive it
+  const signIn = async () => {
+    setSigningIn(true)
+    setSignInError(null)
+    try {
+      const res = await chrome.runtime.sendMessage({ action: "googleSignIn" })
+      if (!res?.success) {
+        setSignInError(t("google_sign_in_failed"))
+        setSignInErrorDetail(res?.error ?? "")
+      }
+    } catch {
+      // the popup was closed before the answer came back
+    } finally {
+      setSigningIn(false)
+    }
+  }
 
   if (status === PopupMeetingStatus.LOADING) {
     return (
@@ -161,11 +181,19 @@ const MeetingCard: React.FC = () => {
         <div className="pm-card__title">{notConnected ? t("popup_connect_calendar") : t("meetings_no_upcoming_title")}</div>
         <div className="pm-card__meta">{notConnected ? t("popup_connect_calendar_sub") : t("meetings_no_upcoming_sub")}</div>
         {notConnected && (
-          <div className="pm-card__actions pm-card__actions--center">
-            <button className="pm-btn pm-btn--primary pm-btn--sm" onClick={() => openAndClose(OptionsRoute.CALENDAR)}>
-              {t("popup_sign_in")}
-            </button>
-          </div>
+          <>
+            <div className="pm-card__actions pm-card__actions--center">
+              <button className="pm-btn pm-btn--primary pm-btn--sm" onClick={signIn} disabled={signingIn}>
+                {signingIn ? <LoadingOutlined spin /> : null}
+                {signingIn ? t("logging_in") : t("popup_sign_in")}
+              </button>
+            </div>
+            {signInError && (
+              <div className="pm-card__error" title={signInErrorDetail}>
+                {signInError}
+              </div>
+            )}
+          </>
         )}
       </div>
     </section>

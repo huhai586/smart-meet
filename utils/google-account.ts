@@ -26,17 +26,19 @@ export const GoogleStorageKey = {
 
 const SESSION_KEYS = Object.values(GoogleStorageKey);
 
-export const getGoogleToken = (interactive: boolean): Promise<string | null> =>
+const requestToken = (interactive: boolean): Promise<{ token: string | null; error?: string }> =>
   new Promise((resolve) => {
     chrome.identity.getAuthToken({ interactive, scopes: GOOGLE_SCOPES }, (token) => {
       if (chrome.runtime.lastError) {
         console.warn('[GoogleAccount] getAuthToken error:', chrome.runtime.lastError.message);
-        resolve(null);
+        resolve({ token: null, error: chrome.runtime.lastError.message });
       } else {
-        resolve(token ?? null);
+        resolve({ token: token ?? null });
       }
     });
   });
+
+export const getGoogleToken = async (interactive: boolean): Promise<string | null> => (await requestToken(interactive)).token;
 
 const dropCachedToken = (token: string) =>
   new Promise<void>((resolve) => chrome.identity.removeCachedAuthToken({ token }, resolve));
@@ -68,18 +70,18 @@ export const readStoredGoogleUser = async (): Promise<GoogleUser | null> => {
 
 export const clearGoogleSession = () => chrome.storage.local.remove(SESSION_KEYS);
 
-/** Asks the user to sign in, then lets Calendar start syncing. Returns null if they cancelled or it failed. */
-export const signInGoogle = async (): Promise<GoogleUser | null> => {
+/** Asks the user to sign in, then lets Calendar start syncing. Throws with Chrome's reason when it doesn't work. */
+export const signInGoogle = async (): Promise<GoogleUser> => {
   const stale = await getGoogleToken(false);
   if (stale) await dropCachedToken(stale);
 
-  const token = await getGoogleToken(true);
-  if (!token) return null;
+  const { token, error } = await requestToken(true);
+  if (!token) throw new Error(error ?? 'No access token');
 
   const user = await fetchGoogleUser(token);
   if (!user) {
     await dropCachedToken(token);
-    return null;
+    throw new Error('Could not read the Google account');
   }
 
   await chrome.storage.local.set({

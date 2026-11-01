@@ -11,8 +11,8 @@
  *              'calendarSyncError' → string | null
  */
 
-import { getConfigValue } from '~utils/appConfig';
-import GoogleCalendarService, { type CalendarEvent } from '~utils/google-calendar-service';
+import { getConfigValue } from '../utils/appConfig';
+import GoogleCalendarService, { type CalendarEvent } from '../utils/google-calendar-service';
 
 const ALARM_NAME = 'calendarAutoSync';
 const EVENTS_KEY = 'calendarEvents';

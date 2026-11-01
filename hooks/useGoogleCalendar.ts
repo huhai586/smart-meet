@@ -96,12 +96,16 @@ export function useGoogleCalendar(): UseGoogleCalendarReturn {
     init();
   }, []);
 
-  // Signing in or out anywhere (the options header, the Drive page) is reflected here
+  // Signing in or out anywhere (the options header, the Drive page), and finished syncs, are reflected here
   useEffect(() => {
     const onChanged = (changes: Record<string, { newValue?: unknown }>, area: string) => {
       if (area !== 'local') return;
       if (GoogleStorageKey.CALENDAR_CONNECTED in changes) setIsConnected(!!changes[GoogleStorageKey.CALENDAR_CONNECTED].newValue);
       if (GoogleStorageKey.CALENDAR_USER in changes) setUser((changes[GoogleStorageKey.CALENDAR_USER].newValue as CalendarUser | undefined) ?? null);
+      // The background sync (first sync after signing in, the alarm) finished
+      if ('calendarEvents' in changes) setEvents(Array.isArray(changes.calendarEvents.newValue) ? (changes.calendarEvents.newValue as CalendarEvent[]) : []);
+      if ('calendarLastSync' in changes) setLastSync((changes.calendarLastSync.newValue as string | undefined) ?? null);
+      if ('calendarSyncError' in changes) setSyncError((changes.calendarSyncError.newValue as string | undefined) ?? null);
     };
     chrome.storage.onChanged.addListener(onChanged);
     return () => chrome.storage.onChanged.removeListener(onChanged);
@@ -115,11 +119,9 @@ export function useGoogleCalendar(): UseGoogleCalendarReturn {
       if (success) {
         setIsConnected(true);
         setUser(calUser);
-      } else {
-        message.error(t('google_sign_in_failed'));
       }
-    } catch {
-      message.error(t('google_sign_in_failed'));
+    } catch (err) {
+      message.error(`${t('google_sign_in_failed')} ${(err as Error).message}`);
     } finally {
       setConnecting(false);
     }

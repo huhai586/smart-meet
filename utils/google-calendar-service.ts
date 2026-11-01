@@ -10,7 +10,7 @@ import {
   signInGoogle,
   signOutGoogle,
   type GoogleUser,
-} from '~utils/google-account';
+} from './google-account';
 
 export interface CalendarEvent {
   id: string;
@@ -63,7 +63,6 @@ export class GoogleCalendarService {
   /** Signs in to Google, which connects Calendar and Drive together. */
   async connect(): Promise<{ success: boolean; user: CalendarUser | null }> {
     const user = await signInGoogle();
-    if (!user) return { success: false, user: null };
     this.accessToken = await this.getAuthToken(false);
     return { success: true, user };
   }

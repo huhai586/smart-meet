@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, useCallback } fr
 import type { ReactNode } from 'react';
 import { message } from 'antd';
 import { GoogleDriveService } from '~utils/google-drive';
+import useI18n from '~utils/i18n';
 import {
   GoogleStorageKey,
   restoreGoogleSession,
@@ -34,6 +35,7 @@ interface GoogleAuthProviderProps {
 
 /** Drive's view of the extension's one Google sign-in (utils/google-account). */
 export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children }) => {
+  const { t } = useI18n();
   const [user, setUser] = useState<GoogleUser | null>(null);
   const [loading, setLoading] = useState(true);
   const driveService = GoogleDriveService.getInstance();
@@ -74,15 +76,10 @@ export const GoogleAuthProvider: React.FC<GoogleAuthProviderProps> = ({ children
   const login = async (): Promise<boolean> => {
     setLoading(true);
     try {
-      const signedIn = await signInGoogle();
-      if (!signedIn) {
-        message.error('Failed to authenticate with Google. Please try again.');
-        return false;
-      }
-      await applyUser(signedIn);
+      await applyUser(await signInGoogle());
       return true;
     } catch (error) {
-      message.error('Login error: ' + (error.message || 'Unknown error'));
+      message.error(`${t('google_sign_in_failed')} ${error.message}`);
       return false;
     } finally {
       setLoading(false);

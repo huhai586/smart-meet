@@ -96,6 +96,13 @@ export const usePopupMeeting = (): PopupMeeting => {
       })
     }
     load()
+
+    // Signing in (the popup may stay open) or a finished sync changes what the card shows
+    const onChanged = (changes: Record<string, unknown>, area: string) => {
+      if (area === "local" && ("calendarConnected" in changes || "calendarEvents" in changes)) load()
+    }
+    chrome.storage.onChanged.addListener(onChanged)
+    return () => chrome.storage.onChanged.removeListener(onChanged)
   }, [])
 
   return meeting

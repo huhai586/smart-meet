@@ -85,7 +85,11 @@ Configured in the repo (`.mcp.json`, `.agents/skills/`, `skills-lock.json`). A n
 
 `package.json` keeps several OAuth client ids as `local_client_id_*`; `manifest.oauth2.client_id` is the one that ships (the `_online` one). The id `local_client_id_cdp` is bound to the extension id of the unpacked copy in the CDP profile and has the Google APIs (Drive, Calendar) enabled in Google Cloud.
 
+- Which id is which:
+  - `821598308749-rf9ji9i79dmolfgp5kdon1sg3pqeeitq.apps.googleusercontent.com` is the **online** (production) id, `local_client_id_online`. It is what ships, and it only works for the Chrome Web Store build.
+  - `77378635877-dsg4faa9k5vlduj8s156qhcqpg1if3ar.apps.googleusercontent.com` is the **CDP** id, `local_client_id_cdp`. The CDP browser must use this one.
 - To debug anything that talks to Google, **temporarily** set `manifest.oauth2.client_id` to the value of `local_client_id_cdp`, rebuild (`yarn dev`), then `reload_extension`.
+- Symptom of forgetting the swap: sign-in fails with `OAuth2 request failed: ... 'bad client id: 821598308749-rf9ji9i...'`. That is the online id being used by the unpacked extension, not a bug in the sign-in code.
 - **Never commit that swap.** Put `manifest.oauth2.client_id` back to the `local_client_id_online` value before committing, and check `git diff package.json` shows no change to it.
 - **Never uninstall the extension in the CDP profile** (no `uninstall_extension`, no removing it from `chrome://extensions`). The client id is bound to its extension id; a reinstall can change the id and the granted permissions stop working. Use `reload_extension` or `launch.sh` instead.
 

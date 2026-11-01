@@ -4,6 +4,8 @@ import { StorageFactory } from "~background/data-persistence/storage-factory";
 import { handleSyncRequest } from './sync-manager';
 import { broadcastLanguageChange } from './utils/language-utils';
 import { openOptions } from '../utils/options-routes';
+import { signInGoogle } from '../utils/google-account';
+import { runCalendarSync, scheduleCalendarAlarm } from './calendar-auto-sync';
 
 import type { Transcript } from "../hooks/useTranscripts";
 import type { StorageProvider } from './data-persistence/types';
@@ -24,6 +26,7 @@ export type MessageData =
     | { action: 'get-days-with-messages' }
     | { action: 'openSidePanel' }
     | { action: 'openOptionsPage'; route: string }
+    | { action: 'googleSignIn' }
     | { action: 'languageChanged'; languageCode: string }
     | { action: 'sync-to-google-drive';[key: string]: unknown }
     | { action: 'update_meeting_info'; data: unknown };
@@ -45,6 +48,7 @@ const HANDLED_ACTIONS = new Set<MessageData['action']>([
     'get-days-with-messages',
     'openSidePanel',
     'openOptionsPage',
+    'googleSignIn',
     'languageChanged',
     'sync-to-google-drive',
     'update_meeting_info',
@@ -196,6 +200,18 @@ export class BackgroundMessageHandler {
                 case 'openOptionsPage':
                     openOptions(message.route);
                     sendResponse({ success: true });
+                    break;
+
+                // The popup closes as soon as Google's window opens, so the sign-in runs here, where it can finish
+                case 'googleSignIn':
+                    try {
+                        await signInGoogle();
+                        await scheduleCalendarAlarm();
+                        runCalendarSync();
+                        sendResponse({ success: true });
+                    } catch (error) {
+                        sendResponse({ success: false, error: (error as Error).message });
+                    }
                     break;
 
                 case 'languageChanged':
