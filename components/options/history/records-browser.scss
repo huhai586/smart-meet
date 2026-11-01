@@ -1,0 +1,345 @@
+// The meeting records: the days on the left, what was said on the selected day on the right.
+// Colours come from the --opt-* tokens, so it follows light and dark mode.
+
+.rb {
+  --rb-accent: #1a73e8;
+  --rb-accent-bg: rgba(26, 115, 232, 0.12);
+
+  display: grid;
+  grid-template-columns: 340px minmax(0, 1fr);
+  gap: 16px;
+  height: calc(100vh - 290px);
+  min-height: 460px;
+  max-height: 820px;
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
+}
+
+:root.dark-mode .rb {
+  --rb-accent: #4da3ff;
+  --rb-accent-bg: rgba(77, 163, 255, 0.16);
+}
+
+.rb-list,
+.rb-detail {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+// ── Days ──────────────────────────────────────────────────────────────────────
+.rb-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  height: 34px;
+  margin: 12px 12px 4px;
+  padding: 0 10px;
+  border-radius: 10px;
+  background: var(--opt-segment-bg);
+  color: var(--opt-text-secondary);
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--opt-text-primary);
+    background: transparent;
+
+    &::placeholder {
+      color: var(--opt-text-secondary);
+    }
+  }
+
+  .anticon-close-circle {
+    cursor: pointer;
+  }
+}
+
+.rb-scroll {
+  flex: 1;
+  min-height: 0;
+  padding: 4px 8px 10px;
+  overflow-y: auto;
+}
+
+.rb-month__label {
+  padding: 12px 8px 4px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--opt-text-secondary);
+}
+
+.rb-day {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: 10px;
+  text-align: left;
+  font: inherit;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.18s ease;
+
+  &:hover {
+    background: var(--opt-hover-clickable);
+  }
+
+  &.is-selected {
+    background: var(--rb-accent-bg);
+
+    .rb-day__title {
+      color: var(--rb-accent);
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    gap: 1px;
+  }
+
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--opt-text-primary);
+  }
+
+  &__meetings {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    color: var(--opt-text-secondary);
+  }
+
+  &__count {
+    flex: none;
+    min-width: 24px;
+    padding: 1px 8px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--opt-text-secondary);
+    background: var(--opt-segment-bg);
+  }
+}
+
+// A search hit under its day
+.rb-match {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  width: calc(100% - 20px);
+  margin: 0 0 2px 20px;
+  padding: 6px 10px;
+  border: none;
+  border-left: 2px solid var(--opt-border-divider);
+  border-radius: 0 8px 8px 0;
+  text-align: left;
+  font: inherit;
+  background: transparent;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--opt-hover-clickable);
+  }
+
+  &__who {
+    font-size: 11.5px;
+    color: var(--opt-text-secondary);
+  }
+
+  &__text {
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--opt-text-tertiary);
+  }
+}
+
+// ── The selected day ──────────────────────────────────────────────────────────
+.rb-detail__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex: none;
+  padding: 16px 22px;
+  border-bottom: 0.5px solid var(--opt-border-divider);
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+    color: var(--opt-text-primary);
+  }
+
+  p {
+    margin: 2px 0 0;
+    font-size: 12.5px;
+    color: var(--opt-text-secondary);
+  }
+}
+
+.rb-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 14px;
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.08);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    color: #fff;
+    background: #dc2626;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+.rb-detail__body {
+  flex: 1;
+  min-height: 0;
+  padding: 6px 22px 22px;
+  overflow-y: auto;
+}
+
+.rb-meeting {
+  & + & {
+    margin-top: 8px;
+    border-top: 0.5px solid var(--opt-border-divider);
+  }
+
+  &__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 0 6px;
+
+    h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--opt-text-primary);
+    }
+
+    span {
+      flex: none;
+      font-size: 12px;
+      color: var(--opt-text-secondary);
+    }
+  }
+}
+
+.rb-line {
+  display: flex;
+  gap: 14px;
+  padding: 8px 10px;
+  margin: 0 -10px;
+  border-radius: 10px;
+  transition: background 0.18s ease;
+
+  &:hover {
+    background: var(--opt-hover-default);
+  }
+
+  &.is-highlighted {
+    background: rgba(251, 188, 4, 0.14);
+  }
+
+  &__time {
+    flex: 0 0 62px;
+    padding-top: 2px;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+    color: var(--opt-text-secondary);
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+
+    p {
+      margin: 1px 0 0;
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--opt-text-primary);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__speaker {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--rb-accent);
+  }
+}
+
+.rb mark {
+  padding: 0 2px;
+  border-radius: 3px;
+  color: inherit;
+  background: rgba(251, 188, 4, 0.35);
+}
+
+.rb-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 48px 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--opt-text-secondary);
+
+  &--detail {
+    flex: 1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .rb {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+    max-height: none;
+  }
+
+  .rb-list {
+    max-height: 320px;
+  }
+
+  .rb-detail {
+    min-height: 420px;
+  }
+}

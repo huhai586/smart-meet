@@ -8,7 +8,7 @@ import type { MenuProps } from 'antd';
 import dayjs, { type Dayjs } from 'dayjs';
 import styled from 'styled-components';
 import { useI18n } from '~/utils/i18n';
-import Calendar from '~/components/options/Calendar';
+import RecordsBrowser from '~/components/options/history/RecordsBrowser';
 import AIChatPanel from '~/components/options/ai-chat/AIChatPanel';
 import '~/components/options/ai-chat/ai-chat.scss';
 import messageManager from '~/utils/message-manager';
@@ -22,113 +22,71 @@ import { OptionsRoute } from '~utils/options-routes';
 /* ── Types ── */
 type Tab = 'history' | 'chat';
 
-/* ── Page header (matches other options pages) ── */
 /* ── Styled Components ── */
 
-const PageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 230px);
-  max-height: 900px;
-  min-height: 480px;
-  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', 'Inter', sans-serif;
-  background: var(--opt-bg-card);
-  border: 0.5px solid var(--opt-border-subtle);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-`;
-
-/* Top navigation bar */
-const NavBar = styled.div`
+/* The records / AI assistant switch and the export button, on the page itself */
+const Toolbar = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 16px;
-  background: var(--opt-navbar-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 0.5px solid var(--opt-border-divider);
-  flex-shrink: 0;
+  justify-content: space-between;
   gap: 12px;
+  margin-bottom: 16px;
 `;
 
-const NavTitle = styled.div`
-  flex: 1;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--opt-text-primary);
-  text-align: center;
-`;
-
-/* Segment control */
-const SegmentWrap = styled.div`
-  display: flex;
-  background: var(--opt-segment-bg);
-  border-radius: 9px;
+const Segments = styled.div`
+  display: inline-flex;
   padding: 2px;
-  gap: 0;
+  border-radius: 10px;
+  background: var(--opt-segment-bg);
 `;
 
-const SegBtn = styled.button<{ $active: boolean }>`
-  padding: 5px 16px;
+const Segment = styled.button<{ $active: boolean }>`
+  padding: 6px 20px;
   border: none;
-  border-radius: 7px;
+  border-radius: 8px;
+  font-family: inherit;
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, box-shadow 0.15s;
-  font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif;
-  background: ${({ $active }) => ($active ? 'var(--opt-segment-active)' : 'transparent')};
   color: ${({ $active }) => ($active ? 'var(--opt-segment-text-on)' : 'var(--opt-segment-text-off)')};
-  box-shadow: ${({ $active }) => ($active ? '0 1px 3px rgba(0,0,0,0.12)' : 'none')};
-
-  &:hover:not([style*="background:#FFFFFF"]) {
-    color: var(--opt-text-primary);
-  }
+  background: ${({ $active }) => ($active ? 'var(--opt-segment-active)' : 'transparent')};
+  box-shadow: ${({ $active }) => ($active ? '0 1px 3px rgba(0, 0, 0, 0.12)' : 'none')};
+  transition: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 `;
 
-/* Action icon button (export) */
-const NavActionBtn = styled.button`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
-  display: flex;
+const ExportButton = styled.button`
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 15px;
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--opt-text-primary);
+  background: var(--opt-segment-bg);
   cursor: pointer;
-  color: #007AFF;
-  font-size: 16px;
-  transition: background 0.12s;
-  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease;
 
-  &:hover {
-    background: rgba(0, 122, 255, 0.1);
+  &:active {
+    transform: scale(0.97);
   }
 `;
 
-/* Content area - scrollable */
-const ContentArea = styled.div<{ $hidden?: boolean }>`
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: 0;
-  display: ${({ $hidden }) => ($hidden ? 'none' : 'flex')};
-  flex-direction: column;
-
-  &::-webkit-scrollbar { width: 4px; }
-  &::-webkit-scrollbar-track { background: transparent; }
-  &::-webkit-scrollbar-thumb { background: #C7C7CC; border-radius: 2px; }
-`;
-
-/* Chat area - not scrollable at this level (inner handles scroll) */
-const ChatArea = styled.div<{ $hidden?: boolean }>`
-  flex: 1;
-  min-height: 0;
-  display: ${({ $hidden }) => ($hidden ? 'none' : 'flex')};
+/* The AI assistant fills a card of its own, scrolling inside */
+const AssistantCard = styled.div`
+  height: calc(100vh - 290px);
+  min-height: 460px;
+  max-height: 820px;
+  display: flex;
   flex-direction: column;
   overflow: hidden;
+  border-radius: 14px;
+  background: var(--opt-bg-card);
+  border: 0.5px solid var(--opt-border-subtle);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 `;
 
 /* ── Component ── */
@@ -251,46 +209,32 @@ const HistoryRecords: React.FC = () => {
     },
   ];
 
-  const navTitle = activeTab === 'history' ? t('tab_history') : t('tab_ai_translation');
-
   return (
     <PageShell route={OptionsRoute.HISTORY} subtitle={t('tab_history_desc')} width={PageWidth.WIDE}>
-      <PageWrapper>
-      {/* ── Top navigation bar ── */}
-      <NavBar>
-        {/* Segment control – centered */}
-        <SegmentWrap>
-          <SegBtn $active={activeTab === 'history'} onClick={() => setActiveTab('history')}>
+      <Toolbar>
+        <Segments>
+          <Segment $active={activeTab === 'history'} onClick={() => setActiveTab('history')}>
             {t('meeting_history_tab') || '会议记录'}
-          </SegBtn>
-          <SegBtn $active={activeTab === 'chat'} onClick={() => setActiveTab('chat')}>
+          </Segment>
+          <Segment $active={activeTab === 'chat'} onClick={() => setActiveTab('chat')}>
             {t('ai_assistant_tab')}
-          </SegBtn>
-        </SegmentWrap>
+          </Segment>
+        </Segments>
 
-        <NavTitle style={{ display: 'none' }}>{navTitle}</NavTitle>
-
-        {/* Export action menu */}
-        <Dropdown
-          menu={{ items: exportMenuItems }}
-          trigger={['click']}
-          placement="bottomRight"
-        >
-          <NavActionBtn title={t('export_captions_text')}>
-            <ExportOutlined />
-          </NavActionBtn>
+        <Dropdown menu={{ items: exportMenuItems }} trigger={['click']} placement="bottomRight">
+          <ExportButton title={t('export_captions_text')}>
+            <ExportOutlined /> {t('export')}
+          </ExportButton>
         </Dropdown>
-      </NavBar>
+      </Toolbar>
 
-      {/* ── History tab content (scrollable) ── */}
-      <ContentArea $hidden={activeTab !== 'history'}>
-        <Calendar />
-      </ContentArea>
-
-      {/* ── AI Chat tab content (fixed, inner scroll) ── */}
-      <ChatArea $hidden={activeTab !== 'chat'}>
-        <AIChatPanel />
-      </ChatArea>
+      {activeTab === 'history' ? (
+        <RecordsBrowser />
+      ) : (
+        <AssistantCard>
+          <AIChatPanel />
+        </AssistantCard>
+      )}
 
       {/* Meeting selection modal */}
       <Modal
@@ -315,7 +259,6 @@ const HistoryRecords: React.FC = () => {
           ))}
         </Select>
       </Modal>
-      </PageWrapper>
     </PageShell>
   );
 };
