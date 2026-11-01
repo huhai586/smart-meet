@@ -97,6 +97,9 @@ export interface AppConfigData {
   successfulSummaryCount:      Field<number>;
   ratingPromptResolved:        Field<boolean>;
 
+  // Vocabulary backup to Google Drive (off until the user turns it on)
+  vocabDriveSync:              Field<boolean>;
+
   // Custom prompts
   customPrompts: Field<CustomPrompt[]>;
 
@@ -149,6 +152,7 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
   captionWordTranslateEnabled: true,
   successfulSummaryCount:      0,
   ratingPromptResolved:        false,
+  vocabDriveSync:              false,
   isExtensionDisabled:         false,
   specificHighlightWords:      [],
   highlightWordsByDescriptions: [],

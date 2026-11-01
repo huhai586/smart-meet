@@ -22,6 +22,7 @@ import WordDetailModal from '~components/words/WordDetailModal';
 import WordRankList from './WordRankList';
 import WordDetail from './WordDetail';
 import MeetingTimeline from './MeetingTimeline';
+import DriveSyncCard from './DriveSyncCard';
 import './vocabulary.scss';
 
 type View = 'words' | 'meetings';
@@ -174,6 +175,8 @@ const Vocabulary: React.FC = () => {
           )}
         </>
       )}
+
+      <DriveSyncCard />
 
       <WordDetailModal visible={!!dictionaryWord} word={dictionaryWord} onClose={() => setDictionaryWord('')} />
     </div>

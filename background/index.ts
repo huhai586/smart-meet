@@ -4,6 +4,7 @@ import { initTabTracking } from "./tab-tracking";
 import { detectAndSetBrowserLanguage } from "./utils/language-utils";
 import { initLeaveCallSync } from "./sync-on-leave";
 import { initBrowserStartupSync } from "./browser-startup-sync";
+import { initVocabDriveSync } from "./vocab-drive-sync";
 import { initCalendarAutoSync } from "./calendar-auto-sync";
 import { initMeetingReminders } from "./meeting-reminders";
 
@@ -68,6 +69,9 @@ function initBackgroundService() {
 
     // 初始化浏览器启动同步
     initBrowserStartupSync();
+
+    // 词汇同步（默认关闭，由用户在词汇页开启）
+    initVocabDriveSync();
 
     // 初始化 Google Calendar 自动同步
     initCalendarAutoSync();

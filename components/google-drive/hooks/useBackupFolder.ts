@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { GoogleDriveService } from '~utils/google-drive';
 import type { DriveFile, DriveFolder } from '../types';
 import { useGoogleAuth } from '~contexts/GoogleAuthContext';
+import { VOCAB_DRIVE_FILE_NAME } from '~utils/vocab-sync';
 
 /**
  * 处理Google Drive备份文件夹的加载和文件列表获取
@@ -31,7 +32,8 @@ export const useBackupFolder = () => {
 
       if (folder) {
         console.log('Backup folder loaded, loading files...');
-        const files = await driveService.listBackupFiles();
+        // The vocabulary backup lives in the same folder but is not a day of meeting records
+        const files = (await driveService.listBackupFiles()).filter((file) => file.name !== VOCAB_DRIVE_FILE_NAME);
         setBackupFiles(files);
         console.log(`Loaded ${files.length} backup files`);
       }
