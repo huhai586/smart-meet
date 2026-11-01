@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { LoadingOutlined, LayoutOutlined, RightOutlined, TeamOutlined } from "@ant-design/icons"
+import { CalendarOutlined, LoadingOutlined, LayoutOutlined, RightOutlined, TeamOutlined } from "@ant-design/icons"
 import googleMeetIcon from "~images/google-meet-logo-main-icon.png"
 import useI18n from "~/utils/i18n"
 import { getConfigValue } from "~/utils/appConfig"
@@ -7,6 +7,16 @@ import { getLanguageByCode } from "~/utils/languages"
 import openSidePanel from "~utils/open-side-panel"
 import { OptionsRoute, openOptions } from "~/utils/options-routes"
 import { PopupMeetingStatus, usePopupMeeting, type LiveMeeting } from "~/hooks/usePopupMeeting"
+
+const GOOGLE_CALENDAR_URL = {
+  TODAY: "https://calendar.google.com/calendar/r/day",
+  AGENDA: "https://calendar.google.com/calendar/r/agenda",
+} as const
+
+const openCalendarWeb = (url: string) => {
+  chrome.tabs.create({ url })
+  window.close()
+}
 
 /** Opens an extension page from the popup and gets the popup out of the way. */
 const openAndClose = (route: Parameters<typeof openOptions>[0]) => {
@@ -73,20 +83,29 @@ const MeetingCard: React.FC = () => {
     )
   }
 
-  const leftTodayLink = leftToday > 0 && (
-    <button className="pm-more" onClick={() => openAndClose(OptionsRoute.CALENDAR)}>
-      <span>{t("popup_left_today", { n: String(leftToday) })}</span>
-      <span>
-        {t("popup_view")} <RightOutlined />
-      </span>
-    </button>
-  )
+  // What is left of today, or, when nothing is, a way to see what comes after
+  const calendarLink =
+    leftToday > 0 ? (
+      <button className="pm-more" onClick={() => openCalendarWeb(GOOGLE_CALENDAR_URL.TODAY)}>
+        <span>{t("popup_left_today", { n: String(leftToday) })}</span>
+        <span>
+          {t("popup_view")} <RightOutlined />
+        </span>
+      </button>
+    ) : status === PopupMeetingStatus.NEXT ? (
+      <button className="pm-more" onClick={() => openCalendarWeb(GOOGLE_CALENDAR_URL.AGENDA)}>
+        <span>{t("popup_none_left_today")}</span>
+        <span>
+          {t("popup_view_upcoming")} <RightOutlined />
+        </span>
+      </button>
+    ) : null
 
   if (status === PopupMeetingStatus.LIVE && live) {
     return (
       <section className="pm-section">
         <LiveCard live={live} />
-        {leftTodayLink}
+        {calendarLink}
       </section>
     )
   }
@@ -109,21 +128,25 @@ const MeetingCard: React.FC = () => {
             </span>
           </div>
           <div className="pm-card__title">{next.evt.summary || t("meetings_untitled")}</div>
-          {attendees > 0 && (
-            <div className="pm-card__meta">
-              <TeamOutlined /> {t("meetings_participants", { n: String(attendees) })}
-            </div>
-          )}
-          {next.joinUrl && (
-            <div className="pm-card__actions">
-              <button className="pm-btn pm-btn--primary" onClick={() => chrome.tabs.create({ url: next.joinUrl })}>
-                <img src={googleMeetIcon} className="pm-btn__logo" alt="" />
-                {t("meetings_join_btn")}
-              </button>
+          {(attendees > 0 || next.joinUrl) && (
+            <div className="pm-card__footer">
+              <span className="pm-card__meta">
+                {attendees > 0 && (
+                  <>
+                    <TeamOutlined /> {t("meetings_participants", { n: String(attendees) })}
+                  </>
+                )}
+              </span>
+              {next.joinUrl && (
+                <button className="pm-btn pm-btn--primary pm-btn--sm" onClick={() => chrome.tabs.create({ url: next.joinUrl })}>
+                  <img src={googleMeetIcon} className="pm-btn__logo" alt="" />
+                  {t("meetings_join_btn")}
+                </button>
+              )}
             </div>
           )}
         </div>
-        {leftTodayLink}
+        {calendarLink}
       </section>
     )
   }
@@ -132,12 +155,15 @@ const MeetingCard: React.FC = () => {
   return (
     <section className="pm-section">
       <div className="pm-card pm-card--empty">
-        <div className="pm-card__title">{notConnected ? t("popup_connect_calendar_sub") : t("meetings_no_upcoming_title")}</div>
-        {!notConnected && <div className="pm-card__meta">{t("meetings_no_upcoming_sub")}</div>}
+        <div className="pm-card__icon">
+          <CalendarOutlined />
+        </div>
+        <div className="pm-card__title">{notConnected ? t("popup_connect_calendar") : t("meetings_no_upcoming_title")}</div>
+        <div className="pm-card__meta">{notConnected ? t("popup_connect_calendar_sub") : t("meetings_no_upcoming_sub")}</div>
         {notConnected && (
-          <div className="pm-card__actions">
-            <button className="pm-btn" onClick={() => openAndClose(OptionsRoute.CALENDAR)}>
-              {t("popup_connect_calendar")}
+          <div className="pm-card__actions pm-card__actions--center">
+            <button className="pm-btn pm-btn--primary pm-btn--sm" onClick={() => openAndClose(OptionsRoute.CALENDAR)}>
+              {t("meetings_open_calendar_settings")}
             </button>
           </div>
         )}

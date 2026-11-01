@@ -33,9 +33,14 @@ body {
   height: auto;
   overflow: hidden;
   background: var(--opt-bg-card);
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: var(--opt-text-primary);
+}
+
+// Buttons do not inherit the page font on their own
+button {
+  font-family: inherit;
 }
 
 .popup-root {
@@ -93,6 +98,44 @@ body {
     width: 30px;
     padding: 0;
     font-size: 15px;
+  }
+
+  // Header buttons: the fill deepens, the button lifts a little and its icon moves
+  &--accent,
+  &--icon {
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+
+    .anticon {
+      transition: transform 0.22s ease;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(26, 115, 232, 0.18);
+    }
+
+    &:active {
+      transform: scale(0.96);
+      box-shadow: none;
+    }
+  }
+
+  &--accent:hover {
+    color: #fff;
+    background: #1a73e8;
+
+    .anticon {
+      transform: translateX(2px);
+    }
+  }
+
+  &--icon:hover {
+    color: var(--pm-accent);
+    background: var(--pm-accent-bg);
+
+    .anticon {
+      transform: rotate(60deg);
+    }
   }
 
   &__logo {
@@ -158,8 +201,27 @@ body {
   }
 
   &--empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 20px 16px;
+    padding: 18px 16px 16px;
+
+    .pm-card__title {
+      margin-top: 10px;
+    }
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    font-size: 20px;
+    color: var(--pm-accent);
+    background: var(--pm-accent-bg);
   }
 
   &__top {
@@ -195,6 +257,22 @@ body {
     display: flex;
     gap: 8px;
     margin-top: 12px;
+  }
+
+  &__actions--center {
+    justify-content: center;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 12px;
+
+    .pm-card__meta {
+      margin-top: 0;
+    }
   }
 }
 
@@ -238,6 +316,16 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .pm-badge__dot {
     animation: none;
+  }
+
+  .pm-btn,
+  .pm-btn .anticon {
+    transition: none;
+  }
+
+  .pm-btn:hover,
+  .pm-btn:hover .anticon {
+    transform: none;
   }
 }
 
