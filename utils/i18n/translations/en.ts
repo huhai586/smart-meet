@@ -818,4 +818,10 @@ export default {
   "vocab_no_meeting": "Meeting without a name",
   "vocab_open_page": "Open the full page",
   "vocab_open_dictionary": "Dictionary",
+  "error_boundary_title": "Something went wrong",
+  "error_boundary_desc": "This section hit an error. Your data is safe — try again.",
+  "error_boundary_retry": "Try again",
+  "error_boundary_copy": "Copy details",
+  "error_boundary_copied": "Copied",
+  "error_boundary_details": "Technical details",
 };

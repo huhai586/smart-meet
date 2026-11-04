@@ -685,4 +685,10 @@ export default {
   "vocab_no_meeting": "اجتماع بلا اسم",
   "vocab_open_page": "فتح الصفحة الكاملة",
   "vocab_open_dictionary": "القاموس",
+  "error_boundary_title": "حدث خطأ ما",
+  "error_boundary_desc": "واجه هذا القسم خطأً. بياناتك آمنة — حاول مرة أخرى.",
+  "error_boundary_retry": "إعادة المحاولة",
+  "error_boundary_copy": "نسخ التفاصيل",
+  "error_boundary_copied": "تم النسخ",
+  "error_boundary_details": "التفاصيل التقنية",
 };

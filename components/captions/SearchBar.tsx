@@ -3,15 +3,10 @@ import { Button, Input } from 'antd';
 import { SearchOutlined, UpOutlined, DownOutlined, CloseOutlined } from '@ant-design/icons';
 import { InputRef } from "antd/es/input/Input";
 
-interface SearchResult {
-    id: string;
-    // Add other properties of search results here
-}
-
 interface SearchBarProps {
   searchText: string;
   searchVisible: boolean;
-  searchResults: SearchResult[];
+  searchResults: Range[];
   currentMatch: number;
   onSearchTextChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch: () => void;

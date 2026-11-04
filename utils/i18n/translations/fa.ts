@@ -732,4 +732,10 @@ export default {
   "vocab_no_meeting": "جلسه بدون نام",
   "vocab_open_page": "باز کردن صفحهٔ کامل",
   "vocab_open_dictionary": "فرهنگ لغت",
+  "error_boundary_title": "مشکلی پیش آمد",
+  "error_boundary_desc": "این بخش با خطا مواجه شد. داده‌های شما امن است — دوباره تلاش کنید.",
+  "error_boundary_retry": "تلاش دوباره",
+  "error_boundary_copy": "کپی جزئیات",
+  "error_boundary_copied": "کپی شد",
+  "error_boundary_details": "جزئیات فنی",
 };

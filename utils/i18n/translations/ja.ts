@@ -730,4 +730,10 @@ export default {
   "vocab_no_meeting": "名前のない会議",
   "vocab_open_page": "ページ全体を開く",
   "vocab_open_dictionary": "辞書",
+  "error_boundary_title": "問題が発生しました",
+  "error_boundary_desc": "このセクションでエラーが発生しました。データは安全です。もう一度お試しください。",
+  "error_boundary_retry": "再試行",
+  "error_boundary_copy": "詳細をコピー",
+  "error_boundary_copied": "コピーしました",
+  "error_boundary_details": "技術的な詳細",
 };

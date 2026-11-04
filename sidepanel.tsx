@@ -13,6 +13,7 @@ import { DateProvider, useDateContext } from './contexts/DateContext';
 import GlobalDatePicker from './components/common/GlobalDatePicker';
 import { CaptionsTabIcon, SparklesTabIcon, TranslationTabIcon } from './components/common/TabIcons';
 import Loading from './components/common/Loading';
+import ErrorBoundary from './components/common/ErrorBoundary';
 import useI18n from './utils/i18n';
 import initAIService from './utils/initAIService';
 import Summary from './components/summary/summary';
@@ -225,28 +226,28 @@ const SidePanel = () => {
             label: t('captions'),
             key: 'captions',
             icon: <CaptionsTabIcon />,
-            children: (<Captions />),
+            children: (<ErrorBoundary><Captions /></ErrorBoundary>),
             visible: visibility.captions
         },
         {
             label: t('sidepanel_summary'),
             key: 'summary',
             icon: <SparklesTabIcon />,
-            children: <Summary />,
+            children: <ErrorBoundary><Summary /></ErrorBoundary>,
             visible: visibility.summary
         },
         {
             label: t('translation_records'),
             key: 'words',
             icon: <TranslationTabIcon />,
-            children: <Words currentTab={current} />,
+            children: <ErrorBoundary><Words currentTab={current} /></ErrorBoundary>,
             visible: visibility.translation
         },
         {
             label: t('longman_3000'),
             key: 'longman',
             icon: <BookOutlined />,
-            children: <Longman3000 />,
+            children: <ErrorBoundary><Longman3000 /></ErrorBoundary>,
             visible: visibility.longman
         },
     ];

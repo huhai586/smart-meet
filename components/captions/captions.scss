@@ -815,19 +815,13 @@
     }
   }
 
-  // 搜索高亮样式
-  .search-highlight {
+  // 搜索高亮样式 (CSS Custom Highlight API, see searchUtils.ts)
+  ::highlight(search-highlight) {
     background-color: rgba(255, 213, 79, 0.3);
-    padding: 0 2px;
-    border-radius: 3px;
-    transition: all 0.2s ease;
   }
 
-  .search-highlight-active {
+  ::highlight(search-highlight-active) {
     background-color: rgba(255, 165, 0, 0.5);
-    font-weight: bold;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
   }
 
   // 句子翻译图标样式

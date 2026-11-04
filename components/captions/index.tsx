@@ -154,6 +154,7 @@ const Captions = () => {
         selectedDate={selectedDate}
         containerRef={chatContainer}
         speakerColorMap={speakerColorMap}
+        pauseAutoScroll={isSearchActive}
       />
     </div>
   );

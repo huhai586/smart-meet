@@ -713,4 +713,10 @@ export default {
   "vocab_no_meeting": "Besprechung ohne Namen",
   "vocab_open_page": "Ganze Seite öffnen",
   "vocab_open_dictionary": "Wörterbuch",
+  "error_boundary_title": "Etwas ist schiefgelaufen",
+  "error_boundary_desc": "In diesem Bereich ist ein Fehler aufgetreten. Deine Daten sind sicher – versuche es erneut.",
+  "error_boundary_retry": "Erneut versuchen",
+  "error_boundary_copy": "Details kopieren",
+  "error_boundary_copied": "Kopiert",
+  "error_boundary_details": "Technische Details",
 };

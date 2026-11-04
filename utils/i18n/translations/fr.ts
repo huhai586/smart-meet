@@ -730,4 +730,10 @@ export default {
   "vocab_no_meeting": "Réunion sans nom",
   "vocab_open_page": "Ouvrir la page complète",
   "vocab_open_dictionary": "Dictionnaire",
+  "error_boundary_title": "Une erreur est survenue",
+  "error_boundary_desc": "Cette section a rencontré une erreur. Vos données sont en sécurité — réessayez.",
+  "error_boundary_retry": "Réessayer",
+  "error_boundary_copy": "Copier les détails",
+  "error_boundary_copied": "Copié",
+  "error_boundary_details": "Détails techniques",
 };

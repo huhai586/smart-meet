@@ -706,4 +706,10 @@ export default {
   "vocab_no_meeting": "Cuộc họp không tên",
   "vocab_open_page": "Mở trang đầy đủ",
   "vocab_open_dictionary": "Từ điển",
+  "error_boundary_title": "Đã xảy ra sự cố",
+  "error_boundary_desc": "Phần này gặp lỗi. Dữ liệu của bạn vẫn an toàn — hãy thử lại.",
+  "error_boundary_retry": "Thử lại",
+  "error_boundary_copy": "Sao chép chi tiết",
+  "error_boundary_copied": "Đã sao chép",
+  "error_boundary_details": "Chi tiết kỹ thuật",
 };

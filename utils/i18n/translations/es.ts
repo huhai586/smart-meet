@@ -713,4 +713,10 @@ export default {
   "vocab_no_meeting": "Reunión sin nombre",
   "vocab_open_page": "Abrir la página completa",
   "vocab_open_dictionary": "Diccionario",
+  "error_boundary_title": "Algo salió mal",
+  "error_boundary_desc": "Esta sección ha tenido un error. Tus datos están a salvo: inténtalo de nuevo.",
+  "error_boundary_retry": "Reintentar",
+  "error_boundary_copy": "Copiar detalles",
+  "error_boundary_copied": "Copiado",
+  "error_boundary_details": "Detalles técnicos",
 };

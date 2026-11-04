@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react"
+import React, { useEffect, useMemo, useRef } from "react"
 import { Empty } from 'antd';
 import { ArrowDownOutlined } from '@ant-design/icons';
 import EmptyIllustration, { EmptyKind } from '~components/common/EmptyIllustration';
@@ -15,6 +15,8 @@ interface CaptionContentProps {
   selectedDate?: Dayjs;
   containerRef: React.RefObject<HTMLDivElement>;
   speakerColorMap: Map<string, string>;
+  /** Stop following the live caption (e.g. while a search is active, so matches stay put). */
+  pauseAutoScroll?: boolean;
 }
 
 /**
@@ -25,10 +27,15 @@ const CaptionContent: React.FC<CaptionContentProps> = ({
   selectedDate, 
   containerRef,
   speakerColorMap,
+  pauseAutoScroll = false,
 }) => {
   const { t } = useI18n();
   const lastItemInContainer = useRef<HTMLDivElement>(null);
   const { disableAutoScroll, resumeAutoScroll, showJumpToLatest } = useAutoScroll(containerRef.current, lastItemInContainer.current, filteredData);
+
+  useEffect(() => {
+    if (pauseAutoScroll) disableAutoScroll();
+  }, [pauseAutoScroll, disableAutoScroll]);
 
   useCaptionIntrinsicHeight(containerRef, filteredData.length);
 

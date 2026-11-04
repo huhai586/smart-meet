@@ -685,4 +685,10 @@ export default {
   "vocab_no_meeting": "การประชุมที่ไม่มีชื่อ",
   "vocab_open_page": "เปิดหน้าเต็ม",
   "vocab_open_dictionary": "พจนานุกรม",
+  "error_boundary_title": "เกิดข้อผิดพลาดบางอย่าง",
+  "error_boundary_desc": "ส่วนนี้เกิดข้อผิดพลาด ข้อมูลของคุณปลอดภัย ลองอีกครั้ง",
+  "error_boundary_retry": "ลองอีกครั้ง",
+  "error_boundary_copy": "คัดลอกรายละเอียด",
+  "error_boundary_copied": "คัดลอกแล้ว",
+  "error_boundary_details": "รายละเอียดทางเทคนิค",
 };

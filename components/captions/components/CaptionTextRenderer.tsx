@@ -134,9 +134,6 @@ export const CaptionTextRenderer = memo(({
 
     const activate = useCallback(() => {
         clearTimeout(revertTimer.current);
-        // The search UI splits this element's text nodes in place; re-rendering it into spans now
-        // would make React remove nodes that are no longer there. Clicks still work (see Caption).
-        if (textRef.current?.querySelector('.search-highlight')) return;
         setIsInteractive(true);
     }, []);
 
@@ -144,7 +141,7 @@ export const CaptionTextRenderer = memo(({
         clearTimeout(revertTimer.current);
         revertTimer.current = setTimeout(() => {
             const element = textRef.current;
-            if (!element || element.querySelector('.search-highlight')) return;
+            if (!element) return;
             // Swapping the nodes would drop a selection the user is still working with.
             const selection = window.getSelection();
             if (selection && !selection.isCollapsed && (element.contains(selection.anchorNode) || element.contains(selection.focusNode))) return;

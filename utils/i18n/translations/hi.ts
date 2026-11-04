@@ -685,4 +685,10 @@ export default {
   "vocab_no_meeting": "बिना नाम की मीटिंग",
   "vocab_open_page": "पूरा पेज खोलें",
   "vocab_open_dictionary": "शब्दकोश",
+  "error_boundary_title": "कुछ गलत हो गया",
+  "error_boundary_desc": "इस भाग में त्रुटि आई। आपका डेटा सुरक्षित है — फिर से कोशिश करें।",
+  "error_boundary_retry": "फिर कोशिश करें",
+  "error_boundary_copy": "विवरण कॉपी करें",
+  "error_boundary_copied": "कॉपी हो गया",
+  "error_boundary_details": "तकनीकी विवरण",
 };

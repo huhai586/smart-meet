@@ -9,7 +9,7 @@ import { useSearchUpdate } from './useSearchUpdate';
  */
 export const useSearch = (containerRef: RefObject<HTMLElement>, selectedDate?: Dayjs) => {
   const [searchText, setSearchText] = useState('');
-  const [searchResults, setSearchResults] = useState<HTMLElement[]>([]);
+  const [searchResults, setSearchResults] = useState<Range[]>([]);
   const [currentMatch, setCurrentMatch] = useState(0);
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
@@ -22,10 +22,7 @@ export const useSearch = (containerRef: RefObject<HTMLElement>, selectedDate?: D
     setCurrentMatch(0);
     setIsSearchActive(false);
 
-    // 使用工具函数清除高亮
-    if (containerRef.current) {
-      clearHighlights(containerRef.current);
-    }
+    clearHighlights();
 
     // 清除后保持输入框焦点
     if (searchInputRef.current) {
@@ -63,9 +60,7 @@ export const useSearch = (containerRef: RefObject<HTMLElement>, selectedDate?: D
 
   const handleSearch = useCallback(() => {
     // 每次搜索前先清除旧的高亮，防止结果累积或过时
-    if (containerRef.current) {
-      clearHighlights(containerRef.current);
-    }
+    clearHighlights();
 
     if (!searchText.trim() || !containerRef.current) {
       setSearchResults([]);
@@ -78,12 +73,12 @@ export const useSearch = (containerRef: RefObject<HTMLElement>, selectedDate?: D
 
     // 使用工具函数查找并高亮匹配项
     const results = findAndHighlightMatches(containerRef.current, searchText);
-    setSearchResults(results as HTMLElement[]); // 类型断言为HTMLElement[]
+    setSearchResults(results);
 
     // 如果有匹配项，滚动到第一个匹配项
     if (results.length > 0) {
       setCurrentMatch(1);
-      scrollToMatch(results[0] as HTMLElement); // 类型断言
+      scrollToMatch(results[0]);
     } else {
       setCurrentMatch(0);
     }

@@ -706,4 +706,10 @@ export default {
   "vocab_no_meeting": "Встреча без названия",
   "vocab_open_page": "Открыть полную страницу",
   "vocab_open_dictionary": "Словарь",
+  "error_boundary_title": "Что-то пошло не так",
+  "error_boundary_desc": "В этом разделе произошла ошибка. Ваши данные в безопасности — повторите попытку.",
+  "error_boundary_retry": "Повторить",
+  "error_boundary_copy": "Копировать подробности",
+  "error_boundary_copied": "Скопировано",
+  "error_boundary_details": "Технические подробности",
 };

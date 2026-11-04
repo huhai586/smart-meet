@@ -730,4 +730,10 @@ export default {
   "vocab_no_meeting": "이름 없는 회의",
   "vocab_open_page": "전체 페이지 열기",
   "vocab_open_dictionary": "사전",
+  "error_boundary_title": "문제가 발생했습니다",
+  "error_boundary_desc": "이 영역에서 오류가 발생했습니다. 데이터는 안전합니다. 다시 시도해 주세요.",
+  "error_boundary_retry": "다시 시도",
+  "error_boundary_copy": "상세 정보 복사",
+  "error_boundary_copied": "복사됨",
+  "error_boundary_details": "기술 세부 정보",
 };

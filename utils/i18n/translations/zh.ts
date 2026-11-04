@@ -816,4 +816,10 @@ export default {
   "vocab_no_meeting": "未命名的会议",
   "vocab_open_page": "在完整页面中查看",
   "vocab_open_dictionary": "词典",
+  "error_boundary_title": "出了点问题",
+  "error_boundary_desc": "此部分发生了错误，你的数据是安全的，请重试。",
+  "error_boundary_retry": "重试",
+  "error_boundary_copy": "复制详情",
+  "error_boundary_copied": "已复制",
+  "error_boundary_details": "技术详情",
 };
