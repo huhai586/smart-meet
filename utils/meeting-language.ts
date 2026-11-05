@@ -92,10 +92,6 @@ export const dominantLanguage = (samples: LanguageSample[], current: string | nu
   return topCount / samples.length >= MeetingLanguageStats.DOMINANT_SHARE ? top : current;
 };
 
-/** How many samples in the window are in `language`; shown next to the detected language. */
-export const countSamples = (samples: LanguageSample[], language: string): number =>
-  samples.filter((sample) => sample.language === language).length;
-
 /** Meet serves meetings as /abc-defg-hij and /meet/abc-defg-hij. */
 const MEETING_PATH = /^\/(?:meet\/)?([a-z0-9]+-[a-z0-9]+-[a-z0-9]+)\/?$/i;
 

@@ -16,7 +16,6 @@ import {
   DEFAULT_MEETING_LANGUAGE,
   MEETING_LANGUAGE_AUTO,
   addSample,
-  countSamples,
   dominantLanguage,
   meetingCodeFromUrl,
   toSample,
@@ -107,12 +106,7 @@ const learnFromLine = async (state: MeetingState, sample: LanguageSample): Promi
   state.current = dominantLanguage(state.samples, state.current);
   await saveMeetingStates();
   if (state.current) {
-    await publishResolved({
-      language: state.current,
-      via: MeetingLanguageSource.STATS,
-      count: countSamples(state.samples, state.current),
-      total: state.samples.length,
-    });
+    await publishResolved({ language: state.current, via: MeetingLanguageSource.STATS });
     await chrome.storage.local.set({ [LAST_MEETING_LANGUAGE_KEY]: state.current });
   }
   return state.current;

@@ -292,8 +292,6 @@ export default {
   "select_translation_language": "Select Translation Language",
   "translation_language_desc": "Choose the language for translating text content.",
   "translation_language_set": "Translation language set to {language}",
-  "translation_target_language": "Target Translation Language",
-  "translation_target_language_desc": "Set the language to translate captions to when clicked",
 
   // Auto Translation
   "auto_translate": "Auto Translate",
@@ -824,15 +822,13 @@ export default {
   "error_boundary_copied": "Copied",
   "error_boundary_details": "Technical details",
   "meeting_language": "Meeting language",
-  "meeting_language_desc": "The language people speak in the meeting",
   "meeting_language_auto": "Auto-detect",
   "meeting_language_auto_value": "Auto · {language}",
-  "meeting_language_status_meet": "Read from Google Meet: {language}",
-  "meeting_language_status_stats": "Detected from captions: {language} ({count} of {total} lines)",
-  "meeting_language_status_waiting": "Detected once captions are on in a meeting",
   "meeting_language_set": "Meeting language set to {language}",
   "translate_to": "Translate to",
   "translation_languages": "Languages",
   "local_translator_test_lang": "Test language",
   "local_translator_test_only": "For testing only. Meetings are translated from the meeting language in Translation settings.",
+  "translation_languages_desc": "Every translation service translates from the meeting language into this language.",
+  "translation_behavior": "Translating captions",
 };

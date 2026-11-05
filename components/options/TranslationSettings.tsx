@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Switch, Slider, Modal, Form, Input, Select } from 'antd';
-import { CheckOutlined, RightOutlined, GlobalOutlined, ApiOutlined, RobotOutlined, TranslationOutlined, ThunderboltOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined, CheckOutlined, RightOutlined, GlobalOutlined, ApiOutlined, RobotOutlined, TranslationOutlined, ThunderboltOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 import useI18n from '~utils/i18n';
 import { useAutoTranslate } from '~hooks/useAutoTranslate';
@@ -17,10 +17,9 @@ import {
   useResolvedMeetingLanguage,
 } from '~hooks/useMeetingLanguage';
 import { MEETING_LANGUAGE_AUTO } from '~utils/meeting-language';
-import { MeetingLanguageSource } from '~utils/translation-center';
 import { useLocalModelNeedsDownload } from '~hooks/useLocalModelNeedsDownload';
 import { useTranslationFrequency } from '~hooks/useTranslationFrequency';
-import { supportedLanguages, getLanguageDisplay } from '~utils/languages';
+import { supportedLanguages, getLanguageDisplay, getLanguageByCode } from '~utils/languages';
 import useTranslationLanguage from '~hooks/useTranslationLanguage';
 import messageManager from '~utils/message-manager';
 import LocalTranslatorModal from './LocalTranslatorModal';
@@ -139,6 +138,65 @@ const FrequencyValue = styled.span`
   color: #007AFF;
 `;
 
+/** Meeting language → translate to: the source and the target of every translation, side by side. */
+const LanguagePair = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  background: var(--opt-bg-card);
+  border-radius: 12px;
+  border: 0.5px solid var(--opt-border-subtle);
+`;
+
+/** One side of the pair: a quiet tile with its label on top and the language below. */
+const LanguageField = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  padding: 8px 12px 6px;
+  border-radius: 10px;
+  background: var(--opt-bg-page);
+  transition: background 0.18s ease;
+
+  &:hover {
+    background: var(--opt-segment-bg);
+  }
+
+  /* The select is the tile's value line: no box of its own, aligned with the label. */
+  .ant-select {
+    width: 100%;
+  }
+  .ant-select .ant-select-selector {
+    padding-inline: 0 !important;
+  }
+  .ant-select .ant-select-selection-item {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--opt-text-primary);
+  }
+`;
+
+const LanguageFieldLabel = styled.span`
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--opt-text-secondary);
+`;
+
+const PairArrow = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background: rgba(26, 115, 232, 0.12);
+  color: #1a73e8;
+  font-size: 11px;
+`;
+
 const SectionFooter = styled.p`
   font-size: 12px;
   color: #8E8E93;
@@ -165,19 +223,12 @@ const TranslationSettings: React.FC = () => {
     language.code,
   );
 
-  // Auto mode says where its answer came from; a chosen language needs no explanation.
-  const meetingLanguageStatus = (() => {
-    if (meetingLanguage !== MEETING_LANGUAGE_AUTO) return t('meeting_language_desc');
-    if (!resolvedMeetingLanguage) return t('meeting_language_status_waiting');
-    const name = languageNativeName(resolvedMeetingLanguage.language);
-    return resolvedMeetingLanguage.via === MeetingLanguageSource.MEET
-      ? t('meeting_language_status_meet', { language: name })
-      : t('meeting_language_status_stats', {
-          language: name,
-          count: String(resolvedMeetingLanguage.count ?? 0),
-          total: String(resolvedMeetingLanguage.total ?? 0),
-        });
-  })();
+  // Auto mode shows what it settled on, the way the popup does.
+  const meetingLanguageLabel = meetingLanguage !== MEETING_LANGUAGE_AUTO
+    ? getLanguageDisplay(getLanguageByCode(meetingLanguage))
+    : resolvedMeetingLanguage
+      ? t('meeting_language_auto_value', { language: languageNativeName(resolvedMeetingLanguage.language) })
+      : t('meeting_language_auto');
 
   const handleMeetingLanguageChange = (value: string) => {
     setMeetingLanguage(value);
@@ -236,35 +287,30 @@ const TranslationSettings: React.FC = () => {
   return (
     <PageShell route={OptionsRoute.TRANSLATION} subtitle={t('tab_translation_desc')}>
 
-      {/* Section 1: General Settings */}
+      {/* Section 1: Languages */}
       <SectionLabel>{t('translation_languages')}</SectionLabel>
-      <SettingGroup>
-        {/* Meeting language: what the captions are in, the source of every translation */}
-        <SettingRow $last={false}>
-          <RowContent>
-            <RowTitle>{t('meeting_language')}</RowTitle>
-            <RowSubtitle>{meetingLanguageStatus}</RowSubtitle>
-          </RowContent>
+      <LanguagePair>
+        <LanguageField>
+          <LanguageFieldLabel>{t('meeting_language')}</LanguageFieldLabel>
           <Select
+            variant="borderless"
+            aria-label={t('meeting_language')}
             value={meetingLanguage}
             onChange={handleMeetingLanguageChange}
-            style={{ width: 160, borderRadius: 8 }}
-            variant="borderless"
-            size="small"
+            labelRender={() => meetingLanguageLabel}
             popupMatchSelectWidth={false}
             options={[
               { value: MEETING_LANGUAGE_AUTO, label: t('meeting_language_auto') },
               ...supportedLanguages.map((lang) => ({ value: lang.code, label: getLanguageDisplay(lang) })),
             ]}
           />
-        </SettingRow>
-
-        {/* Target Language — inline Select styled as a value row */}
-        <SettingRow $last={false}>
-          <RowContent>
-            <RowTitle>{t('translate_to')}</RowTitle>
-          </RowContent>
+        </LanguageField>
+        <PairArrow aria-hidden><ArrowRightOutlined /></PairArrow>
+        <LanguageField>
+          <LanguageFieldLabel>{t('translate_to')}</LanguageFieldLabel>
           <Select
+            variant="borderless"
+            aria-label={t('translate_to')}
             value={language.code}
             onChange={(value) => {
               const selected = supportedLanguages.find(l => l.code === value);
@@ -273,21 +319,16 @@ const TranslationSettings: React.FC = () => {
                 messageManager.success(t('translation_language_set', { language: selected.name }));
               }
             }}
-            style={{
-              width: 160,
-              borderRadius: 8,
-            }}
-            variant="borderless"
-            size="small"
-          >
-            {supportedLanguages.map(lang => (
-              <Select.Option key={lang.code} value={lang.code}>
-                {getLanguageDisplay(lang)}
-              </Select.Option>
-            ))}
-          </Select>
-        </SettingRow>
+            popupMatchSelectWidth={false}
+            options={supportedLanguages.map((lang) => ({ value: lang.code, label: getLanguageDisplay(lang) }))}
+          />
+        </LanguageField>
+      </LanguagePair>
+      <SectionFooter>{t('translation_languages_desc')}</SectionFooter>
 
+      {/* Section 2: How captions get translated */}
+      <SectionLabel>{t('translation_behavior')}</SectionLabel>
+      <SettingGroup style={{ marginBottom: 28 }}>
         {/* Click a word in Meet's native captions to translate it */}
         <SettingRow $last={false}>
           <RowContent>
@@ -340,9 +381,8 @@ const TranslationSettings: React.FC = () => {
           </SliderRow>
         )}
       </SettingGroup>
-      <SectionFooter>{t('translation_target_language_desc')}</SectionFooter>
 
-      {/* Section 2: Translation Provider */}
+      {/* Section 3: Translation Provider */}
       <SectionLabel>{t('translation_provider')}</SectionLabel>
       <SettingGroup>
         {PROVIDER_LIST.map((provider, idx) => {

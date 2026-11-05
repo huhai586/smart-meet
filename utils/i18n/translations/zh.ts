@@ -293,8 +293,6 @@ export default {
   "select_translation_language": "选择翻译语言",
   "translation_language_desc": "选择用于翻译文本内容的语言。",
   "translation_language_set": "翻译语言已设置为 {language}",
-  "translation_target_language": "目标翻译语言",
-  "translation_target_language_desc": "设置点击字幕后翻译为的语言",
 
   // Auto Translation
   "auto_translate": "自动翻译",
@@ -822,15 +820,13 @@ export default {
   "error_boundary_copied": "已复制",
   "error_boundary_details": "技术详情",
   "meeting_language": "会议语言",
-  "meeting_language_desc": "会议里说话使用的语言",
   "meeting_language_auto": "自动识别",
   "meeting_language_auto_value": "自动 · {language}",
-  "meeting_language_status_meet": "已从 Google Meet 读取：{language}",
-  "meeting_language_status_stats": "根据字幕识别：{language}（{total} 条中 {count} 条）",
-  "meeting_language_status_waiting": "会议中开启字幕后自动识别",
   "meeting_language_set": "会议语言已设置为 {language}",
   "translate_to": "翻译为",
   "translation_languages": "翻译语言",
   "local_translator_test_lang": "测试语言",
   "local_translator_test_only": "仅用于测试。会议翻译使用「翻译」设置中的会议语言。",
+  "translation_languages_desc": "所有翻译服务都从会议语言翻译为目标语言。",
+  "translation_behavior": "字幕翻译",
 };

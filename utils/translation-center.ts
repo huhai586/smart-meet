@@ -45,9 +45,6 @@ export const MeetingLanguageSource = {
 export interface ResolvedMeetingLanguage {
   language: string;
   via: (typeof MeetingLanguageSource)[keyof typeof MeetingLanguageSource];
-  /** STATS only: samples in `language` out of `total` in the window. */
-  count?: number;
-  total?: number;
 }
 
 /** chrome.storage.session key of the ResolvedMeetingLanguage; absent while nothing is resolved. */

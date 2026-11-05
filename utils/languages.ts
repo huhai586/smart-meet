@@ -33,5 +33,7 @@ export const getLanguageByCode = (code: string): Language => {
 
 // 获取语言名称显示
 export const getLanguageDisplay = (language: Language): string => {
+  // 'English (English)' says the same thing twice.
+  if (language.nativeName === language.name) return language.name;
   return `${language.nativeName} (${language.name})`;
 }; 

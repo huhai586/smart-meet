@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
   addSample,
-  countSamples,
   dominantLanguage,
   meetingCodeFromUrl,
   toSample,
@@ -84,12 +83,6 @@ describe('dominantLanguage', () => {
 
   it('switches once another language takes over the window', () => {
     expect(dominantLanguage([...fill('en', 10), ...fill('ja', 20)], 'en')).toBe('ja');
-  });
-});
-
-describe('countSamples', () => {
-  it('counts samples of one language', () => {
-    expect(countSamples([...fill('en', 3), sample('fr')], 'en')).toBe(3);
   });
 });
 
