@@ -1,15 +1,35 @@
 import { getCurrentTranslationProvider } from '../hooks/useTranslationProvider';
-import { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeepL, translateByLocal } from './translators';
+import translateByAI from './translate-signal-words';
+import { TranslateFailure, TranslationCenterAction, type TranslateRequest, type TranslateResponse } from './translation-center';
 import { getCurrentUILanguage } from '../hooks/useUILanguage';
 import { getTranslation } from './i18n';
 import messageManager from './message-manager';
-import { LocalModelNotInstalledError } from './local-model-prompt';
+import { LocalModelNotInstalledError, promptLocalModelDownload } from './local-model-prompt';
 
 export interface TranslateOptions {
   silent?: boolean;
   /** Text the translated text came from; lets language detection see more than a single word. */
   context?: string;
 }
+
+const setLoading = (loading: boolean) =>
+  window.dispatchEvent(new CustomEvent('global-loading-event', { detail: { loading } }));
+
+const translateInCenter = async (text: string, context?: string): Promise<string> => {
+  const request: TranslateRequest = { action: TranslationCenterAction.TRANSLATE, text, context };
+  setLoading(true);
+  try {
+    const response = (await chrome.runtime.sendMessage(request)) as TranslateResponse | undefined;
+    if (!response) throw new Error('Translation service unavailable');
+    if (response.ok) return response.text;
+    // Without strictNullChecks TypeScript does not narrow on `ok`.
+    const failure = response as Extract<TranslateResponse, { ok: false }>;
+    if (failure.reason === TranslateFailure.LOCAL_MODEL_MISSING) throw await promptLocalModelDownload();
+    throw new Error(failure.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
 /**
  * 统一的自动翻译接口
@@ -25,37 +45,13 @@ export const translateText = async (text: string, options: TranslateOptions = {}
   }
 
   try {
-    // 获取当前选择的翻译服务提供商
     const provider = await getCurrentTranslationProvider();
-    console.log(`[translateText] Using translation provider: ${provider}`);
-    
-    let translatedText: string;
-    
-    // 根据不同的提供商调用相应的翻译函数
-    switch (provider) {
-      case 'google':
-        console.log('[translateText] Using Google Translate');
-        translatedText = await translateByGoogle(text);
-        break;
-      case 'microsoft':
-        console.log('[translateText] Using Microsoft Translator');
-        translatedText = await translateByMicrosoft(text);
-        break;
-      case 'deepl':
-        console.log('[translateText] Using DeepL');
-        translatedText = await translateByDeepL(text);
-        break;
-      case 'local':
-        console.log('[translateText] Using local AI translation');
-        translatedText = await translateByLocal(text, options.context);
-        break;
-      case 'ai':
-      default:
-        console.log('[translateText] Using AI Translation');
-        translatedText = await translateByAI(text);
-        break;
-    }
-    
+    // AI translation needs the AI service this page set up; every other provider runs in the
+    // background translation center.
+    const translatedText = provider === 'ai'
+      ? await translateByAI(text)
+      : await translateInCenter(text, options.context);
+
     console.log(`[translateText] Translation completed with ${provider}: ${translatedText.substring(0, 100)}...`);
     return translatedText;
     

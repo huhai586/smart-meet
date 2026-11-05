@@ -12,6 +12,8 @@
  *   migrateToAppConfig()         – one-time migration from old flat keys
  */
 
+import { DEFAULT_MEETING_LANGUAGE } from './meeting-language';
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface CustomPrompt {
@@ -64,6 +66,8 @@ export interface AppConfigData {
   autoTranslateEnabled:     Field<boolean>;
   translationProvider:      Field<string>;
   translationLanguage:      Field<string>;
+  /** Language the captions are in: a language code, or 'auto' (see utils/meeting-language). */
+  meetingLanguage:          Field<string>;
   translationFrequency:     Field<number>;
   deeplConfig:              Field<DeepLConfig>;
   localTranslatorConfig:    Field<LocalTranslatorConfig>;
@@ -138,6 +142,7 @@ const DEFAULTS: Record<AppConfigKey, unknown> = {
   autoTranslateEnabled:        false,
   translationProvider:         'local',
   translationLanguage:         'zh',
+  meetingLanguage:             DEFAULT_MEETING_LANGUAGE,
   translationFrequency:        2.5,
   deeplConfig:                 { auth_key: '' },
   localTranslatorConfig:       { sourceLanguage: 'en' },

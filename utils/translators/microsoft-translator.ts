@@ -1,8 +1,5 @@
 import { translate } from 'microsoft-translate-api';
 import { getCurrentLanguage } from '../../hooks/useTranslationLanguage';
-import messageManager from '../message-manager';
-import { getTranslation } from '../i18n';
-import { getCurrentUILanguage } from '../../hooks/useUILanguage';
 
 // Microsoft翻译API支持的语言代码映射
 const microsoftLangCodes = {
@@ -163,58 +160,34 @@ const mapToMicrosoftLangCode = (langCode: string): string => {
   return 'en';
 };
 
+/** Microsoft's code for a source language, or null (auto-detect) when it doesn't know the language. */
+const toMicrosoftSourceCode = (langCode: string | undefined): string | null => {
+  if (!langCode) return null;
+  const code = mapToMicrosoftLangCode(langCode);
+  return code === 'en' && !langCode.toLowerCase().startsWith('en') ? null : code;
+};
+
 /**
- * Microsoft翻译服务工具函数
- * @param text - 需要翻译的文本
- * @returns Promise<string> - 翻译结果
+ * Microsoft翻译服务工具函数. Runs in the background translation center, so it shows nothing itself.
+ * @param sourceLanguage - the meeting language; omitted, Microsoft detects it
  */
-export const translateByMicrosoft = async (text: string): Promise<string> => {
-  console.log('Using Microsoft Translator for:', text);
-  
-  // 发送加载开始事件
-  const loadingEvent = new CustomEvent('global-loading-event', { detail: { loading: true } });
-  window.dispatchEvent(loadingEvent);
-  
+export const translateByMicrosoft = async (text: string, sourceLanguage?: string): Promise<string> => {
+  const targetLanguage = await getCurrentLanguage();
+  const targetLangCode = mapToMicrosoftLangCode(targetLanguage.code);
   try {
-    // 获取目标语言
-    const targetLanguage = await getCurrentLanguage();
-    const originalLangCode = targetLanguage.code;
-    
-    // 映射到Microsoft支持的语言代码
-    const targetLangCode = mapToMicrosoftLangCode(originalLangCode);
-    
-    console.log(`Original language code: ${originalLangCode}, Microsoft language code: ${targetLangCode}`);
-    
-    // 使用microsoft-translate-api进行翻译
-    // translate(text, from, to) - from设为null表示自动检测
-    const result = await translate(text, null, targetLangCode);
-    // 根据文档，返回格式是标准的，直接获取翻译结果
-    const translatedText = result[0].translations[0].text;
-    console.log('Microsoft translation successful:', translatedText);
-    return translatedText;
-    
+    const result = await translate(text, toMicrosoftSourceCode(sourceLanguage), targetLangCode);
+    return result[0].translations[0].text;
   } catch (error) {
     console.error('Microsoft翻译错误:', error);
-    
-    // 根据错误类型返回相应的错误消息
-    if (error.message?.includes('rate limit') || error.message?.includes('quota') || 
-        error.message?.includes('429') || error.name === 'TooManyRequestsError' || 
+    if (error.message?.includes('rate limit') || error.message?.includes('quota') ||
+        error.message?.includes('429') || error.name === 'TooManyRequestsError' ||
         error.code === 429) {
-      // 获取当前UI语言并显示多语言错误提示
-      const currentUILanguage = await getCurrentUILanguage();
-      const errorMessage = getTranslation('google_translate_rate_limit_error', currentUILanguage.code);
-      messageManager.error(errorMessage);
       throw new Error('Microsoft翻译请求过于频繁，请稍后再试');
     } else if (error.message?.includes('network') || error.message?.includes('fetch')) {
       throw new Error('网络错误，请检查您的网络连接');
     } else if (error.message?.includes('unauthorized') || error.message?.includes('403')) {
       throw new Error('Microsoft翻译服务认证失败');
-    } else {
-      throw new Error('Microsoft翻译服务暂时不可用');
     }
-  } finally {
-    // 发送加载完成事件
-    const finishEvent = new CustomEvent('global-loading-event', { detail: { loading: false } });
-    window.dispatchEvent(finishEvent);
+    throw new Error('Microsoft翻译服务暂时不可用');
   }
-}; 
+};

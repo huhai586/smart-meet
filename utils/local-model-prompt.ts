@@ -5,11 +5,6 @@ import { OptionsRoute } from './options-routes';
 
 /** Options page route that holds the translation provider settings (and the model download). */
 
-/** Chrome reports these while the on-device model for a language pair is not on the machine yet. */
-const MODEL_MISSING_STATES = new Set(['downloadable', 'downloading']);
-
-export const isLocalModelMissing = (availability: string): boolean => MODEL_MISSING_STATES.has(availability);
-
 /** Thrown by local translation when the model is missing; `message` is the localized text shown to the user. */
 export class LocalModelNotInstalledError extends Error {
   constructor(message: string) {

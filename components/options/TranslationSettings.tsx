@@ -8,9 +8,16 @@ import useCaptionWordTranslateToggle from '~hooks/useCaptionWordTranslateToggle'
 import {
   useTranslationProvider,
   useDeepLConfig,
-  useLocalTranslatorConfig,
   type TranslationProvider,
 } from '~hooks/useTranslationProvider';
+import {
+  effectiveMeetingLanguage,
+  languageNativeName,
+  useMeetingLanguage,
+  useResolvedMeetingLanguage,
+} from '~hooks/useMeetingLanguage';
+import { MEETING_LANGUAGE_AUTO } from '~utils/meeting-language';
+import { MeetingLanguageSource } from '~utils/translation-center';
 import { useLocalModelNeedsDownload } from '~hooks/useLocalModelNeedsDownload';
 import { useTranslationFrequency } from '~hooks/useTranslationFrequency';
 import { supportedLanguages, getLanguageDisplay } from '~utils/languages';
@@ -150,12 +157,35 @@ const TranslationSettings: React.FC = () => {
   const [translationProvider, setTranslationProvider] = useTranslationProvider();
   const [translationFrequency, setTranslationFrequency] = useTranslationFrequency();
   const [deepLConfig, setDeepLConfig] = useDeepLConfig();
-  const [localConfig] = useLocalTranslatorConfig();
+  const [meetingLanguage, setMeetingLanguage] = useMeetingLanguage();
+  const resolvedMeetingLanguage = useResolvedMeetingLanguage();
   const localNeedsDownload = useLocalModelNeedsDownload(
     translationProvider === 'local',
-    localConfig.sourceLanguage || 'en',
+    effectiveMeetingLanguage(meetingLanguage, resolvedMeetingLanguage),
     language.code,
   );
+
+  // Auto mode says where its answer came from; a chosen language needs no explanation.
+  const meetingLanguageStatus = (() => {
+    if (meetingLanguage !== MEETING_LANGUAGE_AUTO) return t('meeting_language_desc');
+    if (!resolvedMeetingLanguage) return t('meeting_language_status_waiting');
+    const name = languageNativeName(resolvedMeetingLanguage.language);
+    return resolvedMeetingLanguage.via === MeetingLanguageSource.MEET
+      ? t('meeting_language_status_meet', { language: name })
+      : t('meeting_language_status_stats', {
+          language: name,
+          count: String(resolvedMeetingLanguage.count ?? 0),
+          total: String(resolvedMeetingLanguage.total ?? 0),
+        });
+  })();
+
+  const handleMeetingLanguageChange = (value: string) => {
+    setMeetingLanguage(value);
+    const selected = supportedLanguages.find((l) => l.code === value);
+    messageManager.success(t('meeting_language_set', {
+      language: selected ? getLanguageDisplay(selected) : t('meeting_language_auto'),
+    }));
+  };
 
   const [deepLModalOpen, setDeepLModalOpen] = useState(false);
   const [deepLForm] = Form.useForm<{ auth_key: string }>();
@@ -207,12 +237,32 @@ const TranslationSettings: React.FC = () => {
     <PageShell route={OptionsRoute.TRANSLATION} subtitle={t('tab_translation_desc')}>
 
       {/* Section 1: General Settings */}
-      <SectionLabel>{t('translation_target_language')}</SectionLabel>
+      <SectionLabel>{t('translation_languages')}</SectionLabel>
       <SettingGroup>
+        {/* Meeting language: what the captions are in, the source of every translation */}
+        <SettingRow $last={false}>
+          <RowContent>
+            <RowTitle>{t('meeting_language')}</RowTitle>
+            <RowSubtitle>{meetingLanguageStatus}</RowSubtitle>
+          </RowContent>
+          <Select
+            value={meetingLanguage}
+            onChange={handleMeetingLanguageChange}
+            style={{ width: 160, borderRadius: 8 }}
+            variant="borderless"
+            size="small"
+            popupMatchSelectWidth={false}
+            options={[
+              { value: MEETING_LANGUAGE_AUTO, label: t('meeting_language_auto') },
+              ...supportedLanguages.map((lang) => ({ value: lang.code, label: getLanguageDisplay(lang) })),
+            ]}
+          />
+        </SettingRow>
+
         {/* Target Language — inline Select styled as a value row */}
         <SettingRow $last={false}>
           <RowContent>
-            <RowTitle>{t('translation_target_language')}</RowTitle>
+            <RowTitle>{t('translate_to')}</RowTitle>
           </RowContent>
           <Select
             value={language.code}

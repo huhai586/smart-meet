@@ -135,6 +135,14 @@ const TestTitle = styled.div`
   letter-spacing: -0.2px;
 `;
 
+/** The test language here is only for trying the translator; meetings use the meeting language. */
+const TestHint = styled.div`
+  margin: -4px 0 12px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--opt-text-secondary);
+`;
+
 const ReadyBadge = styled.div`
   display: flex;
   align-items: center;
@@ -445,7 +453,7 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
 
   const renderSourcePicker = () => (
     <LangRow>
-      <LangLabel>{t('local_translator_source_lang')}:</LangLabel>
+      <LangLabel>{t('local_translator_test_lang')}:</LangLabel>
       <Select
         value={config.sourceLanguage || 'en'}
         onChange={handleSourceLangChange}
@@ -546,6 +554,7 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
           {t('local_translator_ready')}
         </ReadyBadge>
       </TestHeader>
+      <TestHint>{t('local_translator_test_only')}</TestHint>
 
       <PanelRow>
         {/* Input panel */}
@@ -586,7 +595,7 @@ const LocalTranslatorModal: React.FC<LocalTranslatorModalProps> = ({
 
       <ActionRow>
         <LangRow>
-          <LangLabel>{t('local_translator_source_lang')}:</LangLabel>
+          <LangLabel>{t('local_translator_test_lang')}:</LangLabel>
           <Select
             value={config.sourceLanguage || 'en'}
             onChange={handleSourceLangChange}

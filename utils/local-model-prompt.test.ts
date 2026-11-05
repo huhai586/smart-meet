@@ -16,7 +16,7 @@ beforeEach(() => {
 
 describe('isLocalModelMissing', () => {
     it('is true only while the model is not on the machine', async () => {
-        const { isLocalModelMissing } = await import('./local-model-prompt');
+        const { isLocalModelMissing } = await import('./translators/local-translator');
         expect(isLocalModelMissing('downloadable')).toBe(true);
         expect(isLocalModelMissing('downloading')).toBe(true);
         expect(isLocalModelMissing('available')).toBe(false);

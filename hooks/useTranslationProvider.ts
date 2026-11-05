@@ -125,10 +125,3 @@ export const useLocalTranslatorConfig = (): [LocalTranslatorConfig, (config: Loc
   return [config, setConfig];
 };
 
-/**
- * 获取 LocalTranslator 配置
- */
-export const getLocalTranslatorConfig = async (): Promise<LocalTranslatorConfig> => {
-  const v = await getConfigValue('localTranslatorConfig');
-  return v ?? { sourceLanguage: 'en' };
-};

@@ -7,6 +7,7 @@ import { initBrowserStartupSync } from "./browser-startup-sync";
 import { initVocabDriveSync } from "./vocab-drive-sync";
 import { initCalendarAutoSync } from "./calendar-auto-sync";
 import { initMeetingReminders } from "./meeting-reminders";
+import { initTranslationCenter } from "./translation-center";
 
 import { migrateToAppConfig, cleanupLegacyFlatKeys } from "../utils/appConfig";
 import { FeedbackSource, getFeedbackUrl } from "../utils/feedback";
@@ -77,6 +78,9 @@ function initBackgroundService() {
 
     // 初始化会议提醒通知
     initMeetingReminders();
+
+    // 翻译中心：所有页面的翻译都在这里执行
+    initTranslationCenter();
 }
 
 // 执行初始化
