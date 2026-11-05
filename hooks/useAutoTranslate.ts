@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { getCurrentTranslationProvider } from './useTranslationProvider';
-import { translateByGoogle, translateByMicrosoft, translateByLocal } from '../utils/translators';
+import { translateText } from '../utils/unified-translation';
 import { getTranslationFrequency, frequencyToMs } from './useTranslationFrequency';
 import useI18n from "../utils/i18n";
 import { getConfigValue, setConfigValue, onConfigChanged } from '../utils/appConfig';
@@ -71,35 +71,8 @@ export const useAutoTranslateContent = (content: string, timestamp: number) => {
       setIsAutoTranslating(true);
       lastTranslatedContentRef.current = textToTranslate;
       
-      // 获取当前选择的翻译服务提供商 - 添加双重验证
-      const provider = await getCurrentTranslationProvider();
-      console.log(`[executeTranslation] Current translation provider: ${provider}`);
-      
-      let translatedText: string;
-      
-      // 根据不同的提供商调用相应的翻译函数
-      switch (provider) {
-        case 'google':
-          console.log('[executeTranslation] Using Google Translate');
-          translatedText = await translateByGoogle(textToTranslate);
-          break;
-        case 'microsoft':
-          console.log('[executeTranslation] Using Microsoft Translator');
-          translatedText = await translateByMicrosoft(textToTranslate);
-          break;
-        case 'local':
-          console.log('[executeTranslation] Using Local AI Translator');
-          translatedText = await translateByLocal(textToTranslate);
-          break;
-        case 'ai':
-        default:
-          console.log('[executeTranslation] Using AI Translation');
-          const { default: translateByAI } = await import('../utils/translate-signal-words');
-          translatedText = await translateByAI(textToTranslate);
-          break;
-      }
-      
-      console.log(`[executeTranslation] Translation completed with ${provider}: ${translatedText.substring(0, 100)}...`);
+      // Errors stay in the console: auto translation runs on every caption and must not toast each failure.
+      const translatedText = await translateText(textToTranslate, { silent: true });
       
       // 检查是否是错误消息
       const isErrorMessage = translatedText.includes(t('translation_failed')) || 

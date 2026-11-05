@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
-import { getCurrentTranslationProvider } from '../../../hooks/useTranslationProvider';
-import { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeepL, translateByLocal } from '../../../utils/translators';
+import { translateText, translateWord } from '../../../utils/unified-translation';
 import { recordLookup } from '../../../utils/vocab';
 import messageManager from '../../../utils/message-manager';
 
@@ -12,26 +11,6 @@ export const useTranslation = () => {
 
     const error = useCallback((res: string) => {
         messageManager.error(res, 5);
-    }, []);
-
-    // Generic translation function
-    const translateText = useCallback(async (text: string): Promise<string> => {
-        const provider = await getCurrentTranslationProvider();
-        console.log(`[translateText] Using provider: ${provider}`);
-        
-        switch (provider) {
-            case 'google':
-                return await translateByGoogle(text);
-            case 'microsoft':
-                return await translateByMicrosoft(text);
-            case 'deepl':
-                return await translateByDeepL(text);
-            case 'local':
-                return await translateByLocal(text);
-            case 'ai':
-            default:
-                return await translateByAI(text);
-        }
     }, []);
 
     // Handle word click translation
@@ -90,7 +69,7 @@ export const useTranslation = () => {
                 // Looking a word up saves it with the caption line it was heard in
                 let translatedText = '';
                 try {
-                    translatedText = await translateText(word);
+                    translatedText = await translateWord(word, { silent: true, context: fallbackContent });
                     // Show only translation result, not original word
                     success(translatedText);
                 } finally {
@@ -107,7 +86,7 @@ export const useTranslation = () => {
         } else {
             // If no word found, translate the entire sentence
             try {
-                const translatedText = await translateText(fallbackContent);
+                const translatedText = await translateText(fallbackContent, { silent: true });
                 success(translatedText);
             } catch (err) {
                 console.error('Unexpected error in handleWordClick sentence translation:', err);
@@ -116,7 +95,7 @@ export const useTranslation = () => {
                 error(errorMessage);
             }
         }
-    }, [translateText, success, error]);
+    }, [success, error]);
 
     // Handle text selection translation
     const handleTextSelection = useCallback(async () => {
@@ -126,7 +105,7 @@ export const useTranslation = () => {
         if (selectedText && selectedText.length > 0) {
             try {
                 console.log(`Selected text: ${selectedText}`);
-                const translatedText = await translateText(selectedText);
+                const translatedText = await translateText(selectedText, { silent: true });
                 // Show only translation result, not original text
                 success(translatedText);
             } catch (err) {
@@ -136,12 +115,12 @@ export const useTranslation = () => {
                 error(errorMessage);
             }
         }
-    }, [translateText, success, error]);
+    }, [success, error]);
 
     // Handle manual translation
     const handleManualTranslation = useCallback(async (content: string): Promise<string> => {
         try {
-            return await translateText(content);
+            return await translateText(content, { silent: true });
         } catch (err) {
             console.error('Translation error:', err);
             const errorMessage = typeof err === 'string' ? err : 
@@ -149,7 +128,7 @@ export const useTranslation = () => {
             messageManager.error(errorMessage, 5);
             throw err;
         }
-    }, [translateText]);
+    }, []);
 
     return {
         handleWordClick,

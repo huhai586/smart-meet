@@ -94,34 +94,12 @@ const Caption = memo((props: CaptionProps) => {
     // Handle sentence translation from hover - use same message style as word click
     const handleSentenceTranslation = useCallback(async (sentence: string): Promise<void> => {
         const messageManager = (await import('../../utils/message-manager')).default;
-        const { getCurrentTranslationProvider } = await import('../../hooks/useTranslationProvider');
-        const { translateByGoogle, translateByMicrosoft, translateByAI, translateByDeepL, translateByLocal } = await import('../../utils/translators');
+        const { translateText } = await import('../../utils/unified-translation');
         
         try {
             disableAutoScroll();
             
-            // Get translation provider and translate
-            const provider = await getCurrentTranslationProvider();
-            let translatedText: string;
-            
-            switch (provider) {
-                case 'google':
-                    translatedText = await translateByGoogle(sentence);
-                    break;
-                case 'microsoft':
-                    translatedText = await translateByMicrosoft(sentence);
-                    break;
-                case 'deepl':
-                    translatedText = await translateByDeepL(sentence);
-                    break;
-                case 'local':
-                    translatedText = await translateByLocal(sentence);
-                    break;
-                case 'ai':
-                default:
-                    translatedText = await translateByAI(sentence);
-                    break;
-            }
+            const translatedText = await translateText(sentence, { silent: true });
             
             // Show only the translation result, not the original text
             messageManager.success(translatedText, 5);
